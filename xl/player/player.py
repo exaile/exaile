@@ -527,7 +527,7 @@ class ExailePlayer:
 
     def _get_play_params(self, track, start_at, paused, autoadvance):
         if start_at is None:
-            start_at = (track.get_tag_raw('__startoffset') or 0)
+            start_at = track.get_tag_raw('__startoffset') or 0
 
         # Once playback has started, if there's a delay, pause the stream
         # for delay number of seconds

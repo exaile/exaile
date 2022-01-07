@@ -292,7 +292,15 @@ class TrackPropertiesDialog(GObject.GObject):
 
                 field = self._get_field_widget(tag_info, ab)
 
-                row = TagRow(self, self.tags_grid, field, tag, entry, i, self.trackdata[self.current_position])
+                row = TagRow(
+                    self,
+                    self.tags_grid,
+                    field,
+                    tag,
+                    entry,
+                    i,
+                    self.trackdata[self.current_position],
+                )
                 self.rows.append(row)
 
                 try:
@@ -319,11 +327,15 @@ class TrackPropertiesDialog(GObject.GObject):
             for i, entry in enumerate(trackdata[tag]):
                 if tag_info.editable:
                     field = self._get_field_widget(tag_info, ab)
-                    self.rows.append(TagRow(self, self.tags_grid, field, tag, entry, i, trackdata))
+                    self.rows.append(
+                        TagRow(self, self.tags_grid, field, tag, entry, i, trackdata)
+                    )
                 else:
                     field = PropertyField(tag_info.type)
                     self.rows.append(
-                        TagRow(self, self.properties_grid, field, tag, entry, i, trackdata)
+                        TagRow(
+                            self, self.properties_grid, field, tag, entry, i, trackdata
+                        )
                     )
 
         self._check_for_changes()
@@ -594,7 +606,9 @@ class TrackPropertiesDialog(GObject.GObject):
 
 
 class TagRow:
-    def __init__(self, parent, parent_grid, field, tag_name, value, multi_id, trackdata):
+    def __init__(
+        self, parent, parent_grid, field, tag_name, value, multi_id, trackdata
+    ):
         self.parent = parent
         self.grid = parent_grid
         self.tag = tag_name
@@ -615,7 +629,9 @@ class TagRow:
             if value == 0:
                 value = trackdata['__length'][0]
             value = math.floor(value)
-            self.field.field.set_adjustment(Gtk.Adjustment(value, 0, value + 3600, 1, 0, 0))
+            self.field.field.set_adjustment(
+                Gtk.Adjustment(value, 0, value + 3600, 1, 0, 0)
+            )
         elif tag_name == '__startoffset':
             value = value or 0
             value = math.floor(value)

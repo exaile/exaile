@@ -454,8 +454,7 @@ class AudioStream:
 
         state = self.playbin.get_state(timeout=50 * Gst.MSECOND)[1]
         if state == Gst.State.PAUSED and (
-            self._playback_start_delayed_until or
-            self._playback_stop_delayed_until
+            self._playback_start_delayed_until or self._playback_stop_delayed_until
         ):
             # in case of delayed start and stop the engine pretends to be playing
             return Gst.State.PLAYING
@@ -573,19 +572,35 @@ class AudioStream:
 
         if start_at < 0:
             self._playback_start_delayed_until = (-1 * start_at) + time.time()
-            self._playback_start_delay_timeout = GLib.timeout_add_seconds(-1 * start_at, self.play_instant, track, None, paused, already_queued, fade_in_duration, fade_out_duration)
+            self._playback_start_delay_timeout = GLib.timeout_add_seconds(
+                -1 * start_at,
+                self.play_instant,
+                track,
+                None,
+                paused,
+                already_queued,
+                fade_in_duration,
+                fade_out_duration,
+            )
 
         else:
-            self.play_instant(track, start_at, paused, already_queued, fade_in_duration, fade_out_duration)
+            self.play_instant(
+                track,
+                start_at,
+                paused,
+                already_queued,
+                fade_in_duration,
+                fade_out_duration,
+            )
 
     def play_instant(
-           self,
-           track,
-            start_at: int,
-            paused: bool,
-            already_queued: bool,
-            fade_in_duration: int=None,
-            fade_out_duration: int=None,
+        self,
+        track,
+        start_at: int,
+        paused: bool,
+        already_queued: bool,
+        fade_in_duration: int = None,
+        fade_out_duration: int = None,
     ):
         """
         @see play
@@ -667,7 +682,9 @@ class AudioStream:
             pause = self._playback_start_delayed_until_pause
             self._cancel_all_delays()
             self._playback_start_delayed_until = time.time() + pause
-            self._playback_start_delay_timeout = GLib.timeout_add_seconds(pause, self.unpause)
+            self._playback_start_delay_timeout = GLib.timeout_add_seconds(
+                pause, self.unpause
+            )
             return
 
         if self._playback_stop_delayed_until_pause > 0:
@@ -676,7 +693,9 @@ class AudioStream:
             self._cancel_all_delays()
             self._playback_stop_delayed_until = time.time() + pause
             self._playback_stop_delayed_start = time.time()
-            self._playback_stop_delayed_timeout = GLib.timeout_add_seconds(pause, self._wait_for_end)
+            self._playback_stop_delayed_timeout = GLib.timeout_add_seconds(
+                pause, self._wait_for_end
+            )
             return
 
         # gstreamer does not buffer paused network streams, so if the user
@@ -867,7 +886,9 @@ class AudioStream:
             self.pause()
             self._playback_stop_delayed_start = time.time()
             self._playback_stop_delayed_until = diff + self._playback_stop_delayed_start
-            self._playback_stop_delayed_timeout = GLib.timeout_add_seconds(diff, self._wait_for_end)
+            self._playback_stop_delayed_timeout = GLib.timeout_add_seconds(
+                diff, self._wait_for_end
+            )
             return None
 
         self._wait_for_end()

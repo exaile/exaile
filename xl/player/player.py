@@ -458,11 +458,11 @@ class ExailePlayer:
 
         .. note:: Only to be called from engine
         """
-        self._cancel_delayed_start()
         self._update_playtime(track)
         event.log_event('playback_track_end', self, track)
 
         if done:
+            self._cancel_delayed_start()
             event.log_event('playback_player_end', self, track)
 
     @common.idle_add()

@@ -23,7 +23,7 @@
 # exception to your version of the code, but you are not obligated to
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
-
+import math
 from collections import OrderedDict
 import datetime
 import io
@@ -292,7 +292,7 @@ class TrackPropertiesDialog(GObject.GObject):
 
                 field = self._get_field_widget(tag_info, ab)
 
-                row = TagRow(self, self.tags_grid, field, tag, entry, i)
+                row = TagRow(self, self.tags_grid, field, tag, entry, i, self.trackdata[self.current_position])
                 self.rows.append(row)
 
                 try:
@@ -319,11 +319,11 @@ class TrackPropertiesDialog(GObject.GObject):
             for i, entry in enumerate(trackdata[tag]):
                 if tag_info.editable:
                     field = self._get_field_widget(tag_info, ab)
-                    self.rows.append(TagRow(self, self.tags_grid, field, tag, entry, i))
+                    self.rows.append(TagRow(self, self.tags_grid, field, tag, entry, i, trackdata))
                 else:
                     field = PropertyField(tag_info.type)
                     self.rows.append(
-                        TagRow(self, self.properties_grid, field, tag, entry, i)
+                        TagRow(self, self.properties_grid, field, tag, entry, i, trackdata)
                     )
 
         self._check_for_changes()
@@ -594,7 +594,7 @@ class TrackPropertiesDialog(GObject.GObject):
 
 
 class TagRow:
-    def __init__(self, parent, parent_grid, field, tag_name, value, multi_id):
+    def __init__(self, parent, parent_grid, field, tag_name, value, multi_id, trackdata):
         self.parent = parent
         self.grid = parent_grid
         self.tag = tag_name
@@ -609,6 +609,18 @@ class TagRow:
                 all_vals.append(None)
 
         self.field.set_value(value, all_vals)
+
+        if tag_name == '__stopoffset':
+            value = value or 0
+            if value == 0:
+                value = trackdata['__length'][0]
+            value = math.floor(value)
+            self.field.field.set_adjustment(Gtk.Adjustment(value, 0, value + 3600, 1, 0, 0))
+        elif tag_name == '__startoffset':
+            value = value or 0
+            value = math.floor(value)
+            max = int(trackdata['__length'][0])
+            self.field.field.set_adjustment(Gtk.Adjustment(value, -60, max, 1, 0, 0))
 
         try:
             name = tag_data[self.tag].translated_name

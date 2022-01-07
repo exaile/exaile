@@ -60,20 +60,12 @@ class ExailePlayer:
         self._playtime_stamp = None
 
         self._delay_id = None
-        # self._delayed_stop_id = None
-        # self._stop_id = None
         self._engine = None
 
         self._auto_advance_delay = 0
         self._auto_advance = True
         self._gapless_enabled = True
         self.__volume = 1.0
-        # self._play_delayed_until = 0
-        # self._play_delay = 0
-        # self._paused_until = 0
-        # self._paused_start = 0
-        # self._track = None
-        # self._current_play_args = None
 
         options = {
             '%s/auto_advance_delay' % name: '_auto_advance_delay',
@@ -175,13 +167,8 @@ class ExailePlayer:
     @property
     def current(self):
         return self._engine.get_current_track()
-        # track = self._engine.get_current_track()
-        # if track:
-        #     return track
-        # if self._track:
-        #     return self._track
 
-    def play(self, track, start_at=None, paused=False, play_args=None):
+    def play(self, track, start_at=None, paused=False):
         """
         Starts the playback with the provided track
         or stops the playback it immediately if none
@@ -208,37 +195,6 @@ class ExailePlayer:
                 event.log_event('playback_player_pause', self, track)
                 event.log_event("playback_toggle_pause", self, track)
 
-            # if not play_args:
-            #     self._current_play_args = self._get_play_params(
-            #         track, start_at, paused, False
-            #     )
-            # else:
-            #     self._current_play_args = play_args
-            #
-            # self._play_delayed_until = 0
-            # self._cancel_delayed_stop()
-            # self._track = track
-            #
-            # if self._play_delay > 0:
-            #     self._current_play_args[1] = -1 * self._play_delay
-                # self._engine.play(*self._current_play_args)
-                # self._engine.pause()
-                # logger.debug('Entering delayed start')
-                # self._play_delayed_until = (self._play_delay / 1000) + time.time()
-                # self._delay_id = GLib.timeout_add(self._play_delay, self._play_engine)
-            # else:
-            # self._engine.play(*self._current_play_args)
-            #
-            # if self._current_play_args[2]:
-            #     event.log_event('playback_player_pause', self, track)
-            #     event.log_event("playback_toggle_pause", self, track)
-
-    # def _play_engine(self):
-    #     self._cancel_delayed_start()
-    #     self._cancel_delayed_stop()
-    #     self._engine.unpause()
-        # self._engine.play(*self._current_play_args)
-
         return False
 
     def stop(self):
@@ -253,8 +209,6 @@ class ExailePlayer:
         state = self.get_state()
 
         if state == 'playing' or state == 'paused':
-
-            # self._cancel_delayed_stop()
             self._track = None
             self._engine.stop()
             return True
@@ -274,7 +228,6 @@ class ExailePlayer:
             * `playback_player_pause`: indicates that the playback has been paused
             * `playback_toggle_pause`: indicates that the playback has been paused or resumed
         """
-        # self._cancel_delayed_start()
         if self.is_playing():
 
             current = self.current
@@ -299,7 +252,6 @@ class ExailePlayer:
             * `playback_player_resume`: indicates that the playback has been resumed
             * `playback_toggle_pause`: indicates that the playback has been paused or resumed
         """
-        # self._cancel_delayed_start()
         if self.is_paused():
 
             self._reset_playtime_stamp()
@@ -338,10 +290,6 @@ class ExailePlayer:
         :type value: int
         """
 
-        # if self._play_delayed_until > 0:
-        #     self._play_delayed_until = 0
-        #     self._play_engine()
-        #
         if self._engine.seek(value):
             event.log_event('playback_seeked', self, value)
 
@@ -361,12 +309,6 @@ class ExailePlayer:
         :returns: the playback time in seconds
         :rtype: float
         """
-
-        # if self._play_delayed_until > 0:
-        #     return time.time() - self._play_delayed_until
-        # if self._paused_until > 0:
-        #     track_len = self._track.get_tag_raw('__length') or 0
-        #     return time.time() - self._paused_start + track_len
 
         return self.get_position() / 1e9
 
@@ -451,11 +393,6 @@ class ExailePlayer:
         :rtype: bool
         """
 
-        # if self._play_delayed_until >= time.time():
-        #     return True
-        # if self._paused_until >= time.time():
-        #     return True
-
         return self._engine.get_state() == 'playing'
 
     def is_paused(self):
@@ -529,9 +466,6 @@ class ExailePlayer:
         event.log_event('playback_track_end', self, track)
 
         if done:
-            # self._cancel_delayed_start()
-            # if self._paused_until:
-            #     return
             event.log_event('playback_player_end', self, track)
 
     @common.idle_add()
@@ -573,26 +507,7 @@ class ExailePlayer:
 
         self._next_track = self.queue.get_next()
 
-        # track = self._track
-        # stop_at = track.get_tag_raw('__stopoffset') or 0
-        # track_len = track.get_tag_raw('__length') or 0
-        #
-        # if stop_at > track_len:
-        #     logger.debug('entering delayed stop')
-        #     diff = stop_at - track_len
-        #     self._paused_start = time.time()
-        #     self._paused_until = diff + self._paused_start
-        #     self._delayed_stop_id = GLib.timeout_add_seconds(diff, self._wait_for_end)
-        #     self._engine.pause()
-        #     return None
-
         return self._next_track
-
-    # def _wait_for_end(self):
-    #     self._cancel_delayed_stop()
-    #     play_args = self.engine_autoadvance_notify_next(self._next_track)
-    #     self.play(track=self._next_track, play_args=play_args)
-    #     self._next_track = None
 
     def engine_autoadvance_notify_next(self, track):
         """
@@ -630,11 +545,6 @@ class ExailePlayer:
             self._delay_id = GLib.timeout_add(delay, self._delayed_start)
             paused = True
 
-        # if start_at < 0:
-        #     self._play_delay = (start_at * -1000) + delay
-        # elif delay > 0:
-        #     self._play_delay = delay
-
         return track, start_at, paused
 
     def _delayed_start(self):
@@ -669,15 +579,6 @@ class ExailePlayer:
     #
 
     def _cancel_delayed_start(self):
-        # self._play_delayed_until = 0
-        # self._play_delay = 0
         if self._delay_id is not None:
             GLib.source_remove(self._delay_id)
             self._delay_id = None
-
-    # def _cancel_delayed_stop(self):
-    #     if self._delayed_stop_id is not None:
-    #         GLib.source_remove(self._delayed_stop_id)
-    #         self._delayed_stop_id = None
-    #     self._paused_until = 0
-    #     self._paused_start = 0

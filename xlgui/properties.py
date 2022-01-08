@@ -217,6 +217,9 @@ class TrackPropertiesDialog(GObject.GObject):
                     elif tag in ('__startoffset', '__stopoffset'):
                         try:
                             offset = int(trackdata[tag][0])
+                            if tag == '__stopoffset' and offset == math.floor(trackdata['__length'][0]):
+                                offset = 0
+
                         except ValueError:
                             poplist.append(tag)
                         else:
@@ -623,20 +626,7 @@ class TagRow:
                 all_vals.append(None)
 
         self.field.set_value(value, all_vals)
-
-        if tag_name == '__stopoffset':
-            value = value or 0
-            if value == 0:
-                value = trackdata['__length'][0]
-            value = math.floor(value)
-            self.field.field.set_adjustment(
-                Gtk.Adjustment(value, 0, value + 3600, 1, 0, 0)
-            )
-        elif tag_name == '__startoffset':
-            value = value or 0
-            value = math.floor(value)
-            max = int(trackdata['__length'][0])
-            self.field.field.set_adjustment(Gtk.Adjustment(value, -60, max, 1, 0, 0))
+        self.set_field_boundaries(tag_name, trackdata)
 
         try:
             name = tag_data[self.tag].translated_name
@@ -697,6 +687,26 @@ class TagRow:
 
     def clear(self, w):
         self.field.set_value('')
+
+    def set_field_boundaries(self, tag_name, trackdata):
+
+        if tag_name not in ['__startoffset', '__stopoffset']:
+            return
+
+        value = trackdata[tag_name][0]
+        if tag_name == '__stopoffset':
+            value = value or 0
+            if value == 0:
+                value = trackdata['__length'][0]
+            value = math.floor(value)
+            self.field.field.set_adjustment(
+                Gtk.Adjustment(value, 0, value + 3600, 1, 0, 0)
+            )
+        elif tag_name == '__startoffset':
+            value = value or 0
+            value = math.floor(value)
+            max = int(trackdata['__length'][0])
+            self.field.field.set_adjustment(Gtk.Adjustment(value, -3600, max, 1, 0, 0))
 
 
 class TagField(Gtk.Box):

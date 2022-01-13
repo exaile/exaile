@@ -371,7 +371,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes" comments="TRANSLATORS: &quot;Checked&quot; here refers to checkbox state.">If not checked, will not specify a preference to GTK. May not work on some platforms.</property>
+            <property name="tooltip_text" translatable="yes">Show or hide the status bar. The status bar will always be shown if a plugin requests it.</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -382,11 +382,10 @@
         </child>
         <child>
           <object class="GtkCheckButton" id="gui/show_status_bar_collection_count">
-            <property name="label" translatable="yes">Show total count of tracks in collection</property>
+            <property name="label" translatable="yes">Display track counts in collection</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes" comments="TRANSLATORS: &quot;Checked&quot; here refers to checkbox state.">If not checked, will not specify a preference to GTK. May not work on some platforms.</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -401,7 +400,6 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes" comments="TRANSLATORS: &quot;Checked&quot; here refers to checkbox state.">If not checked, will not specify a preference to GTK. May not work on some platforms.</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -416,7 +414,6 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes" comments="TRANSLATORS: &quot;Checked&quot; here refers to checkbox state.">If not checked, will not specify a preference to GTK. May not work on some platforms.</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>

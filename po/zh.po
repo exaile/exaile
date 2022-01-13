@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-10 20:00+1000\n"
+"POT-Creation-Date: 2022-01-13 22:55+0100\n"
 "PO-Revision-Date: 2020-04-29 05:11+0000\n"
 "Last-Translator: Elizabeth Sherrock <lizzyd710@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -631,75 +631,75 @@ msgstr "指定的濖渠类别 '%s' 无效"
 msgid "Could not create sink type '%s'"
 msgstr "无法创建濖渠类型 '%s'"
 
-#: ../xl/playlist.py:154 ../xl/playlist.py:176
+#: ../xl/playlist.py:153 ../xl/playlist.py:175
 msgid "Invalid playlist type."
 msgstr "播放列表的类型无效。"
 
-#: ../xl/playlist.py:185 ../xlgui/widgets/playlist.py:406
+#: ../xl/playlist.py:184 ../xlgui/widgets/playlist.py:406
 #: ../xlgui/widgets/smart_playlist_editor.py:254
 #: ../plugins/grouptagger/gt_mass.ui:126
 msgid "Playlist"
 msgstr "播放列表"
 
-#: ../xl/playlist.py:339
+#: ../xl/playlist.py:338
 msgid "M3U Playlist"
 msgstr "M3U 播放列表"
 
-#: ../xl/playlist.py:454
+#: ../xl/playlist.py:453
 msgid "PLS Playlist"
 msgstr "PLS 播放列表"
 
-#: ../xl/playlist.py:545 ../xl/playlist.py:560
+#: ../xl/playlist.py:544 ../xl/playlist.py:559
 #, python-format
 msgid "Invalid format for %s."
 msgstr "%s 的格式无效。"
 
-#: ../xl/playlist.py:555
+#: ../xl/playlist.py:554
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "%(type)s 的版本 %(version)s 不支持"
 
-#: ../xl/playlist.py:615
+#: ../xl/playlist.py:614
 msgid "ASX Playlist"
 msgstr "ASX 播放列表"
 
-#: ../xl/playlist.py:794
+#: ../xl/playlist.py:793
 msgid "XSPF Playlist"
 msgstr "XSPF 播放列表"
 
-#: ../xl/playlist.py:913
+#: ../xl/playlist.py:912
 msgid "Shuffle _Off"
 msgstr "乱序模式_关闭"
 
-#: ../xl/playlist.py:914
+#: ../xl/playlist.py:913
 msgid "Shuffle _Tracks"
 msgstr "乱序模式（_音轨）"
 
-#: ../xl/playlist.py:915
+#: ../xl/playlist.py:914
 msgid "Shuffle _Albums"
 msgstr "乱序模式（_专辑）"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:915
 msgid "_Random"
 msgstr "_随机"
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:920
 msgid "Repeat _Off"
 msgstr "循环模式（_关闭）"
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:920
 msgid "Repeat _All"
 msgstr "循环模式（_所有）"
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:920
 msgid "Repeat O_ne"
 msgstr "循环模式（_单曲）"
 
-#: ../xl/playlist.py:925
+#: ../xl/playlist.py:924
 msgid "Dynamic _Off"
 msgstr "动态播放（_关闭）"
 
-#: ../xl/playlist.py:925
+#: ../xl/playlist.py:924
 msgid "Dynamic by Similar _Artists"
 msgstr "依据相似 _艺术家 动态播放"
 
@@ -774,7 +774,7 @@ msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:721 ../xl/trax/track.py:787
+#: ../xl/trax/track.py:723 ../xl/trax/track.py:789
 #, python-format
 msgid "%dk"
 msgstr "%dk"
@@ -882,132 +882,132 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1105
+#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1108
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr ""
 
-#: ../xlgui/main.py:95
+#: ../xlgui/main.py:94
 #, fuzzy
 msgid "$title (by $artist)"
 msgstr "%(title)s - %(artist)s"
 
-#: ../xlgui/main.py:149
+#: ../xlgui/main.py:148
 #, fuzzy
 msgid "Save currently selected playlist"
 msgstr "导出当前播放列表(_E)"
 
-#: ../xlgui/main.py:154
+#: ../xlgui/main.py:153
 msgid "Save currently selected playlist under a custom name"
 msgstr ""
 
-#: ../xlgui/main.py:159
+#: ../xlgui/main.py:158
 msgid "Focus filter in currently focused panel"
 msgstr ""
 
-#: ../xlgui/main.py:164
+#: ../xlgui/main.py:163
 msgid "Focus playlist search"
 msgstr ""
 
-#: ../xlgui/main.py:169
+#: ../xlgui/main.py:168
 #, fuzzy
 #| msgid "Toggle Queue"
 msgid "Clear queue"
 msgstr "切换队列"
 
-#: ../xlgui/main.py:174 ../plugins/minimode/controls.py:270
+#: ../xlgui/main.py:173 ../plugins/minimode/controls.py:270
 msgid "Start, pause or resume the playback"
 msgstr ""
 
-#: ../xlgui/main.py:179
+#: ../xlgui/main.py:178
 msgid "Seek to the right"
 msgstr ""
 
-#: ../xlgui/main.py:184
+#: ../xlgui/main.py:183
 msgid "Seek to the left"
 msgstr ""
 
-#: ../xlgui/main.py:189 ../xlgui/main.py:194
+#: ../xlgui/main.py:188 ../xlgui/main.py:193
 #, fuzzy
 msgid "Increase the volume"
 msgstr "增大音量至 VOL%"
 
-#: ../xlgui/main.py:199
+#: ../xlgui/main.py:198
 #, fuzzy
 msgid "Decrease the volume"
 msgstr "减小音量至 VOL%"
 
-#: ../xlgui/main.py:202
+#: ../xlgui/main.py:201
 #, fuzzy
 msgid "Switch to previous tab"
 msgstr "播放上一音轨"
 
-#: ../xlgui/main.py:203
+#: ../xlgui/main.py:202
 msgid "Switch to next tab"
 msgstr ""
 
-#: ../xlgui/main.py:206
+#: ../xlgui/main.py:205
 msgid "Focus the playlist container"
 msgstr ""
 
-#: ../xlgui/main.py:213
+#: ../xlgui/main.py:212
 msgid "Focus the files panel"
 msgstr ""
 
-#: ../xlgui/main.py:220
+#: ../xlgui/main.py:219
 msgid "Focus the radio panel"
 msgstr ""
 
-#: ../xlgui/main.py:225
+#: ../xlgui/main.py:224
 msgid "Focus the playlists panel"
 msgstr ""
 
-#: ../xlgui/main.py:228
+#: ../xlgui/main.py:227
 msgid "Focus the first tab"
 msgstr ""
 
-#: ../xlgui/main.py:229
+#: ../xlgui/main.py:228
 msgid "Focus the second tab"
 msgstr ""
 
-#: ../xlgui/main.py:230
+#: ../xlgui/main.py:229
 msgid "Focus the third tab"
 msgstr ""
 
-#: ../xlgui/main.py:231
+#: ../xlgui/main.py:230
 msgid "Focus the fourth tab"
 msgstr ""
 
-#: ../xlgui/main.py:232
+#: ../xlgui/main.py:231
 msgid "Focus the fifth tab"
 msgstr ""
 
-#: ../xlgui/main.py:233
+#: ../xlgui/main.py:232
 msgid "Focus the sixth tab"
 msgstr ""
 
-#: ../xlgui/main.py:234
+#: ../xlgui/main.py:233
 msgid "Focus the seventh tab"
 msgstr ""
 
-#: ../xlgui/main.py:235
+#: ../xlgui/main.py:234
 msgid "Focus the eighth tab"
 msgstr ""
 
-#: ../xlgui/main.py:236
+#: ../xlgui/main.py:235
 msgid "Focus the ninth tab"
 msgstr ""
 
-#: ../xlgui/main.py:237
+#: ../xlgui/main.py:236
 msgid "Focus the tenth tab"
 msgstr ""
 
-#: ../xlgui/main.py:592
+#: ../xlgui/main.py:596
 #, fuzzy
 msgid "Toggle: Stop after Selected Track"
 msgstr "锁定：选中音乐后停止"
 
-#: ../xlgui/main.py:705 ../plugins/previewdevice/__init__.py:355
+#: ../xlgui/main.py:705 ../plugins/previewdevice/__init__.py:349
 msgid "Playback error encountered!"
 msgstr ""
 
@@ -1016,12 +1016,12 @@ msgstr ""
 msgid "Buffering: %d%%..."
 msgstr "正在缓冲：%d%%..."
 
-#: ../xlgui/main.py:753 ../plugins/previewdevice/__init__.py:364
+#: ../xlgui/main.py:753 ../plugins/previewdevice/__init__.py:358
 msgid "Continue Playback"
 msgstr "继续回放"
 
-#: ../xlgui/main.py:756 ../xlgui/main.py:929
-#: ../plugins/previewdevice/__init__.py:367
+#: ../xlgui/main.py:756 ../xlgui/main.py:922
+#: ../plugins/previewdevice/__init__.py:361
 msgid "Pause Playback"
 msgstr "暂停回放"
 
@@ -1030,8 +1030,8 @@ msgstr "暂停回放"
 msgid "Playlist export failed!"
 msgstr "播放列表文件"
 
-#: ../xlgui/main.py:938 ../data/ui/main.ui:174
-#: ../plugins/previewdevice/__init__.py:349
+#: ../xlgui/main.py:931 ../data/ui/main.ui:174
+#: ../plugins/previewdevice/__init__.py:343
 msgid "Start Playback"
 msgstr "开始回放"
 
@@ -1256,55 +1256,55 @@ msgstr "新建智能播放列表"
 msgid "_New Station"
 msgstr "新电台"
 
-#: ../xlgui/panel/playlists.py:136
+#: ../xlgui/panel/playlists.py:134
 #, fuzzy, python-format
 #| msgid "Delete Playlist"
 msgid "Delete the playlist \"%s\"?"
 msgstr "删除播放列表"
 
-#: ../xlgui/panel/playlists.py:152
+#: ../xlgui/panel/playlists.py:151
 msgid "Enter the new name you want for your playlist"
 msgstr "输入播放列表的新名称"
 
-#: ../xlgui/panel/playlists.py:153
+#: ../xlgui/panel/playlists.py:152
 msgid "Rename Playlist"
 msgstr "重命名播放列表"
 
-#: ../xlgui/panel/playlists.py:169 ../xlgui/widgets/dialogs.py:1766
+#: ../xlgui/panel/playlists.py:168 ../xlgui/widgets/dialogs.py:1774
 #: ../xlgui/widgets/smart_playlist_editor.py:395
 #, fuzzy
 msgid "The playlist name you entered is already in use."
 msgstr "您指定的播放列表名称已存在。"
 
-#: ../xlgui/panel/playlists.py:215
+#: ../xlgui/panel/playlists.py:214
 #, fuzzy, python-format
 msgid "Error loading smart playlist: %s"
 msgstr "载入面板首选项出错"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
-#: ../xlgui/panel/playlists.py:276 ../xlgui/panel/playlists.py:292
-#: ../xlgui/panel/playlists.py:308
+#: ../xlgui/panel/playlists.py:275 ../xlgui/panel/playlists.py:291
+#: ../xlgui/panel/playlists.py:307
 #, python-format
 msgid "%(first)s, %(second)s and others"
 msgstr ""
 
 #. TRANSLATORS: Playlist title suggestion with two values
-#: ../xlgui/panel/playlists.py:282 ../xlgui/panel/playlists.py:298
-#: ../xlgui/panel/playlists.py:314
+#: ../xlgui/panel/playlists.py:281 ../xlgui/panel/playlists.py:297
+#: ../xlgui/panel/playlists.py:313
 #, python-format
 msgid "%(first)s and %(second)s"
 msgstr "%(first)s和%(second)s"
 
-#: ../xlgui/panel/playlists.py:390 ../xlgui/preferences/playlists.py:31
+#: ../xlgui/panel/playlists.py:389 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
 msgstr "播放列表"
 
-#: ../xlgui/panel/playlists.py:534
+#: ../xlgui/panel/playlists.py:533
 msgid "Smart Playlists"
 msgstr "智能播放列表"
 
-#: ../xlgui/panel/playlists.py:537
+#: ../xlgui/panel/playlists.py:536
 msgid "Custom Playlists"
 msgstr "自定义播放列表"
 
@@ -1492,11 +1492,11 @@ msgstr "动作"
 msgid "Shortcut"
 msgstr "快捷键"
 
-#: ../xlgui/properties.py:253
+#: ../xlgui/properties.py:256
 msgid "Writing of tags failed"
 msgstr "写入标签失败"
 
-#: ../xlgui/properties.py:255
+#: ../xlgui/properties.py:258
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
@@ -1505,79 +1505,79 @@ msgstr ""
 "无法将标签写入下列文件：\n"
 "{files}"
 
-#: ../xlgui/properties.py:275
+#: ../xlgui/properties.py:278
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr "正在编辑 第 %(current)d 条音轨 / 共 %(total)d 条"
 
-#: ../xlgui/properties.py:398
+#: ../xlgui/properties.py:400
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr "你确定你想要将这些更改应用到所有音轨上吗？"
 
-#: ../xlgui/properties.py:440
+#: ../xlgui/properties.py:443
 msgid "Apply changes before closing?"
 msgstr "关闭之前要应用更改吗？"
 
-#: ../xlgui/properties.py:441
+#: ../xlgui/properties.py:444
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "如果您现在不应用这些更改它们将会丢失。"
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:624
+#: ../xlgui/properties.py:627
 #, python-format
 msgid "%s:"
 msgstr "%s:"
 
 #. TRANSLATORS: Remove tag value
-#: ../xlgui/properties.py:631 ../plugins/developer/developer_window.ui:131
+#: ../xlgui/properties.py:634 ../plugins/developer/developer_window.ui:131
 msgid "Clear"
 msgstr ""
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:853
+#: ../xlgui/properties.py:856
 msgid "of:"
 msgstr ":"
 
-#: ../xlgui/properties.py:960
+#: ../xlgui/properties.py:963
 msgid "JPEG image"
 msgstr "JPEG 图像"
 
-#: ../xlgui/properties.py:965
+#: ../xlgui/properties.py:968
 msgid "PNG image"
 msgstr "PNG 图像"
 
-#: ../xlgui/properties.py:967
+#: ../xlgui/properties.py:970
 msgid "Image"
 msgstr "图像"
 
-#: ../xlgui/properties.py:973
+#: ../xlgui/properties.py:976
 msgid "Linked image"
 msgstr "关联图像"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1108
+#: ../xlgui/properties.py:1111
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} 像素)"
 
-#: ../xlgui/properties.py:1122
+#: ../xlgui/properties.py:1125
 msgid "Select image to set as cover"
 msgstr "选择要设置为封面的图像"
 
-#: ../xlgui/properties.py:1135
+#: ../xlgui/properties.py:1138
 msgid "Supported image formats"
 msgstr "支持的图像格式"
 
-#: ../xlgui/properties.py:1218
+#: ../xlgui/properties.py:1221
 msgid "Open Directory"
 msgstr "打开目录"
 
-#: ../xlgui/properties.py:1268
+#: ../xlgui/properties.py:1271
 msgid "Apply current value to all tracks"
 msgstr "将当前值应用到所有音轨"
 
-#: ../xlgui/properties.py:1288 ../xlgui/widgets/dialogs.py:1543
+#: ../xlgui/properties.py:1291 ../xlgui/widgets/dialogs.py:1550
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "已保存 %(count)s / %(total)s 。"
@@ -1626,74 +1626,74 @@ msgstr "导入播放列表"
 msgid "Export Current Playlist"
 msgstr "导出当前播放列表"
 
-#: ../xlgui/widgets/dialogs.py:1009
+#: ../xlgui/widgets/dialogs.py:1014
 msgid "Use relative paths to tracks"
 msgstr "使用相对路径指向音轨"
 
-#: ../xlgui/widgets/dialogs.py:1066
+#: ../xlgui/widgets/dialogs.py:1073
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "播放列表已保存为 <b>%s</b>。"
 
-#: ../xlgui/widgets/dialogs.py:1083
+#: ../xlgui/widgets/dialogs.py:1090
 #, python-format
 msgid "Close %s"
 msgstr "关闭 %s"
 
-#: ../xlgui/widgets/dialogs.py:1084
+#: ../xlgui/widgets/dialogs.py:1091
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>关闭前保存更改到 %s？</b>"
 
-#: ../xlgui/widgets/dialogs.py:1086
+#: ../xlgui/widgets/dialogs.py:1093
 msgid "Your changes will be lost if you don't save them"
 msgstr "如果不保存，您的更改将丢失。"
 
-#: ../xlgui/widgets/dialogs.py:1090
+#: ../xlgui/widgets/dialogs.py:1097
 msgid "Close Without Saving"
 msgstr "不保存关闭"
 
-#: ../xlgui/widgets/dialogs.py:1483
+#: ../xlgui/widgets/dialogs.py:1490
 msgid "Yes to all"
 msgstr "全部确定"
 
-#: ../xlgui/widgets/dialogs.py:1491
+#: ../xlgui/widgets/dialogs.py:1498
 msgid "No to all"
 msgstr "全部否"
 
-#: ../xlgui/widgets/dialogs.py:1663 ../xlgui/widgets/dialogs.py:1681
+#: ../xlgui/widgets/dialogs.py:1670 ../xlgui/widgets/dialogs.py:1688
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "复制 %s 时发生错误：%s"
 
-#: ../xlgui/widgets/dialogs.py:1692
+#: ../xlgui/widgets/dialogs.py:1699
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "文件已存在，是否覆盖：%s ？"
 
-#: ../xlgui/widgets/dialogs.py:1749
+#: ../xlgui/widgets/dialogs.py:1757
 msgid "Playlist name:"
 msgstr "播放列表："
 
-#: ../xlgui/widgets/dialogs.py:1750
+#: ../xlgui/widgets/dialogs.py:1758
 msgid "Add new playlist..."
 msgstr "新增播放列表…"
 
-#: ../xlgui/widgets/dialogs.py:1763
+#: ../xlgui/widgets/dialogs.py:1771
 #: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
 msgstr "您未给播放列表输入名称"
 
-#: ../xlgui/widgets/dialogs.py:1772
+#: ../xlgui/widgets/dialogs.py:1780
 msgid "Save As"
 msgstr "另存为"
 
-#: ../xlgui/widgets/dialogs.py:1841
+#: ../xlgui/widgets/dialogs.py:1849
 #, python-format
 msgid "Exporting %s"
 msgstr "导出 %s"
 
-#: ../xlgui/widgets/dialogs.py:1846
+#: ../xlgui/widgets/dialogs.py:1854
 msgid "Choose directory to export files to"
 msgstr "选择要导出文件所到的目录"
 
@@ -1711,17 +1711,17 @@ msgstr ""
 msgid "Not Playing"
 msgstr "未播放"
 
-#: ../xlgui/widgets/info.py:415
+#: ../xlgui/widgets/info.py:417
 #, python-format
 msgid "%d in collection"
 msgstr "共有 %d 在收藏集中"
 
-#: ../xlgui/widgets/info.py:437 ../xlgui/widgets/info.py:444
+#: ../xlgui/widgets/info.py:446 ../xlgui/widgets/info.py:453
 #, python-format
 msgid "%d showing"
 msgstr "%d首展出"
 
-#: ../xlgui/widgets/info.py:441 ../xlgui/widgets/info.py:448
+#: ../xlgui/widgets/info.py:450 ../xlgui/widgets/info.py:457
 #, python-format
 msgid "%d selected"
 msgstr "%d首选中"
@@ -2319,77 +2319,78 @@ msgstr "上"
 msgid "Bottom"
 msgstr "下"
 
-#: ../data/ui/preferences/appearance.ui:50
+#: ../data/ui/preferences/appearance.ui:52
 msgid "Show info area"
 msgstr "显示详情栏"
 
-#: ../data/ui/preferences/appearance.ui:54
+#: ../data/ui/preferences/appearance.ui:56
 msgid "The info area contains the cover art and track information"
 msgstr "详情栏包括了封面艺术和音轨信息"
 
-#: ../data/ui/preferences/appearance.ui:66
+#: ../data/ui/preferences/appearance.ui:68
 msgid "Show cover art in info area"
 msgstr "在信息栏展现封面艺术"
 
-#: ../data/ui/preferences/appearance.ui:81
+#: ../data/ui/preferences/appearance.ui:83
 msgid "Always show tab bar"
 msgstr "始终显示标签栏"
 
-#: ../data/ui/preferences/appearance.ui:99
+#: ../data/ui/preferences/appearance.ui:101
 msgid "Tab placement:"
 msgstr "标签位置："
 
-#: ../data/ui/preferences/appearance.ui:139
+#: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr "播放列表字体："
 
-#: ../data/ui/preferences/appearance.ui:156 ../data/ui/preferences/lyrics.ui:47
+#: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
 msgid "Reset to the system font"
 msgstr "重置为系统字体"
 
-#: ../data/ui/preferences/appearance.ui:194
+#: ../data/ui/preferences/appearance.ui:196
+#: ../data/ui/preferences/appearance.ui:385
 msgid "Display track counts in collection"
 msgstr "显示收藏集中的音轨数量"
 
 #. TRANSLATORS: Remark at the alpha transparency option
-#: ../data/ui/preferences/appearance.ui:208
+#: ../data/ui/preferences/appearance.ui:210
 #: ../plugins/minimode/minimode_preferences.ui:237
 msgid "Use alpha transparency:"
 msgstr "使用 Alpha 透明渲染："
 
-#: ../data/ui/preferences/appearance.ui:212
+#: ../data/ui/preferences/appearance.ui:214
 msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
 msgstr "警告：此选项在不支持多缓冲区合成的窗口管理器下使用会造成显示错误。"
 
-#: ../data/ui/preferences/appearance.ui:228
+#: ../data/ui/preferences/appearance.ui:230
 msgid "Alpha transparency"
 msgstr "Alpha 透明渲染"
 
-#: ../data/ui/preferences/appearance.ui:239
+#: ../data/ui/preferences/appearance.ui:241
 msgid "Show tray icon"
 msgstr "显示托盘图标"
 
-#: ../data/ui/preferences/appearance.ui:257
+#: ../data/ui/preferences/appearance.ui:259
 msgid "Minimize to tray"
 msgstr "最小化到托盘"
 
-#: ../data/ui/preferences/appearance.ui:271
+#: ../data/ui/preferences/appearance.ui:273
 msgid "Close to tray"
 msgstr "关闭到托盘"
 
 #. TRANSLATORS: Keep the current track visible in playlist
-#: ../data/ui/preferences/appearance.ui:285
+#: ../data/ui/preferences/appearance.ui:287
 msgid "Jump to current song on track change"
 msgstr "当音轨改变时跳转到当前曲目"
 
-#: ../data/ui/preferences/appearance.ui:301
+#: ../data/ui/preferences/appearance.ui:303
 msgid "Show splash screen on startup"
 msgstr "启动时显示飞溅屏幕"
 
-#: ../data/ui/preferences/appearance.ui:328
+#: ../data/ui/preferences/appearance.ui:330
 msgid ""
 "Tray icons are not supported on some platforms, most notably on Wayland. On "
 "GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
@@ -2400,20 +2401,40 @@ msgstr ""
 "要安装有<a href=\"https://extensions.gnome.org/extension/495/topicons/\">"
 "\"TopIcons\" 扩展</a>（或其它类似扩展）才能使用托盘图标。"
 
-#: ../data/ui/preferences/appearance.ui:341
+#: ../data/ui/preferences/appearance.ui:343
 msgid "Note:"
 msgstr "注意："
 
-#: ../data/ui/preferences/appearance.ui:353
+#: ../data/ui/preferences/appearance.ui:355
 msgid "Prefer dark theme"
 msgstr "偏爱暗色主题"
 
 #. TRANSLATORS: "Checked" here refers to checkbox state.
-#: ../data/ui/preferences/appearance.ui:357
+#: ../data/ui/preferences/appearance.ui:359
 msgid ""
 "If not checked, will not specify a preference to GTK. May not work on some "
 "platforms."
 msgstr "如果不选中则不会向 GTK 指定偏好设定。可能会在某些平台上失灵。"
+
+#: ../data/ui/preferences/appearance.ui:370
+msgid "Show Status Bar"
+msgstr ""
+
+#: ../data/ui/preferences/appearance.ui:374
+msgid ""
+"Show or hide the status bar. The status bar will always be shown if a plugin "
+"requests it."
+msgstr ""
+
+#: ../data/ui/preferences/appearance.ui:399
+#, fuzzy
+msgid "Show playlist track count"
+msgstr "转到当前播放音轨(_G)"
+
+#: ../data/ui/preferences/appearance.ui:413
+#, fuzzy
+msgid "Show playlist duration"
+msgstr "显示窗口装饰"
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -2501,10 +2522,14 @@ msgid "Adding an item to an empty queue begins playback"
 msgstr "在空队列中添加一项后即开始回放"
 
 #: ../data/ui/preferences/playback.ui:206
+#: ../plugins/quickbuttons/__init__.py:56
+#: ../plugins/quickbuttons/qb_prefs.ui:42
 msgid "Remove track from queue upon playback"
 msgstr "移除队列中开始回放的音轨"
 
 #: ../data/ui/preferences/playback.ui:221
+#: ../plugins/quickbuttons/__init__.py:47
+#: ../plugins/quickbuttons/qb_prefs.ui:27
 msgid "Disallow playing new tracks when another track is playing"
 msgstr "不允许在有另一音轨播放时又播放新的音轨"
 
@@ -2516,6 +2541,8 @@ msgstr ""
 "如果当前正有一个音轨播放中，则不让新的音轨开始播放，除非是在点击回放控制器"
 
 #: ../data/ui/preferences/playback.ui:237
+#: ../plugins/quickbuttons/__init__.py:65
+#: ../plugins/quickbuttons/qb_prefs.ui:57
 msgid "Automatically advance to the next track"
 msgstr "自动前进到下一音轨"
 
@@ -2595,6 +2622,8 @@ msgstr ""
 "在 Exaile 0.3.3 以前这个选项是默认行为"
 
 #: ../data/ui/preferences/playlists.ui:66
+#: ../plugins/quickbuttons/__init__.py:38
+#: ../plugins/quickbuttons/qb_prefs.ui:12
 msgid "Queue tracks by default instead of playing them"
 msgstr "音轨默认入队而不是播放"
 
@@ -2856,7 +2885,7 @@ msgstr "_清空书签"
 msgid "_Bookmarks"
 msgstr "_书签"
 
-#: ../plugins/bpm/__init__.py:66 ../plugins/bpm/__init__.py:205
+#: ../plugins/bpm/__init__.py:67 ../plugins/bpm/__init__.py:206
 msgid "Autodetect BPM"
 msgstr "自动检测 BPM"
 
@@ -2865,12 +2894,12 @@ msgstr "自动检测 BPM"
 msgid "Set BPM of %d on %s?"
 msgstr "要将 %s 的 BPM 设为 %d 吗？"
 
-#: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
+#: ../plugins/bpm/__init__.py:184 ../plugins/bpm/bpm.ui:59
 #: ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
 msgstr "BPM 计数"
 
-#: ../plugins/bpm/__init__.py:335 ../plugins/bpm/bpm.ui:30
+#: ../plugins/bpm/__init__.py:336 ../plugins/bpm/bpm.ui:31
 msgid "Update"
 msgstr "更新"
 
@@ -2920,7 +2949,7 @@ msgstr "输入用于共享的 IP 地址和端口"
 msgid "Enter IP address and port."
 msgstr "输入 IP 地址和端口。"
 
-#: ../plugins/daapclient/__init__.py:549
+#: ../plugins/daapclient/__init__.py:548
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -3164,7 +3193,7 @@ msgstr "已选中控制"
 msgid "Playback history"
 msgstr ""
 
-#: ../plugins/history/__init__.py:117
+#: ../plugins/history/__init__.py:116
 msgid "Erase stored history?"
 msgstr ""
 
@@ -3302,8 +3331,8 @@ msgstr ""
 msgid "This plugin needs at least one visible panel"
 msgstr ""
 
-#: ../plugins/mainmenubutton/__init__.py:82
-#: ../plugins/mainmenubutton/__init__.py:88
+#: ../plugins/mainmenubutton/__init__.py:80
+#: ../plugins/mainmenubutton/__init__.py:86
 msgid "Main Menu"
 msgstr ""
 
@@ -3591,22 +3620,79 @@ msgstr ""
 msgid "Could not save podcast file"
 msgstr "无法禁用插件。"
 
-#: ../plugins/previewdevice/__init__.py:146
+#: ../plugins/previewdevice/__init__.py:148
 msgid "Preview Player"
 msgstr ""
 
-#: ../plugins/previewdevice/__init__.py:156
+#: ../plugins/previewdevice/__init__.py:158
 #, fuzzy
 msgid "Preview"
 msgstr "上一首"
 
-#: ../plugins/previewdevice/__init__.py:341
+#: ../plugins/previewdevice/__init__.py:335
 msgid "Pause Playback (double click to stop)"
 msgstr ""
 
 #: ../plugins/previewdevice/previewprefs.py:32
+#: ../plugins/quickbuttons/__init__.py:101
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
+msgstr ""
+
+#: ../plugins/quickbuttons/__init__.py:37
+#, fuzzy
+msgid "Enqueue"
+msgstr "将项目加入队列"
+
+#: ../plugins/quickbuttons/__init__.py:46
+#, fuzzy
+#| msgid "Not playing."
+msgid "Keep playing"
+msgstr "未播放。"
+
+#: ../plugins/quickbuttons/__init__.py:55
+#, fuzzy
+#| msgid "Remove"
+msgid "Auto-Remove"
+msgstr "删除"
+
+#: ../plugins/quickbuttons/__init__.py:64
+msgid "Auto-Advance"
+msgstr ""
+
+#: ../plugins/quickbuttons/__init__.py:73
+#: ../plugins/quickbuttons/__init__.py:74
+#, fuzzy
+#| msgid "Delay between tracks (ms):"
+msgid "Delay between tracks (in seconds):"
+msgstr "音轨间延时（ms, 毫秒）："
+
+#: ../plugins/quickbuttons/__init__.py:82
+msgid "EQ"
+msgstr ""
+
+#: ../plugins/quickbuttons/__init__.py:83 ../plugins/equalizer/equalizer.ui:109
+#: ../plugins/equalizer/PLUGININFO:3
+msgid "Equalizer"
+msgstr ""
+
+#: ../plugins/quickbuttons/__init__.py:92
+#, fuzzy
+#| msgid "Device"
+msgid "Main Device"
+msgstr "设备"
+
+#: ../plugins/quickbuttons/__init__.py:93
+#: ../plugins/quickbuttons/qb_prefs.ui:101
+msgid "Select main audio device"
+msgstr ""
+
+#: ../plugins/quickbuttons/__init__.py:102
+msgid "Select preview audio device"
+msgstr ""
+
+#: ../plugins/quickbuttons/qb_prefs.py:5
+msgid "Quickbuttons"
 msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs.py:31
@@ -3784,7 +3870,7 @@ msgstr "密码："
 msgid "_Verify Login Data"
 msgstr ""
 
-#: ../plugins/bpm/bpm.ui:41
+#: ../plugins/bpm/bpm.ui:42
 msgid "Apply BPM"
 msgstr ""
 
@@ -3948,10 +4034,6 @@ msgstr ""
 
 #: ../plugins/developer/developer_window.ui:156
 msgid "Events"
-msgstr ""
-
-#: ../plugins/equalizer/equalizer.ui:109 ../plugins/equalizer/PLUGININFO:3
-msgid "Equalizer"
 msgstr ""
 
 #: ../plugins/equalizer/equalizer.ui:206
@@ -4413,6 +4495,20 @@ msgstr "匀滑转换持续时间(毫秒)："
 msgid "Audio Device:"
 msgstr "添加设备"
 
+#: ../plugins/quickbuttons/qb_prefs.ui:72
+#, fuzzy
+#| msgid "Delay between tracks (ms):"
+msgid "Delay between tracks (in seconds)"
+msgstr "音轨间延时（ms, 毫秒）："
+
+#: ../plugins/quickbuttons/qb_prefs.ui:87
+msgid "Equalizer (depends on Equalizer Plugin)"
+msgstr ""
+
+#: ../plugins/quickbuttons/qb_prefs.ui:115
+msgid "Select preview audio device (depends on previewdevice plugin)"
+msgstr ""
+
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:24
 msgid "Prefer per-album correction"
@@ -4511,7 +4607,7 @@ msgstr ""
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5
 #: ../plugins/inhibitsuspend/PLUGININFO:5
-#: ../plugins/multialarmclock/PLUGININFO:5
+#: ../plugins/multialarmclock/PLUGININFO:5 ../plugins/quickbuttons/PLUGININFO:5
 #: ../plugins/screensaverpause/PLUGININFO:5 ../plugins/shutdown/PLUGININFO:5
 msgid "Utility"
 msgstr ""
@@ -4866,6 +4962,15 @@ msgstr ""
 msgid "Output"
 msgstr ""
 
+#: ../plugins/quickbuttons/PLUGININFO:3
+msgid "Quick Settings Buttons"
+msgstr ""
+
+#: ../plugins/quickbuttons/PLUGININFO:4
+msgid ""
+"Provides buttons on bottom of the playlist to quickly change some settings"
+msgstr ""
+
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
 msgstr ""
@@ -4916,7 +5021,20 @@ msgid ""
 "Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
 
-#, python-format
+#, fuzzy
+#~| msgid "Display track counts in collection"
+#~ msgid "Show total count of tracks in collection"
+#~ msgstr "显示收藏集中的音轨数量"
+
+#, fuzzy
+#~| msgid "Disallow playing new tracks when another track is playing"
+#~ msgid "Disable new track when playing"
+#~ msgstr "不允许在有另一音轨播放时又播放新的音轨"
+
+#, fuzzy
+#~ msgid "Main Audio Device"
+#~ msgstr "添加设备"
+
 #~ msgid "%s tracks found"
 #~ msgstr "找到 %s 条音轨"
 

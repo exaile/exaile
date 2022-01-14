@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-13 22:55+0100\n"
-"PO-Revision-Date: 2021-06-14 17:33+0000\n"
+"PO-Revision-Date: 2022-01-14 12:55+0000\n"
 "Last-Translator: Wellington Terumi Uemura <wellingtonuemura@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "exaile/master/pt_BR/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.10.1\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -2399,25 +2399,23 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:370
 msgid "Show Status Bar"
-msgstr ""
+msgstr "Mostra a barra de status"
 
 #: ../data/ui/preferences/appearance.ui:374
 msgid ""
 "Show or hide the status bar. The status bar will always be shown if a plugin "
 "requests it."
 msgstr ""
+"Mostra ou esconde a barra de status. A barra de status sempre será mostrada "
+"se um plugin a solicitar."
 
 #: ../data/ui/preferences/appearance.ui:399
-#, fuzzy
-#| msgid "_Show Playing Track"
 msgid "Show playlist track count"
-msgstr "_Exibir Faixa Tocando"
+msgstr "Mostra a contagem de faixas da lista de reprodução"
 
 #: ../data/ui/preferences/appearance.ui:413
-#, fuzzy
-#| msgid "Display duration:"
 msgid "Show playlist duration"
-msgstr "Duração do Display:"
+msgstr "Mostra a duração da lista de reprodução"
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -3599,39 +3597,29 @@ msgid "Preview Device"
 msgstr "Dispositivo de visualização"
 
 #: ../plugins/quickbuttons/__init__.py:37
-#, fuzzy
-#| msgid "En_queue"
 msgid "Enqueue"
-msgstr "E_nfileirar"
+msgstr "Enfileirar"
 
 #: ../plugins/quickbuttons/__init__.py:46
-#, fuzzy
-#| msgid "Not playing."
 msgid "Keep playing"
-msgstr "Sem reprodução."
+msgstr "Continua tocando"
 
 #: ../plugins/quickbuttons/__init__.py:55
-#, fuzzy
-#| msgid "_Remove"
 msgid "Auto-Remove"
-msgstr "_Remover"
+msgstr "Remoção automática"
 
 #: ../plugins/quickbuttons/__init__.py:64
-#, fuzzy
-#| msgid "Advanced"
 msgid "Auto-Advance"
-msgstr "Avançado"
+msgstr "Avanço automático"
 
 #: ../plugins/quickbuttons/__init__.py:73
 #: ../plugins/quickbuttons/__init__.py:74
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds):"
-msgstr "Esperar entre faixas (ms):"
+msgstr "Atraso entre as faixas (em segundos):"
 
 #: ../plugins/quickbuttons/__init__.py:82
 msgid "EQ"
-msgstr ""
+msgstr "EQ"
 
 #: ../plugins/quickbuttons/__init__.py:83 ../plugins/equalizer/equalizer.ui:109
 #: ../plugins/equalizer/PLUGININFO:3
@@ -3639,23 +3627,21 @@ msgid "Equalizer"
 msgstr "Equalizador"
 
 #: ../plugins/quickbuttons/__init__.py:92
-#, fuzzy
-#| msgid "Device"
 msgid "Main Device"
-msgstr "Dispositivo"
+msgstr "Dispositivo principal"
 
 #: ../plugins/quickbuttons/__init__.py:93
 #: ../plugins/quickbuttons/qb_prefs.ui:101
 msgid "Select main audio device"
-msgstr ""
+msgstr "Selecione o dispositivo principal de áudio"
 
 #: ../plugins/quickbuttons/__init__.py:102
 msgid "Select preview audio device"
-msgstr ""
+msgstr "Selecione o dispositivo para a prévia do áudio"
 
 #: ../plugins/quickbuttons/qb_prefs.py:5
 msgid "Quickbuttons"
-msgstr ""
+msgstr "Botões rápidos"
 
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
@@ -4427,18 +4413,18 @@ msgid "Audio Device:"
 msgstr "Dispositivo de Audio:"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:72
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds)"
-msgstr "Esperar entre faixas (ms):"
+msgstr "Atraso entre as faixas (em segundos)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:87
 msgid "Equalizer (depends on Equalizer Plugin)"
-msgstr ""
+msgstr "Equalizador (depende do plugin do equalizador)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:115
 msgid "Select preview audio device (depends on previewdevice plugin)"
 msgstr ""
+"Seleciona o dispositivo para a prévia do áudio (depende do plugin "
+"previewdevice)"
 
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:24
@@ -4954,12 +4940,14 @@ msgstr "Resultado"
 
 #: ../plugins/quickbuttons/PLUGININFO:3
 msgid "Quick Settings Buttons"
-msgstr ""
+msgstr "Botões de configuração rápida"
 
 #: ../plugins/quickbuttons/PLUGININFO:4
 msgid ""
 "Provides buttons on bottom of the playlist to quickly change some settings"
 msgstr ""
+"Oferece botões na parte inferior da lista de reprodução para alterar "
+"rapidamente algumas configurações"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"

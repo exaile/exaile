@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-13 22:55+0100\n"
+"POT-Creation-Date: 2022-01-26 00:48+0100\n"
 "PO-Revision-Date: 2020-11-20 20:28+0000\n"
 "Last-Translator: Ajeje Brazorf <lmelonimamo@yahoo.it>\n"
 "Language-Team: Sardinian <https://hosted.weblate.org/projects/exaile/master/"
@@ -97,7 +97,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:727 ../xl/main.py:619 ../xl/trax/track.py:71
+#: ../xl/formatter.py:727 ../xl/main.py:792 ../xl/trax/track.py:71
 msgid "Unknown"
 msgstr "Disconnotu"
 
@@ -118,292 +118,296 @@ msgstr "Eris"
 msgid "Local"
 msgstr "Locale"
 
-#: ../xl/main.py:82
+#: ../xl/main.py:84
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "Impreu: exaile [OPTZIONE...] [POSITZIONE...]"
 
-#: ../xl/main.py:84
+#: ../xl/main.py:86
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
 
-#: ../xl/main.py:95
+#: ../xl/main.py:97
 msgid "Playback Options"
 msgstr "Impostaduras de riprodutzione"
 
-#: ../xl/main.py:102
+#: ../xl/main.py:104
 msgid "Play the next track"
 msgstr "Reprodue sa rasta imbeniente"
 
-#: ../xl/main.py:110
+#: ../xl/main.py:112
 msgid "Play the previous track"
 msgstr "Reprodue sa rasta anteposta"
 
-#: ../xl/main.py:118 ../plugins/minimode/controls.py:351
+#: ../xl/main.py:120 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:368
 msgid "Stop playback"
 msgstr "Firma sa riprodutzione"
 
-#: ../xl/main.py:121
+#: ../xl/main.py:123
 msgid "Play"
 msgstr "Reprodue"
 
-#: ../xl/main.py:129 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:131 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "Pasada"
 
-#: ../xl/main.py:137
+#: ../xl/main.py:139
 msgid "Pause or resume playback"
 msgstr "Sessa o torra a leare sa riprodutzione"
 
-#: ../xl/main.py:144 ../plugins/minimode/controls.py:376
+#: ../xl/main.py:146 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
 msgstr "Firma sa riprodutzione a pustis de sa custa rasta"
 
-#: ../xl/main.py:147
+#: ../xl/main.py:149
 msgid "Collection Options"
 msgstr "Impostaduras pro sas regortas"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:152 ../xl/main.py:161
+#: ../xl/main.py:154 ../xl/main.py:163
 msgid "LOCATION"
 msgstr "POSITZIONE"
 
-#: ../xl/main.py:153
+#: ../xl/main.py:155
 msgid "Add tracks from LOCATION to the collection"
 msgstr "Annanghe rastas dae POSITZIONE a sa regorta"
 
-#: ../xl/main.py:156
+#: ../xl/main.py:158
 msgid "Playlist Options"
 msgstr "Impostaduras de s’iscalita"
 
-#: ../xl/main.py:162
+#: ../xl/main.py:164
 msgid "Export the current playlist to LOCATION"
 msgstr "Esporta s'iscalita atuale in sa POSITZIONE"
 
-#: ../xl/main.py:165
+#: ../xl/main.py:167
 msgid "Track Options"
 msgstr "Impostaduras pro sas rastas"
 
-#: ../xl/main.py:172
+#: ../xl/main.py:174
 msgid "Query player"
 msgstr "Pòrroga su leghidore"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:178
+#: ../xl/main.py:180
 msgid "FORMAT"
 msgstr "FORMAT"
 
-#: ../xl/main.py:179
+#: ../xl/main.py:181
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr ""
 "Recùpera sas informatziones chi pertocant s'istadu atuale de riprodutzione e "
 "sa rasta comente FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:185
+#: ../xl/main.py:187
 msgid "TAGS"
 msgstr "ETICHETAS"
 
-#: ../xl/main.py:186
+#: ../xl/main.py:188
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr ""
 "Etichetas de recuperare dae sa rasta atuale, impreare cun --format-query"
 
-#: ../xl/main.py:193
+#: ../xl/main.py:195
 msgid "Show a popup with data of the current track"
 msgstr ""
 "Ammustra un’ischermada cun informatziones chi pertocant sa rasta atuale"
 
-#: ../xl/main.py:200
+#: ../xl/main.py:202
 msgid "Print the title of current track"
 msgstr "Ammustra su tìtulu de sa rasta atuale"
 
-#: ../xl/main.py:207
+#: ../xl/main.py:209
 msgid "Print the album of current track"
 msgstr "Ammustra s'album de sa rasta atuale"
 
-#: ../xl/main.py:214
+#: ../xl/main.py:216
 msgid "Print the artist of current track"
 msgstr "Ammustra s'artista de sa rasta atuale"
 
-#: ../xl/main.py:221
+#: ../xl/main.py:223
 msgid "Print the length of current track"
 msgstr "Ammustra sa longària de sa rasta atuale"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:228 ../xl/main.py:260 ../xl/main.py:269
+#: ../xl/main.py:230 ../xl/main.py:262 ../xl/main.py:271
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:229
+#: ../xl/main.py:231
 msgid "Set rating for current track to N%"
 msgstr "Imposta su votu pro sa rasta currente a N%"
 
-#: ../xl/main.py:236
+#: ../xl/main.py:238
 msgid "Get rating for current track"
 msgstr "Otènne su votu pro sa rasta atuale"
 
-#: ../xl/main.py:243
+#: ../xl/main.py:245
 msgid "Print the current playback position as time"
 msgstr "Ammustra sa positzione de sa riprodutzione atuale comente tempus"
 
-#: ../xl/main.py:250
+#: ../xl/main.py:252
 msgid "Print the current playback progress as percentage"
 msgstr "Ammustra sa sobradura de sa riprodutzione atuale comente pertzentuale"
 
-#: ../xl/main.py:253
+#: ../xl/main.py:255
 msgid "Volume Options"
 msgstr "Impostaduras de su volume"
 
-#: ../xl/main.py:261
+#: ../xl/main.py:263
 msgid "Increase the volume by N%"
 msgstr "Àrtzia su volume de su N%"
 
-#: ../xl/main.py:270
+#: ../xl/main.py:272
 msgid "Decrease the volume by N%"
 msgstr "Abbassa su volume de su N%"
 
-#: ../xl/main.py:278
+#: ../xl/main.py:280
 msgid "Mute or unmute the volume"
 msgstr "Allughet o istudat su volume"
 
-#: ../xl/main.py:285
+#: ../xl/main.py:287
 msgid "Print the current volume percentage"
 msgstr "Ammustra su livellu pertzentuale"
 
-#: ../xl/main.py:288
+#: ../xl/main.py:290
 msgid "Other Options"
 msgstr "Àteras impostaduras"
 
-#: ../xl/main.py:294
+#: ../xl/main.py:296
 msgid "Start new instance"
 msgstr "Incumentza un'istàntzia noa"
 
-#: ../xl/main.py:297
+#: ../xl/main.py:299
 msgid "Show this help message and exit"
 msgstr "Ammustra custu messàgiu d'agiudu ed essi"
 
-#: ../xl/main.py:303
+#: ../xl/main.py:305
 msgid "Show program's version number and exit."
 msgstr "Ammustra su nùmeru de versione de su programma ed essi."
 
-#: ../xl/main.py:310
+#: ../xl/main.py:312
 msgid "Start minimized (to tray, if possible)"
 msgstr "Avia minimadu (in s’àrea de notìfica, si est possìbile)"
 
-#: ../xl/main.py:317
+#: ../xl/main.py:319
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Càmbia sa visibilidade de s’interfàtzia gràfica (si est possìbile)"
 
-#: ../xl/main.py:325
+#: ../xl/main.py:327
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 "Avia in modalidade segura - carchi borta est ùtile cando bi sunt problemas"
 
-#: ../xl/main.py:334
+#: ../xl/main.py:336
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 "Fortza s'importatzione de sos datos dae sa versione 0.2.x (iscantzellat sos "
 "datos atuales)"
 
-#: ../xl/main.py:342
+#: ../xl/main.py:344
 msgid "Do not import old data from version 0.2.x"
 msgstr "No importare sos datos dae sa versione 0.2.x"
 
-#: ../xl/main.py:349
+#: ../xl/main.py:351
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 "Faghe in modu chi impostaduras de controllu comente --play ant a aviare "
 "Exaile, si no est giai allutu"
 
-#: ../xl/main.py:352
+#: ../xl/main.py:357
+msgid "Locale to use for Exaile"
+msgstr ""
+
+#: ../xl/main.py:360
 msgid "Development/Debug Options"
 msgstr "Impostaduras de isvulupu/debug"
 
-#: ../xl/main.py:356 ../xl/main.py:362
+#: ../xl/main.py:364 ../xl/main.py:370
 msgid "DIRECTORY"
 msgstr "CARTELLA"
 
-#: ../xl/main.py:357
+#: ../xl/main.py:365
 msgid "Set data directory"
 msgstr "Imposta da cartella de sos datos"
 
-#: ../xl/main.py:363
+#: ../xl/main.py:371
 msgid "Set data and config directory"
 msgstr "Imposta sa cartella de sos datos e de sas configuratziones"
 
-#: ../xl/main.py:368
+#: ../xl/main.py:376
 msgid "MODULE"
 msgstr "MÒDULU"
 
-#: ../xl/main.py:369
+#: ../xl/main.py:377
 msgid "Limit log output to MODULE"
 msgstr "Lìmita su resurtu d’essida de su registru a su MÒDULU"
 
-#: ../xl/main.py:374
+#: ../xl/main.py:382
 msgid "LEVEL"
 msgstr "LIVELLU"
 
-#: ../xl/main.py:375
+#: ../xl/main.py:383
 msgid "Limit log output to LEVEL"
 msgstr "Lìmita su resurtu d’essida de su registru a su LIVELLU"
 
-#: ../xl/main.py:383
+#: ../xl/main.py:391
 msgid "Show debugging output"
 msgstr "Ammustra su resurtu d’essida de debug"
 
-#: ../xl/main.py:390
+#: ../xl/main.py:398
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "Abìlita su debug de xl.event. Ingendrat meda risultados d’essida"
 
-#: ../xl/main.py:397
+#: ../xl/main.py:405
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr ""
 "Abìlita su debug intreu de xl.event. Ingendrat MEDA risultados d’essida"
 
-#: ../xl/main.py:404
+#: ../xl/main.py:412
 msgid "Add thread name to logging messages."
 msgstr "Annanghe su nùmene de sa discussione a sos messàgios de log."
 
-#: ../xl/main.py:409
+#: ../xl/main.py:417
 msgid "TYPE"
 msgstr "CASTA"
 
-#: ../xl/main.py:410
+#: ../xl/main.py:418
 msgid "Limit xl.event debug to output of TYPE"
 msgstr "Lìmita su debug xl.event a su resurtu d'essida de sa CASTA"
 
-#: ../xl/main.py:417
+#: ../xl/main.py:425
 msgid "Reduce level of output"
 msgstr "Mìnima su livellu de resurtu d'essida"
 
-#: ../xl/main.py:427
+#: ../xl/main.py:435
 msgid "Disable D-Bus support"
 msgstr "Disabìlita su suportu D-Bus"
 
-#: ../xl/main.py:434
+#: ../xl/main.py:442
 msgid "Disable HAL support."
 msgstr "Disabìlita su suportu HAL."
 
-#: ../xl/main.py:796
+#: ../xl/main.py:813
 msgid "Entire Library"
 msgstr "Libreria intrea"
 
-#: ../xl/main.py:803
+#: ../xl/main.py:820
 #, python-format
 msgid "Random %d"
 msgstr "%d casuale"
 
-#: ../xl/main.py:812
+#: ../xl/main.py:829
 #, python-format
 msgid "Rating > %d"
 msgstr "Votu > %d"
 
-#: ../xl/main.py:981
+#: ../xl/main.py:998
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -462,7 +466,7 @@ msgstr "Cumponidore"
 msgid "Conductor"
 msgstr "Diretore de orchestra"
 
-#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:814
+#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:813
 msgid "Cover"
 msgstr "Cobertedda"
 
@@ -865,30 +869,30 @@ msgstr "Recùpera sa cobertedda"
 msgid "Remove Cover"
 msgstr "Iscantzella sa cobertedda"
 
-#: ../xlgui/cover.py:812
+#: ../xlgui/cover.py:811
 #, python-format
 msgid "Cover for %s"
 msgstr "Cobertedda pro %s"
 
-#: ../xlgui/cover.py:880
+#: ../xlgui/cover.py:879
 #, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
 msgstr "{width}x{height} pixels ({zoom}%)"
 
-#: ../xlgui/cover.py:931
+#: ../xlgui/cover.py:930
 msgid "Save File"
 msgstr "Sarva documentu"
 
-#: ../xlgui/cover.py:1029
+#: ../xlgui/cover.py:1028
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr "Impostaduras cobertadda pro %(artist)s - %(album)s"
 
-#: ../xlgui/cover.py:1133
+#: ../xlgui/cover.py:1132
 msgid "No covers found."
 msgstr "Peruna cobertedda agatada."
 
-#: ../xlgui/cover.py:1135
+#: ../xlgui/cover.py:1134
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
@@ -897,7 +901,7 @@ msgstr ""
 "àteras."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1108
+#: ../xlgui/cover.py:1177 ../xlgui/properties.py:1110
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} pixels"
@@ -1375,7 +1379,7 @@ msgstr "{playlist_name} ({track_count} rastas, serradas {seconds} seg. fàghet)"
 msgid "_Move to Other View"
 msgstr "_Tràmuda in un’àtera vista"
 
-#: ../xlgui/preferences/__init__.py:115 ../xlgui/preferences/plugin.py:40
+#: ../xlgui/preferences/__init__.py:113 ../xlgui/preferences/plugin.py:40
 msgid "Plugins"
 msgstr "Estensiones"
 
@@ -1473,15 +1477,15 @@ msgstr "Torra a aviare"
 msgid "Action"
 msgstr "Atzione"
 
-#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:78
+#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:79
 msgid "Shortcut"
 msgstr "Incurtzadura"
 
-#: ../xlgui/properties.py:256
+#: ../xlgui/properties.py:258
 msgid "Writing of tags failed"
 msgstr "Iscritura de sas etichetas faddida"
 
-#: ../xlgui/properties.py:258
+#: ../xlgui/properties.py:260
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
@@ -1490,79 +1494,79 @@ msgstr ""
 "Impossìbile iscrìere sas etichetas de custos documentos:\n"
 "{files}"
 
-#: ../xlgui/properties.py:278
+#: ../xlgui/properties.py:280
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr "Modìfica de sa rasta %(current)d de %(total)d"
 
-#: ../xlgui/properties.py:400
+#: ../xlgui/properties.py:402
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr "Seguru ses de bòlere fàghere custas modìficas a totu sas rastas?"
 
-#: ../xlgui/properties.py:443
+#: ../xlgui/properties.py:445
 msgid "Apply changes before closing?"
 msgstr "Aplicare sas modìficas in antis de serrare?"
 
-#: ../xlgui/properties.py:444
+#: ../xlgui/properties.py:446
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "Sas modìficas s'ant a pèrdere si non las àplicas como."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:627
+#: ../xlgui/properties.py:629
 #, python-format
 msgid "%s:"
 msgstr "%s:"
 
 #. TRANSLATORS: Remove tag value
-#: ../xlgui/properties.py:634 ../plugins/developer/developer_window.ui:131
+#: ../xlgui/properties.py:636 ../plugins/developer/developer_window.ui:131
 msgid "Clear"
 msgstr ""
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:856
+#: ../xlgui/properties.py:858
 msgid "of:"
 msgstr "de:"
 
-#: ../xlgui/properties.py:963
+#: ../xlgui/properties.py:965
 msgid "JPEG image"
 msgstr "Immàgine JPEG"
 
-#: ../xlgui/properties.py:968
+#: ../xlgui/properties.py:970
 msgid "PNG image"
 msgstr "Immàgine PNG"
 
-#: ../xlgui/properties.py:970
+#: ../xlgui/properties.py:972
 msgid "Image"
 msgstr "Immàgine"
 
-#: ../xlgui/properties.py:976
+#: ../xlgui/properties.py:978
 msgid "Linked image"
 msgstr "Immàgine ligada"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1111
+#: ../xlgui/properties.py:1113
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} pixels)"
 
-#: ../xlgui/properties.py:1125
+#: ../xlgui/properties.py:1127
 msgid "Select image to set as cover"
 msgstr "Ischerta s’immàgine de impreare comente cobertedda"
 
-#: ../xlgui/properties.py:1138
+#: ../xlgui/properties.py:1140
 msgid "Supported image formats"
 msgstr "Castas de immàgines suportadas"
 
-#: ../xlgui/properties.py:1221
+#: ../xlgui/properties.py:1223
 msgid "Open Directory"
 msgstr "Abèri cartella"
 
-#: ../xlgui/properties.py:1271
+#: ../xlgui/properties.py:1273
 msgid "Apply current value to all tracks"
 msgstr "Àplica su valore atuale a totu sas rastas"
 
-#: ../xlgui/properties.py:1291 ../xlgui/widgets/dialogs.py:1550
+#: ../xlgui/properties.py:1293 ../xlgui/widgets/dialogs.py:1550
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Sarvadas %(count)s de %(total)s."
@@ -2162,7 +2166,9 @@ msgid "_Best Fit"
 msgstr ""
 
 #. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/coverwindow.ui:96 ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39
 msgid "_Close"
 msgstr "_Serra"
 
@@ -2181,6 +2187,16 @@ msgstr "Dispositivu"
 #: ../data/ui/device_manager.ui:88
 msgid "Driver"
 msgstr "Driver"
+
+#: ../data/ui/device_manager.ui:115
+msgid "_Connect"
+msgstr ""
+
+#: ../data/ui/device_manager.ui:133
+#, fuzzy
+#| msgid "Disconnect from Server"
+msgid "_Disconnect"
+msgstr "Istaca•di dae su server"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -2669,11 +2685,7 @@ msgstr "Annanghe unu _documentu de estensione"
 msgid "Preferences"
 msgstr "Preferèntzias"
 
-#: ../data/ui/shortcuts_dialog.ui:39
-msgid "Close"
-msgstr "Serra"
-
-#: ../data/ui/shortcuts_dialog.ui:89
+#: ../data/ui/shortcuts_dialog.ui:90
 msgid "Description"
 msgstr "Descritzione"
 
@@ -5061,6 +5073,11 @@ msgstr ""
 "sas tastieras noas) cando ses impreende Exaile in Microsoft Windows.\n"
 "\n"
 "Tenet bisòngiu de: pyHook (%s) (o %s pro àteras versiones)"
+
+#, fuzzy
+#~| msgid "Close"
+#~ msgid "C_lose"
+#~ msgstr "Serra"
 
 #, fuzzy
 #~| msgid "Display track counts in collection"

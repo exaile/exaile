@@ -76,8 +76,8 @@ class Main:
         self.first_removed = False
         self.tray_icon = None
 
-        self.builder = Gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui', 'main.ui'))
+        self.builder = guiutil.get_builder(xdg.get_data_path('ui', 'main.ui'))
+
         self.progress_box = self.builder.get_object('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
 

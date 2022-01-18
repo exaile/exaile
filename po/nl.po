@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-13 22:55+0100\n"
+"POT-Creation-Date: 2022-01-26 00:48+0100\n"
 "PO-Revision-Date: 2020-05-12 22:41+0000\n"
 "Last-Translator: Robert de Wolff <robert.de.wolff@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/exaile/master/nl/"
@@ -98,7 +98,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:727 ../xl/main.py:619 ../xl/trax/track.py:71
+#: ../xl/formatter.py:727 ../xl/main.py:792 ../xl/trax/track.py:71
 msgid "Unknown"
 msgstr "Onbekend"
 
@@ -119,201 +119,201 @@ msgstr "Gisteren"
 msgid "Local"
 msgstr "Lokaal"
 
-#: ../xl/main.py:82
+#: ../xl/main.py:84
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "Gebruik: exaile [OPTIE...] [LOCATIE...]"
 
-#: ../xl/main.py:84
+#: ../xl/main.py:86
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
 
-#: ../xl/main.py:95
+#: ../xl/main.py:97
 msgid "Playback Options"
 msgstr "Afspeelopties"
 
-#: ../xl/main.py:102
+#: ../xl/main.py:104
 msgid "Play the next track"
 msgstr "Het volgende nummer afspelen"
 
-#: ../xl/main.py:110
+#: ../xl/main.py:112
 msgid "Play the previous track"
 msgstr "Het vorige nummer afspelen"
 
-#: ../xl/main.py:118 ../plugins/minimode/controls.py:351
+#: ../xl/main.py:120 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:368
 msgid "Stop playback"
 msgstr "Afspelen stoppen"
 
-#: ../xl/main.py:121
+#: ../xl/main.py:123
 msgid "Play"
 msgstr "Afspelen"
 
-#: ../xl/main.py:129 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:131 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "Pauze"
 
-#: ../xl/main.py:137
+#: ../xl/main.py:139
 msgid "Pause or resume playback"
 msgstr "Afspelen pauzeren of hervatten"
 
-#: ../xl/main.py:144 ../plugins/minimode/controls.py:376
+#: ../xl/main.py:146 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
 msgstr "Stoppen met afspelen na dit nummer"
 
-#: ../xl/main.py:147
+#: ../xl/main.py:149
 msgid "Collection Options"
 msgstr "Collectie-opties"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:152 ../xl/main.py:161
+#: ../xl/main.py:154 ../xl/main.py:163
 msgid "LOCATION"
 msgstr "LOCATIE"
 
-#: ../xl/main.py:153
+#: ../xl/main.py:155
 msgid "Add tracks from LOCATION to the collection"
 msgstr "Nummers vanaf LOCATIE toevoegen aan de collectie"
 
-#: ../xl/main.py:156
+#: ../xl/main.py:158
 msgid "Playlist Options"
 msgstr "Afspeellijstopties"
 
-#: ../xl/main.py:162
+#: ../xl/main.py:164
 #, fuzzy
 #| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
 msgstr "Exporteert de huidige afspeellijst naar LOCATIE"
 
-#: ../xl/main.py:165
+#: ../xl/main.py:167
 msgid "Track Options"
 msgstr "Nummeropties"
 
-#: ../xl/main.py:172
+#: ../xl/main.py:174
 msgid "Query player"
 msgstr "Queryspeler"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:178
+#: ../xl/main.py:180
 msgid "FORMAT"
 msgstr "FORMAAT"
 
-#: ../xl/main.py:179
+#: ../xl/main.py:181
 #, fuzzy
 #| msgid "Retrieves the current playback state and track information as FORMAT"
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr "Haalt huidige afspeelstatus en nummerinformatie op als FORMAAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:185
+#: ../xl/main.py:187
 msgid "TAGS"
 msgstr "LABELS"
 
-#: ../xl/main.py:186
+#: ../xl/main.py:188
 #, fuzzy
 #| msgid "TAGS to retrieve from the current track, use with --format-query"
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr ""
 "LABELS om op te halen van het huidige nummer, gebruiken met --format-query"
 
-#: ../xl/main.py:193
+#: ../xl/main.py:195
 msgid "Show a popup with data of the current track"
 msgstr "Pop-up van het huidige nummer tonen"
 
-#: ../xl/main.py:200
+#: ../xl/main.py:202
 msgid "Print the title of current track"
 msgstr "Titel van het huidige nummer weergeven"
 
-#: ../xl/main.py:207
+#: ../xl/main.py:209
 msgid "Print the album of current track"
 msgstr "Album van het huidige nummer weergeven"
 
-#: ../xl/main.py:214
+#: ../xl/main.py:216
 msgid "Print the artist of current track"
 msgstr "Artiest van het huidige nummer weergeven"
 
-#: ../xl/main.py:221
+#: ../xl/main.py:223
 msgid "Print the length of current track"
 msgstr "Tijdsduur van het huidige nummer weergeven"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:228 ../xl/main.py:260 ../xl/main.py:269
+#: ../xl/main.py:230 ../xl/main.py:262 ../xl/main.py:271
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:229
+#: ../xl/main.py:231
 msgid "Set rating for current track to N%"
 msgstr "Waardering van het huidige nummer instellen op N%"
 
-#: ../xl/main.py:236
+#: ../xl/main.py:238
 msgid "Get rating for current track"
 msgstr "Waardering voor het huidige nummer ophalen"
 
-#: ../xl/main.py:243
+#: ../xl/main.py:245
 msgid "Print the current playback position as time"
 msgstr "Afspeelpositie weergeven als tijd"
 
-#: ../xl/main.py:250
+#: ../xl/main.py:252
 msgid "Print the current playback progress as percentage"
 msgstr "Vooruitgang van het huidige nummer weergeven als percentage"
 
-#: ../xl/main.py:253
+#: ../xl/main.py:255
 msgid "Volume Options"
 msgstr "Volume-opties"
 
-#: ../xl/main.py:261
+#: ../xl/main.py:263
 #, fuzzy
 #| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
 msgstr "Verhoogt het volume met N%"
 
-#: ../xl/main.py:270
+#: ../xl/main.py:272
 #, fuzzy
 #| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
 msgstr "Verlaagt het volume met N%"
 
-#: ../xl/main.py:278
+#: ../xl/main.py:280
 #, fuzzy
 #| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
 msgstr "Zet volumedemping aan of uit"
 
-#: ../xl/main.py:285
+#: ../xl/main.py:287
 msgid "Print the current volume percentage"
 msgstr "Volumepercentage van het huidige nummer weergeven"
 
-#: ../xl/main.py:288
+#: ../xl/main.py:290
 msgid "Other Options"
 msgstr "Andere opties"
 
-#: ../xl/main.py:294
+#: ../xl/main.py:296
 msgid "Start new instance"
 msgstr "Start een nieuwe instantie"
 
-#: ../xl/main.py:297
+#: ../xl/main.py:299
 msgid "Show this help message and exit"
 msgstr "Dit hulpbericht tonen en daarna afsluiten"
 
-#: ../xl/main.py:303
+#: ../xl/main.py:305
 msgid "Show program's version number and exit."
 msgstr "Versienummer toepassing tonen en daarna afsluiten."
 
-#: ../xl/main.py:310
+#: ../xl/main.py:312
 msgid "Start minimized (to tray, if possible)"
 msgstr "Geminimaliseerd starten (naar het systeemvak, indien mogelijk)"
 
-#: ../xl/main.py:317
+#: ../xl/main.py:319
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Zichtbaarheid van de GUI wisselen (indien mogelijk)"
 
-#: ../xl/main.py:325
+#: ../xl/main.py:327
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr "Starten in veilige modus - soms nuttig wanneer u problemen heeft"
 
-#: ../xl/main.py:334
+#: ../xl/main.py:336
 #, fuzzy
 #| msgid ""
 #| "Force import of old data from version 0.2.x (Overwrites current data)"
@@ -321,102 +321,106 @@ msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 "Importeren van oude data van 0.2.x forceren (overschrijft huidige data)"
 
-#: ../xl/main.py:342
+#: ../xl/main.py:344
 msgid "Do not import old data from version 0.2.x"
 msgstr "Geen oude data importeren van versie 0.2.x"
 
-#: ../xl/main.py:349
+#: ../xl/main.py:351
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 "Laat besturingsopties zoals --play Exaile starten indien nog niet gestart"
 
-#: ../xl/main.py:352
+#: ../xl/main.py:357
+msgid "Locale to use for Exaile"
+msgstr ""
+
+#: ../xl/main.py:360
 msgid "Development/Debug Options"
 msgstr "Ontwikkeling/Debug Opties"
 
-#: ../xl/main.py:356 ../xl/main.py:362
+#: ../xl/main.py:364 ../xl/main.py:370
 msgid "DIRECTORY"
 msgstr "MAP"
 
-#: ../xl/main.py:357
+#: ../xl/main.py:365
 msgid "Set data directory"
 msgstr "Stel de datamap in"
 
-#: ../xl/main.py:363
+#: ../xl/main.py:371
 msgid "Set data and config directory"
 msgstr "Data en configuratiemap instellen"
 
-#: ../xl/main.py:368
+#: ../xl/main.py:376
 msgid "MODULE"
 msgstr "MODULE"
 
-#: ../xl/main.py:369
+#: ../xl/main.py:377
 msgid "Limit log output to MODULE"
 msgstr "Logresultaten beperken tot MODULE"
 
-#: ../xl/main.py:374
+#: ../xl/main.py:382
 msgid "LEVEL"
 msgstr "NIVEAU"
 
-#: ../xl/main.py:375
+#: ../xl/main.py:383
 msgid "Limit log output to LEVEL"
 msgstr "Logresultaten beperken tot NIVEAU"
 
-#: ../xl/main.py:383
+#: ../xl/main.py:391
 msgid "Show debugging output"
 msgstr "Debug uitvoer tonen"
 
-#: ../xl/main.py:390
+#: ../xl/main.py:398
 #, fuzzy
 #| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "Zet debuggen van xl.event aan. Genereert VEEL uitvoer"
 
-#: ../xl/main.py:397
+#: ../xl/main.py:405
 #, fuzzy
 #| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr "Zet debuggen van xl.event aan. Genereert VEEL uitvoer"
 
-#: ../xl/main.py:404
+#: ../xl/main.py:412
 msgid "Add thread name to logging messages."
 msgstr "Thread-naam aan logberichten toeveoegen."
 
-#: ../xl/main.py:409
+#: ../xl/main.py:417
 msgid "TYPE"
 msgstr "TYPE"
 
-#: ../xl/main.py:410
+#: ../xl/main.py:418
 msgid "Limit xl.event debug to output of TYPE"
 msgstr "Xl.event debug-resultaten beperken tot TYPE"
 
-#: ../xl/main.py:417
+#: ../xl/main.py:425
 msgid "Reduce level of output"
 msgstr "Verminder hoeveelheid uitvoer"
 
-#: ../xl/main.py:427
+#: ../xl/main.py:435
 msgid "Disable D-Bus support"
 msgstr "D-Bus-ondersteuning uitschakelen"
 
-#: ../xl/main.py:434
+#: ../xl/main.py:442
 msgid "Disable HAL support."
 msgstr "HAL-ondersteuning uitschakelen."
 
-#: ../xl/main.py:796
+#: ../xl/main.py:813
 msgid "Entire Library"
 msgstr "Hele bibliotheek"
 
-#: ../xl/main.py:803
+#: ../xl/main.py:820
 #, python-format
 msgid "Random %d"
 msgstr "Willekeurig %d"
 
-#: ../xl/main.py:812
+#: ../xl/main.py:829
 #, python-format
 msgid "Rating > %d"
 msgstr "Waardering > %d"
 
-#: ../xl/main.py:981
+#: ../xl/main.py:998
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -475,7 +479,7 @@ msgstr "Componist"
 msgid "Conductor"
 msgstr "Dirigent"
 
-#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:814
+#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:813
 msgid "Cover"
 msgstr "Albumhoes"
 
@@ -878,30 +882,30 @@ msgstr "Albumhoes ophalen"
 msgid "Remove Cover"
 msgstr "Albumhoes verwijderen"
 
-#: ../xlgui/cover.py:812
+#: ../xlgui/cover.py:811
 #, python-format
 msgid "Cover for %s"
 msgstr "Albumhoes voor %s"
 
-#: ../xlgui/cover.py:880
+#: ../xlgui/cover.py:879
 #, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
 msgstr "{width}x{height} pixels ({zoom}%)"
 
-#: ../xlgui/cover.py:931
+#: ../xlgui/cover.py:930
 msgid "Save File"
 msgstr "Bestand Opslaan"
 
-#: ../xlgui/cover.py:1029
+#: ../xlgui/cover.py:1028
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr "Albumhoesopties voor %(artist)s - %(album)s"
 
-#: ../xlgui/cover.py:1133
+#: ../xlgui/cover.py:1132
 msgid "No covers found."
 msgstr "Geen albumhoezen gevonden."
 
-#: ../xlgui/cover.py:1135
+#: ../xlgui/cover.py:1134
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
@@ -910,7 +914,7 @@ msgstr ""
 "probeer om meer bronnen in te schakelen."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1108
+#: ../xlgui/cover.py:1177 ../xlgui/properties.py:1110
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} pixels"
@@ -1441,7 +1445,7 @@ msgstr ""
 msgid "_Move to Other View"
 msgstr "Verplaats naar andere weergave"
 
-#: ../xlgui/preferences/__init__.py:115 ../xlgui/preferences/plugin.py:40
+#: ../xlgui/preferences/__init__.py:113 ../xlgui/preferences/plugin.py:40
 msgid "Plugins"
 msgstr "Plug-ins"
 
@@ -1539,15 +1543,15 @@ msgstr "Herstarten"
 msgid "Action"
 msgstr "Actie"
 
-#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:78
+#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:79
 msgid "Shortcut"
 msgstr "Sneltoets"
 
-#: ../xlgui/properties.py:256
+#: ../xlgui/properties.py:258
 msgid "Writing of tags failed"
 msgstr "Aanmaken labels mislukt"
 
-#: ../xlgui/properties.py:258
+#: ../xlgui/properties.py:260
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
@@ -1556,79 +1560,79 @@ msgstr ""
 "Er konden geen labels aangemaakt worden voor:\n"
 "{files}"
 
-#: ../xlgui/properties.py:278
+#: ../xlgui/properties.py:280
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr "Nummer %(current)d van de %(total)d aan het bewerken"
 
-#: ../xlgui/properties.py:400
+#: ../xlgui/properties.py:402
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr "Weet u zeker dat u de wijzigingen wilt toepassen op alle nummers?"
 
-#: ../xlgui/properties.py:443
+#: ../xlgui/properties.py:445
 msgid "Apply changes before closing?"
 msgstr "Wijzigingen toepassen voordat u afsluit?"
 
-#: ../xlgui/properties.py:444
+#: ../xlgui/properties.py:446
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "Uw wijzigingen zullen verloren gaan wanneer u deze niet toepast."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:627
+#: ../xlgui/properties.py:629
 #, python-format
 msgid "%s:"
 msgstr "%s:"
 
 #. TRANSLATORS: Remove tag value
-#: ../xlgui/properties.py:634 ../plugins/developer/developer_window.ui:131
+#: ../xlgui/properties.py:636 ../plugins/developer/developer_window.ui:131
 msgid "Clear"
 msgstr ""
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:856
+#: ../xlgui/properties.py:858
 msgid "of:"
 msgstr "van:"
 
-#: ../xlgui/properties.py:963
+#: ../xlgui/properties.py:965
 msgid "JPEG image"
 msgstr "JPEG-afbeelding"
 
-#: ../xlgui/properties.py:968
+#: ../xlgui/properties.py:970
 msgid "PNG image"
 msgstr "PNG-afbeelding"
 
-#: ../xlgui/properties.py:970
+#: ../xlgui/properties.py:972
 msgid "Image"
 msgstr "Afbeelding"
 
-#: ../xlgui/properties.py:976
+#: ../xlgui/properties.py:978
 msgid "Linked image"
 msgstr "Gekoppelde afbeelding"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1111
+#: ../xlgui/properties.py:1113
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} pixels)"
 
-#: ../xlgui/properties.py:1125
+#: ../xlgui/properties.py:1127
 msgid "Select image to set as cover"
 msgstr "Selecteer afbeelding om in te stellen als albumhoes"
 
-#: ../xlgui/properties.py:1138
+#: ../xlgui/properties.py:1140
 msgid "Supported image formats"
 msgstr "Ondersteunde afbeeldingsformaten"
 
-#: ../xlgui/properties.py:1221
+#: ../xlgui/properties.py:1223
 msgid "Open Directory"
 msgstr "Map openen"
 
-#: ../xlgui/properties.py:1271
+#: ../xlgui/properties.py:1273
 msgid "Apply current value to all tracks"
 msgstr "Huidige waarde op alle nummers toepassen"
 
-#: ../xlgui/properties.py:1291 ../xlgui/widgets/dialogs.py:1550
+#: ../xlgui/properties.py:1293 ../xlgui/widgets/dialogs.py:1550
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "%(count)s opgeslagen van %(total)s."
@@ -2295,7 +2299,9 @@ msgid "_Best Fit"
 msgstr ""
 
 #. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/coverwindow.ui:96 ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39
 #, fuzzy
 #| msgid "Close"
 msgid "_Close"
@@ -2316,6 +2322,16 @@ msgstr "Apparaat"
 #: ../data/ui/device_manager.ui:88
 msgid "Driver"
 msgstr "Stuurprogramma"
+
+#: ../data/ui/device_manager.ui:115
+msgid "_Connect"
+msgstr ""
+
+#: ../data/ui/device_manager.ui:133
+#, fuzzy
+#| msgid "Disconnect from Server"
+msgid "_Disconnect"
+msgstr "Verbinding met server verbreken"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -2813,11 +2829,7 @@ msgstr "Installeer plug-inbestand"
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: ../data/ui/shortcuts_dialog.ui:39
-msgid "Close"
-msgstr "Afsluiten"
-
-#: ../data/ui/shortcuts_dialog.ui:89
+#: ../data/ui/shortcuts_dialog.ui:90
 #, fuzzy
 #| msgid "Description:"
 msgid "Description"
@@ -5286,6 +5298,11 @@ msgstr ""
 "toetsenborden), wanneer u Exaile gebruikt in Microsoft Windows.\n"
 "\n"
 "Vereist: pyHook (%s)"
+
+#, fuzzy
+#~| msgid "Close"
+#~ msgid "C_lose"
+#~ msgstr "Afsluiten"
 
 #, fuzzy
 #~| msgid "Display track counts in collection"

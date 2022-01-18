@@ -101,8 +101,8 @@ class CoverManager(GObject.GObject):
             COVER_MANAGER.get_default_cover(), self.cover_size
         )
 
-        builder = Gtk.Builder()
-        builder.add_from_file(xdg.get_data_path('ui', 'covermanager.ui'))
+        builder = guiutil.get_builder(xdg.get_data_path('ui', 'covermanager.ui'))
+
         builder.connect_signals(self)
 
         self.window = builder.get_object('window')
@@ -789,8 +789,7 @@ class CoverWindow:
         :param savedir: Initial directory for the Save As functionality
         :type savedir: basestring
         """
-        self.builder = Gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui', 'coverwindow.ui'))
+        self.builder = guiutil.get_builder(xdg.get_data_path('ui', 'coverwindow.ui'))
         self.builder.connect_signals(self)
 
         self.cover_window = self.builder.get_object('CoverWindow')
@@ -1020,8 +1019,8 @@ class CoverChooser(GObject.GObject):
         """
         GObject.GObject.__init__(self)
         self.parent = parent
-        self.builder = Gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui', 'coverchooser.ui'))
+
+        self.builder = guiutil.get_builder(xdg.get_data_path('ui', 'coverchooser.ui'))
         self.builder.connect_signals(self)
         self.window = self.builder.get_object('CoverChooser')
 

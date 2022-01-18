@@ -34,7 +34,7 @@ from gi.repository import Gtk
 
 from xl import xdg
 from xl.nls import gettext as _
-from xlgui import icons
+from xlgui import icons, guiutil
 from . import (
     appearance,
     collection,
@@ -70,9 +70,7 @@ class PreferencesDialog:
         self.builders = {}
         self.popup = None
 
-        self.builder = Gtk.Builder()
-        self.builder.set_translation_domain('exaile')
-        self.builder.add_from_file(
+        self.builder = guiutil.get_builder(
             xdg.get_data_path('ui', 'preferences', 'preferences_dialog.ui')
         )
         self.builder.connect_signals(self)
@@ -204,8 +202,7 @@ class PreferencesDialog:
         child = self.panes.get(page)
         if not child:
             if hasattr(page, 'ui'):
-                builder = Gtk.Builder()
-                builder.add_from_file(page.ui)
+                builder = guiutil.get_builder(page.ui)
             else:
                 logger.error("No preference pane found")
                 return

@@ -478,8 +478,8 @@ class PlaylistPage(PlaylistPageBase):
         )
 
         uifile = xdg.get_data_path("ui", "playlist.ui")
-        self.builder = Gtk.Builder()
-        self.builder.add_from_file(uifile)
+
+        self.builder = guiutil.get_builder(uifile)
         playlist_page = self.builder.get_object("playlist_page")
 
         for child in playlist_page.get_children():

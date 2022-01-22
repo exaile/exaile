@@ -217,7 +217,9 @@ class TrackPropertiesDialog(GObject.GObject):
                     elif tag in ('__startoffset', '__stopoffset'):
                         try:
                             offset = int(trackdata[tag][0])
-                            if tag == '__stopoffset' and offset == math.floor(trackdata['__length'][0]):
+                            if tag == '__stopoffset' and offset == math.floor(
+                                trackdata['__length'][0]
+                            ):
                                 offset = 0
 
                         except ValueError:

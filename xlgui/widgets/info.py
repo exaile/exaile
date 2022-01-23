@@ -464,9 +464,6 @@ class StatusbarTextFormatter(formatter.Formatter):
                 '"none", "override" and "only"' % selection
             )
 
-        if count == 0:
-            return ''
-
         return text % count
 
     def get_playlist_duration(self, format='short', selection='none'):
@@ -519,9 +516,6 @@ class StatusbarTextFormatter(formatter.Formatter):
                 '"selection" for "playlist_duration", possible arguments are '
                 '"none", "override" and "only"' % selection
             )
-
-        if duration == 0:
-            return ''
 
         return formatter.LengthTagFormatter.format_value(duration, format)
 

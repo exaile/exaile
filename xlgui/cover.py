@@ -680,9 +680,9 @@ class CoverWidget(Gtk.EventBox):
         context = self.props.window.cairo_create()
         background = self.style.bg[Gtk.StateType.NORMAL]
         context.set_source_rgba(
-            float(background.red) / 256 ** 2,
-            float(background.green) / 256 ** 2,
-            float(background.blue) / 256 ** 2,
+            float(background.red) / 256**2,
+            float(background.green) / 256**2,
+            float(background.blue) / 256**2,
             opacity,
         )
         context.set_operator(cairo.OPERATOR_SOURCE)

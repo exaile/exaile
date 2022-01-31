@@ -436,7 +436,7 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
         context.set_line_width(self._marker_scale / 0.9)
         style = self.get_style_context()
 
-        POW_256_2 = 256 ** 2
+        POW_256_2 = 256**2
 
         for marker, points in self._points.items():
             for i, (x, y) in enumerate(points):

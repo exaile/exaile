@@ -106,8 +106,8 @@ class WaveformPainter(Painter):
 
         import math
 
-        level = math.sqrt(r ** 2 + g ** 2 + b ** 2)
-        level /= math.sqrt(255 ** 2 * 3)
+        level = math.sqrt(r**2 + g**2 + b**2)
+        level /= math.sqrt(255**2 * 3)
 
         # These numbers are pulled out of thin air
         MIN = 10 / 255

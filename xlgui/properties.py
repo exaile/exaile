@@ -46,6 +46,7 @@ from xl import common, settings, trax, xdg
 
 from xlgui.widgets import dialogs
 from xlgui.guiutil import GtkTemplate
+from xlgui import guiutil
 from xl.metadata.tags import tag_data, get_default_tagdata
 
 import logging
@@ -68,8 +69,9 @@ class TrackPropertiesDialog(GObject.GObject):
         """
         GObject.GObject.__init__(self)
 
-        self.builder = Gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui', 'trackproperties_dialog.ui'))
+        self.builder = guiutil.get_builder(
+            xdg.get_data_path('ui', 'trackproperties_dialog.ui')
+        )
         self.builder.connect_signals(self)
         self.dialog = self.builder.get_object('TrackPropertiesDialog')
         self.dialog.set_transient_for(parent)

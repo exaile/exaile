@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-13 22:55+0100\n"
-"PO-Revision-Date: 2022-01-24 19:54+0000\n"
+"PO-Revision-Date: 2022-01-31 15:56+0000\n"
 "Last-Translator: Eric <alchemillatruth@purelymail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "exaile/master/zh_Hans/>\n"
@@ -2153,16 +2153,12 @@ msgid "_Connect"
 msgstr ""
 
 #: ../data/ui/device_manager.ui:133
-#, fuzzy
-#| msgid "Disconnect from Server"
 msgid "_Disconnect"
-msgstr "离开服务器"
+msgstr "断开连接(_D)"
 
 #: ../data/ui/device_manager.ui:151
-#, fuzzy
-#| msgid "Close"
 msgid "C_lose"
-msgstr "关闭"
+msgstr "关闭(_L)"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -4104,9 +4100,8 @@ msgid "Order by:"
 msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:206
-#, fuzzy
 msgid "Order direction:"
-msgstr "主目录："
+msgstr "排列方向："
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:237
 msgid "Results:"

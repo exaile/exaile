@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-26 00:48+0100\n"
+"POT-Creation-Date: 2022-02-01 00:41+0100\n"
 "PO-Revision-Date: 2020-10-23 00:03+0000\n"
 "Last-Translator: Radek Stastny <dedkus@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/exaile/master/cs/"
@@ -592,7 +592,7 @@ msgstr "Počáteční posun"
 msgid "Stop offset"
 msgstr "Koncový posun"
 
-#: ../xl/player/gst/engine.py:708
+#: ../xl/player/gst/engine.py:713
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ": Možná chyba zvukového zařízení, je připojeno?"
 
@@ -1806,7 +1806,8 @@ msgstr "Další skladba"
 msgid "_Previous Track"
 msgstr "Předchozí skladba"
 
-#: ../xlgui/widgets/playback.py:1604
+#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "Zastavit"
 
@@ -1834,7 +1835,7 @@ msgstr "Promíchat seznam skladeb"
 msgid "R_andomize Selection"
 msgstr "Promíchat výběr"
 
-#: ../xlgui/widgets/playlist.py:224
+#: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 msgid "_Save"
 msgstr "_Uložit"
 
@@ -2103,6 +2104,18 @@ msgstr ""
 msgid "Collection Manager"
 msgstr "Správce kolekce"
 
+#: ../data/ui/collection_manager.ui:54
+#, fuzzy
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "Zrušit"
+
+#: ../data/ui/collection_manager.ui:71
+#, fuzzy
+#| msgid "Apply BPM"
+msgid "_Apply"
+msgstr "Uložit BPM"
+
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
 msgstr "Monitorován"
@@ -2110,6 +2123,16 @@ msgstr "Monitorován"
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
 msgstr "Aktualizovat při spuštění"
+
+#: ../data/ui/collection_manager.ui:174
+msgid "Add _Folder"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui:191
+#, fuzzy
+#| msgid "Remove Cover"
+msgid "_Remove Folder"
+msgstr "Odebrat obal"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2123,6 +2146,12 @@ msgstr "Vyhledávač obalů"
 msgid "The origin of this cover"
 msgstr "Původ tohoto obalu"
 
+#: ../data/ui/coverchooser.ui:159
+#, fuzzy
+#| msgid "_About"
+msgid "_Abort"
+msgstr "O progr_amu"
+
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr "_Nastavit jako obal"
@@ -2130,6 +2159,14 @@ msgstr "_Nastavit jako obal"
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
 msgstr "Správce obalů"
+
+#. Closes the preferences dialog
+#: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
+#: ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39 ../data/ui/trackproperties_dialog.ui:317
+msgid "_Close"
+msgstr "_Zavřít"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
@@ -2150,13 +2187,6 @@ msgstr "Pův_odní velikost"
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
 msgstr "_Nejlépe pasuje"
-
-#. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/device_manager.ui:151
-#: ../data/ui/preferences/preferences_dialog.ui:39
-#: ../data/ui/shortcuts_dialog.ui:39
-msgid "_Close"
-msgstr "_Zavřít"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
@@ -2330,6 +2360,12 @@ msgstr "Umístění panelů:"
 #: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr "Font seznamu skladeb:"
+
+#: ../data/ui/preferences/appearance.ui:154
+#, fuzzy
+#| msgid "Never"
+msgid "_Revert"
+msgstr "Nikdy"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -4005,6 +4041,16 @@ msgstr "Filtrovat typy událostí"
 msgid "Events"
 msgstr "Události"
 
+#: ../plugins/equalizer/equalizer.ui:123
+#: ../plugins/multialarmclock/malrmclk.ui:94
+msgid "_Add"
+msgstr "_Přidat"
+
+#: ../plugins/equalizer/equalizer.ui:139
+#: ../plugins/multialarmclock/malrmclk.ui:110
+msgid "_Remove"
+msgstr "_Odstranit"
+
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
 msgstr "předzesilovač"
@@ -4275,14 +4321,6 @@ msgstr "Barevný odstín (experimentální)"
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
 msgstr "<b>Budíky</b>"
-
-#: ../plugins/multialarmclock/malrmclk.ui:94
-msgid "_Add"
-msgstr "_Přidat"
-
-#: ../plugins/multialarmclock/malrmclk.ui:110
-msgid "_Remove"
-msgstr "_Odstranit"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-26 00:48+0100\n"
+"POT-Creation-Date: 2022-02-01 00:41+0100\n"
 "PO-Revision-Date: 2015-04-24 19:19+0200\n"
 "Last-Translator: Viktar Palstsiuk <vipals@gmail.com>\n"
 "Language-Team: Belarusian <https://hosted.weblate.org/projects/exaile/master/"
@@ -621,7 +621,7 @@ msgstr "Зрух пачатку"
 msgid "Stop offset"
 msgstr "Зрух канца"
 
-#: ../xl/player/gst/engine.py:708
+#: ../xl/player/gst/engine.py:713
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ": Магчыма памылка аўдыёпрылады, ці падключана яна?"
 
@@ -1933,7 +1933,8 @@ msgstr "Наступная дарожка"
 msgid "_Previous Track"
 msgstr "Папярэдняя дарожка"
 
-#: ../xlgui/widgets/playback.py:1604
+#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../data/ui/widgets/progress.ui:16
 #, fuzzy
 #| msgid "Stop"
 msgid "_Stop"
@@ -1975,7 +1976,7 @@ msgstr "Перамяшаць Спіс Прайгравання"
 msgid "R_andomize Selection"
 msgstr "Выпадковы парадак абранага"
 
-#: ../xlgui/widgets/playlist.py:224
+#: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 #, fuzzy
 #| msgid "Save As"
 msgid "_Save"
@@ -2261,6 +2262,18 @@ msgstr ""
 msgid "Collection Manager"
 msgstr "Менеджэр калекцыі"
 
+#: ../data/ui/collection_manager.ui:54
+#, fuzzy
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "Адмена"
+
+#: ../data/ui/collection_manager.ui:71
+#, fuzzy
+#| msgid "Apply BPM"
+msgid "_Apply"
+msgstr "Прымяніць BPM"
+
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
 msgstr "Сачыць"
@@ -2268,6 +2281,16 @@ msgstr "Сачыць"
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
 msgstr "Сканаваць пры запуску"
+
+#: ../data/ui/collection_manager.ui:174
+msgid "Add _Folder"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui:191
+#, fuzzy
+#| msgid "Remove Cover"
+msgid "_Remove Folder"
+msgstr "Выдаліць вокладку"
 
 #: ../data/ui/collection_manager.ui:209
 #, fuzzy
@@ -2283,6 +2306,10 @@ msgstr "Пошукавік Вокладак"
 msgid "The origin of this cover"
 msgstr "Паходжанне вокладкі"
 
+#: ../data/ui/coverchooser.ui:159
+msgid "_Abort"
+msgstr ""
+
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr "_Выкарыстоўваць у якасці Вокладкі альбома"
@@ -2290,6 +2317,16 @@ msgstr "_Выкарыстоўваць у якасці Вокладкі альб�
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
 msgstr "Мэнэджар Вокладак"
+
+#. Closes the preferences dialog
+#: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
+#: ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39 ../data/ui/trackproperties_dialog.ui:317
+#, fuzzy
+#| msgid "Close %s"
+msgid "_Close"
+msgstr "Зачыніць %s"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
@@ -2312,15 +2349,6 @@ msgstr "Арыгінальная дата"
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
 msgstr ""
-
-#. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/device_manager.ui:151
-#: ../data/ui/preferences/preferences_dialog.ui:39
-#: ../data/ui/shortcuts_dialog.ui:39
-#, fuzzy
-#| msgid "Close %s"
-msgid "_Close"
-msgstr "Зачыніць %s"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
@@ -2498,6 +2526,12 @@ msgstr "Месцазнаходжанне ўкладкі:"
 #: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr "Шрыфт спісу прайгравання:"
+
+#: ../data/ui/preferences/appearance.ui:154
+#, fuzzy
+#| msgid "Never"
+msgid "_Revert"
+msgstr "Ніколі"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -4254,6 +4288,18 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
+#: ../plugins/equalizer/equalizer.ui:123
+#: ../plugins/multialarmclock/malrmclk.ui:94
+msgid "_Add"
+msgstr ""
+
+#: ../plugins/equalizer/equalizer.ui:139
+#: ../plugins/multialarmclock/malrmclk.ui:110
+#, fuzzy
+#| msgid "Remove"
+msgid "_Remove"
+msgstr "Выдаліць"
+
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
 msgstr "перад"
@@ -4528,16 +4574,6 @@ msgstr ""
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
 msgstr "<b>Папярэджанні</b>"
-
-#: ../plugins/multialarmclock/malrmclk.ui:94
-msgid "_Add"
-msgstr ""
-
-#: ../plugins/multialarmclock/malrmclk.ui:110
-#, fuzzy
-#| msgid "Remove"
-msgid "_Remove"
-msgstr "Выдаліць"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"

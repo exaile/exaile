@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-26 00:48+0100\n"
+"POT-Creation-Date: 2022-02-01 00:41+0100\n"
 "PO-Revision-Date: 2020-07-12 15:41+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/"
@@ -591,7 +591,7 @@ msgstr "Beginnen bei"
 msgid "Stop offset"
 msgstr "Beenden bei"
 
-#: ../xl/player/gst/engine.py:708
+#: ../xl/player/gst/engine.py:713
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ""
 ": Möglicherweise besteht ein Fehler mit dem Wiedergabegerät, ist es "
@@ -1812,7 +1812,8 @@ msgstr "_Nächster Titel"
 msgid "_Previous Track"
 msgstr "_Vorheriger Titel"
 
-#: ../xlgui/widgets/playback.py:1604
+#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "_Stopp"
 
@@ -1840,7 +1841,7 @@ msgstr "_Zufällige Wiedergabeliste"
 msgid "R_andomize Selection"
 msgstr "Zufallsauswahl"
 
-#: ../xlgui/widgets/playlist.py:224
+#: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 msgid "_Save"
 msgstr "_Speichern"
 
@@ -2107,6 +2108,14 @@ msgstr "Übersetzer/innen:"
 msgid "Collection Manager"
 msgstr "Bibliotheksverwaltung"
 
+#: ../data/ui/collection_manager.ui:54
+msgid "_Cancel"
+msgstr "Abbrechen"
+
+#: ../data/ui/collection_manager.ui:71
+msgid "_Apply"
+msgstr "Anwenden"
+
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
 msgstr "Überwacht"
@@ -2114,6 +2123,14 @@ msgstr "Überwacht"
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
 msgstr "Beim Starten durchsuchen"
+
+#: ../data/ui/collection_manager.ui:174
+msgid "Add _Folder"
+msgstr "Verzeichnis hinzufügen"
+
+#: ../data/ui/collection_manager.ui:191
+msgid "_Remove Folder"
+msgstr "Verzeichnis entfernen"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2127,6 +2144,10 @@ msgstr "Covermanager"
 msgid "The origin of this cover"
 msgstr "Die Herkunft dieses Covers"
 
+#: ../data/ui/coverchooser.ui:159
+msgid "_Abort"
+msgstr "Abbrechen"
+
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr "Als Cover _festlegen"
@@ -2134,6 +2155,14 @@ msgstr "Als Cover _festlegen"
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
 msgstr "Covermanager"
+
+#. Closes the preferences dialog
+#: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
+#: ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39 ../data/ui/trackproperties_dialog.ui:317
+msgid "_Close"
+msgstr "_Schließen"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
@@ -2154,13 +2183,6 @@ msgstr "_Originalgröße"
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
 msgstr "_Optimale Passung"
-
-#. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/device_manager.ui:151
-#: ../data/ui/preferences/preferences_dialog.ui:39
-#: ../data/ui/shortcuts_dialog.ui:39
-msgid "_Close"
-msgstr "_Schließen"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
@@ -2332,6 +2354,10 @@ msgstr "Platzierung der Tabs:"
 #: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr "Schrift der Wiedergabeliste:"
+
+#: ../data/ui/preferences/appearance.ui:154
+msgid "_Revert"
+msgstr "Rückgängig"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -3995,6 +4021,16 @@ msgstr "Ereignistypen filtern"
 msgid "Events"
 msgstr "Ereignisse"
 
+#: ../plugins/equalizer/equalizer.ui:123
+#: ../plugins/multialarmclock/malrmclk.ui:94
+msgid "_Add"
+msgstr "Hinzufügen"
+
+#: ../plugins/equalizer/equalizer.ui:139
+#: ../plugins/multialarmclock/malrmclk.ui:110
+msgid "_Remove"
+msgstr "_Entfernen"
+
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
 msgstr "pre"
@@ -4266,14 +4302,6 @@ msgstr "Farbton (experimentell)"
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
 msgstr "<b>Alarme</b>"
-
-#: ../plugins/multialarmclock/malrmclk.ui:94
-msgid "_Add"
-msgstr "Hinzufügen"
-
-#: ../plugins/multialarmclock/malrmclk.ui:110
-msgid "_Remove"
-msgstr "_Entfernen"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"

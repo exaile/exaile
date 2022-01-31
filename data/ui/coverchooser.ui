@@ -156,7 +156,7 @@
             <property name="spacing">6</property>
             <child>
               <object class="GtkButton" id="cancel_button">
-                <property name="label">_Abort</property>
+                <property name="label" translatable="yes">_Abort</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>

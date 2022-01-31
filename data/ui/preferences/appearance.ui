@@ -151,7 +151,7 @@
             </child>
             <child>
               <object class="GtkButton" id="gui/playlist_font_reset_button">
-                <property name="label">_Revert</property>
+                <property name="label" translatable="yes">_Revert</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>

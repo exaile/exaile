@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-26 00:48+0100\n"
+"POT-Creation-Date: 2022-02-01 00:41+0100\n"
 "PO-Revision-Date: 2021-03-23 16:29+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/exaile/master/es/"
@@ -594,7 +594,7 @@ msgstr "Desplazamiento inicial"
 msgid "Stop offset"
 msgstr "Desplazamiento final"
 
-#: ../xl/player/gst/engine.py:708
+#: ../xl/player/gst/engine.py:713
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ": Posible error de dispositivo de audio, ¿está enchufado?"
 
@@ -1813,7 +1813,8 @@ msgstr "Pista _siguiente"
 msgid "_Previous Track"
 msgstr "Pista a_nterior"
 
-#: ../xlgui/widgets/playback.py:1604
+#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "_Detener"
 
@@ -1841,7 +1842,7 @@ msgstr "Des_ordenar lista de reproducción"
 msgid "R_andomize Selection"
 msgstr "Selección _aleatoria"
 
-#: ../xlgui/widgets/playlist.py:224
+#: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 msgid "_Save"
 msgstr "_Guardar"
 
@@ -2113,6 +2114,18 @@ msgstr ""
 msgid "Collection Manager"
 msgstr "Gestor de colección"
 
+#: ../data/ui/collection_manager.ui:54
+#, fuzzy
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "Cancelar"
+
+#: ../data/ui/collection_manager.ui:71
+#, fuzzy
+#| msgid "Apply BPM"
+msgid "_Apply"
+msgstr "Aplicar PPM"
+
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
 msgstr "Monitorizada"
@@ -2120,6 +2133,16 @@ msgstr "Monitorizada"
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
 msgstr "Analizar al inicio"
+
+#: ../data/ui/collection_manager.ui:174
+msgid "Add _Folder"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui:191
+#, fuzzy
+#| msgid "Remove Cover"
+msgid "_Remove Folder"
+msgstr "Quitar cubierta"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2133,6 +2156,12 @@ msgstr "Buscador de cubiertas"
 msgid "The origin of this cover"
 msgstr "El origen de esta cubierta"
 
+#: ../data/ui/coverchooser.ui:159
+#, fuzzy
+#| msgid "_About"
+msgid "_Abort"
+msgstr "_Acerca de"
+
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr "E_stablecer como cubierta"
@@ -2140,6 +2169,14 @@ msgstr "E_stablecer como cubierta"
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
 msgstr "Gestor de cubiertas"
+
+#. Closes the preferences dialog
+#: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
+#: ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39 ../data/ui/trackproperties_dialog.ui:317
+msgid "_Close"
+msgstr "_Cerrar"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
@@ -2160,13 +2197,6 @@ msgstr "Tamaño _original"
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
 msgstr "_Mejor ajuste"
-
-#. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/device_manager.ui:151
-#: ../data/ui/preferences/preferences_dialog.ui:39
-#: ../data/ui/shortcuts_dialog.ui:39
-msgid "_Close"
-msgstr "_Cerrar"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
@@ -2340,6 +2370,12 @@ msgstr "Posición de las pestañas:"
 #: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr "Tipografía de la lista de reproducción:"
+
+#: ../data/ui/preferences/appearance.ui:154
+#, fuzzy
+#| msgid "Never"
+msgid "_Revert"
+msgstr "Nunca"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -4011,6 +4047,16 @@ msgstr "Filtrar tipos de eventos"
 msgid "Events"
 msgstr "Eventos"
 
+#: ../plugins/equalizer/equalizer.ui:123
+#: ../plugins/multialarmclock/malrmclk.ui:94
+msgid "_Add"
+msgstr "_Añadir"
+
+#: ../plugins/equalizer/equalizer.ui:139
+#: ../plugins/multialarmclock/malrmclk.ui:110
+msgid "_Remove"
+msgstr "_Eliminar"
+
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
 msgstr "pre"
@@ -4282,14 +4328,6 @@ msgstr "Tinte del color (experimental)"
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
 msgstr "<b>Alarmas</b>"
-
-#: ../plugins/multialarmclock/malrmclk.ui:94
-msgid "_Add"
-msgstr "_Añadir"
-
-#: ../plugins/multialarmclock/malrmclk.ui:110
-msgid "_Remove"
-msgstr "_Eliminar"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-26 00:48+0100\n"
+"POT-Creation-Date: 2022-02-01 00:41+0100\n"
 "PO-Revision-Date: 2014-11-26 02:14+0200\n"
 "Last-Translator: 권 조 <chobkwon@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/exaile/master/ko/"
@@ -607,7 +607,7 @@ msgstr "X 위치:"
 msgid "Stop offset"
 msgstr "X 위치:"
 
-#: ../xl/player/gst/engine.py:708
+#: ../xl/player/gst/engine.py:713
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ""
 
@@ -1885,7 +1885,8 @@ msgstr "다음 트랙"
 msgid "_Previous Track"
 msgstr "이전 트랙"
 
-#: ../xlgui/widgets/playback.py:1604
+#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../data/ui/widgets/progress.ui:16
 #, fuzzy
 #| msgid "Stop"
 msgid "_Stop"
@@ -1925,7 +1926,7 @@ msgstr "랜덤 재생목록"
 msgid "R_andomize Selection"
 msgstr "랜덤선택"
 
-#: ../xlgui/widgets/playlist.py:224
+#: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 msgid "_Save"
 msgstr ""
 
@@ -2208,6 +2209,16 @@ msgstr ""
 msgid "Collection Manager"
 msgstr "컬렉션 관리자"
 
+#: ../data/ui/collection_manager.ui:54
+#, fuzzy
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "취소"
+
+#: ../data/ui/collection_manager.ui:71
+msgid "_Apply"
+msgstr ""
+
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
 msgstr ""
@@ -2215,6 +2226,16 @@ msgstr ""
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
 msgstr ""
+
+#: ../data/ui/collection_manager.ui:174
+msgid "Add _Folder"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui:191
+#, fuzzy
+#| msgid "Remove Cover"
+msgid "_Remove Folder"
+msgstr "표지 제거"
 
 #: ../data/ui/collection_manager.ui:209
 #, fuzzy
@@ -2230,6 +2251,10 @@ msgstr "표지 검색기"
 msgid "The origin of this cover"
 msgstr ""
 
+#: ../data/ui/coverchooser.ui:159
+msgid "_Abort"
+msgstr ""
+
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr "커버 셋(_S)"
@@ -2237,6 +2262,16 @@ msgstr "커버 셋(_S)"
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
 msgstr "표지 관리자"
+
+#. Closes the preferences dialog
+#: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
+#: ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39 ../data/ui/trackproperties_dialog.ui:317
+#, fuzzy
+#| msgid "Close"
+msgid "_Close"
+msgstr "닫기"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
@@ -2259,15 +2294,6 @@ msgstr "실제 날짜"
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
 msgstr ""
-
-#. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/device_manager.ui:151
-#: ../data/ui/preferences/preferences_dialog.ui:39
-#: ../data/ui/shortcuts_dialog.ui:39
-#, fuzzy
-#| msgid "Close"
-msgid "_Close"
-msgstr "닫기"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
@@ -2443,6 +2469,12 @@ msgstr "탭 위치:"
 #: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr "재생목록 글씨체:"
+
+#: ../data/ui/preferences/appearance.ui:154
+#, fuzzy
+#| msgid "Never"
+msgid "_Revert"
+msgstr "하지 않음"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -4130,6 +4162,18 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
+#: ../plugins/equalizer/equalizer.ui:123
+#: ../plugins/multialarmclock/malrmclk.ui:94
+msgid "_Add"
+msgstr ""
+
+#: ../plugins/equalizer/equalizer.ui:139
+#: ../plugins/multialarmclock/malrmclk.ui:110
+#, fuzzy
+#| msgid "Remove"
+msgid "_Remove"
+msgstr "제거"
+
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
 msgstr "미리"
@@ -4401,16 +4445,6 @@ msgstr ""
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
 msgstr ""
-
-#: ../plugins/multialarmclock/malrmclk.ui:94
-msgid "_Add"
-msgstr ""
-
-#: ../plugins/multialarmclock/malrmclk.ui:110
-#, fuzzy
-#| msgid "Remove"
-msgid "_Remove"
-msgstr "제거"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"

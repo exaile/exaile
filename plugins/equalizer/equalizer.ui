@@ -120,7 +120,7 @@
         <property name="column_spacing">2</property>
         <child>
           <object class="GtkButton" id="add_preset">
-            <property name="label">_Add</property>
+            <property name="label" translatable="yes">_Add</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -136,7 +136,7 @@
         </child>
         <child>
           <object class="GtkButton" id="remove_preset">
-            <property name="label">_Remove</property>
+            <property name="label" translatable="yes">_Remove</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>

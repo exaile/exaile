@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-26 00:48+0100\n"
+"POT-Creation-Date: 2022-02-01 00:41+0100\n"
 "PO-Revision-Date: 2020-05-12 22:41+0000\n"
 "Last-Translator: Robert de Wolff <robert.de.wolff@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/exaile/master/nl/"
@@ -613,7 +613,7 @@ msgstr "Verplaatsing X:"
 msgid "Stop offset"
 msgstr "Verplaatsing X:"
 
-#: ../xl/player/gst/engine.py:708
+#: ../xl/player/gst/engine.py:713
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ""
 
@@ -1916,7 +1916,8 @@ msgstr "Volgende nummer"
 msgid "_Previous Track"
 msgstr "Vorige nummer"
 
-#: ../xlgui/widgets/playback.py:1604
+#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../data/ui/widgets/progress.ui:16
 #, fuzzy
 #| msgid "Stop"
 msgid "_Stop"
@@ -1958,7 +1959,7 @@ msgstr "Afspeellijst randomiseren"
 msgid "R_andomize Selection"
 msgstr "Selectie in willekeurige volgorde zetten"
 
-#: ../xlgui/widgets/playlist.py:224
+#: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 #, fuzzy
 #| msgid "Save As"
 msgid "_Save"
@@ -2246,6 +2247,16 @@ msgstr ""
 msgid "Collection Manager"
 msgstr "Collectiebeheer"
 
+#: ../data/ui/collection_manager.ui:54
+#, fuzzy
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "Annuleren"
+
+#: ../data/ui/collection_manager.ui:71
+msgid "_Apply"
+msgstr ""
+
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
 msgstr "Geobserveerd"
@@ -2253,6 +2264,16 @@ msgstr "Geobserveerd"
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
 msgstr ""
+
+#: ../data/ui/collection_manager.ui:174
+msgid "Add _Folder"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui:191
+#, fuzzy
+#| msgid "Remove Cover"
+msgid "_Remove Folder"
+msgstr "Albumhoes verwijderen"
 
 #: ../data/ui/collection_manager.ui:209
 #, fuzzy
@@ -2268,6 +2289,10 @@ msgstr "Albumhoeszoeker"
 msgid "The origin of this cover"
 msgstr "De origine van deze albumhoes"
 
+#: ../data/ui/coverchooser.ui:159
+msgid "_Abort"
+msgstr ""
+
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr "In_stellen als albumhoes"
@@ -2275,6 +2300,16 @@ msgstr "In_stellen als albumhoes"
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
 msgstr "Albumhoesbeheer"
+
+#. Closes the preferences dialog
+#: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
+#: ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39 ../data/ui/trackproperties_dialog.ui:317
+#, fuzzy
+#| msgid "Close"
+msgid "_Close"
+msgstr "Afsluiten"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
@@ -2297,15 +2332,6 @@ msgstr "Originele datum"
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
 msgstr ""
-
-#. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/device_manager.ui:151
-#: ../data/ui/preferences/preferences_dialog.ui:39
-#: ../data/ui/shortcuts_dialog.ui:39
-#, fuzzy
-#| msgid "Close"
-msgid "_Close"
-msgstr "Afsluiten"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
@@ -2483,6 +2509,12 @@ msgstr "Tabbladpositie:"
 #: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr "Lettertype afspeellijst:"
+
+#: ../data/ui/preferences/appearance.ui:154
+#, fuzzy
+#| msgid "Never"
+msgid "_Revert"
+msgstr "Nooit"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -4217,6 +4249,18 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
+#: ../plugins/equalizer/equalizer.ui:123
+#: ../plugins/multialarmclock/malrmclk.ui:94
+msgid "_Add"
+msgstr ""
+
+#: ../plugins/equalizer/equalizer.ui:139
+#: ../plugins/multialarmclock/malrmclk.ui:110
+#, fuzzy
+#| msgid "Remove"
+msgid "_Remove"
+msgstr "Verwijderen"
+
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
 msgstr "voorkeuze"
@@ -4489,16 +4533,6 @@ msgstr ""
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
 msgstr "<b>Alarmen</b>"
-
-#: ../plugins/multialarmclock/malrmclk.ui:94
-msgid "_Add"
-msgstr ""
-
-#: ../plugins/multialarmclock/malrmclk.ui:110
-#, fuzzy
-#| msgid "Remove"
-msgid "_Remove"
-msgstr "Verwijderen"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-26 00:48+0100\n"
+"POT-Creation-Date: 2022-02-01 00:41+0100\n"
 "PO-Revision-Date: 2020-12-23 13:29+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/"
@@ -600,7 +600,7 @@ msgstr "Décalage du point de lecture"
 msgid "Stop offset"
 msgstr "Décalage du point d’arrêt"
 
-#: ../xl/player/gst/engine.py:708
+#: ../xl/player/gst/engine.py:713
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ": Erreur possible du périphérique audio, est-il connecté ?"
 
@@ -1826,7 +1826,8 @@ msgstr "Piste suiva_nte"
 msgid "_Previous Track"
 msgstr "Piste _précédente"
 
-#: ../xlgui/widgets/playback.py:1604
+#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "_Stop"
 
@@ -1854,7 +1855,7 @@ msgstr "Liste de lecture _aléatoire"
 msgid "R_andomize Selection"
 msgstr "Sélection _aléatoire"
 
-#: ../xlgui/widgets/playlist.py:224
+#: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 msgid "_Save"
 msgstr "Enregistrer _Sous"
 
@@ -2121,6 +2122,18 @@ msgstr "Traducteurs :"
 msgid "Collection Manager"
 msgstr "Gestionnaire de bibliothèque"
 
+#: ../data/ui/collection_manager.ui:54
+#, fuzzy
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "Annuler"
+
+#: ../data/ui/collection_manager.ui:71
+#, fuzzy
+#| msgid "Apply BPM"
+msgid "_Apply"
+msgstr "Appliquer les BPMs"
+
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
 msgstr "Surveillé"
@@ -2128,6 +2141,16 @@ msgstr "Surveillé"
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
 msgstr "Analyse au démarrage"
+
+#: ../data/ui/collection_manager.ui:174
+msgid "Add _Folder"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui:191
+#, fuzzy
+#| msgid "Remove Cover"
+msgid "_Remove Folder"
+msgstr "Enlever la jaquette"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2141,6 +2164,12 @@ msgstr "Recherche de jaquettes"
 msgid "The origin of this cover"
 msgstr "L'origine de cette pochette"
 
+#: ../data/ui/coverchooser.ui:159
+#, fuzzy
+#| msgid "_About"
+msgid "_Abort"
+msgstr "_À propos"
+
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr "_Définir comme jaquette"
@@ -2148,6 +2177,14 @@ msgstr "_Définir comme jaquette"
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
 msgstr "Gestionnaire de jaquettes"
+
+#. Closes the preferences dialog
+#: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
+#: ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39 ../data/ui/trackproperties_dialog.ui:317
+msgid "_Close"
+msgstr "_Fermer"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
@@ -2168,13 +2205,6 @@ msgstr "Taille _Originale"
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
 msgstr "Meilleur _ajustement"
-
-#. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/device_manager.ui:151
-#: ../data/ui/preferences/preferences_dialog.ui:39
-#: ../data/ui/shortcuts_dialog.ui:39
-msgid "_Close"
-msgstr "_Fermer"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
@@ -2349,6 +2379,12 @@ msgstr "Position de la barre d'onglets :"
 #: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr "Police de caractères de la liste de lecture :"
+
+#: ../data/ui/preferences/appearance.ui:154
+#, fuzzy
+#| msgid "Never"
+msgid "_Revert"
+msgstr "Jamais"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -4032,6 +4068,16 @@ msgstr "Filtrer les types d'événements"
 msgid "Events"
 msgstr "Événements"
 
+#: ../plugins/equalizer/equalizer.ui:123
+#: ../plugins/multialarmclock/malrmclk.ui:94
+msgid "_Add"
+msgstr "_Ajouter"
+
+#: ../plugins/equalizer/equalizer.ui:139
+#: ../plugins/multialarmclock/malrmclk.ui:110
+msgid "_Remove"
+msgstr "_Enlever"
+
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
 msgstr "pré"
@@ -4302,14 +4348,6 @@ msgstr "Teinte de couleur"
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
 msgstr "<b>Alertes</b>"
-
-#: ../plugins/multialarmclock/malrmclk.ui:94
-msgid "_Add"
-msgstr "_Ajouter"
-
-#: ../plugins/multialarmclock/malrmclk.ui:110
-msgid "_Remove"
-msgstr "_Enlever"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"

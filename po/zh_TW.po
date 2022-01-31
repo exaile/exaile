@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-26 00:48+0100\n"
+"POT-Creation-Date: 2022-02-01 00:41+0100\n"
 "PO-Revision-Date: 2018-09-09 19:15+0000\n"
 "Last-Translator: Retia Adolf <retia@protonmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -604,7 +604,7 @@ msgstr "X 軸位移："
 msgid "Stop offset"
 msgstr "X 軸位移："
 
-#: ../xl/player/gst/engine.py:708
+#: ../xl/player/gst/engine.py:713
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ""
 
@@ -1898,7 +1898,8 @@ msgstr "下一首"
 msgid "_Previous Track"
 msgstr "上一首"
 
-#: ../xlgui/widgets/playback.py:1604
+#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../data/ui/widgets/progress.ui:16
 #, fuzzy
 #| msgid "Stop"
 msgid "_Stop"
@@ -1940,7 +1941,7 @@ msgstr "隨機化播放清單"
 msgid "R_andomize Selection"
 msgstr "隨機化選取"
 
-#: ../xlgui/widgets/playlist.py:224
+#: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 #, fuzzy
 #| msgid "Save As"
 msgid "_Save"
@@ -2227,6 +2228,16 @@ msgstr ""
 msgid "Collection Manager"
 msgstr "音樂庫管理員"
 
+#: ../data/ui/collection_manager.ui:54
+#, fuzzy
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "取消"
+
+#: ../data/ui/collection_manager.ui:71
+msgid "_Apply"
+msgstr ""
+
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
 msgstr "受監視的"
@@ -2234,6 +2245,16 @@ msgstr "受監視的"
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
 msgstr ""
+
+#: ../data/ui/collection_manager.ui:174
+msgid "Add _Folder"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui:191
+#, fuzzy
+#| msgid "Remove Cover"
+msgid "_Remove Folder"
+msgstr "移除封面"
 
 #: ../data/ui/collection_manager.ui:209
 #, fuzzy
@@ -2249,6 +2270,10 @@ msgstr "封面搜羅器"
 msgid "The origin of this cover"
 msgstr "原始封面"
 
+#: ../data/ui/coverchooser.ui:159
+msgid "_Abort"
+msgstr ""
+
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr "設為封面(_S)"
@@ -2256,6 +2281,16 @@ msgstr "設為封面(_S)"
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
 msgstr "封面管理員"
+
+#. Closes the preferences dialog
+#: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
+#: ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39 ../data/ui/trackproperties_dialog.ui:317
+#, fuzzy
+#| msgid "Close"
+msgid "_Close"
+msgstr "關閉"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
@@ -2278,15 +2313,6 @@ msgstr "原始日期"
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
 msgstr ""
-
-#. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/device_manager.ui:151
-#: ../data/ui/preferences/preferences_dialog.ui:39
-#: ../data/ui/shortcuts_dialog.ui:39
-#, fuzzy
-#| msgid "Close"
-msgid "_Close"
-msgstr "關閉"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
@@ -2464,6 +2490,12 @@ msgstr "標籤放置："
 #: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr "播放清單的字型："
+
+#: ../data/ui/preferences/appearance.ui:154
+#, fuzzy
+#| msgid "Never"
+msgid "_Revert"
+msgstr "從未"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -4169,6 +4201,18 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
+#: ../plugins/equalizer/equalizer.ui:123
+#: ../plugins/multialarmclock/malrmclk.ui:94
+msgid "_Add"
+msgstr ""
+
+#: ../plugins/equalizer/equalizer.ui:139
+#: ../plugins/multialarmclock/malrmclk.ui:110
+#, fuzzy
+#| msgid "Remove"
+msgid "_Remove"
+msgstr "移除"
+
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
 msgstr ""
@@ -4440,16 +4484,6 @@ msgstr ""
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
 msgstr ""
-
-#: ../plugins/multialarmclock/malrmclk.ui:94
-msgid "_Add"
-msgstr ""
-
-#: ../plugins/multialarmclock/malrmclk.ui:110
-#, fuzzy
-#| msgid "Remove"
-msgid "_Remove"
-msgstr "移除"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"

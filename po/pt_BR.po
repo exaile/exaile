@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-01 00:41+0100\n"
-"PO-Revision-Date: 2022-01-14 12:55+0000\n"
+"PO-Revision-Date: 2022-02-02 00:57+0000\n"
 "Last-Translator: Wellington Terumi Uemura <wellingtonuemura@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "exaile/master/pt_BR/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.11-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -322,7 +322,7 @@ msgstr ""
 
 #: ../xl/main.py:357
 msgid "Locale to use for Exaile"
-msgstr ""
+msgstr "Local para usar no Exaile"
 
 #: ../xl/main.py:360
 msgid "Development/Debug Options"
@@ -2107,16 +2107,12 @@ msgid "Collection Manager"
 msgstr "Gerenciador de Coleção"
 
 #: ../data/ui/collection_manager.ui:54
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
-msgstr "Cancelar"
+msgstr "_Cancela"
 
 #: ../data/ui/collection_manager.ui:71
-#, fuzzy
-#| msgid "Apply BPM"
 msgid "_Apply"
-msgstr "Aplicar BPM"
+msgstr "_Aplica"
 
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
@@ -2128,13 +2124,11 @@ msgstr "Escanear ao Inicializar"
 
 #: ../data/ui/collection_manager.ui:174
 msgid "Add _Folder"
-msgstr ""
+msgstr "Adiciona _Pasta"
 
 #: ../data/ui/collection_manager.ui:191
-#, fuzzy
-#| msgid "Remove Cover"
 msgid "_Remove Folder"
-msgstr "Remover Capa"
+msgstr "_Remove Pasta"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2149,10 +2143,8 @@ msgid "The origin of this cover"
 msgstr "A origem desta capa"
 
 #: ../data/ui/coverchooser.ui:159
-#, fuzzy
-#| msgid "_About"
 msgid "_Abort"
-msgstr "_Sobre"
+msgstr "_Aborta"
 
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
@@ -2208,13 +2200,11 @@ msgstr "Controlador"
 
 #: ../data/ui/device_manager.ui:115
 msgid "_Connect"
-msgstr ""
+msgstr "_Conecta"
 
 #: ../data/ui/device_manager.ui:133
-#, fuzzy
-#| msgid "Disconnect from Server"
 msgid "_Disconnect"
-msgstr "Desconectar do Servidor"
+msgstr "_Desconecta"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -2365,10 +2355,8 @@ msgid "Playlist font:"
 msgstr "Fonte da lista de reprodução:"
 
 #: ../data/ui/preferences/appearance.ui:154
-#, fuzzy
-#| msgid "Never"
 msgid "_Revert"
-msgstr "Nunca"
+msgstr "_Reverte"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-13 22:55+0100\n"
-"PO-Revision-Date: 2022-01-31 15:56+0000\n"
+"PO-Revision-Date: 2022-02-02 00:57+0000\n"
 "Last-Translator: Eric <alchemillatruth@purelymail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "exaile/master/zh_Hans/>\n"
@@ -2080,10 +2080,8 @@ msgid "Collection Manager"
 msgstr "音乐库管理"
 
 #: ../data/ui/collection_manager.ui:54
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
-msgstr "取消"
+msgstr "取消(_C)"
 
 #: ../data/ui/collection_manager.ui:71
 msgid "_Apply"
@@ -2102,10 +2100,8 @@ msgid "Add _Folder"
 msgstr ""
 
 #: ../data/ui/collection_manager.ui:191
-#, fuzzy
-#| msgid "Remove Cover"
 msgid "_Remove Folder"
-msgstr "删除封面"
+msgstr "删除文件夹(_R)"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2335,10 +2331,8 @@ msgid "Playlist font:"
 msgstr "播放列表字体："
 
 #: ../data/ui/preferences/appearance.ui:154
-#, fuzzy
-#| msgid "Never"
 msgid "_Revert"
-msgstr "从未"
+msgstr "恢复(_R)"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67

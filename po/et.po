@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-01 00:41+0100\n"
-"PO-Revision-Date: 2021-12-28 06:51+0000\n"
+"PO-Revision-Date: 2022-02-02 00:57+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.11-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -321,7 +321,7 @@ msgstr ""
 
 #: ../xl/main.py:357
 msgid "Locale to use for Exaile"
-msgstr ""
+msgstr "Exaile jaoks kasutatav keelekeskkond"
 
 #: ../xl/main.py:360
 msgid "Development/Debug Options"
@@ -703,11 +703,11 @@ msgstr "Korda _üht lugu"
 
 #: ../xl/playlist.py:924
 msgid "Dynamic _Off"
-msgstr ""
+msgstr "Dünaamiline valik on väljas"
 
 #: ../xl/playlist.py:924
 msgid "Dynamic by Similar _Artists"
-msgstr ""
+msgstr "Dünaamiline valik sarnaste _esitajate alusel"
 
 #: ../xl/plugins.py:87
 msgid "Plugin is already loaded or has a conflicting name."
@@ -2103,10 +2103,8 @@ msgid "Collection Manager"
 msgstr "Muusikakogu haldus"
 
 #: ../data/ui/collection_manager.ui:54
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
-msgstr "Tühista"
+msgstr "_Tühista"
 
 #: ../data/ui/collection_manager.ui:71
 msgid "_Apply"
@@ -2125,10 +2123,8 @@ msgid "Add _Folder"
 msgstr ""
 
 #: ../data/ui/collection_manager.ui:191
-#, fuzzy
-#| msgid "Remove Cover"
 msgid "_Remove Folder"
-msgstr "Eemalda kaanepilt"
+msgstr "_Eemalda kaanepilt"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2143,10 +2139,8 @@ msgid "The origin of this cover"
 msgstr "Selle kaanepildi algupära"
 
 #: ../data/ui/coverchooser.ui:159
-#, fuzzy
-#| msgid "_About"
 msgid "_Abort"
-msgstr "Rakenduse _teave"
+msgstr "K_atkesta"
 
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
@@ -2205,10 +2199,8 @@ msgid "_Connect"
 msgstr ""
 
 #: ../data/ui/device_manager.ui:133
-#, fuzzy
-#| msgid "Disconnect from Server"
 msgid "_Disconnect"
-msgstr "katkesta ühendus serveriga"
+msgstr "Katkesta ühen_dus serveriga"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -2355,10 +2347,8 @@ msgid "Playlist font:"
 msgstr "Esitusloendi font:"
 
 #: ../data/ui/preferences/appearance.ui:154
-#, fuzzy
-#| msgid "Never"
 msgid "_Revert"
-msgstr "Mitte kunagi"
+msgstr "Pöö_ra muudatus tagasi"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -2443,16 +2433,12 @@ msgid ""
 msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:399
-#, fuzzy
-#| msgid "_Show Playing Track"
 msgid "Show playlist track count"
-msgstr "_Näita esitatavat lugu"
+msgstr "Näita esitatavate lugude arvu"
 
 #: ../data/ui/preferences/appearance.ui:413
-#, fuzzy
-#| msgid "Playlist button"
 msgid "Show playlist duration"
-msgstr "Esitusloendi nupp"
+msgstr "Näita esitusloendi kestust"
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -3615,35 +3601,25 @@ msgid "Preview Device"
 msgstr "Seadme eelvaatus"
 
 #: ../plugins/quickbuttons/__init__.py:37
-#, fuzzy
-#| msgid "En_queue"
 msgid "Enqueue"
-msgstr "Lisa _järjekorda"
+msgstr "Lisa järjekorda"
 
 #: ../plugins/quickbuttons/__init__.py:46
-#, fuzzy
-#| msgid "Not playing."
 msgid "Keep playing"
-msgstr "Mitte midagi pole esitamisel."
+msgstr "Jätka esitust"
 
 #: ../plugins/quickbuttons/__init__.py:55
-#, fuzzy
-#| msgid "_Remove"
 msgid "Auto-Remove"
-msgstr "_Kustuta"
+msgstr "Kustuta automaatselt"
 
 #: ../plugins/quickbuttons/__init__.py:64
-#, fuzzy
-#| msgid "Advanced"
 msgid "Auto-Advance"
-msgstr "Muud"
+msgstr "Jätka automaatselt"
 
 #: ../plugins/quickbuttons/__init__.py:73
 #: ../plugins/quickbuttons/__init__.py:74
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds):"
-msgstr "Viivitus millisekundites lugude vahel:"
+msgstr "Viivitus sekundites lugude vahel:"
 
 #: ../plugins/quickbuttons/__init__.py:82
 msgid "EQ"
@@ -3655,10 +3631,8 @@ msgid "Equalizer"
 msgstr ""
 
 #: ../plugins/quickbuttons/__init__.py:92
-#, fuzzy
-#| msgid "Device"
 msgid "Main Device"
-msgstr "Seade"
+msgstr "Põhiseade"
 
 #: ../plugins/quickbuttons/__init__.py:93
 #: ../plugins/quickbuttons/qb_prefs.ui:101
@@ -4421,10 +4395,8 @@ msgid "Audio Device:"
 msgstr "Heliseade:"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:72
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds)"
-msgstr "Viivitus millisekundites lugude vahel:"
+msgstr "Viivitus sekundites lugude vahel"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:87
 msgid "Equalizer (depends on Equalizer Plugin)"

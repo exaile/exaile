@@ -95,7 +95,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:727 ../xl/main.py:790 ../xl/trax/track.py:71
+#: ../xl/formatter.py:727 ../xl/main.py:792 ../xl/trax/track.py:71
 msgid "Unknown"
 msgstr "未知"
 
@@ -126,8 +126,8 @@ msgid ""
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
-"启动 Exaile，可选地添加 LOCATION 指定的音乐到活动播放列表。如果 Exaile "
-"已经在运行，这将尝试使用现有的实例，而不是创建一个新的实例。"
+"启动 Exaile，可选地添加 LOCATION 指定的音乐到活动播放列表。如果 Exaile 已经在"
+"运行，这将尝试使用现有的实例，而不是创建一个新的实例。"
 
 #: ../xl/main.py:97
 msgid "Playback Options"
@@ -311,93 +311,93 @@ msgstr "不要导入 0.2.x 版本的旧数据"
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr "让诸如 --play 的控制选项启动 Exaile 若其未在运行"
 
-#: ../xl/main.py:356
+#: ../xl/main.py:357
 msgid "Locale to use for Exaile"
 msgstr ""
 
-#: ../xl/main.py:359
+#: ../xl/main.py:360
 msgid "Development/Debug Options"
 msgstr "开发/调试选项"
 
-#: ../xl/main.py:363 ../xl/main.py:369
+#: ../xl/main.py:364 ../xl/main.py:370
 msgid "DIRECTORY"
 msgstr "「目录」"
 
-#: ../xl/main.py:364
+#: ../xl/main.py:365
 msgid "Set data directory"
 msgstr "设置数据目录"
 
-#: ../xl/main.py:370
+#: ../xl/main.py:371
 msgid "Set data and config directory"
 msgstr "设置数据与配置目录"
 
-#: ../xl/main.py:375
+#: ../xl/main.py:376
 msgid "MODULE"
 msgstr "「模块」"
 
-#: ../xl/main.py:376
+#: ../xl/main.py:377
 msgid "Limit log output to MODULE"
 msgstr "将日志输出限于「模块」"
 
-#: ../xl/main.py:381
+#: ../xl/main.py:382
 msgid "LEVEL"
 msgstr "「级别」"
 
-#: ../xl/main.py:382
+#: ../xl/main.py:383
 msgid "Limit log output to LEVEL"
 msgstr "将日志输出限于「级别」"
 
-#: ../xl/main.py:390
+#: ../xl/main.py:391
 msgid "Show debugging output"
 msgstr "显示调试输出"
 
-#: ../xl/main.py:397
+#: ../xl/main.py:398
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "启用 xl.event 的调试。会产生大量输出"
 
-#: ../xl/main.py:397
+#: ../xl/main.py:405
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr "启用 xl.event 的完整调试。会产生大量的输出"
 
-#: ../xl/main.py:411
+#: ../xl/main.py:412
 msgid "Add thread name to logging messages."
 msgstr "在日志消息中增加线程名。"
 
-#: ../xl/main.py:416
+#: ../xl/main.py:417
 msgid "TYPE"
 msgstr "「类别」"
 
-#: ../xl/main.py:417
+#: ../xl/main.py:418
 msgid "Limit xl.event debug to output of TYPE"
 msgstr "将 xl.event 调试限定于某些「类别」输出"
 
-#: ../xl/main.py:424
+#: ../xl/main.py:425
 msgid "Reduce level of output"
 msgstr "降低输出水平"
 
-#: ../xl/main.py:434
+#: ../xl/main.py:435
 msgid "Disable D-Bus support"
 msgstr "禁用 D-Bus 支持"
 
-#: ../xl/main.py:441
+#: ../xl/main.py:442
 msgid "Disable HAL support."
 msgstr "禁用 HAL 支持。"
 
-#: ../xl/main.py:811
+#: ../xl/main.py:813
 msgid "Entire Library"
 msgstr "整个音乐库"
 
-#: ../xl/main.py:818
+#: ../xl/main.py:820
 #, python-format
 msgid "Random %d"
 msgstr "随机 %d"
 
-#: ../xl/main.py:827
+#: ../xl/main.py:829
 #, python-format
 msgid "Rating > %d"
 msgstr "评级 > %d"
 
-#: ../xl/main.py:996
+#: ../xl/main.py:998
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -582,7 +582,7 @@ msgstr "起始偏移"
 msgid "Stop offset"
 msgstr "终止偏移"
 
-#: ../xl/player/gst/engine.py:708
+#: ../xl/player/gst/engine.py:713
 msgid ": Possible audio device error, is it plugged in?"
 msgstr "：可能是音频设备错误，插上了吗？"
 
@@ -593,8 +593,8 @@ msgid ""
 "Exaile will not be able to play the current file. Please install the "
 "required software on your computer. See %s for details."
 msgstr ""
-"缺少一个 %s 所需的 GStreamer 1.x 插件。不安装该软件，Exaile 将无法播放当前文件。请在你的计算机上安装所需软件。详细说明见 %s "
-"。"
+"缺少一个 %s 所需的 GStreamer 1.x 插件。不安装该软件，Exaile 将无法播放当前文"
+"件。请在你的计算机上安装所需软件。详细说明见 %s 。"
 
 #: ../xl/player/gst/sink.py:48 ../xl/player/gst/sink.py:144
 msgid "Automatic"
@@ -850,7 +850,7 @@ msgstr "删除封面"
 msgid "Cover for %s"
 msgstr ""
 
-#: ../xlgui/cover.py:880
+#: ../xlgui/cover.py:879
 #, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
 msgstr "{width}x{height} 像素 ({zoom}%)"
@@ -864,7 +864,7 @@ msgstr "保存文件"
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr ""
 
-#: ../xlgui/cover.py:1133
+#: ../xlgui/cover.py:1132
 msgid "No covers found."
 msgstr "未找到封面。"
 
@@ -1783,7 +1783,8 @@ msgstr "_下一歌曲"
 msgid "_Previous Track"
 msgstr "_上一歌曲"
 
-#: ../xlgui/widgets/playback.py:1604
+#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "_停止"
 
@@ -1811,7 +1812,7 @@ msgstr "随_机排列播放列表"
 msgid "R_andomize Selection"
 msgstr "随_机排列选中项"
 
-#: ../xlgui/widgets/playlist.py:224
+#: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 msgid "_Save"
 msgstr "_保存"
 
@@ -2078,6 +2079,16 @@ msgstr ""
 msgid "Collection Manager"
 msgstr "音乐库管理"
 
+#: ../data/ui/collection_manager.ui:54
+#, fuzzy
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "取消"
+
+#: ../data/ui/collection_manager.ui:71
+msgid "_Apply"
+msgstr ""
+
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
 msgstr "已监控"
@@ -2085,6 +2096,16 @@ msgstr "已监控"
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
 msgstr "启动时扫描"
+
+#: ../data/ui/collection_manager.ui:174
+msgid "Add _Folder"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui:191
+#, fuzzy
+#| msgid "Remove Cover"
+msgid "_Remove Folder"
+msgstr "删除封面"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2098,6 +2119,10 @@ msgstr "专辑封面查找器"
 msgid "The origin of this cover"
 msgstr "这张封面的来源"
 
+#: ../data/ui/coverchooser.ui:159
+msgid "_Abort"
+msgstr ""
+
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr "_设为封面"
@@ -2105,6 +2130,14 @@ msgstr "_设为封面"
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
 msgstr "封面管理器"
+
+#. Closes the preferences dialog
+#: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
+#: ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39 ../data/ui/trackproperties_dialog.ui:317
+msgid "_Close"
+msgstr "_关闭"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
@@ -2125,12 +2158,6 @@ msgstr "_原始大小"
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
 msgstr "_最佳缩放"
-
-#. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/preferences/preferences_dialog.ui:39
-#: ../data/ui/shortcuts_dialog.ui:39
-msgid "_Close"
-msgstr "_关闭"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
@@ -2306,6 +2333,12 @@ msgstr "标签位置："
 #: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr "播放列表字体："
+
+#: ../data/ui/preferences/appearance.ui:154
+#, fuzzy
+#| msgid "Never"
+msgid "_Revert"
+msgstr "从未"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -2499,7 +2532,8 @@ msgstr "不允许在有另一歌曲播放时又播放新的歌曲"
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
-msgstr "如果当前正有一个歌曲播放中，则不让新的歌曲开始播放，除非是在点击播放控制器"
+msgstr ""
+"如果当前正有一个歌曲播放中，则不让新的歌曲开始播放，除非是在点击播放控制器"
 
 #: ../data/ui/preferences/playback.ui:237
 #: ../plugins/quickbuttons/__init__.py:65
@@ -2578,7 +2612,9 @@ msgid ""
 "When using a menu item to add/replace tracks on the playlist, start playback "
 "if there is track currently playing. This option was the default behavior "
 "before Exaile 0.3.3"
-msgstr "当使用菜单项来在播放列表中添加/取代歌曲时，如果当前有歌曲在播放则开始播放。在 Exaile 0.3.3 以前这个选项是默认行为"
+msgstr ""
+"当使用菜单项来在播放列表中添加/取代歌曲时，如果当前有歌曲在播放则开始播放。"
+"在 Exaile 0.3.3 以前这个选项是默认行为"
 
 #: ../data/ui/preferences/playlists.ui:66
 #: ../plugins/quickbuttons/__init__.py:38
@@ -2590,7 +2626,8 @@ msgstr "歌曲默认入队而不是播放"
 msgid ""
 "When you double click or press enter to play a track in a playlist, queue "
 "the track instead of playing it"
-msgstr "当你双击或者按下回车键想播放播放列表中某条歌曲时，歌曲会入队而不是直接播放"
+msgstr ""
+"当你双击或者按下回车键想播放播放列表中某条歌曲时，歌曲会入队而不是直接播放"
 
 #: ../data/ui/preferences/plugin.ui:64
 msgid "Plugin"
@@ -3040,7 +3077,9 @@ msgstr[0] "删除 {amount} 首歌曲的 {tag} 标签吗？"
 msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
-msgstr "在使用批量标签重命名功能前，你应该重新扫描你的音乐库以确保所有标签都是最新的。是否现在重新扫描？"
+msgstr ""
+"在使用批量标签重命名功能前，你应该重新扫描你的音乐库以确保所有标签都是最新"
+"的。是否现在重新扫描？"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 msgid "Show tracks with selected"
@@ -3921,6 +3960,16 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
+#: ../plugins/equalizer/equalizer.ui:123
+#: ../plugins/multialarmclock/malrmclk.ui:94
+msgid "_Add"
+msgstr ""
+
+#: ../plugins/equalizer/equalizer.ui:139
+#: ../plugins/multialarmclock/malrmclk.ui:110
+msgid "_Remove"
+msgstr "删除(_R)"
+
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
 msgstr ""
@@ -4183,14 +4232,6 @@ msgstr ""
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
 msgstr "<b>告警</b>"
-
-#: ../plugins/multialarmclock/malrmclk.ui:94
-msgid "_Add"
-msgstr ""
-
-#: ../plugins/multialarmclock/malrmclk.ui:110
-msgid "_Remove"
-msgstr "删除(_R)"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"
@@ -4852,6 +4893,11 @@ msgid ""
 "\n"
 "Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Close"
+#~ msgid "C_lose"
+#~ msgstr "关闭"
 
 #, fuzzy
 #~| msgid "Display track counts in collection"

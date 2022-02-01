@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-26 00:48+0100\n"
+"POT-Creation-Date: 2022-02-01 00:41+0100\n"
 "PO-Revision-Date: 2021-03-19 20:18+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/exaile/master/"
@@ -599,7 +599,7 @@ msgstr "Početni odmak"
 msgid "Stop offset"
 msgstr "Završni odmak"
 
-#: ../xl/player/gst/engine.py:708
+#: ../xl/player/gst/engine.py:713
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ": Moguća greška audio uređaja, je li je priključen?"
 
@@ -1819,7 +1819,8 @@ msgstr "_Sljedeća pjesma"
 msgid "_Previous Track"
 msgstr "_Prethodna pjesma"
 
-#: ../xlgui/widgets/playback.py:1604
+#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "Pre_kini"
 
@@ -1847,7 +1848,7 @@ msgstr "Sluč_ajni redoslijed playliste"
 msgid "R_andomize Selection"
 msgstr "Sluč_ajni redoslijed odabira"
 
-#: ../xlgui/widgets/playlist.py:224
+#: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 msgid "_Save"
 msgstr "_Spremi"
 
@@ -2114,6 +2115,18 @@ msgstr "Milo Ivir <mail@milotype.de>, 2020."
 msgid "Collection Manager"
 msgstr "Upravljanje zbirkama"
 
+#: ../data/ui/collection_manager.ui:54
+#, fuzzy
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "Odustani"
+
+#: ../data/ui/collection_manager.ui:71
+#, fuzzy
+#| msgid "Apply BPM"
+msgid "_Apply"
+msgstr "Primijeni BPM"
+
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
 msgstr "Praćeno"
@@ -2121,6 +2134,16 @@ msgstr "Praćeno"
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
 msgstr "Pretraži pri pokretanju"
+
+#: ../data/ui/collection_manager.ui:174
+msgid "Add _Folder"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui:191
+#, fuzzy
+#| msgid "Remove Cover"
+msgid "_Remove Folder"
+msgstr "Ukloni omot"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2134,6 +2157,12 @@ msgstr "Pronalaženje omota"
 msgid "The origin of this cover"
 msgstr "Izvor ovog omota"
 
+#: ../data/ui/coverchooser.ui:159
+#, fuzzy
+#| msgid "_About"
+msgid "_Abort"
+msgstr "_O programu"
+
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr "_Postavi za omot"
@@ -2141,6 +2170,14 @@ msgstr "_Postavi za omot"
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
 msgstr "Upravljanje omotima"
+
+#. Closes the preferences dialog
+#: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
+#: ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39 ../data/ui/trackproperties_dialog.ui:317
+msgid "_Close"
+msgstr "_Zatvori"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
@@ -2161,13 +2198,6 @@ msgstr "_Izvorna veličina"
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
 msgstr "_Najbolja prilagodba"
-
-#. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/device_manager.ui:151
-#: ../data/ui/preferences/preferences_dialog.ui:39
-#: ../data/ui/shortcuts_dialog.ui:39
-msgid "_Close"
-msgstr "_Zatvori"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
@@ -2341,6 +2371,12 @@ msgstr "Smještaj kartica:"
 #: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr "Font za playlistu:"
+
+#: ../data/ui/preferences/appearance.ui:154
+#, fuzzy
+#| msgid "Never"
+msgid "_Revert"
+msgstr "Nikad"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -4010,6 +4046,16 @@ msgstr "Filtriraj vrste događaja"
 msgid "Events"
 msgstr "Događaji"
 
+#: ../plugins/equalizer/equalizer.ui:123
+#: ../plugins/multialarmclock/malrmclk.ui:94
+msgid "_Add"
+msgstr "_Dodaj"
+
+#: ../plugins/equalizer/equalizer.ui:139
+#: ../plugins/multialarmclock/malrmclk.ui:110
+msgid "_Remove"
+msgstr "_Ukloni"
+
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
 msgstr "pred"
@@ -4280,14 +4326,6 @@ msgstr "Nijansa boje (eksperimentalno)"
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
 msgstr "<b>Alarmi</b>"
-
-#: ../plugins/multialarmclock/malrmclk.ui:94
-msgid "_Add"
-msgstr "_Dodaj"
-
-#: ../plugins/multialarmclock/malrmclk.ui:110
-msgid "_Remove"
-msgstr "_Ukloni"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"

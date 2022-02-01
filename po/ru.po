@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-26 00:48+0100\n"
+"POT-Creation-Date: 2022-02-01 00:41+0100\n"
 "PO-Revision-Date: 2021-11-17 04:51+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
@@ -597,7 +597,7 @@ msgstr "Начало сдвига"
 msgid "Stop offset"
 msgstr "Конец сдвига"
 
-#: ../xl/player/gst/engine.py:708
+#: ../xl/player/gst/engine.py:713
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ": Возможна ошибка аудиоустройства, включено ли оно?"
 
@@ -1814,7 +1814,8 @@ msgstr "С_ледующий трек"
 msgid "_Previous Track"
 msgstr "Пре_дыдущий трек"
 
-#: ../xlgui/widgets/playback.py:1604
+#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "О_становить"
 
@@ -1842,7 +1843,7 @@ msgstr "С_лучайный плейлист"
 msgid "R_andomize Selection"
 msgstr "Слу_чайный выбор"
 
-#: ../xlgui/widgets/playlist.py:224
+#: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 msgid "_Save"
 msgstr "_Сохранить"
 
@@ -2111,6 +2112,18 @@ msgstr ""
 msgid "Collection Manager"
 msgstr "Менеджер коллекции"
 
+#: ../data/ui/collection_manager.ui:54
+#, fuzzy
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "Отмена"
+
+#: ../data/ui/collection_manager.ui:71
+#, fuzzy
+#| msgid "Apply BPM"
+msgid "_Apply"
+msgstr "Применить BPM"
+
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
 msgstr "Следить"
@@ -2118,6 +2131,16 @@ msgstr "Следить"
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
 msgstr "Сканировать при запуске"
+
+#: ../data/ui/collection_manager.ui:174
+msgid "Add _Folder"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui:191
+#, fuzzy
+#| msgid "Remove Cover"
+msgid "_Remove Folder"
+msgstr "Удалить обложку"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2131,6 +2154,12 @@ msgstr "Поисковик Обложек"
 msgid "The origin of this cover"
 msgstr "Происхождение обложки"
 
+#: ../data/ui/coverchooser.ui:159
+#, fuzzy
+#| msgid "_About"
+msgid "_Abort"
+msgstr "_О программе"
+
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr "_Использовать в качестве Обложки альбома"
@@ -2138,6 +2167,14 @@ msgstr "_Использовать в качестве Обложки альбо�
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
 msgstr "Менеджер Обложек"
+
+#. Closes the preferences dialog
+#: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
+#: ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39 ../data/ui/trackproperties_dialog.ui:317
+msgid "_Close"
+msgstr "Закр_ыть"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
@@ -2158,13 +2195,6 @@ msgstr "Перво_начальный размер"
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
 msgstr "П_о содержимому"
-
-#. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/device_manager.ui:151
-#: ../data/ui/preferences/preferences_dialog.ui:39
-#: ../data/ui/shortcuts_dialog.ui:39
-msgid "_Close"
-msgstr "Закр_ыть"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
@@ -2338,6 +2368,12 @@ msgstr "Местоположение вкладки:"
 #: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr "Шрифт списка воспроизведения:"
+
+#: ../data/ui/preferences/appearance.ui:154
+#, fuzzy
+#| msgid "Never"
+msgid "_Revert"
+msgstr "Никогда"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -4015,6 +4051,16 @@ msgstr "Фильтр типов событий"
 msgid "Events"
 msgstr "События"
 
+#: ../plugins/equalizer/equalizer.ui:123
+#: ../plugins/multialarmclock/malrmclk.ui:94
+msgid "_Add"
+msgstr "_Добавить"
+
+#: ../plugins/equalizer/equalizer.ui:139
+#: ../plugins/multialarmclock/malrmclk.ui:110
+msgid "_Remove"
+msgstr "_Удалить"
+
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
 msgstr "перед"
@@ -4285,14 +4331,6 @@ msgstr "Цветовой оттенок (экспериментально)"
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
 msgstr "<b>Предупреждения</b>"
-
-#: ../plugins/multialarmclock/malrmclk.ui:94
-msgid "_Add"
-msgstr "_Добавить"
-
-#: ../plugins/multialarmclock/malrmclk.ui:110
-msgid "_Remove"
-msgstr "_Удалить"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"

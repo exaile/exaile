@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-26 00:48+0100\n"
+"POT-Creation-Date: 2022-02-01 00:41+0100\n"
 "PO-Revision-Date: 2019-12-16 19:21+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Asturian <https://hosted.weblate.org/projects/exaile/master/"
@@ -588,7 +588,7 @@ msgstr ""
 msgid "Stop offset"
 msgstr ""
 
-#: ../xl/player/gst/engine.py:708
+#: ../xl/player/gst/engine.py:713
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ""
 
@@ -1798,7 +1798,8 @@ msgstr "Pista"
 msgid "_Previous Track"
 msgstr "Reproducir la pista anterior"
 
-#: ../xlgui/widgets/playback.py:1604
+#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr ""
 
@@ -1826,7 +1827,7 @@ msgstr ""
 msgid "R_andomize Selection"
 msgstr ""
 
-#: ../xlgui/widgets/playlist.py:224
+#: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 msgid "_Save"
 msgstr ""
 
@@ -2099,12 +2100,30 @@ msgstr ""
 msgid "Collection Manager"
 msgstr "Xestor de la coleición"
 
+#: ../data/ui/collection_manager.ui:54
+#, fuzzy
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "Encaboxar"
+
+#: ../data/ui/collection_manager.ui:71
+msgid "_Apply"
+msgstr ""
+
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
 msgstr ""
 
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui:174
+msgid "Add _Folder"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui:191
+msgid "_Remove Folder"
 msgstr ""
 
 #: ../data/ui/collection_manager.ui:209
@@ -2119,6 +2138,10 @@ msgstr ""
 msgid "The origin of this cover"
 msgstr ""
 
+#: ../data/ui/coverchooser.ui:159
+msgid "_Abort"
+msgstr ""
+
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr ""
@@ -2126,6 +2149,14 @@ msgstr ""
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
 msgstr ""
+
+#. Closes the preferences dialog
+#: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
+#: ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39 ../data/ui/trackproperties_dialog.ui:317
+msgid "_Close"
+msgstr "_Zarrar"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
@@ -2146,13 +2177,6 @@ msgstr "Tamañu _orixinal"
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
 msgstr ""
-
-#. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/device_manager.ui:151
-#: ../data/ui/preferences/preferences_dialog.ui:39
-#: ../data/ui/shortcuts_dialog.ui:39
-msgid "_Close"
-msgstr "_Zarrar"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
@@ -2319,6 +2343,12 @@ msgstr ""
 #: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr ""
+
+#: ../data/ui/preferences/appearance.ui:154
+#, fuzzy
+#| msgid "Never"
+msgid "_Revert"
+msgstr "Enxamás"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -3933,6 +3963,16 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
+#: ../plugins/equalizer/equalizer.ui:123
+#: ../plugins/multialarmclock/malrmclk.ui:94
+msgid "_Add"
+msgstr ""
+
+#: ../plugins/equalizer/equalizer.ui:139
+#: ../plugins/multialarmclock/malrmclk.ui:110
+msgid "_Remove"
+msgstr ""
+
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
 msgstr ""
@@ -4194,14 +4234,6 @@ msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
-msgstr ""
-
-#: ../plugins/multialarmclock/malrmclk.ui:94
-msgid "_Add"
-msgstr ""
-
-#: ../plugins/multialarmclock/malrmclk.ui:110
-msgid "_Remove"
 msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui:136

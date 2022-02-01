@@ -295,7 +295,7 @@
             </child>
             <child>
               <object class="GtkButton" id="apply_button">
-                <property name="label">_Apply</property>
+                <property name="label" translatable="yes">_Save</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
@@ -314,7 +314,7 @@
             </child>
             <child>
               <object class="GtkButton" id="close_button">
-                <property name="label">_Close</property>
+                <property name="label" translatable="yes">_Close</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>

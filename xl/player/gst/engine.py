@@ -413,11 +413,6 @@ class AudioStream:
 
         self.audio_sink.reconfigure(sink)
 
-        # We also need to reset playbin
-        old_state = self.get_gst_state()
-        self.playbin.set_state(Gst.State.NULL)
-        self.playbin.set_state(old_state)
-
     def _on_sink_change_notify(self, sink, param):
         if self.selected_sink != sink.props.current_device:
             domain = GLib.quark_from_string("g-exaile-error")

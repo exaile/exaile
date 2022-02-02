@@ -69,7 +69,7 @@ class Column(Gtk.TreeViewColumn):
         self.cellrenderer = self.renderer()
         self.destroyed = False
 
-        super(Column, self).__init__(self.display)
+        super().__init__(title=self.display)
         self.props.min_width = 3
 
         self.pack_start(self.cellrenderer, True)

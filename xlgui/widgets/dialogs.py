@@ -627,7 +627,7 @@ class FileOperationDialog(Gtk.FileChooserDialog):
 
         # Create the list that will hold the file type/extensions pair
         self.liststore = Gtk.ListStore(str, str)
-        self.list = Gtk.TreeView(self.liststore)
+        self.list = Gtk.TreeView(model=self.liststore)
         self.list.set_headers_visible(False)
 
         # Create the columns
@@ -806,18 +806,14 @@ class DirectoryOpenDialog(Gtk.FileChooserDialog):
         title: str = _('Choose Directory to Open'),
         select_multiple: bool = True,
     ):
-        Gtk.FileChooserDialog.__init__(
-            self,
-            title,
-            parent=parent,
-            buttons=(
-                Gtk.STOCK_CANCEL,
-                Gtk.ResponseType.CANCEL,
-                Gtk.STOCK_OPEN,
-                Gtk.ResponseType.OK,
-            ),
-        )
+        Gtk.FileChooserDialog.__init__(self, title=title, transient_for=parent)
 
+        self.add_buttons(
+            Gtk.STOCK_CANCEL,
+            Gtk.ResponseType.CANCEL,
+            Gtk.STOCK_OPEN,
+            Gtk.ResponseType.OK,
+        )
         self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         self.set_action(Gtk.FileChooserAction.SELECT_FOLDER)
         self.set_local_only(False)

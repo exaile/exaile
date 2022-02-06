@@ -748,6 +748,10 @@ class ColumnMenuItem(menu.MenuItem):
 
         if name in columns:
             columns.remove(name)
+        elif 'trigger_column' in context and context['trigger_column']:
+            col_name = context['trigger_column'].name
+            s = columns.index(col_name) + 1
+            columns.insert(s, name)
         else:
             columns.append(name)
 
@@ -818,11 +822,17 @@ def __register_playlist_columns_menuitems():
         if provider.name not in columns:
             columns += [provider.name]
 
-    menu_items = []
-    after = []
-
+    menu_columns = []
     for name in columns:
         column = providers.get_provider('playlist-columns', name)
+        menu_columns += [column]
+
+    # Sort menu alphabetical
+    menu_columns.sort(key=lambda elem: elem.menu_title)
+
+    menu_items = []
+    after = []
+    for column in menu_columns:
         menu_item = ColumnMenuItem(column, after)
         menu_items += [menu_item]
         after = [menu_item.name]

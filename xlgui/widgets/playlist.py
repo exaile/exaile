@@ -842,6 +842,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         self.menu = PlaylistContextMenu(self)
         self.header_menu = menu.ProviderMenu('playlist-columns-menu', self)
+        self.header_menu.set_context_func(self.get_header_context)
         self.header_menu.attach_to_widget(self)
 
         self.dragging = False
@@ -1093,11 +1094,11 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             header = playlist_column.get_widget()
             header.show()
             header.get_ancestor(Gtk.Button).connect(
-                'button-press-event', self.on_header_button_press
+                'button-press-event', self.on_header_button_press, playlist_column
             )
 
             header.get_ancestor(Gtk.Button).connect(
-                'key-press-event', self.on_header_key_press_event
+                'key-press-event', self.on_header_key_press_event, playlist_column
             )
 
     def _compute_font(self):
@@ -1175,10 +1176,36 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             return self._filter_matcher.match(trax.SearchResultTrack(track))
         return True
 
-    def on_header_button_press(self, widget, event):
+    def on_header_button_press(
+        self,
+        widget: Gtk.Widget,
+        event: Gdk.EventButton,
+        header_column: playlist_columns.Column,
+    ):
         if event.triggers_context_menu():
-            self.header_menu.popup(None, None, None, None, event.button, event.time)
+            self.set_selected_header(header_column)
+            self.header_menu.popup_at_pointer(event)
             return True
+
+    def on_header_key_press_event(
+        self,
+        widget: Gtk.Widget,
+        event: Gdk.EventButton,
+        header_column: playlist_columns.Column,
+    ):
+        if event.keyval == Gdk.KEY_Menu:
+            # Open context menu for selecting visible columns
+            self.set_selected_header(header_column)
+            self.header_menu.popup_at_widget(widget, event)
+            return True
+
+    def get_header_context(self, dummy):
+        context = {}
+        context['trigger_column'] = self.selected_header
+        return context
+
+    def set_selected_header(self, header: playlist_columns.Column) -> None:
+        self.selected_header = header
 
     def on_columns_changed(self, widget):
         columns = [c.name for c in self.get_columns()[1:]]
@@ -1459,13 +1486,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         elif event.keyval == Gdk.KEY_Return:
             self.on_row_activated()
             return True  # Prevent 'row-activated'
-
-    def on_header_key_press_event(self, widget, event):
-        if event.keyval == Gdk.KEY_Menu:
-            # Open context menu for selecting visible columns
-            m = menu.ProviderMenu('playlist-columns-menu', self)
-            m.popup(None, None, None, None, 0, event.time)
-            return True
 
     ### DND handlers ###
     # Source

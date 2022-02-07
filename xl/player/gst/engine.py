@@ -353,12 +353,8 @@ class AudioStream:
         self.current_track = None
         self.buffered_track = None
 
-        # This exists because if there is a sink error, it doesn't
-        # really make sense to recreate the sink -- it'll just fail
-        # again. Instead, wait for the user to try to play a track,
-        # and maybe the issue has resolved itself (plugged device in?)
-        self.needs_sink = True
         self.last_position = 0
+        self._volume = 0.0
 
         self.audio_filters = gst_utils.ProviderBin(
             'gst_audio_filter', '%s-filters' % self.name
@@ -401,7 +397,6 @@ class AudioStream:
         self.playbin.get_bus().remove_signal_watch()
 
     def reconfigure_sink(self):
-        self.needs_sink = False
         sink = create_device(self.engine.name)
 
         # Works for pulsesink, but not other sinks
@@ -412,6 +407,7 @@ class AudioStream:
             sink.connect('notify::current-device', self._on_sink_change_notify)
 
         self.audio_sink.reconfigure(sink)
+        self.audio_sink.set_volume(self._volume)
 
     def _on_sink_change_notify(self, sink, param):
         if self.selected_sink != sink.props.current_device:
@@ -441,8 +437,10 @@ class AudioStream:
 
         return self.last_position
 
-    def get_volume(self):
-        return self.playbin.props.volume
+    def get_volume(self) -> float:
+        if self.audio_sink.is_configured():
+            return self.audio_sink.get_volume()
+        return self._volume
 
     def get_user_volume(self):
         return self.fader.get_user_volume()
@@ -476,7 +474,7 @@ class AudioStream:
                 self.logger.debug("Not applying audio filters")
                 self.playbin.props.audio_filter = None
 
-        if self.needs_sink:
+        if not self.audio_sink.is_configured():
             self.reconfigure_sink()
 
         self.current_track = track
@@ -542,11 +540,13 @@ class AudioStream:
 
         return self.playbin.send_event(seek_event)
 
-    def set_volume(self, volume):
+    def set_volume(self, volume: float) -> None:
         # self.logger.debug("Set playbin volume: %.2f", volume)
         # TODO: strange issue where pulse sets the system audio volume
         #       when exaile starts up...
-        self.playbin.props.volume = volume
+        if self.audio_sink.is_configured():
+            self.audio_sink.set_volume(volume)
+        self._volume = volume
 
     def set_user_volume(self, volume):
         self.logger.debug("Set user volume: %.2f", volume)
@@ -733,7 +733,7 @@ class AudioStream:
         playbin.disconnect(self.notify_id)
 
     def on_volume_change(self, e, p):
-        real = self.playbin.props.volume
+        real = self.audio_sink.get_volume()
         vol, is_same = self.fader.calculate_user_volume(real)
         if not is_same:
             GLib.idle_add(self.engine.player.engine_notify_user_volume_change, vol)

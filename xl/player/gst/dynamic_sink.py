@@ -27,6 +27,7 @@
 
 
 import threading
+from typing import Union
 
 from gi.repository import Gst
 from gi.repository import GLib
@@ -48,6 +49,7 @@ class DynamicAudioSink(Gst.Bin):
         Gst.Bin.__init__(self, name=name)
 
         self.audio_sink = None
+        self._volume = 0.0
         self.__audio_sink_lock = threading.Lock()
 
         # Create an identity object so we don't need to deal with linking
@@ -176,6 +178,20 @@ class DynamicAudioSink(Gst.Bin):
             self.send_event(seek_event)
 
         self.audio_sink = audio_sink
+
+    def set_volume(self, volume: float) -> None:
+        if not hasattr(self.audio_sink.props, 'volume'):
+            self._volume = volume
+            return
+        self.audio_sink.props.volume = volume
+
+    def get_volume(self) -> Union[float, None]:
+        if not hasattr(self.audio_sink.props, 'volume'):
+            return self._volume
+        return self.audio_sink.props.volume
+
+    def is_configured(self) -> bool:
+        return self.audio_sink is not None
 
 
 # vim: et sts=4 sw=4

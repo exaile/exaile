@@ -741,10 +741,13 @@ class Library:
 
     def rescan(
         self, notify_interval: Optional[int] = None, force_update: bool = False
-    ):  # TODO: What return type?
+    ) -> bool:
         """
         Rescan the associated folder and add the contained files
         to the Collection
+
+        :returns: Whether the caller should reschedule this call, due to the
+            collection not being ready
         """
         # TODO: use gio's cancellable support
 
@@ -752,7 +755,7 @@ class Library:
             return True
 
         if self.scanning:
-            return
+            return False
 
         logger.info("Scanning library: %s", self.location)
         self.scanning = True
@@ -811,7 +814,7 @@ class Library:
             if self.collection and self.collection._scan_stopped:
                 self.scanning = False
                 logger.info("Scan canceled")
-                return
+                return False
 
             # progress update
             if notify_interval is not None and count % notify_interval == 0:
@@ -844,6 +847,7 @@ class Library:
 
         logger.info("Scan completed: %s", self.location)
         self.scanning = False
+        return False
 
     def add(self, loc: str, move: bool = False) -> None:
         """

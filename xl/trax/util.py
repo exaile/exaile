@@ -33,35 +33,31 @@ from xl import metadata
 from xl.trax.track import Track
 from xl.trax.search import search_tracks, TracksMatcher
 
-T = TypeVar('T')
+_T = TypeVar('_T')
 
 
-def is_valid_track(location):
+def is_valid_track(location: str) -> bool:
     """
     Returns whether the file at the given location is a valid track
 
     :param location: the location to check
-    :type location: string
     :returns: whether the file is a valid track
-    :rtype: boolean
     """
     extension = Gio.File.new_for_commandline_arg(location).get_basename().split(".")[-1]
     return extension.lower() in metadata.formats
 
 
-def get_uris_from_tracks(tracks):
+def get_uris_from_tracks(tracks: Iterable[Track]) -> List[str]:
     """
     Returns all URIs for tracks
 
     :param tracks: the tracks to retrieve the URIs from
-    :type tracks: list of :class:`xl.trax.Track`
     :returns: the uris
-    :rtype: list of string
     """
     return [track.get_loc_for_io() for track in tracks]
 
 
-def get_tracks_from_uri(uri):
+def get_tracks_from_uri(uri: str) -> List[Track]:
     """
     Returns all valid tracks located at uri
 
@@ -102,11 +98,11 @@ def get_tracks_from_uri(uri):
 
 def sort_tracks(
     fields: Iterable[str],
-    items: Iterable[T],
-    trackfunc: Optional[Callable[[T], Track]] = None,
+    items: Iterable[_T],
+    trackfunc: Optional[Callable[[_T], Track]] = None,
     reverse: bool = False,
     artist_compilations: bool = False,
-) -> List[T]:
+) -> List[_T]:
     """
     Sorts tracks.
 
@@ -117,7 +113,6 @@ def sort_tracks(
         from an item in the *items* iterable
     :param reverse: whether to sort in reversed order
     """
-    fields = list(fields)  # we need the index method
     if trackfunc is None:
         trackfunc = lambda tr: tr
     keyfunc = lambda tr: [

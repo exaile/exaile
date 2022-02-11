@@ -27,6 +27,7 @@
 import contextlib
 import logging
 import os.path
+import sys
 
 from gi.repository import Gio
 from gi.repository import Gdk
@@ -36,6 +37,7 @@ from gi.repository import Gtk
 from gi.repository import Pango
 
 from xl import settings, xdg
+from xl.nls import gettext as _
 
 # Required for xlgui.get_controller()
 import xlgui
@@ -728,6 +730,43 @@ def without_model(tv):
 
         if scroll_to:
             tv.scroll_to_cell(scroll_to, None, True, 0, 0)
+
+
+def get_builder(uifile: str) -> Gtk.Builder:
+    """
+    Loads Gtk.Builder with uifile.
+    In case of platform win32 each translatable node in the ui is translated here
+
+    Relates to https://gitlab.gnome.org/GNOME/pygobject/-/issues/422
+
+    :param uifile: Path to uifile
+    """
+    builder = Gtk.Builder()
+
+    if sys.platform == 'win32':
+        with open(uifile, 'r') as fp:
+            template = fp.read()
+            template_string = get_template_translated(template)
+            builder.add_from_string(template_string)
+
+    else:
+        builder.add_from_file(uifile)
+
+    return builder
+
+
+def get_template_translated(template_ui_xml: str) -> str:
+    """
+    Insert translations into template_ui_xml for each translatable element
+    """
+    import xml.etree.ElementTree as ET
+
+    tree = ET.fromstring(template_ui_xml)
+    for node in tree.iter():
+        if 'translatable' in node.attrib:
+            node.text = _(node.text)
+    xml_text = ET.tostring(tree, encoding='unicode', method='xml')
+    return xml_text
 
 
 # vim: et sts=4 sw=4

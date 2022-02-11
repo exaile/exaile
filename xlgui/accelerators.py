@@ -24,14 +24,16 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from gi.repository import Gtk
+from typing import Callable, Dict, Tuple
+
+from gi.repository import Gdk, Gtk
 from xl import providers
 
 
 class Accelerator:
     __slots__ = ['name', 'keys', 'helptext', 'callback', 'key', 'mods']
 
-    def __init__(self, keys, helptext, callback):
+    def __init__(self, keys: str, helptext: str, callback: Callable):
         self.name = keys  # only here because providers needs it
         self.keys = keys
         self.helptext = helptext
@@ -40,9 +42,9 @@ class Accelerator:
 
 
 class AcceleratorManager(providers.ProviderHandler):
-    def __init__(self, providername, accelgroup):
+    def __init__(self, providername: str, accelgroup: Gtk.AccelGroup):
         self.accelgroup = accelgroup
-        self.accelerators = {}
+        self.accelerators: Dict[Tuple[int, Gdk.ModifierType], Accelerator] = {}
         providers.ProviderHandler.__init__(self, providername, simple_init=True)
 
     def on_provider_added(self, provider):

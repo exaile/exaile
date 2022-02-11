@@ -24,9 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from typing import Any, Callable, Iterable, List, Optional, Tuple, Union
+
 from gi.repository import Gtk
 
 from xl import common, providers
+from xlgui.accelerators import Accelerator
 
 # Fake accel group so that menuitems can trick GTK into
 # showing accelerators in the menus.
@@ -43,10 +46,12 @@ def simple_separator(name, after):
     return item
 
 
-def _get_accel(callback, display_name):
+def _get_accel(
+    callback: Union[Accelerator, Callable, None], display_name: Optional[str]
+) -> Tuple[Optional[Accelerator], Optional[Callable], Optional[str]]:
     # utility function to get menu information from an xlgui.Accelerator
-    accelerator = None
-    if hasattr(callback, 'key') and hasattr(callback, 'mods'):
+    accelerator: Optional[Accelerator] = None
+    if isinstance(callback, Accelerator):
         accelerator = callback
         if display_name is None:
             display_name = accelerator.helptext
@@ -55,16 +60,16 @@ def _get_accel(callback, display_name):
 
 
 def simple_menu_item(
-    name,
-    after,
-    display_name=None,
-    icon_name=None,
-    callback=None,
-    callback_args=[],
-    submenu=None,
-    condition_fn=None,
-    sensitive_cb=None,
-):
+    name: str,
+    after: List[str],
+    display_name: Optional[str] = None,
+    icon_name: Optional[str] = None,
+    callback: Union[Accelerator, Callable, None] = None,
+    callback_args: Iterable[Any] = [],
+    submenu: Optional[Gtk.Menu] = None,
+    condition_fn: Optional[Callable[..., bool]] = None,
+    sensitive_cb: Optional[Callable[[], bool]] = None,
+) -> 'MenuItem':
     """
     Factory function that should handle most cases for menus
 
@@ -85,8 +90,8 @@ def simple_menu_item(
     """
     accelerator, callback, display_name = _get_accel(callback, display_name)
 
-    def factory(menu, parent, context):
-        item = None
+    def factory(menu, parent, context) -> Optional[Gtk.MenuItem]:
+        item: Optional[Gtk.MenuItem] = None
 
         if condition_fn is not None and not condition_fn(name, parent, context):
             return None
@@ -99,6 +104,7 @@ def simple_menu_item(
             else:
                 item = Gtk.MenuItem.new_with_mnemonic(display_name)
         else:
+            assert icon_name is not None
             item = Gtk.ImageMenuItem.new_from_stock(icon_name)
 
         if submenu is not None:
@@ -124,7 +130,9 @@ def simple_menu_item(
     return MenuItem(name, factory, after=after)
 
 
-def check_menu_item(name, after, display_name, checked_func, callback):
+def check_menu_item(
+    name: str, after, display_name: str, checked_func: Callable[..., bool], callback
+) -> 'MenuItem':
     accelerator, callback, display_name = _get_accel(callback, display_name)
 
     def factory(menu, parent, context):
@@ -145,7 +153,9 @@ def check_menu_item(name, after, display_name, checked_func, callback):
     return MenuItem(name, factory, after=after)
 
 
-def radio_menu_item(name, after, display_name, groupname, selected_func, callback):
+def radio_menu_item(
+    name: str, after, display_name: str, groupname, selected_func, callback
+) -> 'RadioMenuItem':
     def factory(menu, parent, context):
         for index, item in enumerate(menu._items):
             if hasattr(item, 'groupname') and item.groupname == groupname:
@@ -179,7 +189,12 @@ def radio_menu_item(name, after, display_name, groupname, selected_func, callbac
 class MenuItem:
     __slots__ = ['name', 'after', '_factory', '_pos', '_provider_data']
 
-    def __init__(self, name, factory, after):
+    def __init__(
+        self,
+        name: str,
+        factory: Optional[Callable[..., Optional[Gtk.MenuItem]]],
+        after: List[str],
+    ):
         self.name = name
         self.after = after
         self._factory = factory
@@ -189,7 +204,7 @@ class MenuItem:
         # considered public api and may change
         # without warning.
 
-    def factory(self, menu, parent, context):
+    def factory(self, menu, parent, context) -> Optional[Gtk.MenuItem]:
         """
         The factory function is called when the menu is shown, and
         should return a menu item. If it returns None, the item is
@@ -240,7 +255,7 @@ class Menu(Gtk.Menu):
         """
         Gtk.Menu.__init__(self)
         self._parent = parent
-        self._items = []
+        self._items: List[MenuItem] = []
         self.context_func = context_func
         self.connect('show', lambda *e: self.regenerate_menu())
         self.connect('hide', lambda *e: self.clear_menu())
@@ -263,17 +278,16 @@ class Menu(Gtk.Menu):
         else:
             return self.context_func(self._parent)
 
-    def add_item(self, item):
+    def add_item(self, item: MenuItem) -> None:
         """
         Adds a menu item and triggers reordering
 
         :param item: the menu item
-        :type item: :class:`MenuItem`
         """
         self._items.append(item)
         self.reorder_items()
 
-    def add_simple(self, label, callback, icon_name=None):
+    def add_simple(self, label: str, callback, icon_name: Optional[str] = None) -> None:
         """
         Provide a simple mechanism to add menu items without a lot of hassle
 
@@ -294,16 +308,15 @@ class Menu(Gtk.Menu):
             )
         )
 
-    def remove_item(self, item):
+    def remove_item(self, item: MenuItem) -> None:
         """
         Removes a menu item
 
         :param item: the menu item
-        :type item: :class:`MenuItem`
         """
         self._items.remove(item)
 
-    def clear_menu(self):
+    def clear_menu(self) -> None:
         """
         Removes all menu items and submenus to prevent
         references sticking around due to saved contexts
@@ -311,12 +324,12 @@ class Menu(Gtk.Menu):
         self.append(self.placeholder)
         children = self.get_children()
         for c in children:
-            if c == self.placeholder:
+            if c is self.placeholder:
                 continue
             c.set_submenu(None)
             self.remove(c)
 
-    def reorder_items(self):
+    def reorder_items(self) -> None:
         """
         Reorders all menu items
         """
@@ -328,7 +341,7 @@ class Menu(Gtk.Menu):
         items = common.order_poset(items)
         self._items = [i.value for i in items]
 
-    def regenerate_menu(self):
+    def regenerate_menu(self) -> None:
         """
         Regenerates the menu by retrieving
         the context and calling the factory
@@ -343,7 +356,7 @@ class Menu(Gtk.Menu):
                 self.append(subitem)
         self.show_all()
 
-    def popup(self, *args):
+    def popup(self, *args) -> None:
         """
         Pops out the menu (Only if
         there are items to show)

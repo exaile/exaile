@@ -140,26 +140,24 @@ class TrackDB:
         self.save_to_location()
         return True
 
-    def set_name(self, name):
+    def set_name(self, name: str) -> None:
         """
         Sets the name of this :class:`TrackDB`
 
-        :param name:   The new name.
-        :type name: string
+        :param name: The new name.
         """
         self.name = name
         self._dirty = True
 
-    def get_name(self):
+    def get_name(self) -> str:
         """
         Gets the name of this :class:`TrackDB`
 
         :return: The name.
-        :rtype: string
         """
         return self.name
 
-    def set_location(self, location):
+    def set_location(self, location: Optional[str]) -> None:
         """
         Sets the location to save to
 
@@ -169,13 +167,12 @@ class TrackDB:
         self._dirty = True
 
     @common.synchronized
-    def load_from_location(self, location=None):
+    def load_from_location(self, location: Optional[str] = None):
         """
         Restores :class:`TrackDB` state from the pickled representation
         stored at the specified location.
 
         :param location: the location to load the data from
-        :type location: string
         """
         if not location:
             location = self.location
@@ -230,13 +227,12 @@ class TrackDB:
         self._dirty = False
 
     @common.synchronized
-    def save_to_location(self, location=None):
+    def save_to_location(self, location: Optional[str] = None):
         """
         Saves a pickled representation of this :class:`TrackDB` to the
         specified location.
 
         :param location: the location to save the data to
-        :type location: string
         """
         if not self._dirty:
             for track in self.tracks.values():
@@ -296,7 +292,7 @@ class TrackDB:
         self._dirty = False
         self._saving = False
 
-    def get_track_by_loc(self, loc: str, raw=False) -> Optional[Track]:
+    def get_track_by_loc(self, loc: str) -> Optional[Track]:
         """
         returns the track having the given loc. if no such track exists,
         returns None

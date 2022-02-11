@@ -46,9 +46,9 @@ class TrackInfoPane(Gtk.Bin):
         Gtk.Bin.__init__(self)
         self.__player = player
 
-        builder = Gtk.Builder()
-        builder.add_from_file(xdg.get_data_path('ui', 'widgets', 'track_info.ui'))
-
+        builder = guiutil.get_builder(
+            xdg.get_data_path('ui', 'widgets', 'track_info.ui')
+        )
         info_box = builder.get_object('info_box')
         info_box.get_parent().remove(info_box)
         self.add(info_box)
@@ -464,9 +464,6 @@ class StatusbarTextFormatter(formatter.Formatter):
                 '"none", "override" and "only"' % selection
             )
 
-        if count == 0:
-            return ''
-
         return text % count
 
     def get_playlist_duration(self, format='short', selection='none'):
@@ -519,9 +516,6 @@ class StatusbarTextFormatter(formatter.Formatter):
                 '"selection" for "playlist_duration", possible arguments are '
                 '"none", "override" and "only"' % selection
             )
-
-        if duration == 0:
-            return ''
 
         return formatter.LengthTagFormatter.format_value(duration, format)
 
@@ -648,8 +642,7 @@ class Splash:
     """
 
     def __init__(self):
-        builder = Gtk.Builder()
-        builder.add_from_file(xdg.get_data_path('ui', 'splash.ui'))
+        builder = guiutil.get_builder(xdg.get_data_path('ui', 'splash.ui'))
 
         image = builder.get_object('splash_image')
         image.set_from_file(xdg.get_data_path('images', 'splash.png'))

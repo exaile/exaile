@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-10 20:00+1000\n"
+"POT-Creation-Date: 2022-02-01 00:41+0100\n"
 "PO-Revision-Date: 2020-05-09 01:13+0000\n"
 "Last-Translator: Szylu <chipolade@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/"
@@ -103,7 +103,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:727 ../xl/main.py:619 ../xl/trax/track.py:71
+#: ../xl/formatter.py:727 ../xl/main.py:792 ../xl/trax/track.py:71
 msgid "Unknown"
 msgstr "Nieznany"
 
@@ -124,11 +124,11 @@ msgstr "Wczoraj"
 msgid "Local"
 msgstr "Lokalny"
 
-#: ../xl/main.py:82
+#: ../xl/main.py:84
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "Użycie: exaile [OPCJA...] [POŁOŻENIE...]"
 
-#: ../xl/main.py:84
+#: ../xl/main.py:86
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
@@ -138,275 +138,279 @@ msgstr ""
 "aktywnej listy odtwarzania. Jeśli program Exaile jest już uruchomiony, "
 "spróbuje użyć istniejącej instancji zamiast tworzyć nową."
 
-#: ../xl/main.py:95
+#: ../xl/main.py:97
 msgid "Playback Options"
 msgstr "Opcje odtwarzania"
 
-#: ../xl/main.py:102
+#: ../xl/main.py:104
 msgid "Play the next track"
 msgstr "Odtwórz następny utwór"
 
-#: ../xl/main.py:110
+#: ../xl/main.py:112
 msgid "Play the previous track"
 msgstr "Odtwórz poprzedni utwór"
 
-#: ../xl/main.py:118 ../plugins/minimode/controls.py:351
+#: ../xl/main.py:120 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:368
 msgid "Stop playback"
 msgstr "Zatrzymaj odtwarzanie"
 
-#: ../xl/main.py:121
+#: ../xl/main.py:123
 msgid "Play"
 msgstr "Odtwarzaj"
 
-#: ../xl/main.py:129 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:131 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "Wstrzymaj"
 
-#: ../xl/main.py:137
+#: ../xl/main.py:139
 msgid "Pause or resume playback"
 msgstr "Wstrzymaj lub wznów odtwarzanie"
 
-#: ../xl/main.py:144 ../plugins/minimode/controls.py:376
+#: ../xl/main.py:146 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
 msgstr "Zatrzymaj odtwarzanie po bieżącym utworze"
 
-#: ../xl/main.py:147
+#: ../xl/main.py:149
 msgid "Collection Options"
 msgstr "Opcje kolekcji"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:152 ../xl/main.py:161
+#: ../xl/main.py:154 ../xl/main.py:163
 msgid "LOCATION"
 msgstr "LOCATION"
 
-#: ../xl/main.py:153
+#: ../xl/main.py:155
 msgid "Add tracks from LOCATION to the collection"
 msgstr "Dodaj utwory z LOCATION do kolekcji"
 
-#: ../xl/main.py:156
+#: ../xl/main.py:158
 msgid "Playlist Options"
 msgstr "Opcje listy odtwarzania"
 
-#: ../xl/main.py:162
+#: ../xl/main.py:164
 msgid "Export the current playlist to LOCATION"
 msgstr "Eksportuj aktualną listę odtwarzania do KATALOGU"
 
-#: ../xl/main.py:165
+#: ../xl/main.py:167
 msgid "Track Options"
 msgstr "Opcje utworu"
 
-#: ../xl/main.py:172
+#: ../xl/main.py:174
 msgid "Query player"
 msgstr "Kolejka odtwarzacza"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:178
+#: ../xl/main.py:180
 msgid "FORMAT"
 msgstr "FORMAT"
 
-#: ../xl/main.py:179
+#: ../xl/main.py:181
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr "Pozyskaj bieżący stan odtwarzania i informacje o utworze jako FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:185
+#: ../xl/main.py:187
 msgid "TAGS"
 msgstr "TAGS"
 
-#: ../xl/main.py:186
+#: ../xl/main.py:188
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr "Znaczniki do pozyskania z bieżącego utworu, użyj z --format-query"
 
-#: ../xl/main.py:193
+#: ../xl/main.py:195
 msgid "Show a popup with data of the current track"
 msgstr "Pokaż wiadomość o aktualnie odtwarzanym utworze"
 
-#: ../xl/main.py:200
+#: ../xl/main.py:202
 msgid "Print the title of current track"
 msgstr "Wyświetl tytuł aktualnego utworu"
 
-#: ../xl/main.py:207
+#: ../xl/main.py:209
 msgid "Print the album of current track"
 msgstr "Wyświetl album aktualnego utworu"
 
-#: ../xl/main.py:214
+#: ../xl/main.py:216
 msgid "Print the artist of current track"
 msgstr "Wyświetl artystę aktualnego utworu"
 
-#: ../xl/main.py:221
+#: ../xl/main.py:223
 msgid "Print the length of current track"
 msgstr "Wyświetl długość aktualnego utworu"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:228 ../xl/main.py:260 ../xl/main.py:269
+#: ../xl/main.py:230 ../xl/main.py:262 ../xl/main.py:271
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:229
+#: ../xl/main.py:231
 msgid "Set rating for current track to N%"
 msgstr "Ustaw ocenę odtwarzanego utworu: N%"
 
-#: ../xl/main.py:236
+#: ../xl/main.py:238
 msgid "Get rating for current track"
 msgstr "Pobierz ocenę obecnego utworu"
 
-#: ../xl/main.py:243
+#: ../xl/main.py:245
 msgid "Print the current playback position as time"
 msgstr "Pokaż bieżący postęp odtwarzania jako czas"
 
-#: ../xl/main.py:250
+#: ../xl/main.py:252
 msgid "Print the current playback progress as percentage"
 msgstr "Pokaż bieżący postęp odtwarzania w procentach"
 
-#: ../xl/main.py:253
+#: ../xl/main.py:255
 msgid "Volume Options"
 msgstr "Opcje głośności"
 
-#: ../xl/main.py:261
+#: ../xl/main.py:263
 msgid "Increase the volume by N%"
 msgstr "Zwiększ poziom głośności o N%"
 
-#: ../xl/main.py:270
+#: ../xl/main.py:272
 msgid "Decrease the volume by N%"
 msgstr "Zmniejsz poziom głośności o N%"
 
-#: ../xl/main.py:278
+#: ../xl/main.py:280
 msgid "Mute or unmute the volume"
 msgstr "Włącz/wyłącz wyciszenie"
 
-#: ../xl/main.py:285
+#: ../xl/main.py:287
 msgid "Print the current volume percentage"
 msgstr "Wyświetl aktualną głośność w procentach"
 
-#: ../xl/main.py:288
+#: ../xl/main.py:290
 msgid "Other Options"
 msgstr "Inne opcje"
 
-#: ../xl/main.py:294
+#: ../xl/main.py:296
 msgid "Start new instance"
 msgstr "Rozpocznij nową instancję"
 
-#: ../xl/main.py:297
+#: ../xl/main.py:299
 msgid "Show this help message and exit"
 msgstr "Pokaż ten komunikat pomocy i wyjdź"
 
-#: ../xl/main.py:303
+#: ../xl/main.py:305
 msgid "Show program's version number and exit."
 msgstr "Pokaż numer wersji programu i wyjdź."
 
-#: ../xl/main.py:310
+#: ../xl/main.py:312
 msgid "Start minimized (to tray, if possible)"
 msgstr "Uruchom zminimalizowany (do zasobnika, jeśli to możliwe)"
 
-#: ../xl/main.py:317
+#: ../xl/main.py:319
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Ustaw widoczność GUI (jeśli to możliwe)"
 
-#: ../xl/main.py:325
+#: ../xl/main.py:327
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 "Uruchom w trybie awaryjnym - użyteczne kiedy występują problemy z programem"
 
-#: ../xl/main.py:334
+#: ../xl/main.py:336
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 "Wymuś importowanie starych danych z wersji 0.2.x (nadpisze obecne dane)"
 
-#: ../xl/main.py:342
+#: ../xl/main.py:344
 msgid "Do not import old data from version 0.2.x"
 msgstr "Nie importuj starych danych z wersji 0.2.x"
 
-#: ../xl/main.py:349
+#: ../xl/main.py:351
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 "Spraw, by opcje takie jak --play uruchamiały Exaile, jeśli jeszcze nie "
 "zostało uruchomione"
 
-#: ../xl/main.py:352
+#: ../xl/main.py:357
+msgid "Locale to use for Exaile"
+msgstr ""
+
+#: ../xl/main.py:360
 msgid "Development/Debug Options"
 msgstr "Opcje rozwojowe/debugowanie"
 
-#: ../xl/main.py:356 ../xl/main.py:362
+#: ../xl/main.py:364 ../xl/main.py:370
 msgid "DIRECTORY"
 msgstr "DIRECTORY"
 
-#: ../xl/main.py:357
+#: ../xl/main.py:365
 msgid "Set data directory"
 msgstr "Ustaw katalog danych"
 
-#: ../xl/main.py:363
+#: ../xl/main.py:371
 msgid "Set data and config directory"
 msgstr "Ustaw katalog danych i konfiguracji"
 
-#: ../xl/main.py:368
+#: ../xl/main.py:376
 msgid "MODULE"
 msgstr "MODULE"
 
-#: ../xl/main.py:369
+#: ../xl/main.py:377
 msgid "Limit log output to MODULE"
 msgstr "Ogranicz długość dziennika do MODULE"
 
-#: ../xl/main.py:374
+#: ../xl/main.py:382
 msgid "LEVEL"
 msgstr "LEVEL"
 
-#: ../xl/main.py:375
+#: ../xl/main.py:383
 msgid "Limit log output to LEVEL"
 msgstr "Ogranicz długość dziennika do LEVEL"
 
-#: ../xl/main.py:383
+#: ../xl/main.py:391
 msgid "Show debugging output"
 msgstr "Pokaż komunikaty debugowania"
 
-#: ../xl/main.py:390
+#: ../xl/main.py:398
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "Włącz debugowanie xl.event. Generuje wiele wyników"
 
-#: ../xl/main.py:397
+#: ../xl/main.py:405
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr "Włącz pełne debugowanie xl.event. Generuje wiele wyników"
 
-#: ../xl/main.py:404
+#: ../xl/main.py:412
 msgid "Add thread name to logging messages."
 msgstr "Dodaj nazwę wątku do komunikatów dziennika."
 
-#: ../xl/main.py:409
+#: ../xl/main.py:417
 msgid "TYPE"
 msgstr "TYPE"
 
-#: ../xl/main.py:410
+#: ../xl/main.py:418
 msgid "Limit xl.event debug to output of TYPE"
 msgstr "Ogranicz długość dziennika xl.event do TYPE"
 
-#: ../xl/main.py:417
+#: ../xl/main.py:425
 msgid "Reduce level of output"
 msgstr "Zredukuj poziom na wyjściu"
 
-#: ../xl/main.py:427
+#: ../xl/main.py:435
 msgid "Disable D-Bus support"
 msgstr "Wyłącz obsługę D-Bus"
 
-#: ../xl/main.py:434
+#: ../xl/main.py:442
 msgid "Disable HAL support."
 msgstr "Wyłącz obsługę HAL."
 
-#: ../xl/main.py:796
+#: ../xl/main.py:813
 msgid "Entire Library"
 msgstr "Cała biblioteka"
 
-#: ../xl/main.py:803
+#: ../xl/main.py:820
 #, python-format
 msgid "Random %d"
 msgstr "Losowy %d"
 
-#: ../xl/main.py:812
+#: ../xl/main.py:829
 #, python-format
 msgid "Rating > %d"
 msgstr "Ocena > %d"
 
-#: ../xl/main.py:981
+#: ../xl/main.py:998
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -463,7 +467,7 @@ msgstr "Kompozytor"
 msgid "Conductor"
 msgstr "Dyrygent"
 
-#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:814
+#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:813
 msgid "Cover"
 msgstr "Okładka"
 
@@ -593,7 +597,7 @@ msgstr "Początek wyrównania"
 msgid "Stop offset"
 msgstr "Koniec wyrównania"
 
-#: ../xl/player/gst/engine.py:708
+#: ../xl/player/gst/engine.py:713
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ": Możliwy błąd urządzenia dźwiękowego, czy jest ono podłączone?"
 
@@ -640,75 +644,75 @@ msgstr "Podano niepoprawny typ sink „%s”"
 msgid "Could not create sink type '%s'"
 msgstr "Nie można utworzyć typu sink „%s”"
 
-#: ../xl/playlist.py:154 ../xl/playlist.py:176
+#: ../xl/playlist.py:153 ../xl/playlist.py:175
 msgid "Invalid playlist type."
 msgstr "Nieprawidłowy rodzaj listy odtwarzania."
 
-#: ../xl/playlist.py:185 ../xlgui/widgets/playlist.py:406
+#: ../xl/playlist.py:184 ../xlgui/widgets/playlist.py:406
 #: ../xlgui/widgets/smart_playlist_editor.py:254
 #: ../plugins/grouptagger/gt_mass.ui:126
 msgid "Playlist"
 msgstr "Lista odtwarzania"
 
-#: ../xl/playlist.py:339
+#: ../xl/playlist.py:338
 msgid "M3U Playlist"
 msgstr "Lista odtwarzania M3U"
 
-#: ../xl/playlist.py:454
+#: ../xl/playlist.py:453
 msgid "PLS Playlist"
 msgstr "Lista odtwarzania PLS"
 
-#: ../xl/playlist.py:545 ../xl/playlist.py:560
+#: ../xl/playlist.py:544 ../xl/playlist.py:559
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Nieprawidłowy format dla %s."
 
-#: ../xl/playlist.py:555
+#: ../xl/playlist.py:554
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "Brak wsparcia %(type)s w wersji %(version)s"
 
-#: ../xl/playlist.py:615
+#: ../xl/playlist.py:614
 msgid "ASX Playlist"
 msgstr "Lista odtwarzania ASX"
 
-#: ../xl/playlist.py:794
+#: ../xl/playlist.py:793
 msgid "XSPF Playlist"
 msgstr "Lista odtwarzania XSPF"
 
-#: ../xl/playlist.py:913
+#: ../xl/playlist.py:912
 msgid "Shuffle _Off"
 msgstr "Wyłącz l_osowanie"
 
-#: ../xl/playlist.py:914
+#: ../xl/playlist.py:913
 msgid "Shuffle _Tracks"
 msgstr "Losowa kolejność u_tworów"
 
-#: ../xl/playlist.py:915
+#: ../xl/playlist.py:914
 msgid "Shuffle _Albums"
 msgstr "Losowa kolejność albumów"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:915
 msgid "_Random"
 msgstr "_Losowy"
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:920
 msgid "Repeat _Off"
 msgstr "Powtarzanie _wyłączone"
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:920
 msgid "Repeat _All"
 msgstr "Powtarzaj _całość"
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:920
 msgid "Repeat O_ne"
 msgstr "Powtórz jede_n"
 
-#: ../xl/playlist.py:925
+#: ../xl/playlist.py:924
 msgid "Dynamic _Off"
 msgstr "Dynamiczne dodawanie wyłączone"
 
-#: ../xl/playlist.py:925
+#: ../xl/playlist.py:924
 msgid "Dynamic by Similar _Artists"
 msgstr "Dynamiczne dodawanie podobnych wykonawców"
 
@@ -788,7 +792,7 @@ msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:721 ../xl/trax/track.py:787
+#: ../xl/trax/track.py:723 ../xl/trax/track.py:789
 #, python-format
 msgid "%dk"
 msgstr "%dk"
@@ -864,30 +868,30 @@ msgstr "Pobierz okładkę"
 msgid "Remove Cover"
 msgstr "Usuń okładkę"
 
-#: ../xlgui/cover.py:812
+#: ../xlgui/cover.py:811
 #, python-format
 msgid "Cover for %s"
 msgstr "Okladka dla %s"
 
-#: ../xlgui/cover.py:880
+#: ../xlgui/cover.py:879
 #, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
 msgstr "{szerokość}x{wysokość} w pikselach ({zoom}%)"
 
-#: ../xlgui/cover.py:931
+#: ../xlgui/cover.py:930
 msgid "Save File"
 msgstr "Zapisz plik"
 
-#: ../xlgui/cover.py:1029
+#: ../xlgui/cover.py:1028
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr "Opcje okładki dla %(artist)s - %(album)s"
 
-#: ../xlgui/cover.py:1133
+#: ../xlgui/cover.py:1132
 msgid "No covers found."
 msgstr "Nie znaleziono okładek."
 
-#: ../xlgui/cover.py:1135
+#: ../xlgui/cover.py:1134
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
@@ -896,130 +900,130 @@ msgstr ""
 "włączyć więcej źródeł."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1105
+#: ../xlgui/cover.py:1177 ../xlgui/properties.py:1110
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} pikseli"
 
-#: ../xlgui/main.py:95
+#: ../xlgui/main.py:94
 msgid "$title (by $artist)"
 msgstr "$title ($artist)"
 
-#: ../xlgui/main.py:149
+#: ../xlgui/main.py:148
 msgid "Save currently selected playlist"
 msgstr "Zapisz aktualnie wybraną playlistę"
 
-#: ../xlgui/main.py:154
+#: ../xlgui/main.py:153
 msgid "Save currently selected playlist under a custom name"
 msgstr "Zapisz aktualnie wybraną playlistę pod niestandardową nazwą"
 
-#: ../xlgui/main.py:159
+#: ../xlgui/main.py:158
 msgid "Focus filter in currently focused panel"
 msgstr ""
 
-#: ../xlgui/main.py:164
+#: ../xlgui/main.py:163
 msgid "Focus playlist search"
 msgstr "Skoncentruj wyszukiwanie listy odtwarzania"
 
-#: ../xlgui/main.py:169
+#: ../xlgui/main.py:168
 msgid "Clear queue"
 msgstr "Wyczyść kolejkę"
 
-#: ../xlgui/main.py:174 ../plugins/minimode/controls.py:270
+#: ../xlgui/main.py:173 ../plugins/minimode/controls.py:270
 msgid "Start, pause or resume the playback"
 msgstr "Odtwórz, wstrzymaj lub wznów odtwarzanie"
 
-#: ../xlgui/main.py:179
+#: ../xlgui/main.py:178
 msgid "Seek to the right"
 msgstr "Szukaj w prawo"
 
-#: ../xlgui/main.py:184
+#: ../xlgui/main.py:183
 msgid "Seek to the left"
 msgstr "Szukaj w lewo"
 
-#: ../xlgui/main.py:189 ../xlgui/main.py:194
+#: ../xlgui/main.py:188 ../xlgui/main.py:193
 msgid "Increase the volume"
 msgstr "Zwiększ głośność"
 
-#: ../xlgui/main.py:199
+#: ../xlgui/main.py:198
 msgid "Decrease the volume"
 msgstr "Zmniejsz głośność"
 
-#: ../xlgui/main.py:202
+#: ../xlgui/main.py:201
 msgid "Switch to previous tab"
 msgstr "Przejdź do poprzedniej karty"
 
-#: ../xlgui/main.py:203
+#: ../xlgui/main.py:202
 msgid "Switch to next tab"
 msgstr "Przejdź do następnej karty"
 
-#: ../xlgui/main.py:206
+#: ../xlgui/main.py:205
 #, fuzzy
 #| msgid "Defaults to the playlist name"
 msgid "Focus the playlist container"
 msgstr "Domyślne dla nazwy listy odtwarzania"
 
-#: ../xlgui/main.py:213
+#: ../xlgui/main.py:212
 msgid "Focus the files panel"
 msgstr ""
 
-#: ../xlgui/main.py:220
+#: ../xlgui/main.py:219
 msgid "Focus the radio panel"
 msgstr ""
 
-#: ../xlgui/main.py:225
+#: ../xlgui/main.py:224
 #, fuzzy
 #| msgid "Defaults to the playlist name"
 msgid "Focus the playlists panel"
 msgstr "Domyślne dla nazwy listy odtwarzania"
 
-#: ../xlgui/main.py:228
+#: ../xlgui/main.py:227
 msgid "Focus the first tab"
 msgstr ""
 
-#: ../xlgui/main.py:229
+#: ../xlgui/main.py:228
 msgid "Focus the second tab"
 msgstr ""
 
-#: ../xlgui/main.py:230
+#: ../xlgui/main.py:229
 msgid "Focus the third tab"
 msgstr ""
 
-#: ../xlgui/main.py:231
+#: ../xlgui/main.py:230
 msgid "Focus the fourth tab"
 msgstr ""
 
-#: ../xlgui/main.py:232
+#: ../xlgui/main.py:231
 msgid "Focus the fifth tab"
 msgstr ""
 
-#: ../xlgui/main.py:233
+#: ../xlgui/main.py:232
 msgid "Focus the sixth tab"
 msgstr ""
 
-#: ../xlgui/main.py:234
+#: ../xlgui/main.py:233
 msgid "Focus the seventh tab"
 msgstr ""
 
-#: ../xlgui/main.py:235
+#: ../xlgui/main.py:234
 #, fuzzy
 #| msgid "Defaults to the playlist name"
 msgid "Focus the eighth tab"
 msgstr "Domyślne dla nazwy listy odtwarzania"
 
-#: ../xlgui/main.py:236
+#: ../xlgui/main.py:235
 msgid "Focus the ninth tab"
 msgstr ""
 
-#: ../xlgui/main.py:237
+#: ../xlgui/main.py:236
 msgid "Focus the tenth tab"
 msgstr ""
 
-#: ../xlgui/main.py:592
+#: ../xlgui/main.py:596
 msgid "Toggle: Stop after Selected Track"
 msgstr "Przełącznik: Zatrzymaj odtwarzanie po zaznaczonym utworze"
 
-#: ../xlgui/main.py:705 ../plugins/previewdevice/__init__.py:355
+#: ../xlgui/main.py:705 ../plugins/previewdevice/__init__.py:349
 msgid "Playback error encountered!"
 msgstr "Błąd odtwarzania!"
 
@@ -1028,12 +1032,12 @@ msgstr "Błąd odtwarzania!"
 msgid "Buffering: %d%%..."
 msgstr "Buforowanie: %d%%..."
 
-#: ../xlgui/main.py:753 ../plugins/previewdevice/__init__.py:364
+#: ../xlgui/main.py:753 ../plugins/previewdevice/__init__.py:358
 msgid "Continue Playback"
 msgstr "Kontynuuj odtwarzanie"
 
-#: ../xlgui/main.py:756 ../xlgui/main.py:929
-#: ../plugins/previewdevice/__init__.py:367
+#: ../xlgui/main.py:756 ../xlgui/main.py:922
+#: ../plugins/previewdevice/__init__.py:361
 msgid "Pause Playback"
 msgstr "Wstrzymaj odtwarzanie"
 
@@ -1041,8 +1045,8 @@ msgstr "Wstrzymaj odtwarzanie"
 msgid "Playlist export failed!"
 msgstr "Eksport listy odtwarzania nie powiódł się!"
 
-#: ../xlgui/main.py:938 ../data/ui/main.ui:174
-#: ../plugins/previewdevice/__init__.py:349
+#: ../xlgui/main.py:931 ../data/ui/main.ui:174
+#: ../plugins/previewdevice/__init__.py:343
 msgid "Start Playback"
 msgstr "Rozpocznij odtwarzanie"
 
@@ -1241,53 +1245,53 @@ msgstr "Nowa _inteligentna lista odtwarzania"
 msgid "_New Station"
 msgstr "_Nowa stacja"
 
-#: ../xlgui/panel/playlists.py:136
+#: ../xlgui/panel/playlists.py:134
 #, python-format
 msgid "Delete the playlist \"%s\"?"
 msgstr "Usunąć listę odtwarzania „%s”?"
 
-#: ../xlgui/panel/playlists.py:152
+#: ../xlgui/panel/playlists.py:151
 msgid "Enter the new name you want for your playlist"
 msgstr "Wprowadź nową nazwę dla swojej listy odtwarzania"
 
-#: ../xlgui/panel/playlists.py:153
+#: ../xlgui/panel/playlists.py:152
 msgid "Rename Playlist"
 msgstr "Zmień nazwę listy odtwarzania"
 
-#: ../xlgui/panel/playlists.py:169 ../xlgui/widgets/dialogs.py:1766
+#: ../xlgui/panel/playlists.py:168 ../xlgui/widgets/dialogs.py:1774
 #: ../xlgui/widgets/smart_playlist_editor.py:395
 msgid "The playlist name you entered is already in use."
 msgstr "Podana nazwa listy odtwarzania jest już w użyciu."
 
-#: ../xlgui/panel/playlists.py:215
+#: ../xlgui/panel/playlists.py:214
 #, python-format
 msgid "Error loading smart playlist: %s"
 msgstr "Błąd wczytywania inteligentnej listy odtwarzania: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
-#: ../xlgui/panel/playlists.py:276 ../xlgui/panel/playlists.py:292
-#: ../xlgui/panel/playlists.py:308
+#: ../xlgui/panel/playlists.py:275 ../xlgui/panel/playlists.py:291
+#: ../xlgui/panel/playlists.py:307
 #, python-format
 msgid "%(first)s, %(second)s and others"
 msgstr "%(first)s, %(second)s i inne"
 
 #. TRANSLATORS: Playlist title suggestion with two values
-#: ../xlgui/panel/playlists.py:282 ../xlgui/panel/playlists.py:298
-#: ../xlgui/panel/playlists.py:314
+#: ../xlgui/panel/playlists.py:281 ../xlgui/panel/playlists.py:297
+#: ../xlgui/panel/playlists.py:313
 #, python-format
 msgid "%(first)s and %(second)s"
 msgstr "%(first)s i %(second)s"
 
-#: ../xlgui/panel/playlists.py:390 ../xlgui/preferences/playlists.py:31
+#: ../xlgui/panel/playlists.py:389 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
 msgstr "Listy odtwarzania"
 
-#: ../xlgui/panel/playlists.py:534
+#: ../xlgui/panel/playlists.py:533
 msgid "Smart Playlists"
 msgstr "Inteligentne listy odtwarzania"
 
-#: ../xlgui/panel/playlists.py:537
+#: ../xlgui/panel/playlists.py:536
 msgid "Custom Playlists"
 msgstr "Własne listy odtwarzania"
 
@@ -1374,7 +1378,7 @@ msgstr ""
 msgid "_Move to Other View"
 msgstr "_Przenieś do innego widoku"
 
-#: ../xlgui/preferences/__init__.py:115 ../xlgui/preferences/plugin.py:40
+#: ../xlgui/preferences/__init__.py:113 ../xlgui/preferences/plugin.py:40
 msgid "Plugins"
 msgstr "Wtyczki"
 
@@ -1471,15 +1475,15 @@ msgstr "Uruchom ponownie"
 msgid "Action"
 msgstr "Działanie"
 
-#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:78
+#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:79
 msgid "Shortcut"
 msgstr "Skrót"
 
-#: ../xlgui/properties.py:253
+#: ../xlgui/properties.py:258
 msgid "Writing of tags failed"
 msgstr "Zapisywanie znaczników nie powiodło się"
 
-#: ../xlgui/properties.py:255
+#: ../xlgui/properties.py:260
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
@@ -1488,79 +1492,79 @@ msgstr ""
 "Znaczniki nie mogły zostać zapisane do następujących plików:\n"
 "{files}"
 
-#: ../xlgui/properties.py:275
+#: ../xlgui/properties.py:280
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr "Edycja utworu %(current)d z %(total)d"
 
-#: ../xlgui/properties.py:398
+#: ../xlgui/properties.py:402
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr "Czy jesteś pewien, że chcesz zastosować zmiany do wszystkich utworów?"
 
-#: ../xlgui/properties.py:440
+#: ../xlgui/properties.py:445
 msgid "Apply changes before closing?"
 msgstr "Zastosować zmiany przed zamknięciem?"
 
-#: ../xlgui/properties.py:441
+#: ../xlgui/properties.py:446
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "Twoje zmiany zostaną odrzucone, jeśli ich teraz nie zastosujesz."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:624
+#: ../xlgui/properties.py:629
 #, python-format
 msgid "%s:"
 msgstr "%s:"
 
 #. TRANSLATORS: Remove tag value
-#: ../xlgui/properties.py:631 ../plugins/developer/developer_window.ui:131
+#: ../xlgui/properties.py:636 ../plugins/developer/developer_window.ui:131
 msgid "Clear"
 msgstr "Wyczyść"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:853
+#: ../xlgui/properties.py:858
 msgid "of:"
 msgstr "z:"
 
-#: ../xlgui/properties.py:960
+#: ../xlgui/properties.py:965
 msgid "JPEG image"
 msgstr "Obraz JPEG"
 
-#: ../xlgui/properties.py:965
+#: ../xlgui/properties.py:970
 msgid "PNG image"
 msgstr "Obraz PNG"
 
-#: ../xlgui/properties.py:967
+#: ../xlgui/properties.py:972
 msgid "Image"
 msgstr "Obraz"
 
-#: ../xlgui/properties.py:973
+#: ../xlgui/properties.py:978
 msgid "Linked image"
 msgstr "Załączony obraz"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1108
+#: ../xlgui/properties.py:1113
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} pikseli)"
 
-#: ../xlgui/properties.py:1122
+#: ../xlgui/properties.py:1127
 msgid "Select image to set as cover"
 msgstr "Wybierz obraz na okładkę"
 
-#: ../xlgui/properties.py:1135
+#: ../xlgui/properties.py:1140
 msgid "Supported image formats"
 msgstr "Obsługiwane formaty obrazów"
 
-#: ../xlgui/properties.py:1218
+#: ../xlgui/properties.py:1223
 msgid "Open Directory"
 msgstr "Otwórz katalog"
 
-#: ../xlgui/properties.py:1268
+#: ../xlgui/properties.py:1273
 msgid "Apply current value to all tracks"
 msgstr "Zastosuj tę wartość dla wszystkich utworów"
 
-#: ../xlgui/properties.py:1288 ../xlgui/widgets/dialogs.py:1543
+#: ../xlgui/properties.py:1293 ../xlgui/widgets/dialogs.py:1550
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Zapisano %(count)s z %(total)s."
@@ -1609,74 +1613,74 @@ msgstr "Import listy odtwarzania"
 msgid "Export Current Playlist"
 msgstr "Eksport bieżącej listy odtwarzania"
 
-#: ../xlgui/widgets/dialogs.py:1009
+#: ../xlgui/widgets/dialogs.py:1014
 msgid "Use relative paths to tracks"
 msgstr "Użyj względnej ścieżki do utworów"
 
-#: ../xlgui/widgets/dialogs.py:1066
+#: ../xlgui/widgets/dialogs.py:1073
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Lista odtwarzania zapisana jako <b>%s</b>."
 
-#: ../xlgui/widgets/dialogs.py:1083
+#: ../xlgui/widgets/dialogs.py:1090
 #, python-format
 msgid "Close %s"
 msgstr "Zamknij %s"
 
-#: ../xlgui/widgets/dialogs.py:1084
+#: ../xlgui/widgets/dialogs.py:1091
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Zapisać zmiany w %s przed zamknięciem?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1086
+#: ../xlgui/widgets/dialogs.py:1093
 msgid "Your changes will be lost if you don't save them"
 msgstr "Twoje zmiany zostaną utracone, jeśli ich nie zapiszesz"
 
-#: ../xlgui/widgets/dialogs.py:1090
+#: ../xlgui/widgets/dialogs.py:1097
 msgid "Close Without Saving"
 msgstr "Zamknij bez zapisywania"
 
-#: ../xlgui/widgets/dialogs.py:1483
+#: ../xlgui/widgets/dialogs.py:1490
 msgid "Yes to all"
 msgstr "Tak dla wszystkich"
 
-#: ../xlgui/widgets/dialogs.py:1491
+#: ../xlgui/widgets/dialogs.py:1498
 msgid "No to all"
 msgstr "Nie dla wszystkich"
 
-#: ../xlgui/widgets/dialogs.py:1663 ../xlgui/widgets/dialogs.py:1681
+#: ../xlgui/widgets/dialogs.py:1670 ../xlgui/widgets/dialogs.py:1688
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Błąd podczas kopiowania %s: %s"
 
-#: ../xlgui/widgets/dialogs.py:1692
+#: ../xlgui/widgets/dialogs.py:1699
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "Plik %s już istnieje. Nadpisać?"
 
-#: ../xlgui/widgets/dialogs.py:1749
+#: ../xlgui/widgets/dialogs.py:1757
 msgid "Playlist name:"
 msgstr "Nazwa listy odtwarzania:"
 
-#: ../xlgui/widgets/dialogs.py:1750
+#: ../xlgui/widgets/dialogs.py:1758
 msgid "Add new playlist..."
 msgstr "Dodaj nową listę odtwarzania..."
 
-#: ../xlgui/widgets/dialogs.py:1763
+#: ../xlgui/widgets/dialogs.py:1771
 #: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
 msgstr "Nie wprowadziłeś nazwy listy odtwarzania"
 
-#: ../xlgui/widgets/dialogs.py:1772
+#: ../xlgui/widgets/dialogs.py:1780
 msgid "Save As"
 msgstr "Zapisz jako"
 
-#: ../xlgui/widgets/dialogs.py:1841
+#: ../xlgui/widgets/dialogs.py:1849
 #, python-format
 msgid "Exporting %s"
 msgstr "Eksportowanie %s"
 
-#: ../xlgui/widgets/dialogs.py:1846
+#: ../xlgui/widgets/dialogs.py:1854
 msgid "Choose directory to export files to"
 msgstr "Wybierz katalog, do którego pliki zostaną wyeksportowane"
 
@@ -1694,17 +1698,17 @@ msgstr ""
 msgid "Not Playing"
 msgstr "Nie odtwarza"
 
-#: ../xlgui/widgets/info.py:415
+#: ../xlgui/widgets/info.py:417
 #, python-format
 msgid "%d in collection"
 msgstr "%d w kolekcji"
 
-#: ../xlgui/widgets/info.py:437 ../xlgui/widgets/info.py:444
+#: ../xlgui/widgets/info.py:446 ../xlgui/widgets/info.py:453
 #, python-format
 msgid "%d showing"
 msgstr "%d wyświetlonych"
 
-#: ../xlgui/widgets/info.py:441 ../xlgui/widgets/info.py:448
+#: ../xlgui/widgets/info.py:450 ../xlgui/widgets/info.py:457
 #, python-format
 msgid "%d selected"
 msgstr "%d zaznaczono"
@@ -1815,7 +1819,8 @@ msgstr "_Następny utwór"
 msgid "_Previous Track"
 msgstr "_Poprzedni utwór"
 
-#: ../xlgui/widgets/playback.py:1604
+#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "_Zatrzymaj"
 
@@ -1843,7 +1848,7 @@ msgstr "R_andomizuj listę odtwarzania"
 msgid "R_andomize Selection"
 msgstr "R_andomizuj wybór"
 
-#: ../xlgui/widgets/playlist.py:224
+#: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 msgid "_Save"
 msgstr "_Zapisz"
 
@@ -2110,6 +2115,18 @@ msgstr ""
 msgid "Collection Manager"
 msgstr "Menedżer kolekcji"
 
+#: ../data/ui/collection_manager.ui:54
+#, fuzzy
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "Anuluj"
+
+#: ../data/ui/collection_manager.ui:71
+#, fuzzy
+#| msgid "Apply BPM"
+msgid "_Apply"
+msgstr "Zastosuj tempo uderzeń na minutę"
+
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
 msgstr "Monitorowany"
@@ -2117,6 +2134,16 @@ msgstr "Monitorowany"
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
 msgstr "Skanuj przy uruchomieniu"
+
+#: ../data/ui/collection_manager.ui:174
+msgid "Add _Folder"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui:191
+#, fuzzy
+#| msgid "Remove Cover"
+msgid "_Remove Folder"
+msgstr "Usuń okładkę"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2130,6 +2157,12 @@ msgstr "Wyszukiwarka okładek"
 msgid "The origin of this cover"
 msgstr "Pochodzenie tej okładki"
 
+#: ../data/ui/coverchooser.ui:159
+#, fuzzy
+#| msgid "_About"
+msgid "_Abort"
+msgstr "_O programie"
+
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr "_Ustaw jako okładkę"
@@ -2137,6 +2170,14 @@ msgstr "_Ustaw jako okładkę"
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
 msgstr "Menedżer okładek"
+
+#. Closes the preferences dialog
+#: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
+#: ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39 ../data/ui/trackproperties_dialog.ui:317
+msgid "_Close"
+msgstr "_Zamknij"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
@@ -2158,11 +2199,6 @@ msgstr "_Oryginalny rozmiar"
 msgid "_Best Fit"
 msgstr "_Najlepsze dopasowanie"
 
-#. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/preferences/preferences_dialog.ui:39
-msgid "_Close"
-msgstr "_Zamknij"
-
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
 msgstr "Menedżer urządzeń"
@@ -2178,6 +2214,16 @@ msgstr "Urządzenie"
 #: ../data/ui/device_manager.ui:88
 msgid "Driver"
 msgstr "Sterownik"
+
+#: ../data/ui/device_manager.ui:115
+msgid "_Connect"
+msgstr ""
+
+#: ../data/ui/device_manager.ui:133
+#, fuzzy
+#| msgid "Disconnect from Server"
+msgid "_Disconnect"
+msgstr "Zakończ połączenie z serwerem"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -2302,46 +2348,53 @@ msgstr "Góra"
 msgid "Bottom"
 msgstr "Dół"
 
-#: ../data/ui/preferences/appearance.ui:50
+#: ../data/ui/preferences/appearance.ui:52
 msgid "Show info area"
 msgstr "Pokaż pole informacji"
 
-#: ../data/ui/preferences/appearance.ui:54
+#: ../data/ui/preferences/appearance.ui:56
 msgid "The info area contains the cover art and track information"
 msgstr "Pole szczegółów wyświetla okładkę i informacje o utworze"
 
-#: ../data/ui/preferences/appearance.ui:66
+#: ../data/ui/preferences/appearance.ui:68
 msgid "Show cover art in info area"
 msgstr "Pokaż okładkę w polu informacji"
 
-#: ../data/ui/preferences/appearance.ui:81
+#: ../data/ui/preferences/appearance.ui:83
 msgid "Always show tab bar"
 msgstr "Zawsze pokazuj pasek kart"
 
-#: ../data/ui/preferences/appearance.ui:99
+#: ../data/ui/preferences/appearance.ui:101
 msgid "Tab placement:"
 msgstr "Położenie kart:"
 
-#: ../data/ui/preferences/appearance.ui:139
+#: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr "Czcionka listy odtwarzania:"
 
-#: ../data/ui/preferences/appearance.ui:156 ../data/ui/preferences/lyrics.ui:47
+#: ../data/ui/preferences/appearance.ui:154
+#, fuzzy
+#| msgid "Never"
+msgid "_Revert"
+msgstr "Nigdy"
+
+#: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
 msgid "Reset to the system font"
 msgstr "Przywróć do czcionki systemowej"
 
-#: ../data/ui/preferences/appearance.ui:194
+#: ../data/ui/preferences/appearance.ui:196
+#: ../data/ui/preferences/appearance.ui:385
 msgid "Display track counts in collection"
 msgstr "Wyświetl liczbę utworów w kolekcji"
 
 #. TRANSLATORS: Remark at the alpha transparency option
-#: ../data/ui/preferences/appearance.ui:208
+#: ../data/ui/preferences/appearance.ui:210
 #: ../plugins/minimode/minimode_preferences.ui:237
 msgid "Use alpha transparency:"
 msgstr "Użyj przezroczystości alpha:"
 
-#: ../data/ui/preferences/appearance.ui:212
+#: ../data/ui/preferences/appearance.ui:214
 msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
@@ -2349,32 +2402,32 @@ msgstr ""
 "Uwaga: Ta opcja może spowodować błędy w wyświetlaniu, jeżeli menedżer okien "
 "nie obsługuje kompozycji."
 
-#: ../data/ui/preferences/appearance.ui:228
+#: ../data/ui/preferences/appearance.ui:230
 msgid "Alpha transparency"
 msgstr "Przezroczystość alfa"
 
-#: ../data/ui/preferences/appearance.ui:239
+#: ../data/ui/preferences/appearance.ui:241
 msgid "Show tray icon"
 msgstr "Pokaż ikonę w zasobniku"
 
-#: ../data/ui/preferences/appearance.ui:257
+#: ../data/ui/preferences/appearance.ui:259
 msgid "Minimize to tray"
 msgstr "Minimalizuj do zasobnika"
 
-#: ../data/ui/preferences/appearance.ui:271
+#: ../data/ui/preferences/appearance.ui:273
 msgid "Close to tray"
 msgstr "Zamykaj do zasobnika"
 
 #. TRANSLATORS: Keep the current track visible in playlist
-#: ../data/ui/preferences/appearance.ui:285
+#: ../data/ui/preferences/appearance.ui:287
 msgid "Jump to current song on track change"
 msgstr "Przejdź do bieżącego utworu po zmianie utworu"
 
-#: ../data/ui/preferences/appearance.ui:301
+#: ../data/ui/preferences/appearance.ui:303
 msgid "Show splash screen on startup"
 msgstr "Pokaż ekran powitalny przy starcie"
 
-#: ../data/ui/preferences/appearance.ui:328
+#: ../data/ui/preferences/appearance.ui:330
 msgid ""
 "Tray icons are not supported on some platforms, most notably on Wayland. On "
 "GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
@@ -2387,22 +2440,44 @@ msgstr ""
 "extension/495/topicons/\"> rozszerzenie„TopIcons”</a> (lub podobny) "
 "zainstalowane."
 
-#: ../data/ui/preferences/appearance.ui:341
+#: ../data/ui/preferences/appearance.ui:343
 msgid "Note:"
 msgstr "Notatka:"
 
-#: ../data/ui/preferences/appearance.ui:353
+#: ../data/ui/preferences/appearance.ui:355
 msgid "Prefer dark theme"
 msgstr "Wolę ciemny motyw"
 
 #. TRANSLATORS: "Checked" here refers to checkbox state.
-#: ../data/ui/preferences/appearance.ui:357
+#: ../data/ui/preferences/appearance.ui:359
 msgid ""
 "If not checked, will not specify a preference to GTK. May not work on some "
 "platforms."
 msgstr ""
 "Jeśli nie zaznaczone, nie określi preferencji dla GTK. Może nie działać na "
 "niektórych platformach."
+
+#: ../data/ui/preferences/appearance.ui:370
+msgid "Show Status Bar"
+msgstr ""
+
+#: ../data/ui/preferences/appearance.ui:374
+msgid ""
+"Show or hide the status bar. The status bar will always be shown if a plugin "
+"requests it."
+msgstr ""
+
+#: ../data/ui/preferences/appearance.ui:399
+#, fuzzy
+#| msgid "_Show Playing Track"
+msgid "Show playlist track count"
+msgstr "_Pokaż odtwarzany utwór"
+
+#: ../data/ui/preferences/appearance.ui:413
+#, fuzzy
+#| msgid "Display duration:"
+msgid "Show playlist duration"
+msgstr "Czas wyświetlania:"
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -2492,10 +2567,14 @@ msgid "Adding an item to an empty queue begins playback"
 msgstr "Dodanie elementu do pustej kolejki rozpocznie jego odtwarzanie"
 
 #: ../data/ui/preferences/playback.ui:206
+#: ../plugins/quickbuttons/__init__.py:56
+#: ../plugins/quickbuttons/qb_prefs.ui:42
 msgid "Remove track from queue upon playback"
 msgstr "Usuń utwór z kolejki po odtworzeniu"
 
 #: ../data/ui/preferences/playback.ui:221
+#: ../plugins/quickbuttons/__init__.py:47
+#: ../plugins/quickbuttons/qb_prefs.ui:27
 msgid "Disallow playing new tracks when another track is playing"
 msgstr ""
 "Nie pozwalaj na odtwarzanie nowego utworu gdy inny utwór jest już odtwarzany"
@@ -2509,6 +2588,8 @@ msgstr ""
 "utworów, z wyjątkiem klikania elementów sterujących odtwarzaniem"
 
 #: ../data/ui/preferences/playback.ui:237
+#: ../plugins/quickbuttons/__init__.py:65
+#: ../plugins/quickbuttons/qb_prefs.ui:57
 msgid "Automatically advance to the next track"
 msgstr "Automatycznie przejdź do następnego utworu"
 
@@ -2593,6 +2674,8 @@ msgstr ""
 "była domyślnym zachowaniem Exaile przed wersją 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui:66
+#: ../plugins/quickbuttons/__init__.py:38
+#: ../plugins/quickbuttons/qb_prefs.ui:12
 msgid "Queue tracks by default instead of playing them"
 msgstr "Dodaj utwory do kolejki zamiast je odtwarzać"
 
@@ -2634,11 +2717,7 @@ msgstr "Dodaj plik wtyczki"
 msgid "Preferences"
 msgstr "Preferencje"
 
-#: ../data/ui/shortcuts_dialog.ui:39
-msgid "Close"
-msgstr "Zamknij"
-
-#: ../data/ui/shortcuts_dialog.ui:89
+#: ../data/ui/shortcuts_dialog.ui:90
 msgid "Description"
 msgstr "Opis"
 
@@ -2854,7 +2933,7 @@ msgstr "_Wyczyść zakładki"
 msgid "_Bookmarks"
 msgstr "_Zakładki"
 
-#: ../plugins/bpm/__init__.py:66 ../plugins/bpm/__init__.py:205
+#: ../plugins/bpm/__init__.py:67 ../plugins/bpm/__init__.py:206
 msgid "Autodetect BPM"
 msgstr "Automatycznie wykryj BPM"
 
@@ -2863,12 +2942,12 @@ msgstr "Automatycznie wykryj BPM"
 msgid "Set BPM of %d on %s?"
 msgstr "Ustawić tempo %d na %s?"
 
-#: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
+#: ../plugins/bpm/__init__.py:184 ../plugins/bpm/bpm.ui:59
 #: ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
 msgstr "Licznik uderzeń na minutę"
 
-#: ../plugins/bpm/__init__.py:335 ../plugins/bpm/bpm.ui:30
+#: ../plugins/bpm/__init__.py:336 ../plugins/bpm/bpm.ui:31
 msgid "Update"
 msgstr "Aktualizacja"
 
@@ -2918,7 +2997,7 @@ msgstr "Wprowadź adres IP i port, aby udostępnić"
 msgid "Enter IP address and port."
 msgstr "Wpisz adres IP i port."
 
-#: ../plugins/daapclient/__init__.py:549
+#: ../plugins/daapclient/__init__.py:548
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -3168,7 +3247,7 @@ msgstr "Wybrane utwory"
 msgid "Playback history"
 msgstr "Historia odtwarzania"
 
-#: ../plugins/history/__init__.py:117
+#: ../plugins/history/__init__.py:116
 msgid "Erase stored history?"
 msgstr "Usunąć zachowaną historię?"
 
@@ -3299,8 +3378,8 @@ msgstr ""
 msgid "This plugin needs at least one visible panel"
 msgstr "Ta wtyczka wymaga co najmniej jednego widocznego panelu"
 
-#: ../plugins/mainmenubutton/__init__.py:82
-#: ../plugins/mainmenubutton/__init__.py:88
+#: ../plugins/mainmenubutton/__init__.py:80
+#: ../plugins/mainmenubutton/__init__.py:86
 msgid "Main Menu"
 msgstr "Menu główne"
 
@@ -3565,22 +3644,82 @@ msgstr "Nie ma jeszcze konfiguracji"
 msgid "Could not save podcast file"
 msgstr "Nie można zapisać pliku podcastu"
 
-#: ../plugins/previewdevice/__init__.py:146
+#: ../plugins/previewdevice/__init__.py:148
 msgid "Preview Player"
 msgstr "Podgląd odtwarzacza"
 
-#: ../plugins/previewdevice/__init__.py:156
+#: ../plugins/previewdevice/__init__.py:158
 msgid "Preview"
 msgstr "Podgląd"
 
-#: ../plugins/previewdevice/__init__.py:341
+#: ../plugins/previewdevice/__init__.py:335
 msgid "Pause Playback (double click to stop)"
 msgstr "Wstrzymaj odtwarzanie (podwójne kliknięcie, aby zatrzymać)"
 
 #: ../plugins/previewdevice/previewprefs.py:32
+#: ../plugins/quickbuttons/__init__.py:101
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
 msgstr "Podgląd urządzenia"
+
+#: ../plugins/quickbuttons/__init__.py:37
+#, fuzzy
+#| msgid "En_queue"
+msgid "Enqueue"
+msgstr "W_kolejce"
+
+#: ../plugins/quickbuttons/__init__.py:46
+#, fuzzy
+#| msgid "Not playing."
+msgid "Keep playing"
+msgstr "Nie odtwarza."
+
+#: ../plugins/quickbuttons/__init__.py:55
+#, fuzzy
+#| msgid "_Remove"
+msgid "Auto-Remove"
+msgstr "_Usuń"
+
+#: ../plugins/quickbuttons/__init__.py:64
+#, fuzzy
+#| msgid "Advanced"
+msgid "Auto-Advance"
+msgstr "Zaawansowane"
+
+#: ../plugins/quickbuttons/__init__.py:73
+#: ../plugins/quickbuttons/__init__.py:74
+#, fuzzy
+#| msgid "Delay between tracks (ms):"
+msgid "Delay between tracks (in seconds):"
+msgstr "Opóźnienie pomiędzy utworami (ms):"
+
+#: ../plugins/quickbuttons/__init__.py:82
+msgid "EQ"
+msgstr ""
+
+#: ../plugins/quickbuttons/__init__.py:83 ../plugins/equalizer/equalizer.ui:109
+#: ../plugins/equalizer/PLUGININFO:3
+msgid "Equalizer"
+msgstr "Korektor"
+
+#: ../plugins/quickbuttons/__init__.py:92
+#, fuzzy
+#| msgid "Device"
+msgid "Main Device"
+msgstr "Urządzenie"
+
+#: ../plugins/quickbuttons/__init__.py:93
+#: ../plugins/quickbuttons/qb_prefs.ui:101
+msgid "Select main audio device"
+msgstr ""
+
+#: ../plugins/quickbuttons/__init__.py:102
+msgid "Select preview audio device"
+msgstr ""
+
+#: ../plugins/quickbuttons/qb_prefs.py:5
+msgid "Quickbuttons"
+msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
@@ -3758,7 +3897,7 @@ msgstr "Hasło:"
 msgid "_Verify Login Data"
 msgstr "_Zweryfikuj dane logowania"
 
-#: ../plugins/bpm/bpm.ui:41
+#: ../plugins/bpm/bpm.ui:42
 msgid "Apply BPM"
 msgstr "Zastosuj tempo uderzeń na minutę"
 
@@ -3925,9 +4064,15 @@ msgstr "Filtruj typy zdarzeń"
 msgid "Events"
 msgstr "Zdarzenia"
 
-#: ../plugins/equalizer/equalizer.ui:109 ../plugins/equalizer/PLUGININFO:3
-msgid "Equalizer"
-msgstr "Korektor"
+#: ../plugins/equalizer/equalizer.ui:123
+#: ../plugins/multialarmclock/malrmclk.ui:94
+msgid "_Add"
+msgstr "_Dodaj"
+
+#: ../plugins/equalizer/equalizer.ui:139
+#: ../plugins/multialarmclock/malrmclk.ui:110
+msgid "_Remove"
+msgstr "_Usuń"
 
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
@@ -4202,14 +4347,6 @@ msgstr "Odcienie koloru (eksperymentalny)"
 msgid "<b>Alarms</b>"
 msgstr "<b>Alarmy</b>"
 
-#: ../plugins/multialarmclock/malrmclk.ui:94
-msgid "_Add"
-msgstr "_Dodaj"
-
-#: ../plugins/multialarmclock/malrmclk.ui:110
-msgid "_Remove"
-msgstr "_Usuń"
-
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"
 msgstr "<b>Odtwarzanie</b>"
@@ -4365,6 +4502,20 @@ msgstr "Czas przenikania:"
 msgid "Audio Device:"
 msgstr "Urządzenie audio:"
 
+#: ../plugins/quickbuttons/qb_prefs.ui:72
+#, fuzzy
+#| msgid "Delay between tracks (ms):"
+msgid "Delay between tracks (in seconds)"
+msgstr "Opóźnienie pomiędzy utworami (ms):"
+
+#: ../plugins/quickbuttons/qb_prefs.ui:87
+msgid "Equalizer (depends on Equalizer Plugin)"
+msgstr ""
+
+#: ../plugins/quickbuttons/qb_prefs.ui:115
+msgid "Select preview audio device (depends on previewdevice plugin)"
+msgstr ""
+
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:24
 msgid "Prefer per-album correction"
@@ -4465,7 +4616,7 @@ msgstr ""
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5
 #: ../plugins/inhibitsuspend/PLUGININFO:5
-#: ../plugins/multialarmclock/PLUGININFO:5
+#: ../plugins/multialarmclock/PLUGININFO:5 ../plugins/quickbuttons/PLUGININFO:5
 #: ../plugins/screensaverpause/PLUGININFO:5 ../plugins/shutdown/PLUGININFO:5
 msgid "Utility"
 msgstr "Narzędzie"
@@ -4872,6 +5023,15 @@ msgstr ""
 msgid "Output"
 msgstr "Wyjście"
 
+#: ../plugins/quickbuttons/PLUGININFO:3
+msgid "Quick Settings Buttons"
+msgstr ""
+
+#: ../plugins/quickbuttons/PLUGININFO:4
+msgid ""
+"Provides buttons on bottom of the playlist to quickly change some settings"
+msgstr ""
+
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
 msgstr "Włącz wsparcie dla ReplayGain"
@@ -4935,7 +5095,33 @@ msgstr ""
 "\n"
 "Wymaga: pyHook (%s) lub klawiatury (%s)"
 
-#, python-format
+#, fuzzy
+#~| msgid "Close"
+#~ msgid "C_lose"
+#~ msgstr "Zamknij"
+
+#, fuzzy
+#~| msgid "Display track counts in collection"
+#~ msgid "Show total count of tracks in collection"
+#~ msgstr "Wyświetl liczbę utworów w kolekcji"
+
+#, fuzzy
+#~| msgid "Disallow playing new tracks when another track is playing"
+#~ msgid "Disable new track when playing"
+#~ msgstr ""
+#~ "Nie pozwalaj na odtwarzanie nowego utworu gdy inny utwór jest już "
+#~ "odtwarzany"
+
+#, fuzzy
+#~| msgid "Advanced"
+#~ msgid "Auto advance"
+#~ msgstr "Zaawansowane"
+
+#, fuzzy
+#~| msgid "Audio Device:"
+#~ msgid "Main Audio Device"
+#~ msgstr "Urządzenie audio:"
+
 #~ msgid "%s tracks found"
 #~ msgstr "Znaleziono %s utworów"
 

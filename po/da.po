@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-10 20:00+1000\n"
+"POT-Creation-Date: 2022-02-01 00:41+0100\n"
 "PO-Revision-Date: 2020-05-30 02:41+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/exaile/master/da/"
@@ -98,7 +98,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:727 ../xl/main.py:619 ../xl/trax/track.py:71
+#: ../xl/formatter.py:727 ../xl/main.py:792 ../xl/trax/track.py:71
 msgid "Unknown"
 msgstr "Ukendt"
 
@@ -119,11 +119,11 @@ msgstr "I går"
 msgid "Local"
 msgstr "Lokalt"
 
-#: ../xl/main.py:82
+#: ../xl/main.py:84
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "Brug: exaile [TILVALG...] [PLACERING...]"
 
-#: ../xl/main.py:84
+#: ../xl/main.py:86
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
@@ -133,276 +133,280 @@ msgstr ""
 "afspilningsliste. Hvis Exaile allerede kører, så prøver det at bruge den "
 "eksisterende instans i stedet for at oprette en ny."
 
-#: ../xl/main.py:95
+#: ../xl/main.py:97
 msgid "Playback Options"
 msgstr "Indstillinger for afspilning"
 
-#: ../xl/main.py:102
+#: ../xl/main.py:104
 msgid "Play the next track"
 msgstr "Afspil det næste spor"
 
-#: ../xl/main.py:110
+#: ../xl/main.py:112
 msgid "Play the previous track"
 msgstr "Afspil det forrige spor"
 
-#: ../xl/main.py:118 ../plugins/minimode/controls.py:351
+#: ../xl/main.py:120 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:368
 msgid "Stop playback"
 msgstr "Stop afspilning"
 
-#: ../xl/main.py:121
+#: ../xl/main.py:123
 msgid "Play"
 msgstr "Afspil"
 
-#: ../xl/main.py:129 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:131 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "Pause"
 
-#: ../xl/main.py:137
+#: ../xl/main.py:139
 msgid "Pause or resume playback"
 msgstr "Sæt afspilning på pause eller genoptag"
 
-#: ../xl/main.py:144 ../plugins/minimode/controls.py:376
+#: ../xl/main.py:146 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
 msgstr "Stop afspilning efter nuværende spor"
 
-#: ../xl/main.py:147
+#: ../xl/main.py:149
 msgid "Collection Options"
 msgstr "Indstillinger for samlinger"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:152 ../xl/main.py:161
+#: ../xl/main.py:154 ../xl/main.py:163
 msgid "LOCATION"
 msgstr "PLACERING"
 
-#: ../xl/main.py:153
+#: ../xl/main.py:155
 msgid "Add tracks from LOCATION to the collection"
 msgstr "Tilføj spor fra PLACERING til samlingen"
 
-#: ../xl/main.py:156
+#: ../xl/main.py:158
 msgid "Playlist Options"
 msgstr "Indstillinger for afspilningsliste"
 
-#: ../xl/main.py:162
+#: ../xl/main.py:164
 msgid "Export the current playlist to LOCATION"
 msgstr "Eksportér den nuværende afspilningsliste til PLACERING"
 
-#: ../xl/main.py:165
+#: ../xl/main.py:167
 msgid "Track Options"
 msgstr "Tilvalg for spor"
 
-#: ../xl/main.py:172
+#: ../xl/main.py:174
 msgid "Query player"
 msgstr "Forespørg afspiller"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:178
+#: ../xl/main.py:180
 msgid "FORMAT"
 msgstr "FORMAT"
 
-#: ../xl/main.py:179
+#: ../xl/main.py:181
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr "Hent den nuværende afspilningstilstand og sporinformation som FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:185
+#: ../xl/main.py:187
 msgid "TAGS"
 msgstr "MÆRKER"
 
-#: ../xl/main.py:186
+#: ../xl/main.py:188
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr "Mærker som skal hentes fra det nuværende spor; brug med --format-query"
 
-#: ../xl/main.py:193
+#: ../xl/main.py:195
 msgid "Show a popup with data of the current track"
 msgstr "Vis en pop op med data for det nuværende spor"
 
-#: ../xl/main.py:200
+#: ../xl/main.py:202
 msgid "Print the title of current track"
 msgstr "Udskriv titlen på det nuværende spor"
 
-#: ../xl/main.py:207
+#: ../xl/main.py:209
 msgid "Print the album of current track"
 msgstr "Udskriv albumtitlen på det nuværende spor"
 
-#: ../xl/main.py:214
+#: ../xl/main.py:216
 msgid "Print the artist of current track"
 msgstr "Udskriv kunstnernavn for det nuværende spor"
 
-#: ../xl/main.py:221
+#: ../xl/main.py:223
 msgid "Print the length of current track"
 msgstr "Udskriv længden af det nuværende spor"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:228 ../xl/main.py:260 ../xl/main.py:269
+#: ../xl/main.py:230 ../xl/main.py:262 ../xl/main.py:271
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:229
+#: ../xl/main.py:231
 msgid "Set rating for current track to N%"
 msgstr "Sæt vurderingen af det nuværende spor til N%"
 
-#: ../xl/main.py:236
+#: ../xl/main.py:238
 msgid "Get rating for current track"
 msgstr "Hent bedømmelse af det nuværende spor"
 
-#: ../xl/main.py:243
+#: ../xl/main.py:245
 msgid "Print the current playback position as time"
 msgstr "Udskriv den nuværende afspilningsposition som tidspunkt"
 
-#: ../xl/main.py:250
+#: ../xl/main.py:252
 msgid "Print the current playback progress as percentage"
 msgstr "Udskriv den nuværende afspilningsposition i procent"
 
-#: ../xl/main.py:253
+#: ../xl/main.py:255
 msgid "Volume Options"
 msgstr "Tilvalg for lydstyrke"
 
-#: ../xl/main.py:261
+#: ../xl/main.py:263
 msgid "Increase the volume by N%"
 msgstr "Forøg lydstyrken med N%"
 
-#: ../xl/main.py:270
+#: ../xl/main.py:272
 msgid "Decrease the volume by N%"
 msgstr "Formindsk lydstyrken med N%"
 
-#: ../xl/main.py:278
+#: ../xl/main.py:280
 msgid "Mute or unmute the volume"
 msgstr "Lyd til/fra"
 
-#: ../xl/main.py:285
+#: ../xl/main.py:287
 msgid "Print the current volume percentage"
 msgstr "Udskriv den nuværende procentvise lydstyrke"
 
-#: ../xl/main.py:288
+#: ../xl/main.py:290
 msgid "Other Options"
 msgstr "Andre tilvalg"
 
-#: ../xl/main.py:294
+#: ../xl/main.py:296
 msgid "Start new instance"
 msgstr "Start ny instans"
 
-#: ../xl/main.py:297
+#: ../xl/main.py:299
 msgid "Show this help message and exit"
 msgstr "Vis denne hjælpebesked og afslut"
 
-#: ../xl/main.py:303
+#: ../xl/main.py:305
 msgid "Show program's version number and exit."
 msgstr "Vis programmets versionsnummer og afslut."
 
-#: ../xl/main.py:310
+#: ../xl/main.py:312
 msgid "Start minimized (to tray, if possible)"
 msgstr "Start minimeret (i statusfeltet hvis muligt)"
 
-#: ../xl/main.py:317
+#: ../xl/main.py:319
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr ""
 "Slå synligheden af den grafiske brugerflade til eller fra (hvis muligt)"
 
-#: ../xl/main.py:325
+#: ../xl/main.py:327
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 "Start i sikker tilstand - dette kan være nyttigt hvis du har problemer med "
 "programmet"
 
-#: ../xl/main.py:334
+#: ../xl/main.py:336
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 "Tving import af gamle data fra version 0.2.x (overskriver uværende data)"
 
-#: ../xl/main.py:342
+#: ../xl/main.py:344
 msgid "Do not import old data from version 0.2.x"
 msgstr "Importér ikke gamle data fra version 0.2.x"
 
-#: ../xl/main.py:349
+#: ../xl/main.py:351
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 "Få kontroltilvalg såsom --play til at starte Exaile, hvis det ikke kører"
 
-#: ../xl/main.py:352
+#: ../xl/main.py:357
+msgid "Locale to use for Exaile"
+msgstr ""
+
+#: ../xl/main.py:360
 msgid "Development/Debug Options"
 msgstr "Tilvalg for udvikling/fejlsøgning"
 
-#: ../xl/main.py:356 ../xl/main.py:362
+#: ../xl/main.py:364 ../xl/main.py:370
 msgid "DIRECTORY"
 msgstr "MAPPE"
 
-#: ../xl/main.py:357
+#: ../xl/main.py:365
 msgid "Set data directory"
 msgstr "Sæt datamappe"
 
-#: ../xl/main.py:363
+#: ../xl/main.py:371
 msgid "Set data and config directory"
 msgstr "Sæt data og konfigurationsmappe"
 
-#: ../xl/main.py:368
+#: ../xl/main.py:376
 msgid "MODULE"
 msgstr "MODUL"
 
-#: ../xl/main.py:369
+#: ../xl/main.py:377
 msgid "Limit log output to MODULE"
 msgstr "Begræns logudskrift til MODUL"
 
-#: ../xl/main.py:374
+#: ../xl/main.py:382
 msgid "LEVEL"
 msgstr "NIVEAU"
 
-#: ../xl/main.py:375
+#: ../xl/main.py:383
 msgid "Limit log output to LEVEL"
 msgstr "Begræns logudskrift til NIVEAU"
 
-#: ../xl/main.py:383
+#: ../xl/main.py:391
 msgid "Show debugging output"
 msgstr "Vis fejlsøgningsuddata"
 
-#: ../xl/main.py:390
+#: ../xl/main.py:398
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "Aktivér fejlsøgning af xl.event. Genererer meget uddata"
 
-#: ../xl/main.py:397
+#: ../xl/main.py:405
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr "Aktivér fuld fejlsøgning af xl.event. Genererer MEGET uddata"
 
-#: ../xl/main.py:404
+#: ../xl/main.py:412
 msgid "Add thread name to logging messages."
 msgstr "Tilføj trådnavn til logningsbeskeder."
 
-#: ../xl/main.py:409
+#: ../xl/main.py:417
 msgid "TYPE"
 msgstr "TYPE"
 
-#: ../xl/main.py:410
+#: ../xl/main.py:418
 msgid "Limit xl.event debug to output of TYPE"
 msgstr "Begræns xl.event-fejlsøgning til udskrift af TYPE"
 
-#: ../xl/main.py:417
+#: ../xl/main.py:425
 msgid "Reduce level of output"
 msgstr "Reducér udskriftsniveauet"
 
-#: ../xl/main.py:427
+#: ../xl/main.py:435
 msgid "Disable D-Bus support"
 msgstr "Deaktivér understøttelse af D-Bus"
 
-#: ../xl/main.py:434
+#: ../xl/main.py:442
 msgid "Disable HAL support."
 msgstr "Deaktivér understøttelse af HAL."
 
-#: ../xl/main.py:796
+#: ../xl/main.py:813
 msgid "Entire Library"
 msgstr "Hele biblioteket"
 
-#: ../xl/main.py:803
+#: ../xl/main.py:820
 #, python-format
 msgid "Random %d"
 msgstr "Tilfældig %d"
 
-#: ../xl/main.py:812
+#: ../xl/main.py:829
 #, python-format
 msgid "Rating > %d"
 msgstr "Bedømmelse > %d"
 
-#: ../xl/main.py:981
+#: ../xl/main.py:998
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -459,7 +463,7 @@ msgstr "Komponist"
 msgid "Conductor"
 msgstr "Dirigent"
 
-#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:814
+#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:813
 msgid "Cover"
 msgstr "Omslag"
 
@@ -589,7 +593,7 @@ msgstr "Startforskydning"
 msgid "Stop offset"
 msgstr "Stopforskydning"
 
-#: ../xl/player/gst/engine.py:708
+#: ../xl/player/gst/engine.py:713
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ": Mulig fejl ved lydenhed - er den sat i?"
 
@@ -636,75 +640,75 @@ msgstr "Ugyldig sinktype '%s' angivet"
 msgid "Could not create sink type '%s'"
 msgstr "Kunne ikke oprette sinktypen '%s'"
 
-#: ../xl/playlist.py:154 ../xl/playlist.py:176
+#: ../xl/playlist.py:153 ../xl/playlist.py:175
 msgid "Invalid playlist type."
 msgstr "Ugyldig type af afspilningsliste."
 
-#: ../xl/playlist.py:185 ../xlgui/widgets/playlist.py:406
+#: ../xl/playlist.py:184 ../xlgui/widgets/playlist.py:406
 #: ../xlgui/widgets/smart_playlist_editor.py:254
 #: ../plugins/grouptagger/gt_mass.ui:126
 msgid "Playlist"
 msgstr "Afspilningsliste"
 
-#: ../xl/playlist.py:339
+#: ../xl/playlist.py:338
 msgid "M3U Playlist"
 msgstr "M3U-afspilningsliste"
 
-#: ../xl/playlist.py:454
+#: ../xl/playlist.py:453
 msgid "PLS Playlist"
 msgstr "PLS-afspilningsliste"
 
-#: ../xl/playlist.py:545 ../xl/playlist.py:560
+#: ../xl/playlist.py:544 ../xl/playlist.py:559
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Ugyldigt format for %s."
 
-#: ../xl/playlist.py:555
+#: ../xl/playlist.py:554
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "Uunderstøttet version %(version)s af %(type)s"
 
-#: ../xl/playlist.py:615
+#: ../xl/playlist.py:614
 msgid "ASX Playlist"
 msgstr "ASX-afspilningsliste"
 
-#: ../xl/playlist.py:794
+#: ../xl/playlist.py:793
 msgid "XSPF Playlist"
 msgstr "XSPF-afspilningsliste"
 
-#: ../xl/playlist.py:913
+#: ../xl/playlist.py:912
 msgid "Shuffle _Off"
 msgstr "Bland _fra"
 
-#: ../xl/playlist.py:914
+#: ../xl/playlist.py:913
 msgid "Shuffle _Tracks"
 msgstr "Bland _spor"
 
-#: ../xl/playlist.py:915
+#: ../xl/playlist.py:914
 msgid "Shuffle _Albums"
 msgstr "Bland _album"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:915
 msgid "_Random"
 msgstr "_Tilfældig"
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:920
 msgid "Repeat _Off"
 msgstr "Gentagelse _fra"
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:920
 msgid "Repeat _All"
 msgstr "Gentag _alle"
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:920
 msgid "Repeat O_ne"
 msgstr "Gentag _en"
 
-#: ../xl/playlist.py:925
+#: ../xl/playlist.py:924
 msgid "Dynamic _Off"
 msgstr "Dynamisk _fra"
 
-#: ../xl/playlist.py:925
+#: ../xl/playlist.py:924
 msgid "Dynamic by Similar _Artists"
 msgstr "Dynamisk efter lignende _kunstnere"
 
@@ -784,7 +788,7 @@ msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:721 ../xl/trax/track.py:787
+#: ../xl/trax/track.py:723 ../xl/trax/track.py:789
 #, python-format
 msgid "%dk"
 msgstr "%d k"
@@ -860,30 +864,30 @@ msgstr "Hent omslag"
 msgid "Remove Cover"
 msgstr "Fjern omslag"
 
-#: ../xlgui/cover.py:812
+#: ../xlgui/cover.py:811
 #, python-format
 msgid "Cover for %s"
 msgstr "Omslag til %s"
 
-#: ../xlgui/cover.py:880
+#: ../xlgui/cover.py:879
 #, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
 msgstr "{width}x{height} pixels ({zoom}%)"
 
-#: ../xlgui/cover.py:931
+#: ../xlgui/cover.py:930
 msgid "Save File"
 msgstr "Gem fil"
 
-#: ../xlgui/cover.py:1029
+#: ../xlgui/cover.py:1028
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr "Omslagstilvalg for %(artist)s - %(album)s"
 
-#: ../xlgui/cover.py:1133
+#: ../xlgui/cover.py:1132
 msgid "No covers found."
 msgstr "Der blev ikke fundet nogle omslag."
 
-#: ../xlgui/cover.py:1135
+#: ../xlgui/cover.py:1134
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
@@ -892,124 +896,124 @@ msgstr ""
 "flere kilder."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1105
+#: ../xlgui/cover.py:1177 ../xlgui/properties.py:1110
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} pixels"
 
-#: ../xlgui/main.py:95
+#: ../xlgui/main.py:94
 msgid "$title (by $artist)"
 msgstr "$title (af $artist)"
 
-#: ../xlgui/main.py:149
+#: ../xlgui/main.py:148
 msgid "Save currently selected playlist"
 msgstr "Gem den valgte afspilningsliste"
 
-#: ../xlgui/main.py:154
+#: ../xlgui/main.py:153
 msgid "Save currently selected playlist under a custom name"
 msgstr "Gem nuværende afspilningsliste under et tilpasset navn"
 
-#: ../xlgui/main.py:159
+#: ../xlgui/main.py:158
 msgid "Focus filter in currently focused panel"
 msgstr "Fokuser filter i nuværende fokuseret panel"
 
-#: ../xlgui/main.py:164
+#: ../xlgui/main.py:163
 msgid "Focus playlist search"
 msgstr "Fokuser på afspilningslistens søgning"
 
-#: ../xlgui/main.py:169
+#: ../xlgui/main.py:168
 msgid "Clear queue"
 msgstr "Ryd kø"
 
-#: ../xlgui/main.py:174 ../plugins/minimode/controls.py:270
+#: ../xlgui/main.py:173 ../plugins/minimode/controls.py:270
 msgid "Start, pause or resume the playback"
 msgstr "Start, stands eller genoptag afspilning"
 
-#: ../xlgui/main.py:179
+#: ../xlgui/main.py:178
 msgid "Seek to the right"
 msgstr "Søg til højre"
 
-#: ../xlgui/main.py:184
+#: ../xlgui/main.py:183
 msgid "Seek to the left"
 msgstr "Søg til venstre"
 
-#: ../xlgui/main.py:189 ../xlgui/main.py:194
+#: ../xlgui/main.py:188 ../xlgui/main.py:193
 msgid "Increase the volume"
 msgstr "Forøg lydstyrken"
 
-#: ../xlgui/main.py:199
+#: ../xlgui/main.py:198
 msgid "Decrease the volume"
 msgstr "Formindsk lydstyrken"
 
-#: ../xlgui/main.py:202
+#: ../xlgui/main.py:201
 msgid "Switch to previous tab"
 msgstr "Skift til forrige faneblad"
 
-#: ../xlgui/main.py:203
+#: ../xlgui/main.py:202
 msgid "Switch to next tab"
 msgstr "Skift til næste faneblad"
 
-#: ../xlgui/main.py:206
+#: ../xlgui/main.py:205
 msgid "Focus the playlist container"
 msgstr "Fokuser på afspilningslistens beholder"
 
-#: ../xlgui/main.py:213
+#: ../xlgui/main.py:212
 msgid "Focus the files panel"
 msgstr "Fokuser på filpanelet"
 
-#: ../xlgui/main.py:220
+#: ../xlgui/main.py:219
 msgid "Focus the radio panel"
 msgstr "Fokuser på radiopanelet"
 
-#: ../xlgui/main.py:225
+#: ../xlgui/main.py:224
 msgid "Focus the playlists panel"
 msgstr "Fokuser på afspilningslistepanelet"
 
-#: ../xlgui/main.py:228
+#: ../xlgui/main.py:227
 msgid "Focus the first tab"
 msgstr "Fokuser på det første faneblad"
 
-#: ../xlgui/main.py:229
+#: ../xlgui/main.py:228
 msgid "Focus the second tab"
 msgstr "Fokuser på det andet faneblad"
 
-#: ../xlgui/main.py:230
+#: ../xlgui/main.py:229
 msgid "Focus the third tab"
 msgstr "Fokuser på det tredje faneblad"
 
-#: ../xlgui/main.py:231
+#: ../xlgui/main.py:230
 msgid "Focus the fourth tab"
 msgstr "Fokuser på det fjerde faneblad"
 
-#: ../xlgui/main.py:232
+#: ../xlgui/main.py:231
 msgid "Focus the fifth tab"
 msgstr "Fokuser på det femte faneblad"
 
-#: ../xlgui/main.py:233
+#: ../xlgui/main.py:232
 msgid "Focus the sixth tab"
 msgstr "Fokuser på det sjette faneblad"
 
-#: ../xlgui/main.py:234
+#: ../xlgui/main.py:233
 msgid "Focus the seventh tab"
 msgstr "Fokuser på det syvende faneblad"
 
-#: ../xlgui/main.py:235
+#: ../xlgui/main.py:234
 msgid "Focus the eighth tab"
 msgstr "Fokuser på det ottende faneblad"
 
-#: ../xlgui/main.py:236
+#: ../xlgui/main.py:235
 msgid "Focus the ninth tab"
 msgstr "Fokuser på det niende faneblad"
 
-#: ../xlgui/main.py:237
+#: ../xlgui/main.py:236
 msgid "Focus the tenth tab"
 msgstr "Fokuser på det tiende faneblad"
 
-#: ../xlgui/main.py:592
+#: ../xlgui/main.py:596
 msgid "Toggle: Stop after Selected Track"
 msgstr "Til/fra: Stop efter valgte spor"
 
-#: ../xlgui/main.py:705 ../plugins/previewdevice/__init__.py:355
+#: ../xlgui/main.py:705 ../plugins/previewdevice/__init__.py:349
 msgid "Playback error encountered!"
 msgstr "Der opstod en afspilningsfejl!"
 
@@ -1018,12 +1022,12 @@ msgstr "Der opstod en afspilningsfejl!"
 msgid "Buffering: %d%%..."
 msgstr "Bufrer: %d%%..."
 
-#: ../xlgui/main.py:753 ../plugins/previewdevice/__init__.py:364
+#: ../xlgui/main.py:753 ../plugins/previewdevice/__init__.py:358
 msgid "Continue Playback"
 msgstr "Fortsæt afspilning"
 
-#: ../xlgui/main.py:756 ../xlgui/main.py:929
-#: ../plugins/previewdevice/__init__.py:367
+#: ../xlgui/main.py:756 ../xlgui/main.py:922
+#: ../plugins/previewdevice/__init__.py:361
 msgid "Pause Playback"
 msgstr "Sæt afspilning på pause"
 
@@ -1031,8 +1035,8 @@ msgstr "Sæt afspilning på pause"
 msgid "Playlist export failed!"
 msgstr "Eksport af afspilningslisten mislykkedes!"
 
-#: ../xlgui/main.py:938 ../data/ui/main.ui:174
-#: ../plugins/previewdevice/__init__.py:349
+#: ../xlgui/main.py:931 ../data/ui/main.ui:174
+#: ../plugins/previewdevice/__init__.py:343
 msgid "Start Playback"
 msgstr "Start afspilning"
 
@@ -1231,53 +1235,53 @@ msgstr "Ny _smart afspilningsliste"
 msgid "_New Station"
 msgstr "_Ny station"
 
-#: ../xlgui/panel/playlists.py:136
+#: ../xlgui/panel/playlists.py:134
 #, python-format
 msgid "Delete the playlist \"%s\"?"
 msgstr "Slet afspilningslisten \"%s\"?"
 
-#: ../xlgui/panel/playlists.py:152
+#: ../xlgui/panel/playlists.py:151
 msgid "Enter the new name you want for your playlist"
 msgstr "Indtast det ønskede navn for afspilningslisten"
 
-#: ../xlgui/panel/playlists.py:153
+#: ../xlgui/panel/playlists.py:152
 msgid "Rename Playlist"
 msgstr "Omdøb afspilningsliste"
 
-#: ../xlgui/panel/playlists.py:169 ../xlgui/widgets/dialogs.py:1766
+#: ../xlgui/panel/playlists.py:168 ../xlgui/widgets/dialogs.py:1774
 #: ../xlgui/widgets/smart_playlist_editor.py:395
 msgid "The playlist name you entered is already in use."
 msgstr "Navnet du indtastede til afspilningslisten bruges allerede."
 
-#: ../xlgui/panel/playlists.py:215
+#: ../xlgui/panel/playlists.py:214
 #, python-format
 msgid "Error loading smart playlist: %s"
 msgstr "Fejl ved indlæsning af smart afspilningsliste: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
-#: ../xlgui/panel/playlists.py:276 ../xlgui/panel/playlists.py:292
-#: ../xlgui/panel/playlists.py:308
+#: ../xlgui/panel/playlists.py:275 ../xlgui/panel/playlists.py:291
+#: ../xlgui/panel/playlists.py:307
 #, python-format
 msgid "%(first)s, %(second)s and others"
 msgstr "%(first)s, %(second)s og andre"
 
 #. TRANSLATORS: Playlist title suggestion with two values
-#: ../xlgui/panel/playlists.py:282 ../xlgui/panel/playlists.py:298
-#: ../xlgui/panel/playlists.py:314
+#: ../xlgui/panel/playlists.py:281 ../xlgui/panel/playlists.py:297
+#: ../xlgui/panel/playlists.py:313
 #, python-format
 msgid "%(first)s and %(second)s"
 msgstr "%(first)s og %(second)s"
 
-#: ../xlgui/panel/playlists.py:390 ../xlgui/preferences/playlists.py:31
+#: ../xlgui/panel/playlists.py:389 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
 msgstr "Afspilningslister"
 
-#: ../xlgui/panel/playlists.py:534
+#: ../xlgui/panel/playlists.py:533
 msgid "Smart Playlists"
 msgstr "Smarte afspilningslister"
 
-#: ../xlgui/panel/playlists.py:537
+#: ../xlgui/panel/playlists.py:536
 msgid "Custom Playlists"
 msgstr "Tilpassede afspilningslister"
 
@@ -1362,7 +1366,7 @@ msgstr "{playlist_name} ({track_count} spor, lukket {seconds} sek. siden)"
 msgid "_Move to Other View"
 msgstr "_Flyt til anden visning"
 
-#: ../xlgui/preferences/__init__.py:115 ../xlgui/preferences/plugin.py:40
+#: ../xlgui/preferences/__init__.py:113 ../xlgui/preferences/plugin.py:40
 msgid "Plugins"
 msgstr "Udvidelsesmoduler"
 
@@ -1458,15 +1462,15 @@ msgstr "Genstart"
 msgid "Action"
 msgstr "Handling"
 
-#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:78
+#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:79
 msgid "Shortcut"
 msgstr "Genvej"
 
-#: ../xlgui/properties.py:253
+#: ../xlgui/properties.py:258
 msgid "Writing of tags failed"
 msgstr "Skrivning af mærker fejlede"
 
-#: ../xlgui/properties.py:255
+#: ../xlgui/properties.py:260
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
@@ -1475,79 +1479,79 @@ msgstr ""
 "Mærker kunne ikke skrives til følgende filer:\n"
 "{files}"
 
-#: ../xlgui/properties.py:275
+#: ../xlgui/properties.py:280
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr "Redigerer spor %(current)d af %(total)d"
 
-#: ../xlgui/properties.py:398
+#: ../xlgui/properties.py:402
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr "Er du sikker på du vil anvende ændringerne på alle spor?"
 
-#: ../xlgui/properties.py:440
+#: ../xlgui/properties.py:445
 msgid "Apply changes before closing?"
 msgstr "Luk uden at anvende ændringer i mærker?"
 
-#: ../xlgui/properties.py:441
+#: ../xlgui/properties.py:446
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "Dine ændringer går tabt, hvis du ikke anvender dem nu."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:624
+#: ../xlgui/properties.py:629
 #, python-format
 msgid "%s:"
 msgstr "%s:"
 
 #. TRANSLATORS: Remove tag value
-#: ../xlgui/properties.py:631 ../plugins/developer/developer_window.ui:131
+#: ../xlgui/properties.py:636 ../plugins/developer/developer_window.ui:131
 msgid "Clear"
 msgstr "Ryd"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:853
+#: ../xlgui/properties.py:858
 msgid "of:"
 msgstr "af:"
 
-#: ../xlgui/properties.py:960
+#: ../xlgui/properties.py:965
 msgid "JPEG image"
 msgstr "JPEG-billede"
 
-#: ../xlgui/properties.py:965
+#: ../xlgui/properties.py:970
 msgid "PNG image"
 msgstr "PNG-billede"
 
-#: ../xlgui/properties.py:967
+#: ../xlgui/properties.py:972
 msgid "Image"
 msgstr "Billede"
 
-#: ../xlgui/properties.py:973
+#: ../xlgui/properties.py:978
 msgid "Linked image"
 msgstr "Linket billede"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1108
+#: ../xlgui/properties.py:1113
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} pixels)"
 
-#: ../xlgui/properties.py:1122
+#: ../xlgui/properties.py:1127
 msgid "Select image to set as cover"
 msgstr "Vælg billede som skal indstilles som omslag"
 
-#: ../xlgui/properties.py:1135
+#: ../xlgui/properties.py:1140
 msgid "Supported image formats"
 msgstr "Understøttede billedformater"
 
-#: ../xlgui/properties.py:1218
+#: ../xlgui/properties.py:1223
 msgid "Open Directory"
 msgstr "Åbn mappe"
 
-#: ../xlgui/properties.py:1268
+#: ../xlgui/properties.py:1273
 msgid "Apply current value to all tracks"
 msgstr "Anvend den nuværende værdi for alle spor"
 
-#: ../xlgui/properties.py:1288 ../xlgui/widgets/dialogs.py:1543
+#: ../xlgui/properties.py:1293 ../xlgui/widgets/dialogs.py:1550
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Gemte %(count)s ud af %(total)s."
@@ -1596,74 +1600,74 @@ msgstr "Importér afspilningsliste"
 msgid "Export Current Playlist"
 msgstr "Eksportér den nuværende afspilningsliste"
 
-#: ../xlgui/widgets/dialogs.py:1009
+#: ../xlgui/widgets/dialogs.py:1014
 msgid "Use relative paths to tracks"
 msgstr "Brug relative stier til spor"
 
-#: ../xlgui/widgets/dialogs.py:1066
+#: ../xlgui/widgets/dialogs.py:1073
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Afspilningsliste gemt som <b>%s</b>."
 
-#: ../xlgui/widgets/dialogs.py:1083
+#: ../xlgui/widgets/dialogs.py:1090
 #, python-format
 msgid "Close %s"
 msgstr "Luk %s"
 
-#: ../xlgui/widgets/dialogs.py:1084
+#: ../xlgui/widgets/dialogs.py:1091
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Gem ændringer til %s før lukning?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1086
+#: ../xlgui/widgets/dialogs.py:1093
 msgid "Your changes will be lost if you don't save them"
 msgstr "Dine ændringer går tabt, hvis du ikke gemmer dem"
 
-#: ../xlgui/widgets/dialogs.py:1090
+#: ../xlgui/widgets/dialogs.py:1097
 msgid "Close Without Saving"
 msgstr "Luk uden at gemme"
 
-#: ../xlgui/widgets/dialogs.py:1483
+#: ../xlgui/widgets/dialogs.py:1490
 msgid "Yes to all"
 msgstr "Ja til alle"
 
-#: ../xlgui/widgets/dialogs.py:1491
+#: ../xlgui/widgets/dialogs.py:1498
 msgid "No to all"
 msgstr "Nej til alle"
 
-#: ../xlgui/widgets/dialogs.py:1663 ../xlgui/widgets/dialogs.py:1681
+#: ../xlgui/widgets/dialogs.py:1670 ../xlgui/widgets/dialogs.py:1688
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Der opstod en fejl under kopieringen %s: %s"
 
-#: ../xlgui/widgets/dialogs.py:1692
+#: ../xlgui/widgets/dialogs.py:1699
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "Filen eksisterer, overskriv %s ?"
 
-#: ../xlgui/widgets/dialogs.py:1749
+#: ../xlgui/widgets/dialogs.py:1757
 msgid "Playlist name:"
 msgstr "Afspilningslistenavn:"
 
-#: ../xlgui/widgets/dialogs.py:1750
+#: ../xlgui/widgets/dialogs.py:1758
 msgid "Add new playlist..."
 msgstr "Tilføj ny afspilningsliste..."
 
-#: ../xlgui/widgets/dialogs.py:1763
+#: ../xlgui/widgets/dialogs.py:1771
 #: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
 msgstr "Du angav ikke et navn til din afspilningsliste"
 
-#: ../xlgui/widgets/dialogs.py:1772
+#: ../xlgui/widgets/dialogs.py:1780
 msgid "Save As"
 msgstr "Gem som"
 
-#: ../xlgui/widgets/dialogs.py:1841
+#: ../xlgui/widgets/dialogs.py:1849
 #, python-format
 msgid "Exporting %s"
 msgstr "Eksporterer %s"
 
-#: ../xlgui/widgets/dialogs.py:1846
+#: ../xlgui/widgets/dialogs.py:1854
 msgid "Choose directory to export files to"
 msgstr "Vælg mappe som filer skal eksporteres til"
 
@@ -1681,17 +1685,17 @@ msgstr ""
 msgid "Not Playing"
 msgstr "Afspiller ikke"
 
-#: ../xlgui/widgets/info.py:415
+#: ../xlgui/widgets/info.py:417
 #, python-format
 msgid "%d in collection"
 msgstr "%d i samling"
 
-#: ../xlgui/widgets/info.py:437 ../xlgui/widgets/info.py:444
+#: ../xlgui/widgets/info.py:446 ../xlgui/widgets/info.py:453
 #, python-format
 msgid "%d showing"
 msgstr "%d vises"
 
-#: ../xlgui/widgets/info.py:441 ../xlgui/widgets/info.py:448
+#: ../xlgui/widgets/info.py:450 ../xlgui/widgets/info.py:457
 #, python-format
 msgid "%d selected"
 msgstr "%d valgt"
@@ -1802,7 +1806,8 @@ msgstr "_Næste spor"
 msgid "_Previous Track"
 msgstr "_Forrige spor"
 
-#: ../xlgui/widgets/playback.py:1604
+#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "_Stop"
 
@@ -1830,7 +1835,7 @@ msgstr "_Tilfældiggør afspilningsliste"
 msgid "R_andomize Selection"
 msgstr "_Tilfældiggør markering"
 
-#: ../xlgui/widgets/playlist.py:224
+#: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 msgid "_Save"
 msgstr "_Gem"
 
@@ -2099,6 +2104,18 @@ msgstr ""
 msgid "Collection Manager"
 msgstr "Samlingshåndtering"
 
+#: ../data/ui/collection_manager.ui:54
+#, fuzzy
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "Afbryd"
+
+#: ../data/ui/collection_manager.ui:71
+#, fuzzy
+#| msgid "Apply BPM"
+msgid "_Apply"
+msgstr "Anvend BPM"
+
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
 msgstr "Overvåget"
@@ -2106,6 +2123,16 @@ msgstr "Overvåget"
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
 msgstr "Skan ved opstart"
+
+#: ../data/ui/collection_manager.ui:174
+msgid "Add _Folder"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui:191
+#, fuzzy
+#| msgid "Remove Cover"
+msgid "_Remove Folder"
+msgstr "Fjern omslag"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2119,6 +2146,12 @@ msgstr "Omslagssøgning"
 msgid "The origin of this cover"
 msgstr "Omslagets oprindelse"
 
+#: ../data/ui/coverchooser.ui:159
+#, fuzzy
+#| msgid "_About"
+msgid "_Abort"
+msgstr "_Om"
+
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr "_Brug som omslag"
@@ -2126,6 +2159,14 @@ msgstr "_Brug som omslag"
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
 msgstr "Omslagshåndtering"
+
+#. Closes the preferences dialog
+#: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
+#: ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39 ../data/ui/trackproperties_dialog.ui:317
+msgid "_Close"
+msgstr "_Luk"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
@@ -2147,11 +2188,6 @@ msgstr "_Oprindelig størrelse"
 msgid "_Best Fit"
 msgstr "_Bedste tilpasning"
 
-#. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/preferences/preferences_dialog.ui:39
-msgid "_Close"
-msgstr "_Luk"
-
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
 msgstr "Enhedshåndtering"
@@ -2167,6 +2203,16 @@ msgstr "Enhed"
 #: ../data/ui/device_manager.ui:88
 msgid "Driver"
 msgstr "Driver"
+
+#: ../data/ui/device_manager.ui:115
+msgid "_Connect"
+msgstr ""
+
+#: ../data/ui/device_manager.ui:133
+#, fuzzy
+#| msgid "Disconnect from Server"
+msgid "_Disconnect"
+msgstr "Afbryd forbindelse til server"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -2291,46 +2337,53 @@ msgstr "Øverst"
 msgid "Bottom"
 msgstr "Nederst"
 
-#: ../data/ui/preferences/appearance.ui:50
+#: ../data/ui/preferences/appearance.ui:52
 msgid "Show info area"
 msgstr "Vis infoområde"
 
-#: ../data/ui/preferences/appearance.ui:54
+#: ../data/ui/preferences/appearance.ui:56
 msgid "The info area contains the cover art and track information"
 msgstr "Infoområdet indeholder omslaget og sporinformation"
 
-#: ../data/ui/preferences/appearance.ui:66
+#: ../data/ui/preferences/appearance.ui:68
 msgid "Show cover art in info area"
 msgstr "Vis omslag i infoområde"
 
-#: ../data/ui/preferences/appearance.ui:81
+#: ../data/ui/preferences/appearance.ui:83
 msgid "Always show tab bar"
 msgstr "Vis altid fanebladslinje"
 
-#: ../data/ui/preferences/appearance.ui:99
+#: ../data/ui/preferences/appearance.ui:101
 msgid "Tab placement:"
 msgstr "Placering af faneblad:"
 
-#: ../data/ui/preferences/appearance.ui:139
+#: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr "Skrifttype for afspilningsliste:"
 
-#: ../data/ui/preferences/appearance.ui:156 ../data/ui/preferences/lyrics.ui:47
+#: ../data/ui/preferences/appearance.ui:154
+#, fuzzy
+#| msgid "Never"
+msgid "_Revert"
+msgstr "Aldrig"
+
+#: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
 msgid "Reset to the system font"
 msgstr "Nusltil til systemets skrifttype"
 
-#: ../data/ui/preferences/appearance.ui:194
+#: ../data/ui/preferences/appearance.ui:196
+#: ../data/ui/preferences/appearance.ui:385
 msgid "Display track counts in collection"
 msgstr "Vis antal spor i samling"
 
 #. TRANSLATORS: Remark at the alpha transparency option
-#: ../data/ui/preferences/appearance.ui:208
+#: ../data/ui/preferences/appearance.ui:210
 #: ../plugins/minimode/minimode_preferences.ui:237
 msgid "Use alpha transparency:"
 msgstr "Brug alfa-gennemsigtighed:"
 
-#: ../data/ui/preferences/appearance.ui:212
+#: ../data/ui/preferences/appearance.ui:214
 msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
@@ -2338,32 +2391,32 @@ msgstr ""
 "Advarsel: Tilvalget kan forårsage grafikfejl, hvis den bruges i en "
 "vindueshåndtering, som ikke understøtter komposition."
 
-#: ../data/ui/preferences/appearance.ui:228
+#: ../data/ui/preferences/appearance.ui:230
 msgid "Alpha transparency"
 msgstr "Alfa-gennemsigtighed"
 
-#: ../data/ui/preferences/appearance.ui:239
+#: ../data/ui/preferences/appearance.ui:241
 msgid "Show tray icon"
 msgstr "Vis statusikon"
 
-#: ../data/ui/preferences/appearance.ui:257
+#: ../data/ui/preferences/appearance.ui:259
 msgid "Minimize to tray"
 msgstr "Minimér til statusfelt"
 
-#: ../data/ui/preferences/appearance.ui:271
+#: ../data/ui/preferences/appearance.ui:273
 msgid "Close to tray"
 msgstr "Luk til systembakke"
 
 #. TRANSLATORS: Keep the current track visible in playlist
-#: ../data/ui/preferences/appearance.ui:285
+#: ../data/ui/preferences/appearance.ui:287
 msgid "Jump to current song on track change"
 msgstr "Spring til den nuværende sang ved næste skift"
 
-#: ../data/ui/preferences/appearance.ui:301
+#: ../data/ui/preferences/appearance.ui:303
 msgid "Show splash screen on startup"
 msgstr "Vis splashskærm ved opstart"
 
-#: ../data/ui/preferences/appearance.ui:328
+#: ../data/ui/preferences/appearance.ui:330
 msgid ""
 "Tray icons are not supported on some platforms, most notably on Wayland. On "
 "GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
@@ -2375,22 +2428,44 @@ msgstr ""
 "href=\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\"-"
 "udvidelsen</a> installeret (eller en lignende)."
 
-#: ../data/ui/preferences/appearance.ui:341
+#: ../data/ui/preferences/appearance.ui:343
 msgid "Note:"
 msgstr "Bemærk:"
 
-#: ../data/ui/preferences/appearance.ui:353
+#: ../data/ui/preferences/appearance.ui:355
 msgid "Prefer dark theme"
 msgstr "Foretræk mørkt tema"
 
 #. TRANSLATORS: "Checked" here refers to checkbox state.
-#: ../data/ui/preferences/appearance.ui:357
+#: ../data/ui/preferences/appearance.ui:359
 msgid ""
 "If not checked, will not specify a preference to GTK. May not work on some "
 "platforms."
 msgstr ""
 "Hvis den er fravalgt, så vil det ikke angive en præference til GTK. Virker "
 "måske ikke på nogle platforme."
+
+#: ../data/ui/preferences/appearance.ui:370
+msgid "Show Status Bar"
+msgstr ""
+
+#: ../data/ui/preferences/appearance.ui:374
+msgid ""
+"Show or hide the status bar. The status bar will always be shown if a plugin "
+"requests it."
+msgstr ""
+
+#: ../data/ui/preferences/appearance.ui:399
+#, fuzzy
+#| msgid "_Show Playing Track"
+msgid "Show playlist track count"
+msgstr "_Vis spor, der afspilles"
+
+#: ../data/ui/preferences/appearance.ui:413
+#, fuzzy
+#| msgid "Display duration:"
+msgid "Show playlist duration"
+msgstr "Varighed for display:"
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -2480,10 +2555,14 @@ msgid "Adding an item to an empty queue begins playback"
 msgstr "Tilføjelse af et punkt til en tom kø starter afspilning"
 
 #: ../data/ui/preferences/playback.ui:206
+#: ../plugins/quickbuttons/__init__.py:56
+#: ../plugins/quickbuttons/qb_prefs.ui:42
 msgid "Remove track from queue upon playback"
 msgstr "Fjern spor fra kø når det afspilles"
 
 #: ../data/ui/preferences/playback.ui:221
+#: ../plugins/quickbuttons/__init__.py:47
+#: ../plugins/quickbuttons/qb_prefs.ui:27
 msgid "Disallow playing new tracks when another track is playing"
 msgstr "Tillad ikke afspilning af nye spor når et andet spor afspilles"
 
@@ -2496,6 +2575,8 @@ msgstr ""
 "klikkes på afspilningsstyringer"
 
 #: ../data/ui/preferences/playback.ui:237
+#: ../plugins/quickbuttons/__init__.py:65
+#: ../plugins/quickbuttons/qb_prefs.ui:57
 msgid "Automatically advance to the next track"
 msgstr "Skift automatisk til det næste spor"
 
@@ -2580,6 +2661,8 @@ msgstr ""
 "standardopførsel inden Exaile 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui:66
+#: ../plugins/quickbuttons/__init__.py:38
+#: ../plugins/quickbuttons/qb_prefs.ui:12
 msgid "Queue tracks by default instead of playing them"
 msgstr "Sæt spor i kø som standard i stedet for at afspille dem"
 
@@ -2621,11 +2704,7 @@ msgstr "Tilføj _udvidelsesmodulfil"
 msgid "Preferences"
 msgstr "Indstillinger"
 
-#: ../data/ui/shortcuts_dialog.ui:39
-msgid "Close"
-msgstr "Luk"
-
-#: ../data/ui/shortcuts_dialog.ui:89
+#: ../data/ui/shortcuts_dialog.ui:90
 msgid "Description"
 msgstr "Beskrivelse"
 
@@ -2841,7 +2920,7 @@ msgstr "_Ryd bogmærker"
 msgid "_Bookmarks"
 msgstr "_Bogmærker"
 
-#: ../plugins/bpm/__init__.py:66 ../plugins/bpm/__init__.py:205
+#: ../plugins/bpm/__init__.py:67 ../plugins/bpm/__init__.py:206
 msgid "Autodetect BPM"
 msgstr "Automatisk registrering af BPM"
 
@@ -2850,12 +2929,12 @@ msgstr "Automatisk registrering af BPM"
 msgid "Set BPM of %d on %s?"
 msgstr "Indstil BPM af %d på %s?"
 
-#: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
+#: ../plugins/bpm/__init__.py:184 ../plugins/bpm/bpm.ui:59
 #: ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
 msgstr "BPM-tæller"
 
-#: ../plugins/bpm/__init__.py:335 ../plugins/bpm/bpm.ui:30
+#: ../plugins/bpm/__init__.py:336 ../plugins/bpm/bpm.ui:31
 msgid "Update"
 msgstr "Opdatering"
 
@@ -2905,7 +2984,7 @@ msgstr "Indtast IP-adresse og port til delingen"
 msgid "Enter IP address and port."
 msgstr "Indtast IP-adresse og port."
 
-#: ../plugins/daapclient/__init__.py:549
+#: ../plugins/daapclient/__init__.py:548
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -3151,7 +3230,7 @@ msgstr "Valgte spor"
 msgid "Playback history"
 msgstr "Afspilningshistorik"
 
-#: ../plugins/history/__init__.py:117
+#: ../plugins/history/__init__.py:116
 msgid "Erase stored history?"
 msgstr "Slet gemt historik?"
 
@@ -3280,8 +3359,8 @@ msgstr ""
 msgid "This plugin needs at least one visible panel"
 msgstr "Udvidelsesmodulet skal have mindst ét synligt panel"
 
-#: ../plugins/mainmenubutton/__init__.py:82
-#: ../plugins/mainmenubutton/__init__.py:88
+#: ../plugins/mainmenubutton/__init__.py:80
+#: ../plugins/mainmenubutton/__init__.py:86
 msgid "Main Menu"
 msgstr "Hovedmenu"
 
@@ -3545,22 +3624,82 @@ msgstr "Der findes endnu ingen konfiguration"
 msgid "Could not save podcast file"
 msgstr "Kunne ikke gemme podcast-fil"
 
-#: ../plugins/previewdevice/__init__.py:146
+#: ../plugins/previewdevice/__init__.py:148
 msgid "Preview Player"
 msgstr "Forhåndsvis afspiller"
 
-#: ../plugins/previewdevice/__init__.py:156
+#: ../plugins/previewdevice/__init__.py:158
 msgid "Preview"
 msgstr "Forhåndsvis"
 
-#: ../plugins/previewdevice/__init__.py:341
+#: ../plugins/previewdevice/__init__.py:335
 msgid "Pause Playback (double click to stop)"
 msgstr "Sæt afspilning på pause (dobbeltklik for at stoppe)"
 
 #: ../plugins/previewdevice/previewprefs.py:32
+#: ../plugins/quickbuttons/__init__.py:101
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
 msgstr "Forhåndsvis enhed"
+
+#: ../plugins/quickbuttons/__init__.py:37
+#, fuzzy
+#| msgid "En_queue"
+msgid "Enqueue"
+msgstr "Sæt i _kø"
+
+#: ../plugins/quickbuttons/__init__.py:46
+#, fuzzy
+#| msgid "Not playing."
+msgid "Keep playing"
+msgstr "Afspiller ikke."
+
+#: ../plugins/quickbuttons/__init__.py:55
+#, fuzzy
+#| msgid "_Remove"
+msgid "Auto-Remove"
+msgstr "_Fjern"
+
+#: ../plugins/quickbuttons/__init__.py:64
+#, fuzzy
+#| msgid "Advanced"
+msgid "Auto-Advance"
+msgstr "Avanceret"
+
+#: ../plugins/quickbuttons/__init__.py:73
+#: ../plugins/quickbuttons/__init__.py:74
+#, fuzzy
+#| msgid "Delay between tracks (ms):"
+msgid "Delay between tracks (in seconds):"
+msgstr "Forsinkelse mellem spor (ms):"
+
+#: ../plugins/quickbuttons/__init__.py:82
+msgid "EQ"
+msgstr ""
+
+#: ../plugins/quickbuttons/__init__.py:83 ../plugins/equalizer/equalizer.ui:109
+#: ../plugins/equalizer/PLUGININFO:3
+msgid "Equalizer"
+msgstr "Equalizer"
+
+#: ../plugins/quickbuttons/__init__.py:92
+#, fuzzy
+#| msgid "Device"
+msgid "Main Device"
+msgstr "Enhed"
+
+#: ../plugins/quickbuttons/__init__.py:93
+#: ../plugins/quickbuttons/qb_prefs.ui:101
+msgid "Select main audio device"
+msgstr ""
+
+#: ../plugins/quickbuttons/__init__.py:102
+msgid "Select preview audio device"
+msgstr ""
+
+#: ../plugins/quickbuttons/qb_prefs.py:5
+msgid "Quickbuttons"
+msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
@@ -3734,7 +3873,7 @@ msgstr "Adgangskode:"
 msgid "_Verify Login Data"
 msgstr "_Bekræft logindata"
 
-#: ../plugins/bpm/bpm.ui:41
+#: ../plugins/bpm/bpm.ui:42
 msgid "Apply BPM"
 msgstr "Anvend BPM"
 
@@ -3896,9 +4035,15 @@ msgstr "Filtrér hændelsestyper"
 msgid "Events"
 msgstr "Hændelser"
 
-#: ../plugins/equalizer/equalizer.ui:109 ../plugins/equalizer/PLUGININFO:3
-msgid "Equalizer"
-msgstr "Equalizer"
+#: ../plugins/equalizer/equalizer.ui:123
+#: ../plugins/multialarmclock/malrmclk.ui:94
+msgid "_Add"
+msgstr "_Tilføj"
+
+#: ../plugins/equalizer/equalizer.ui:139
+#: ../plugins/multialarmclock/malrmclk.ui:110
+msgid "_Remove"
+msgstr "_Fjern"
 
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
@@ -4171,14 +4316,6 @@ msgstr "Farvenuance (eksperimentel)"
 msgid "<b>Alarms</b>"
 msgstr "<b>Alarmer</b>"
 
-#: ../plugins/multialarmclock/malrmclk.ui:94
-msgid "_Add"
-msgstr "_Tilføj"
-
-#: ../plugins/multialarmclock/malrmclk.ui:110
-msgid "_Remove"
-msgstr "_Fjern"
-
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"
 msgstr "<b>Afspilning</b>"
@@ -4332,6 +4469,20 @@ msgstr "Varighed for crossfade:"
 msgid "Audio Device:"
 msgstr "Lydenhed:"
 
+#: ../plugins/quickbuttons/qb_prefs.ui:72
+#, fuzzy
+#| msgid "Delay between tracks (ms):"
+msgid "Delay between tracks (in seconds)"
+msgstr "Forsinkelse mellem spor (ms):"
+
+#: ../plugins/quickbuttons/qb_prefs.ui:87
+msgid "Equalizer (depends on Equalizer Plugin)"
+msgstr ""
+
+#: ../plugins/quickbuttons/qb_prefs.ui:115
+msgid "Select preview audio device (depends on previewdevice plugin)"
+msgstr ""
+
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:24
 msgid "Prefer per-album correction"
@@ -4430,7 +4581,7 @@ msgstr ""
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5
 #: ../plugins/inhibitsuspend/PLUGININFO:5
-#: ../plugins/multialarmclock/PLUGININFO:5
+#: ../plugins/multialarmclock/PLUGININFO:5 ../plugins/quickbuttons/PLUGININFO:5
 #: ../plugins/screensaverpause/PLUGININFO:5 ../plugins/shutdown/PLUGININFO:5
 msgid "Utility"
 msgstr "Redskab"
@@ -4836,6 +4987,15 @@ msgstr ""
 msgid "Output"
 msgstr "Output"
 
+#: ../plugins/quickbuttons/PLUGININFO:3
+msgid "Quick Settings Buttons"
+msgstr ""
+
+#: ../plugins/quickbuttons/PLUGININFO:4
+msgid ""
+"Provides buttons on bottom of the playlist to quickly change some settings"
+msgstr ""
+
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
 msgstr "Aktiverer understøttelse af ReplayGain"
@@ -4899,7 +5059,31 @@ msgstr ""
 "\n"
 "Kræver: pyHook (%s) eller keyboard (%s)"
 
-#, python-format
+#, fuzzy
+#~| msgid "Close"
+#~ msgid "C_lose"
+#~ msgstr "Luk"
+
+#, fuzzy
+#~| msgid "Display track counts in collection"
+#~ msgid "Show total count of tracks in collection"
+#~ msgstr "Vis antal spor i samling"
+
+#, fuzzy
+#~| msgid "Disallow playing new tracks when another track is playing"
+#~ msgid "Disable new track when playing"
+#~ msgstr "Tillad ikke afspilning af nye spor når et andet spor afspilles"
+
+#, fuzzy
+#~| msgid "Advanced"
+#~ msgid "Auto advance"
+#~ msgstr "Avanceret"
+
+#, fuzzy
+#~| msgid "Audio Device:"
+#~ msgid "Main Audio Device"
+#~ msgstr "Lydenhed:"
+
 #~ msgid "%s tracks found"
 #~ msgstr "%s spor fundet"
 

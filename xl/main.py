@@ -36,6 +36,8 @@ import platform
 import sys
 import threading
 
+from .version import register
+
 from xl import logger_setup
 from xl.externals.sigint import InterruptibleLoopContext
 from xl.nls import gettext as _
@@ -348,6 +350,12 @@ def create_argument_parser():
         default=False,
         help=_("Make control options like" " --play start Exaile if it is not running"),
     )
+    group.add_argument(
+        "--use-lang",
+        dest="UseLanguage",
+        default='',
+        help=_("Locale to use for Exaile"),
+    )
 
     group = p.add_argument_group(_('Development/Debug Options'))
     group.add_argument(
@@ -594,7 +602,6 @@ class Exaile:
         logger.info("Loading Exaile %s...", __version__)
 
         from gi.repository import GObject
-        from .version import register
 
         register('Python', platform.python_version())
         register('PyGObject', '%d.%d.%d' % GObject.pygobject_version)
@@ -608,19 +615,7 @@ class Exaile:
 
         logger.debug("Settings loaded from %s", settings.location)
 
-        # display locale information if available
-        try:
-            import locale
-
-            lc, enc = locale.getlocale()
-            if enc is not None:
-                locale_str = '%s %s' % (lc, enc)
-            else:
-                locale_str = _('Unknown')
-
-            register('Locale', locale_str)
-        except Exception:
-            pass
+        self._set_locale(self.options.UseLanguage)
 
         splash = None
 
@@ -778,6 +773,28 @@ class Exaile:
             )
 
         # pylint: enable-msg=W0201
+
+    def _set_locale(self, custom_lang: str = None) -> None:
+        """
+        Get and set locale setting
+        """
+        try:
+            import locale
+
+            lc, enc = locale.getlocale()
+
+            if custom_lang:
+                lc = custom_lang
+
+            if enc is not None:
+                locale_str = '%s %s' % (lc, enc)
+            else:
+                locale_str = _('Unknown')
+
+            os.environ['LANGUAGE'] = lc
+            register('Locale', locale_str)
+        except Exception:
+            pass
 
     def version(self):
         from xl.version import __version__

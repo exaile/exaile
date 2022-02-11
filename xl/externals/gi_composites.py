@@ -15,16 +15,18 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301
 # USA
-
 from os.path import abspath, join
 
 import inspect
 import warnings
+import sys
 
 from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gtk
+
+from xlgui import guiutil
 
 __all__ = ['GtkTemplate']
 
@@ -268,6 +270,12 @@ class _GtkTemplate:
 
             with open(ui, 'rb') as fp:
                 template_bytes = GLib.Bytes.new(fp.read())
+
+        if sys.platform == 'win32':
+            string = template_bytes.get_data().decode("utf-8")
+            template = guiutil.get_template_translated(string)
+            template_bytes = template.encode('utf-8')
+            template_bytes = GLib.Bytes.new(template_bytes)
 
         _register_template(cls, template_bytes)
         return cls

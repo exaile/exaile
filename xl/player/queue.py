@@ -158,7 +158,7 @@ class PlayQueue(playlist.Playlist):
                 if self.__remove_item_on_playback:
                     if self.__remove_item_after_playback:
                         track = super().next()
-                        self.pop(0)
+                        self.pop(self.current_position - 1)
                     else:
                         try:
                             track = self.pop(0)

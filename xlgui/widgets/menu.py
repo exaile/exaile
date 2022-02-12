@@ -26,7 +26,7 @@
 
 from typing import Any, Callable, Iterable, List, Optional, Tuple, Union
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 from xl import common, providers
 from xlgui.accelerators import Accelerator
@@ -368,6 +368,11 @@ class Menu(Gtk.Menu):
             else:
                 Gtk.Menu.popup(self, *args)
 
+    def popup_at_widget(self, widget: Gtk.Widget, event: Gdk.EventButton) -> None:
+        Gtk.Menu.popup_at_widget(
+            self, widget, Gdk.Gravity.EAST, Gdk.Gravity.EAST, event
+        )
+
 
 class ProviderMenu(providers.ProviderHandler, Menu):
     """
@@ -387,6 +392,9 @@ class ProviderMenu(providers.ProviderHandler, Menu):
 
     def on_provider_removed(self, provider):
         self.remove_item(provider)
+
+    def set_context_func(self, context_func: callable) -> None:
+        self.context_func = context_func
 
 
 class MultiProviderMenu(providers.MultiProviderHandler, Menu):

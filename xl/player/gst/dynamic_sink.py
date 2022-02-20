@@ -27,7 +27,6 @@
 
 
 import threading
-from typing import Union
 
 from gi.repository import Gst
 from gi.repository import GLib
@@ -185,7 +184,7 @@ class DynamicAudioSink(Gst.Bin):
             return
         self.audio_sink.props.volume = volume
 
-    def get_volume(self) -> Union[float, None]:
+    def get_volume(self) -> float:
         if not self.is_configured() or not self.has_volume():
             return self._volume
         return self.audio_sink.props.volume

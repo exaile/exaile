@@ -354,7 +354,6 @@ class AudioStream:
         self.buffered_track = None
 
         self.last_position = 0
-        self._volume = 0.0
 
         self.audio_filters = gst_utils.ProviderBin(
             'gst_audio_filter', '%s-filters' % self.name
@@ -407,7 +406,6 @@ class AudioStream:
             sink.connect('notify::current-device', self._on_sink_change_notify)
 
         self.audio_sink.reconfigure(sink)
-        self.audio_sink.set_volume(self._volume)
 
     def _on_sink_change_notify(self, sink, param):
         if self.selected_sink != sink.props.current_device:
@@ -438,9 +436,9 @@ class AudioStream:
         return self.last_position
 
     def get_volume(self) -> float:
-        if self.audio_sink.is_configured():
+        if self.audio_sink.is_configured() and self.audio_sink.has_volume():
             return self.audio_sink.get_volume()
-        return self._volume
+        return self.playbin.props.volume
 
     def get_user_volume(self):
         return self.fader.get_user_volume()
@@ -544,9 +542,9 @@ class AudioStream:
         # self.logger.debug("Set playbin volume: %.2f", volume)
         # TODO: strange issue where pulse sets the system audio volume
         #       when exaile starts up...
-        if self.audio_sink.is_configured():
+        if self.audio_sink.is_configured() and self.audio_sink.has_volume():
             self.audio_sink.set_volume(volume)
-        self._volume = volume
+        self.playbin.props.volume = volume
 
     def set_user_volume(self, volume):
         self.logger.debug("Set user volume: %.2f", volume)
@@ -733,7 +731,10 @@ class AudioStream:
         playbin.disconnect(self.notify_id)
 
     def on_volume_change(self, e, p):
-        real = self.audio_sink.get_volume()
+        if self.audio_sink.is_configured() and self.audio_sink.has_volume():
+            real = self.audio_sink.get_volume()
+        else:
+            real = self.playbin.props.volume
         vol, is_same = self.fader.calculate_user_volume(real)
         if not is_same:
             GLib.idle_add(self.engine.player.engine_notify_user_volume_change, vol)

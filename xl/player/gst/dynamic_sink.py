@@ -180,18 +180,21 @@ class DynamicAudioSink(Gst.Bin):
         self.audio_sink = audio_sink
 
     def set_volume(self, volume: float) -> None:
-        if not hasattr(self.audio_sink.props, 'volume'):
-            self._volume = volume
+        self._volume = volume
+        if not self.has_volume():
             return
         self.audio_sink.props.volume = volume
 
     def get_volume(self) -> Union[float, None]:
-        if not hasattr(self.audio_sink.props, 'volume'):
+        if not self.is_configured() or not self.has_volume():
             return self._volume
         return self.audio_sink.props.volume
 
     def is_configured(self) -> bool:
         return self.audio_sink is not None
+
+    def has_volume(self) -> bool:
+        return hasattr(self.audio_sink.props, 'volume')
 
 
 # vim: et sts=4 sw=4

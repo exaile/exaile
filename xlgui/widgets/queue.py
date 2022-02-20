@@ -28,7 +28,6 @@ from gi.repository import Gtk
 
 from xl.nls import gettext as _
 from xl import main, playlist, event
-from xlgui import icons
 from xlgui.widgets import dialogs
 
 from xlgui.widgets.playlist import PlaylistPageBase, PlaylistView

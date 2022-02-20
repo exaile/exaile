@@ -163,16 +163,6 @@ class RemoveQueuedItemWhenPlayed(widgets.CheckPreference):
     name = 'queue/remove_item_when_played'
 
 
-class RemoveQueuedItemAfterPlayed(widgets.CheckPreference, widgets.CheckConditional):
-    default = False
-    name = 'queue/remove_item_after_played'
-    condition_preference_name = 'queue/remove_item_when_played'
-
-    def __init__(self, preferences, widget):
-        widgets.CheckPreference.__init__(self, preferences, widget)
-        widgets.CheckConditional.__init__(self)
-
-
 class DisableNewTrackWhenPlaying(widgets.CheckPreference):
     default = False
     name = 'queue/disable_new_track_when_playing'

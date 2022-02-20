@@ -4458,7 +4458,6 @@ msgstr "Überblenddauer:"
 #: ../plugins/previewdevice/previewprefs.ui:223
 msgid "Audio Device:"
 msgstr "Gerät hinzufügen:"
-
 #: ../plugins/quickbuttons/qb_prefs.ui:72
 msgid "Delay between tracks (in seconds)"
 msgstr "Pause zwischen den Titeln (s)"

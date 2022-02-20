@@ -70,14 +70,12 @@ class PlayQueue(playlist.Playlist):
         event.add_callback(self._on_option_set, '%s_option_set' % name)
 
         self.__opt_remove_item_when_played = '%s/remove_item_when_played' % name
-        self.__opt_remove_item_after_played = '%s/remove_item_after_played' % name
         self.__opt_disable_new_track_when_playing = (
             '%s/disable_new_track_when_playing' % name
         )
         self.__opt_enqueue_begins_playback = '%s/enqueue_begins_playback' % name
 
         self._on_option_set(None, settings, self.__opt_remove_item_when_played)
-        self._on_option_set(None, settings, self.__opt_remove_item_after_played)
         self._on_option_set(None, settings, self.__opt_disable_new_track_when_playing)
 
     def _on_option_set(self, evtype, settings, option):
@@ -85,8 +83,6 @@ class PlayQueue(playlist.Playlist):
             self.__remove_item_on_playback = settings.get_option(option, True)
             if len(self):
                 self.__queue_has_tracks = True
-        if option == self.__opt_remove_item_after_played:
-            self.__remove_item_after_playback = settings.get_option(option, True)
         elif option == self.__opt_disable_new_track_when_playing:
             self.__disable_new_track_when_playing = settings.get_option(option, False)
 
@@ -130,7 +126,7 @@ class PlayQueue(playlist.Playlist):
         :rtype: :class:`xl.trax.Track` or None
         """
         if self.__queue_has_tracks and len(self):
-            if self.__remove_item_on_playback and not self.__remove_item_after_playback:
+            if self.__remove_item_on_playback:
                 return self[0]
             else:
                 return playlist.Playlist.get_next(self)
@@ -155,17 +151,13 @@ class PlayQueue(playlist.Playlist):
         """
         if track is None:
             if self.__queue_has_tracks:
-                if self.__remove_item_on_playback:
-                    if self.__remove_item_after_playback:
-                        track = super().next()
-                        self.pop(0)
-                    else:
-                        try:
-                            track = self.pop(0)
-                        except IndexError:
-                            pass
-                else:
+                if not self.__remove_item_on_playback:
                     track = super().next()
+                else:
+                    try:
+                        track = self.pop(0)
+                    except IndexError:
+                        pass
 
                 # reached the end of the internal queue, don't repeat
                 if track is None:
@@ -224,13 +216,13 @@ class PlayQueue(playlist.Playlist):
         return current
 
     def get_current_position(self):
-        if self.__remove_item_on_playback and not self.__remove_item_after_playback:
+        if self.__remove_item_on_playback:
             return 0
         else:
             return playlist.Playlist.get_current_position(self)
 
     def set_current_position(self, position):
-        if not self.__remove_item_on_playback or self.__remove_item_after_playback:
+        if not self.__remove_item_on_playback:
             return playlist.Playlist.set_current_position(self, position)
 
     def is_play_enabled(self):
@@ -252,7 +244,7 @@ class PlayQueue(playlist.Playlist):
             track = self.current
         if track:
             self.player.play(track)
-            if self.__remove_item_on_playback and not self.__remove_item_after_playback:
+            if self.__remove_item_on_playback:
                 try:
                     del self[self.index(track)]
                 except ValueError:

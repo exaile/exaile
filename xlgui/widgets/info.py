@@ -418,7 +418,9 @@ class StatusbarTextFormatter(formatter.Formatter):
             return ''
         return _('%d in collection') % main.exaile().collection.get_count()
 
-    def get_playlist_count(self, selection: Literal['none', 'override', 'only'] = 'none'):
+    def get_playlist_count(
+        self, selection: Literal['none', 'override', 'only'] = 'none'
+    ):
         """
         Retrieves the count of tracks in either the
         full playlist or the current selection

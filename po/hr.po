@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-01 00:41+0100\n"
-"PO-Revision-Date: 2021-03-19 20:18+0000\n"
+"PO-Revision-Date: 2022-02-25 06:55+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/exaile/master/"
 "hr/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.5.2-dev\n"
+"X-Generator: Weblate 4.11-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -327,7 +327,7 @@ msgstr "Učini da opcije kao --sviraj pokrenu Exaile ukoliko nije pokrenut"
 
 #: ../xl/main.py:357
 msgid "Locale to use for Exaile"
-msgstr ""
+msgstr "Korišteni jezik za Exaile"
 
 #: ../xl/main.py:360
 msgid "Development/Debug Options"
@@ -2116,16 +2116,12 @@ msgid "Collection Manager"
 msgstr "Upravljanje zbirkama"
 
 #: ../data/ui/collection_manager.ui:54
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
-msgstr "Odustani"
+msgstr "_Odustani"
 
 #: ../data/ui/collection_manager.ui:71
-#, fuzzy
-#| msgid "Apply BPM"
 msgid "_Apply"
-msgstr "Primijeni BPM"
+msgstr "_Primijeni"
 
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
@@ -2137,17 +2133,15 @@ msgstr "Pretraži pri pokretanju"
 
 #: ../data/ui/collection_manager.ui:174
 msgid "Add _Folder"
-msgstr ""
+msgstr "Dodaj _mapu"
 
 #: ../data/ui/collection_manager.ui:191
-#, fuzzy
-#| msgid "Remove Cover"
 msgid "_Remove Folder"
-msgstr "Ukloni omot"
+msgstr "_Ukloni mapu"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
-msgstr "Ponovo pretraži zbirku"
+msgstr "Ponovo pretraži _zbirku"
 
 #: ../data/ui/coverchooser.ui:28
 msgid "Cover Finder"
@@ -2158,14 +2152,12 @@ msgid "The origin of this cover"
 msgstr "Izvor ovog omota"
 
 #: ../data/ui/coverchooser.ui:159
-#, fuzzy
-#| msgid "_About"
 msgid "_Abort"
-msgstr "_O programu"
+msgstr "_Prekini"
 
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
-msgstr "_Postavi za omot"
+msgstr "Po_stavi kao omot"
 
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
@@ -2181,7 +2173,7 @@ msgstr "_Zatvori"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
-msgstr "_Preuzmi omote"
+msgstr "Pre_uzmi omote"
 
 #: ../data/ui/coverwindow.ui:40
 msgid "Zoom _In"
@@ -2217,13 +2209,11 @@ msgstr "Upravljački program"
 
 #: ../data/ui/device_manager.ui:115
 msgid "_Connect"
-msgstr ""
+msgstr "Po_veži"
 
 #: ../data/ui/device_manager.ui:133
-#, fuzzy
-#| msgid "Disconnect from Server"
 msgid "_Disconnect"
-msgstr "Prekini vezu s poslužiteljem"
+msgstr "Pre_kini vezu"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -2373,10 +2363,8 @@ msgid "Playlist font:"
 msgstr "Font za playlistu:"
 
 #: ../data/ui/preferences/appearance.ui:154
-#, fuzzy
-#| msgid "Never"
 msgid "_Revert"
-msgstr "Nikad"
+msgstr "_Obnovi"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -2458,13 +2446,15 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:370
 msgid "Show Status Bar"
-msgstr ""
+msgstr "Prikaži traku stanja"
 
 #: ../data/ui/preferences/appearance.ui:374
 msgid ""
 "Show or hide the status bar. The status bar will always be shown if a plugin "
 "requests it."
 msgstr ""
+"Prikaži ili sakrij traku stanja. Traka stanja će se uvijek prikazati ako "
+"dodatak to zatraži."
 
 #: ../data/ui/preferences/appearance.ui:399
 #, fuzzy
@@ -2473,10 +2463,8 @@ msgid "Show playlist track count"
 msgstr "Prikaži pje_smu koja svira"
 
 #: ../data/ui/preferences/appearance.ui:413
-#, fuzzy
-#| msgid "Display duration:"
 msgid "Show playlist duration"
-msgstr "Prikaži trajanje:"
+msgstr "Prikaži trajanje playliste"
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -3660,29 +3648,21 @@ msgid "Enqueue"
 msgstr "Dodaj u red za sviranje"
 
 #: ../plugins/quickbuttons/__init__.py:46
-#, fuzzy
-#| msgid "Not playing."
 msgid "Keep playing"
-msgstr "Ne svira."
+msgstr "Nastavi svirati"
 
 #: ../plugins/quickbuttons/__init__.py:55
-#, fuzzy
-#| msgid "_Remove"
 msgid "Auto-Remove"
-msgstr "_Ukloni"
+msgstr "Automatsko uklanjanje"
 
 #: ../plugins/quickbuttons/__init__.py:64
-#, fuzzy
-#| msgid "Advanced"
 msgid "Auto-Advance"
-msgstr "Napredan"
+msgstr "Automatsko napredovanje"
 
 #: ../plugins/quickbuttons/__init__.py:73
 #: ../plugins/quickbuttons/__init__.py:74
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds):"
-msgstr "Stanka između pjesama (ms):"
+msgstr "Stanka između pjesama (u sekundama):"
 
 #: ../plugins/quickbuttons/__init__.py:82
 msgid "EQ"
@@ -4482,10 +4462,8 @@ msgid "Audio Device:"
 msgstr "Audio uređaj:"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:72
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds)"
-msgstr "Stanka između pjesama (ms):"
+msgstr "Stanka između pjesama (u sekundama)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:87
 msgid "Equalizer (depends on Equalizer Plugin)"

@@ -445,14 +445,14 @@ class StatusbarTextFormatter(formatter.Formatter):
         selection_count = page.view.get_selection_count()
 
         if selection == 'none':
-            return ngettext("%d showing", "%d showing", playlist_count)
+            return ngettext("%d showing", "%d showing", playlist_count) % playlist_count
         elif selection == 'override':
             if selection_count > 1:
-                return ngettext("%d selected", "%d selected", selection_count)
+                return ngettext("%d selected", "%d selected", selection_count) % selection_count
             else:
-                return ngettext("%d showing", "%d showing", playlist_count)
+                return ngettext("%d showing", "%d showing", playlist_count) % playlist_count
         elif selection == 'only':
-            return ngettext("%d selected", "%d selected", selection_count)
+            return ngettext("%d selected", "%d selected", selection_count) % selection_count
 
         raise ValueError(
             'Invalid argument "%s" passed to parameter '

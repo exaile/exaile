@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-02-02 00:57+0000\n"
+"PO-Revision-Date: 2022-03-06 20:55+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11-dev\n"
+"X-Generator: Weblate 4.12-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1691,16 +1691,14 @@ msgid "%d in collection"
 msgstr "muusikakogus %d"
 
 #: ../xlgui/widgets/info.py:448 ../xlgui/widgets/info.py:453
-#, fuzzy, python-format
-#| msgid "%d showing"
+#, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
 msgstr[0] "kuvame %d"
 msgstr[1] "kuvame %d"
 
 #: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:455
-#, fuzzy, python-format
-#| msgid "%d selected"
+#, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "%d valitud"
@@ -2102,7 +2100,7 @@ msgstr "© 2009–2020 Erinevad kaasautorid"
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr ""
+msgstr "Priit Jõerüüt (2021-2022)"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -2114,7 +2112,7 @@ msgstr "_Tühista"
 
 #: ../data/ui/collection_manager.ui:71
 msgid "_Apply"
-msgstr ""
+msgstr "_Rakenda"
 
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
@@ -2126,7 +2124,7 @@ msgstr ""
 
 #: ../data/ui/collection_manager.ui:174
 msgid "Add _Folder"
-msgstr ""
+msgstr "Lisa _kaust"
 
 #: ../data/ui/collection_manager.ui:191
 msgid "_Remove Folder"
@@ -2202,7 +2200,7 @@ msgstr ""
 
 #: ../data/ui/device_manager.ui:115
 msgid "_Connect"
-msgstr ""
+msgstr "_Ühenda"
 
 #: ../data/ui/device_manager.ui:133
 msgid "_Disconnect"
@@ -2430,7 +2428,7 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:370
 msgid "Show Status Bar"
-msgstr ""
+msgstr "Näita olekuriba"
 
 #: ../data/ui/preferences/appearance.ui:374
 msgid ""
@@ -3491,10 +3489,9 @@ msgid "by {artist}"
 msgstr "{artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "by {album}"
+#, python-brace-format
 msgid "from {album}"
-msgstr "{album}"
+msgstr "albumilt {album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3652,7 +3649,7 @@ msgstr ""
 
 #: ../plugins/quickbuttons/qb_prefs.py:5
 msgid "Quickbuttons"
-msgstr ""
+msgstr "Kiirvalikud"
 
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
@@ -4867,12 +4864,13 @@ msgstr ""
 
 #: ../plugins/quickbuttons/PLUGININFO:3
 msgid "Quick Settings Buttons"
-msgstr ""
+msgstr "Kiirseadistuste nupud"
 
 #: ../plugins/quickbuttons/PLUGININFO:4
 msgid ""
 "Provides buttons on bottom of the playlist to quickly change some settings"
 msgstr ""
+"Täiendavad nupud esitusloendi all, millega on lihtne muuta osasid seadistusi"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"

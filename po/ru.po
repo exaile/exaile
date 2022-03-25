@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-03-24 01:56+0000\n"
+"PO-Revision-Date: 2022-03-25 23:09+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -126,7 +126,7 @@ msgstr "Локальный"
 
 #: ../xl/main.py:84
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Использование: exaile [ПАРАМЕТРЫ…] [РАСПОЛОЖЕНИЕ…]"
+msgstr "Использование: exaile [ПАРАМЕТР…] [РАСПОЛОЖЕНИЕ…]"
 
 #: ../xl/main.py:86
 msgid ""
@@ -169,11 +169,11 @@ msgstr "Приостановить или продолжить воспроиз�
 
 #: ../xl/main.py:146 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
-msgstr "Остановить воспроизведение после текущего трека"
+msgstr "Остановить проигрывание после текущего трека"
 
 #: ../xl/main.py:149
 msgid "Collection Options"
-msgstr "Параметры коллекции"
+msgstr "Параметры фонотеки"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:154 ../xl/main.py:163
@@ -182,7 +182,7 @@ msgstr "РАСПОЛОЖЕНИЕ"
 
 #: ../xl/main.py:155
 msgid "Add tracks from LOCATION to the collection"
-msgstr "Добавить треки из РАСПОЛОЖЕНИЯ в коллекцию"
+msgstr "Добавить треки из РАСПОЛОЖЕНИЯ в фонотеку"
 
 #: ../xl/main.py:158
 msgid "Playlist Options"
@@ -246,11 +246,11 @@ msgstr "N"
 
 #: ../xl/main.py:231
 msgid "Set rating for current track to N%"
-msgstr "Установить рейтинг текущего трека в N%"
+msgstr "Оценить текущий трек на N%"
 
 #: ../xl/main.py:238
 msgid "Get rating for current track"
-msgstr "Получить рейтинг текущего трека"
+msgstr "Получить оценку текущего трека"
 
 #: ../xl/main.py:245
 msgid "Print the current playback position as time"
@@ -409,7 +409,7 @@ msgstr "%d случайных"
 #: ../xl/main.py:829
 #, python-format
 msgid "Rating > %d"
-msgstr "Рейтинг > %d"
+msgstr "Оценка > %d"
 
 #: ../xl/main.py:998
 msgid ""
@@ -564,7 +564,7 @@ msgstr "Дата добавления"
 #: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:488
 #: ../plugins/cd/cdprefs.py:123 ../plugins/minimode/minimode_preferences.py:119
 msgid "Last played"
-msgstr "Последнее воспроизведение"
+msgstr "Послед. проигрывание"
 
 #: ../xl/metadata/tags.py:83 ../xlgui/widgets/playlist_columns.py:331
 #: ../plugins/cd/cdprefs.py:114 ../plugins/minimode/minimode_preferences.py:110
@@ -575,11 +575,11 @@ msgstr "Время"
 #: ../data/ui/collection_manager.ui:119 ../plugins/cd/cdprefs.py:120
 #: ../plugins/minimode/minimode_preferences.py:116
 msgid "Location"
-msgstr "Местоположение"
+msgstr "Расположение"
 
 #: ../xl/metadata/tags.py:85
 msgid "Modified"
-msgstr "Изменён"
+msgstr "Дата изменения"
 
 #: ../xl/metadata/tags.py:86
 msgid "Play time"
@@ -591,11 +591,11 @@ msgstr "Проигран раз"
 
 #: ../xl/metadata/tags.py:89
 msgid "Start offset"
-msgstr "Начало сдвига"
+msgstr "Смещение начала"
 
 #: ../xl/metadata/tags.py:90
 msgid "Stop offset"
-msgstr "Конец сдвига"
+msgstr "Стоповое смещение"
 
 #: ../xl/player/gst/engine.py:708
 msgid ": Possible audio device error, is it plugged in?"
@@ -608,7 +608,7 @@ msgid ""
 "Exaile will not be able to play the current file. Please install the "
 "required software on your computer. See %s for details."
 msgstr ""
-"Отсутствует модуль GStreamer 1.x для %s. Exaile не может воспроизвести "
+"Отсутствует плагин GStreamer 1.x для %s. Exaile не может воспроизвести "
 "текущий файл без этой программы. Установите необходимое программное "
 "обеспечение. Подробности см. в %s."
 
@@ -718,20 +718,20 @@ msgstr "Динамический плейлист с похожими испол
 
 #: ../xl/plugins.py:87
 msgid "Plugin is already loaded or has a conflicting name."
-msgstr "Модуль уже загружен или имеет конфликтующее имя."
+msgstr "Плагин уже загружен или имеет конфликтующее имя."
 
 #: ../xl/plugins.py:102
 msgid "Plugin archive is not in the correct format."
-msgstr "Неверный формат архива с модулем."
+msgstr "Неверный формат архива с плагином."
 
 #: ../xl/plugins.py:109
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr "Модуль «%s» уже установлен."
+msgstr "Плагин «%s» уже установлен."
 
 #: ../xl/plugins.py:114
 msgid "Plugin archive contains an unsafe path."
-msgstr "Архив с модулем содержит небезопасный путь."
+msgstr "Архив с плагином содержит небезопасный путь."
 
 #: ../xl/settings.py:97
 msgid "Settings version is newer than current."
@@ -802,7 +802,7 @@ msgstr "%dk"
 
 #: ../xl/trax/trackdb.py:181
 msgid "You did not specify a location to load the db from"
-msgstr "Вы не указали местоположение базы данных"
+msgstr "Вы не указали расположение базы данных для загрузки"
 
 #: ../xl/trax/trackdb.py:249
 msgid "You did not specify a location to save the db"
@@ -843,8 +843,7 @@ msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
 msgstr ""
-"Каталог уже включен в вашу коллекцию или находится в одном из подкаталогов "
-"вашей коллекции."
+"Каталог уже включён в вашу фонотеку или находится в одном из её подкаталогов."
 
 #: ../xlgui/cover.py:97
 #, python-brace-format
@@ -1122,11 +1121,11 @@ msgstr "_Менеджер устройств"
 
 #: ../xlgui/menu.py:362
 msgid "_Rescan Collection"
-msgstr "_Пересканировать коллекцию"
+msgstr "_Пересканировать фонотеку"
 
 #: ../xlgui/menu.py:372 ../data/ui/collection_manager.ui:226
 msgid "Rescan Collection (_slow)"
-msgstr "Перес_канировать коллекцию (медленно)"
+msgstr "Перес_канировать фонотеку (медленно)"
 
 #: ../xlgui/menu.py:405
 msgid "User's Guide (website)"
@@ -1190,7 +1189,7 @@ msgstr "Фонотека"
 
 #: ../xlgui/panel/collection.py:286
 msgid "Rescan Collection"
-msgstr "Пересканировать коллекцию"
+msgstr "Пересканировать фонотеку"
 
 #: ../xlgui/panel/device.py:151
 #, python-format
@@ -1375,7 +1374,7 @@ msgstr "_Изменить вид вкладок"
 
 #: ../xlgui/preferences/__init__.py:113 ../xlgui/preferences/plugin.py:40
 msgid "Plugins"
-msgstr "Модули"
+msgstr "Плагины"
 
 #: ../xlgui/preferences/appearance.py:34 ../plugins/osd/osd_preferences.ui:216
 msgid "Appearance"
@@ -1419,31 +1418,31 @@ msgstr "Не классифицированные"
 
 #: ../xlgui/preferences/plugin.py:179
 msgid "Could not load plugin info!"
-msgstr "Не удалось загрузить сведения о модуле!"
+msgstr "Не удалось загрузить сведения о плагине!"
 
 #: ../xlgui/preferences/plugin.py:180
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
-msgstr[0] "Ошибка в модуле: %s"
-msgstr[1] "Ошибка в модулях: %s"
-msgstr[2] "Ошибка в модулях: %s"
+msgstr[0] "Ошибка в плагине: %s"
+msgstr[1] "Ошибки в плагинах: %s"
+msgstr[2] "Ошибки в плагинах: %s"
 
 #: ../xlgui/preferences/plugin.py:212 ../xlgui/preferences/plugin.py:313
 msgid "Could not disable plugin!"
-msgstr "Не удалось отключить модуль!"
+msgstr "Не удалось отключить плагин!"
 
 #: ../xlgui/preferences/plugin.py:222 ../xlgui/preferences/plugin.py:307
 msgid "Could not enable plugin!"
-msgstr "Не удалось включить модуль!"
+msgstr "Не удалось включить плагин!"
 
 #: ../xlgui/preferences/plugin.py:231
 msgid "Choose a Plugin"
-msgstr "Выбрать модуль"
+msgstr "Выберите плагин"
 
 #: ../xlgui/preferences/plugin.py:242
 msgid "Plugin Archives"
-msgstr "Архивы модулей"
+msgstr "Архивы плагинов"
 
 #: ../xlgui/preferences/plugin.py:249 ../xlgui/widgets/dialogs.py:724
 #: ../xlgui/widgets/dialogs.py:900
@@ -1452,7 +1451,7 @@ msgstr "Все файлы"
 
 #: ../xlgui/preferences/plugin.py:260
 msgid "Plugin file installation failed!"
-msgstr "Установка модуля не удалась!"
+msgstr "Установка плагина не удалась!"
 
 #: ../xlgui/preferences/widgets.py:74
 msgid "Restart Exaile?"
@@ -1490,7 +1489,7 @@ msgstr ""
 #: ../xlgui/properties.py:280
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr "Редактируется трек %(current)d из %(total)d"
+msgstr "Правка трека %(current)d из %(total)d"
 
 #: ../xlgui/properties.py:402
 msgid "Are you sure you want to apply the changes to all tracks?"
@@ -1696,7 +1695,7 @@ msgstr "Не воспроизводится"
 #: ../xlgui/widgets/info.py:419
 #, python-format
 msgid "%d in collection"
-msgstr "%d в коллекции"
+msgstr "%d в фонотеке"
 
 #: ../xlgui/widgets/info.py:448 ../xlgui/widgets/info.py:453
 #, python-format
@@ -1710,7 +1709,7 @@ msgstr[2] "%d отображается"
 #, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
-msgstr[0] "%d выделено"
+msgstr[0] "%d выделен"
 msgstr[1] "%d выделено"
 msgstr[2] "%d выделено"
 
@@ -1863,7 +1862,7 @@ msgstr "О_чистить"
 
 #: ../xlgui/widgets/playlist.py:325
 msgid "_Stop Playback After This Track"
-msgstr "О_становить воспроизведение после этого трека"
+msgstr "О_становить проигрывание после этого трека"
 
 #: ../xlgui/widgets/playlist.py:332
 msgid "_Continue Playback After This Track"
@@ -1875,7 +1874,7 @@ msgstr "_Удалить из плейлиста"
 
 #: ../xlgui/widgets/playlist.py:739
 msgid "Requires plugins providing dynamic playlists"
-msgstr "Требуется модуль, обеспечивающий поддержку динамических плейлистов"
+msgstr "Требуются плагины, обеспечивающие поддержку динамических плейлистов"
 
 #: ../xlgui/widgets/playlist.py:743 ../data/ui/playlist.ui:99
 msgid "Dynamically add similar tracks to the playlist"
@@ -1907,7 +1906,7 @@ msgstr "Год"
 
 #: ../xlgui/widgets/playlist_columns.py:457
 msgid "Playcount"
-msgstr "Кол-во воспроизведений"
+msgstr "Прослушивания"
 
 #: ../xlgui/widgets/playlist_columns.py:506
 msgid "Schedule"
@@ -1915,11 +1914,11 @@ msgstr "Расписание"
 
 #: ../xlgui/widgets/playlist_columns.py:675
 msgid "Start Offset"
-msgstr "Начать сдвиг"
+msgstr "Начальное смещение"
 
 #: ../xlgui/widgets/playlist_columns.py:686
 msgid "Stop Offset"
-msgstr "Остановить сдвиг"
+msgstr "Стоповое смещение"
 
 #: ../xlgui/widgets/playlist_columns.py:847
 msgid "_Resizable"
@@ -1940,7 +1939,7 @@ msgstr "Очередь (%d)"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
-msgstr "Рейтинг:"
+msgstr "Оценка:"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:56
 #: ../xlgui/widgets/smart_playlist_editor.py:79
@@ -2114,7 +2113,7 @@ msgstr "Andrei Stepanov"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
-msgstr "Менеджер коллекции"
+msgstr "Менеджер фонотеки"
 
 #: ../data/ui/collection_manager.ui:54
 msgid "_Cancel"
@@ -2142,7 +2141,7 @@ msgstr "_Удалить каталог"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
-msgstr "Пере_сканировать коллекцию"
+msgstr "Пере_сканировать фонотеку"
 
 #: ../data/ui/coverchooser.ui:28
 msgid "Cover Finder"
@@ -2244,7 +2243,7 @@ msgid ""
 msgstr ""
 "Остановить воспроизведение\n"
 "\n"
-"Щёлкните правой кнопкой мыши для остановки после выделенной дорожки"
+"Щёлкните правой кнопкой мыши для возможности остановки после трека"
 
 #: ../data/ui/main.ui:221
 msgid "Next Track"
@@ -2357,7 +2356,7 @@ msgstr "Всегда показывать полосу вкладок"
 
 #: ../data/ui/preferences/appearance.ui:101
 msgid "Tab placement:"
-msgstr "Местоположение вкладки:"
+msgstr "Размещение вкладки:"
 
 #: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
@@ -2375,7 +2374,7 @@ msgstr "Использовать системный шрифт"
 #: ../data/ui/preferences/appearance.ui:196
 #: ../data/ui/preferences/appearance.ui:385
 msgid "Display track counts in collection"
-msgstr "Показать количество треков в коллекции"
+msgstr "Показать счётчики треков в фонотеке"
 
 #. TRANSLATORS: Remark at the alpha transparency option
 #: ../data/ui/preferences/appearance.ui:210
@@ -2455,7 +2454,7 @@ msgid ""
 "requests it."
 msgstr ""
 "Показать или скрыть строку состояния. Строка состояния всегда будет "
-"отображаться, если модуль запрашивает её."
+"отображаться, если плагин запрашивает её."
 
 #: ../data/ui/preferences/appearance.ui:399
 msgid "Show playlist track count"
@@ -2675,7 +2674,7 @@ msgstr ""
 
 #: ../data/ui/preferences/plugin.ui:64
 msgid "Plugin"
-msgstr "Модуль"
+msgstr "Плагин"
 
 #: ../data/ui/preferences/plugin.ui:76
 msgid "Status"
@@ -2689,15 +2688,15 @@ msgstr "Включен"
 
 #: ../data/ui/preferences/plugin.ui:110
 msgid "Show incompatible plugins"
-msgstr "Показывать несовместимые модули"
+msgstr "Показывать несовместимые плагины"
 
 #: ../data/ui/preferences/plugin.ui:128
 msgid "No Plugin Selected"
-msgstr "Модуль не выбран"
+msgstr "Плагин не выбран"
 
 #: ../data/ui/preferences/plugin.ui:177
 msgid "Add _Plugin File"
-msgstr "Добавить _файл модуля"
+msgstr "Добавить _файл плагина"
 
 #: ../data/ui/preferences/preferences_dialog.ui:24
 msgid "Preferences"
@@ -2737,7 +2736,7 @@ msgstr "_Назад"
 
 #: ../data/ui/trackproperties_dialog.ui:278
 msgid "_Next"
-msgstr "_Вперед"
+msgstr "_Вперёд"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:20
 msgid "Other"
@@ -3032,7 +3031,7 @@ msgstr "_Эквалайзер"
 
 #: ../plugins/grouptagger/__init__.py:96
 msgid "_Get all tags from collection"
-msgstr "_Получить все теги из коллекции"
+msgstr "_Получить все теги из фонотеки"
 
 #: ../plugins/grouptagger/__init__.py:105
 msgid "_Import tags from directory"
@@ -3128,8 +3127,8 @@ msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
 msgstr ""
-"Вам лучше пересканировать вашу коллекцию перед групповым переимонованием "
-"тегов, так чтобы все теги стали актуальными. Пересканировать сейчас?"
+"Вам лучше пересканировать вашу фонотеку перед групповым переименованием "
+"тегов, так чтобы все теги стали актуальными. Пересканировать?"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 msgid "Show tracks with selected"
@@ -3195,7 +3194,7 @@ msgstr "Группа"
 
 #: ../plugins/grouptagger/gt_widgets.py:749
 msgid "Get all tags from collection"
-msgstr "Получить все метки из коллекции"
+msgstr "Получить все теги из фонотеки"
 
 #: ../plugins/grouptagger/gt_widgets.py:770
 msgid "Add selected to choices"
@@ -3356,7 +3355,7 @@ msgstr ""
 
 #: ../plugins/mainmenubutton/__init__.py:60
 msgid "This plugin needs at least one visible panel"
-msgstr "Модулю необходима хотя бы одна видимая панель"
+msgstr "Плагину необходима хотя бы одна видимая панель"
 
 #: ../plugins/mainmenubutton/__init__.py:80
 #: ../plugins/mainmenubutton/__init__.py:86
@@ -3439,7 +3438,7 @@ msgstr "Восстановить главное окно"
 
 #: ../plugins/minimode/controls.py:556
 msgid "Select rating of the current track"
-msgstr "Установить рейтинг текущей дорожки"
+msgstr "Выбрать оценку текущего трека"
 
 #: ../plugins/minimode/controls.py:574
 msgid "Track selector"
@@ -4180,11 +4179,11 @@ msgstr "Дата релиза"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:48
 msgid "Rating this week"
-msgstr "Рейтинг недели"
+msgstr "Оценка этой недели"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:52
 msgid "Rating this month"
-msgstr "Рейтинг месяца"
+msgstr "Оценка этого месяца"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:56
 msgid "Number of playlist additions"
@@ -4464,12 +4463,12 @@ msgstr "Задержка между дорожками (в секундах)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:87
 msgid "Equalizer (depends on Equalizer Plugin)"
-msgstr "Эквалайзер (зависит от модуля Эквалайзер)"
+msgstr "Эквалайзер (зависит от плагина Эквалайзер)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:115
 msgid "Select preview audio device (depends on previewdevice plugin)"
 msgstr ""
-"Выберите звуковое устройство предпросмотра (зависит от модуля устройства "
+"Выберите звуковое устройство предпросмотра (зависит от плагина устройства "
 "предпросмотра)"
 
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
@@ -4582,7 +4581,7 @@ msgid ""
 msgstr ""
 "Поиск обложек альбомов на Amazon\n"
 "\n"
-"Чтобы использовать этот модуль, необходим ключ AWS API и секретный ключ."
+"Чтобы использовать этот плагин, необходимы ключ AWS API и секретный ключ."
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
@@ -4611,7 +4610,7 @@ msgid ""
 "plugin from gst-plugins-bad is installed"
 msgstr ""
 "Предоставляет ручной счётчик BPM и автоопределение BPM, когда установлен "
-"модуль bpmdetect из gst-plugins-bad"
+"плагин bpmdetect из gst-plugins-bad"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
@@ -4656,8 +4655,8 @@ msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the suppported services."
 msgstr ""
-"Устанавливает  имя текущей аудиозаписи как статус в Pidgin. Проверьте FAQ по "
-"Pidgin чтобы найти поддерживаемые услуги."
+"Устанавливает имя текущей композиции в статус в Pidgin. Проверьте FAQ по "
+"Pidgin, чтобы узнать о поддерживаемых службах."
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid ""
@@ -4685,7 +4684,7 @@ msgid ""
 "This plugin integrates Spydaap (%s) into Exaile, so that a collection can be "
 "shared over DAAP."
 msgstr ""
-"Этот модуль интегрирует Spydaap (%s) в Exaile, чтобы фонотекой можно было "
+"Этот плагин интегрирует Spydaap (%s) в Exaile, чтобы фонотекой можно было "
 "поделиться через DAAP."
 
 #: ../plugins/desktopcover/PLUGININFO:4
@@ -4731,7 +4730,7 @@ msgstr "Привет, мир"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr "Простой модуль для тестирования системы модулей"
+msgstr "Простой плагин для тестирования системы плагинов"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:3
 msgid "Inhibit Suspend"
@@ -4814,9 +4813,9 @@ msgid ""
 msgstr ""
 "Показывает избранные дорожки и позволяет добавлять их в избранное.\n"
 "\n"
-"Проверьте, что вы ввели правильный ключ API и секрет в настройки модуля.\n"
+"Проверьте, что вы ввели правильный ключ API и секрет в настройках плагина.\n"
 "\n"
-"Полагается на учётную запись и пароль из модуля «AudioScrobbler»."
+"Полагается на учётную запись и пароль из плагина «AudioScrobbler»."
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
@@ -4831,8 +4830,8 @@ msgid ""
 "Plugin to fetch lyrics from lyricsmania.com\n"
 "Requires: lxml"
 msgstr ""
-"Модуль для загрузки текста песен с lyricsmania.com\n"
-"Требуется: python-beautifulsoup"
+"Плагин для загрузки текста песен с lyricsmania.com\n"
+"Требуется: lxml"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
@@ -4843,7 +4842,7 @@ msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Requires: BeautifulSoup4, lxml"
 msgstr ""
-"Модуль для загрузки текстов песен с lyrics.wikia.com\n"
+"Плагин для загрузки текстов песен с lyrics.wikia.com\n"
 "Требуется: BeautifulSoup4, lxml"
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
@@ -4945,7 +4944,7 @@ msgid ""
 msgstr ""
 "Всплывающее окно с информацией о воспроизводимой в настоящий момент дорожке."
 "\n"
-"Этот модуль недоступен в Wayland."
+"Этот плагин недоступен в Wayland."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 msgid "Playlist Analyzer"

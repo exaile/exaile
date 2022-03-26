@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-02-26 00:54+0000\n"
+"PO-Revision-Date: 2022-03-26 17:11+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/exaile/master/"
 "hr/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.11.1-dev\n"
+"X-Generator: Weblate 4.12-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1703,8 +1703,7 @@ msgid "%d in collection"
 msgstr "%d u zbirci"
 
 #: ../xlgui/widgets/info.py:448 ../xlgui/widgets/info.py:453
-#, fuzzy, python-format
-#| msgid "%d showing"
+#, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
 msgstr[0] "%d prikazano"
@@ -1712,8 +1711,7 @@ msgstr[1] "%d prikazano"
 msgstr[2] "%d prikazano"
 
 #: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:455
-#, fuzzy, python-format
-#| msgid "%d selected"
+#, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "%d odabrano"
@@ -3532,10 +3530,9 @@ msgid "by {artist}"
 msgstr "od {artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "from %(album)s"
+#, python-brace-format
 msgid "from {album}"
-msgstr "sa %(album)s"
+msgstr "iz {album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3649,8 +3646,6 @@ msgid "Preview Device"
 msgstr "Uređaj za pregled"
 
 #: ../plugins/quickbuttons/__init__.py:37
-#, fuzzy
-#| msgid "En_queue"
 msgid "Enqueue"
 msgstr "Dodaj u red za sviranje"
 
@@ -3673,7 +3668,7 @@ msgstr "Stanka između pjesama (u sekundama):"
 
 #: ../plugins/quickbuttons/__init__.py:82
 msgid "EQ"
-msgstr ""
+msgstr "EQ"
 
 #: ../plugins/quickbuttons/__init__.py:83 ../plugins/equalizer/equalizer.ui:109
 #: ../plugins/equalizer/PLUGININFO:3
@@ -3681,15 +3676,13 @@ msgid "Equalizer"
 msgstr "Ekvilajzer"
 
 #: ../plugins/quickbuttons/__init__.py:92
-#, fuzzy
-#| msgid "Device"
 msgid "Main Device"
-msgstr "Uređaj"
+msgstr "Glavni uređaj"
 
 #: ../plugins/quickbuttons/__init__.py:93
 #: ../plugins/quickbuttons/qb_prefs.ui:101
 msgid "Select main audio device"
-msgstr ""
+msgstr "Odaberi glavni audio uređaj"
 
 #: ../plugins/quickbuttons/__init__.py:102
 msgid "Select preview audio device"

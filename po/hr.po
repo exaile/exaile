@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-03-26 17:11+0000\n"
+"PO-Revision-Date: 2022-03-27 02:11+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/exaile/master/"
 "hr/>\n"
@@ -3686,11 +3686,11 @@ msgstr "Odaberi glavni audio uređaj"
 
 #: ../plugins/quickbuttons/__init__.py:102
 msgid "Select preview audio device"
-msgstr ""
+msgstr "Odaberi pregled audio uređaja"
 
 #: ../plugins/quickbuttons/qb_prefs.py:5
 msgid "Quickbuttons"
-msgstr ""
+msgstr "Brzi gumbi"
 
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
@@ -4467,11 +4467,11 @@ msgstr "Stanka između pjesama (u sekundama)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:87
 msgid "Equalizer (depends on Equalizer Plugin)"
-msgstr ""
+msgstr "Ekvilajzer (ovisi o dodatku za ekvilajzer)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:115
 msgid "Select preview audio device (depends on previewdevice plugin)"
-msgstr ""
+msgstr "Odaberi pregled audio uređaja (ovisi o dodatku uređaja za pregled)"
 
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:24
@@ -4910,7 +4910,9 @@ msgid ""
 msgstr ""
 "Svira muziku u određeno vrijeme i određene dane.\n"
 "\n"
-"Kad dođe određeno vrijeme, Exaile će jednostavno početi svirati"
+"Imaj na umu da kad dođe određeno vrijeme, Exaile će se jednostavno ponašati "
+"kao da si pritisnuo/la tipku za reprodukciju, stoga pazi da se na popisu "
+"pjesama koje želiš slušati nalaze te glazbe"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3
 msgid "MusicBrainz Covers"
@@ -4976,12 +4978,12 @@ msgstr "Izlaz"
 
 #: ../plugins/quickbuttons/PLUGININFO:3
 msgid "Quick Settings Buttons"
-msgstr ""
+msgstr "Gumbi brzih postavki"
 
 #: ../plugins/quickbuttons/PLUGININFO:4
 msgid ""
 "Provides buttons on bottom of the playlist to quickly change some settings"
-msgstr ""
+msgstr "Omogućuje gumbe na dnu popisa playliste za brzu promjenu nekih postavki"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"

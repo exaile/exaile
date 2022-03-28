@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2021-03-23 16:29+0000\n"
+"PO-Revision-Date: 2022-03-28 23:11+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/exaile/master/es/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5.2-dev\n"
+"X-Generator: Weblate 4.12-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1697,12 +1697,11 @@ msgid "%d in collection"
 msgstr "%d en la colección"
 
 #: ../xlgui/widgets/info.py:448 ../xlgui/widgets/info.py:453
-#, fuzzy, python-format
-#| msgid "%d showing"
+#, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
-msgstr[0] "mostrando %d"
-msgstr[1] "mostrando %d"
+msgstr[0] "se muestra %d"
+msgstr[1] "se muestran %d"
 
 #: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:455
 #, fuzzy, python-format
@@ -1737,8 +1736,8 @@ msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
 msgstr ""
-"Los archivos no han podido ser movidos a la papelera de reciclaje. ¿Quiere "
-"borrarlos permanentemente del disco duro?"
+"Los archivos no han podido enviarse a la papelera. ¿Quiere eliminarlos "
+"permanentemente del disco?"
 
 #: ../xlgui/widgets/menuitems.py:269
 msgid "_Move to Trash"
@@ -2121,16 +2120,12 @@ msgid "Collection Manager"
 msgstr "Gestor de colección"
 
 #: ../data/ui/collection_manager.ui:54
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
-msgstr "Cancelar"
+msgstr "_Cancelar"
 
 #: ../data/ui/collection_manager.ui:71
-#, fuzzy
-#| msgid "Apply BPM"
 msgid "_Apply"
-msgstr "Aplicar PPM"
+msgstr "_Aplicar"
 
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
@@ -2145,10 +2140,8 @@ msgid "Add _Folder"
 msgstr ""
 
 #: ../data/ui/collection_manager.ui:191
-#, fuzzy
-#| msgid "Remove Cover"
 msgid "_Remove Folder"
-msgstr "Quitar cubierta"
+msgstr "_Quitar carpeta"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2163,10 +2156,8 @@ msgid "The origin of this cover"
 msgstr "El origen de esta cubierta"
 
 #: ../data/ui/coverchooser.ui:159
-#, fuzzy
-#| msgid "_About"
 msgid "_Abort"
-msgstr "_Acerca de"
+msgstr "_Interrumpir"
 
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
@@ -2222,13 +2213,11 @@ msgstr "Controlador"
 
 #: ../data/ui/device_manager.ui:115
 msgid "_Connect"
-msgstr ""
+msgstr "_Conectar"
 
 #: ../data/ui/device_manager.ui:133
-#, fuzzy
-#| msgid "Disconnect from Server"
 msgid "_Disconnect"
-msgstr "Desconectar del servidor"
+msgstr "_Desconectar"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -2378,10 +2367,8 @@ msgid "Playlist font:"
 msgstr "Tipografía de la lista de reproducción:"
 
 #: ../data/ui/preferences/appearance.ui:154
-#, fuzzy
-#| msgid "Never"
 msgid "_Revert"
-msgstr "Nunca"
+msgstr "_Revertir"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -2463,13 +2450,15 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:370
 msgid "Show Status Bar"
-msgstr ""
+msgstr "Mostrar barra de estado"
 
 #: ../data/ui/preferences/appearance.ui:374
 msgid ""
 "Show or hide the status bar. The status bar will always be shown if a plugin "
 "requests it."
 msgstr ""
+"Muestra u oculta la barra de estado. Si un complemento la solicita, la barra "
+"de estado se mostrará siempre."
 
 #: ../data/ui/preferences/appearance.ui:399
 #, fuzzy
@@ -3543,10 +3532,9 @@ msgid "by {artist}"
 msgstr "de {artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "from %(album)s"
+#, python-brace-format
 msgid "from {album}"
-msgstr "de %(album)s"
+msgstr "de {album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3660,35 +3648,25 @@ msgid "Preview Device"
 msgstr "Previsualizar dispositivo"
 
 #: ../plugins/quickbuttons/__init__.py:37
-#, fuzzy
-#| msgid "En_queue"
 msgid "Enqueue"
-msgstr "Añadir a la _cola"
+msgstr "Añadir a la cola"
 
 #: ../plugins/quickbuttons/__init__.py:46
-#, fuzzy
-#| msgid "Not playing."
 msgid "Keep playing"
-msgstr "Detenido."
+msgstr "Seguir reproduciendo"
 
 #: ../plugins/quickbuttons/__init__.py:55
-#, fuzzy
-#| msgid "_Remove"
 msgid "Auto-Remove"
-msgstr "Auto-Eliminar"
+msgstr "Quitar automáticamente"
 
 #: ../plugins/quickbuttons/__init__.py:64
-#, fuzzy
-#| msgid "Advanced"
 msgid "Auto-Advance"
-msgstr "Avanzadas"
+msgstr "Avanzar automáticamente"
 
 #: ../plugins/quickbuttons/__init__.py:73
 #: ../plugins/quickbuttons/__init__.py:74
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds):"
-msgstr "Retardo entre pistas (ms):"
+msgstr "Demora entre pistas (en segundos):"
 
 #: ../plugins/quickbuttons/__init__.py:82
 msgid "EQ"
@@ -3700,15 +3678,13 @@ msgid "Equalizer"
 msgstr "Ecualizador"
 
 #: ../plugins/quickbuttons/__init__.py:92
-#, fuzzy
-#| msgid "Device"
 msgid "Main Device"
-msgstr "Dispositivo"
+msgstr "Dispositivo principal"
 
 #: ../plugins/quickbuttons/__init__.py:93
 #: ../plugins/quickbuttons/qb_prefs.ui:101
 msgid "Select main audio device"
-msgstr ""
+msgstr "Seleccione el dispositivo de audio principal"
 
 #: ../plugins/quickbuttons/__init__.py:102
 msgid "Select preview audio device"
@@ -3716,7 +3692,7 @@ msgstr ""
 
 #: ../plugins/quickbuttons/qb_prefs.py:5
 msgid "Quickbuttons"
-msgstr ""
+msgstr "Botones rápidos"
 
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
@@ -4492,10 +4468,8 @@ msgid "Audio Device:"
 msgstr "Dispositivo de audio:"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:72
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds)"
-msgstr "Retardo entre pistas (ms):"
+msgstr "Demora entre pistas (en segundos)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:87
 msgid "Equalizer (depends on Equalizer Plugin)"
@@ -5021,12 +4995,14 @@ msgstr "Salida"
 
 #: ../plugins/quickbuttons/PLUGININFO:3
 msgid "Quick Settings Buttons"
-msgstr ""
+msgstr "Botones de configuración rápida"
 
 #: ../plugins/quickbuttons/PLUGININFO:4
 msgid ""
 "Provides buttons on bottom of the playlist to quickly change some settings"
 msgstr ""
+"Proporciona botones en la parte inferior de la lista para cambiar ciertas "
+"opciones con rapidez"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"

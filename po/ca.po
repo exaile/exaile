@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2021-03-23 16:29+0000\n"
+"PO-Revision-Date: 2022-03-28 23:11+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
 ">\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5.2-dev\n"
+"X-Generator: Weblate 4.12-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1696,12 +1696,11 @@ msgid "%d in collection"
 msgstr "%d a la col·lecció"
 
 #: ../xlgui/widgets/info.py:448 ../xlgui/widgets/info.py:453
-#, fuzzy, python-format
-#| msgid "%d showing"
+#, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
-msgstr[0] "Es mostren %d"
-msgstr[1] "Es mostren %d"
+msgstr[0] "Se'n mostra %d"
+msgstr[1] "Se'n mostren %d"
 
 #: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:455
 #, fuzzy, python-format

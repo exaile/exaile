@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-03-06 20:55+0000\n"
+"PO-Revision-Date: 2022-04-17 23:07+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -915,7 +915,7 @@ msgstr ""
 
 #: ../xlgui/main.py:163
 msgid "Focus playlist search"
-msgstr ""
+msgstr "Säti fookus esitusloendi otsinguvormile"
 
 #: ../xlgui/main.py:168
 msgid "Clear queue"
@@ -951,19 +951,19 @@ msgstr "Siirdu järgmise kaardi juurde"
 
 #: ../xlgui/main.py:205
 msgid "Focus the playlist container"
-msgstr ""
+msgstr "Säti fookus esitusloendi sisule"
 
 #: ../xlgui/main.py:212
 msgid "Focus the files panel"
-msgstr ""
+msgstr "Säti fookus failiribale"
 
 #: ../xlgui/main.py:219
 msgid "Focus the radio panel"
-msgstr ""
+msgstr "Säti fookus raadioribale"
 
 #: ../xlgui/main.py:224
 msgid "Focus the playlists panel"
-msgstr ""
+msgstr "Säti fookus esitusloendi ribale"
 
 #: ../xlgui/main.py:227
 msgid "Focus the first tab"
@@ -1837,7 +1837,7 @@ msgstr "Säti esitusloend _juhuslikuks"
 
 #: ../xlgui/widgets/playlist.py:182
 msgid "R_andomize Selection"
-msgstr ""
+msgstr "Juhuslik v_alik"
 
 #: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 msgid "_Save"
@@ -2120,7 +2120,7 @@ msgstr "Jälgitakse"
 
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
-msgstr ""
+msgstr "Rakenduse käivitamisel kontrolli muusikakogu"
 
 #: ../data/ui/collection_manager.ui:174
 msgid "Add _Folder"
@@ -2449,10 +2449,11 @@ msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
 "separated):"
 msgstr ""
+"Sõnad esitaja nimes, mida sortimisel ei arvestata (komadega eraldatud loend):"
 
 #: ../data/ui/preferences/collection.ui:42
 msgid "(Right click to reset to defaults)"
-msgstr ""
+msgstr "(Vaikeseadistuse taastamiseks klõpsi paremat hiireklahvi)"
 
 #: ../data/ui/preferences/collection.ui:54
 msgid "Use file-based compilation detection"
@@ -2480,7 +2481,7 @@ msgstr "Komadega eraldatud loend failinimedest ilma laiendita"
 
 #: ../data/ui/preferences/cover.ui:58
 msgid "Fetch covers automatically on playback start"
-msgstr ""
+msgstr "Esituse alustamisel laadi plaadiümbrised automaatselt"
 
 #: ../data/ui/preferences/cover.ui:76
 msgid "Cover Search Order:"
@@ -2562,16 +2563,16 @@ msgstr "Viivitus millisekundites lugude vahel:"
 
 #: ../data/ui/preferences/playback.ui:268
 msgid "Only works when crossfading not enabled"
-msgstr ""
+msgstr "Toimiv vaid siis, kui heli ristsulatamine on kasutusel"
 
 #: ../data/ui/preferences/playback.ui:300
 msgid "Crossfade duration (ms):"
-msgstr ""
+msgstr "Ristsulatamise kestus (ms):"
 
 #: ../data/ui/preferences/playback.ui:312
 #: ../plugins/previewdevice/previewprefs.ui:125
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr ""
+msgstr "Kasuta heli ristsulatamist (KATSELINE)"
 
 #: ../data/ui/preferences/playback.ui:316
 msgid "Forces automatically advancing to the next track"
@@ -2579,7 +2580,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playback.ui:346
 msgid "Fade duration (ms):"
-msgstr ""
+msgstr "Summutamise kestus (ms):"
 
 #: ../data/ui/preferences/playback.ui:358
 #: ../plugins/previewdevice/previewprefs.ui:85
@@ -2593,12 +2594,12 @@ msgstr ""
 
 #: ../data/ui/preferences/playback.ui:409
 msgid "Enable gapless playback"
-msgstr ""
+msgstr "Kasuta pausideta taasesitust"
 
 #: ../data/ui/preferences/playback.ui:413
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
-msgstr ""
+msgstr "Pausideta taasesituse puhul ei ole lugude vahel vaikust."
 
 #: ../data/ui/preferences/playlists.ui:12
 msgid "Open last playlists on startup"

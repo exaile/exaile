@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-13 22:55+0100\n"
-"PO-Revision-Date: 2022-02-26 11:54+0000\n"
+"PO-Revision-Date: 2022-05-14 13:13+0000\n"
 "Last-Translator: Eric <alchemillatruth@purelymail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "exaile/master/zh_Hans/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.11.1-dev\n"
+"X-Generator: Weblate 4.13-dev\n"
 "X-Launchpad-Export-Date: 2009-08-19 14:52+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -3426,9 +3426,8 @@ msgstr ""
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:126
-#, fuzzy
 msgid "$title by $artist"
-msgstr "$title by $artist"
+msgstr "$title，艺术家 $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:128

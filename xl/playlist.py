@@ -1179,9 +1179,7 @@ class Playlist:
                 )
                 self.__shuffle_history_counter += 1
             next_index, next = self.__next_random_track(current_position, shuffle_mode)
-            if next is not None:
-                self.__next_data = (None, next_index)
-            else:
+            if next is None:
                 self.clear_shuffle_history()
         else:
             try:

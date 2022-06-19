@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2020-05-09 01:13+0000\n"
-"Last-Translator: Szylu <chipolade@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/"
-">\n"
+"PO-Revision-Date: 2022-06-19 13:16+0000\n"
+"Last-Translator: Piotr Strebski <strebski@gmail.com>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/>"
+"\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"X-Generator: Weblate 4.13.1-dev\n"
 "X-Launchpad-Export-Date: 2014-11-08 06:10+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -876,7 +876,7 @@ msgstr "Okladka dla %s"
 #: ../xlgui/cover.py:879
 #, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
-msgstr "{szerokość}x{wysokość} w pikselach ({zoom}%)"
+msgstr "{width}x{height} w pikselach ({zoom}%)"
 
 #: ../xlgui/cover.py:930
 msgid "Save File"
@@ -1704,22 +1704,20 @@ msgid "%d in collection"
 msgstr "%d w kolekcji"
 
 #: ../xlgui/widgets/info.py:448 ../xlgui/widgets/info.py:453
-#, fuzzy, python-format
-#| msgid "%d showing"
+#, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
-msgstr[0] "%d wyświetlonych"
-msgstr[1] "%d wyświetlonych"
+msgstr[0] "%d wyświetlony"
+msgstr[1] "%d wyświetlone"
 msgstr[2] "%d wyświetlonych"
 
 #: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:455
-#, fuzzy, python-format
-#| msgid "%d selected"
+#, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
-msgstr[0] "%d zaznaczono"
-msgstr[1] "%d zaznaczono"
-msgstr[2] "%d zaznaczono"
+msgstr[0] "%d zaznaczony"
+msgstr[1] "%d zaznaczone"
+msgstr[2] "%d zaznaczonych"
 
 #: ../xlgui/widgets/menuitems.py:117
 msgid "En_queue"
@@ -2482,10 +2480,8 @@ msgid "Show playlist track count"
 msgstr "_Pokaż odtwarzany utwór"
 
 #: ../data/ui/preferences/appearance.ui:413
-#, fuzzy
-#| msgid "Display duration:"
 msgid "Show playlist duration"
-msgstr "Czas wyświetlania:"
+msgstr "Pokaż długość listy odtwarzania"
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""

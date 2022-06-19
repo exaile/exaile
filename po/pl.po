@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-06-19 13:16+0000\n"
+"PO-Revision-Date: 2022-06-19 22:18+0000\n"
 "Last-Translator: Piotr Strebski <strebski@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/>"
 "\n"
@@ -326,7 +326,7 @@ msgstr ""
 
 #: ../xl/main.py:357
 msgid "Locale to use for Exaile"
-msgstr ""
+msgstr "Ustawienia regionalne do użycia w Exaile"
 
 #: ../xl/main.py:360
 msgid "Development/Debug Options"
@@ -919,7 +919,7 @@ msgstr "Zapisz aktualnie wybraną playlistę pod niestandardową nazwą"
 
 #: ../xlgui/main.py:158
 msgid "Focus filter in currently focused panel"
-msgstr ""
+msgstr "Filtr ostrości w aktualnie aktywnym panelu"
 
 #: ../xlgui/main.py:163
 msgid "Focus playlist search"
@@ -3118,13 +3118,12 @@ msgid "Select directory to import grouping tags from"
 msgstr "Wybierz katalog, z którego zostaną importowane znaczniki grupowania"
 
 #: ../plugins/grouptagger/gt_mass.py:121
-#, fuzzy, python-brace-format
-#| msgid "0 tracks found"
+#, python-brace-format
 msgid "{amount} track found"
 msgid_plural "{amount} tracks found"
-msgstr[0] "Nie znaleziono utworów"
-msgstr[1] "Nie znaleziono utworów"
-msgstr[2] "Nie znaleziono utworów"
+msgstr[0] "{amount} utwór znaleziono"
+msgstr[1] "{amount} utwory znaleziono"
+msgstr[2] "{amount} utworów znaleziono"
 
 #: ../plugins/grouptagger/gt_mass.py:135
 #, fuzzy, python-brace-format

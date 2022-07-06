@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2020-12-23 13:29+0000\n"
-"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/"
-">\n"
+"PO-Revision-Date: 2022-07-06 05:19+0000\n"
+"Last-Translator: Maxime Leroy <lisacintosh@gmail.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/>"
+"\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.13.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1710,20 +1710,18 @@ msgid "%d in collection"
 msgstr "%d dans la collection"
 
 #: ../xlgui/widgets/info.py:448 ../xlgui/widgets/info.py:453
-#, fuzzy, python-format
-#| msgid "%d showing"
+#, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
 msgstr[0] "%d affiché"
-msgstr[1] "%d affiché"
+msgstr[1] "%d affichés"
 
 #: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:455
-#, fuzzy, python-format
-#| msgid "%d selected"
+#, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
-msgstr[0] "%d sélectionné(s)"
-msgstr[1] "%d sélectionné(s)"
+msgstr[0] "%d sélectionné"
+msgstr[1] "%d sélectionnés"
 
 #: ../xlgui/widgets/menuitems.py:117
 msgid "En_queue"
@@ -2129,16 +2127,12 @@ msgid "Collection Manager"
 msgstr "Gestionnaire de bibliothèque"
 
 #: ../data/ui/collection_manager.ui:54
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
-msgstr "Annuler"
+msgstr "_Annuler"
 
 #: ../data/ui/collection_manager.ui:71
-#, fuzzy
-#| msgid "Apply BPM"
 msgid "_Apply"
-msgstr "Appliquer les BPMs"
+msgstr "_Appliquer"
 
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
@@ -2150,13 +2144,11 @@ msgstr "Analyse au démarrage"
 
 #: ../data/ui/collection_manager.ui:174
 msgid "Add _Folder"
-msgstr ""
+msgstr "Ajouter un _dossier"
 
 #: ../data/ui/collection_manager.ui:191
-#, fuzzy
-#| msgid "Remove Cover"
 msgid "_Remove Folder"
-msgstr "Enlever la jaquette"
+msgstr "_Supprimer le dossier"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2171,10 +2163,8 @@ msgid "The origin of this cover"
 msgstr "L'origine de cette pochette"
 
 #: ../data/ui/coverchooser.ui:159
-#, fuzzy
-#| msgid "_About"
 msgid "_Abort"
-msgstr "_À propos"
+msgstr "_Annuler"
 
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
@@ -2230,13 +2220,11 @@ msgstr "Pilote"
 
 #: ../data/ui/device_manager.ui:115
 msgid "_Connect"
-msgstr ""
+msgstr "_Connecter"
 
 #: ../data/ui/device_manager.ui:133
-#, fuzzy
-#| msgid "Disconnect from Server"
 msgid "_Disconnect"
-msgstr "Se déconnecter du serveur"
+msgstr "_Déconnecter"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -2387,10 +2375,8 @@ msgid "Playlist font:"
 msgstr "Police de caractères de la liste de lecture :"
 
 #: ../data/ui/preferences/appearance.ui:154
-#, fuzzy
-#| msgid "Never"
 msgid "_Revert"
-msgstr "Jamais"
+msgstr "_Rétablir"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -2472,7 +2458,7 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:370
 msgid "Show Status Bar"
-msgstr ""
+msgstr "Afficher la barre de status"
 
 #: ../data/ui/preferences/appearance.ui:374
 msgid ""
@@ -2487,10 +2473,8 @@ msgid "Show playlist track count"
 msgstr "Montrer la piste en cour_s de lecture"
 
 #: ../data/ui/preferences/appearance.ui:413
-#, fuzzy
-#| msgid "Display duration:"
 msgid "Show playlist duration"
-msgstr "Durée d'affichage :"
+msgstr "Afficher la durée de la liste de lecture"
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -3136,28 +3120,25 @@ msgid "Select directory to import grouping tags from"
 msgstr "Choisir un répertoire duquel seront importé les étiquettes"
 
 #: ../plugins/grouptagger/gt_mass.py:121
-#, fuzzy, python-brace-format
-#| msgid "0 tracks found"
+#, python-brace-format
 msgid "{amount} track found"
 msgid_plural "{amount} tracks found"
-msgstr[0] "0 titre trouvé"
-msgstr[1] "0 titre trouvé"
+msgstr[0] "{amount} piste trouvée"
+msgstr[1] "{amount} pistes trouvées"
 
 #: ../plugins/grouptagger/gt_mass.py:135
-#, fuzzy, python-brace-format
-#| msgid "Replace '%s' with '%s' on %s tracks?"
+#, python-brace-format
 msgid "Replace '{old_tag}' with '{new_tag}' on {amount} track?"
 msgid_plural "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?"
-msgstr[0] "Remplacer '%s' par '%s' dans %s titres ?"
-msgstr[1] "Remplacer '%s' par '%s' dans %s titres ?"
+msgstr[0] "Remplacer '{old_tag}' avec '{new_tag}' pour {amount} piste ?"
+msgstr[1] "Remplacer '{old_tag}' avec '{new_tag}' pour {amount} pistes ?"
 
 #: ../plugins/grouptagger/gt_mass.py:145
-#, fuzzy, python-brace-format
-#| msgid "Delete '%s' from %s tracks?"
+#, python-brace-format
 msgid "Delete '{tag}' from {amount} track?"
 msgid_plural "Delete '{tag}' from {amount} tracks?"
-msgstr[0] "Supprimer «%s» depuis les pistes %s ?"
-msgstr[1] "Supprimer «%s» depuis les pistes %s ?"
+msgstr[0] "Supprimer '{tag}' dans {amount} piste ?"
+msgstr[1] "Supprimer '{tag}' dans {amount} pistes ?"
 
 #: ../plugins/grouptagger/gt_mass.py:172
 msgid ""
@@ -3564,10 +3545,9 @@ msgid "by {artist}"
 msgstr "par {artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "from %(album)s"
+#, python-brace-format
 msgid "from {album}"
-msgstr "sur %(album)s"
+msgstr "depuis {album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3681,39 +3661,29 @@ msgid "Preview Device"
 msgstr "Dispositif de prévisualisation"
 
 #: ../plugins/quickbuttons/__init__.py:37
-#, fuzzy
-#| msgid "En_queue"
 msgid "Enqueue"
-msgstr "Mettre en file d'_attente"
+msgstr "Mettre en file d'attente"
 
 #: ../plugins/quickbuttons/__init__.py:46
-#, fuzzy
-#| msgid "Not playing."
 msgid "Keep playing"
-msgstr "Pas de lecture en cours."
+msgstr "Continuer la lecture"
 
 #: ../plugins/quickbuttons/__init__.py:55
-#, fuzzy
-#| msgid "_Remove"
 msgid "Auto-Remove"
-msgstr "_Enlever"
+msgstr "Retirer automatiquement"
 
 #: ../plugins/quickbuttons/__init__.py:64
-#, fuzzy
-#| msgid "Advanced"
 msgid "Auto-Advance"
-msgstr "Avancé"
+msgstr "Avancer automatiquement"
 
 #: ../plugins/quickbuttons/__init__.py:73
 #: ../plugins/quickbuttons/__init__.py:74
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds):"
-msgstr "Silence entre deux titres (ms) :"
+msgstr "Le délai entre les pistes (en secondes) :"
 
 #: ../plugins/quickbuttons/__init__.py:82
 msgid "EQ"
-msgstr ""
+msgstr "EQ"
 
 #: ../plugins/quickbuttons/__init__.py:83 ../plugins/equalizer/equalizer.ui:109
 #: ../plugins/equalizer/PLUGININFO:3
@@ -3721,10 +3691,8 @@ msgid "Equalizer"
 msgstr "Égaliseur"
 
 #: ../plugins/quickbuttons/__init__.py:92
-#, fuzzy
-#| msgid "Device"
 msgid "Main Device"
-msgstr "Périphérique"
+msgstr "Périphérique principal"
 
 #: ../plugins/quickbuttons/__init__.py:93
 #: ../plugins/quickbuttons/qb_prefs.ui:101

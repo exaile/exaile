@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-07-06 05:19+0000\n"
+"PO-Revision-Date: 2022-07-10 13:15+0000\n"
 "Last-Translator: Maxime Leroy <lisacintosh@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/>"
 "\n"
@@ -325,7 +325,7 @@ msgstr ""
 
 #: ../xl/main.py:357
 msgid "Locale to use for Exaile"
-msgstr ""
+msgstr "La langue de Exaile"
 
 #: ../xl/main.py:360
 msgid "Development/Debug Options"
@@ -2465,12 +2465,12 @@ msgid ""
 "Show or hide the status bar. The status bar will always be shown if a plugin "
 "requests it."
 msgstr ""
+"Affiche ou masque la barre de status. Cette barre sera toujours affichée si "
+"une extension le demande."
 
 #: ../data/ui/preferences/appearance.ui:399
-#, fuzzy
-#| msgid "_Show Playing Track"
 msgid "Show playlist track count"
-msgstr "Montrer la piste en cour_s de lecture"
+msgstr "Afficher le nombre de pistes de la liste"
 
 #: ../data/ui/preferences/appearance.ui:413
 msgid "Show playlist duration"
@@ -3697,11 +3697,11 @@ msgstr "Périphérique principal"
 #: ../plugins/quickbuttons/__init__.py:93
 #: ../plugins/quickbuttons/qb_prefs.ui:101
 msgid "Select main audio device"
-msgstr ""
+msgstr "Sélectionner le périphérique audio principal"
 
 #: ../plugins/quickbuttons/__init__.py:102
 msgid "Select preview audio device"
-msgstr ""
+msgstr "Sélectionner le périphérique audio d'aperçu"
 
 #: ../plugins/quickbuttons/qb_prefs.py:5
 msgid "Quickbuttons"
@@ -4480,18 +4480,18 @@ msgid "Audio Device:"
 msgstr "Périphérique audio :"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:72
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds)"
-msgstr "Silence entre deux titres (ms) :"
+msgstr "Le délai entre les pistes (en secondes)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:87
 msgid "Equalizer (depends on Equalizer Plugin)"
-msgstr ""
+msgstr "L'égaliseur (dépend de l'extension \"Equalizer\")"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:115
 msgid "Select preview audio device (depends on previewdevice plugin)"
 msgstr ""
+"Sélectionner le périphérique audio d'aperçu (dépendu de l'extension "
+"\"previewdevice\")"
 
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:24
@@ -5009,12 +5009,14 @@ msgstr "Sortie"
 
 #: ../plugins/quickbuttons/PLUGININFO:3
 msgid "Quick Settings Buttons"
-msgstr ""
+msgstr "Boutons des réglages rapides"
 
 #: ../plugins/quickbuttons/PLUGININFO:4
 msgid ""
 "Provides buttons on bottom of the playlist to quickly change some settings"
 msgstr ""
+"Fournis les boutons en bas de la liste de lecture pour changer rapidement "
+"certains réglages"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"

@@ -1160,17 +1160,15 @@ class Playlist:
 
         repeat_mode = self.repeat_mode
         shuffle_mode = self.shuffle_mode
+        next_index = -1
         if current_position == self.spat_position and current_position != -1:
             self.__next_data = (True, None, None)
             return None
 
         if repeat_mode == 'track':
-            self.__next_data = (False, None, self.current)
-            return self.current
-
-        next_index = -1
-
-        if shuffle_mode != 'disabled':
+            next_index = None
+            next = self.current
+        elif shuffle_mode != 'disabled':
             if current_position != -1:
                 self.__tracks.set_meta_key(
                     current_position,

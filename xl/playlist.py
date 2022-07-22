@@ -947,17 +947,26 @@ class Playlist:
         self.__dynamic_mode = self.dynamic_modes[0]
 
         # dirty: any change that would alter the on-disk
-        #   representation should set this
+        #   Representation should set this.
         # needs_save: changes to list content should set this.
         #   Determines when the 'unsaved' indicator is shown to the user.
+        # next_data: cached info to determine next track.
+        #   None or a tuple of (spat, index, next):
+        #     spat: <bool> (is SPAT activated on the current track?)
+        #     index: <int> index in self.__tracks or None
+        #     next: <xl.trax.Track> or None
+        # current_position: <int> index in self.__tracks or -1 if no track
+        # spat_position: <int> index in self.__tracks or -1 if no SPAT set
+        # shuffle_history_counter: <int> count of tracks queued in shuffle mode
+        #   Start positive so we can just do an if directly on the value.
         self.__dirty = False
         self.__needs_save = False
         self.__name = name
         self.__next_data = None
         self.__current_position = -1
         self.__spat_position = -1
-        self.__shuffle_history_counter = 1  # start positive so we can
-        # just do an if directly on the value
+        self.__shuffle_history_counter = 1
+
         event.add_callback(self.on_playback_track_start, "playback_track_start")
 
     ### playlist-specific API ###

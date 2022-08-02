@@ -1,7 +1,5 @@
 import unittest
 
-from mox3 import mox
-
 from gi.repository import Gio
 
 import xl.collection
@@ -34,12 +32,6 @@ class TestGetTracksFromUri:
 
         def get_file_type(self):
             return self.retval
-
-    def setup(self):
-        self.mox = mox.Mox()
-
-    def teardown(self):
-        self.mox.UnsetStubs()
 
     def get_anything(self, file_type):
         anything = self.mox.CreateMockAnything()

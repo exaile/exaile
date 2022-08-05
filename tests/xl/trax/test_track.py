@@ -6,10 +6,8 @@ import unittest
 import logging
 import random
 import string
-import types
 from unittest.mock import Mock, patch
 
-from gi.repository import GLib
 import pytest
 
 from xl.metadata import CoverImage
@@ -28,35 +26,33 @@ class Test_MetadataCacher:
         self.mc: track._MetadataCacher[str, str] = track._MetadataCacher(
             self.TIMEOUT, self.MAX_ENTRIES
         )
-        self.patched_glib = patch.multiple(
-            GLib, timeout_add_seconds=Mock(), source_remove=Mock()
-        )
 
     def test_add(self):
-        with self.patched_glib:
+        with patch('gi.repository.GLib.timeout_add_seconds') as timeout_add_seconds:
             self.mc.add('foo', 'bar')
             assert self.mc.get('foo') == 'bar'
-            GLib.timeout_add_seconds.assert_called_once_with(
-                self.TIMEOUT, self.mc._MetadataCacher__cleanup
-            )
+        timeout_add_seconds.assert_called_once_with(
+            self.TIMEOUT, self.mc._MetadataCacher__cleanup
+        )
 
     def test_double_add(self):
-        with self.patched_glib:
+        with patch('gi.repository.GLib.timeout_add_seconds') as timeout_add_seconds:
             self.mc.add('foo', 'bar')
             assert self.mc.get('foo') == 'bar'
             self.mc.add('foo', 'bar')
             assert self.mc.get('foo') == 'bar'
-            GLib.timeout_add_seconds.assert_called_once_with(
-                self.TIMEOUT, self.mc._MetadataCacher__cleanup
-            )
+        timeout_add_seconds.assert_called_once_with(
+            self.TIMEOUT, self.mc._MetadataCacher__cleanup
+        )
 
     def test_overflow(self):
         """
         When the cache overflows, the least-recently used entry is removed
         """
         assert self.MAX_ENTRIES == 2
-        increasing_time = patch('time.time', Mock(side_effect=itertools.count(1)))
-        with self.patched_glib, increasing_time:
+        with patch('gi.repository.GLib.timeout_add_seconds'), patch(
+            'time.time', Mock(side_effect=itertools.count(1))
+        ):
             self.mc.add('k1', 'v1')  # [entry1(time=1)]
             self.mc.add('k2', 'v2')  # [entry1(time=1), entry2(time=2)]
             assert self.mc.get('k2')  # [entry1(time=1), entry2(time=3)]
@@ -69,7 +65,9 @@ class Test_MetadataCacher:
             assert self.mc.get('k3')
 
     def test_remove(self):
-        with self.patched_glib:
+        with patch('gi.repository.GLib.timeout_add_seconds'), patch(
+            'gi.repository.GLib.source_remove'
+        ):
             self.mc.add('foo', 'bar')
             self.mc.remove('foo')
             assert self.mc.get('foo') is None
@@ -209,7 +207,6 @@ class TestTrack:
         assert not tr.write_tags()
 
     def test_write_tag(self, writeable_track, writeable_track_name):
-
         artist = random_str()
         tr = track.Track(writeable_track_name)
         tr.set_tag_raw('artist', artist)
@@ -226,7 +223,6 @@ class TestTrack:
         self.verify_tags_exist(tr, writeable_track)
 
     def test_delete_tag(self, writeable_track, writeable_track_name):
-
         artist = random_str()
         tr = track.Track(writeable_track_name)
         assert tr.get_tag_raw('artist') is not None

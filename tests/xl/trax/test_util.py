@@ -1,4 +1,4 @@
-import unittest
+from unittest.mock import patch
 
 from gi.repository import Gio
 
@@ -21,75 +21,23 @@ def test_is_valid_track_invalid():
 
 
 class TestGetTracksFromUri:
-    class DummyClass:
-        def __init__(self, parent, retval):
-            self.parent = parent
-            self.retval = retval
-
-        def query_info(self, value):
-            assert value == 'standard::type'
-            return self
-
-        def get_file_type(self):
-            return self.retval
-
-    def get_anything(self, file_type):
-        anything = self.mox.CreateMockAnything()
-        anything.get_uri_scheme().AndReturn("file")
-        if file_type == 'f':
-            file_type = Gio.FileType.REGULAR
-        elif file_type == 'd':
-            file_type = Gio.FileType.DIRECTORY
-        elif file_type == 'n':
-            #            anything.query_exists(None).AndReturn(False)
-            #            return anything
-            pass
-        else:
-            raise NotImplementedError
-        #        anything.query_exists(None).AndReturn(True)
-        anything.query_info('standard::type').AndReturn(anything)
-        anything.get_file_type().AndReturn(file_type)
-        return anything
-
-    @unittest.skip("Test is borken because of moxing out error")
     def test_invalid(self):
-        loc = '/tmp/foo'
-        self.mox.StubOutWithMock(Gio, 'File')
-        f_anything = self.get_anything('n')
-        Gio.File(loc).AndReturn(f_anything)
-        self.mox.ReplayAll()
-        assert xl.trax.util.get_tracks_from_uri(loc) == []
-        self.mox.VerifyAll()
+        uri = __file__  # Not a URI, should fail
+        assert xl.trax.util.get_tracks_from_uri(uri) == []
+        uri = Gio.File.new_for_path('__nonexistent_file__').get_uri()
+        assert xl.trax.util.get_tracks_from_uri(uri) == []
 
-    @unittest.skip("Test is borken because of moxing out error")
     def test_single(self):
-        loc = '/tmp/foo'
-        self.mox.StubOutWithMock(Gio, 'FileInfo')
-        f_anything = self.mox.CreateMockAnything()
-        Gio.FileInfo().AndReturn(f_anything)
-        f_anything.get_file_type().AndReturn(Gio.FileType.REGULAR)
-        self.mox.ReplayAll()
-        assert xl.trax.util.get_tracks_from_uri(loc) == [xl.trax.track.Track(loc)]
-        self.mox.VerifyAll()
+        uri = Gio.File.new_for_path(__file__).get_uri()
+        assert xl.trax.util.get_tracks_from_uri(uri) == [xl.trax.track.Track(uri)]
 
-    @unittest.skip("Test is borken because of moxing out error")
     def test_directory(self):
-        loc = '/tmp/foo'
-        retval = ['foo', 'bar', 'baz']
-        # Gio call to find type
-        self.mox.StubOutWithMock(Gio, 'File')
-        d_anything = self.get_anything('d')
-        Gio.File(loc).AndReturn(d_anything)
+        uri = Gio.File.new_for_path(__file__).get_parent()
+        assert uri
+        uri = uri.get_uri()
 
-        # scanning
-        self.mox.StubOutWithMock(xl.collection.Library, 'rescan')
-        xl.collection.Library.rescan()
-        self.mox.StubOutWithMock(xl.collection.Collection, 'get_tracks')
-        xl.collection.Collection.get_tracks().AndReturn(retval)
-
-        self.mox.ReplayAll()
-        xl.trax.util.get_tracks_from_uri(loc)
-        self.mox.VerifyAll()
+        with patch('xl.collection.Library.rescan'):
+            xl.trax.util.get_tracks_from_uri(uri)
 
 
 class TestSortTracks:

@@ -177,6 +177,10 @@ class TestTrack:
         assert str(tr) == "<Track 'title' by 'art' from 'alb'>"
 
     def test_read_tags_no_perms(self, test_track_fp):
+        if os.name != 'posix':
+            pytest.skip("only works on POSIX")
+        if os.geteuid() == 0:
+            pytest.xfail("fails when run as root")
 
         tr = track.Track(test_track_fp.name)
         # first, ensure that we can actually read the tags to begin with
@@ -193,6 +197,10 @@ class TestTrack:
         assert not tr.read_tags()
 
     def test_write_tags_no_perms(self, test_track_fp):
+        if os.name != 'posix':
+            pytest.skip("only works on POSIX")
+        if os.geteuid() == 0:
+            pytest.xfail("fails when run as root")
 
         os.chmod(test_track_fp.name, 0o444)
 

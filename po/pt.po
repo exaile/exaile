@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2021-08-07 06:32+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
+"PO-Revision-Date: 2022-08-08 23:22+0000\n"
+"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1693,19 +1693,17 @@ msgid "%d in collection"
 msgstr "%d na coleção"
 
 #: ../xlgui/widgets/info.py:448 ../xlgui/widgets/info.py:453
-#, fuzzy, python-format
-#| msgid "%d showing"
+#, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
 msgstr[0] "A mostrar %d"
 msgstr[1] "A mostrar %d"
 
 #: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:455
-#, fuzzy, python-format
-#| msgid "%d selected"
+#, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
-msgstr[0] "%d selecionadas"
+msgstr[0] "%d selecionada"
 msgstr[1] "%d selecionadas"
 
 #: ../xlgui/widgets/menuitems.py:117
@@ -2105,23 +2103,19 @@ msgstr "© 2009–2020 Varios Contribuintes"
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr "tradutor-créditos"
+msgstr "Hugo Carvalho <hugokarvalho@hotmail.com>"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
 msgstr "Gestor da coleção"
 
 #: ../data/ui/collection_manager.ui:54
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
-msgstr "Cancelar"
+msgstr "_Cancelar"
 
 #: ../data/ui/collection_manager.ui:71
-#, fuzzy
-#| msgid "Apply BPM"
 msgid "_Apply"
-msgstr "Aplicar BPM"
+msgstr "_Aplicar"
 
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
@@ -2133,13 +2127,11 @@ msgstr "Analisar ao iniciar"
 
 #: ../data/ui/collection_manager.ui:174
 msgid "Add _Folder"
-msgstr ""
+msgstr "Adicionar _pasta"
 
 #: ../data/ui/collection_manager.ui:191
-#, fuzzy
-#| msgid "Remove Cover"
 msgid "_Remove Folder"
-msgstr "Remover capa"
+msgstr "_Remover pasta"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2154,10 +2146,8 @@ msgid "The origin of this cover"
 msgstr "A origem desta capa"
 
 #: ../data/ui/coverchooser.ui:159
-#, fuzzy
-#| msgid "_About"
 msgid "_Abort"
-msgstr "S_obre"
+msgstr "_Abortar"
 
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
@@ -2213,13 +2203,11 @@ msgstr "Controlador"
 
 #: ../data/ui/device_manager.ui:115
 msgid "_Connect"
-msgstr ""
+msgstr "_Ligar"
 
 #: ../data/ui/device_manager.ui:133
-#, fuzzy
-#| msgid "Disconnect from Server"
 msgid "_Disconnect"
-msgstr "Desconectar do Servidor"
+msgstr "_Desligar"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -2370,10 +2358,8 @@ msgid "Playlist font:"
 msgstr "Fonte da lista de reprodução:"
 
 #: ../data/ui/preferences/appearance.ui:154
-#, fuzzy
-#| msgid "Never"
 msgid "_Revert"
-msgstr "Nunca"
+msgstr "_Reverter"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -2456,13 +2442,15 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:370
 msgid "Show Status Bar"
-msgstr ""
+msgstr "Mostrar barra de estado"
 
 #: ../data/ui/preferences/appearance.ui:374
 msgid ""
 "Show or hide the status bar. The status bar will always be shown if a plugin "
 "requests it."
 msgstr ""
+"Mostrar ou ocultar barra de estado. A barra de estado será sempre mostrada "
+"se um plugin o solicitar."
 
 #: ../data/ui/preferences/appearance.ui:399
 #, fuzzy
@@ -2471,10 +2459,8 @@ msgid "Show playlist track count"
 msgstr "Mo_strar faixa em reprodução"
 
 #: ../data/ui/preferences/appearance.ui:413
-#, fuzzy
-#| msgid "Display duration:"
 msgid "Show playlist duration"
-msgstr "Duração da exibição:"
+msgstr "Mostrar a duração da lista de reprodução"
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -3536,10 +3522,9 @@ msgid "by {artist}"
 msgstr "por {artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "from %(album)s"
+#, python-brace-format
 msgid "from {album}"
-msgstr "em %(album)s"
+msgstr "de {album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3659,10 +3644,8 @@ msgid "Enqueue"
 msgstr "Enfileirar"
 
 #: ../plugins/quickbuttons/__init__.py:46
-#, fuzzy
-#| msgid "Not playing."
 msgid "Keep playing"
-msgstr "Não está a reproduzir."
+msgstr "Continuar a reproduzir"
 
 #: ../plugins/quickbuttons/__init__.py:55
 #, fuzzy
@@ -4483,10 +4466,8 @@ msgid "Audio Device:"
 msgstr "Aparelho de Áudio:"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:72
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds)"
-msgstr "Demora entre faixas (ms):"
+msgstr "Demora entre faixas (em segundos)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:87
 msgid "Equalizer (depends on Equalizer Plugin)"

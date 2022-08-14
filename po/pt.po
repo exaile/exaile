@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-08-14 15:46+0000\n"
+"PO-Revision-Date: 2022-08-15 00:24+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
@@ -1100,7 +1100,7 @@ msgstr "Mo_strar faixa em reprodução"
 
 #: ../xlgui/menu.py:302
 msgid "_Playlist Utilities Bar"
-msgstr "Barra Utilitária da Lista de Re_produção"
+msgstr "Barra utilitária da lista de e_produção"
 
 #: ../xlgui/menu.py:312
 msgid "C_olumns"
@@ -1907,11 +1907,11 @@ msgstr "Agendar"
 
 #: ../xlgui/widgets/playlist_columns.py:675
 msgid "Start Offset"
-msgstr "Iniciar intervalo"
+msgstr "Desvio inicial"
 
 #: ../xlgui/widgets/playlist_columns.py:686
 msgid "Stop Offset"
-msgstr "parar intervalo"
+msgstr "Desvio final"
 
 #: ../xlgui/widgets/playlist_columns.py:847
 msgid "_Resizable"

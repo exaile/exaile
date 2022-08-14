@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-08-08 23:22+0000\n"
+"PO-Revision-Date: 2022-08-14 15:46+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
@@ -321,7 +321,7 @@ msgstr ""
 
 #: ../xl/main.py:357
 msgid "Locale to use for Exaile"
-msgstr ""
+msgstr "Idioma a usar no Exaile"
 
 #: ../xl/main.py:360
 msgid "Development/Debug Options"
@@ -892,8 +892,8 @@ msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
-"Nenhuma das fontes habilitadas tem uma capa para esta faixa, tente ativar "
-"mais fontes."
+"Nenhuma das fontes ativadas tem uma capa para esta faixa. Tente ativar mais "
+"fontes."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
 #: ../xlgui/cover.py:1177 ../xlgui/properties.py:1110
@@ -952,15 +952,15 @@ msgstr "Ir para a faixa anterior"
 
 #: ../xlgui/main.py:202
 msgid "Switch to next tab"
-msgstr "Ir para a proxima faixa"
+msgstr "Mudar para o separador seguinte"
 
 #: ../xlgui/main.py:205
 msgid "Focus the playlist container"
-msgstr "Focalize o contentor da lista de reprodução"
+msgstr "Focar o contentor da lista de reprodução"
 
 #: ../xlgui/main.py:212
 msgid "Focus the files panel"
-msgstr "Focalizar o painel de ficheiros"
+msgstr "Focar o painel de ficheiros"
 
 #: ../xlgui/main.py:219
 msgid "Focus the radio panel"
@@ -972,43 +972,43 @@ msgstr "Focar o painel listas de reprodução"
 
 #: ../xlgui/main.py:227
 msgid "Focus the first tab"
-msgstr "Focar a primeira aba"
+msgstr "Focar o primeiro separador"
 
 #: ../xlgui/main.py:228
 msgid "Focus the second tab"
-msgstr "Focar a segunda aba"
+msgstr "Focar o segundo separador"
 
 #: ../xlgui/main.py:229
 msgid "Focus the third tab"
-msgstr "Focar a terceira aba"
+msgstr "Focar o terceiro separador"
 
 #: ../xlgui/main.py:230
 msgid "Focus the fourth tab"
-msgstr "Focar a quarta aba"
+msgstr "Focar o quarto separador"
 
 #: ../xlgui/main.py:231
 msgid "Focus the fifth tab"
-msgstr "Focar a quinta aba"
+msgstr "Focar o quinto separador"
 
 #: ../xlgui/main.py:232
 msgid "Focus the sixth tab"
-msgstr "Focar a sexta aba"
+msgstr "Focar o sexto separador"
 
 #: ../xlgui/main.py:233
 msgid "Focus the seventh tab"
-msgstr "Focar a sétima aba"
+msgstr "Focar o sétimo separador"
 
 #: ../xlgui/main.py:234
 msgid "Focus the eighth tab"
-msgstr "Focar a oitava aba"
+msgstr "Focar o oitavo separador"
 
 #: ../xlgui/main.py:235
 msgid "Focus the ninth tab"
-msgstr "Focar a nona aba"
+msgstr "Focar o nono separador"
 
 #: ../xlgui/main.py:236
 msgid "Focus the tenth tab"
-msgstr "Focar a décima aba"
+msgstr "Focar o décimo separador"
 
 #: ../xlgui/main.py:596
 msgid "Toggle: Stop after Selected Track"
@@ -1056,7 +1056,7 @@ msgstr "Abrir _URL"
 
 #: ../xlgui/menu.py:114
 msgid "Open _Directories"
-msgstr "Abrir _Diretórios"
+msgstr "Abrir _diretórios"
 
 #: ../xlgui/menu.py:126 ../xlgui/panel/menus.py:227
 msgid "_Import Playlist"
@@ -1068,7 +1068,7 @@ msgstr "E_xportar lista de reprodução atual"
 
 #: ../xlgui/menu.py:166 ../xlgui/widgets/playlist.py:278
 msgid "Close _Tab"
-msgstr "Fechar _Aba"
+msgstr "Fechar _separador"
 
 #: ../xlgui/menu.py:183
 msgid "_Restart"
@@ -1334,7 +1334,7 @@ msgstr "P_aineis"
 
 #: ../xlgui/playlist_container.py:71
 msgid "Drop here to create a new playlist"
-msgstr "Solte aqui para criar uma nova lista de reprodução"
+msgstr "Largar aqui para criar uma nova lista de reprodução"
 
 #: ../xlgui/playlist_container.py:131
 msgid "_Clear Tab History"
@@ -1361,8 +1361,7 @@ msgstr "{playlist_name} ({track_count} faixas, terminado há {minutes} minutos)"
 #: ../xlgui/playlist_container.py:394
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
-msgstr ""
-"{playlist_name} ({track_count} faixas, encerrado há {seconds} segundos)"
+msgstr "{playlist_name} ({track_count} faixas, fechado há {seconds} segundos)"
 
 #: ../xlgui/playlist_container.py:546
 msgid "_Move to Other View"
@@ -1414,7 +1413,7 @@ msgstr "Sem categoria"
 
 #: ../xlgui/preferences/plugin.py:179
 msgid "Could not load plugin info!"
-msgstr "Não foi possível carregar informações do plugin!"
+msgstr "Não foi possível carregar informação do plugin!"
 
 #: ../xlgui/preferences/plugin.py:180
 #, python-format
@@ -1425,7 +1424,7 @@ msgstr[1] "Plugins que falharam: %s"
 
 #: ../xlgui/preferences/plugin.py:212 ../xlgui/preferences/plugin.py:313
 msgid "Could not disable plugin!"
-msgstr "Não foi possível desativar o plugin !"
+msgstr "Não foi possível desativar o plugin!"
 
 #: ../xlgui/preferences/plugin.py:222 ../xlgui/preferences/plugin.py:307
 msgid "Could not enable plugin!"
@@ -1446,7 +1445,7 @@ msgstr "Todos os ficheiros"
 
 #: ../xlgui/preferences/plugin.py:260
 msgid "Plugin file installation failed!"
-msgstr "Plugin ficheiro de instalação falhou!"
+msgstr "A instalação do plugin falhou!"
 
 #: ../xlgui/preferences/widgets.py:74
 msgid "Restart Exaile?"
@@ -1908,11 +1907,11 @@ msgstr "Agendar"
 
 #: ../xlgui/widgets/playlist_columns.py:675
 msgid "Start Offset"
-msgstr "Desvio Inicial"
+msgstr "Iniciar intervalo"
 
 #: ../xlgui/widgets/playlist_columns.py:686
 msgid "Stop Offset"
-msgstr "Desvio Final"
+msgstr "parar intervalo"
 
 #: ../xlgui/widgets/playlist_columns.py:847
 msgid "_Resizable"
@@ -2453,10 +2452,8 @@ msgstr ""
 "se um plugin o solicitar."
 
 #: ../data/ui/preferences/appearance.ui:399
-#, fuzzy
-#| msgid "_Show Playing Track"
 msgid "Show playlist track count"
-msgstr "Mo_strar faixa em reprodução"
+msgstr "Mostrar contagem de faixas da lista de reprodução"
 
 #: ../data/ui/preferences/appearance.ui:413
 msgid "Show playlist duration"
@@ -3638,37 +3635,29 @@ msgid "Preview Device"
 msgstr "Pré-visualizar aparelho"
 
 #: ../plugins/quickbuttons/__init__.py:37
-#, fuzzy
-#| msgid "En_queue"
 msgid "Enqueue"
-msgstr "Enfileirar"
+msgstr "Colocar na fila"
 
 #: ../plugins/quickbuttons/__init__.py:46
 msgid "Keep playing"
 msgstr "Continuar a reproduzir"
 
 #: ../plugins/quickbuttons/__init__.py:55
-#, fuzzy
-#| msgid "_Remove"
 msgid "Auto-Remove"
-msgstr "_Remover"
+msgstr "Remover automaticamente"
 
 #: ../plugins/quickbuttons/__init__.py:64
-#, fuzzy
-#| msgid "Advanced"
 msgid "Auto-Advance"
-msgstr "Avançado"
+msgstr "Avançar automaticamente"
 
 #: ../plugins/quickbuttons/__init__.py:73
 #: ../plugins/quickbuttons/__init__.py:74
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds):"
-msgstr "Demora entre faixas (ms):"
+msgstr "Demora entre faixas (em segundos):"
 
 #: ../plugins/quickbuttons/__init__.py:82
 msgid "EQ"
-msgstr ""
+msgstr "EQ"
 
 #: ../plugins/quickbuttons/__init__.py:83 ../plugins/equalizer/equalizer.ui:109
 #: ../plugins/equalizer/PLUGININFO:3
@@ -3676,23 +3665,21 @@ msgid "Equalizer"
 msgstr "Equalizador"
 
 #: ../plugins/quickbuttons/__init__.py:92
-#, fuzzy
-#| msgid "Device"
 msgid "Main Device"
-msgstr "Aparelho"
+msgstr "Dispositivo principal"
 
 #: ../plugins/quickbuttons/__init__.py:93
 #: ../plugins/quickbuttons/qb_prefs.ui:101
 msgid "Select main audio device"
-msgstr ""
+msgstr "Selecionar dispositivo áudio principal"
 
 #: ../plugins/quickbuttons/__init__.py:102
 msgid "Select preview audio device"
-msgstr ""
+msgstr "Selecionar dispositivo áudio de pré-visualização"
 
 #: ../plugins/quickbuttons/qb_prefs.py:5
 msgid "Quickbuttons"
-msgstr ""
+msgstr "Botões rápidos"
 
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
@@ -4471,11 +4458,13 @@ msgstr "Demora entre faixas (em segundos)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:87
 msgid "Equalizer (depends on Equalizer Plugin)"
-msgstr ""
+msgstr "Equalizador (depende do Equalizer Plugin)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:115
 msgid "Select preview audio device (depends on previewdevice plugin)"
 msgstr ""
+"Selecionar dispositivo de áudio de pré-visualização (depende do "
+"previewdevice plugin)"
 
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:24
@@ -4990,12 +4979,14 @@ msgstr "Saída"
 
 #: ../plugins/quickbuttons/PLUGININFO:3
 msgid "Quick Settings Buttons"
-msgstr ""
+msgstr "Botões de definições rápidas"
 
 #: ../plugins/quickbuttons/PLUGININFO:4
 msgid ""
 "Provides buttons on bottom of the playlist to quickly change some settings"
 msgstr ""
+"Disponibiliza botões debaixo da lista de reprodução para alterar rapidamente "
+"algumas definições"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"

@@ -33,21 +33,6 @@ datas =[
   ('_inst/usr/share/locale', 'share/locale')
 ]
 
-# Make sure we bundle the gspawn-*-helper.exe executable,
-# which is required for opening hyperlinks on Windows:
-# https://github.com/exaile/exaile/issues/712
-if True:
-    from PyInstaller.compat import is_win
-
-    if is_win:
-        import glob
-        from PyInstaller.utils.hooks import get_gi_libdir
-
-        libdir = get_gi_libdir('GLib', '2.0')
-        pattern = os.path.join(libdir, 'gspawn-*-helper.exe')
-        for f in glob.glob(pattern):
-            binaries.append( (f, '.') )
-
 # requires https://github.com/pyinstaller/pyinstaller/pull/3608
 def assemble_hook(analysis):
     # filter out gstreamer plugins we don't want

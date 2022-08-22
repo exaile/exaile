@@ -25,12 +25,14 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from typing import Literal
+
 from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Pango
 
 from xl import event, formatter, main, settings, xdg
-from xl.nls import gettext as _
+from xl.nls import gettext as _, ngettext
 import xlgui
 from xlgui import cover, guiutil
 from xlgui.widgets import playlist, queue
@@ -416,7 +418,9 @@ class StatusbarTextFormatter(formatter.Formatter):
             return ''
         return _('%d in collection') % main.exaile().collection.get_count()
 
-    def get_playlist_count(self, selection='none'):
+    def get_playlist_count(
+        self, selection: Literal['none', 'override', 'only'] = 'none'
+    ):
         """
         Retrieves the count of tracks in either the
         full playlist or the current selection
@@ -424,47 +428,46 @@ class StatusbarTextFormatter(formatter.Formatter):
         :param selection: 'none' for playlist count only,
             'override' for selection count if tracks are selected,
             playlist count otherwise, 'only' for selection count only
-        :type selection: string
         """
         if not settings.get_option(
             'gui/show_status_bar_count_tracks_in_playlist', True
         ):
-            return ''
+            return ""
 
         page = xlgui.main.get_selected_page()
 
         if not isinstance(page, playlist.PlaylistPage) and not isinstance(
             page, queue.QueuePage
         ):
-            return ''
+            return ""
 
         playlist_count = len(page.playlist)
         selection_count = page.view.get_selection_count()
 
         if selection == 'none':
-            count = playlist_count
-            text = _('%d showing')
+            return ngettext("%d showing", "%d showing", playlist_count) % playlist_count
         elif selection == 'override':
             if selection_count > 1:
-                count = selection_count
-                text = _('%d selected')
+                return (
+                    ngettext("%d selected", "%d selected", selection_count)
+                    % selection_count
+                )
             else:
-                count = playlist_count
-                text = _('%d showing')
+                return (
+                    ngettext("%d showing", "%d showing", playlist_count)
+                    % playlist_count
+                )
         elif selection == 'only':
-            if selection_count > 1:
-                count = selection_count
-                text = _('%d selected')
-            else:
-                count = 0
-        else:
-            raise ValueError(
-                'Invalid argument "%s" passed to parameter '
-                '"selection" for "playlist_count", possible arguments are '
-                '"none", "override" and "only"' % selection
+            return (
+                ngettext("%d selected", "%d selected", selection_count)
+                % selection_count
             )
 
-        return text % count
+        raise ValueError(
+            'Invalid argument "%s" passed to parameter '
+            '"selection" for "playlist_count", possible arguments are '
+            '"none", "override" and "only"' % selection
+        )
 
     def get_playlist_duration(self, format='short', selection='none'):
         """

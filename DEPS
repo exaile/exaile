@@ -112,6 +112,5 @@ BPM Counter plugin:
 
 Test dependencies:
 
-* mox3 (python3)
 * pytest (python3)
 

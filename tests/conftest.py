@@ -1,4 +1,3 @@
-import collections
 import os
 import shutil
 import tempfile
@@ -107,13 +106,25 @@ def test_track_fp(test_track):
 @pytest.fixture()
 def writeable_track_name(writeable_track):
     '''Fixture that returns names of temporary copies of writeable tracks'''
-    with tempfile.NamedTemporaryFile(suffix='.' + writeable_track.ext) as tfp:
+
+    # On Windows, we have to close the file before it can be reopened
+    is_windows = os.name == 'nt'
+
+    with tempfile.NamedTemporaryFile(
+        suffix='.' + writeable_track.ext, delete=not is_windows
+    ) as tfp:
         with open(writeable_track.filename, 'rb') as fp:
             shutil.copyfileobj(fp, tfp)
-
         tfp.flush()
 
-        yield tfp.name
+        if not is_windows:
+            yield tfp.name
+
+    if is_windows:
+        try:
+            yield tfp.name
+        finally:
+            os.remove(tfp.name)
 
 
 @pytest.fixture

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2021-01-10 21:32+0000\n"
+"PO-Revision-Date: 2022-09-01 13:25+0000\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Occidental <https://hosted.weblate.org/projects/exaile/master/"
 "ie/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
@@ -163,7 +163,7 @@ msgstr "Pausar o reprender li reproduction"
 
 #: ../xl/main.py:146 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
-msgstr ""
+msgstr "Stoppar pos li actual canzone"
 
 #: ../xl/main.py:149
 msgid "Collection Options"
@@ -192,7 +192,7 @@ msgstr "Parametres de track"
 
 #: ../xl/main.py:174
 msgid "Query player"
-msgstr ""
+msgstr "Demandar li reproductor"
 
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:180
@@ -202,6 +202,8 @@ msgstr "FORMATE"
 #: ../xl/main.py:181
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr ""
+"Obtener li actual statu del reproduction e li information pri li canzone "
+"quam FORMATE"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:187
@@ -248,11 +250,11 @@ msgstr "Obtene li evaluation del actual track"
 
 #: ../xl/main.py:245
 msgid "Print the current playback position as time"
-msgstr ""
+msgstr "Printar li actual position quam témpor"
 
 #: ../xl/main.py:252
 msgid "Print the current playback progress as percentage"
-msgstr ""
+msgstr "Printar li actual position quam percentage"
 
 #: ../xl/main.py:255
 msgid "Volume Options"
@@ -296,7 +298,7 @@ msgstr "Lansar minimisat (in li area de notificationes, si possibil)"
 
 #: ../xl/main.py:319
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "Cambiar li visibilitá del interfacie (si possibil)"
 
 #: ../xl/main.py:327
 msgid "Start in safe mode - sometimes useful when you're running into problems"
@@ -316,7 +318,7 @@ msgstr ""
 
 #: ../xl/main.py:357
 msgid "Locale to use for Exaile"
-msgstr ""
+msgstr "Un locale quel Exaile usa"
 
 #: ../xl/main.py:360
 msgid "Development/Debug Options"
@@ -719,11 +721,11 @@ msgstr "Un plugin con li nómine «%s» ja es installat."
 
 #: ../xl/plugins.py:114
 msgid "Plugin archive contains an unsafe path."
-msgstr ""
+msgstr "Li archive del plugin contene un ínsecur rute."
 
 #: ../xl/settings.py:97
 msgid "Settings version is newer than current."
-msgstr ""
+msgstr "Li version del parametres es plu nov quam li actual."
 
 #: ../xl/transcoder.py:58
 msgid ""
@@ -792,6 +794,8 @@ msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
+"statu: %(status)s, titul: %(title)s, artist: %(artist)s, album: %(album)s, "
+"duration: %(length)s, position: %(progress)s%% [%(position)s]"
 
 #: ../xlgui/__init__.py:318
 msgid "Scanning collection..."
@@ -815,6 +819,8 @@ msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
 msgstr ""
+"Ti fólder ja es present in li collection o es un subfólder de un in li "
+"collection."
 
 #: ../xlgui/cover.py:97
 #, python-brace-format
@@ -827,7 +833,7 @@ msgstr "Omni covrimentes esset obtenet"
 
 #: ../xlgui/cover.py:123
 msgid "Collecting albums and covers..."
-msgstr ""
+msgstr "Obtenente albums e covrimentes..."
 
 #: ../xlgui/cover.py:501
 msgid "Show Cover"
@@ -886,15 +892,15 @@ msgstr "Gardar li selectet playlist"
 
 #: ../xlgui/main.py:153
 msgid "Save currently selected playlist under a custom name"
-msgstr ""
+msgstr "Gardar li selectet playlist sub un altri nómine"
 
 #: ../xlgui/main.py:158
 msgid "Focus filter in currently focused panel"
-msgstr ""
+msgstr "Ear al filtre del activ panel"
 
 #: ../xlgui/main.py:163
 msgid "Focus playlist search"
-msgstr ""
+msgstr "Ear al sercha in li playlist"
 
 #: ../xlgui/main.py:168
 msgid "Clear queue"
@@ -930,7 +936,7 @@ msgstr "Ear al sequent carte"
 
 #: ../xlgui/main.py:205
 msgid "Focus the playlist container"
-msgstr ""
+msgstr "Ear al contenetor del playlist"
 
 #: ../xlgui/main.py:212
 msgid "Focus the files panel"
@@ -986,7 +992,7 @@ msgstr "Ear al decesim carte"
 
 #: ../xlgui/main.py:596
 msgid "Toggle: Stop after Selected Track"
-msgstr ""
+msgstr "Cambiar: stoppar pos si selectet track"
 
 #: ../xlgui/main.py:705 ../plugins/previewdevice/__init__.py:349
 msgid "Playback error encountered!"
@@ -1200,7 +1206,7 @@ msgstr "Orígine: "
 
 #: ../xlgui/panel/lyrics.py:226
 msgid "Any source"
-msgstr ""
+msgstr "Alquel fonte"
 
 #: ../xlgui/panel/menus.py:219
 msgid "New _Smart Playlist"
@@ -1217,7 +1223,7 @@ msgstr "Remover li playlist «%s»?"
 
 #: ../xlgui/panel/playlists.py:151
 msgid "Enter the new name you want for your playlist"
-msgstr ""
+msgstr "Provide un nov nómine por li playlist"
 
 #: ../xlgui/panel/playlists.py:152
 msgid "Rename Playlist"
@@ -1226,7 +1232,7 @@ msgstr "Renominar li playlist"
 #: ../xlgui/panel/playlists.py:168 ../xlgui/widgets/dialogs.py:1776
 #: ../xlgui/widgets/smart_playlist_editor.py:395
 msgid "The playlist name you entered is already in use."
-msgstr ""
+msgstr "Ti nómine del playlist es ja usat."
 
 #: ../xlgui/panel/playlists.py:214
 #, python-format
@@ -1267,7 +1273,7 @@ msgstr "Radio"
 #: ../xlgui/panel/radio.py:147 ../xlgui/panel/radio.py:476
 #: ../xlgui/panel/radio.py:554
 msgid "Loading streams..."
-msgstr ""
+msgstr "Cargante fluvies..."
 
 #: ../xlgui/panel/radio.py:195
 msgid "Add Radio Station"
@@ -1296,7 +1302,7 @@ msgstr "Refriscar"
 
 #: ../xlgui/panel/radio.py:417
 msgid "Enter the name you want for your new playlist"
-msgstr ""
+msgstr "Provide un nómine por li nov playlist"
 
 #: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:70
 msgid "New Playlist"
@@ -1339,7 +1345,7 @@ msgstr "{playlist_name} ({track_count} tracks, cludet ante {seconds} sec)"
 
 #: ../xlgui/playlist_container.py:546
 msgid "_Move to Other View"
-msgstr ""
+msgstr "_Mover a altri vise"
 
 #: ../xlgui/preferences/__init__.py:113 ../xlgui/preferences/plugin.py:40
 msgid "Plugins"
@@ -1351,7 +1357,7 @@ msgstr "Aspecte"
 
 #: ../xlgui/preferences/appearance.py:118
 msgid "Tray icons are not supported on your platform"
-msgstr ""
+msgstr "Icones de notification ne es supportat sur vor platform"
 
 #. TRANSLATORS: Grammatical articles that are ignored while sorting the
 #. collection panel. For example, in French locales this could be
@@ -1451,6 +1457,8 @@ msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
+"Ne successat scrir li tags al sequent files:\n"
+"{files}"
 
 #: ../xlgui/properties.py:280
 #, python-format
@@ -1459,15 +1467,15 @@ msgstr "Redactante track %(current)d ex %(total)d"
 
 #: ../xlgui/properties.py:402
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr ""
+msgstr "Esque vu vole applicar li modificationes a omni tracks?"
 
 #: ../xlgui/properties.py:445
 msgid "Apply changes before closing?"
-msgstr ""
+msgstr "Gardar li modificationes ante que cluder?"
 
 #: ../xlgui/properties.py:446
 msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
+msgstr "Vor modificationes va esser perdet si vu ne garda les nu."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
 #: ../xlgui/properties.py:629
@@ -1510,7 +1518,7 @@ msgstr "{format} ({width}x{height} pixeles)"
 
 #: ../xlgui/properties.py:1127
 msgid "Select image to set as cover"
-msgstr ""
+msgstr "Selecter un image por li covriment"
 
 #: ../xlgui/properties.py:1140
 msgid "Supported image formats"
@@ -1590,7 +1598,7 @@ msgstr "Cluder %s"
 #: ../xlgui/widgets/dialogs.py:1093
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
-msgstr ""
+msgstr "<b>Gardar li modificationes a %s ante que cluder?</b>"
 
 #: ../xlgui/widgets/dialogs.py:1095
 msgid "Your changes will be lost if you don't save them"
@@ -2083,16 +2091,12 @@ msgid "Collection Manager"
 msgstr "Gerentie del collection"
 
 #: ../data/ui/collection_manager.ui:54
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
-msgstr "Anullar"
+msgstr "A_nullar"
 
 #: ../data/ui/collection_manager.ui:71
-#, fuzzy
-#| msgid "Apply BPM"
 msgid "_Apply"
-msgstr "Applicar BPM"
+msgstr "_Applicar"
 
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
@@ -2104,7 +2108,7 @@ msgstr "Examinar al inicie"
 
 #: ../data/ui/collection_manager.ui:174
 msgid "Add _Folder"
-msgstr ""
+msgstr "Adjunter un _fólder"
 
 #: ../data/ui/collection_manager.ui:191
 #, fuzzy
@@ -2125,10 +2129,8 @@ msgid "The origin of this cover"
 msgstr "Li orígin de ti-ci covriment"
 
 #: ../data/ui/coverchooser.ui:159
-#, fuzzy
-#| msgid "_About"
 msgid "_Abort"
-msgstr "_Pri"
+msgstr "_Interrupter"
 
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
@@ -2184,13 +2186,11 @@ msgstr "Driver"
 
 #: ../data/ui/device_manager.ui:115
 msgid "_Connect"
-msgstr ""
+msgstr "_Conexer"
 
 #: ../data/ui/device_manager.ui:133
-#, fuzzy
-#| msgid "Disconnect from Server"
 msgid "_Disconnect"
-msgstr "Deconexer del servitore"
+msgstr "_Deconexer"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -2335,10 +2335,8 @@ msgid "Playlist font:"
 msgstr "Fonde de playlist:"
 
 #: ../data/ui/preferences/appearance.ui:154
-#, fuzzy
-#| msgid "Never"
 msgid "_Revert"
-msgstr "Nequande"
+msgstr "_Reverter"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -2714,7 +2712,7 @@ msgstr "Covriment (posteriori)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:40
 msgid "Leaflet page"
-msgstr ""
+msgstr "Págine-folliette"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:44
 msgid "Media (e.g. label side of CD)"
@@ -2738,7 +2736,7 @@ msgstr "Autor del textu"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:72
 msgid "Recording Location"
-msgstr ""
+msgstr "Loc de registration"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:76
 msgid "During recording"
@@ -2766,7 +2764,7 @@ msgstr "Logo de gruppe o artist"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:100
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "Logo del publicator o studio"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:115
 msgid "Click or drag files here to change the cover image"
@@ -2884,7 +2882,7 @@ msgstr "Assignar BPM de %d por %s?"
 #: ../plugins/bpm/__init__.py:184 ../plugins/bpm/bpm.ui:59
 #: ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
-msgstr ""
+msgstr "Contator de BPM"
 
 #: ../plugins/bpm/__init__.py:336 ../plugins/bpm/bpm.ui:31
 msgid "Update"
@@ -3183,7 +3181,7 @@ msgstr ""
 
 #: ../plugins/history/__init__.py:218
 msgid "Save History"
-msgstr ""
+msgstr "Gardar li diarium"
 
 #: ../plugins/history/__init__.py:227
 msgid "_Clear History"
@@ -3264,11 +3262,11 @@ msgstr ""
 
 #: ../plugins/lastfmlove/__init__.py:66
 msgid "Loved"
-msgstr ""
+msgstr "Amat"
 
 #: ../plugins/lastfmlove/__init__.py:67
 msgid "Last.fm Loved"
-msgstr ""
+msgstr "Amat sur Last.fm"
 
 #: ../plugins/lastfmlove/__init__.py:157
 msgid "_Love This Track"
@@ -3416,7 +3414,7 @@ msgstr "$title ($current_time / $total_time)"
 
 #: ../plugins/minimode/controls.py:1037
 msgid "Progress button"
-msgstr ""
+msgstr "Buton del position"
 
 #: ../plugins/minimode/controls.py:1038
 msgid "Playback progress and access to the current playlist"
@@ -3424,7 +3422,7 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:1112
 msgid "Progress bar"
-msgstr ""
+msgstr "Barre del position"
 
 #: ../plugins/minimode/controls.py:1113
 msgid "Playback progress and seeking"
@@ -3459,7 +3457,7 @@ msgstr "Barra de modo"
 #: ../plugins/multialarmclock/macprefs.py:22
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr ""
+msgstr "Multiplic alarm-horloge"
 
 #: ../plugins/notify/__init__.py:48
 #, python-brace-format
@@ -3589,10 +3587,8 @@ msgid "Preview Device"
 msgstr "Aparate a previder"
 
 #: ../plugins/quickbuttons/__init__.py:37
-#, fuzzy
-#| msgid "En_queue"
 msgid "Enqueue"
-msgstr "M_etter in linea"
+msgstr "Metter in linea"
 
 #: ../plugins/quickbuttons/__init__.py:46
 #, fuzzy
@@ -3601,16 +3597,12 @@ msgid "Keep playing"
 msgstr "Ne reproductent."
 
 #: ../plugins/quickbuttons/__init__.py:55
-#, fuzzy
-#| msgid "_Remove"
 msgid "Auto-Remove"
-msgstr "_Remover"
+msgstr "Autoremover"
 
 #: ../plugins/quickbuttons/__init__.py:64
-#, fuzzy
-#| msgid "Advanced"
 msgid "Auto-Advance"
-msgstr "Avansates"
+msgstr "Autoavansar"
 
 #: ../plugins/quickbuttons/__init__.py:73
 #: ../plugins/quickbuttons/__init__.py:74
@@ -3621,7 +3613,7 @@ msgstr "Pause inter tracks (ms):"
 
 #: ../plugins/quickbuttons/__init__.py:82
 msgid "EQ"
-msgstr ""
+msgstr "EQ"
 
 #: ../plugins/quickbuttons/__init__.py:83 ../plugins/equalizer/equalizer.ui:109
 #: ../plugins/equalizer/PLUGININFO:3
@@ -3645,7 +3637,7 @@ msgstr ""
 
 #: ../plugins/quickbuttons/qb_prefs.py:5
 msgid "Quickbuttons"
-msgstr ""
+msgstr "Rapid butones"
 
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
@@ -3779,7 +3771,7 @@ msgstr "Clave de API:"
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:39
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:43
 msgid "Secret:"
-msgstr ""
+msgstr "Secret:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:62
 msgid ""
@@ -3954,7 +3946,7 @@ msgstr "Evanescer"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:245
 msgid "Fading duration:"
-msgstr ""
+msgstr "Duration del evanscement:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:271
 msgid "ms"
@@ -4902,12 +4894,16 @@ msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
+"Permisse registration de fluvies med streamripper. \n"
+"Besona: streamripper"
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
 "Provides Wikipedia information about the current artist.\n"
 "Requires: webkit2gtk and its typelib file"
 msgstr ""
+"Provide li information ex li Wikipedia pri li actial artist. \n"
+"Besona: webkit2gtk e su file typelib"
 
 #: ../plugins/winmmkeys/PLUGININFO:2
 msgid "Multimedia keys for Windows"
@@ -4921,6 +4917,10 @@ msgid ""
 "\n"
 "Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
+"Provide li supporte del claves multimedia (sur majorité del nov tastaturas) "
+"por Exaile in Microsoft Windows.\n"
+"\n"
+"Besona: pyHook (%s) o keyboard (%s)"
 
 #, fuzzy
 #~| msgid "Close"

@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-13 22:55+0100\n"
-"PO-Revision-Date: 2022-08-25 15:22+0000\n"
-"Last-Translator: Hugel <qihu@nfschina.com>\n"
+"PO-Revision-Date: 2022-09-02 19:24+0000\n"
+"Last-Translator: Eric <hamburger1024@firemail.cc>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "exaile/master/zh_Hans/>\n"
 "Language: zh\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 "X-Launchpad-Export-Date: 2009-08-19 14:52+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -3503,7 +3503,6 @@ msgid "Analyze playlist"
 msgstr "分析播放列表"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:200
-#, fuzzy
 msgid "Modulus this number"
 msgstr "模量这个数字"
 

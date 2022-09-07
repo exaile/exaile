@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-04-24 05:11+0000\n"
-"Last-Translator: algri14 <algri14@mail.ru>\n"
+"PO-Revision-Date: 2022-09-07 21:23+0000\n"
+"Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.12.1-dev\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -135,7 +135,7 @@ msgid ""
 "instance instead of creating a new one."
 msgstr ""
 "Запуск Exaile с добавлением дорожек из РАСПОЛОЖЕНИЯ в текущий список "
-"воспроизведения. Если Exaile уже запущена, использовать существующий "
+"воспроизведения. Если Exaile уже запущен, использовать существующий "
 "экземпляр."
 
 #: ../xl/main.py:97
@@ -416,7 +416,8 @@ msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
-"Exaile ещё не запустился. Может вам следует дождаться сигнала exaile_loaded?"
+"Exaile ещё не завершил запуск. Может вам следует дождаться сигнала "
+"exaile_loaded?"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:130
 #: ../xlgui/widgets/playlist_columns.py:321 ../plugins/cd/cdprefs.py:113
@@ -599,7 +600,7 @@ msgstr "Стоповое смещение"
 
 #: ../xl/player/gst/engine.py:708
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ": Возможна ошибка аудиоустройства, включено ли оно?"
+msgstr ": Возможна ошибка аудиоустройства, подключено ли оно?"
 
 #: ../xl/player/gst/missing_plugin.py:89
 #, python-format
@@ -623,7 +624,7 @@ msgstr "Вручную"
 #: ../xl/player/gst/sink.py:184
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
-msgstr "Не удалось создать audiosink (устройство: %s, тип: %s)"
+msgstr "Не удалось создать выход аудио (устройство: %s, тип: %s)"
 
 #: ../xl/player/gst/sink.py:191
 msgid "No custom pipeline specified!"
@@ -632,7 +633,7 @@ msgstr "Не указан пользовательский конвейер!"
 #: ../xl/player/gst/sink.py:196
 #, python-format
 msgid "Error creating custom audiosink '%s'"
-msgstr "Ошибка при создании пользовательского audiosink '%s'"
+msgstr "Ошибка при создании пользовательского выхода аудио «%s»"
 
 #: ../xl/player/gst/sink.py:202
 #, python-format
@@ -767,7 +768,7 @@ msgid ""
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
 "Проприетарный и устаревший, но всё ещё популярный формат сжатия звука с "
-"потерями. VBR дает более высокое качество звука, чем CBR, но может оказаться "
+"потерями. VBR даёт более высокое качество звука, чем CBR, но может оказаться "
 "несовместим с некоторыми плеерами."
 
 #: ../xl/transcoder.py:102
@@ -776,13 +777,13 @@ msgid ""
 "less quality than VBR, but is compatible with any player."
 msgstr ""
 "Проприетарный и устаревший, но всё ещё популярный формат сжатия звука с "
-"потерями. CBR дает более низкое качество звука, чем VBR, но совместим с "
+"потерями. CBR даёт более низкое качество звука, чем VBR, но совместим с "
 "любыми плеерами."
 
 #: ../xl/transcoder.py:113
 msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
-"Cвободный формат сжатия звука без потери качества с высокой скоростью и "
+"Свободный формат сжатия звука без потери качества с высокой скоростью и "
 "хорошей компрессией."
 
 #: ../xl/trax/track.py:71
@@ -798,7 +799,7 @@ msgstr " / "
 #: ../xl/trax/track.py:725 ../xl/trax/track.py:791
 #, python-format
 msgid "%dk"
-msgstr "%dk"
+msgstr "%dк"
 
 #: ../xl/trax/trackdb.py:181
 msgid "You did not specify a location to load the db from"
@@ -878,7 +879,7 @@ msgstr "Обложка для %s"
 #: ../xlgui/cover.py:879
 #, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
-msgstr "{width}x{height} пикселей({zoom}%)"
+msgstr "{width}x{height} пикселей ({zoom}%)"
 
 #: ../xlgui/cover.py:930
 msgid "Save File"
@@ -989,7 +990,7 @@ msgstr "Переход к третьей вкладке"
 
 #: ../xlgui/main.py:230
 msgid "Focus the fourth tab"
-msgstr "Переход к четвертой вкладке"
+msgstr "Переход к четвёртой вкладке"
 
 #: ../xlgui/main.py:231
 msgid "Focus the fifth tab"
@@ -1964,7 +1965,7 @@ msgstr "минут"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "hours"
-msgstr "час (ов)"
+msgstr "час(ов)"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "weeks"
@@ -2157,7 +2158,7 @@ msgstr "_Прервать"
 
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
-msgstr "_Использовать в качестве Обложки альбома"
+msgstr "_Сделать обложкой альбома"
 
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
@@ -2369,7 +2370,7 @@ msgstr "_Обратить"
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
 msgid "Reset to the system font"
-msgstr "Использовать системный шрифт"
+msgstr "Сбросить к системному шрифту"
 
 #: ../data/ui/preferences/appearance.ui:196
 #: ../data/ui/preferences/appearance.ui:385
@@ -2396,7 +2397,7 @@ msgstr "Прозрачность"
 
 #: ../data/ui/preferences/appearance.ui:241
 msgid "Show tray icon"
-msgstr "Отображать иконку в системном трее"
+msgstr "Отображать значок в трее"
 
 #: ../data/ui/preferences/appearance.ui:259
 msgid "Minimize to tray"
@@ -2422,8 +2423,8 @@ msgid ""
 "\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
 "extension</a> (or a similar one) installed."
 msgstr ""
-"Иконки в трее не поддерживаются некоторыми платформами, в частности Wayland. "
-"В GNOME Shell 3.26+ на Xorg иконки в трее работают только если установлено "
+"Значки в трее не поддерживаются некоторыми платформами, в частности Wayland. "
+"В GNOME Shell 3.26+ на Xorg значки в трее работают, только если установлено "
 "<a href=\"https://extensions.gnome.org/extension/495/topicons/\">расширение "
 "\"TopIcons\"</a> или ему подобное."
 
@@ -2433,7 +2434,7 @@ msgstr "Примечание:"
 
 #: ../data/ui/preferences/appearance.ui:355
 msgid "Prefer dark theme"
-msgstr "Предпочитать темную тему оформления"
+msgstr "Предпочитать тёмную тему"
 
 #. TRANSLATORS: "Checked" here refers to checkbox state.
 #: ../data/ui/preferences/appearance.ui:359
@@ -2474,7 +2475,7 @@ msgstr ""
 
 #: ../data/ui/preferences/collection.ui:42
 msgid "(Right click to reset to defaults)"
-msgstr "(Щелкните правой кнопкой мыши для сброса к настройкам по умолчанию)"
+msgstr "(Щёлкните правой кнопкой мыши для сброса к настройкам по умолчанию)"
 
 #: ../data/ui/preferences/collection.ui:54
 msgid "Use file-based compilation detection"
@@ -2498,7 +2499,7 @@ msgstr "Предпочтительные имена файлов:"
 
 #: ../data/ui/preferences/cover.ui:46
 msgid "A comma-separated list of file names without file extensions"
-msgstr "Разделённый запятыми список имен файлов без расширений"
+msgstr "Разделённый запятыми список имён файлов без расширений"
 
 #: ../data/ui/preferences/cover.ui:58
 msgid "Fetch covers automatically on playback start"
@@ -2584,16 +2585,16 @@ msgstr "Задержка между треками (мс):"
 
 #: ../data/ui/preferences/playback.ui:268
 msgid "Only works when crossfading not enabled"
-msgstr "Работает только когда не включено микширование"
+msgstr "Работает, только если не включено перекрёстное затухание"
 
 #: ../data/ui/preferences/playback.ui:300
 msgid "Crossfade duration (ms):"
-msgstr "Время плавного микширования (мс):"
+msgstr "Длина перекрёстного затухания (мс):"
 
 #: ../data/ui/preferences/playback.ui:312
 #: ../plugins/previewdevice/previewprefs.ui:125
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr "Использовать микширование (ЭКСПЕРИМЕНТАЛЬНО)"
+msgstr "Использовать перекрестное затухание (ЭКСПЕРИМЕНТАЛЬНО)"
 
 #: ../data/ui/preferences/playback.ui:316
 msgid "Forces automatically advancing to the next track"
@@ -2684,7 +2685,7 @@ msgstr "Статус"
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:38
 #: ../plugins/equalizer/equalizer.ui:166
 msgid "Enabled"
-msgstr "Включен"
+msgstr "Включён"
 
 #: ../data/ui/preferences/plugin.ui:110
 msgid "Show incompatible plugins"
@@ -2748,7 +2749,7 @@ msgstr "Значок файла размера 32x32 пикселя (тольк�
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:28
 msgid "Other file icon"
-msgstr "Другая иконка файла"
+msgstr "Другой значок файла"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:32
 msgid "Cover (front)"
@@ -2976,11 +2977,11 @@ msgstr "Вручную..."
 
 #: ../plugins/daapclient/__init__.py:327
 msgid "Enter IP address and port for share"
-msgstr "Введите IP адрес и порт для"
+msgstr "Введите IP-адрес и порт для общего доступа"
 
 #: ../plugins/daapclient/__init__.py:327
 msgid "Enter IP address and port."
-msgstr "Введите ip-адрес и порт."
+msgstr "Введите IP-адрес и порт."
 
 #: ../plugins/daapclient/__init__.py:548
 msgid ""
@@ -3043,7 +3044,7 @@ msgstr "_Групповое переименование/удаление тег
 
 #: ../plugins/grouptagger/__init__.py:123
 msgid "E_xport collecton tags to JSON"
-msgstr "_Экспорт меток коллекции в JSON"
+msgstr "_Экспорт меток фонотеки в JSON"
 
 #: ../plugins/grouptagger/__init__.py:130
 msgid "_GroupTagger"
@@ -3469,7 +3470,7 @@ msgstr "$title ($current_time / $total_time)"
 
 #: ../plugins/minimode/controls.py:1037
 msgid "Progress button"
-msgstr "Прогресс кнопкa"
+msgstr "Кнопка прогресса"
 
 #: ../plugins/minimode/controls.py:1038
 msgid "Playback progress and access to the current playlist"
@@ -3507,7 +3508,7 @@ msgstr "{current} / {remaining}"
 
 #: ../plugins/moodbar/prefs.py:26 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr "Moodbar"
+msgstr "Индикатор тона"
 
 #: ../plugins/multialarmclock/macprefs.py:22
 #: ../plugins/multialarmclock/PLUGININFO:3
@@ -3587,7 +3588,7 @@ msgstr "Подкаст"
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Refresh Podcast"
-msgstr "Обновить Подкасты"
+msgstr "Обновить подкаст"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Delete"
@@ -3595,7 +3596,7 @@ msgstr "Удалить"
 
 #: ../plugins/podcasts/__init__.py:121
 msgid "Enter the URL of the podcast to add"
-msgstr "Для добавления подкаста введите его URL"
+msgstr "Введите адрес подкаста для добавления"
 
 #: ../plugins/podcasts/__init__.py:121
 msgid "Open Podcast"
@@ -3612,7 +3613,7 @@ msgstr "Ошибка загрузки подкаста."
 
 #: ../plugins/podcasts/__init__.py:203
 msgid "Loading Podcasts..."
-msgstr "Загрузка Подкастов...."
+msgstr "Загрузка подкастов...."
 
 #: ../plugins/podcasts/__init__.py:205
 msgid "No configuration present yet"
@@ -3724,7 +3725,7 @@ msgstr "Выключение не удалось"
 
 #: ../plugins/shutdown/__init__.py:151
 msgid "Computer could not be shutdown using D-Bus."
-msgstr "Компьютер не может быть выключен через D-Bus."
+msgstr "Компьютер нельзя выключить через D-Bus."
 
 #: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:178
 msgid "Contacting SomaFM server..."
@@ -3920,9 +3921,9 @@ msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
 msgstr ""
-"Квждый тэг может быть использован с <b>$tag</b> или <b>${tag}</b>. "
-"Внутренние тэги такие как <b>$__lenght</b> должны быть указанны с двумя "
-"предшествующими подчеркиваниями."
+"Каждый тег может быть использован с <b>$tag</b> или <b>${tag}</b>. "
+"Внутренние теги, такие как <b>$__lenght</b>, должны быть указаны с двумя "
+"предшествующими подчёркиваниями."
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
@@ -4143,7 +4144,7 @@ msgid ""
 "choices may only work with certain file formats."
 msgstr ""
 "«группировка» и «комментарий», вероятно, являются наилучшим выбором. Другие "
-"варианты могут работать только с определенными форматами файлов."
+"варианты могут работать только с определёнными форматами файлов."
 
 #: ../plugins/history/history_preferences.ui:18
 msgid "Persist history after player exits"
@@ -4199,7 +4200,7 @@ msgstr "Количество прослушиваний"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:68
 msgid "Starred"
-msgstr "Оцененные"
+msgstr "Оценённые"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:72
 msgid "Date of starring"
@@ -4207,7 +4208,7 @@ msgstr "Время оценки"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:94
 msgid "Genre/Tags"
-msgstr "Жанр/Теги"
+msgstr "Жанр/теги"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:176
 msgid "Order by:"
@@ -4239,7 +4240,7 @@ msgid ""
 msgstr ""
 "Перейдите на страницу <b><a href=\"http://www.last.fm/api/account\">API "
 "вашего аккаунта</a></b> чтобы получить <b>API-ключ</b> и <b>пароль</b> и "
-"введите их сюда. После того, как вы введете их сюда, <b>запросите разрешение "
+"введите их сюда. После того, как вы введёте их сюда, <b>запросите разрешение "
 "доступа</b> и подтвердите его для завершения установки."
 
 #. TRANSLATORS: Minimode window decoration option
@@ -4351,7 +4352,7 @@ msgstr "Значки"
 
 #: ../plugins/notify/notifyprefs_pane.ui:74
 msgid "Use album covers as icons"
-msgstr "Использовать обложки как иконки"
+msgstr "Использовать обложки альбом как значки"
 
 #: ../plugins/notify/notifyprefs_pane.ui:89
 msgid "Use media icons for pause, stop and resume"
@@ -4363,7 +4364,7 @@ msgstr "Во время паузы, возобновления и останов
 
 #: ../plugins/notify/notifyprefs_pane.ui:119
 msgid "On tray icon hover"
-msgstr "На иконке в трее"
+msgstr "При наведении на значок в трее"
 
 #: ../plugins/notify/notifyprefs_pane.ui:134
 msgid "When main window is focused"
@@ -4378,7 +4379,7 @@ msgid ""
 "\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 "Любой тег может быть использован с <b>$tag</b> или <b>${tag}</b>. Встроенные "
-"теги, такие как <b>$__length</b>, должны начинаться двумя подчеркиваниями.\n"
+"теги, такие как <b>$__length</b>, должны начинаться двумя подчёркиваниями.\n"
 "Поддерживается <a href=\"https://developer.gnome.org/pango/stable/"
 "PangoMarkupFormat.html\">Pango Text Attribute Markup</a>."
 
@@ -4451,7 +4452,7 @@ msgstr "Продолжительность затухания:"
 
 #: ../plugins/previewdevice/previewprefs.ui:143
 msgid "Crossfade duration:"
-msgstr "Продолжительность микширования:"
+msgstr "Длина перекрёстного затухания:"
 
 #: ../plugins/previewdevice/previewprefs.ui:223
 msgid "Audio Device:"
@@ -4478,7 +4479,7 @@ msgstr "Предпочитаемая поальбомная коррекция"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui:28
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
-msgstr "Предпочитать корректировать звук по албомам, а не по дорожкам."
+msgstr "Предпочитать коррекцию звука по альбомам, а не по дорожкам."
 
 #. Prevents clipping of audio due to amplification.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:39
@@ -4517,7 +4518,7 @@ msgstr "Извлечь в единый файл"
 
 #: ../plugins/streamripper/streamripper.ui:74
 msgid "Delete incomplete files"
-msgstr "удалить(-ять) незавершенные файлы"
+msgstr "Удалить неполные файлы"
 
 #: ../plugins/wikipedia/data/preferences.ui:15
 msgid "Language:"
@@ -4561,7 +4562,7 @@ msgid ""
 "Note that when the specified time arrives, Exaile will play the songs in the "
 "queue."
 msgstr ""
-"Проигрывает музыку в определенное время.\n"
+"Проигрывает музыку в определённое время.\n"
 "\n"
 "Когда наступит указанное время, Exaile воспроизведет текущую очередь."
 
@@ -4717,7 +4718,7 @@ msgid ""
 "Facilitates categorizing your music by managing the grouping/category tag in "
 "audio files"
 msgstr ""
-"Упрощает категоризацию вашей музыки с помощью управления тегами группировки/"
+"Упрощает организацию вашей музыки с помощью управления тегами группировки/"
 "категорий в музыкальных файлах"
 
 #: ../plugins/grouptagger/PLUGININFO:5 ../plugins/lastfmlove/PLUGININFO:5
@@ -4862,7 +4863,7 @@ msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
-"Добавляет возможность доступа к медиа плеерам через протокол USB Mass Storage"
+"Добавляет возможность доступа к медиаплеерам через протокол USB Mass Storage"
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
@@ -4908,7 +4909,7 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Проигрывает музыку в определенное время и день.\n"
+"Проигрывает музыку в определённое время и день.\n"
 "\n"
 "Внимание: Exaile всего лишь нажмёт кнопку воспроизведения, когда наступит "
 "указанное время, поэтому будьте уверены в том, что музыка, которую вы хотите "
@@ -4964,14 +4965,14 @@ msgstr "Сведения"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr "Простая поддержка Подкастов"
+msgstr "Предоставляет простая поддержку подкастов"
 
 #: ../plugins/previewdevice/PLUGININFO:4
 msgid ""
 "Allows playing audio over a secondary device (right click on playlist and "
 "select 'preview'). Useful for DJs."
 msgstr ""
-"Позволяет воспроизводить звук во вторичном устройстве (щелкните правой "
+"Позволяет воспроизводить звук во вторичном устройстве (щёлкните правой "
 "кнопкой мыши по плейлисту и выберите «Предпросмотр»). Полезно для диджеев."
 
 #: ../plugins/previewdevice/PLUGININFO:5 ../plugins/streamripper/PLUGININFO:5

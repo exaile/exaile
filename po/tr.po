@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2020-09-19 07:36+0000\n"
-"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
+"PO-Revision-Date: 2022-09-23 23:31+0000\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/exaile/master/tr/"
 ">\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.14.1\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -439,10 +439,8 @@ msgid "Artist"
 msgstr "Sanatçı"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:301
-#, fuzzy
-#| msgid "by %(artist)s"
 msgid "Album artist"
-msgstr "Yazar %(artist)s"
+msgstr "Albüm sanatçısı"
 
 #: ../xl/metadata/tags.py:50
 msgid "Author"
@@ -695,10 +693,8 @@ msgid "Shuffle _Albums"
 msgstr "Karışık _Albümler"
 
 #: ../xl/playlist.py:913
-#, fuzzy
-#| msgid "Random %d"
 msgid "_Random"
-msgstr "Rasgele %d"
+msgstr "_Rastgele"
 
 #: ../xl/playlist.py:918
 msgid "Repeat _Off"
@@ -879,7 +875,7 @@ msgstr "%s için albüm kapağı"
 #: ../xlgui/cover.py:879
 #, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
-msgstr ""
+msgstr "{width}x{height} piksel (%{zoom})"
 
 #: ../xlgui/cover.py:930
 msgid "Save File"
@@ -904,7 +900,7 @@ msgstr ""
 #: ../xlgui/cover.py:1177 ../xlgui/properties.py:1110
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr ""
+msgstr "{width}x{height} piksel"
 
 #: ../xlgui/main.py:94
 msgid "$title (by $artist)"
@@ -1061,26 +1057,20 @@ msgid "_New Playlist"
 msgstr "_Yeni Çalma Listesi"
 
 #: ../xlgui/menu.py:75
-#, fuzzy
-#| msgid "Open URL"
 msgid "_Open"
-msgstr "Adres Aç"
+msgstr "_Aç"
 
 #: ../xlgui/menu.py:92
 msgid "Open _URL"
 msgstr "Adresi _Aç"
 
 #: ../xlgui/menu.py:114
-#, fuzzy
-#| msgid "Open Directories"
 msgid "Open _Directories"
-msgstr "Dizinleri Aç"
+msgstr "_Dizinleri Aç"
 
 #: ../xlgui/menu.py:126 ../xlgui/panel/menus.py:227
-#, fuzzy
-#| msgid "Import Playlist"
 msgid "_Import Playlist"
-msgstr "Çalma Listesini İçe Aktar"
+msgstr "Çalma _Listesini İçe Aktar"
 
 #: ../xlgui/menu.py:156
 #, fuzzy
@@ -1119,10 +1109,8 @@ msgid "C_overs"
 msgstr "A_lbüm kapakları"
 
 #: ../xlgui/menu.py:253
-#, fuzzy
-#| msgid "Preferences"
 msgid "_Preferences"
-msgstr "Tercihler"
+msgstr "_Tercihler"
 
 #: ../xlgui/menu.py:278
 msgid "_Show Playing Track"
@@ -1133,14 +1121,10 @@ msgid "_Playlist Utilities Bar"
 msgstr "Çal_ma Listesi Araç Çubuğu"
 
 #: ../xlgui/menu.py:312
-#, fuzzy
-#| msgid "_Columns"
 msgid "C_olumns"
 msgstr "_Sütunlar"
 
 #: ../xlgui/menu.py:323
-#, fuzzy
-#| msgid "C_lear playlist"
 msgid "_Clear playlist"
 msgstr "Çalma li_stesini temizle"
 
@@ -1162,41 +1146,35 @@ msgstr "Koleksiyonu Yeniden Tara (yavaş)"
 
 #: ../xlgui/menu.py:405
 msgid "User's Guide (website)"
-msgstr ""
+msgstr "Kullanıcı Kılavuzu (web sitesi)"
 
 #: ../xlgui/menu.py:408 ../data/ui/shortcuts_dialog.ui:21
-#, fuzzy
-#| msgid "Shortcut"
 msgid "Shortcuts"
-msgstr "Kısayol"
+msgstr "Kısayollar"
 
 #: ../xlgui/menu.py:415
 msgid "Report an issue (GitHub)"
-msgstr ""
+msgstr "Sorun bildir (GitHub)"
 
 #: ../xlgui/menu.py:421
 msgid "Open error logs"
-msgstr ""
+msgstr "Hata günlüklerini aç"
 
 #: ../xlgui/menu.py:425
 msgid "_About"
-msgstr ""
+msgstr "_Hakkında"
 
 #: ../xlgui/panel/collection.py:127
-#, fuzzy
-#| msgid "Artist"
 msgid "Album Artist"
-msgstr "Sanatçı"
+msgstr "Albüm Sanatçısı"
 
 #: ../xlgui/panel/collection.py:133
 msgid "Genre - Artist"
 msgstr "Tür - Sanatçı"
 
 #: ../xlgui/panel/collection.py:136
-#, fuzzy
-#| msgid "Genre - Artist"
 msgid "Genre - Album Artist"
-msgstr "Tür - Sanatçı"
+msgstr "Tür - Albüm Sanatçısı"
 
 #: ../xlgui/panel/collection.py:139
 msgid "Genre - Album"
@@ -1207,10 +1185,8 @@ msgid "Date - Artist"
 msgstr "Tarih - Sanatçı"
 
 #: ../xlgui/panel/collection.py:145
-#, fuzzy
-#| msgid "Date - Artist"
 msgid "Date - Album Artist"
-msgstr "Tarih - Sanatçı"
+msgstr "Tarih - Albüm Sanatçısı"
 
 #: ../xlgui/panel/collection.py:148
 msgid "Date - Album"
@@ -1221,10 +1197,8 @@ msgid "Artist - (Date - Album)"
 msgstr "Sanatçı - (Tarih - Albüm)"
 
 #: ../xlgui/panel/collection.py:155
-#, fuzzy
-#| msgid "Artist - (Date - Album)"
 msgid "Album Artist - (Date - Album)"
-msgstr "Sanatçı - (Tarih - Albüm)"
+msgstr "Albüm Sanatçısı - (Tarih - Albüm)"
 
 #: ../xlgui/panel/collection.py:183 ../xlgui/preferences/collection.py:21
 msgid "Collection"
@@ -1257,7 +1231,7 @@ msgstr "Boyut"
 #: ../xlgui/panel/files.py:459
 #, python-format
 msgid "%s kB"
-msgstr ""
+msgstr "%s kB"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:270
@@ -1270,11 +1244,11 @@ msgstr "Hiçbir şarkı sözü bulunamadı."
 
 #: ../xlgui/panel/lyrics.py:198
 msgid "Source: "
-msgstr ""
+msgstr "Kaynak: "
 
 #: ../xlgui/panel/lyrics.py:226
 msgid "Any source"
-msgstr ""
+msgstr "Herhangi bir kaynak"
 
 #: ../xlgui/panel/menus.py:219
 #, fuzzy
@@ -2217,7 +2191,7 @@ msgstr ""
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr "Oğuz Ersen <oguzersen@protonmail.com>"
+msgstr "Oğuz Ersen <oguz@ersen.moe>"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -2551,11 +2525,11 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:343
 msgid "Note:"
-msgstr ""
+msgstr "Not:"
 
 #: ../data/ui/preferences/appearance.ui:355
 msgid "Prefer dark theme"
-msgstr ""
+msgstr "Koyu temayı tercih et"
 
 #. TRANSLATORS: "Checked" here refers to checkbox state.
 #: ../data/ui/preferences/appearance.ui:359
@@ -2563,16 +2537,20 @@ msgid ""
 "If not checked, will not specify a preference to GTK. May not work on some "
 "platforms."
 msgstr ""
+"İşaretlenmezse, GTK için bir tercih belirtilmeyecek. Bazı platformlarda "
+"çalışmayabilir."
 
 #: ../data/ui/preferences/appearance.ui:370
 msgid "Show Status Bar"
-msgstr ""
+msgstr "Durum Çubuğunu Göster"
 
 #: ../data/ui/preferences/appearance.ui:374
 msgid ""
 "Show or hide the status bar. The status bar will always be shown if a plugin "
 "requests it."
 msgstr ""
+"Durum çubuğunu göster veya gizle. Bir eklenti isterse durum çubuğu her zaman "
+"gösterilecektir."
 
 #: ../data/ui/preferences/appearance.ui:399
 #, fuzzy
@@ -2645,7 +2623,7 @@ msgstr "Şarkı sözü yazı tipi:"
 #: ../data/ui/preferences/playback.ui:32
 #: ../plugins/previewdevice/previewprefs.ui:27
 msgid "GStreamer"
-msgstr ""
+msgstr "GStreamer"
 
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
@@ -2790,7 +2768,7 @@ msgstr "Eklenti"
 
 #: ../data/ui/preferences/plugin.ui:76
 msgid "Status"
-msgstr ""
+msgstr "Durum"
 
 #: ../data/ui/preferences/plugin.ui:88
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:38
@@ -2843,10 +2821,8 @@ msgid "Uppercase first letter of all tags"
 msgstr "Tüm etiketlerin ilk harfini büyük yap"
 
 #: ../data/ui/trackproperties_dialog.ui:228
-#, fuzzy
-#| msgid "Properties"
 msgid "File Properties"
-msgstr "Özellikler"
+msgstr "Dosya Özellikleri"
 
 #: ../data/ui/trackproperties_dialog.ui:249
 msgid "_Previous"
@@ -3154,13 +3130,11 @@ msgstr "Masaüstü Albüm Kapakları"
 
 #: ../plugins/developer/__init__.py:63
 msgid "Developer Tools"
-msgstr ""
+msgstr "Geliştirici Araçları"
 
 #: ../plugins/equalizer/__init__.py:362
-#, fuzzy
-#| msgid "Equalizer"
 msgid "_Equalizer"
-msgstr "Ekolayzer"
+msgstr "_Ekolayzer"
 
 #: ../plugins/grouptagger/__init__.py:96
 #, fuzzy

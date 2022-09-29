@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-08-30 01:24+0000\n"
+"PO-Revision-Date: 2022-09-30 01:22+0000\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/exaile/master/ko/>"
 "\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14.1-dev\n"
+"X-Generator: Weblate 4.14.1\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1103,10 +1103,8 @@ msgid "User's Guide (website)"
 msgstr "사용자의 가이드 (웹사이트)"
 
 #: ../xlgui/menu.py:408 ../data/ui/shortcuts_dialog.ui:21
-#, fuzzy
-#| msgid "Shortcut"
 msgid "Shortcuts"
-msgstr "바로 가기"
+msgstr "바로가기"
 
 #: ../xlgui/menu.py:415
 msgid "Report an issue (GitHub)"
@@ -3248,7 +3246,7 @@ msgstr ""
 
 #: ../plugins/lastfmlove/__init__.py:157
 msgid "_Love This Track"
-msgstr ""
+msgstr "이 트랙 즐기기(_L)"
 
 #: ../plugins/lastfmlove/__init__.py:178
 msgid "Unlove This Track"
@@ -3483,7 +3481,6 @@ msgid "Analyze playlist"
 msgstr "재생목록 분석하기"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:200
-#, fuzzy
 msgid "Modulus this number"
 msgstr "디스크 번호"
 
@@ -3560,26 +3557,20 @@ msgid "Preview Device"
 msgstr ""
 
 #: ../plugins/quickbuttons/__init__.py:37
-#, fuzzy
-#| msgid "_Queue"
 msgid "Enqueue"
-msgstr "대기열(_Q)"
+msgstr "대기열"
 
 #: ../plugins/quickbuttons/__init__.py:46
 msgid "Keep playing"
 msgstr "계속 재생"
 
 #: ../plugins/quickbuttons/__init__.py:55
-#, fuzzy
-#| msgid "Remove"
 msgid "Auto-Remove"
-msgstr "제거"
+msgstr "자동 제거하기"
 
 #: ../plugins/quickbuttons/__init__.py:64
-#, fuzzy
-#| msgid "Advanced"
 msgid "Auto-Advance"
-msgstr "고급"
+msgstr "자동 진행"
 
 #: ../plugins/quickbuttons/__init__.py:73
 #: ../plugins/quickbuttons/__init__.py:74
@@ -3596,10 +3587,8 @@ msgid "Equalizer"
 msgstr "이퀄라이저"
 
 #: ../plugins/quickbuttons/__init__.py:92
-#, fuzzy
-#| msgid "Device"
 msgid "Main Device"
-msgstr "장치"
+msgstr "주요 장치"
 
 #: ../plugins/quickbuttons/__init__.py:93
 #: ../plugins/quickbuttons/qb_prefs.ui:101
@@ -3654,14 +3643,12 @@ msgid "Computer could not be shutdown using D-Bus."
 msgstr "D-Bus가 사용중이라 컴퓨터를 끌수 없습니다."
 
 #: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:178
-#, fuzzy
 msgid "Contacting SomaFM server..."
-msgstr "방송 서버에 연결중..."
+msgstr "SomaFM 서버에 접속하는 중..."
 
 #: ../plugins/somafm/__init__.py:94 ../plugins/somafm/__init__.py:97
-#, fuzzy
 msgid "Error connecting to SomaFM server."
-msgstr "방송 서버 연결중 오류."
+msgstr "SomaFM 서버에 연결하는 동안 오류가 발생했습니다."
 
 #: ../plugins/somafm/__init__.py:182
 msgid "Error importing playlist"
@@ -3681,8 +3668,6 @@ msgid "Wikipedia"
 msgstr "위키백과"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:52
-#, fuzzy
-#| msgid "<b>Alarm time</b>"
 msgid "<b>Alarm Time</b>"
 msgstr "<b>알람 시간</b>"
 
@@ -3848,15 +3833,12 @@ msgstr ""
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
-#, fuzzy
 msgid "Simple Console"
-msgstr "IPython 콘솔"
+msgstr "단순한 콘솔"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
 msgid "Show IPv6 servers"
-msgstr "ipv6주소 표시(실험적)"
+msgstr "IPv6 서버 표시하기"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:27
 msgid "Remember recent DAAP servers"
@@ -3955,10 +3937,8 @@ msgstr ""
 
 #: ../plugins/equalizer/equalizer.ui:139
 #: ../plugins/multialarmclock/malrmclk.ui:110
-#, fuzzy
-#| msgid "Remove"
 msgid "_Remove"
-msgstr "제거"
+msgstr "제거하기(_R)"
 
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
@@ -4005,19 +3985,16 @@ msgid "15K"
 msgstr "15K"
 
 #: ../plugins/grouptagger/gt_import.ui:19
-#, fuzzy
 msgid "Import Tags"
-msgstr "CD 가져오기"
+msgstr "태그 가져오기"
 
 #: ../plugins/grouptagger/gt_import.ui:55
-#, fuzzy
 msgid "Import"
-msgstr "CD 가져오기"
+msgstr "가져오기"
 
 #: ../plugins/grouptagger/gt_import.ui:81
-#, fuzzy
 msgid "Current Groups"
-msgstr "현재 음악"
+msgstr "현재 그룹"
 
 #: ../plugins/grouptagger/gt_import.ui:93
 msgid "New Groups"
@@ -4098,9 +4075,8 @@ msgid "Background Color:"
 msgstr "배경색:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:121
-#, fuzzy
 msgid "Launch IPython console when Exaile starts"
-msgstr "IPython 콘솔 - Exaile"
+msgstr "Exaile이 시작될 때 IPython 콘솔 시작하기"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:40
 msgid "Release date"
@@ -4216,10 +4192,8 @@ msgid "Options"
 msgstr "설정"
 
 #: ../plugins/moodbar/prefs.ui:11
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
 msgid "Waveform view (experimental)"
-msgstr "ipv6주소 표시(실험적)"
+msgstr "파형 보기(실험적)"
 
 #: ../plugins/moodbar/prefs.ui:25
 msgid "Color tint (experimental)"
@@ -4243,10 +4217,8 @@ msgstr ""
 
 #. Audio settings for alarm
 #: ../plugins/multialarmclock/malrmclk.ui:178
-#, fuzzy
-#| msgid "<b>Icons</b>"
 msgid "<b>Audio</b>"
-msgstr "<b>아이콘</b>"
+msgstr "<b> 오디오</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:192
 msgid "Fade start volume:"
@@ -4269,14 +4241,10 @@ msgid "Resize displayed covers"
 msgstr "표시된 커버 크키조절"
 
 #: ../plugins/notify/notifyprefs_pane.ui:33
-#, fuzzy
-#| msgid "Display covers"
 msgid "Display"
-msgstr "표지 화면"
+msgstr "드러내기"
 
 #: ../plugins/notify/notifyprefs_pane.ui:61
-#, fuzzy
-#| msgid "Icon"
 msgid "Icons"
 msgstr "아이콘"
 
@@ -4289,10 +4257,8 @@ msgid "Use media icons for pause, stop and resume"
 msgstr "미디어 아이콘 사용 (일시정지, 정지, 계속)"
 
 #: ../plugins/notify/notifyprefs_pane.ui:104
-#, fuzzy
-#| msgid "On playback start, pause or stop"
 msgid "On playback pause, resume and stop"
-msgstr "재생 시작, 일시정지 또는 정지 할 때"
+msgstr "재생 일시정지, 이어듣기 및 중지하기"
 
 #: ../plugins/notify/notifyprefs_pane.ui:119
 msgid "On tray icon hover"
@@ -4341,18 +4307,16 @@ msgid "Presets"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui:199
-#, fuzzy
 msgid "<none selected>"
-msgstr "<b>선택된 플러그인 없음</b>"
+msgstr "<b>선택된 항목 없음</b>"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:420
 msgid "Select analysis"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui:438
-#, fuzzy
 msgid "Playlist(s) to analyze"
-msgstr "재생목록 번역"
+msgstr "분석할 재생목록"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:490
 msgid "Output Title"
@@ -4371,22 +4335,16 @@ msgid "Generate"
 msgstr ""
 
 #: ../plugins/podcasts/podcasts.ui:18
-#, fuzzy
-#| msgid "Add Podcast"
 msgid "_Add Podcast"
-msgstr "팟캐스트 추가"
+msgstr "팟캐스트 추가하기(_A)"
 
 #: ../plugins/previewdevice/previewprefs.ui:103
-#, fuzzy
-#| msgid "Fade duration (ms):"
 msgid "Fade duration:"
-msgstr "페이드 길이 (ms):"
+msgstr "페이드 지속시간:"
 
 #: ../plugins/previewdevice/previewprefs.ui:143
-#, fuzzy
-#| msgid "Crossfade duration (ms):"
 msgid "Crossfade duration:"
-msgstr "크로스페이드 길이 (ms):"
+msgstr "크로스페이드 지속시간:"
 
 #: ../plugins/previewdevice/previewprefs.ui:223
 msgid "Audio Device:"
@@ -4424,10 +4382,8 @@ msgstr ""
 
 #. This is an additional amplification applied to all files prior to correction.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:56
-#, fuzzy
-#| msgid "Additional amplification (dB):"
 msgid "Additional amplification:"
-msgstr "확대 적용(dB):"
+msgstr "추가적인 증폭:"
 
 #. This is the fallback correction for files that don't contain ReplayGain information.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:90
@@ -4571,10 +4527,8 @@ msgid "Development"
 msgstr ""
 
 #: ../plugins/currentsong/PLUGININFO:3
-#, fuzzy
-#| msgid "Current Song"
 msgid "Current Song in Pidgin"
-msgstr "현재 음악"
+msgstr "Pidgin의 현재 노래"
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
@@ -4825,9 +4779,8 @@ msgid ""
 msgstr ""
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
-#, fuzzy
 msgid "Playlist Analyzer"
-msgstr "재생목록 파일"
+msgstr "재생목록 분석기"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:4
 msgid ""
@@ -4879,9 +4832,8 @@ msgid "Allows for shutdown of the computer at the end of playback."
 msgstr ""
 
 #: ../plugins/somafm/PLUGININFO:3
-#, fuzzy
 msgid "SomaFM Radio"
-msgstr "라디오 방송"
+msgstr "SomaFM 라디오"
 
 #: ../plugins/somafm/PLUGININFO:4
 #, python-format

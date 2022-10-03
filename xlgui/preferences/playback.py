@@ -143,9 +143,14 @@ class ResumePreference(widgets.CheckPreference):
     name = 'player/resume_playback'
 
 
-class PausedPreference(widgets.CheckPreference):
+class PausedPreference(widgets.CheckPreference, widgets.CheckConditional):
     default = False
     name = 'player/resume_paused'
+    condition_preference_name = 'player/resume_playback'
+
+    def __init__(self, preferences, widget):
+        widgets.CheckPreference.__init__(self, preferences, widget)
+        widgets.CheckConditional.__init__(self)
 
 
 class EnqueueBeginsPlayback(widgets.CheckPreference):

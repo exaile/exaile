@@ -35,10 +35,8 @@ from xlgui.widgets.playlist import PlaylistPageBase, PlaylistView
 
 class QueuePage(PlaylistPageBase):
     def __init__(self, container, player):
-        PlaylistPageBase.__init__(self)
+        PlaylistPageBase.__init__(self, player.queue, player)
         self.plcontainer = container
-        self.player = player
-        self.playlist = player.queue  # a queue is a playlist object...
 
         self.swindow = Gtk.ScrolledWindow()
         self.swindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)

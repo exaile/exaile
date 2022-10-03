@@ -1,6 +1,6 @@
 # -*- coding: utf-8
 
-from mox3 import mox
+from unittest.mock import call, patch
 
 from xl.trax import search
 from xl.trax import track
@@ -20,38 +20,32 @@ def get_search_result_track():
 
 class TestMatcher:
     def setup(self):
-        self.mox = mox.Mox()
         self.strack = get_search_result_track()
         self.strack.track.set_tag_raw('artist', ['foo', 'bar'])
 
-    def teardown(self):
-        self.mox.UnsetStubs()
-
-    def test_match_list_true(self):
-        self.mox.StubOutWithMock(search._Matcher, '_matches')
-        search._Matcher._matches(mox.IsA(str)).AndReturn(True)
-        self.mox.ReplayAll()
+    @patch.object(search._Matcher, "_matches", return_value=True)
+    def test_match_list_true(self, mock_method):
         matcher = search._Matcher('artist', 'bar', lambda x: x)
         assert matcher.match(self.strack)
-        self.mox.VerifyAll()
+        mock_method.assert_called_with('foo')
 
-    def test_match_list_false(self):
-        self.mox.StubOutWithMock(search._Matcher, '_matches')
-        # ensure that both tags are checked
-        search._Matcher._matches(mox.IsA(str)).AndReturn(False)
-        search._Matcher._matches(mox.IsA(str)).AndReturn(False)
-        self.mox.ReplayAll()
+    @patch.object(search._Matcher, "_matches", return_value=False)
+    def test_match_list_false(self, mock_method):
         matcher = search._Matcher('artist', 'bar', lambda x: x)
         assert not matcher.match(self.strack)
-        self.mox.VerifyAll()
+        # ensure that both tags are checked
+        mock_method.assert_has_calls(
+            [
+                call('foo'),
+                call('bar'),
+            ]
+        )
 
-    def test_match_list_none(self):
-        self.mox.StubOutWithMock(search._Matcher, '_matches')
-        search._Matcher._matches(None).AndReturn(True)
-        self.mox.ReplayAll()
+    @patch.object(search._Matcher, "_matches", return_value=True)
+    def test_match_list_none(self, mock_method):
         matcher = search._Matcher('album', None, lambda x: x)
         assert matcher.match(self.strack)
-        self.mox.VerifyAll()
+        mock_method.assert_called_with(None)
 
     def test_matches(self):
         matcher = search._Matcher('album', None, lambda x: x)

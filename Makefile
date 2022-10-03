@@ -74,6 +74,7 @@ make-install-dirs:
 	install -d -m 755 $(EXAILESHAREDIR)/data/images/24x24
 	install -d -m 755 $(EXAILESHAREDIR)/data/images/32x32
 	install -d -m 755 $(EXAILESHAREDIR)/data/images/48x48
+	install -d -m 755 $(EXAILESHAREDIR)/data/images/128x128
 	install -d -m 755 $(EXAILESHAREDIR)/data/images/scalable
 	install -d -m 755 $(EXAILESHAREDIR)/data/ui
 	install -d -m 755 $(EXAILESHAREDIR)/data/ui/panel
@@ -81,7 +82,7 @@ make-install-dirs:
 	install -d -m 755 $(EXAILESHAREDIR)/data/ui/preferences/widgets
 	install -d -m 755 $(EXAILESHAREDIR)/data/ui/widgets
 	install -d -m 755 $(DESTDIR)$(DATADIR)/pixmaps
-	install -d -m 755 $(DESTDIR)$(DATADIR)/appdata
+	install -d -m 755 $(DESTDIR)$(DATADIR)/metainfo
 	install -d -m 755 $(DESTDIR)$(DATADIR)/applications
 	install -d -m 755 $(DESTDIR)$(DATADIR)/dbus-1/services
 	install -d -m 755 $(EXAILEMANDIR)/man1
@@ -154,7 +155,7 @@ install-target: make-install-dirs
 	install -p -m 644 data/exaile.desktop \
 		$(DESTDIR)$(DATADIR)/applications/
 	install -p -m 644 data/exaile.appdata.xml \
-		$(DESTDIR)$(DATADIR)/appdata/
+		$(DESTDIR)$(DATADIR)/metainfo/
 	-install -p -m 644 build/exaile.1.gz $(EXAILEMANDIR)/man1/
 	-install -p -m 644 build/exaile.bash-completion $(DESTDIR)$(BASHCOMPDIR)/exaile
 	-install -p -m 644 build/exaile.fish-completion $(DESTDIR)$(FISHCOMPDIR)/exaile.fish
@@ -206,7 +207,7 @@ completion: builddir
 
 clean:
 	-find . -name "*.~[0-9]~" -exec rm -f {} \;
-	-find . -name "*.py[co]" -exec rm -f {} \;
+	-find . -name "__pycache__" -exec rm -rf {} \;
 	rm -rf build/
 	$(MAKE) -C plugins clean
 	-$(MAKE) -C doc clean
@@ -252,7 +253,7 @@ test_compile:
 	$(MAKE) -C $(BUILD_DIR) all
 
 test:
-	EXAILE_DIR=$(shell pwd) LC_ALL=C PYTHONPATH=$(shell pwd) $(PYTEST) tests
+	EXAILE_DIR=$(shell pwd) LC_ALL=C PYTHONPATH=$(shell pwd):$(PYTHONPATH) $(PYTEST) tests
 
 test_coverage:
 	rm -rf coverage/

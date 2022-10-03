@@ -1,4 +1,4 @@
-Version='4.1.1'
+Version='4.1.2'
 Authors=['Brian Parma <execrable@gmail.com>','Aren Olson <reacocard@gmail.com>','Rok Mandeljc <rok.mandeljc@gmail.com>']
 Name=_('DAAP Client')
 Description=_('Enables access to DAAP music shares via the spydaap library. Share auto-discovery is optionally available via python-zeroconf.\nRequires: spydaap\nOptional: python-zeroconf')

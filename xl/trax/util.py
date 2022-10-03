@@ -80,8 +80,8 @@ def get_tracks_from_uri(uri: str) -> List[Track]:
         file_type = gloc.query_info(
             "standard::type", Gio.FileQueryInfoFlags.NONE, None
         ).get_file_type()
-    except GLib.Error:  # E.g. cdda
-        file_type = None
+    except GLib.Error:  # cdda track, nonexistent file, etc.
+        return []
     if file_type == Gio.FileType.DIRECTORY:
         # TODO: refactor Library so we dont need the collection obj
         from xl.collection import Library, Collection

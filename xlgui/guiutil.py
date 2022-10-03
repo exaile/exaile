@@ -28,6 +28,7 @@ import contextlib
 import logging
 import os.path
 import sys
+from typing import Union
 
 from gi.repository import Gio
 from gi.repository import Gdk
@@ -744,7 +745,7 @@ def get_builder(uifile: str) -> Gtk.Builder:
     builder = Gtk.Builder()
 
     if sys.platform == 'win32':
-        with open(uifile, 'r') as fp:
+        with open(uifile, 'rb') as fp:
             template = fp.read()
             template_string = get_template_translated(template)
             builder.add_from_string(template_string)
@@ -755,7 +756,7 @@ def get_builder(uifile: str) -> Gtk.Builder:
     return builder
 
 
-def get_template_translated(template_ui_xml: str) -> str:
+def get_template_translated(template_ui_xml: Union[str, bytes]) -> str:
     """
     Insert translations into template_ui_xml for each translatable element
     """

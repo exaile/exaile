@@ -347,6 +347,9 @@ class Main:
         """
         return self.panel_notebook.panels[panel_name].panel
 
+    def get_playlist_container(self):
+        return self.main.playlist_container
+
     def quit(self):
         """
         Quits the gui, saving anything that needs to be saved

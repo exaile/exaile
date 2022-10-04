@@ -767,10 +767,15 @@ class Exaile:
             # -> don't do it in command line mode, since that isn't expected
             self.gui.rescan_collection_with_progress(True)
 
-        if restore:
+        restore_play_state = settings.get_option("player/resume_playback", True)
+
+        if restore and restore_play_state:
             player.QUEUE._restore_player_state(
                 os.path.join(xdg.get_data_dir(), 'player.state')
             )
+
+            if self.gui:
+                self.gui.get_playlist_container().show_current_track()
 
         # pylint: enable-msg=W0201
 

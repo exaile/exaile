@@ -105,6 +105,11 @@ uninstall:
 	$(MAKE) -C plugins uninstall
 	find $(DESTDIR)$(DATADIR)/locale -name "exaile.mo" -exec rm -f {} \;
 
+# List a *.mo file for any *.po file
+LOCALE_SRCS=$(wildcard po/*.po)
+LOCALE_OBJS=$(LOCALE_SRCS:.po=.mo)
+LINGUAS=$(sort $(patsubst po/%.po,%,$(LOCALE_SRCS)))
+
 install: install-target install-locale
 
 install_no_locale: install-target
@@ -152,6 +157,9 @@ install-target: make-install-dirs
 	install -p -m 644 data/ui/preferences/*.ui $(EXAILESHAREDIR)/data/ui/preferences
 	install -p -m 644 data/ui/preferences/widgets/*.ui $(EXAILESHAREDIR)/data/ui/preferences/widgets
 	install -p -m 644 data/ui/widgets/*.ui $(EXAILESHAREDIR)/data/ui/widgets
+	echo $(LINGUAS) > po/LINGUAS
+	msgfmt --desktop --template=data/exaile.desktop.in -d po -o data/exaile.desktop
+	msgfmt --xml --template=data/exaile.appdata.xml.in -d po -o data/exaile.appdata.xml
 	install -p -m 644 data/exaile.desktop \
 		$(DESTDIR)$(DATADIR)/applications/
 	install -p -m 644 data/exaile.appdata.xml \
@@ -171,11 +179,6 @@ install-target: make-install-dirs
 			xl/version.py > $(EXAILELIBDIR)/xl/version.py; \
 	fi
 	$(MAKE) -C plugins install
-
-
-# List a *.mo file for any *.po file
-LOCALE_SRCS=$(wildcard po/*.po)
-LOCALE_OBJS=$(LOCALE_SRCS:.po=.mo)
 
 %.mo: %.po po/messages.pot
 	$(eval LOCALE_DIR := `echo $< | sed "s|^po/|build/locale/|" | sed "s|.po|/LC_MESSAGES|"`)
@@ -228,7 +231,9 @@ pot:
 	    find ../plugins -name "*.ui" | sort ; } \
 	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --keyword=N_ && \
 	  find ../plugins -name PLUGININFO | sort \
-	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --join-existing --language=Python )
+	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --join-existing --language=Python && \
+	  xgettext -j -o messages.pot --keyword=X-GNOME-FullName '../data/exaile.desktop.in' && \
+	  xgettext -j -o messages.pot '../data/exaile.appdata.xml.in' )
 	find po -name '*.po' -exec \
 	  msgmerge --previous --update {} po/messages.pot \;
 
@@ -272,3 +277,8 @@ format:
 
 check_format:
 	$(BLACK) --check --diff -S *.py plugins/ xl/ xlgui/ tests/
+
+desktop_file:
+	#echo $(LINGUAS) > po/LINGUAS
+	msgfmt --desktop --template=data/exaile.desktop.in -d po -o test.desktop
+	msgfmt --xml --template=data/exaile.appdata.xml.in -d po -o test.appdata.xml

@@ -37,6 +37,7 @@ class FlacFormat(CaseInsensitiveBaseFormat):
         'cover': '__cover',
         'comment': 'description',
         'language': "Language",
+        '__rating': 'rating',
     }
     writable = True
     case_sensitive = False
@@ -57,6 +58,13 @@ class FlacFormat(CaseInsensitiveBaseFormat):
                 for p in raw.pictures
             ]
 
+        elif tag == 'rating':
+            if 'rating' not in raw:
+                return []
+            # Rating Stars
+            data = int(raw['rating'][0])
+            return [str(self._rating_to_stars(data))]
+
         return CaseInsensitiveBaseFormat._get_tag(self, raw, tag)
 
     def _set_tag(self, raw, tag, value):
@@ -71,8 +79,13 @@ class FlacFormat(CaseInsensitiveBaseFormat):
                 raw.add_picture(picture)
             return
 
-        # flac has text based attributes, so convert everything to unicode
-        value = [xl.unicode.to_unicode(v) for v in value]
+        elif tag == 'rating':
+            # Rating Stars
+            value = [str(self._stars_to_rating(int(value)))]
+
+        else:
+            # flac has text based attributes, so convert everything to unicode
+            value = [xl.unicode.to_unicode(v) for v in value]
         CaseInsensitiveBaseFormat._set_tag(self, raw, tag, value)
 
     def _del_tag(self, raw, tag):

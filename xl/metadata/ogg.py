@@ -37,6 +37,7 @@ class OggFormat(CaseInsensitiveBaseFormat):
         'bpm': 'tempo',
         'comment': 'description',
         'cover': 'metadata_block_picture',
+        '__rating': 'rating',
     }
     writable = True
 
@@ -55,6 +56,9 @@ class OggFormat(CaseInsensitiveBaseFormat):
                     )
                 )
             value = new_value
+        if value and tag == 'rating':
+            value = [str(self._rating_to_stars(int(value[0])))]
+
         return value
 
     def _set_tag(self, raw, tag, value):
@@ -70,6 +74,9 @@ class OggFormat(CaseInsensitiveBaseFormat):
                 tmp = tmp.decode('ascii')  # needs to be a str
                 new_value.append(tmp)
             value = new_value
+        elif tag == 'rating':
+            rating = self._stars_to_rating(value)
+            value = [str(rating)]
         else:
             # vorbis has text based attributes, so convert everything to unicode
             value = [xl.unicode.to_unicode(v) for v in value]

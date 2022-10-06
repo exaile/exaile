@@ -51,6 +51,7 @@ class MP4Format(BaseFormat):
         'originaldate': '----:com.apple.iTunes:ORIGYEAR',
         'cover':       'covr',
         'language':    '----:com.apple.iTunes:LANGUAGE',
+        '__rating':      'rate',
         # fmt: on
     }
     others = False
@@ -73,6 +74,11 @@ class MP4Format(BaseFormat):
             for value in f[name]:
                 ret.append("%d/%d" % (value[0], value[1]))
             return ret
+        elif name == 'rate':
+            # Rating Stars
+            data = int(f['rate'][0])
+            rating = self._rating_to_stars(data)
+            return [rating]
         else:
             return [t for t in f[name]]
 
@@ -103,6 +109,10 @@ class MP4Format(BaseFormat):
             f[name] = [int(v) for v in value]
         elif name == '----:com.apple.iTunes:ORIGYEAR':
             f[name] = [str(v) for v in value]
+        elif name == 'rate':
+            # Rating Stars
+            rating = self._stars_to_rating(int(value[0]))
+            f[name] = [str(rating)]
         else:
             f[name] = value
 

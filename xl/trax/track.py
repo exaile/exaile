@@ -890,12 +890,29 @@ class Track:
 
         :rtype: int
         """
-        try:
-            rating = float(self.get_tag_raw('__rating'))
-        except (TypeError, KeyError, ValueError):
+        f = self._get_format_obj()
+        rating = None
+        if (
+            f
+            and '__rating' in f.tag_mapping
+            and settings.get_option(
+                'collection/write_rating_to_audio_file_metadata', False
+            )
+        ):
+            try:
+                rating = self.get_tag_disk('__rating')[0]
+            except (TypeError, KeyError, ValueError) as e:
+                pass
+        if not rating:
+            try:
+                rating = self.get_tag_raw('__rating')
+            except (TypeError, KeyError, ValueError) as e:
+                return 0
+        if not rating:
             return 0
 
         maximum = settings.get_option("rating/maximum", 5)
+        rating = float(rating)
         rating = int(round(rating * float(maximum) / 100.0))
 
         if rating > maximum:
@@ -917,6 +934,15 @@ class Track:
         rating = max(0, rating)
         rating = 100 * rating / maximum
         self.set_tags(__rating=rating)
+
+        f = self._get_format_obj()
+        if f is None:
+            return rating
+        keys = f.tag_mapping
+        if '__rating' in keys and settings.get_option(
+            'collection/write_rating_to_audio_file_metadata', False
+        ):
+            self.set_tag_disk('__rating', rating)
         return rating
 
     ### Special functions for wrangling tag values ###

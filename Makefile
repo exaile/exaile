@@ -159,7 +159,7 @@ install-target: make-install-dirs
 	install -p -m 644 data/ui/widgets/*.ui $(EXAILESHAREDIR)/data/ui/widgets
 	install -p -m 644 build/exaile.desktop \
 		$(DESTDIR)$(DATADIR)/applications/
-	install -p -m 644 buil/exaile.appdata.xml \
+	install -p -m 644 build/exaile.appdata.xml \
 		$(DESTDIR)$(DATADIR)/metainfo/
 	-install -p -m 644 build/exaile.1.gz $(EXAILEMANDIR)/man1/
 	-install -p -m 644 build/exaile.bash-completion $(DESTDIR)$(BASHCOMPDIR)/exaile

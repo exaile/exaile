@@ -497,6 +497,7 @@ class Exaile:
             xdg.config_home = alldatadir
             xdg.config_dirs.insert(0, xdg.config_home)
             xdg.cache_home = alldatadir
+            xdg.plugin_dirs[0] = os.path.join(alldatadir, 'plugins')
 
         try:
             xdg._make_missing_dirs()

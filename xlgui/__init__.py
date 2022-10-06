@@ -86,7 +86,7 @@ class Main:
 
         exaile_icon_path = add_icon('exaile', images_dir)
         Gtk.Window.set_default_icon_name('exaile')
-        if xdg.local_hack:
+        if not xdg.fhs_compliant:
             # PulseAudio also attaches the above name to streams. However, if
             # Exaile is not installed, any app trying to display the icon won't
             # be able to find it just by name. The following is a hack to tell

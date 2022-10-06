@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-06 12:01+0200\n"
+"POT-Creation-Date: 2022-10-06 12:28+0200\n"
 "PO-Revision-Date: 2022-04-17 23:07+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
@@ -1556,7 +1556,7 @@ msgstr "Kasuta seda väärtust kõikide palade puhul"
 msgid "Saved %(count)s of %(total)s."
 msgstr "Salvestasin %(count)s/%(total)s."
 
-#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:19
+#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:7
 msgid "Exaile Music Player"
 msgstr "Exaile muusikamängija"
 
@@ -4939,15 +4939,15 @@ msgstr "_Välju Exailest"
 msgid "Music Player"
 msgstr "Exaile muusikamängija"
 
-#: ../data/exaile.desktop.in:28 ../data/exaile.appdata.xml.in:7
+#: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
 msgid "Listen to, explore, or manage your audio collection"
 msgstr ""
 
-#: ../data/exaile.desktop.in:45
+#: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;"
 msgstr ""
 
-#: ../data/exaile.desktop.in:46
+#: ../data/exaile.desktop.in:15
 msgid "player,mp3,ogg"
 msgstr ""
 

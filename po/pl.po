@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-06 12:01+0200\n"
+"POT-Creation-Date: 2022-10-06 12:28+0200\n"
 "PO-Revision-Date: 2022-06-19 22:18+0000\n"
 "Last-Translator: Piotr Strebski <strebski@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/"
@@ -1569,7 +1569,7 @@ msgstr "Zastosuj tę wartość dla wszystkich utworów"
 msgid "Saved %(count)s of %(total)s."
 msgstr "Zapisano %(count)s z %(total)s."
 
-#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:19
+#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:7
 msgid "Exaile Music Player"
 msgstr "Odtwarzacz muzyki Exaile"
 
@@ -5109,15 +5109,15 @@ msgstr "Exaile"
 msgid "Music Player"
 msgstr "Odtwarzacz muzyki"
 
-#: ../data/exaile.desktop.in:28 ../data/exaile.appdata.xml.in:7
+#: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
 msgid "Listen to, explore, or manage your audio collection"
 msgstr "Słuchanie, przeglądanie i modyfikowanie twojej kolekcji muzyczynej"
 
-#: ../data/exaile.desktop.in:45
+#: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;"
 msgstr ""
 
-#: ../data/exaile.desktop.in:46
+#: ../data/exaile.desktop.in:15
 msgid "player,mp3,ogg"
 msgstr ""
 

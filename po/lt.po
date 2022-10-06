@@ -5261,7 +5261,7 @@ msgstr ""
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
 msgid "Exaile"
 msgstr ""
-"ExaileKelias jau jūsų kolekcijoje, arba jis yra tokio kelio subdirektorija"
+"Exaile"
 
 #: ../data/exaile.desktop.in:6
 #, fuzzy

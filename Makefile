@@ -40,7 +40,7 @@ all: compile completion locale manpage desktop_files
 
 # The no_locale stuff is by request of BSD people, please ensure
 # all methods that deal with locale stuff have a no_locale variant
-all_no_locale: compile completion manpage
+all_no_locale: compile completion manpage desktop_files_no_locale
 	@echo "Ready to install..."
 
 builddir:
@@ -280,3 +280,7 @@ check_format:
 desktop_files: builddir
 	msgfmt --desktop --template=data/exaile.desktop.in -d po -o build/exaile.desktop
 	msgfmt --xml --template=data/exaile.appdata.xml.in -d po -o build/exaile.appdata.xml
+
+desktop_files_no_locale: builddir
+	cp data/exaile.desktop.in build/exaile.desktop
+	cp data/exaile.appdata.xml.in build/exaile.appdata.xml

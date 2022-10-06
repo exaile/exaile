@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component>
+<component type="desktop-application">
  <id type="desktop">exaile.desktop</id>
  <metadata_license>CC0-1.0</metadata_license>
  <project_license>GPL-2.0+</project_license>
@@ -30,9 +30,6 @@
   <binary>exaile</binary>
   <dbus type="user">org.exaile.Exaile</dbus>
  </provides>
- <releases>
-  <release version="4.1.2" type="development" date="2018-09-23"/>
- </releases>
  <launchable type="desktop-id">exaile.desktop</launchable>
  <update_contact>exaile-devel@googlegroups.com</update_contact>
  <url type="bugtracker">https://github.com/exaile/exaile/issues</url>

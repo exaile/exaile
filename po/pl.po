@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-03 00:51+0100\n"
+"POT-Creation-Date: 2022-10-06 12:01+0200\n"
 "PO-Revision-Date: 2022-06-19 22:18+0000\n"
 "Last-Translator: Piotr Strebski <strebski@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/>"
-"\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/"
+">\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1569,7 +1569,7 @@ msgstr "Zastosuj tę wartość dla wszystkich utworów"
 msgid "Saved %(count)s of %(total)s."
 msgstr "Zapisano %(count)s z %(total)s."
 
-#: ../xlgui/tray.py:203
+#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:19
 msgid "Exaile Music Player"
 msgstr "Odtwarzacz muzyki Exaile"
 
@@ -1703,7 +1703,7 @@ msgstr "Nie odtwarza"
 msgid "%d in collection"
 msgstr "%d w kolekcji"
 
-#: ../xlgui/widgets/info.py:448 ../xlgui/widgets/info.py:453
+#: ../xlgui/widgets/info.py:448 ../xlgui/widgets/info.py:457
 #, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
@@ -1711,7 +1711,7 @@ msgstr[0] "%d wyświetlony"
 msgstr[1] "%d wyświetlone"
 msgstr[2] "%d wyświetlonych"
 
-#: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:455
+#: ../xlgui/widgets/info.py:452 ../xlgui/widgets/info.py:462
 #, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
@@ -1878,15 +1878,15 @@ msgstr "_Kontynuuj odtwarzanie po tym utworze"
 msgid "_Remove from Playlist"
 msgstr "_Usuń z listy odtwarzania"
 
-#: ../xlgui/widgets/playlist.py:739
+#: ../xlgui/widgets/playlist.py:759
 msgid "Requires plugins providing dynamic playlists"
 msgstr "Wymaga wtyczek wprowadzających obsługę dynamicznych list odtwarzania"
 
-#: ../xlgui/widgets/playlist.py:743 ../data/ui/playlist.ui:99
+#: ../xlgui/widgets/playlist.py:763 ../data/ui/playlist.ui:99
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Dynamicznie dodaj podobne utwory do listy odtwarzania"
 
-#: ../xlgui/widgets/playlist.py:799
+#: ../xlgui/widgets/playlist.py:806
 msgid "Loading"
 msgstr "Wczytywanie"
 
@@ -1934,11 +1934,11 @@ msgstr "_Skalowalny"
 msgid "_Autosize"
 msgstr "Rozmiar automatyczny"
 
-#: ../xlgui/widgets/queue.py:81
+#: ../xlgui/widgets/queue.py:79
 msgid "Queue"
 msgstr "Kolejka odtwarzania"
 
-#: ../xlgui/widgets/queue.py:83
+#: ../xlgui/widgets/queue.py:81
 #, python-format
 msgid "Queue (%d)"
 msgstr "Kolejka (%d)"
@@ -2436,8 +2436,8 @@ msgstr "Pokaż ekran powitalny przy starcie"
 #: ../data/ui/preferences/appearance.ui:330
 msgid ""
 "Tray icons are not supported on some platforms, most notably on Wayland. On "
-"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
-"\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
+"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a "
+"href=\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
 "extension</a> (or a similar one) installed."
 msgstr ""
 "Ikony w zasobniku nie są obsługiwane na niektórych platformach, w "
@@ -3312,8 +3312,8 @@ msgstr "Konsola IPython"
 #: ../plugins/ipconsole/ipconsoleprefs.py:40
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
 msgstr ""
-"Nie można ustawić nieprzezroczystości w systemie Windows z powodu błędu w Gtk"
-"+"
+"Nie można ustawić nieprzezroczystości w systemie Windows z powodu błędu w "
+"Gtk+"
 
 #: ../plugins/jamendo/__init__.py:86 ../plugins/jamendo/ui/jamendo_panel.ui:294
 msgid "Ready"
@@ -4422,8 +4422,8 @@ msgstr "Gdy główne okno jest aktywne"
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
-"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-"\">Pango Text Attribute Markup</a> is supported."
+"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat."
+"html\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 "Każdy znacznik może być użyty z <b>$tag</b> lub <b>${tag}</b>. Wewnętrzne "
 "znaczniki, takie jak <b>$__length</b> muszą być określone poprzez "
@@ -5099,6 +5099,45 @@ msgstr ""
 "\n"
 "Wymaga: pyHook (%s) lub klawiatury (%s)"
 
+#: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
+msgid "Exaile"
+msgstr "Exaile"
+
+#: ../data/exaile.desktop.in:6
+#, fuzzy
+#| msgid "Exaile Music Player"
+msgid "Music Player"
+msgstr "Odtwarzacz muzyki"
+
+#: ../data/exaile.desktop.in:28 ../data/exaile.appdata.xml.in:7
+msgid "Listen to, explore, or manage your audio collection"
+msgstr "Słuchanie, przeglądanie i modyfikowanie twojej kolekcji muzyczynej"
+
+#: ../data/exaile.desktop.in:45
+msgid "Music;Player;Library;Collection;MP3;"
+msgstr ""
+
+#: ../data/exaile.desktop.in:46
+msgid "player,mp3,ogg"
+msgstr ""
+
+#: ../data/exaile.appdata.xml.in:9
+msgid ""
+"Exaile is a music player with a simple interface and powerful music "
+"management capabilities. Features include automatic fetching of album art, "
+"lyrics fetching, streaming internet radio, tabbed playlists, smart playlists "
+"with extensive filtering/search capabilities, and much more."
+msgstr ""
+
+#: ../data/exaile.appdata.xml.in:15
+msgid ""
+"Exaile is written using python and GTK+ and is easily extensible via "
+"plugins. There are over 50 plugins distributed with Exaile that include "
+"advanced track tagging, last.fm scrobbling, support for portable media "
+"players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
+"output via a secondary output device (great for DJs!), and much more."
+msgstr ""
+
 #~ msgid "by {album}"
 #~ msgstr "z {album}"
 
@@ -5746,9 +5785,6 @@ msgstr ""
 
 #~ msgid "Number of Plays"
 #~ msgstr "Ilość odtworzeń"
-
-#~ msgid "Exaile"
-#~ msgstr "Exaile"
 
 #~ msgid "Location:"
 #~ msgstr "Położenie:"

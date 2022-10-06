@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-03 00:51+0100\n"
+"POT-Creation-Date: 2022-10-06 12:01+0200\n"
 "PO-Revision-Date: 2022-09-23 23:31+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/exaile/master/tr/"
@@ -1590,7 +1590,7 @@ msgstr "Bütün parçalara bu değeri uygula"
 msgid "Saved %(count)s of %(total)s."
 msgstr "%(total)s ın %(count)s kadarı kaydedildi."
 
-#: ../xlgui/tray.py:203
+#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:19
 msgid "Exaile Music Player"
 msgstr "Exaile Müzik Çalıcı"
 
@@ -1721,7 +1721,7 @@ msgstr "Çalmıyor"
 msgid "%d in collection"
 msgstr ""
 
-#: ../xlgui/widgets/info.py:448 ../xlgui/widgets/info.py:453
+#: ../xlgui/widgets/info.py:448 ../xlgui/widgets/info.py:457
 #, fuzzy, python-format
 #| msgid "%d showing"
 msgid "%d showing"
@@ -1729,7 +1729,7 @@ msgid_plural "%d showing"
 msgstr[0] "%d gösteriliyor"
 msgstr[1] "%d gösteriliyor"
 
-#: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:455
+#: ../xlgui/widgets/info.py:452 ../xlgui/widgets/info.py:462
 #, fuzzy, python-format
 #| msgid "%d selected"
 msgid "%d selected"
@@ -1948,15 +1948,15 @@ msgstr "Bu Parçadan Sonra Çalmaya Devam Et"
 msgid "_Remove from Playlist"
 msgstr "Çalma Listesini Yeniden Adlandır"
 
-#: ../xlgui/widgets/playlist.py:739
+#: ../xlgui/widgets/playlist.py:759
 msgid "Requires plugins providing dynamic playlists"
 msgstr "Dinamik oynatma listelerini sağlayan eklentiler gerektirir"
 
-#: ../xlgui/widgets/playlist.py:743 ../data/ui/playlist.ui:99
+#: ../xlgui/widgets/playlist.py:763 ../data/ui/playlist.ui:99
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Çalma listesine benzer parça ekle"
 
-#: ../xlgui/widgets/playlist.py:799
+#: ../xlgui/widgets/playlist.py:806
 msgid "Loading"
 msgstr "Yükleniyor"
 
@@ -2004,11 +2004,11 @@ msgstr "_Boyutlandırılabilir"
 msgid "_Autosize"
 msgstr "_Otomatik Boyutlandırma"
 
-#: ../xlgui/widgets/queue.py:81
+#: ../xlgui/widgets/queue.py:79
 msgid "Queue"
 msgstr "Kuyruk"
 
-#: ../xlgui/widgets/queue.py:83
+#: ../xlgui/widgets/queue.py:81
 #, python-format
 msgid "Queue (%d)"
 msgstr "Sıra (%d)"
@@ -2518,8 +2518,8 @@ msgstr "Açılışta hoşgeldin ekranı göster"
 #: ../data/ui/preferences/appearance.ui:330
 msgid ""
 "Tray icons are not supported on some platforms, most notably on Wayland. On "
-"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
-"\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
+"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a "
+"href=\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
 "extension</a> (or a similar one) installed."
 msgstr ""
 
@@ -4520,8 +4520,8 @@ msgstr "Ana pencere odaklandığında"
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
-"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-"\">Pango Text Attribute Markup</a> is supported."
+"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat."
+"html\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui:87
@@ -5137,6 +5137,47 @@ msgid ""
 "running Exaile in Microsoft Windows.\n"
 "\n"
 "Requires: pyHook (%s) or keyboard (%s)"
+msgstr ""
+
+#: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
+#, fuzzy
+#| msgid "About Exaile"
+msgid "Exaile"
+msgstr "Exaile Hakkında"
+
+#: ../data/exaile.desktop.in:6
+#, fuzzy
+#| msgid "Exaile Music Player"
+msgid "Music Player"
+msgstr "Exaile Müzik Çalıcı"
+
+#: ../data/exaile.desktop.in:28 ../data/exaile.appdata.xml.in:7
+msgid "Listen to, explore, or manage your audio collection"
+msgstr ""
+
+#: ../data/exaile.desktop.in:45
+msgid "Music;Player;Library;Collection;MP3;"
+msgstr ""
+
+#: ../data/exaile.desktop.in:46
+msgid "player,mp3,ogg"
+msgstr ""
+
+#: ../data/exaile.appdata.xml.in:9
+msgid ""
+"Exaile is a music player with a simple interface and powerful music "
+"management capabilities. Features include automatic fetching of album art, "
+"lyrics fetching, streaming internet radio, tabbed playlists, smart playlists "
+"with extensive filtering/search capabilities, and much more."
+msgstr ""
+
+#: ../data/exaile.appdata.xml.in:15
+msgid ""
+"Exaile is written using python and GTK+ and is easily extensible via "
+"plugins. There are over 50 plugins distributed with Exaile that include "
+"advanced track tagging, last.fm scrobbling, support for portable media "
+"players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
+"output via a secondary output device (great for DJs!), and much more."
 msgstr ""
 
 #~ msgid "by {album}"

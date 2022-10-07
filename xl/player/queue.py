@@ -68,6 +68,7 @@ class PlayQueue(playlist.Playlist):
             self.load_from_location(location)
 
         event.add_callback(self._on_option_set, '%s_option_set' % name)
+        event.add_callback(self._on_track_end, 'playback_track_end')
 
         self.__opt_remove_item_when_played = '%s/remove_item_when_played' % name
         self.__opt_remove_item_after_played = '%s/remove_item_after_played' % name
@@ -131,7 +132,7 @@ class PlayQueue(playlist.Playlist):
         """
         if self.__queue_has_tracks and len(self):
             if self.__remove_item_on_playback and not self.__remove_item_after_playback:
-                return self[0]
+                return self[self.current_position + 1]
             else:
                 return playlist.Playlist.get_next(self)
         elif self.current_playlist is not self:
@@ -155,17 +156,13 @@ class PlayQueue(playlist.Playlist):
         """
         if track is None:
             if self.__queue_has_tracks:
+                track = super().next()
                 if self.__remove_item_on_playback:
-                    if self.__remove_item_after_playback:
-                        track = super().next()
-                        self.pop(self.current_position - 1)
-                    else:
+                    if not self.__remove_item_after_playback:
                         try:
-                            track = self.pop(0)
+                            self.pop(self.current_position)
                         except IndexError:
                             pass
-                else:
-                    track = super().next()
 
                 # reached the end of the internal queue, don't repeat
                 if track is None:
@@ -355,3 +352,12 @@ class PlayQueue(playlist.Playlist):
             self.player.play(
                 self.current_playlist.get_current(), start_at=start_at, paused=paused
             )
+
+    def _on_track_end(self, event, player, track):
+        if self.__remove_item_on_playback and self.__remove_item_after_playback:
+            position = self.current_position
+            if position == -1:
+                return
+            if position > 0:
+                position = position - 1
+            self.pop(position)

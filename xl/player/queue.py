@@ -344,4 +344,6 @@ class PlayQueue(playlist.Playlist):
                 "%s/resume_paused" % self.player._name, False
             )
 
-            self.player.play(self.get_current(), start_at=start_at, paused=paused)
+            self.player.play(
+                self.current_playlist.get_current(), start_at=start_at, paused=paused
+            )

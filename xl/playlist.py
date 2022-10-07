@@ -947,17 +947,26 @@ class Playlist:
         self.__dynamic_mode = self.dynamic_modes[0]
 
         # dirty: any change that would alter the on-disk
-        #   representation should set this
+        #   Representation should set this.
         # needs_save: changes to list content should set this.
         #   Determines when the 'unsaved' indicator is shown to the user.
+        # next_data: cached info to determine next track.
+        #   None or a tuple of (spat, index, next):
+        #     spat: <bool> (is SPAT activated on the current track?)
+        #     index: <int> index in self.__tracks or None
+        #     next: <xl.trax.Track> or None
+        # current_position: <int> index in self.__tracks or -1 if no track
+        # spat_position: <int> index in self.__tracks or -1 if no SPAT set
+        # shuffle_history_counter: <int> count of tracks queued in shuffle mode
+        #   Start positive so we can just do an if directly on the value.
         self.__dirty = False
         self.__needs_save = False
         self.__name = name
         self.__next_data = None
         self.__current_position = -1
         self.__spat_position = -1
-        self.__shuffle_history_counter = 1  # start positive so we can
-        # just do an if directly on the value
+        self.__shuffle_history_counter = 1
+
         event.add_callback(self.on_playback_track_start, "playback_track_start")
 
     ### playlist-specific API ###
@@ -1160,17 +1169,17 @@ class Playlist:
 
         repeat_mode = self.repeat_mode
         shuffle_mode = self.shuffle_mode
-        if current_position == self.spat_position and current_position != -1:
-            self.__next_data = (-1, None, None)
-            return None
+        next_index = -1
+        spat = (
+            True
+            if current_position == self.spat_position and current_position != -1
+            else False
+        )
 
         if repeat_mode == 'track':
-            self.__next_data = (None, None, self.current)
-            return self.current
-
-        next_index = -1
-
-        if shuffle_mode != 'disabled':
+            next_index = None
+            next = self.current
+        elif shuffle_mode != 'disabled':
             if current_position != -1:
                 self.__tracks.set_meta_key(
                     current_position,
@@ -1179,9 +1188,7 @@ class Playlist:
                 )
                 self.__shuffle_history_counter += 1
             next_index, next = self.__next_random_track(current_position, shuffle_mode)
-            if next is not None:
-                self.__next_data = (None, next_index)
-            else:
+            if next is None:
                 self.clear_shuffle_history()
         else:
             try:
@@ -1198,7 +1205,7 @@ class Playlist:
                 if len(self) > 1:
                     return self.__get_next(-1)
 
-        self.__next_data = (None, next_index, next)
+        self.__next_data = (spat, next_index, next)
         return next
 
     def get_next(self):
@@ -1229,16 +1236,16 @@ class Playlist:
 
         spat, index, next = self.__next_data
 
-        if spat is not None:
-            self.spat_position = -1
-            return None
-        elif index is not None:
+        if index is not None:
             try:
                 self.current_position = index
             except IndexError:
                 self.current_position = -1
         else:
             self.__next_data = None
+        if spat:
+            self.spat_position = -1
+            return None
 
         return self.current
 

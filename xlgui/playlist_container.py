@@ -325,7 +325,7 @@ class PlaylistNotebook(SmartNotebook):
         and selects it and its containing tab page
         """
         for n, page in enumerate(self):
-            if not isinstance(page, PlaylistPage):
+            if not isinstance(page, PlaylistPage) and not isinstance(page, QueuePage):
                 continue
 
             if page.playlist is not self.player.queue.current_playlist:

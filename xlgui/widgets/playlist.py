@@ -442,6 +442,58 @@ class PlaylistPageBase(NotebookPage):
 
     menu_provider_name = 'playlist-tab-context-menu'
 
+    def __init__(self, playlist, player):
+
+        NotebookPage.__init__(self)
+
+        self.player = player
+        self.playlist = playlist
+
+        self.play_pixbuf = icons.MANAGER.pixbuf_from_icon_name(
+            'media-playback-start', size=Gtk.IconSize.MENU
+        )
+        self.pause_pixbuf = icons.MANAGER.pixbuf_from_icon_name(
+            'media-playback-pause', size=Gtk.IconSize.MENU
+        )
+
+        event.add_ui_callback(
+            self.on_playback_state_change,
+            "playback_track_start",
+            player,
+            destroy_with=self,
+        )
+        event.add_ui_callback(
+            self.on_playback_state_change,
+            "playback_track_end",
+            player,
+            destroy_with=self,
+        )
+        event.add_ui_callback(
+            self.on_playback_state_change,
+            "playback_player_pause",
+            player,
+            destroy_with=self,
+        )
+        event.add_ui_callback(
+            self.on_playback_state_change,
+            "playback_player_resume",
+            player,
+            destroy_with=self,
+        )
+
+    def on_playback_state_change(self, typ, player, track):
+        """
+        Sets the tab icon to reflect the playback status
+        """
+        if player.queue.current_playlist != self.playlist:
+            self.tab.set_icon(None)
+        elif typ in ('playback_player_end', 'playback_track_end'):
+            self.tab.set_icon(None)
+        elif typ in ('playback_track_start', 'playback_player_resume'):
+            self.tab.set_icon(self.play_pixbuf)
+        elif typ == 'playback_player_pause':
+            self.tab.set_icon(self.pause_pixbuf)
+
     def can_save(self):
         return hasattr(self, 'on_save')
 
@@ -462,20 +514,13 @@ class PlaylistPage(PlaylistPageBase):
             this page is associated with
         :param queue:
         """
+        PlaylistPageBase.__init__(self, playlist, player)
         NotebookPage.__init__(self)
 
-        self.playlist = playlist
         self.icon = None
 
         self.loading = None
         self.loading_timer = None
-
-        self.play_pixbuf = icons.MANAGER.pixbuf_from_icon_name(
-            'media-playback-start', size=Gtk.IconSize.MENU
-        )
-        self.pause_pixbuf = icons.MANAGER.pixbuf_from_icon_name(
-            'media-playback-pause', size=Gtk.IconSize.MENU
-        )
 
         uifile = xdg.get_data_path("ui", "playlist.ui")
 
@@ -538,31 +583,6 @@ class PlaylistPage(PlaylistPageBase):
             destroy_with=self,
         )
         event.add_ui_callback(self.on_option_set, 'gui_option_set', destroy_with=self)
-
-        event.add_ui_callback(
-            self.on_playback_state_change,
-            "playback_track_start",
-            player,
-            destroy_with=self,
-        )
-        event.add_ui_callback(
-            self.on_playback_state_change,
-            "playback_track_end",
-            player,
-            destroy_with=self,
-        )
-        event.add_ui_callback(
-            self.on_playback_state_change,
-            "playback_player_pause",
-            player,
-            destroy_with=self,
-        )
-        event.add_ui_callback(
-            self.on_playback_state_change,
-            "playback_player_resume",
-            player,
-            destroy_with=self,
-        )
 
         self.on_mode_changed(
             None, None, self.playlist.shuffle_mode, self.shuffle_button
@@ -755,19 +775,6 @@ class PlaylistPage(PlaylistPageBase):
             self.playlist_utilities_bar.set_sensitive(visible)
             self.playlist_utilities_bar.set_no_show_all(not visible)
 
-    def on_playback_state_change(self, typ, player, track):
-        """
-        Sets the tab icon to reflect the playback status
-        """
-        if player.queue.current_playlist != self.playlist:
-            self.tab.set_icon(None)
-        elif typ in ('playback_player_end', 'playback_track_end'):
-            self.tab.set_icon(None)
-        elif typ in ('playback_track_start', 'playback_player_resume'):
-            self.tab.set_icon(self.play_pixbuf)
-        elif typ == 'playback_player_pause':
-            self.tab.set_icon(self.pause_pixbuf)
-
     def on_data_loading(self, model, loading):
         '''Called when tracks are being loaded into the model'''
         if loading:
@@ -894,6 +901,12 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         event.add_ui_callback(
             self.on_playback_start,
             "playback_track_start",
+            self.player,
+            destroy_with=self,
+        )
+        event.add_ui_callback(
+            self.on_playback_start,
+            "playlist_track_next",
             self.player,
             destroy_with=self,
         )

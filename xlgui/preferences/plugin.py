@@ -54,6 +54,8 @@ class PluginManager:
         builder.connect_signals(self)
         self.plugins = main.exaile().plugins
 
+        self.window = builder.get_object('PreferencesDialog')
+
         self.message = dialogs.MessageBar(
             parent=builder.get_object('preferences_pane'), buttons=Gtk.ButtonsType.CLOSE
         )
@@ -71,6 +73,16 @@ class PluginManager:
             name_column = builder.get_object('name_column')
             name_column.pack_start(reload_cellrenderer, True)
             name_column.add_attribute(reload_cellrenderer, 'visible', 3)
+
+        """Show trash can"""
+        remove_cellrenderer = common.ClickableCellRendererPixbuf()
+        remove_cellrenderer.props.icon_name = 'edit-delete'
+        remove_cellrenderer.props.xalign = 1
+        remove_cellrenderer.connect('clicked', self.on_remove_cellrenderer_clicked)
+
+        name_column = builder.get_object('name_column')
+        name_column.pack_start(remove_cellrenderer, True)
+        name_column.add_attribute(remove_cellrenderer, 'visible', 8)
 
         self.version_label = builder.get_object('version_label')
         self.author_label = builder.get_object('author_label')
@@ -99,7 +111,7 @@ class PluginManager:
         GLib.idle_add(selection.select_path, (0,))
         GLib.idle_add(self.list.grab_focus)
 
-    def _load_plugin_list(self):
+    def _load_plugin_list(self, select_plugin=None):
         """
         Loads the plugin list
         """
@@ -116,6 +128,7 @@ class PluginManager:
 
                 compatible = self.plugins.is_compatible(info)
                 broken = self.plugins.is_potentially_broken(info)
+                user_installed = self.plugins.is_user_installed(plugin_name)
 
             except Exception:
                 failed_list += [plugin_name]
@@ -139,6 +152,7 @@ class PluginManager:
                 broken,
                 compatible,
                 True,
+                user_installed,
             )
 
             if 'Category' in info:
@@ -161,7 +175,7 @@ class PluginManager:
             plugins_list.sort(key=lambda x: locale.strxfrm(x[1]))
 
             it = self.model.append(
-                None, (None, category, '', False, '', False, True, False)
+                None, (None, category, '', False, '', False, True, False, False)
             )
 
             for plugin_data in plugins_list:
@@ -173,6 +187,12 @@ class PluginManager:
 
         # TODO: Keep track of which categories are already expanded, and only expand those
         self.list.expand_all()
+
+        if select_plugin:
+            path = self.plugin_to_path[select_plugin]
+            selection = self.list.get_selection()
+            selection.select_path(path)
+            self.list.scroll_to_cell(path)
 
         if failed_list:
             self.message.show_error(
@@ -197,6 +217,35 @@ class PluginManager:
         Enables or disables the selected plugin
         """
         self.enabled_cellrenderer.emit('toggled', path[0])
+
+    def on_remove_cellrenderer_clicked(self, cellrenderer, path: str) -> None:
+        """
+        Remove a user installed plugin
+        """
+        plugin_name = self.filter_model[path][0]
+        user_installed = self.filter_model[path][8]
+
+        if not user_installed:
+            return
+
+        response = dialogs.yesno(
+            self.window,
+            "\n".join(
+                [
+                    _('Do you really want to remove this plugin?'),
+                ]
+            ),
+        )
+        if response != Gtk.ResponseType.YES:
+            return
+
+        try:
+            self.plugins.uninstall_plugin(plugin_name)
+        except Exception as e:
+            self.message.show_error(_('Could not remove plugin!'), str(e))
+            return
+
+        self._load_plugin_list()
 
     def on_reload_cellrenderer_clicked(self, cellrenderer, path):
         """
@@ -254,14 +303,36 @@ class PluginManager:
         dialog.hide()
 
         if result == Gtk.ResponseType.OK:
-            try:
-                self.plugins.install_plugin(dialog.get_filename())
-            except plugins.InvalidPluginError as e:
-                self.message.show_error(_('Plugin file installation failed!'), str(e))
 
+            def install(filename: str, overwrite_existing: bool = False) -> str:
+                try:
+                    plugin_name = self.plugins.install_plugin(
+                        filename, overwrite_existing
+                    )
+                except plugins.PluginExistsError as e:
+                    response = dialogs.yesno(
+                        self.window,
+                        "\n".join(
+                            [
+                                _('Plugin allready exists!'),
+                                _('Do you want to override it?'),
+                            ]
+                        ),
+                    )
+                    if response == Gtk.ResponseType.YES:
+                        return install(filename, True)
+                except plugins.InvalidPluginError as e:
+                    self.message.show_error(
+                        _('Plugin file installation failed!'), str(e)
+                    )
+                    return ''
+                return plugin_name
+
+            plugin_name = install(dialog.get_filename())
+            if not plugin_name:
                 return
 
-            self._load_plugin_list()
+            self._load_plugin_list(plugin_name)
 
     def on_selection_changed(self, selection, user_data=None):
         """

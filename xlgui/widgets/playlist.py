@@ -904,6 +904,12 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             self.player,
             destroy_with=self,
         )
+        event.add_ui_callback(
+            self.on_playback_start,
+            "playlist_track_next",
+            self.player,
+            destroy_with=self,
+        )
         self._cursor_changed = self.connect("cursor-changed", self.on_cursor_changed)
         self.connect("row-activated", self.on_row_activated)
         self.connect("key-press-event", self.on_key_press_event)

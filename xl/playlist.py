@@ -1170,9 +1170,11 @@ class Playlist:
         repeat_mode = self.repeat_mode
         shuffle_mode = self.shuffle_mode
         next_index = -1
-        if current_position == self.spat_position and current_position != -1:
-            self.__next_data = (True, None, None)
-            return None
+        spat = (
+            True
+            if current_position == self.spat_position and current_position != -1
+            else False
+        )
 
         if repeat_mode == 'track':
             next_index = None
@@ -1203,7 +1205,7 @@ class Playlist:
                 if len(self) > 1:
                     return self.__get_next(-1)
 
-        self.__next_data = (False, next_index, next)
+        self.__next_data = (spat, next_index, next)
         return next
 
     def get_next(self):
@@ -1234,16 +1236,16 @@ class Playlist:
 
         spat, index, next = self.__next_data
 
-        if spat:
-            self.spat_position = -1
-            return None
-        elif index is not None:
+        if index is not None:
             try:
                 self.current_position = index
             except IndexError:
                 self.current_position = -1
         else:
             self.__next_data = None
+        if spat:
+            self.spat_position = -1
+            return None
 
         return self.current
 

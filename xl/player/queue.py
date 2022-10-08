@@ -358,7 +358,6 @@ class PlayQueue(playlist.Playlist):
             real_position = self.index(player_track)
         except:
             real_position = -1
-        self.current_position = real_position
 
         if real_position == 0:
             if len(self) > 1:

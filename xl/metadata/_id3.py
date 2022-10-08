@@ -60,17 +60,25 @@ class ID3Format(BaseFormat):
         "grouping": "TIT1",
         "comment": "COMM",
         'language': "TLAN",
+        'musicbrainz_albumartistid': 'TXXX:MusicBrainz Album Artist Id',
+        'musicbrainz_albumid': 'TXXX:MusicBrainz Album Id',
+        'musicbrainz_artistid': 'TXXX:MusicBrainz Artist Id',
+        'musicbrainz_discid': 'TXXX:MusicBrainz Disc Id',
+        'musicbrainz_releasetrackid': 'TXXX:MusicBrainz Release Track Id',
     }
     writable = True
     others = False  # make this true once custom tag support actually works
 
     def get_keys_disk(self):
         keys = []
-        for v in self._get_raw().values():
-            # Have to use this because some ID3 tags have a colon
-            # in them, and so self._get_raw().keys() doesn't return
-            # the expected value
-            k = v.FrameID
+        for k, v in self._get_raw().items():
+            # For tags containing 'subtags', e.g. APIC:... or WOAR:...,
+            # tag_mapping ignores the subtags. For example, any APIC tag is
+            # mapped to cover. The exception is the TXXX:... (custom) tags,
+            # where we use the full name given by Mutagen unchanged.
+            if v.FrameID != 'TXXX':
+                k = v.FrameID
+
             if k in self._reverse_mapping:
                 keys.append(self._reverse_mapping[k])
             else:

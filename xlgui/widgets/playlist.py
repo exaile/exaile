@@ -1177,11 +1177,16 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def _setup_models(self):
         self.model = PlaylistModel(self.playlist, [], self.player, self)
-        self.model.connect('row-inserted', self.on_row_inserted)
+        self._setup_model_hook = self.model.connect('data-loading', self._on_after_model_loading)
 
         self.modelfilter = self.model.filter_new()
         self.modelfilter.set_visible_func(self._modelfilter_visible_func)
         self.set_model(self.modelfilter)
+
+    def _on_after_model_loading(self, ar1, now_loading):
+        if not now_loading:
+            self.model.connect('row-inserted', self.on_row_inserted)
+            self.model.disconnect(self._setup_model_hook)
 
     def _modelfilter_visible_func(self, model, iter, data):
         if self._filter_matcher is not None:

@@ -776,7 +776,7 @@ class Exaile:
             )
 
             if self.gui:
-                self.gui.get_playlist_container().show_current_track()
+                GLib.idle_add(self.gui.get_playlist_container().show_current_track)
 
         # pylint: enable-msg=W0201
 

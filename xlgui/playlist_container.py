@@ -332,8 +332,7 @@ class PlaylistNotebook(SmartNotebook):
                 continue
 
             self.set_current_page(n)
-            position = page.playlist.current_position
-            if position > -1:
+            if page.playlist.current_position > -1:
                 page.view.scroll_to_cell(page.playlist.current_position)
                 page.view.set_cursor(page.playlist.current_position)
             return True

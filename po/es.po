@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-11-15 04:47+0000\n"
+"PO-Revision-Date: 2022-11-18 20:48+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/exaile/master/es/"
 ">\n"
@@ -2529,7 +2529,7 @@ msgstr "Fuente de las letras:"
 #: ../data/ui/preferences/playback.ui:32
 #: ../plugins/previewdevice/previewprefs.ui:27
 msgid "GStreamer"
-msgstr "GStreamer"
+msgstr "GNOME GStreamer"
 
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
@@ -3692,7 +3692,7 @@ msgstr "Botones rápidos"
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr "ReplayGain"
+msgstr "Ganancia de la reproducción"
 
 #: ../plugins/screensaverpause/prefs.py:5
 #: ../plugins/screensaverpause/PLUGININFO:3
@@ -3746,7 +3746,7 @@ msgstr "Error al ejecutar Streamripper"
 
 #: ../plugins/streamripper/srprefs.py:21 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr "Streamripper"
+msgstr "Registrador de flujo"
 
 #: ../plugins/wikipedia/__init__.py:150 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3

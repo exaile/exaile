@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-11-26 06:46+0000\n"
+"PO-Revision-Date: 2022-11-27 08:47+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -182,7 +182,7 @@ msgstr "РАСПОЛОЖЕНИЕ"
 
 #: ../xl/main.py:155
 msgid "Add tracks from LOCATION to the collection"
-msgstr "Добавить треки из РАСПОЛОЖЕНИЯ в фонотеку"
+msgstr "Добавить треки из РАСПОЛОЖЕНИЯ в коллекцию"
 
 #: ../xl/main.py:158
 msgid "Playlist Options"
@@ -375,7 +375,7 @@ msgstr ""
 
 #: ../xl/main.py:412
 msgid "Add thread name to logging messages."
-msgstr "Добавить имя потока для регистрации сообщений."
+msgstr "Добавить название потока для лог-журнала."
 
 #: ../xl/main.py:417
 msgid "TYPE"
@@ -584,7 +584,7 @@ msgstr "Дата изменения"
 
 #: ../xl/metadata/tags.py:86
 msgid "Play time"
-msgstr "Время воспроизведения"
+msgstr "Общее воспроизведение"
 
 #: ../xl/metadata/tags.py:87
 msgid "Times played"
@@ -947,11 +947,11 @@ msgstr "Поиск влево"
 
 #: ../xlgui/main.py:188 ../xlgui/main.py:193
 msgid "Increase the volume"
-msgstr "Увеличить громкость на N%"
+msgstr "Увеличить громкость на 10%"
 
 #: ../xlgui/main.py:198
 msgid "Decrease the volume"
-msgstr "Уменьшить громкость на N%"
+msgstr "Уменьшить громкость на 10%"
 
 #: ../xlgui/main.py:201
 msgid "Switch to previous tab"
@@ -963,7 +963,7 @@ msgstr "На следующую вкладку"
 
 #: ../xlgui/main.py:205
 msgid "Focus the playlist container"
-msgstr "Перейти к контейнеру плейлиста"
+msgstr "К контейнеру плейлиста"
 
 #: ../xlgui/main.py:212
 msgid "Focus the files panel"
@@ -971,31 +971,31 @@ msgstr "К панели файлов"
 
 #: ../xlgui/main.py:219
 msgid "Focus the radio panel"
-msgstr "Переход к панели радио"
+msgstr "К панели радио"
 
 #: ../xlgui/main.py:224
 msgid "Focus the playlists panel"
-msgstr "Переход к панели плейлистов"
+msgstr "К панели плейлистов"
 
 #: ../xlgui/main.py:227
 msgid "Focus the first tab"
-msgstr "Переход к первой вкладке"
+msgstr "На первую вкладку"
 
 #: ../xlgui/main.py:228
 msgid "Focus the second tab"
-msgstr "Переход ко второй вкладке"
+msgstr "На вторую вкладку"
 
 #: ../xlgui/main.py:229
 msgid "Focus the third tab"
-msgstr "Переход к третьей вкладке"
+msgstr "На третью вкладку"
 
 #: ../xlgui/main.py:230
 msgid "Focus the fourth tab"
-msgstr "Переход к четвёртой вкладке"
+msgstr "На четвёртую вкладку"
 
 #: ../xlgui/main.py:231
 msgid "Focus the fifth tab"
-msgstr "Переход к пятой вкладке"
+msgstr "На пятую вкладку"
 
 #: ../xlgui/main.py:232
 msgid "Focus the sixth tab"
@@ -1019,7 +1019,7 @@ msgstr "На десятую вкладку"
 
 #: ../xlgui/main.py:596
 msgid "Toggle: Stop after Selected Track"
-msgstr "Переключатель: остановить после выбранного трека"
+msgstr "Вкл./выкл. проигрывание после этого трека"
 
 #: ../xlgui/main.py:705 ../plugins/previewdevice/__init__.py:349
 msgid "Playback error encountered!"
@@ -1059,7 +1059,7 @@ msgstr "_Открыть"
 
 #: ../xlgui/menu.py:92
 msgid "Open _URL"
-msgstr "Открыть _адрес"
+msgstr "О_ткрыть URL"
 
 #: ../xlgui/menu.py:114
 msgid "Open _Directories"
@@ -1103,7 +1103,7 @@ msgstr "_Настройки"
 
 #: ../xlgui/menu.py:278
 msgid "_Show Playing Track"
-msgstr "Показать проигрываемый трек"
+msgstr "П_оказать проигрываемый трек"
 
 #: ../xlgui/menu.py:302
 msgid "_Playlist Utilities Bar"
@@ -1127,7 +1127,7 @@ msgstr "_Пересканировать коллекцию"
 
 #: ../xlgui/menu.py:372 ../data/ui/collection_manager.ui:226
 msgid "Rescan Collection (_slow)"
-msgstr "Перес_канировать коллекцию (медленно)"
+msgstr "Пересканировать коллекцию (_медленно)"
 
 #: ../xlgui/menu.py:405
 msgid "User's Guide (website)"
@@ -1143,7 +1143,7 @@ msgstr "Сообщить об ошибке (GitHub)"
 
 #: ../xlgui/menu.py:421
 msgid "Open error logs"
-msgstr "Открыть журналы ошибок"
+msgstr "Открыть log-журнал ошибок"
 
 #: ../xlgui/menu.py:425
 msgid "_About"
@@ -1283,7 +1283,7 @@ msgstr "%(first)s и %(second)s"
 
 #: ../xlgui/panel/playlists.py:389 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
-msgstr "Плейлисты"
+msgstr "Списки воспроизведения"
 
 #: ../xlgui/panel/playlists.py:533
 msgid "Smart Playlists"
@@ -1363,12 +1363,12 @@ msgstr "Плейлист %d"
 #: ../xlgui/playlist_container.py:386
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
-msgstr "{playlist_name} ({track_count} дорожек, закрыто {minutes} минут назад)"
+msgstr "{playlist_name} ({track_count} треков, закрыто {minutes} мин назад)"
 
 #: ../xlgui/playlist_container.py:394
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
-msgstr "{playlist_name} ({track_count} дорожек, закрыто {seconds} секунд назад)"
+msgstr "{playlist_name} ({track_count} треков, закрыто {seconds} сек назад)"
 
 #: ../xlgui/playlist_container.py:546
 msgid "_Move to Other View"
@@ -1503,7 +1503,7 @@ msgstr "Применить изменения перед закрытием?"
 
 #: ../xlgui/properties.py:446
 msgid "Your changes will be lost if you do not apply them now."
-msgstr "Ваши изменения будут потеряны, если вы не примените их сейчас."
+msgstr "Ваши изменения будут утеряны, если вы не примените их сейчас."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
 #: ../xlgui/properties.py:629
@@ -1575,7 +1575,7 @@ msgstr "Введите URL для открытия"
 
 #: ../xlgui/widgets/dialogs.py:358
 msgid "Open URL"
-msgstr "Открыть адрес"
+msgstr "Открыть URL"
 
 #: ../xlgui/widgets/dialogs.py:645
 msgid "Select File Type (by Extension)"
@@ -1717,11 +1717,11 @@ msgstr[2] "%d выделено"
 
 #: ../xlgui/widgets/menuitems.py:117
 msgid "En_queue"
-msgstr "Поставить в оче_редь"
+msgstr "Поставить в о_чередь"
 
 #: ../xlgui/widgets/menuitems.py:153
 msgid "_Replace Current"
-msgstr "За_менить текущий"
+msgstr "_Заменить текущий"
 
 #: ../xlgui/widgets/menuitems.py:164
 msgid "_Append to Current"
@@ -1739,8 +1739,7 @@ msgstr "_Открыть каталог"
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
-msgstr ""
-"Файл невозможно переместить в корзину. Удалить файл с диска окончательно?"
+msgstr "Файл невозможно переместить в корзину. Удалить его с диска навсегда?"
 
 #: ../xlgui/widgets/menuitems.py:269
 msgid "_Move to Trash"
@@ -1793,7 +1792,7 @@ msgstr "_Удалить метку"
 
 #: ../xlgui/widgets/playback.py:1439
 msgid "Muted"
-msgstr "Звук приглушён"
+msgstr "Звук выключен"
 
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1445
@@ -2147,7 +2146,7 @@ msgstr "Пере_сканировать коллекцию"
 
 #: ../data/ui/coverchooser.ui:28
 msgid "Cover Finder"
-msgstr "Поисковик Обложек"
+msgstr "Поисковик обложек"
 
 #: ../data/ui/coverchooser.ui:125
 msgid "The origin of this cover"
@@ -2163,7 +2162,7 @@ msgstr "_Сделать обложкой альбома"
 
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
-msgstr "Менеджер Обложек"
+msgstr "Менеджер обложек"
 
 #. Closes the preferences dialog
 #: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
@@ -2245,7 +2244,8 @@ msgid ""
 msgstr ""
 "Остановить воспроизведение\n"
 "\n"
-"Щёлкните правой кнопкой мыши для возможности остановки после трека"
+"Щёлкните правой кнопкой мыши для возможности остановки после выделенного "
+"трека"
 
 #: ../data/ui/main.ui:221
 msgid "Next Track"
@@ -2298,7 +2298,7 @@ msgstr "Обновить содержимое каталога"
 
 #: ../data/ui/panel/files.ui:114
 msgid "Home directory"
-msgstr "Домашний каталог"
+msgstr "Домашняя папка"
 
 #: ../data/ui/panel/flatplaylist.ui:21
 msgid "Append All Tracks to Playlist"
@@ -2366,12 +2366,12 @@ msgstr "Шрифт плейлиста:"
 
 #: ../data/ui/preferences/appearance.ui:154
 msgid "_Revert"
-msgstr "_Обратить"
+msgstr "_Вернуть"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
 msgid "Reset to the system font"
-msgstr "Сбросить к системному шрифту"
+msgstr "Вернуть к системному шрифту"
 
 #: ../data/ui/preferences/appearance.ui:196
 #: ../data/ui/preferences/appearance.ui:385
@@ -2389,8 +2389,8 @@ msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
 msgstr ""
-"Внимание: этот параметр может вызвать ошибки отображения при использовании с "
-"менеджером окон, который не поддерживает совмещение."
+"Внимание: этот параметр может вызвать ошибки отображения, если оконный "
+"менеджер не поддерживает Compositing."
 
 #: ../data/ui/preferences/appearance.ui:230
 msgid "Alpha transparency"
@@ -2686,7 +2686,7 @@ msgstr "Статус"
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:38
 #: ../plugins/equalizer/equalizer.ui:166
 msgid "Enabled"
-msgstr "Включён"
+msgstr "Активация"
 
 #: ../data/ui/preferences/plugin.ui:110
 msgid "Show incompatible plugins"
@@ -2940,7 +2940,7 @@ msgstr "Обновить"
 
 #: ../plugins/cd/__init__.py:152 ../plugins/cd/__init__.py:223
 msgid "Audio Disc"
-msgstr "Звуковой Диск"
+msgstr "Аудио Диск"
 
 #: ../plugins/cd/_cdguipanel.py:99
 msgid "Importing CD..."
@@ -2970,7 +2970,7 @@ msgstr "Прослушиваний"
 #: ../plugins/history/__init__.py:236
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
-msgstr "Журнал"
+msgstr "Log-журнал"
 
 #: ../plugins/daapclient/__init__.py:272
 msgid "Manually..."
@@ -3368,7 +3368,7 @@ msgstr "Главное меню"
 #: ../plugins/minimode/minimode_preferences.py:24
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr "Компактный Режим"
+msgstr "Компактный режим"
 
 #: ../plugins/minimode/controls.py:224
 msgid "Previous"
@@ -3440,7 +3440,7 @@ msgstr "Восстановить главное окно"
 
 #: ../plugins/minimode/controls.py:556
 msgid "Select rating of the current track"
-msgstr "Выбрать оценку текущего трека"
+msgstr "Выбрать оценку текущему треку"
 
 #: ../plugins/minimode/controls.py:574
 msgid "Track selector"
@@ -3661,7 +3661,7 @@ msgstr "Авто-продвижение"
 #: ../plugins/quickbuttons/__init__.py:73
 #: ../plugins/quickbuttons/__init__.py:74
 msgid "Delay between tracks (in seconds):"
-msgstr "Задержка между дорожками (в секундах):"
+msgstr "Задержка между треками (в секундах):"
 
 #: ../plugins/quickbuttons/__init__.py:82
 msgid "EQ"

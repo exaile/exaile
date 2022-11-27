@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-11-27 08:47+0000\n"
+"PO-Revision-Date: 2022-11-28 02:47+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -1055,7 +1055,7 @@ msgstr "_Новый плейлист"
 
 #: ../xlgui/menu.py:75
 msgid "_Open"
-msgstr "_Открыть"
+msgstr "_Открыть файлы"
 
 #: ../xlgui/menu.py:92
 msgid "Open _URL"
@@ -2970,7 +2970,7 @@ msgstr "Прослушиваний"
 #: ../plugins/history/__init__.py:236
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
-msgstr "Log-журнал"
+msgstr "Журнал"
 
 #: ../plugins/daapclient/__init__.py:272
 msgid "Manually..."
@@ -3742,11 +3742,11 @@ msgstr "Ошибка импорта плейлиста"
 
 #: ../plugins/streamripper/__init__.py:73
 msgid "Error executing streamripper"
-msgstr "Ошибка выполнения риппера потоков"
+msgstr "Ошибка выполнения Streamripper"
 
 #: ../plugins/streamripper/srprefs.py:21 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr "Запись аудиопотока"
+msgstr "Streamripper запись аудиопотока"
 
 #: ../plugins/wikipedia/__init__.py:150 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
@@ -3840,7 +3840,7 @@ msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:17
 msgid "Submit tracks using Audioscrobbler"
-msgstr "Передать треки, используя Audioscrobbler"
+msgstr "Передать треки используя Audioscrobbler"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:34
 msgid "Show menuitem to toggle submission"
@@ -4097,7 +4097,7 @@ msgstr "Новые группы"
 
 #: ../plugins/grouptagger/gt_import.ui:119
 msgid "Import Type:"
-msgstr "Тип импорта:"
+msgstr "Импорт Типа:"
 
 #: ../plugins/grouptagger/gt_import.ui:129
 msgid "Merge"
@@ -4137,15 +4137,15 @@ msgstr "Шрифт групп и категорий:"
 
 #: ../plugins/grouptagger/gt_prefs.ui:86
 msgid "Categorization tag name"
-msgstr "Имя тега для группировки"
+msgstr "Название тега для группирования"
 
 #: ../plugins/grouptagger/gt_prefs.ui:97
 msgid ""
 "'grouping' and 'comment' are probably the best supported choices. Other "
 "choices may only work with certain file formats."
 msgstr ""
-"«группировка» и «комментарий», вероятно, являются наилучшим выбором. Другие "
-"варианты могут работать только с определёнными форматами файлов."
+"«группирование» и «комментарий», вероятно, являются наилучшим выбором. "
+"Другие варианты могут работать только с определёнными форматами файлов."
 
 #: ../plugins/history/history_preferences.ui:18
 msgid "Persist history after player exits"
@@ -4181,11 +4181,11 @@ msgstr "Дата релиза"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:48
 msgid "Rating this week"
-msgstr "Оценка этой недели"
+msgstr "Рейтинг этой недели"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:52
 msgid "Rating this month"
-msgstr "Оценка этого месяца"
+msgstr "Рейтинг этого месяца"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:56
 msgid "Number of playlist additions"
@@ -4325,19 +4325,19 @@ msgstr "<b>Звук</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:192
 msgid "Fade start volume:"
-msgstr "Громкость начала нарастания:"
+msgstr "Громкость в начале затухания:"
 
 #: ../plugins/multialarmclock/malrmclk.ui:233
 msgid "Fade stop volume:"
-msgstr "Громкость окончания нарастания:"
+msgstr "Громкость в конце затухания:"
 
 #: ../plugins/multialarmclock/malrmclk.ui:272
 msgid "Fade Increment:"
-msgstr "Инкремент нарастания:"
+msgstr "Увеличение затухания:"
 
 #: ../plugins/multialarmclock/malrmclk.ui:297
 msgid "Fade Time:"
-msgstr "Время нарастания:"
+msgstr "Время затухания:"
 
 #: ../plugins/notify/notifyprefs_pane.ui:12
 msgid "Resize displayed covers"
@@ -4398,7 +4398,7 @@ msgstr "Фон:"
 
 #: ../plugins/osd/osd_preferences.ui:166
 msgid "Border radius:"
-msgstr "Размер границы:"
+msgstr "Радиус рамки:"
 
 #: ../plugins/osd/osd_preferences.ui:188
 msgid "Show progress bar"
@@ -4527,7 +4527,7 @@ msgstr "Язык:"
 
 #: ../plugins/wikipedia/data/preferences.ui:30
 msgid "Shortcode of the Wikipedia language version (en, de, fr, ...)"
-msgstr "Короткое имя для языка Википедии (en, ru, fr, ...)"
+msgstr "Краткий код языка Википедии (en, ru, fr, ...)"
 
 #: ../plugins/wikipedia/data/wikipanel.ui:24
 #: ../plugins/wikipedia/data/wikipanel.ui:25
@@ -4554,7 +4554,7 @@ msgstr "Непрерывно повторять часть трека."
 #: ../plugins/karaoke/PLUGININFO:5 ../plugins/mono/PLUGININFO:5
 #: ../plugins/replaygain/PLUGININFO:5
 msgid "Effect"
-msgstr "Эффект"
+msgstr "Эффекты"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -4657,7 +4657,7 @@ msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the suppported services."
 msgstr ""
-"Показывает проигрывание текущей аудиозаписи в Pidgin. Проверьте FAQ Pidgin, "
+"Показывает проигрывание текущей композиции в Pidgin. Проверьте FAQ Pidgin, "
 "чтобы узнать о поддерживаемых службах."
 
 #: ../plugins/daapclient/PLUGININFO:4
@@ -4764,7 +4764,7 @@ msgstr "Караоке"
 
 #: ../plugins/karaoke/PLUGININFO:4
 msgid "Removes voice from audio"
-msgstr "Приглушает голос аудиопотоке"
+msgstr "Приглушает голос в аудиопотоке"
 
 #: ../plugins/keybinder/PLUGININFO:2
 msgid "Keybinder-based multimedia keys"
@@ -4914,7 +4914,7 @@ msgstr ""
 "Проигрывает музыку в определённые дни и время.\n"
 "\n"
 "Внимание: Exaile всего лишь активирует кнопку воспроизведения когда наступит "
-"указанное время, поэтому позаботьтесь о том, чтобы музыка, которую вы хотите "
+"указанное время, поэтому позаботьтесь о том, чтобы музыка которую вы хотите "
 "услышать, находилась в вашем плейлисте"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3

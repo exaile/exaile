@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-11-28 02:47+0000\n"
+"PO-Revision-Date: 2022-11-29 03:48+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -1264,7 +1264,7 @@ msgstr "Введённое вами название плейлиста уже �
 #: ../xlgui/panel/playlists.py:214
 #, python-format
 msgid "Error loading smart playlist: %s"
-msgstr "Ошибка при загрузка умного плейлиста: %s"
+msgstr "Ошибка при загрузке умного плейлиста: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -2126,7 +2126,7 @@ msgstr "_Применить"
 
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
-msgstr "Следить"
+msgstr "Отслеживать"
 
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"

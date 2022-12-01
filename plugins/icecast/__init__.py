@@ -72,6 +72,9 @@ class IcecastRadioStation(RadioStation):
         self.icecast_url = 'http://dir.xiph.org'
         self.genre_url = self.icecast_url + '/by_genre'
         self.search_url_prefix = self.icecast_url + '/search?search='
+
+        self.xml_url = self.icecast_url + '/yp.xml'
+
         self.cache_file = os.path.join(xdg.get_cache_dir(), 'icecast.cache')
         self.data = {}
         self._load_cache()
@@ -114,6 +117,8 @@ class IcecastRadioStation(RadioStation):
         if no_cache or not self.data:
             set_status(_('Contacting Icecast server...'))
             hostinfo = urllib.parse.urlparse(self.genre_url)
+            hostinfo = urllib.parse.urlparse(self.xml_url)
+
             c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
             try:
                 c.request('GET', hostinfo.path, headers={'User-Agent': self.user_agent})
@@ -130,17 +135,30 @@ class IcecastRadioStation(RadioStation):
 
             data = {}
             dom = minidom.parseString(body)
-            divs = dom.getElementsByTagName('div')
-            for div in divs:
-                if div.getAttribute('id') == 'content':
-                    anchors = div.getElementsByTagName('a')
-                    for anchor in anchors:
-                        anchor.normalize()
-                        for node in anchor.childNodes:
-                            if node.nodeType == minidom.Node.TEXT_NODE:
-                                data[node.nodeValue] = anchor.getAttribute('href')
-                                break
-                    break
+            server_names = dom.getElementsByTagName('server_name')
+            for server_name in server_names:
+                url_node = server_name.parentNode.getElementsByTagName('listen_url')[0]
+
+                for node in server_name.childNodes:
+                    if node.nodeType == minidom.Node.TEXT_NODE:
+                        name = node.nodeValue
+                        break
+
+                for node in url_node.childNodes:
+                    if node.nodeType == minidom.Node.TEXT_NODE:
+                        url = node.nodeValue
+                        break
+                data[name] = url
+
+                # if div.getAttribute('id') == 'content':
+                #     anchors = div.getElementsByTagName('a')
+                #     for anchor in anchors:
+                #         anchor.normalize()
+                #         for node in anchor.childNodes:
+                #             if node.nodeType == minidom.Node.TEXT_NODE:
+                #                 data[node.nodeValue] = anchor.getAttribute('href')
+                #                 break
+                #     break
             self.data = data
             self._save_cache()
         else:

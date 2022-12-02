@@ -74,6 +74,7 @@ class IcecastRadioStation(RadioStation):
         self.search_url_prefix = self.icecast_url + '/search?search='
 
         self.xml_url = self.icecast_url + '/yp.xml'
+        self._complete_list = {}
 
         self.cache_file = os.path.join(xdg.get_cache_dir(), 'icecast.cache')
         self.data = {}
@@ -112,6 +113,7 @@ class IcecastRadioStation(RadioStation):
         """
         Returns the rlists for icecast
         """
+        # Level 1
         from xlgui.panel import radio
 
         if no_cache or not self.data:
@@ -133,22 +135,26 @@ class IcecastRadioStation(RadioStation):
             c.close()
             set_status('')
 
+            def get_text(node):
+                for subnode in node.childNodes:
+                    if subnode.nodeType == minidom.Node.TEXT_NODE:
+                        return subnode.nodeValue
+
             data = {}
             dom = minidom.parseString(body)
-            server_names = dom.getElementsByTagName('server_name')
-            for server_name in server_names:
-                url_node = server_name.parentNode.getElementsByTagName('listen_url')[0]
+            entries = dom.getElementsByTagName('entry')
+            for entry in entries:
+                url_node = entry.getElementsByTagName('listen_url')[0]
+                name_node = entry.getElementsByTagName('server_name')[0]
+                genre_node = entry.getElementsByTagName('genre')[0]
 
-                for node in server_name.childNodes:
-                    if node.nodeType == minidom.Node.TEXT_NODE:
-                        name = node.nodeValue
-                        break
+                name = get_text(name_node)
+                url  = get_text(url_node)
+                genre = get_text(genre_node)
 
-                for node in url_node.childNodes:
-                    if node.nodeType == minidom.Node.TEXT_NODE:
-                        url = node.nodeValue
-                        break
-                data[name] = url
+                if not genre in data:
+                    data[genre] = {}
+                data[genre][name] = url
 
                 # if div.getAttribute('id') == 'content':
                 #     anchors = div.getElementsByTagName('a')
@@ -180,6 +186,7 @@ class IcecastRadioStation(RadioStation):
         """
         Gets the subrlists for a rlist
         """
+        # Level 2
         if name in self.subs and not no_cache:
             return self.subs[name]
 
@@ -214,6 +221,7 @@ class IcecastRadioStation(RadioStation):
         return self._get_stations(url)
 
     def _get_stations(self, url):
+        # Level 2
         from xlgui.panel import radio
 
         hostinfo = urllib.parse.urlparse(url)

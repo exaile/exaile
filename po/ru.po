@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-12-01 04:47+0000\n"
+"PO-Revision-Date: 2022-12-04 15:47+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -216,7 +216,7 @@ msgstr "ТЕГИ"
 
 #: ../xl/main.py:188
 msgid "Tags to retrieve from the current track; use with --format-query"
-msgstr "Теги, получаемые для текущего трека, используется с --format-query"
+msgstr "Теги получаемые из текущего трека, используется с --format-query"
 
 #: ../xl/main.py:195
 msgid "Show a popup with data of the current track"
@@ -254,11 +254,11 @@ msgstr "Получить оценку текущего трека"
 
 #: ../xl/main.py:245
 msgid "Print the current playback position as time"
-msgstr "Показать текущий прогресс воспроизведения как время"
+msgstr "Показать текущую позицию воспроизведения как время"
 
 #: ../xl/main.py:252
 msgid "Print the current playback progress as percentage"
-msgstr "Показать текущий прогресс воспроизведения в процентах"
+msgstr "Показать текущую позицию воспроизведения в процентах"
 
 #: ../xl/main.py:255
 msgid "Volume Options"
@@ -399,7 +399,7 @@ msgstr "Отключить поддержку HAL."
 
 #: ../xl/main.py:813
 msgid "Entire Library"
-msgstr "Вся коллекция"
+msgstr "Вся фонотека"
 
 #: ../xl/main.py:820
 #, python-format
@@ -824,7 +824,7 @@ msgstr ""
 
 #: ../xlgui/__init__.py:318
 msgid "Scanning collection..."
-msgstr "Сканирование коллекции..."
+msgstr "Сканирование фонотеки..."
 
 #: ../xlgui/__init__.py:397
 #, python-format
@@ -844,8 +844,7 @@ msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
 msgstr ""
-"Каталог уже включён в вашу коллекцию или находится в одном из её "
-"подкаталогов."
+"Каталог уже включён в вашу фонотеку или находится в одном из её подкаталогов."
 
 #: ../xlgui/cover.py:97
 #, python-brace-format
@@ -947,11 +946,11 @@ msgstr "Поиск влево"
 
 #: ../xlgui/main.py:188 ../xlgui/main.py:193
 msgid "Increase the volume"
-msgstr "Увеличить громкость на 10%"
+msgstr "Увеличить громкость"
 
 #: ../xlgui/main.py:198
 msgid "Decrease the volume"
-msgstr "Уменьшить громкость на 10%"
+msgstr "Уменьшить громкость"
 
 #: ../xlgui/main.py:201
 msgid "Switch to previous tab"
@@ -1087,7 +1086,7 @@ msgstr "В_ыход из Exaile"
 
 #: ../xlgui/menu.py:219
 msgid "_Collection"
-msgstr "_Коллекция"
+msgstr "_Фонотека"
 
 #: ../xlgui/menu.py:225
 msgid "_Queue"
@@ -1123,11 +1122,11 @@ msgstr "_Менеджер устройств"
 
 #: ../xlgui/menu.py:362
 msgid "_Rescan Collection"
-msgstr "_Пересканировать коллекцию"
+msgstr "_Пересканировать фонотеку"
 
 #: ../xlgui/menu.py:372 ../data/ui/collection_manager.ui:226
 msgid "Rescan Collection (_slow)"
-msgstr "Пересканировать коллекцию (_медленно)"
+msgstr "Пересканировать фонотеку (_медленно)"
 
 #: ../xlgui/menu.py:405
 msgid "User's Guide (website)"
@@ -1187,11 +1186,11 @@ msgstr "Исполнитель альбома - (Дата - Альбом)"
 
 #: ../xlgui/panel/collection.py:183 ../xlgui/preferences/collection.py:21
 msgid "Collection"
-msgstr "Коллекция"
+msgstr "Фонотека"
 
 #: ../xlgui/panel/collection.py:286
 msgid "Rescan Collection"
-msgstr "Пересканировать коллекцию"
+msgstr "Пересканировать фонотеку"
 
 #: ../xlgui/panel/device.py:151
 #, python-format
@@ -1259,7 +1258,7 @@ msgstr "Переименовать плейлист"
 #: ../xlgui/panel/playlists.py:168 ../xlgui/widgets/dialogs.py:1776
 #: ../xlgui/widgets/smart_playlist_editor.py:395
 msgid "The playlist name you entered is already in use."
-msgstr "Введённое вами название плейлиста уже используется."
+msgstr "Введённое вами название плейлиста уже существует."
 
 #: ../xlgui/panel/playlists.py:214
 #, python-format
@@ -1283,7 +1282,7 @@ msgstr "%(first)s и %(second)s"
 
 #: ../xlgui/panel/playlists.py:389 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
-msgstr "Списки воспроизведения"
+msgstr "Плейлисты"
 
 #: ../xlgui/panel/playlists.py:533
 msgid "Smart Playlists"
@@ -1333,7 +1332,7 @@ msgstr "Введите новое название вашего плейлист
 
 #: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:70
 msgid "New Playlist"
-msgstr "Создать плейлист"
+msgstr "Новый плейлист"
 
 #: ../xlgui/panels.py:99
 msgid "P_anels"
@@ -1652,7 +1651,7 @@ msgstr "Произошла ошибка во время копирования %
 #: ../xlgui/widgets/dialogs.py:1701
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr "Файл существует, заменить %s ?"
+msgstr "Файл уже существует, заменить %s ?"
 
 #: ../xlgui/widgets/dialogs.py:1759
 msgid "Playlist name:"
@@ -1697,7 +1696,7 @@ msgstr "Не воспроизводится"
 #: ../xlgui/widgets/info.py:419
 #, python-format
 msgid "%d in collection"
-msgstr "%d в коллекции"
+msgstr "%d в фонотеке"
 
 #: ../xlgui/widgets/info.py:448 ../xlgui/widgets/info.py:453
 #, python-format
@@ -2261,15 +2260,15 @@ msgstr "_Добавить музыку"
 
 #: ../data/ui/panel/collection.ui:46
 msgid "<b>Collection is empty.</b>"
-msgstr "<b>Коллекция пуста.</b>"
+msgstr "<b>Фонотека пуста.</b>"
 
 #: ../data/ui/panel/collection.ui:96
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
-"Обновить панель коллекции\n"
-"(Зажмите Shift для повторного сканирования коллекции)"
+"Обновить панель фонотеки\n"
+"(Зажмите Shift для повторного сканирования фонотеки)"
 
 #: ../data/ui/panel/collection.ui:130 ../data/ui/panel/files.ui:170
 msgid "Clear search field"
@@ -2376,7 +2375,7 @@ msgstr "Вернуть к системному шрифту"
 #: ../data/ui/preferences/appearance.ui:196
 #: ../data/ui/preferences/appearance.ui:385
 msgid "Display track counts in collection"
-msgstr "Показать счётчики треков в коллекции"
+msgstr "Показать счётчики треков в фонотеке"
 
 #. TRANSLATORS: Remark at the alpha transparency option
 #: ../data/ui/preferences/appearance.ui:210
@@ -2491,8 +2490,8 @@ msgid ""
 "This option will search for cover image files in \n"
 "the same folder as the music file."
 msgstr ""
-"Данная опция позволяет искать файлы обложки альбома в \n"
-"той же директории, что и звуковой файл."
+"Данная опция позволяет искать файлы обложек в \n"
+"том же каталоге, что и файлы с музыкой."
 
 #: ../data/ui/preferences/cover.ui:30
 msgid "Preferred file names:"
@@ -2664,7 +2663,7 @@ msgstr ""
 #: ../plugins/quickbuttons/__init__.py:38
 #: ../plugins/quickbuttons/qb_prefs.ui:12
 msgid "Queue tracks by default instead of playing them"
-msgstr "Поставить композиции в очередь вместо их воспроизведения"
+msgstr "Ставить трек в очередь, но не воспроизводить"
 
 #: ../data/ui/preferences/playlists.ui:70
 msgid ""
@@ -2676,7 +2675,7 @@ msgstr ""
 
 #: ../data/ui/preferences/plugin.ui:64
 msgid "Plugin"
-msgstr "Плагин"
+msgstr "Плагины"
 
 #: ../data/ui/preferences/plugin.ui:76
 msgid "Status"
@@ -2698,7 +2697,7 @@ msgstr "Плагин не выбран"
 
 #: ../data/ui/preferences/plugin.ui:177
 msgid "Add _Plugin File"
-msgstr "Добавить _файл плагина"
+msgstr "Добавить _плагин"
 
 #: ../data/ui/preferences/preferences_dialog.ui:24
 msgid "Preferences"
@@ -2843,7 +2842,7 @@ msgstr "Добавить"
 #. This is a check box in the Add Smart Playlist dialog. If checked, a numeric text entry becomes active and it specifies a limit on the number of tracks the resulting playlist contains.
 #: ../data/ui/widgets/filter_dialog.ui:194
 msgid "Maximum number of tracks:"
-msgstr "Максимальное число дорожек:"
+msgstr "Максимальное число треков:"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -3045,7 +3044,7 @@ msgstr "_Групповое переименование/удаление тег
 
 #: ../plugins/grouptagger/__init__.py:123
 msgid "E_xport collecton tags to JSON"
-msgstr "_Экспорт меток фонотеки в JSON"
+msgstr "_Экспорт тегов фонотеки в JSON"
 
 #: ../plugins/grouptagger/__init__.py:130
 msgid "_GroupTagger"
@@ -3200,7 +3199,7 @@ msgstr "Получить все теги из фонотеки"
 
 #: ../plugins/grouptagger/gt_widgets.py:770
 msgid "Add selected to choices"
-msgstr "Добавить в избранное"
+msgstr "Добавить выбранное к вариантам"
 
 #: ../plugins/grouptagger/gt_widgets.py:796
 msgid "Show tracks with groups"
@@ -3509,7 +3508,7 @@ msgstr "{current} / {remaining}"
 
 #: ../plugins/moodbar/prefs.py:26 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr "Индикатор тона"
+msgstr "Визуализация-Moodbar"
 
 #: ../plugins/multialarmclock/macprefs.py:22
 #: ../plugins/multialarmclock/PLUGININFO:3
@@ -3597,7 +3596,7 @@ msgstr "Удалить"
 
 #: ../plugins/podcasts/__init__.py:121
 msgid "Enter the URL of the podcast to add"
-msgstr "Введите адрес подкаста для добавления"
+msgstr "Введите URL-адрес подкаста для добавления"
 
 #: ../plugins/podcasts/__init__.py:121
 msgid "Open Podcast"
@@ -3692,7 +3691,7 @@ msgstr "Быстрые кнопки"
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr "Нормализация громкости ReplayGain"
+msgstr "Нормализация громкости"
 
 #: ../plugins/screensaverpause/prefs.py:5
 #: ../plugins/screensaverpause/PLUGININFO:3
@@ -4037,7 +4036,7 @@ msgstr "_Удалить"
 
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
-msgstr "перед"
+msgstr "предусиление"
 
 #: ../plugins/equalizer/equalizer.ui:356
 msgid "29"
@@ -4304,7 +4303,7 @@ msgstr "Цветовой оттенок (экспериментально)"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
-msgstr "<b>Предупреждения</b>"
+msgstr "<b>Предустановки</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"
@@ -4402,7 +4401,7 @@ msgstr "Радиус рамки:"
 
 #: ../plugins/osd/osd_preferences.ui:188
 msgid "Show progress bar"
-msgstr "Показывать панель прогрессбара"
+msgstr "Показывать ход воспроизведения"
 
 #: ../plugins/osd/osd_preferences.ui:271
 msgid ""
@@ -4511,7 +4510,7 @@ msgstr "Путь для сохранения:"
 
 #: ../plugins/streamripper/streamripper.ui:39
 msgid "Relay port:"
-msgstr "Смените порт:"
+msgstr "Порт передачи:"
 
 #: ../plugins/streamripper/streamripper.ui:60
 msgid "Rip to single file"
@@ -4696,7 +4695,7 @@ msgstr "Отображает обложку текущего альбома на
 #: ../plugins/desktopcover/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5
 #: ../plugins/minimode/PLUGININFO:5 ../plugins/moodbar/PLUGININFO:5
 msgid "GUI"
-msgstr "Графический интерфейс пользователя"
+msgstr "Графический интерфейс"
 
 #: ../plugins/developer/PLUGININFO:3
 msgid "Developer"
@@ -4865,7 +4864,7 @@ msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
-"Добавляет возможность доступа к медиаплеерам через протокол USB Mass Storage"
+"Поддержка доступа к портативным медиаплеерам по протоколу USB Mass Storage"
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"

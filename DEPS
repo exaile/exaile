@@ -69,11 +69,6 @@ Lyrics from lyricsmania.com (lyricsmania):
 
 * lxml (python3)
 
-Lyrics from lyrics.wikia.com (lyricwiki):
-
-* Beautifulsoup4 (python3)
-* lxml (python3)
-
 Musicbrainz covers:
 
 * musicbrainzngs (python3)

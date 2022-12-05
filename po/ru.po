@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-12-04 15:47+0000\n"
+"PO-Revision-Date: 2022-12-05 12:47+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -3794,7 +3794,7 @@ msgstr "Использовать Затухание"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:255
 msgid "<b>Audio Preferences</b>"
-msgstr "<b>Настройки аудио</b>"
+msgstr "<b>Настройки звука</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:269
 msgid "Minimum volume:"
@@ -4320,7 +4320,7 @@ msgstr "Включить нарастание громкости"
 #. Audio settings for alarm
 #: ../plugins/multialarmclock/malrmclk.ui:178
 msgid "<b>Audio</b>"
-msgstr "<b>Звук</b>"
+msgstr "<b>Настройки звука</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:192
 msgid "Fade start volume:"

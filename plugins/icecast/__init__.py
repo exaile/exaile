@@ -88,23 +88,32 @@ class IcecastRadioStation(RadioStation):
         """
         Loads icecast data from cache
         """
+        return
         self.data = {}
         if os.path.isfile(self.cache_file):
             dom = minidom.parse(self.cache_file)
             for genre in dom.getElementsByTagName('genre'):
-                self.data[genre.getAttribute('name')] = genre.getAttribute('location')
+                genre_urls = {}
+                for station in genre.getElementsByTagName('station'):
+                    genre_urls[station.getAttribute('name')] = station.getAttribute('location')
+                self.data[genre.getAttribute('name')] = genre_urls
 
     def _save_cache(self):
         """
         Saves cache data
         """
+        return
         impl = minidom.getDOMImplementation()
         document = impl.createDocument(None, 'genrelist', None)
         genrelist = document.documentElement
-        for k, v in self.data.items():
+        for genre_name, stations in self.data.items():
             genre = document.createElement('genre')
-            genre.setAttribute('name', k)
-            genre.setAttribute('location', v)
+            genre.setAttribute('name', genre_name)
+            for station_name, url in stations.items():
+                station = document.createElement('station')
+                station.setAttribute('name', station_name)
+                station.setAttribute('location', url)
+                genre.appendChild(station)
             genrelist.appendChild(genre)
         with open(self.cache_file, 'w') as h:
             document.writexml(h, indent='\n', encoding='utf-8')
@@ -147,14 +156,22 @@ class IcecastRadioStation(RadioStation):
                 url_node = entry.getElementsByTagName('listen_url')[0]
                 name_node = entry.getElementsByTagName('server_name')[0]
                 genre_node = entry.getElementsByTagName('genre')[0]
+                bitrate_node = entry.getElementsByTagName('bitrate')[0]
+                server_type_node = entry.getElementsByTagName('server_type')[0]
 
                 name = get_text(name_node)
                 url  = get_text(url_node)
                 genre = get_text(genre_node)
+                bitrate = get_text(bitrate_node)
+                format = get_text(server_type_node)
 
+                entry = {}
+                entry['url'] = url
+                entry['bitrate'] = bitrate
+                entry['format'] = format
                 if not genre in data:
                     data[genre] = {}
-                data[genre][name] = url
+                data[genre][name] = entry
 
                 # if div.getAttribute('id') == 'content':
                 #     anchors = div.getElementsByTagName('a')
@@ -186,6 +203,19 @@ class IcecastRadioStation(RadioStation):
         """
         Gets the subrlists for a rlist
         """
+
+        sublist = self.data[name]
+        station_list = []
+        for station_name, url in sublist.items():
+            stat = RadioItem(station_name, url['url'])
+            stat.bitrate = url['bitrate']
+            stat.format = url['format']
+            stat.get_playlist = lambda name=station_name, station_id=url['url']: self._get_playlist(name, station_id)
+
+            station_list.append(stat)
+        self.subs[name] = station_list
+        return station_list
+
         # Level 2
         if name in self.subs and not no_cache:
             return self.subs[name]

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-12-05 12:47+0000\n"
+"PO-Revision-Date: 2022-12-06 13:47+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -173,7 +173,7 @@ msgstr "Остановить проигрывание после текущег�
 
 #: ../xl/main.py:149
 msgid "Collection Options"
-msgstr "Параметры коллекции"
+msgstr "Параметры фонотеки"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:154 ../xl/main.py:163
@@ -182,7 +182,7 @@ msgstr "РАСПОЛОЖЕНИЕ"
 
 #: ../xl/main.py:155
 msgid "Add tracks from LOCATION to the collection"
-msgstr "Добавить треки из РАСПОЛОЖЕНИЯ в коллекцию"
+msgstr "Добавить треки из РАСПОЛОЖЕНИЯ в фонотеку"
 
 #: ../xl/main.py:158
 msgid "Playlist Options"

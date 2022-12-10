@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-03-28 23:11+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2022-12-11 05:47+0000\n"
+"Last-Translator: Ecron <ecron_89@hotmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
 ">\n"
 "Language: ca\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.12-dev\n"
+"X-Generator: Weblate 4.15-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -323,7 +323,7 @@ msgstr ""
 
 #: ../xl/main.py:357
 msgid "Locale to use for Exaile"
-msgstr ""
+msgstr "Configuració regional a usar amb l'Exaile"
 
 #: ../xl/main.py:360
 msgid "Development/Debug Options"
@@ -1703,11 +1703,10 @@ msgstr[0] "Se'n mostra %d"
 msgstr[1] "Se'n mostren %d"
 
 #: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:455
-#, fuzzy, python-format
-#| msgid "%d selected"
+#, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
-msgstr[0] "%d seleccionats"
+msgstr[0] "%d seleccionat"
 msgstr[1] "%d seleccionats"
 
 #: ../xlgui/widgets/menuitems.py:117
@@ -2116,16 +2115,12 @@ msgid "Collection Manager"
 msgstr "Gestor de col·leccions"
 
 #: ../data/ui/collection_manager.ui:54
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
-msgstr "Cancel·la"
+msgstr "_Cancel·la"
 
 #: ../data/ui/collection_manager.ui:71
-#, fuzzy
-#| msgid "Apply BPM"
 msgid "_Apply"
-msgstr "Aplica les PPM"
+msgstr "_Aplica"
 
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
@@ -2137,13 +2132,11 @@ msgstr "Explora a la inicialització"
 
 #: ../data/ui/collection_manager.ui:174
 msgid "Add _Folder"
-msgstr ""
+msgstr "A_fegeix carpeta"
 
 #: ../data/ui/collection_manager.ui:191
-#, fuzzy
-#| msgid "Remove Cover"
 msgid "_Remove Folder"
-msgstr "Suprimeix la coberta"
+msgstr "Sup_rimeix la carpeta"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2158,10 +2151,8 @@ msgid "The origin of this cover"
 msgstr "L'origen d'aquesta coberta"
 
 #: ../data/ui/coverchooser.ui:159
-#, fuzzy
-#| msgid "_About"
 msgid "_Abort"
-msgstr "Qu_ant a"
+msgstr "_Avorta"
 
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
@@ -2217,13 +2208,11 @@ msgstr "Controlador"
 
 #: ../data/ui/device_manager.ui:115
 msgid "_Connect"
-msgstr ""
+msgstr "_Connecta"
 
 #: ../data/ui/device_manager.ui:133
-#, fuzzy
-#| msgid "Disconnect from Server"
 msgid "_Disconnect"
-msgstr "Desconnecta't del servidor"
+msgstr "_Desconnecta"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -2376,10 +2365,8 @@ msgid "Playlist font:"
 msgstr "Lletra de la llista de reproducció:"
 
 #: ../data/ui/preferences/appearance.ui:154
-#, fuzzy
-#| msgid "Never"
 msgid "_Revert"
-msgstr "Mai"
+msgstr "_Reverteix"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -2462,25 +2449,23 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:370
 msgid "Show Status Bar"
-msgstr ""
+msgstr "Mostra la barra d'estat"
 
 #: ../data/ui/preferences/appearance.ui:374
 msgid ""
 "Show or hide the status bar. The status bar will always be shown if a plugin "
 "requests it."
 msgstr ""
+"Mostra o amaga la barra d'estat. Sempre es mostrarà si un connector ho "
+"demana."
 
 #: ../data/ui/preferences/appearance.ui:399
-#, fuzzy
-#| msgid "_Show Playing Track"
 msgid "Show playlist track count"
-msgstr "Mo_stra la pista en reproducció"
+msgstr "Mo_stra el nombre de pistes de la llista de reproducció"
 
 #: ../data/ui/preferences/appearance.ui:413
-#, fuzzy
-#| msgid "Display duration:"
 msgid "Show playlist duration"
-msgstr "Pantalla de la durada:"
+msgstr "Mostra la durada de la llista de reproducció"
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -3549,10 +3534,9 @@ msgid "by {artist}"
 msgstr "per {artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "from %(album)s"
+#, python-brace-format
 msgid "from {album}"
-msgstr "de %(album)s"
+msgstr "de {album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3666,39 +3650,29 @@ msgid "Preview Device"
 msgstr "Vista prèvia del dispositiu"
 
 #: ../plugins/quickbuttons/__init__.py:37
-#, fuzzy
-#| msgid "En_queue"
 msgid "Enqueue"
-msgstr "Posa a la _cua"
+msgstr "Posa a la cua"
 
 #: ../plugins/quickbuttons/__init__.py:46
-#, fuzzy
-#| msgid "Not playing."
 msgid "Keep playing"
-msgstr "No s'està reproduint res."
+msgstr "Continua la reproducció"
 
 #: ../plugins/quickbuttons/__init__.py:55
-#, fuzzy
-#| msgid "_Remove"
 msgid "Auto-Remove"
-msgstr "Sup_rimeix"
+msgstr "Elimina automàticament"
 
 #: ../plugins/quickbuttons/__init__.py:64
-#, fuzzy
-#| msgid "Advanced"
 msgid "Auto-Advance"
-msgstr "Avançat"
+msgstr "Avança automàticament"
 
 #: ../plugins/quickbuttons/__init__.py:73
 #: ../plugins/quickbuttons/__init__.py:74
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds):"
-msgstr "Retards entre les pistes (ms):"
+msgstr "Retards entre pistes (en segons):"
 
 #: ../plugins/quickbuttons/__init__.py:82
 msgid "EQ"
-msgstr ""
+msgstr "EQ"
 
 #: ../plugins/quickbuttons/__init__.py:83 ../plugins/equalizer/equalizer.ui:109
 #: ../plugins/equalizer/PLUGININFO:3
@@ -3706,23 +3680,21 @@ msgid "Equalizer"
 msgstr "Equalitzador"
 
 #: ../plugins/quickbuttons/__init__.py:92
-#, fuzzy
-#| msgid "Device"
 msgid "Main Device"
-msgstr "Dispositiu"
+msgstr "Dispositiu principal"
 
 #: ../plugins/quickbuttons/__init__.py:93
 #: ../plugins/quickbuttons/qb_prefs.ui:101
 msgid "Select main audio device"
-msgstr ""
+msgstr "Seleccioneu el dispositiu d'àudio principal"
 
 #: ../plugins/quickbuttons/__init__.py:102
 msgid "Select preview audio device"
-msgstr ""
+msgstr "Seleccioneu el dispositiu d'àudio de previsualització"
 
 #: ../plugins/quickbuttons/qb_prefs.py:5
 msgid "Quickbuttons"
-msgstr ""
+msgstr "Botons ràpids"
 
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
@@ -4499,18 +4471,18 @@ msgid "Audio Device:"
 msgstr "Dispositiu d'àudio:"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:72
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds)"
-msgstr "Retards entre les pistes (ms):"
+msgstr "Retards entre pistes (en segons)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:87
 msgid "Equalizer (depends on Equalizer Plugin)"
-msgstr ""
+msgstr "Equalitzador (depèn del connector «Equalizer»)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:115
 msgid "Select preview audio device (depends on previewdevice plugin)"
 msgstr ""
+"Seleccioneu el dispositiu d'àudio de previsualització (depèn del connector "
+"«previewdevice»)"
 
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:24
@@ -5033,12 +5005,14 @@ msgstr "Sortida"
 
 #: ../plugins/quickbuttons/PLUGININFO:3
 msgid "Quick Settings Buttons"
-msgstr ""
+msgstr "Botons de configuració ràpida"
 
 #: ../plugins/quickbuttons/PLUGININFO:4
 msgid ""
 "Provides buttons on bottom of the playlist to quickly change some settings"
 msgstr ""
+"Proporciona botons a sota de la llista de reproducció per a canviar "
+"ràpidament alguns paràmetres"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"

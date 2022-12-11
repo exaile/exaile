@@ -904,6 +904,12 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             self.player,
             destroy_with=self,
         )
+        event.add_ui_callback(
+            self.on_playback_start,
+            "playlist_track_next",
+            self.player,
+            destroy_with=self,
+        )
         self._cursor_changed = self.connect("cursor-changed", self.on_cursor_changed)
         self.connect("row-activated", self.on_row_activated)
         self.connect("key-press-event", self.on_key_press_event)
@@ -1171,11 +1177,22 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def _setup_models(self):
         self.model = PlaylistModel(self.playlist, [], self.player, self)
-        self.model.connect('row-inserted', self.on_row_inserted)
+        self.__setup_model_hook = self.model.connect(
+            'data-loading', self._on_after_model_loading
+        )
 
         self.modelfilter = self.model.filter_new()
         self.modelfilter.set_visible_func(self._modelfilter_visible_func)
         self.set_model(self.modelfilter)
+
+    def _on_after_model_loading(self, ar1, now_loading):
+        """
+        This is necessary to ensure that row-insert is connected after the initial loading
+        due to threaded PlaylistModel::_load_data_thread and playlists greater than 500 tracks
+        """
+        if not now_loading:
+            self.model.connect('row-inserted', self.on_row_inserted)
+            self.model.disconnect(self.__setup_model_hook)
 
     def _modelfilter_visible_func(self, model, iter, data):
         if self._filter_matcher is not None:

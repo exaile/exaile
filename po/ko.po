@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-06 12:28+0200\n"
-"PO-Revision-Date: 2022-09-30 01:22+0000\n"
+"POT-Creation-Date: 2022-03-03 00:51+0100\n"
+"PO-Revision-Date: 2022-10-29 23:02+0000\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/exaile/master/ko/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.14.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -2534,7 +2534,7 @@ msgstr "크로스페이드 길이 (ms):"
 #: ../data/ui/preferences/playback.ui:312
 #: ../plugins/previewdevice/previewprefs.ui:125
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr "크로스 페이딩을 사용 (실험 단계)"
+msgstr "크로스페이딩 사용 (실험용)"
 
 #: ../data/ui/preferences/playback.ui:316
 msgid "Forces automatically advancing to the next track"
@@ -4194,11 +4194,11 @@ msgstr "설정"
 
 #: ../plugins/moodbar/prefs.ui:11
 msgid "Waveform view (experimental)"
-msgstr "파형 보기(실험적)"
+msgstr "파형 보기 (실험용)"
 
 #: ../plugins/moodbar/prefs.ui:25
 msgid "Color tint (experimental)"
-msgstr ""
+msgstr "색조 (실험용)"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

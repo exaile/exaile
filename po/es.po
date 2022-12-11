@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-06 12:28+0200\n"
-"PO-Revision-Date: 2022-09-30 11:17+0000\n"
-"Last-Translator: Eduardo Malaspina <vaio0@swismail.com>\n"
+"POT-Creation-Date: 2022-03-03 00:51+0100\n"
+"PO-Revision-Date: 2022-11-18 20:48+0000\n"
+"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/exaile/master/es/"
 ">\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.15-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -624,7 +624,7 @@ msgstr "No se pudo crear el receptor de audio (dispositivo: %s; tipo: %s)"
 
 #: ../xl/player/gst/sink.py:191
 msgid "No custom pipeline specified!"
-msgstr "No se especificó la canalización personalizada."
+msgstr "¡No se especificó ninguna pipeline personalizada!"
 
 #: ../xl/player/gst/sink.py:196
 #, python-format
@@ -1703,13 +1703,12 @@ msgid_plural "%d showing"
 msgstr[0] "se muestra %d"
 msgstr[1] "se muestran %d"
 
-#: ../xlgui/widgets/info.py:452 ../xlgui/widgets/info.py:462
-#, fuzzy, python-format
-#| msgid "%d selected"
+#: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:455
+#, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
-msgstr[0] "%d seleccionada"
-msgstr[1] "%d seleccionada"
+msgstr[0] "%d seleccionado"
+msgstr[1] "%d seleccionados"
 
 #: ../xlgui/widgets/menuitems.py:117
 msgid "En_queue"
@@ -2136,9 +2135,8 @@ msgid "Scan At Startup"
 msgstr "Analizar al inicio"
 
 #: ../data/ui/collection_manager.ui:174
-#, fuzzy
 msgid "Add _Folder"
-msgstr "Add _Folder"
+msgstr "Agregar carpeta"
 
 #: ../data/ui/collection_manager.ui:191
 msgid "_Remove Folder"
@@ -2462,16 +2460,12 @@ msgstr ""
 "de estado se mostrará siempre."
 
 #: ../data/ui/preferences/appearance.ui:399
-#, fuzzy
-#| msgid "_Show Playing Track"
 msgid "Show playlist track count"
-msgstr "_Mostrar pista en reproducción"
+msgstr "Mostrar el número de pistas de la lista de reproducción"
 
 #: ../data/ui/preferences/appearance.ui:413
-#, fuzzy
-#| msgid "Display duration:"
 msgid "Show playlist duration"
-msgstr "Duración de visualización:"
+msgstr "Mostrar la duración de la lista de reproducción"
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -2535,7 +2529,7 @@ msgstr "Fuente de las letras:"
 #: ../data/ui/preferences/playback.ui:32
 #: ../plugins/previewdevice/previewprefs.ui:27
 msgid "GStreamer"
-msgstr "GStreamer"
+msgstr "GNOME GStreamer"
 
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
@@ -3698,7 +3692,7 @@ msgstr "Botones rápidos"
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr "ReplayGain"
+msgstr "Ganancia de la reproducción"
 
 #: ../plugins/screensaverpause/prefs.py:5
 #: ../plugins/screensaverpause/PLUGININFO:3
@@ -3752,7 +3746,7 @@ msgstr "Error al ejecutar Streamripper"
 
 #: ../plugins/streamripper/srprefs.py:21 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr "Streamripper"
+msgstr "Registrador de flujo"
 
 #: ../plugins/wikipedia/__init__.py:150 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
@@ -4259,7 +4253,7 @@ msgstr "Completo"
 #. TRANSLATORS: Minimode window decoration option
 #: ../plugins/minimode/minimode_preferences.ui:19
 msgid "Simple"
-msgstr "Simple"
+msgstr "Sencillo"
 
 #: ../plugins/minimode/minimode_preferences.ui:70
 msgid ""
@@ -4446,7 +4440,7 @@ msgstr "Predetermina el nombre de la lista de reproducción"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:522
 msgid "_Generate!"
-msgstr "_Generar"
+msgstr "_¡Generar!"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:555
 msgid "Generate"

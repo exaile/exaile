@@ -25,6 +25,8 @@
       <column type="gboolean"/>
       <!-- column-name toggle-visible -->
       <column type="gboolean"/>
+      <!-- column-name user_installed -->
+      <column type="gboolean"/>
     </columns>
   </object>
   <object class="GtkBox" id="preferences_pane">

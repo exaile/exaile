@@ -246,8 +246,8 @@ class ExaileGstEngine(ExaileEngine):
         if self.other_stream is not None:
             self.other_stream.stop()
 
-    def play(self, track, start_at, paused):
-        self._next_track(track, start_at, paused, False, False)
+    def play(self, track, start_at, paused, stopped):
+        self._next_track(track, start_at, paused, stopped, False, False)
 
     def seek(self, value):
         return self.main_stream.seek(value)
@@ -299,8 +299,9 @@ class ExaileGstEngine(ExaileEngine):
         self.destroy(permanent=False)
         self.initialize()
 
-    def _next_track(self, track, start_at, paused, already_queued, autoadvance):
-
+    def _next_track(
+        self, track, start_at, paused, stopped, already_queued, autoadvance
+    ):
         prior_track = self.main_stream.current_track
 
         # Notify that the track is done
@@ -313,6 +314,7 @@ class ExaileGstEngine(ExaileEngine):
                 track,
                 start_at,
                 paused,
+                stopped,
                 already_queued,
                 self.crossfade_duration / 1000.0,
                 self.crossfade_duration / 1000.0,
@@ -323,13 +325,17 @@ class ExaileGstEngine(ExaileEngine):
                 track,
                 start_at,
                 paused,
+                stopped,
                 already_queued,
                 self.user_fade_duration / 1000.0,
             )
         else:
-            self.main_stream.play(track, start_at, paused, already_queued)
+            self.main_stream.play(track, start_at, paused, stopped, already_queued)
 
-        self.player.engine_notify_track_start(track)
+        if stopped:
+            event.log_event('playlist_track_next', self.player, track)
+        else:
+            self.player.engine_notify_track_start(track)
 
 
 class AudioStream:
@@ -458,6 +464,7 @@ class AudioStream:
         track,
         start_at,
         paused,
+        stopped,
         already_queued,
         fade_in_duration=None,
         fade_out_duration=None,
@@ -494,8 +501,11 @@ class AudioStream:
                     'source-setup', self.on_source_setup, track
                 )
 
+        if stopped:
+            self.playbin.set_state(Gst.State.NULL)
+            self.engine.player.engine_notify_track_end(self.current_track, True)
         # Start in paused mode if we need to seek
-        if paused or start_at is not None:
+        elif paused or start_at is not None:
             self.playbin.set_state(Gst.State.PAUSED)
         elif not already_queued:
             self.playbin.set_state(Gst.State.PLAYING)

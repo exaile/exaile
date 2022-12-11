@@ -254,7 +254,7 @@ BUILD_DIR		= /tmp/exaile-test-build
 test_compile:
 	mkdir -p $(BUILD_DIR)
 	cp --recursive xl xlgui plugins tools Makefile $(BUILD_DIR)
-	$(MAKE) -C $(BUILD_DIR) all
+	$(MAKE) -C $(BUILD_DIR) compile
 
 test:
 	EXAILE_DIR=$(shell pwd) LC_ALL=C PYTHONPATH=$(shell pwd):$(PYTHONPATH) $(PYTEST) tests

@@ -182,7 +182,7 @@ install-target: make-install-dirs
 	mkdir -p $(LOCALE_DIR)
 	-msgmerge -q -o - $< po/messages.pot | msgfmt -c -o $(LOCALE_DIR)/exaile.mo -
 
-locale: builddir $(LOCALE_OBJS)
+locale: builddir $(LOCALE_OBJS) desktop_files
 
 install-locale:
 	for f in `find build/locale -name exaile.mo` ; do \

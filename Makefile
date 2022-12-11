@@ -213,7 +213,7 @@ clean:
 	-$(MAKE) -C doc clean
 	# for older versions of this Makefile:
 	find po/* -depth -type d -exec rm -r {} \;
-	rm po/LINGUAS
+	if [ -f po/LINGUAS ]; then rm po/LINGUAS; fi
 
 po/messages.pot: pot
 

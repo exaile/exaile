@@ -10,7 +10,7 @@ import socket
 import urllib.parse
 from xml.dom import minidom
 
-from xl import common, event, playlist, xdg
+from xl import common, event, playlist, xdg, trax
 from xl.radio import RadioStation, RadioList, RadioItem
 from xl.nls import gettext as _
 from xlgui.widgets import dialogs
@@ -189,6 +189,8 @@ class IcecastRadioStation(RadioStation):
         rlists = []
 
         for item in data.keys():
+            if item is None:
+                continue
             rlist = RadioList(item, station=self)
             rlist.get_items = lambda no_cache, name=item: self._get_subrlists(
                 name=name, no_cache=no_cache
@@ -210,7 +212,7 @@ class IcecastRadioStation(RadioStation):
             stat = RadioItem(station_name, url['url'])
             stat.bitrate = url['bitrate']
             stat.format = url['format']
-            stat.get_playlist = lambda name=station_name, station_id=url['url']: self._get_playlist(name, station_id)
+            stat.get_playlist = lambda name=station_name, station=stat: self._get_playlist(name, stat)
 
             station_list.append(stat)
         self.subs[name] = station_list
@@ -228,17 +230,28 @@ class IcecastRadioStation(RadioStation):
         self.subs[name] = rlists
         return rlists
 
-    def _get_playlist(self, name, station_id):
+    def _get_playlist(self, name, station):
         """
         Gets the playlist for the given name and id
         """
+
+        station_id = station.station
+
         if station_id in self.playlists:
             return self.playlists[station_id]
-        url = self.icecast_url + '/listen/' + station_id + '/listen.xspf'
+        # url = self.icecast_url + '/listen/' + station_id + '/listen.xspf'
+        url = station_id
         set_status(_('Contacting Icecast server...'))
 
-        self.playlists[station_id] = playlist.import_playlist(url)
+        # self.playlists[station_id] = playlist.import_playlist(url)
+        self.playlists[station_id] = station
+
+        track = trax.Track(url)
+        pls = playlist.Playlist(name=name)
+        pls.append(track)
+
         set_status('')
+        return pls
         return self.playlists[station_id]
 
     def search(self, keyword):

@@ -634,9 +634,13 @@ class AudioStream:
             Useful for streams and files mutagen doesn't understand."""
 
             current = self.current_track
+            remote_newsong = False
             if not current.is_local():
                 prior_track = copy.deepcopy(current)
-                newsong = gst_utils.parse_stream_tags(current, message.parse_tag())
+                remote_newsong = gst_utils.parse_stream_tags(
+                    current,
+                    message.parse_tag()
+                )
 
             if current and not current.get_tag_raw('__length'):
                 res, raw_duration = self.playbin.query_duration(Gst.Format.TIME)
@@ -647,7 +651,7 @@ class AudioStream:
                 if duration > 0:
                     current.set_tag_raw('__length', duration)
 
-            if newsong:
+            if remote_newsong:
                 self.engine.player.engine_notify_track_end(prior_track, False)
                 self.engine.player.engine_notify_track_start(current)
 

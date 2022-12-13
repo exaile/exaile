@@ -216,14 +216,15 @@ class IcecastRadioStation(RadioStation):
         """
 
         sublist = self.data[name]
-        station_list = []
-        for station_name, url in sublist.items():
-            stat = RadioItem(station_name, url['url'])
-            stat.bitrate = url['bitrate']
-            stat.format = url['format']
-            stat.get_playlist = lambda name=station_name, station=stat: self._get_playlist(name, station)
-
-            station_list.append(stat)
+        station_list = self._build_station_list(sublist)
+        # station_list = []
+        # for station_name, url in sublist.items():
+        #     stat = RadioItem(station_name, url['url'])
+        #     stat.bitrate = url['bitrate']
+        #     stat.format = url['format']
+        #     stat.get_playlist = lambda name=station_name, url=url['url']: self._get_playlist(name, url)
+        #
+        #     station_list.append(stat)
         self.subs[name] = station_list
         return station_list
 
@@ -239,26 +240,19 @@ class IcecastRadioStation(RadioStation):
         self.subs[name] = rlists
         return rlists
 
-    def _get_playlist(self, name, station):
+    def _get_playlist(self, name, station_url):
         """
         Gets the playlist for the given name and id
         """
 
-        station_id = station.station
-
-        if station_id in self.playlists:
-            return self.playlists[station_id]
-        # url = self.icecast_url + '/listen/' + station_id + '/listen.xspf'
-        url = station_id
+        if station_url in self.playlists:
+            return self.playlists[station_url]
         set_status(_('Contacting Icecast server...'))
 
-        # self.playlists[station_id] = playlist.import_playlist(url)
-
-
-        track = trax.Track(url)
+        track = trax.Track(station_url)
         pls = playlist.Playlist(name=name)
         pls.append(track)
-        self.playlists[station_id] = pls
+        self.playlists[station_url] = pls
 
         set_status('')
         return pls
@@ -275,22 +269,21 @@ class IcecastRadioStation(RadioStation):
         items = {}
         for genre, stations in self.data.items():
             for name, station in stations.items():
-                if keyword in name:
+                if keyword.lower() in name.lower():
                     items[name] = station
-                print(name)
 
-        rlists = []
+        return self._build_station_list(items)
 
-        for name, station in items.items():
-            rlist = RadioItem(name, station['url'])
-            rlist.bitrate = station['bitrate']
-            rlist.format = station['format']
-            rlist.get_playlist = lambda name=name, station_id=station['url']: self._get_playlist(name, station_id)
-            rlists.append(rlist)
+    def _build_station_list(self, list):
+        station_list = []
+        for station_name, url in list.items():
+            stat = RadioItem(station_name, url['url'])
+            stat.bitrate = url['bitrate']
+            stat.format = url['format']
+            stat.get_playlist = lambda name=station_name, station_url=url['url']: self._get_playlist(name, station_url)
 
-        return rlists
-        return
-
+            station_list.append(stat)
+        return station_list
 
     def _get_stations(self, url):
         # Level 2

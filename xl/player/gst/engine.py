@@ -31,6 +31,7 @@ from gi.repository import Gst
 import logging
 import os
 import urllib.parse
+import copy
 
 from xl import common
 from xl import event
@@ -633,9 +634,9 @@ class AudioStream:
             Useful for streams and files mutagen doesn't understand."""
 
             current = self.current_track
-
             if not current.is_local():
-                gst_utils.parse_stream_tags(current, message.parse_tag())
+                prior_track = copy.deepcopy(current)
+                newsong = gst_utils.parse_stream_tags(current, message.parse_tag())
 
             if current and not current.get_tag_raw('__length'):
                 res, raw_duration = self.playbin.query_duration(Gst.Format.TIME)
@@ -645,6 +646,10 @@ class AudioStream:
                 duration = float(raw_duration) / Gst.SECOND
                 if duration > 0:
                     current.set_tag_raw('__length', duration)
+
+            if newsong:
+                self.engine.player.engine_notify_track_end(prior_track, False)
+                self.engine.player.engine_notify_track_start(current)
 
         elif (
             message.type == Gst.MessageType.EOS

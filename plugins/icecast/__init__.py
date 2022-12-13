@@ -74,7 +74,7 @@ class IcecastRadioStation(RadioStation):
         self.search_url_prefix = self.icecast_url + '/search?search='
 
         self.xml_url = self.icecast_url + '/yp.xml'
-        self._complete_list = {}
+        self._stations_list = {}
 
         self.cache_file = os.path.join(xdg.get_cache_dir(), 'icecast.cache')
         self.data = {}
@@ -88,21 +88,28 @@ class IcecastRadioStation(RadioStation):
         """
         Loads icecast data from cache
         """
-        return
-        self.data = {}
         if os.path.isfile(self.cache_file):
-            dom = minidom.parse(self.cache_file)
+            try:
+                dom = minidom.parse(self.cache_file)
+            except:
+                return
+            self.data = {}
             for genre in dom.getElementsByTagName('genre'):
                 genre_urls = {}
+
                 for station in genre.getElementsByTagName('station'):
-                    genre_urls[station.getAttribute('name')] = station.getAttribute('location')
+                    entry = {}
+                    entry['url'] = station.getAttribute('url')
+                    entry['bitrate'] = station.getAttribute('bitrate')
+                    entry['format'] = station.getAttribute('format')
+
+                    genre_urls[station.getAttribute('name')] = entry
                 self.data[genre.getAttribute('name')] = genre_urls
 
     def _save_cache(self):
         """
         Saves cache data
         """
-        return
         impl = minidom.getDOMImplementation()
         document = impl.createDocument(None, 'genrelist', None)
         genrelist = document.documentElement
@@ -112,7 +119,9 @@ class IcecastRadioStation(RadioStation):
             for station_name, url in stations.items():
                 station = document.createElement('station')
                 station.setAttribute('name', station_name)
-                station.setAttribute('location', url)
+                station.setAttribute('url', url['url'])
+                station.setAttribute('bitrate', url['bitrate'])
+                station.setAttribute('format', url['format'])
                 genre.appendChild(station)
             genrelist.appendChild(genre)
         with open(self.cache_file, 'w') as h:
@@ -244,11 +253,12 @@ class IcecastRadioStation(RadioStation):
         set_status(_('Contacting Icecast server...'))
 
         # self.playlists[station_id] = playlist.import_playlist(url)
-        self.playlists[station_id] = station
+
 
         track = trax.Track(url)
         pls = playlist.Playlist(name=name)
         pls.append(track)
+        self.playlists[station_id] = pls
 
         set_status('')
         return pls

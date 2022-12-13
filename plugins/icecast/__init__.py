@@ -70,8 +70,8 @@ class IcecastRadioStation(RadioStation):
         self.exaile = exaile
         self.user_agent = exaile.get_user_agent_string('icecast')
         self.icecast_url = 'http://dir.xiph.org'
-        self.genre_url = self.icecast_url + '/by_genre'
-        self.search_url_prefix = self.icecast_url + '/search?search='
+        # self.genre_url = self.icecast_url + '/by_genre'
+        # self.search_url_prefix = self.icecast_url + '/search?search='
 
         self.xml_url = self.icecast_url + '/yp.xml'
         self._stations_list = {}
@@ -136,7 +136,7 @@ class IcecastRadioStation(RadioStation):
 
         if no_cache or not self.data:
             set_status(_('Contacting Icecast server...'))
-            hostinfo = urllib.parse.urlparse(self.genre_url)
+            # hostinfo = urllib.parse.urlparse(self.genre_url)
             hostinfo = urllib.parse.urlparse(self.xml_url)
 
             c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
@@ -221,7 +221,7 @@ class IcecastRadioStation(RadioStation):
             stat = RadioItem(station_name, url['url'])
             stat.bitrate = url['bitrate']
             stat.format = url['format']
-            stat.get_playlist = lambda name=station_name, station=stat: self._get_playlist(name, stat)
+            stat.get_playlist = lambda name=station_name, station=stat: self._get_playlist(name, station)
 
             station_list.append(stat)
         self.subs[name] = station_list
@@ -270,8 +270,27 @@ class IcecastRadioStation(RadioStation):
 
         @param keyword: the keyword to search
         """
-        url = self.search_url_prefix + urllib.parse.quote_plus(keyword)
-        return self._get_stations(url)
+        # url = self.search_url_prefix + urllib.parse.quote_plus(keyword)
+        # return self._get_stations(url)
+        items = {}
+        for genre, stations in self.data.items():
+            for name, station in stations.items():
+                if keyword in name:
+                    items[name] = station
+                print(name)
+
+        rlists = []
+
+        for name, station in items.items():
+            rlist = RadioItem(name, station['url'])
+            rlist.bitrate = station['bitrate']
+            rlist.format = station['format']
+            rlist.get_playlist = lambda name=name, station_id=station['url']: self._get_playlist(name, station_id)
+            rlists.append(rlist)
+
+        return rlists
+        return
+
 
     def _get_stations(self, url):
         # Level 2

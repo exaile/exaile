@@ -638,8 +638,7 @@ class AudioStream:
             if not current.is_local():
                 prior_track = copy.deepcopy(current)
                 remote_newsong = gst_utils.parse_stream_tags(
-                    current,
-                    message.parse_tag()
+                    current, message.parse_tag()
                 )
 
             if current and not current.get_tag_raw('__length'):

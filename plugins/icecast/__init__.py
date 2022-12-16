@@ -70,8 +70,6 @@ class IcecastRadioStation(RadioStation):
         self.exaile = exaile
         self.user_agent = exaile.get_user_agent_string('icecast')
         self.icecast_url = 'http://dir.xiph.org'
-        # self.genre_url = self.icecast_url + '/by_genre'
-        # self.search_url_prefix = self.icecast_url + '/search?search='
 
         self.xml_url = self.icecast_url + '/yp.xml'
         self._stations_list = {}
@@ -129,14 +127,13 @@ class IcecastRadioStation(RadioStation):
 
     def get_lists(self, no_cache=False):
         """
-        Returns the rlists for icecast
+        Returns the stations list for icecast
         """
         # Level 1
         from xlgui.panel import radio
 
         if no_cache or not self.data:
             set_status(_('Contacting Icecast server...'))
-            # hostinfo = urllib.parse.urlparse(self.genre_url)
             hostinfo = urllib.parse.urlparse(self.xml_url)
 
             c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
@@ -149,9 +146,9 @@ class IcecastRadioStation(RadioStation):
             if response.status != 200:
                 raise radio.RadioException(_('Error connecting to Icecast server.'))
 
+            set_status(_('Parsing XML...'))
             body = response.read()
             c.close()
-            set_status('')
 
             def get_text(node):
                 for subnode in node.childNodes:
@@ -161,6 +158,7 @@ class IcecastRadioStation(RadioStation):
             data = {}
             dom = minidom.parseString(body)
             entries = dom.getElementsByTagName('entry')
+            set_status(_('Retrieving stations...'))
             for entry in entries:
                 url_node = entry.getElementsByTagName('listen_url')[0]
                 name_node = entry.getElementsByTagName('server_name')[0]
@@ -170,33 +168,28 @@ class IcecastRadioStation(RadioStation):
 
                 name = get_text(name_node)
                 url  = get_text(url_node)
-                genre = get_text(genre_node)
+                genre = get_text(genre_node) or _('Unknown')
                 bitrate = get_text(bitrate_node)
                 format = get_text(server_type_node)
+
+                genre_list = genre.split(' ')
 
                 entry = {}
                 entry['url'] = url
                 entry['bitrate'] = bitrate
                 entry['format'] = format
-                if not genre in data:
-                    data[genre] = {}
-                data[genre][name] = entry
+                for genre in genre_list:
+                    if not genre in data:
+                        data[genre] = {}
+                    data[genre][name] = entry
 
-                # if div.getAttribute('id') == 'content':
-                #     anchors = div.getElementsByTagName('a')
-                #     for anchor in anchors:
-                #         anchor.normalize()
-                #         for node in anchor.childNodes:
-                #             if node.nodeType == minidom.Node.TEXT_NODE:
-                #                 data[node.nodeValue] = anchor.getAttribute('href')
-                #                 break
-                #     break
             self.data = data
             self._save_cache()
         else:
             data = self.data
         rlists = []
 
+        # rlist = self._build_station_list(data)
         for item in data.keys():
             if item is None:
                 continue
@@ -212,33 +205,13 @@ class IcecastRadioStation(RadioStation):
 
     def _get_subrlists(self, name, no_cache=False):
         """
-        Gets the subrlists for a rlist
+        Gets the stations to a genre
         """
 
         sublist = self.data[name]
         station_list = self._build_station_list(sublist)
-        # station_list = []
-        # for station_name, url in sublist.items():
-        #     stat = RadioItem(station_name, url['url'])
-        #     stat.bitrate = url['bitrate']
-        #     stat.format = url['format']
-        #     stat.get_playlist = lambda name=station_name, url=url['url']: self._get_playlist(name, url)
-        #
-        #     station_list.append(stat)
         self.subs[name] = station_list
         return station_list
-
-        # Level 2
-        if name in self.subs and not no_cache:
-            return self.subs[name]
-
-        url = self.icecast_url + self.data[name]
-
-        rlists = self._get_stations(url)
-        rlists.sort(key=operator.attrgetter('name'))
-
-        self.subs[name] = rlists
-        return rlists
 
     def _get_playlist(self, name, station_url):
         """
@@ -256,7 +229,6 @@ class IcecastRadioStation(RadioStation):
 
         set_status('')
         return pls
-        return self.playlists[station_id]
 
     def search(self, keyword):
         """
@@ -264,8 +236,6 @@ class IcecastRadioStation(RadioStation):
 
         @param keyword: the keyword to search
         """
-        # url = self.search_url_prefix + urllib.parse.quote_plus(keyword)
-        # return self._get_stations(url)
         items = {}
         for genre, stations in self.data.items():
             for name, station in stations.items():
@@ -283,118 +253,8 @@ class IcecastRadioStation(RadioStation):
             stat.get_playlist = lambda name=station_name, station_url=url['url']: self._get_playlist(name, station_url)
 
             station_list.append(stat)
+        station_list.sort(key=operator.attrgetter('name'))
         return station_list
-
-    def _get_stations(self, url):
-        # Level 2
-        from xlgui.panel import radio
-
-        hostinfo = urllib.parse.urlparse(url)
-        query = hostinfo.query
-        items = []
-        thisPage = -1
-        nextPage = 0
-        set_status(_('Contacting Icecast server...'))
-        c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
-        while thisPage < nextPage:
-            thisPage += 1
-            try:
-                c.request(
-                    'GET',
-                    "%s?%s" % (hostinfo.path, query),
-                    headers={'User-Agent': self.user_agent},
-                )
-                response = c.getresponse()
-            except (socket.timeout, socket.error):
-                raise radio.RadioException(_('Error connecting to Icecast server.'))
-
-            if response.status != 200:
-                raise radio.RadioException(_('Error connecting to Icecast server.'))
-
-            body = response.read().decode('utf-8', 'replace')
-
-            # XML parser can't handle the audio tag
-            body = re.sub('<audio.*?>.*?</audio>', '', body, flags=(re.M | re.DOTALL))
-
-            dom = minidom.parseString(body)
-            divs = dom.getElementsByTagName('div')
-            for div in divs:
-                if div.getAttribute('id') == 'content':
-                    servers = div.getElementsByTagName('tr')
-                    for server in servers:
-                        spans = server.getElementsByTagName('span')
-                        for span in spans:
-                            if span.getAttribute('class') == 'name':
-                                span.normalize()
-                                if span.firstChild.nodeType == minidom.Node.TEXT_NODE:
-                                    sname = span.firstChild.nodeValue
-                                else:
-                                    sname = span.firstChild.firstChild.nodeValue
-                                break
-                        tds = server.getElementsByTagName('td')
-                        for td in tds:
-                            if td.getAttribute('class') == 'tune-in':
-                                anchors = td.getElementsByTagName('a')
-                                for anchor in anchors:
-                                    href = anchor.getAttribute('href')
-                                    matcher = re.match(
-                                        '/listen/(\d+)/listen\.xspf\Z', href
-                                    )
-                                    if matcher:
-                                        sid = matcher.group(1)
-                                        break
-                                paragraphs = td.getElementsByTagName('p')
-                                for paragraph in paragraphs:
-                                    if paragraph.hasAttribute('title'):
-                                        quality = paragraph.getAttribute(
-                                            'title'
-                                        ).split()
-                                        if quality[0] == 'Quality':
-                                            sbitrate = self._calc_bitrate(quality[1])
-                                        elif len(quality[0]) > 3:
-                                            sbitrate = str(int(quality[0]) // 1024)
-                                        else:
-                                            sbitrate = quality[0]
-                                        anchor = paragraph.getElementsByTagName(
-                                            'a'
-                                        ).item(0)
-                                        anchor.normalize()
-                                        for text in anchor.childNodes:
-                                            if text.nodeType == minidom.Node.TEXT_NODE:
-                                                sformat = text.nodeValue
-                                                break
-                                        break
-                                break
-                        items.append((sname, sid, sbitrate, sformat))
-
-                    nextPage = -1
-                    uls = div.getElementsByTagName('ul')
-                    for ul in uls:
-                        if ul.getAttribute('class') == 'pager':
-                            anchors = ul.getElementsByTagName('a')
-                            query = anchors.item(anchors.length - 1).getAttribute(
-                                'href'
-                            )
-                            matcher = re.match('\?(.*?page=(\d+))\Z', query)
-                            query = matcher.group(1)
-                            nextPage = int(matcher.group(2))
-                            break
-                    break
-            dom.unlink()
-        c.close()
-        set_status('')
-        rlists = []
-
-        for item in items:
-            rlist = RadioItem(item[0], station=self)
-            rlist.bitrate = item[2]
-            rlist.format = item[3]
-            rlist.get_playlist = lambda name=item[0], station_id=item[
-                1
-            ]: self._get_playlist(name, station_id)
-            rlists.append(rlist)
-
-        return rlists
 
     def _calc_bitrate(self, quality):
         q = float(quality.replace(',', '.'))

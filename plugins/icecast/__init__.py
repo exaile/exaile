@@ -489,7 +489,7 @@ class ResultsDialog(dialogs.ListDialog):
         col = Gtk.TreeViewColumn(_('Bitrate'), text)
         col.set_cell_data_func(
             text,
-            lambda column, cell, model, iter: cell.set_property(
+            lambda column, cell, model, iter, unused: cell.set_property(
                 'text', model.get_value(iter, 0).bitrate
             ),
         )
@@ -499,7 +499,7 @@ class ResultsDialog(dialogs.ListDialog):
         col = Gtk.TreeViewColumn(_('Format'), text)
         col.set_cell_data_func(
             text,
-            lambda column, cell, model, iter: cell.set_property(
+            lambda column, cell, model, iter, unused: cell.set_property(
                 'text', model.get_value(iter, 0).format
             ),
         )

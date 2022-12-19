@@ -72,6 +72,7 @@ class IcecastRadioStation(RadioStation):
         self.icecast_url = 'http://dir.xiph.org'
 
         self.xml_url = self.icecast_url + '/yp.xml'
+        self.genres_url = self.icecast_url + '/genres'
         self._stations_list = {}
 
         self.cache_file = os.path.join(xdg.get_cache_dir(), 'icecast.cache')
@@ -132,7 +133,8 @@ class IcecastRadioStation(RadioStation):
         # Level 1
         from xlgui.panel import radio
 
-        if no_cache or not self.data:
+        if no_cache or not self.data or True:
+            genre_list = self._get_genres()
             set_status(_('Contacting Icecast server...'))
             hostinfo = urllib.parse.urlparse(self.xml_url)
 
@@ -335,6 +337,37 @@ class IcecastRadioStation(RadioStation):
         menu.add_simple(_("Search"), lambda *e: self.on_search(), Gtk.STOCK_FIND)
         return menu
 
+    def _get_genres(self):
+
+        from xlgui.panel import radio
+        set_status(_('Contacting Icecast server...'))
+        hostinfo = urllib.parse.urlparse(self.genres_url)
+
+        c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
+        try:
+            c.request('GET', hostinfo.path, headers={'User-Agent': self.user_agent})
+            response = c.getresponse()
+        except (socket.timeout, socket.error):
+            raise radio.RadioException(_('Error connecting to Icecast server.'))
+
+        if response.status != 200:
+            raise radio.RadioException(_('Error connecting to Icecast server.'))
+
+        set_status(_('Parsing XML...'))
+        body = response.read()
+        c.close()
+
+        genres = {}
+        next = False
+        for line in body.splitlines():
+            if next:
+                genres[line.strip().decode('UTF-8')] = 1
+                next = False
+            if b'list-group-item list-group-item-action' in line:
+                next = True
+
+        print(genres)
+        return genres
 
 class ResultsDialog(dialogs.ListDialog):
     def __init__(self, title):

@@ -1,7 +1,7 @@
 Version='4.1.2'
 Authors=['Aren Olson <reacocard@gmail.com>']
 Name=_('CD Playback')
-Description=_('Adds support for playing audio CDs.\n\nRequires UDisks2 to autodetect CDs\nRequires cddb-py (%s) to look up tags.') % 'http://cddb-py.sourceforge.net/'
+Description=_('Adds support for playing audio CDs.\n\nRequires UDisks2 to autodetect CDs\nRequires python-libdiscid (%s) and python-musicbrainzngs (%s) to look up tags.') % ('https://pypi.org/project/python-libdiscid/', 'https://pypi.org/project/musicbrainzngs/')
 Category=_('Devices')
 Platforms=['linux']
 RequiredModules=['dbus']

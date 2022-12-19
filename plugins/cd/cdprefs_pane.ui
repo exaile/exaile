@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkListStore" id="format_model">
@@ -36,123 +36,193 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkGrid" id="preferences_pane">
+  <object class="GtkBox" id="preferences_pane">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="row_spacing">4</property>
-    <property name="column_spacing">2</property>
+    <property name="orientation">vertical</property>
     <child>
-      <object class="GtkLabel" id="label1">
+      <object class="GtkFrame" id="frame_metadata">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="label" translatable="yes">Import format: </property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">0</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkComboBox" id="cd_import/format">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="model">format_model</property>
-        <property name="active">0</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">none</property>
         <child>
-          <object class="GtkCellRendererText" id="renderer1"/>
-          <attributes>
-            <attribute name="text">0</attribute>
-          </attributes>
+          <object class="GtkAlignment">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="left_padding">12</property>
+            <child>
+              <object class="GtkCheckButton" id="cd_import/fetch_metadata_from_internet">
+                <property name="label" translatable="yes">Fetch metadata from internet servers</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="draw_indicator">True</property>
+              </object>
+            </child>
+          </object>
         </child>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">0</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label2">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="label" translatable="yes">Import quality: </property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkComboBox" id="cd_import/quality">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="model">quality_model</property>
-        <child>
-          <object class="GtkCellRendererText" id="renderer2"/>
-          <attributes>
-            <attribute name="text">1</attribute>
-          </attributes>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label3">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="label" translatable="yes">Import path: </property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkComboBox" id="cd_import/outpath">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="hexpand">True</property>
-        <property name="has_entry">True</property>
-        <child internal-child="entry">
-          <object class="GtkEntry" id="combobox-entry">
-            <property name="can_focus">True</property>
+        <child type="label">
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Disc metadata</property>
           </object>
         </child>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">2</property>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">1</property>
       </packing>
     </child>
     <child>
-      <object class="GtkImage" id="image1">
+      <object class="GtkFrame" id="frame_rip">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="icon_name">dialog-information</property>
-        <property name="icon_size">6</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">none</property>
+        <child>
+          <object class="GtkAlignment">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="left_padding">12</property>
+            <child>
+              <object class="GtkGrid" id="preferences_pane_1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="row_spacing">4</property>
+                <property name="column_spacing">2</property>
+                <child>
+                  <object class="GtkLabel" id="label1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Format: </property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBox" id="cd_import/format">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="model">format_model</property>
+                    <property name="active">0</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="renderer1"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Quality: </property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBox" id="cd_import/quality">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="model">quality_model</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="renderer2"/>
+                      <attributes>
+                        <attribute name="text">1</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label3">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Path: </property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBox" id="cd_import/outpath">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="hexpand">True</property>
+                    <property name="has_entry">True</property>
+                    <child internal-child="entry">
+                      <object class="GtkEntry">
+                        <property name="can_focus">True</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkImage" id="image1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="icon_name">dialog-information</property>
+                    <property name="icon_size">6</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label4">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Every tag can be used with &lt;b&gt;$tag&lt;/b&gt; or &lt;b&gt;${tag}&lt;/b&gt;. Internal tags like &lt;b&gt;$__length&lt;/b&gt; need to be specified with two leading underscores.</property>
+                    <property name="use_markup">True</property>
+                    <property name="wrap">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">3</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child type="label">
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Import tracks to disk</property>
+          </object>
+        </child>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">3</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label4">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="label" translatable="yes">Every tag can be used with &lt;b&gt;$tag&lt;/b&gt; or &lt;b&gt;${tag}&lt;/b&gt;. Internal tags like &lt;b&gt;$__length&lt;/b&gt; need to be specified with two leading underscores.</property>
-        <property name="use_markup">True</property>
-        <property name="wrap">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">3</property>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">2</property>
       </packing>
     </child>
   </object>

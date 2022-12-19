@@ -155,7 +155,7 @@ class HistoryPlaylistPage(PlaylistPageBase):
     reorderable = False
 
     def __init__(self, playlist, player):
-        PlaylistPageBase.__init__(self)
+        PlaylistPageBase.__init__(self, playlist, player)
 
         self.playlist = playlist
 

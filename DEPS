@@ -54,7 +54,8 @@ Device detection:
 
 CD info: (TODO: This is currently broken on python3, see #608 and #652)
 
-* cddb (python2), from http://cddb-py.sourceforge.net/
+* python-libdiscid or python-discid (optional on linux, required to use musicbrainz)
+* python-musicbrainzngs (optional)
 
 DAAP plugins (daapserver and daapclient):
 

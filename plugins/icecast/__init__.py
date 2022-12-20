@@ -174,13 +174,20 @@ class IcecastRadioStation(RadioStation):
                 bitrate = get_text(bitrate_node)
                 format = get_text(server_type_node)
 
-                genre_list = genre.split(' ')
+                station_genres = genre.split(' ')
+                insert_genres = []
+                for i in range(0, len(station_genres)):
+                    if station_genres[i].lower() in genre_list:
+                        insert_genres.append(station_genres[i])
+                    if i < len(station_genres) - 1:
+                        if ((station_genres[i] + " " + station_genres[i+1]).lower()) in genre_list:
+                            insert_genres.append(station_genres[i] + " " + station_genres[i+1])
 
                 entry = {}
                 entry['url'] = url
                 entry['bitrate'] = bitrate
                 entry['format'] = format
-                for genre in genre_list:
+                for genre in insert_genres:
                     if not genre in data:
                         data[genre] = {}
                     data[genre][name] = entry
@@ -361,7 +368,8 @@ class IcecastRadioStation(RadioStation):
         next = False
         for line in body.splitlines():
             if next:
-                genres[line.strip().decode('UTF-8')] = 1
+                genre = line.strip().decode('UTF-8')
+                genres[genre.lower()] = genre
                 next = False
             if b'list-group-item list-group-item-action' in line:
                 next = True

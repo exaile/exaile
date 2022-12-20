@@ -89,7 +89,7 @@ class JamendoPanel(panel.Panel):
 
         self.setup_widgets()
 
-    # find out whats selected and add the tracks under it to the playlist
+    # find out what's selected and add the tracks under it to the playlist
     def add_to_playlist(self):
         sel = self.get_selected_item()
         if isinstance(sel, jamtree.Artist):
@@ -440,7 +440,7 @@ class JamendoCoverSearch(CoverSearchMethod):
     name = 'jamendo'
     use_cache = False  # do this since the tracks dont stay on local.
     fixed = True
-    fixed_priority = 5  # take precendence, since we know we are 'right'
+    fixed_priority = 5  # take precedence, since we know we are 'right'
     # for matching tracks.
 
     def __init__(self, user_agent):

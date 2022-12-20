@@ -50,7 +50,7 @@ class Panel(GObject.GObject):
 
     def __init__(self, parent, name, label=None):
         """
-        Intializes the panel
+        Initializes the panel
 
         @param parent: the main window
         @type parent: Gtk.Window

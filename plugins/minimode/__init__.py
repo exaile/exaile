@@ -271,7 +271,7 @@ class MiniMode(Gtk.Window):
 
     def on_main_visible_toggle(self, main):
         """
-        Handles visiblity toggles in
+        Handles visibility toggles in
         Exaile's main window stead
         """
         if self.__active:

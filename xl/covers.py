@@ -73,7 +73,7 @@ class Cacher:
 
         :param data: The data to store, as a bytestring.
         """
-        # FIXME: this doesnt handle hash collisions at all. with
+        # FIXME: this doesn't handle hash collisions at all. with
         # 2^256 possible keys its unlikely that we'll have a collision,
         # but we should handle it anyway.
         h = hashlib.sha256()
@@ -484,7 +484,7 @@ class CoverSearchMethod:
 
     #: If true, cover results will be cached for faster lookup
     use_cache = True
-    #: A name uniquely identifing the search method.
+    #: A name uniquely identifying the search method.
     name = "base"
     #: Whether the backend should have a fixed priority instead of being
     #  configurable.

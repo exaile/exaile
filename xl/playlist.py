@@ -1530,7 +1530,7 @@ class Playlist:
             track = None
             track = trax.Track(uri=loc)
 
-            # readd meta
+            # re-add meta
             if not track:
                 continue
             if not track.is_local() and meta is not None:
@@ -1877,7 +1877,7 @@ class SmartPlaylist:
 
     def remove_param(self, index):
         """
-        Removes a parameter at the speficied index
+        Removes a parameter at the specified index
 
         index:  the index of the parameter to remove
         """
@@ -1894,7 +1894,7 @@ class SmartPlaylist:
         pl = Playlist(name=self.name)
         if not collection:
             collection = self.collection
-        if not collection:  # if there wasnt one set we might not have one
+        if not collection:  # if there wasn't one set we might not have one
             return pl
 
         search_string, matchers = self._create_search_data(collection)
@@ -2149,7 +2149,7 @@ class PlaylistManager:
         # collect the names of all playlists in playlist_dir
         existing = []
         for f in os.listdir(self.playlist_dir):
-            # everything except the order file shold be a playlist, but
+            # everything except the order file should be a playlist, but
             # check against hidden files since some editors put
             # temporary stuff in the same dir.
             if f != os.path.basename(self.order_file) and not f.startswith("."):

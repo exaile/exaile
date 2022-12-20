@@ -175,7 +175,7 @@ Debugging segfaults (segmentation violations)
 3. Run ``gdb /usr/bin/python3``
 4. In gdb, run ``set logging on exaile-segfault.txt`` to enable logging to that file.
 5. In gdb, run ``run ./exaile.py --startgui``. You might append other arguments if you need them.
-6. Use Exaile as you did before and try to reproduce the problem. At some point, exaile might freeze. This is when gdb catched the segmentation fault.
+6. Use Exaile as you did before and try to reproduce the problem. At some point, exaile might freeze. This is when gdb caught the segmentation fault.
 7. In gdb, run ``t a a py-bt`` and ``t a a bt full``. The first one will get python backtraces from all threads, the second one will get native (C/C++) stacktraces. You might need to type the return key a few times after each of these two commands to make gdb print all lines of the stack traces. This might take a while.
 8. In gdb, type ``quit`` and press the enter key.
 9. Please attach the file ``exaile-segfault.txt`` to a bug report at `Github <https://github.com/exaile/exaile/issues/new>`_ after you checked that it does not contain any private data. If you prefer to send the data encrypted, please feel free to encrypt them to the PGP key ID 0x545B42FB8713DA3B and send it to one of its Email addresses.

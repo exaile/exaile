@@ -599,7 +599,7 @@ class ListBox:
 class FileOperationDialog(Gtk.FileChooserDialog):
     """
     An extension of the Gtk.FileChooserDialog that
-    adds a collapsable panel to the bottom listing
+    adds a collapsible panel to the bottom listing
     valid file extensions that the file can be
     saved in. (similar to the one in GIMP)
     """

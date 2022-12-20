@@ -43,7 +43,7 @@ The plugin treats the template as a giant string, and uses python format
 string functionality to substitute data into the template. 
 
 - Anything with a % in it should be %%
-- The following special strings will be subsituted
+- The following special strings will be substituted
 
     - %(data)s              - The data as JSON (see above for format)
     - %(title)s             - User defined title

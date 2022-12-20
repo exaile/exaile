@@ -41,7 +41,7 @@ class LyricsNotFoundException(Exception):
 
 class LyricsCache:
     """
-    Basically just a thread-safe shelf for convinience.
+    Basically just a thread-safe shelf for convenience.
     Supports container syntax.
     """
 

@@ -290,7 +290,7 @@ class IterableIPShell:
 
     def _getHistory(self):
         """
-        Get's the command string of the current history level.
+        Gets the command string of the current history level.
 
         @return: Historic command string.
         @rtype: string
@@ -652,7 +652,7 @@ class IPythonView(ConsoleView, IterableIPShell):
 
     def raw_input(self, prompt=''):
         """
-        Custom raw_input() replacement. Get's current line from console buffer.
+        Custom raw_input() replacement. Gets current line from console buffer.
 
         @param prompt: Prompt to print. Here for compatibility as replacement.
         @type prompt: string

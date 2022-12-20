@@ -272,7 +272,7 @@ class Formatter(GObject.GObject):
 
                 identifier_parts += [groups['parameters']]
 
-            # Required to make multiple occurences of the same
+            # Required to make multiple occurrences of the same
             # identifier with different parameters work
             extractions[':'.join(identifier_parts)] = (identifier, parameters)
 

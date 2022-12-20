@@ -261,7 +261,7 @@ class Collection(trax.TrackDB):
             self._running_total_count += self._running_count
             if self._scan_stopped:
                 break
-        else:  # didnt break
+        else:  # didn't break
             try:
                 if self.location is not None:
                     self.save_to_location()
@@ -734,7 +734,7 @@ class Library:
                 self.collection.add(tr)
 
             # Track already existed. This fixes trax.get_tracks_from_uri
-            # on windows, unknown why fix isnt needed on linux.
+            # on windows, unknown why fix isn't needed on linux.
             elif not tr._init:
                 self.collection.add(tr)
         return tr
@@ -801,7 +801,7 @@ class Library:
                     # for compilation detection. Most albums have far fewer
                     # than 110 tracks anyway, so it is unlikely that this
                     # restriction will affect the heuristic's accuracy.
-                    # 110 was chosen to accomodate "top 100"-style
+                    # 110 was chosen to accommodate "top 100"-style
                     # compilations.
                     if len(dirtracks) > 110:
                         logger.debug(
@@ -909,7 +909,7 @@ class TransferQueue:
 
     def transfer(self) -> None:
         """
-        Tranfer the queued tracks to the library.
+        Transfer the queued tracks to the library.
 
         This is NOT asynchronous
         """

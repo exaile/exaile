@@ -603,7 +603,7 @@ class DaapLibrary(collection.Library):
         self.scanning = False
         # return True
 
-    # Needed to be overriden for who knows why (exceptions)
+    # Needed to be overridden for who knows why (exceptions)
     def _count_files(self):
         count = 0
         if self.daap_share:

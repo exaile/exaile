@@ -415,7 +415,7 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
                   cell_area, flags):
         """
             Renders the rating images
-            (Overriden since Gtk.CellRendererPixbuf
+            (Overridden since Gtk.CellRendererPixbuf
              fails at vertical padding)
         """
         cell_area.width *= self.props.xalign

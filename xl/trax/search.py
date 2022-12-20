@@ -542,7 +542,7 @@ def search_tracks(trackiter, trackmatchers: Collection[TracksMatcher]):
         # thread running the search can end up blocking other threads.
         # Calling out to time.sleep forces a release of the GIL and
         # allows other threads to run. Benchmarks show this has no
-        # noticable effect on search speed.
+        # noticeable effect on search speed.
         time.sleep(0)
 
 

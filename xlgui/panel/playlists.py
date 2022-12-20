@@ -173,7 +173,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
         (model, iter) = selection.get_selected()
         model.set_value(iter, 1, name)
 
-        # Update the manager aswell
+        # Update the manager as well
         self.playlist_manager.rename_playlist(playlist, name)
 
     def open_selected_playlist(self):
@@ -382,7 +382,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def __init__(self, parent, playlist_manager, smart_manager, collection, name):
         """
-        Intializes the playlists panel
+        Initializes the playlists panel
 
         @param playlist_manager:  The playlist manager
         """

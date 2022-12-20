@@ -66,7 +66,7 @@ class RadioManager(providers.ProviderHandler):
         """
         Removes a station from the manager
 
-        @param station: The station to remvoe
+        @param station: The station to remove
         """
         providers.unregister(self.servicename, station)
 

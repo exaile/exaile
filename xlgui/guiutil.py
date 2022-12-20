@@ -225,7 +225,7 @@ def pixbuf_from_data(data, size=None, keep_ratio=True, upscale=False):
 
 class ScalableImageWidget(Gtk.Image):
     """
-    Custom resizeable image widget
+    Custom resizable image widget
     """
 
     def __init__(self):

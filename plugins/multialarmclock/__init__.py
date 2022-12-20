@@ -47,7 +47,7 @@ def _init(prefsdialog, builder):
     logger.debug('_init() called')
     global MY_BUILDER, ALARM_CLOCK_MAIN
 
-    # note that we get a new builder everytime the prefs dialog is closed and re-opened
+    # note that we get a new builder every time the prefs dialog is closed and re-opened
     MY_BUILDER = builder
     if ALARM_CLOCK_MAIN is not None:
         ALARM_CLOCK_MAIN.init_ui(builder)

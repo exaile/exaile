@@ -689,7 +689,7 @@ class Exaile:
 
         event.log_event("player_loaded", player.PLAYER, None)
 
-        # Initalize playlist manager
+        # Initialize playlist manager
         from xl import playlist
 
         self.playlists = playlist.PlaylistManager()
@@ -705,7 +705,7 @@ class Exaile:
 
         dynamic.MANAGER.collection = self.collection
 
-        # Initalize device manager
+        # Initialize device manager
         logger.info("Loading devices...")
         from xl import devices
 

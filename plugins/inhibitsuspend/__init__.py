@@ -229,7 +229,7 @@ class PowerManagerAdapter(DbusSuspendAdapter):
     """
     Default Adapter, implemented by most desktop sessions
     Adapter for org.freedesktop.PowerManagement.Inhibit Interface
-    Some desktop sesssions use different bus names for this interface
+    Some desktop sessions use different bus names for this interface
     and have other small variances
     """
 
@@ -266,7 +266,7 @@ class GnomeAdapter(DbusSuspendAdapter):
 
     def _dbus_inhibit_call(self):
         """
-        Gnome Interface has more paramters
+        Gnome Interface has more parameters
         """
         self.cookie = self.iface.Inhibit(
             self.PROGRAM, 1, self.ACTIVITY, self.SUSPEND_FLAG

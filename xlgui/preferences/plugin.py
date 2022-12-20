@@ -314,7 +314,7 @@ class PluginManager:
                         self.window,
                         "\n".join(
                             [
-                                _('Plugin allready exists!'),
+                                _('Plugin already exists!'),
                                 _('Do you want to override it?'),
                             ]
                         ),

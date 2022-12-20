@@ -52,7 +52,7 @@ class Bookmark:
     ):
         """
         Creates a bookmark for current track/position if path or time are
-        None. Creates a bookmark for the given track/positon otherwise.
+        None. Creates a bookmark for the given track/position otherwise.
         """
         if not path:
             # get currently playing track

@@ -120,7 +120,7 @@ class TrackDB:
         Provide the ability to iterate over a TrackDB.
         Just as with a dictionary, if tracks are added
         or removed during iteration, iteration will halt
-        wuth a RuntimeError.
+        with a RuntimeError.
         """
         track_iterator = iter(self.tracks.items())
         iterator = TrackDBIterator(track_iterator)

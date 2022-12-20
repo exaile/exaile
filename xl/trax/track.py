@@ -50,7 +50,7 @@ _K = TypeVar('_K')
 _V = TypeVar('_V')
 _V1 = TypeVar('_V1')
 
-# map chars to appropriate subsitutes for sorting
+# map chars to appropriate substitutes for sorting
 _sortcharmap = {
     'ß': 'ss',  # U+00DF
     'æ': 'ae',  # U+00E6
@@ -1026,7 +1026,7 @@ class Track:
         turns characters like æ into values suitable for sorting,
         like 'ae'. see _sortcharmap for the mapping.
 
-        value must be a unicode object or this wont replace anything.
+        value must be a unicode object or this won't replace anything.
 
         value must be in lower-case
         """

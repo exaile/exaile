@@ -120,7 +120,7 @@ class GroupTaggerPlugin:
             menu.simple_menu_item(
                 'gt_export',
                 [],
-                _('E_xport collecton tags to JSON'),
+                _('E_xport collection tags to JSON'),
                 callback=self.on_export_tags,
             )
         )

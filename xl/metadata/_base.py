@@ -322,7 +322,7 @@ class BaseFormat:
                 return None
 
 
-class CaseInsensitveBaseFormat(BaseFormat):
+class CaseInsensitiveBaseFormat(BaseFormat):
     case_sensitive = False
 
     def get_keys_disk(self):

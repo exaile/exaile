@@ -508,7 +508,7 @@ class DragTreeView(AutoScrollTreeView):
 
     def _handle_unknown_drag_data(self, loc):
         """
-        Handles unknown drag data that has been recieved by
+        Handles unknown drag data that has been received by
         drag_data_received.  Unknown drag data is classified as
         any loc (location) that is not in the collection of tracks
         (i.e. a new song, or a new playlist)

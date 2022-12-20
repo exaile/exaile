@@ -57,7 +57,7 @@ class Shutdown:
 
     def on_toggled(self, menuitem):
         """
-        Enables or disables defered shutdown
+        Enables or disables deferred shutdown
         """
         if menuitem.get_active():
             self.do_shutdown = True

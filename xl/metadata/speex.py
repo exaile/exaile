@@ -25,11 +25,11 @@
 # from your version.
 
 
-from xl.metadata._base import CaseInsensitveBaseFormat
+from xl.metadata._base import CaseInsensitiveBaseFormat
 from mutagen import oggspeex
 
 
-class SpeexFormat(CaseInsensitveBaseFormat):
+class SpeexFormat(CaseInsensitiveBaseFormat):
     MutagenType = oggspeex.OggSpeex
     writable = True
 

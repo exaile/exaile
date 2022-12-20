@@ -415,13 +415,13 @@ class NotebookPage(Gtk.Box):
 
     def focus(self):
         """
-        Grabs focus for this page. Should be overriden in subclasses.
+        Grabs focus for this page. Should be overridden in subclasses.
         """
         self.grab_focus()
 
     def get_page_name(self):
         """
-        Returns the name of this tab. Should be overriden in subclasses.
+        Returns the name of this tab. Should be overridden in subclasses.
 
         Subclasses can also implement set_page_name(self, name) to allow
         renaming, but this is not mandatory.

@@ -55,7 +55,7 @@ Environment variables that affect "make install":
     The full path to the lib directory.
     Default: ``EPREFIX/lib``
   DATADIR
-    The full path to non-arcitecture dependent data files.
+    The full path to non-architecture dependent data files.
     Default: ``PREFIX/share``
   MANPREFIX
     The full path to the parent of the man page installation directory (same
@@ -84,5 +84,3 @@ Environment variables that affect "make install":
 
 Additional Resources:
 1. `XDG Base Directory Specification <https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html>`_
-
-

@@ -54,7 +54,7 @@ def old_get_track_key(track):
         tag = 'album'
         value = album
     else:
-        # no album info, cant store it
+        # no album info, can't store it
         return None
     return (tag, tuple(value))
 

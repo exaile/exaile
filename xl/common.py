@@ -276,7 +276,7 @@ def glib_wait_seconds(timeout):
     """
     Same as glib_wait, but uses GLib.timeout_add_seconds instead
     of GLib.timeout_add and takes its timeout in seconds. See the
-    glib documention for why you might want to use one over the
+    glib documentation for why you might want to use one over the
     other.
     """
     return _glib_wait_inner(timeout, GLib.timeout_add_seconds)
@@ -571,7 +571,7 @@ def walk(root: Gio.File) -> Iterable[Gio.File]:
                     queue.append(fil)
                 elif type == Gio.FileType.REGULAR:
                     yield fil
-        except GLib.Error:  # why doesnt gio offer more-specific errors?
+        except GLib.Error:  # why doesn't gio offer more-specific errors?
             logger.exception("Unhandled exception while walking on %s.", dir)
 
 

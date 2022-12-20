@@ -35,12 +35,12 @@ EXAILEMANDIR   = $(DESTDIR)$(MANPREFIX)/man
 	plugins-dist manpage completion clean pot potball dist check-doc test \
 	test_coverage lint_errors sanitycheck format
 
-all: compile completion locale manpage
+all: compile completion locale manpage desktop_files
 	@echo "Ready to install..."
 
 # The no_locale stuff is by request of BSD people, please ensure
 # all methods that deal with locale stuff have a no_locale variant
-all_no_locale: compile completion manpage
+all_no_locale: compile completion manpage desktop_files_no_locale
 	@echo "Ready to install..."
 
 builddir:
@@ -105,6 +105,11 @@ uninstall:
 	$(MAKE) -C plugins uninstall
 	find $(DESTDIR)$(DATADIR)/locale -name "exaile.mo" -exec rm -f {} \;
 
+# List a *.mo file for any *.po file
+LOCALE_SRCS=$(wildcard po/*.po)
+LOCALE_OBJS=$(LOCALE_SRCS:.po=.mo)
+LINGUAS=$(sort $(patsubst po/%.po,%,$(LOCALE_SRCS)))
+
 install: install-target install-locale
 
 install_no_locale: install-target
@@ -152,9 +157,9 @@ install-target: make-install-dirs
 	install -p -m 644 data/ui/preferences/*.ui $(EXAILESHAREDIR)/data/ui/preferences
 	install -p -m 644 data/ui/preferences/widgets/*.ui $(EXAILESHAREDIR)/data/ui/preferences/widgets
 	install -p -m 644 data/ui/widgets/*.ui $(EXAILESHAREDIR)/data/ui/widgets
-	install -p -m 644 data/exaile.desktop \
+	install -p -m 644 build/exaile.desktop \
 		$(DESTDIR)$(DATADIR)/applications/
-	install -p -m 644 data/exaile.appdata.xml \
+	install -p -m 644 build/exaile.appdata.xml \
 		$(DESTDIR)$(DATADIR)/metainfo/
 	-install -p -m 644 build/exaile.1.gz $(EXAILEMANDIR)/man1/
 	-install -p -m 644 build/exaile.bash-completion $(DESTDIR)$(BASHCOMPDIR)/exaile
@@ -172,17 +177,12 @@ install-target: make-install-dirs
 	fi
 	$(MAKE) -C plugins install
 
-
-# List a *.mo file for any *.po file
-LOCALE_SRCS=$(wildcard po/*.po)
-LOCALE_OBJS=$(LOCALE_SRCS:.po=.mo)
-
 %.mo: %.po po/messages.pot
 	$(eval LOCALE_DIR := `echo $< | sed "s|^po/|build/locale/|" | sed "s|.po|/LC_MESSAGES|"`)
 	mkdir -p $(LOCALE_DIR)
 	-msgmerge -q -o - $< po/messages.pot | msgfmt -c -o $(LOCALE_DIR)/exaile.mo -
 
-locale: builddir $(LOCALE_OBJS)
+locale: builddir $(LOCALE_OBJS) desktop_files
 
 install-locale:
 	for f in `find build/locale -name exaile.mo` ; do \
@@ -213,6 +213,7 @@ clean:
 	-$(MAKE) -C doc clean
 	# for older versions of this Makefile:
 	find po/* -depth -type d -exec rm -r {} \;
+	if [ -f po/LINGUAS ]; then rm po/LINGUAS; fi
 
 po/messages.pot: pot
 
@@ -228,9 +229,12 @@ pot:
 	    find ../plugins -name "*.ui" | sort ; } \
 	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --keyword=N_ && \
 	  find ../plugins -name PLUGININFO | sort \
-	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --join-existing --language=Python )
+	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --join-existing --language=Python && \
+	  xgettext -j -o messages.pot --keyword=X-GNOME-FullName '../data/exaile.desktop.in' && \
+	  xgettext -j -o messages.pot '../data/exaile.appdata.xml.in' )
 	find po -name '*.po' -exec \
 	  msgmerge --previous --update {} po/messages.pot \;
+	echo $(LINGUAS) > po/LINGUAS
 
 potball: builddir
 	tar --bzip2 --format=posix -cf build/exaile-po.tar.bz2 po/ \
@@ -249,7 +253,7 @@ check-doc: clean
 BUILD_DIR		= /tmp/exaile-test-build
 test_compile:
 	mkdir -p $(BUILD_DIR)
-	cp --recursive xl xlgui plugins tools Makefile $(BUILD_DIR)
+	cp --recursive xl xlgui plugins tools po data Makefile exaile exaile.py $(BUILD_DIR)
 	$(MAKE) -C $(BUILD_DIR) all
 
 test:
@@ -272,3 +276,11 @@ format:
 
 check_format:
 	$(BLACK) --check --diff -S *.py plugins/ xl/ xlgui/ tests/
+
+desktop_files: builddir
+	msgfmt --desktop --template=data/exaile.desktop.in -d po -o build/exaile.desktop
+	msgfmt --xml --template=data/exaile.appdata.xml.in -d po -o build/exaile.appdata.xml
+
+desktop_files_no_locale: builddir
+	cp data/exaile.desktop.in build/exaile.desktop
+	cp data/exaile.appdata.xml.in build/exaile.appdata.xml

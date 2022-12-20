@@ -1564,7 +1564,7 @@ msgstr "Применить эти значения ко всем трекам"
 msgid "Saved %(count)s of %(total)s."
 msgstr "сохранено %(count)s из %(total)s."
 
-#: ../xlgui/tray.py:203
+#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:7
 msgid "Exaile Music Player"
 msgstr "Музыкальный проигрыватель Exaile"
 
@@ -1698,7 +1698,7 @@ msgstr "Не воспроизводится"
 msgid "%d in collection"
 msgstr "%d в фонотеке"
 
-#: ../xlgui/widgets/info.py:448 ../xlgui/widgets/info.py:453
+#: ../xlgui/widgets/info.py:448 ../xlgui/widgets/info.py:457
 #, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
@@ -1706,7 +1706,7 @@ msgstr[0] "%d отображается"
 msgstr[1] "%d отображается"
 msgstr[2] "%d отображается"
 
-#: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:455
+#: ../xlgui/widgets/info.py:452 ../xlgui/widgets/info.py:462
 #, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
@@ -1872,15 +1872,15 @@ msgstr "П_родолжить воспроизведение после этог
 msgid "_Remove from Playlist"
 msgstr "_Удалить из плейлиста"
 
-#: ../xlgui/widgets/playlist.py:739
+#: ../xlgui/widgets/playlist.py:759
 msgid "Requires plugins providing dynamic playlists"
 msgstr "Требуются плагины, обеспечивающие поддержку динамических плейлистов"
 
-#: ../xlgui/widgets/playlist.py:743 ../data/ui/playlist.ui:99
+#: ../xlgui/widgets/playlist.py:763 ../data/ui/playlist.ui:99
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Динамически добавлять похожие треки в плейлист"
 
-#: ../xlgui/widgets/playlist.py:799
+#: ../xlgui/widgets/playlist.py:806
 msgid "Loading"
 msgstr "Загрузка"
 
@@ -1928,11 +1928,11 @@ msgstr "_Изменяемый размер"
 msgid "_Autosize"
 msgstr "_Автоматический"
 
-#: ../xlgui/widgets/queue.py:81
+#: ../xlgui/widgets/queue.py:79
 msgid "Queue"
 msgstr "Очередь"
 
-#: ../xlgui/widgets/queue.py:83
+#: ../xlgui/widgets/queue.py:81
 #, python-format
 msgid "Queue (%d)"
 msgstr "Очередь (%d)"
@@ -2419,8 +2419,8 @@ msgstr "Показывать заставку при запуске"
 #: ../data/ui/preferences/appearance.ui:330
 msgid ""
 "Tray icons are not supported on some platforms, most notably on Wayland. On "
-"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
-"\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
+"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a "
+"href=\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
 "extension</a> (or a similar one) installed."
 msgstr ""
 "Значки в трее не поддерживаются некоторыми платформами, в частности Wayland. "
@@ -4375,8 +4375,8 @@ msgstr "Когда главное окно в фокусе"
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
-"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-"\">Pango Text Attribute Markup</a> is supported."
+"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat."
+"html\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 "Любой тег может быть использован с <b>$tag</b> или <b>${tag}</b>. Встроенные "
 "теги, такие как <b>$__length</b>, должны начинаться двумя подчёркиваниями.\n"
@@ -4955,8 +4955,8 @@ msgid ""
 "Tool to help generate HTML5 visualizations of your playlists using d3.js. "
 "Optimized for Chrome."
 msgstr ""
-"Инструмент для генерации визуализаций HTML5 ваших плейлистов с помощью "
-"d3.js. Оптимизировано для Chrome."
+"Инструмент для генерации визуализаций HTML5 ваших плейлистов с помощью d3."
+"js. Оптимизировано для Chrome."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:5 ../plugins/wikipedia/PLUGININFO:5
 msgid "Information"
@@ -5051,6 +5051,47 @@ msgstr ""
 "современных клавиатур) при использовании Exaile в Microsoft Windows.\n"
 "\n"
 "Требуется: pyHook (%s) или keyboard (%s)"
+
+#: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
+#, fuzzy
+#| msgid "_Quit Exaile"
+msgid "Exaile"
+msgstr "В_ыход из Exaile"
+
+#: ../data/exaile.desktop.in:6
+#, fuzzy
+#| msgid "Exaile Music Player"
+msgid "Music Player"
+msgstr "Музыкальный проигрыватель Exaile"
+
+#: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
+msgid "Listen to, explore, or manage your audio collection"
+msgstr ""
+
+#: ../data/exaile.desktop.in:14
+msgid "Music;Player;Library;Collection;MP3;"
+msgstr ""
+
+#: ../data/exaile.desktop.in:15
+msgid "player,mp3,ogg"
+msgstr ""
+
+#: ../data/exaile.appdata.xml.in:9
+msgid ""
+"Exaile is a music player with a simple interface and powerful music "
+"management capabilities. Features include automatic fetching of album art, "
+"lyrics fetching, streaming internet radio, tabbed playlists, smart playlists "
+"with extensive filtering/search capabilities, and much more."
+msgstr ""
+
+#: ../data/exaile.appdata.xml.in:15
+msgid ""
+"Exaile is written using python and GTK+ and is easily extensible via "
+"plugins. There are over 50 plugins distributed with Exaile that include "
+"advanced track tagging, last.fm scrobbling, support for portable media "
+"players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
+"output via a secondary output device (great for DJs!), and much more."
+msgstr ""
 
 #~ msgid "by {album}"
 #~ msgstr "из альбома {album}"
@@ -5405,9 +5446,9 @@ msgstr ""
 #~ "replaced by their respective values. If the tag is not known, \"Unknown\" "
 #~ "will be filled in its place.</i>"
 #~ msgstr ""
-#~ "<i>Сообщение должно быть показано в теле уведомления. Поэтому, \"%(title)s"
-#~ "\", \"%(artist)s\", и \"%(album)s\" будут заменены своими значениями. "
-#~ "Если тег неизвестен, будет вставлено \"Unknown\".</i>"
+#~ "<i>Сообщение должно быть показано в теле уведомления. Поэтому, "
+#~ "\"%(title)s\", \"%(artist)s\", и \"%(album)s\" будут заменены своими "
+#~ "значениями. Если тег неизвестен, будет вставлено \"Unknown\".</i>"
 
 #~ msgid "Both artist and album:"
 #~ msgstr "И исполнитель, и альбом:"

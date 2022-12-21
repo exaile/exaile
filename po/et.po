@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-06 12:28+0200\n"
-"PO-Revision-Date: 2022-04-17 23:07+0000\n"
+"PO-Revision-Date: 2022-12-22 02:49+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.12-dev\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -715,7 +715,7 @@ msgstr "Pistikprogramm on juba laetud või selle nimi on vastuoluline."
 
 #: ../xl/plugins.py:102
 msgid "Plugin archive is not in the correct format."
-msgstr ""
+msgstr "Pistikprogrammi arhiivifail pole õiges vormingus."
 
 #: ../xl/plugins.py:109
 #, python-format
@@ -4928,16 +4928,12 @@ msgid ""
 msgstr ""
 
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
-#, fuzzy
-#| msgid "_Quit Exaile"
 msgid "Exaile"
-msgstr "_Välju Exailest"
+msgstr "Exaile"
 
 #: ../data/exaile.desktop.in:6
-#, fuzzy
-#| msgid "Exaile Music Player"
 msgid "Music Player"
-msgstr "Exaile muusikamängija"
+msgstr "Muusikamängija"
 
 #: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
 msgid "Listen to, explore, or manage your audio collection"
@@ -4958,6 +4954,11 @@ msgid ""
 "lyrics fetching, streaming internet radio, tabbed playlists, smart playlists "
 "with extensive filtering/search capabilities, and much more."
 msgstr ""
+"Exaile on lihtsa kasutajaliidese ja paljude võimalustega muusikamängija. "
+"Erinevate võimaluste hulgas on albumite kaanepiltide automaatne laadimine, "
+"laulutekstide laadimine ja kuvamine, veebiraadiote mängimine, esitusloendid "
+"kaartidena, nutikad esitusloendid paljude otsingu- ja sirvimisvõimalustega "
+"ning palju muud."
 
 #: ../data/exaile.appdata.xml.in:15
 msgid ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-06 12:28+0200\n"
-"PO-Revision-Date: 2022-08-15 00:24+0000\n"
+"PO-Revision-Date: 2022-12-23 02:03+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -5052,28 +5052,24 @@ msgstr ""
 "Requer: pyHook (%s) ou teclado (%s)"
 
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
-#, fuzzy
-#| msgid "_Quit Exaile"
 msgid "Exaile"
-msgstr "_Fechar o Exaile"
+msgstr "Exaile"
 
 #: ../data/exaile.desktop.in:6
-#, fuzzy
-#| msgid "Exaile Music Player"
 msgid "Music Player"
-msgstr "Reprodutor de Música Exaile"
+msgstr "Reprodutor de Música"
 
 #: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
 msgid "Listen to, explore, or manage your audio collection"
-msgstr ""
+msgstr "Ouça, explore, ou faça a gestão da sua coleção de áudio"
 
 #: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;"
-msgstr ""
+msgstr "Música;Reprodutor;Leitor;Biblioteca;Coleção;MP3;"
 
 #: ../data/exaile.desktop.in:15
 msgid "player,mp3,ogg"
-msgstr ""
+msgstr "reprodutor,mp3,ogg"
 
 #: ../data/exaile.appdata.xml.in:9
 msgid ""
@@ -5082,6 +5078,12 @@ msgid ""
 "lyrics fetching, streaming internet radio, tabbed playlists, smart playlists "
 "with extensive filtering/search capabilities, and much more."
 msgstr ""
+"O Exaile é um reprodutor de música com uma interface simples e com uma "
+"enorme capacidade de gestão musical. As funcionalidades incluem a busca "
+"automática de grafismos do álbum, busca de letras de música, streaming de "
+"rádio na Internet, listas de reprodução com separadores, listas de "
+"reprodução inteligentes com extensas capacidades de filtragem/pesquisa, e "
+"muito mais."
 
 #: ../data/exaile.appdata.xml.in:15
 msgid ""
@@ -5091,6 +5093,12 @@ msgid ""
 "players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
 "output via a secondary output device (great for DJs!), and much more."
 msgstr ""
+"O Exaile é escrito usando python e GTK+ e é facilmente extensível através de "
+"plugins. Existem mais de 50 plugins distribuídos com o Exaile que incluem "
+"rotulagem de faixa avançada, last.fm scrobbling, suporte para leitores de "
+"media portáteis, podcasts, rádio de internet como icecast e Soma.FM, "
+"ReplayGain, saída através de um dispositivo de saída secundária (óptimo para "
+"DJs!), e muito mais."
 
 #~ msgid "by {album}"
 #~ msgstr "por {album}"

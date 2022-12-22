@@ -133,9 +133,9 @@ class IcecastRadioStation(RadioStation):
         # Level 1
         from xlgui.panel import radio
 
-        if no_cache or not self.data or True:
-            genre_list = self._get_genres()
+        if no_cache or not self.data:
             set_status(_('Contacting Icecast server...'))
+            genre_list = self._get_genres()
             hostinfo = urllib.parse.urlparse(self.xml_url)
 
             c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
@@ -148,7 +148,7 @@ class IcecastRadioStation(RadioStation):
             if response.status != 200:
                 raise radio.RadioException(_('Error connecting to Icecast server.'))
 
-            set_status(_('Parsing XML...'))
+            set_status(_('Parsing stations XML...'))
             body = response.read()
             c.close()
 
@@ -198,7 +198,6 @@ class IcecastRadioStation(RadioStation):
             data = self.data
         rlists = []
 
-        # rlist = self._build_station_list(data)
         for item in data.keys():
             if item is None:
                 continue
@@ -210,13 +209,13 @@ class IcecastRadioStation(RadioStation):
 
         rlists.sort(key=operator.attrgetter('name'))
         self.rlists = rlists
+        set_status('')
         return rlists
 
     def _get_subrlists(self, name, no_cache=False):
         """
         Gets the stations to a genre
         """
-
         sublist = self.data[name]
         station_list = self._build_station_list(sublist)
         self.subs[name] = station_list
@@ -226,7 +225,6 @@ class IcecastRadioStation(RadioStation):
         """
         Gets the playlist for the given name and id
         """
-
         if station_url in self.playlists:
             return self.playlists[station_url]
         set_status(_('Contacting Icecast server...'))
@@ -360,7 +358,7 @@ class IcecastRadioStation(RadioStation):
         if response.status != 200:
             raise radio.RadioException(_('Error connecting to Icecast server.'))
 
-        set_status(_('Parsing XML...'))
+        set_status(_('Parsing genre list...'))
         body = response.read()
         c.close()
 
@@ -374,7 +372,6 @@ class IcecastRadioStation(RadioStation):
             if b'list-group-item list-group-item-action' in line:
                 next = True
 
-        print(genres)
         return genres
 
 class ResultsDialog(dialogs.ListDialog):

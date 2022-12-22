@@ -225,6 +225,11 @@ class PreferencesDialog:
         self.last_child = child
         self.box.show_all()
 
+        childs = self.fields[page]
+        for c in childs:
+            if hasattr(c, 'check_condition'):
+                c.check_condition()
+
     def _populate_fields(self, page, builder):
         """
         Populates field pages

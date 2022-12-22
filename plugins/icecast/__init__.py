@@ -73,12 +73,10 @@ class IcecastRadioStation(RadioStation):
 
         self.xml_url = self.icecast_url + '/yp.xml'
         self.genres_url = self.icecast_url + '/genres'
-        self._stations_list = {}
 
         self.cache_file = os.path.join(xdg.get_cache_dir(), 'icecast.cache')
         self.data = {}
         self._load_cache()
-        self.subs = {}
         self.playlists = {}
 
         logger.debug(self.user_agent)
@@ -169,7 +167,7 @@ class IcecastRadioStation(RadioStation):
                 server_type_node = entry.getElementsByTagName('server_type')[0]
 
                 name = get_text(name_node)
-                url  = get_text(url_node)
+                url = get_text(url_node)
                 genre = get_text(genre_node) or _('Unknown')
                 bitrate = get_text(bitrate_node)
                 format = get_text(server_type_node)
@@ -180,8 +178,12 @@ class IcecastRadioStation(RadioStation):
                     if station_genres[i].lower() in genre_list:
                         insert_genres.append(station_genres[i])
                     if i < len(station_genres) - 1:
-                        if ((station_genres[i] + " " + station_genres[i+1]).lower()) in genre_list:
-                            insert_genres.append(station_genres[i] + " " + station_genres[i+1])
+                        if (
+                            (station_genres[i] + " " + station_genres[i + 1]).lower()
+                        ) in genre_list:
+                            insert_genres.append(
+                                station_genres[i] + " " + station_genres[i + 1]
+                            )
 
                 entry = {}
                 entry['url'] = url
@@ -218,7 +220,6 @@ class IcecastRadioStation(RadioStation):
         """
         sublist = self.data[name]
         station_list = self._build_station_list(sublist)
-        self.subs[name] = station_list
         return station_list
 
     def _get_playlist(self, name, station_url):
@@ -257,21 +258,13 @@ class IcecastRadioStation(RadioStation):
             stat = RadioItem(station_name, url['url'])
             stat.bitrate = url['bitrate']
             stat.format = url['format']
-            stat.get_playlist = lambda name=station_name, station_url=url['url']: self._get_playlist(name, station_url)
+            stat.get_playlist = lambda name=station_name, station_url=url[
+                'url'
+            ]: self._get_playlist(name, station_url)
 
             station_list.append(stat)
         station_list.sort(key=operator.attrgetter('name'))
         return station_list
-
-    def _calc_bitrate(self, quality):
-        q = float(quality.replace(',', '.'))
-        if q < 5.0:
-            bitrate = 64.0 + q * 16.0
-        elif q < 9.0:
-            bitrate = 160.0 + (q - 5.0) * 32.0
-        else:
-            bitrate = 320.0 + (q - 9.0) * 180.0
-        return str(int(bitrate))
 
     def on_search(self):
         """
@@ -345,6 +338,7 @@ class IcecastRadioStation(RadioStation):
     def _get_genres(self):
 
         from xlgui.panel import radio
+
         set_status(_('Contacting Icecast server...'))
         hostinfo = urllib.parse.urlparse(self.genres_url)
 
@@ -373,6 +367,7 @@ class IcecastRadioStation(RadioStation):
                 next = True
 
         return genres
+
 
 class ResultsDialog(dialogs.ListDialog):
     def __init__(self, title):

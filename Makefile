@@ -81,7 +81,13 @@ make-install-dirs:
 	install -d -m 755 $(EXAILESHAREDIR)/data/ui/preferences
 	install -d -m 755 $(EXAILESHAREDIR)/data/ui/preferences/widgets
 	install -d -m 755 $(EXAILESHAREDIR)/data/ui/widgets
-	install -d -m 755 $(DESTDIR)$(DATADIR)/pixmaps
+	install -d -m 755 $(DESTDIR)$(DATADIR)/icons/hicolor/16x16/apps/
+	install -d -m 755 $(DESTDIR)$(DATADIR)/icons/hicolor/22x22/apps/
+	install -d -m 755 $(DESTDIR)$(DATADIR)/icons/hicolor/24x24/apps/
+	install -d -m 755 $(DESTDIR)$(DATADIR)/icons/hicolor/32x32/apps/
+	install -d -m 755 $(DESTDIR)$(DATADIR)/icons/hicolor/48x48/apps/
+	install -d -m 755 $(DESTDIR)$(DATADIR)/icons/hicolor/128x128/apps/
+	install -d -m 755 $(DESTDIR)$(DATADIR)/icons/hicolor/scalable/apps/
 	install -d -m 755 $(DESTDIR)$(DATADIR)/metainfo
 	install -d -m 755 $(DESTDIR)$(DATADIR)/applications
 	install -d -m 755 $(DESTDIR)$(DATADIR)/dbus-1/services
@@ -96,7 +102,13 @@ uninstall:
 	rm -rf $(EXAILESHAREDIR)
 	rm -rf $(EXAILECONFDIR)
 	rm -f $(DESTDIR)$(DATADIR)/applications/exaile.desktop
-	rm -f $(DESTDIR)$(DATADIR)/pixmaps/exaile.png
+	rm -f $(DESTDIR)$(DATADIR)/icons/hicolor/16x16/apps/exaile.png
+	rm -f $(DESTDIR)$(DATADIR)/icons/hicolor/22x22/apps/exaile.png
+	rm -f $(DESTDIR)$(DATADIR)/icons/hicolor/24x24/apps/exaile.png
+	rm -f $(DESTDIR)$(DATADIR)/icons/hicolor/32x32/apps/exaile.png
+	rm -f $(DESTDIR)$(DATADIR)/icons/hicolor/48x48/apps/exaile.png
+	rm -f $(DESTDIR)$(DATADIR)/icons/hicolor/128x128/apps/exaile.png
+	rm -f $(DESTDIR)$(DATADIR)/icons/hicolor/scalable/apps/exaile.svg
 	rm -f $(DESTDIR)$(DATADIR)/appdata/exaile.appdata.xml
 	rm -f $(DESTDIR)$(DATADIR)/dbus-1/services/org.exaile.Exaile.service
 	rm -f $(EXAILEMANDIR)/man1/exaile.1.gz
@@ -150,8 +162,20 @@ install-target: make-install-dirs
 	install -p -m 644 data/images/128x128/*.png $(EXAILESHAREDIR)/data/images/128x128
 	install -p -m 644 data/images/scalable/*.svg $(EXAILESHAREDIR)/data/images/scalable
 	install -p -m 644 data/images/*.png $(EXAILESHAREDIR)/data/images
+	install -p -m 644 data/images/16x16/exaile.png \
+		$(DESTDIR)$(DATADIR)/icons/hicolor/16x16/apps/exaile.png
+	install -p -m 644 data/images/22x22/exaile.png \
+		$(DESTDIR)$(DATADIR)/icons/hicolor/22x22/apps/exaile.png
+	install -p -m 644 data/images/24x24/exaile.png \
+		$(DESTDIR)$(DATADIR)/icons/hicolor/24x24/apps/exaile.png
+	install -p -m 644 data/images/32x32/exaile.png \
+		$(DESTDIR)$(DATADIR)/icons/hicolor/32x32/apps/exaile.png
+	install -p -m 644 data/images/48x48/exaile.png \
+		$(DESTDIR)$(DATADIR)/icons/hicolor/48x48/apps/exaile.png
 	install -p -m 644 data/images/128x128/exaile.png \
-		$(DESTDIR)$(DATADIR)/pixmaps/exaile.png
+		$(DESTDIR)$(DATADIR)/icons/hicolor/128x128/apps/exaile.png
+	install -p -m 644 data/images/scalable/exaile.svg \
+		$(DESTDIR)$(DATADIR)/icons/hicolor/scalable/apps/exaile.svg
 	install -p -m 644 data/ui/*.ui $(EXAILESHAREDIR)/data/ui
 	install -p -m 644 data/ui/panel/*.ui $(EXAILESHAREDIR)/data/ui/panel
 	install -p -m 644 data/ui/preferences/*.ui $(EXAILESHAREDIR)/data/ui/preferences

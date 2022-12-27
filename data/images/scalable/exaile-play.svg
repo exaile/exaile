@@ -701,7 +701,7 @@
           </rdf:Bag>
         </dc:subject>
         <cc:license
-           rdf:resource="http://creativecommons.org/licenses/by-sa/2.0/" />
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
         <dc:contributor>
           <cc:Agent>
             <dc:title>Jakub Steiner, Andreas Nilsson</dc:title>
@@ -710,7 +710,7 @@
         <dc:source>http://tigert.com</dc:source>
       </cc:Work>
       <cc:License
-         rdf:about="http://creativecommons.org/licenses/by-sa/2.0/">
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
         <cc:permits
            rdf:resource="http://web.resource.org/cc/Reproduction" />
         <cc:permits

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-06 12:28+0200\n"
-"PO-Revision-Date: 2022-03-27 02:11+0000\n"
+"PO-Revision-Date: 2022-12-30 01:55+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/exaile/master/"
 "hr/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.12-dev\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -5054,22 +5054,20 @@ msgid "Exaile"
 msgstr "Exaile"
 
 #: ../data/exaile.desktop.in:6
-#, fuzzy
-#| msgid "Exaile Music Player"
 msgid "Music Player"
-msgstr "Exaile muzički player"
+msgstr "Reproduktor glazbe"
 
 #: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
 msgid "Listen to, explore, or manage your audio collection"
-msgstr ""
+msgstr "Slušaj, istraži ili upravljaj tvojom audio zbirkom"
 
 #: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;"
-msgstr ""
+msgstr "Muzika;Glazba;Player;Biblioteka;Zbirka;MP3;"
 
 #: ../data/exaile.desktop.in:15
 msgid "player,mp3,ogg"
-msgstr ""
+msgstr "player,mp3,ogg"
 
 #: ../data/exaile.appdata.xml.in:9
 msgid ""

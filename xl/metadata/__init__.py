@@ -34,6 +34,7 @@ from gi.repository import Gio
 from xl.metadata._base import BaseFormat, CoverImage, NotWritable, NotReadable
 
 from xl.metadata import (
+    aac,
     aiff,
     ape,
     asf,
@@ -55,7 +56,7 @@ from xl.metadata import (
 formats = {
     # fmt: off
     '669'   : mod.ModFormat,
-    'aac'   : mp4.MP4Format,
+    'aac'   : [mp4.MP4Format, aac.AACFormat],
     'ac3'   : None,
     'aif'   : aiff.AIFFFormat,
     'aifc'  : aiff.AIFFFormat,
@@ -133,6 +134,16 @@ def get_format(loc: str) -> Optional[BaseFormat]:
 
     if formatclass is None:
         formatclass = DummyFormat
+
+    # Some file types can be more than one format
+    # So check each possible format
+    if type(formatclass) is list:
+        for klass in formatclass:
+            try:
+                return klass(loc)
+            except:
+                continue
+        return None
 
     try:
         return formatclass(loc)

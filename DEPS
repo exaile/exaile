@@ -12,6 +12,7 @@ Core dependencies
 Essential:
 
 * python3 >= 3.6
+* python3-typing-extensions (python3 <= 3.7 only)
 * python3-bsddb3
 * gtk+ >= 3.22
 * gstreamer (>= 1.14)

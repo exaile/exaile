@@ -296,10 +296,10 @@ lint_errors:
 sanitycheck: lint_errors test
 
 format:
-	$(BLACK) -S *.py plugins/ xl/ xlgui/ tests/
+	$(BLACK) -S *.py plugins/ xl/ xlgui/ tests/ tools/installer/exaile.spec
 
 check_format:
-	$(BLACK) --check --diff -S *.py plugins/ xl/ xlgui/ tests/
+	$(BLACK) --check --diff -S *.py plugins/ xl/ xlgui/ tests/ tools/installer/exaile.spec
 
 desktop_files: builddir
 	msgfmt --desktop --template=data/exaile.desktop.in -d po -o build/exaile.desktop

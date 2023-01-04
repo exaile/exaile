@@ -11,13 +11,13 @@ else:
     entry_point_script = '_inst/usr/lib/exaile/exaile.py'
 
 hiddenimports = (
-    collect_submodules('xl') +
-    collect_submodules('xlgui') +
-    collect_submodules('keyboard') +
-    collect_submodules('feedparser') +
-    collect_submodules('musicbrainzngs') +
-    collect_submodules('mutagen') +
-    collect_submodules('pylast')
+    collect_submodules('xl')
+    + collect_submodules('xlgui')
+    + collect_submodules('keyboard')
+    + collect_submodules('feedparser')
+    + collect_submodules('musicbrainzngs')
+    + collect_submodules('mutagen')
+    + collect_submodules('pylast')
 )
 
 binaries = []

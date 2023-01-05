@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-06 12:28+0200\n"
-"PO-Revision-Date: 2022-06-19 22:18+0000\n"
+"PO-Revision-Date: 2023-01-06 05:48+0000\n"
 "Last-Translator: Piotr Strebski <strebski@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/"
-">\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/>"
+"\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.13.1-dev\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 "X-Launchpad-Export-Date: 2014-11-08 06:10+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -958,66 +958,60 @@ msgid "Switch to next tab"
 msgstr "Przejdź do następnej karty"
 
 #: ../xlgui/main.py:205
-#, fuzzy
-#| msgid "Defaults to the playlist name"
 msgid "Focus the playlist container"
-msgstr "Domyślne dla nazwy listy odtwarzania"
+msgstr "Zaznacz kontener listy odtwarzania"
 
 #: ../xlgui/main.py:212
 msgid "Focus the files panel"
-msgstr ""
+msgstr "Zaznacz panel plików"
 
 #: ../xlgui/main.py:219
 msgid "Focus the radio panel"
-msgstr ""
+msgstr "Zaznacz panel radia"
 
 #: ../xlgui/main.py:224
-#, fuzzy
-#| msgid "Defaults to the playlist name"
 msgid "Focus the playlists panel"
-msgstr "Domyślne dla nazwy listy odtwarzania"
+msgstr "Zaznacz panel list odtwarzania"
 
 #: ../xlgui/main.py:227
 msgid "Focus the first tab"
-msgstr ""
+msgstr "Zaznacz pierwszą kartę"
 
 #: ../xlgui/main.py:228
 msgid "Focus the second tab"
-msgstr ""
+msgstr "Zaznacz drugą kartę"
 
 #: ../xlgui/main.py:229
 msgid "Focus the third tab"
-msgstr ""
+msgstr "Zaznacz trzecią kartę"
 
 #: ../xlgui/main.py:230
 msgid "Focus the fourth tab"
-msgstr ""
+msgstr "Zaznacz czwartą kartę"
 
 #: ../xlgui/main.py:231
 msgid "Focus the fifth tab"
-msgstr ""
+msgstr "Zaznacz piątą kartę"
 
 #: ../xlgui/main.py:232
 msgid "Focus the sixth tab"
-msgstr ""
+msgstr "Zaznacz szóstą kartę"
 
 #: ../xlgui/main.py:233
 msgid "Focus the seventh tab"
-msgstr ""
+msgstr "Zaznacz siódmą kartę"
 
 #: ../xlgui/main.py:234
-#, fuzzy
-#| msgid "Defaults to the playlist name"
 msgid "Focus the eighth tab"
-msgstr "Domyślne dla nazwy listy odtwarzania"
+msgstr "Zaznacz ósmą kartę"
 
 #: ../xlgui/main.py:235
 msgid "Focus the ninth tab"
-msgstr ""
+msgstr "Zaznacz dziewiątą kartę"
 
 #: ../xlgui/main.py:236
 msgid "Focus the tenth tab"
-msgstr ""
+msgstr "Zaznacz dziesiątą kartę"
 
 #: ../xlgui/main.py:596
 msgid "Toggle: Stop after Selected Track"
@@ -2115,23 +2109,19 @@ msgstr "© 2009–2020 Różni współautorzy"
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr ""
+msgstr "Piotr Strębski"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
 msgstr "Menedżer kolekcji"
 
 #: ../data/ui/collection_manager.ui:54
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
-msgstr "Anuluj"
+msgstr "_Anuluj"
 
 #: ../data/ui/collection_manager.ui:71
-#, fuzzy
-#| msgid "Apply BPM"
 msgid "_Apply"
-msgstr "Zastosuj tempo uderzeń na minutę"
+msgstr "_Zastosuj"
 
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
@@ -2143,13 +2133,11 @@ msgstr "Skanuj przy uruchomieniu"
 
 #: ../data/ui/collection_manager.ui:174
 msgid "Add _Folder"
-msgstr ""
+msgstr "Dodaj _katalog"
 
 #: ../data/ui/collection_manager.ui:191
-#, fuzzy
-#| msgid "Remove Cover"
 msgid "_Remove Folder"
-msgstr "Usuń okładkę"
+msgstr "_Usuń katalog"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2164,10 +2152,8 @@ msgid "The origin of this cover"
 msgstr "Pochodzenie tej okładki"
 
 #: ../data/ui/coverchooser.ui:159
-#, fuzzy
-#| msgid "_About"
 msgid "_Abort"
-msgstr "_O programie"
+msgstr "_Przerwij"
 
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
@@ -2223,13 +2209,11 @@ msgstr "Sterownik"
 
 #: ../data/ui/device_manager.ui:115
 msgid "_Connect"
-msgstr ""
+msgstr "P_ołącz"
 
 #: ../data/ui/device_manager.ui:133
-#, fuzzy
-#| msgid "Disconnect from Server"
 msgid "_Disconnect"
-msgstr "Zakończ połączenie z serwerem"
+msgstr "_Zerwij połączenie"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -2379,10 +2363,8 @@ msgid "Playlist font:"
 msgstr "Czcionka listy odtwarzania:"
 
 #: ../data/ui/preferences/appearance.ui:154
-#, fuzzy
-#| msgid "Never"
 msgid "_Revert"
-msgstr "Nigdy"
+msgstr "Przy_wróć"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -2465,19 +2447,19 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:370
 msgid "Show Status Bar"
-msgstr ""
+msgstr "Pokaż pasek stanu"
 
 #: ../data/ui/preferences/appearance.ui:374
 msgid ""
 "Show or hide the status bar. The status bar will always be shown if a plugin "
 "requests it."
 msgstr ""
+"Pokaż lub ukryj pasek stanu. Pasek stanu będzie zawsze wyświetlany, jeśli "
+"zażąda tego wtyczka."
 
 #: ../data/ui/preferences/appearance.ui:399
-#, fuzzy
-#| msgid "_Show Playing Track"
 msgid "Show playlist track count"
-msgstr "_Pokaż odtwarzany utwór"
+msgstr "Pokaż liczbę utworów na liście odtwarzania"
 
 #: ../data/ui/preferences/appearance.ui:413
 msgid "Show playlist duration"
@@ -3549,10 +3531,9 @@ msgid "by {artist}"
 msgstr "autorstwa {artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "from %(album)s"
+#, python-brace-format
 msgid "from {album}"
-msgstr "z %(album)s"
+msgstr "z {album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3590,9 +3571,8 @@ msgid "Analyze playlist"
 msgstr "Analiza list odtwarzania"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:200
-#, fuzzy
 msgid "Modulus this number"
-msgstr "Użyj tej liczby jako współczynnika"
+msgstr "Moduł tej liczby"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:220
 #, python-format
@@ -3667,22 +3647,16 @@ msgid "Preview Device"
 msgstr "Podgląd urządzenia"
 
 #: ../plugins/quickbuttons/__init__.py:37
-#, fuzzy
-#| msgid "En_queue"
 msgid "Enqueue"
-msgstr "W_kolejce"
+msgstr "Ustaw w kolejce"
 
 #: ../plugins/quickbuttons/__init__.py:46
-#, fuzzy
-#| msgid "Not playing."
 msgid "Keep playing"
-msgstr "Nie odtwarza."
+msgstr "Nie przestawaj grać"
 
 #: ../plugins/quickbuttons/__init__.py:55
-#, fuzzy
-#| msgid "_Remove"
 msgid "Auto-Remove"
-msgstr "_Usuń"
+msgstr "Usuń automatycznie"
 
 #: ../plugins/quickbuttons/__init__.py:64
 #, fuzzy
@@ -3692,14 +3666,12 @@ msgstr "Zaawansowane"
 
 #: ../plugins/quickbuttons/__init__.py:73
 #: ../plugins/quickbuttons/__init__.py:74
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds):"
-msgstr "Opóźnienie pomiędzy utworami (ms):"
+msgstr "Opóźnienie między utworami (w sekundach):"
 
 #: ../plugins/quickbuttons/__init__.py:82
 msgid "EQ"
-msgstr ""
+msgstr "Korektor"
 
 #: ../plugins/quickbuttons/__init__.py:83 ../plugins/equalizer/equalizer.ui:109
 #: ../plugins/equalizer/PLUGININFO:3
@@ -3707,23 +3679,21 @@ msgid "Equalizer"
 msgstr "Korektor"
 
 #: ../plugins/quickbuttons/__init__.py:92
-#, fuzzy
-#| msgid "Device"
 msgid "Main Device"
-msgstr "Urządzenie"
+msgstr "Główne urządzenie"
 
 #: ../plugins/quickbuttons/__init__.py:93
 #: ../plugins/quickbuttons/qb_prefs.ui:101
 msgid "Select main audio device"
-msgstr ""
+msgstr "Wybierz główne urządzenie audio"
 
 #: ../plugins/quickbuttons/__init__.py:102
 msgid "Select preview audio device"
-msgstr ""
+msgstr "Wybierz urządzenie audio podglądu"
 
 #: ../plugins/quickbuttons/qb_prefs.py:5
 msgid "Quickbuttons"
-msgstr ""
+msgstr "Szybkie klawisze"
 
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
@@ -3790,8 +3760,6 @@ msgid "Wikipedia"
 msgstr "Wikipedia"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:52
-#, fuzzy
-#| msgid "<b>Alarm time</b>"
 msgid "<b>Alarm Time</b>"
 msgstr "<b>Czas alarmu</b>"
 
@@ -3858,9 +3826,8 @@ msgstr "Klucz API:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:39
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:43
-#, fuzzy
 msgid "Secret:"
-msgstr "Sekret:"
+msgstr "Hasło:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:62
 msgid ""
@@ -3971,10 +3938,8 @@ msgid "Simple Console"
 msgstr "Prosta Konsola"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
 msgid "Show IPv6 servers"
-msgstr "Pokaż serwery ipv6 (Eksperymantalne)"
+msgstr "Pokaż serwery IPv6"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:27
 msgid "Remember recent DAAP servers"
@@ -4055,8 +4020,6 @@ msgid "Exaile Developer Tools"
 msgstr "Deweloperskie narzędzia Exaile"
 
 #: ../plugins/developer/developer_window.ui:75
-#, fuzzy
-#| msgid "BPM Counter"
 msgid "Count"
 msgstr "Liczba"
 
@@ -4343,9 +4306,8 @@ msgid "Waveform view (experimental)"
 msgstr "Widok kształtu fali (eksperymentalny)"
 
 #: ../plugins/moodbar/prefs.ui:25
-#, fuzzy
 msgid "Color tint (experimental)"
-msgstr "Odcienie koloru (eksperymentalny)"
+msgstr "Odcień koloru (eksperymentalny)"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
@@ -4409,9 +4371,8 @@ msgid "On playback pause, resume and stop"
 msgstr "Podczas odtwarzania wstrzymaj, wznów lub zatrzymaj"
 
 #: ../plugins/notify/notifyprefs_pane.ui:119
-#, fuzzy
 msgid "On tray icon hover"
-msgstr "Najedź na ikonę w zasobniku"
+msgstr "Najedź na ikonę w zasobniku"
 
 #: ../plugins/notify/notifyprefs_pane.ui:134
 msgid "When main window is focused"
@@ -4507,18 +4468,16 @@ msgid "Audio Device:"
 msgstr "Urządzenie audio:"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:72
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds)"
-msgstr "Opóźnienie pomiędzy utworami (ms):"
+msgstr "Opóźnienie między utworami (w sekundach)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:87
 msgid "Equalizer (depends on Equalizer Plugin)"
-msgstr ""
+msgstr "Korektor (zależy od wtyczki korektora)"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:115
 msgid "Select preview audio device (depends on previewdevice plugin)"
-msgstr ""
+msgstr "Wybierz urządzenie audio podglądu (zależy od wtyczki previewdevice)"
 
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:24
@@ -4719,6 +4678,11 @@ msgid ""
 "Requires: spydaap\n"
 "Optional: python-zeroconf"
 msgstr ""
+"Umożliwia dostęp do udziałów muzycznych DAAP za pośrednictwem biblioteki "
+"spydaap. Udostępnianie automatycznego wykrywania jest opcjonalnie dostępne "
+"za pośrednictwem python-zeroconf.\n"
+"Wymaga: spydaap\n"
+"Opcjonalnie: python-zeroconf"
 
 #: ../plugins/daapclient/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5
@@ -5029,12 +4993,14 @@ msgstr "Wyjście"
 
 #: ../plugins/quickbuttons/PLUGININFO:3
 msgid "Quick Settings Buttons"
-msgstr ""
+msgstr "Przyciski szybkich ustawień"
 
 #: ../plugins/quickbuttons/PLUGININFO:4
 msgid ""
 "Provides buttons on bottom of the playlist to quickly change some settings"
 msgstr ""
+"Udostępnia przyciski na dole listy odtwarzania, aby szybko zmienić niektóre "
+"ustawienia"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
@@ -5104,8 +5070,6 @@ msgid "Exaile"
 msgstr "Exaile"
 
 #: ../data/exaile.desktop.in:6
-#, fuzzy
-#| msgid "Exaile Music Player"
 msgid "Music Player"
 msgstr "Odtwarzacz muzyki"
 
@@ -5115,11 +5079,11 @@ msgstr "Słuchanie, przeglądanie i modyfikowanie twojej kolekcji muzyczynej"
 
 #: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;"
-msgstr ""
+msgstr "Muzyka;Odtwarzacz;Biblioteka;Kolekcja;MP3;"
 
 #: ../data/exaile.desktop.in:15
 msgid "player,mp3,ogg"
-msgstr ""
+msgstr "odtwarzacz,mp3,ogg"
 
 #: ../data/exaile.appdata.xml.in:9
 msgid ""
@@ -5128,6 +5092,12 @@ msgid ""
 "lyrics fetching, streaming internet radio, tabbed playlists, smart playlists "
 "with extensive filtering/search capabilities, and much more."
 msgstr ""
+"Exaile to odtwarzacz muzyki z prostym interfejsem i potężnymi możliwościami "
+"zarządzania muzyką. Funkcje obejmują automatyczne pobieranie okładek "
+"albumów, pobieranie tekstów piosenek, strumieniowe przesyłanie radia "
+"internetowego, listy odtwarzania z zakładkami, inteligentne listy "
+"odtwarzania z rozbudowanymi możliwościami filtrowania/wyszukiwania i wiele "
+"więcej."
 
 #: ../data/exaile.appdata.xml.in:15
 msgid ""
@@ -5137,6 +5107,12 @@ msgid ""
 "players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
 "output via a secondary output device (great for DJs!), and much more."
 msgstr ""
+"Exaile jest napisany przy użyciu Pythona i GTK+ i można go łatwo rozszerzyć "
+"za pomocą wtyczek. Istnieje ponad 50 wtyczek dystrybuowanych z Exaile, które "
+"obejmują zaawansowane tagowanie utworów, scrobbling last.fm, obsługę "
+"przenośnych odtwarzaczy multimedialnych, podcasty, radio internetowe, takie "
+"jak icecast i Soma.FM, ReplayGain, wyjście przez dodatkowe urządzenie "
+"wyjściowe (świetne dla DJ-ów! ), i wiele więcej."
 
 #~ msgid "by {album}"
 #~ msgstr "z {album}"

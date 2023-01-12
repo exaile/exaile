@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2023-01-08 04:48+0000\n"
+"PO-Revision-Date: 2023-01-13 12:51+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -262,7 +262,7 @@ msgstr "Показать текущую позицию воспроизведе�
 
 #: ../xl/main.py:255
 msgid "Volume Options"
-msgstr "Настройки звука"
+msgstr "Параметры звука"
 
 #: ../xl/main.py:263
 msgid "Increase the volume by N%"
@@ -282,7 +282,7 @@ msgstr "Показать текущий уровень громкости"
 
 #: ../xl/main.py:290
 msgid "Other Options"
-msgstr "Прочие настройки"
+msgstr "Прочие параметры"
 
 #: ../xl/main.py:296
 msgid "Start new instance"
@@ -298,7 +298,7 @@ msgstr "Показать номер версии программы и выйт�
 
 #: ../xl/main.py:312
 msgid "Start minimized (to tray, if possible)"
-msgstr "Запускать свёрнутым (в области уведомлений, если возможно)"
+msgstr "Запустить свёрнутым (в трее, если возможно)"
 
 #: ../xl/main.py:319
 msgid "Toggle visibility of the GUI (if possible)"
@@ -320,7 +320,9 @@ msgstr "Не импортировать старые данные из верс�
 
 #: ../xl/main.py:351
 msgid "Make control options like --play start Exaile if it is not running"
-msgstr "Запускать с такими параметрами, как --play, если Exaile ещё не запущен"
+msgstr ""
+"Запускать Exaile при использовании таких параметров, как --play, если он ещё "
+"не запущен"
 
 #: ../xl/main.py:357
 msgid "Locale to use for Exaile"
@@ -515,15 +517,15 @@ msgstr "Организация"
 
 #: ../xl/metadata/tags.py:67
 msgid "Original album"
-msgstr "Исходный альбом"
+msgstr "Первый альбом"
 
 #: ../xl/metadata/tags.py:68
 msgid "Original artist"
-msgstr "Оригинальный исполнитель"
+msgstr "Первый исполнитель"
 
 #: ../xl/metadata/tags.py:69
 msgid "Original date"
-msgstr "Оригинальная дата"
+msgstr "Дата выпуска"
 
 #: ../xl/metadata/tags.py:71
 msgid "Performer"
@@ -818,7 +820,7 @@ msgid ""
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
 "статус: %(status)s, название: %(title)s, исполнитель: %(artist)s, альбом: "
-"%(album)s, длина: %(length)s, позиция: %(progress)s%% [%(position)s]"
+"%(album)s, время: %(length)s, позиция: %(progress)s%% [%(position)s]"
 
 #: ../xlgui/__init__.py:318
 msgid "Scanning collection..."
@@ -1213,7 +1215,7 @@ msgstr "Размер"
 #: ../xlgui/panel/files.py:459
 #, python-format
 msgid "%s kB"
-msgstr "%s КБ"
+msgstr "%s kB"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:270
@@ -1394,7 +1396,7 @@ msgstr ""
 
 #: ../xlgui/preferences/collection.py:60
 msgid "Reset to _Defaults"
-msgstr "_Вернуть по умолчанию"
+msgstr "_Восстановить по умолчанию"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -1576,7 +1578,7 @@ msgstr "Открыть URL"
 
 #: ../xlgui/widgets/dialogs.py:645
 msgid "Select File Type (by Extension)"
-msgstr "Выберите тип файла"
+msgstr "Выберите тип файла (по расширению)"
 
 #: ../xlgui/widgets/dialogs.py:703
 msgid "Choose Media to Open"
@@ -1684,8 +1686,8 @@ msgid ""
 "from $album"
 msgstr ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
-"в исполнении $artist\n"
-"из альбома $album"
+"в исполнении: $artist\n"
+"из альбома: $album"
 
 #: ../xlgui/widgets/info.py:69 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
@@ -1860,11 +1862,11 @@ msgstr "О_чистить"
 
 #: ../xlgui/widgets/playlist.py:325
 msgid "_Stop Playback After This Track"
-msgstr "О_становить проигрывание после этого трека"
+msgstr "О_становить после этого трека"
 
 #: ../xlgui/widgets/playlist.py:332
 msgid "_Continue Playback After This Track"
-msgstr "П_родолжить воспроизведение после этого трека"
+msgstr "П_родолжить воспроизведение"
 
 #: ../xlgui/widgets/playlist.py:386
 msgid "_Remove from Playlist"
@@ -1896,7 +1898,7 @@ msgstr "Номер диска"
 #: ../plugins/minimode/minimode_preferences.py:112
 #: ../plugins/jamendo/ui/jamendo_panel.ui:44
 msgid "Rating"
-msgstr "Оценка"
+msgstr "Рейтинг"
 
 #: ../xlgui/widgets/playlist_columns.py:408
 msgid "Year"
@@ -1937,7 +1939,7 @@ msgstr "Очередь (%d)"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
-msgstr "Оценка:"
+msgstr "Рейтинг:"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:56
 #: ../xlgui/widgets/smart_playlist_editor.py:79
@@ -2056,12 +2058,12 @@ msgstr "меньше чем"
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #: ../xlgui/widgets/smart_playlist_editor.py:240
 msgid "in the last"
-msgstr "за последние"
+msgstr "в последний"
 
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
 #: ../xlgui/widgets/smart_playlist_editor.py:242
 msgid "not in the last"
-msgstr "не за последние"
+msgstr "в предыдущий"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/widgets/smart_playlist_editor.py:244
@@ -2111,7 +2113,7 @@ msgstr "сообщество weblate"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
-msgstr "Менеджер коллекции"
+msgstr "Менеджер фонотеки"
 
 #: ../data/ui/collection_manager.ui:54
 msgid "_Cancel"
@@ -2183,11 +2185,11 @@ msgstr "У_меньшить"
 
 #: ../data/ui/coverwindow.ui:68
 msgid "_Original Size"
-msgstr "Перво_начальный размер"
+msgstr "О_ригинальный размер"
 
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
-msgstr "П_о содержимому"
+msgstr "Н_аилучшее соответствие"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
@@ -2254,7 +2256,7 @@ msgstr "0:00 / 0:00"
 
 #: ../data/ui/panel/collection.ui:28
 msgid "_Add Music"
-msgstr "_Добавить музыку"
+msgstr "_Добавить каталог"
 
 #: ../data/ui/panel/collection.ui:46
 msgid "<b>Collection is empty.</b>"
@@ -2339,7 +2341,7 @@ msgstr "Внизу"
 
 #: ../data/ui/preferences/appearance.ui:52
 msgid "Show info area"
-msgstr "Показать область информации"
+msgstr "Показывать область информации"
 
 #: ../data/ui/preferences/appearance.ui:56
 msgid "The info area contains the cover art and track information"
@@ -2347,7 +2349,7 @@ msgstr "Панель информации содержит обложку аль
 
 #: ../data/ui/preferences/appearance.ui:68
 msgid "Show cover art in info area"
-msgstr "Показать обложку в области информации"
+msgstr "Показывать обложку в области информации"
 
 #: ../data/ui/preferences/appearance.ui:83
 msgid "Always show tab bar"
@@ -2363,7 +2365,7 @@ msgstr "Шрифт плейлиста:"
 
 #: ../data/ui/preferences/appearance.ui:154
 msgid "_Revert"
-msgstr "_Вернуть"
+msgstr "_Восстановить"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -2373,13 +2375,13 @@ msgstr "Вернуть к системному шрифту"
 #: ../data/ui/preferences/appearance.ui:196
 #: ../data/ui/preferences/appearance.ui:385
 msgid "Display track counts in collection"
-msgstr "Показать счётчики треков в фонотеке"
+msgstr "Показывать число треков в фонотеке"
 
 #. TRANSLATORS: Remark at the alpha transparency option
 #: ../data/ui/preferences/appearance.ui:210
 #: ../plugins/minimode/minimode_preferences.ui:237
 msgid "Use alpha transparency:"
-msgstr "Использовать прозрачность:"
+msgstr "Регулировка прозрачности:"
 
 #: ../data/ui/preferences/appearance.ui:214
 msgid ""
@@ -2395,7 +2397,7 @@ msgstr "Прозрачность"
 
 #: ../data/ui/preferences/appearance.ui:241
 msgid "Show tray icon"
-msgstr "Отображать значок в трее"
+msgstr "Показывать значок в трее"
 
 #: ../data/ui/preferences/appearance.ui:259
 msgid "Minimize to tray"
@@ -2422,8 +2424,8 @@ msgid ""
 "extension</a> (or a similar one) installed."
 msgstr ""
 "Значки в трее не поддерживаются некоторыми платформами, в частности Wayland. "
-"В GNOME Shell 3.26+ на Xorg значки в трее работают, только если установлено "
-"<a href=\"https://extensions.gnome.org/extension/495/topicons/\">расширение "
+"В GNOME Shell 3.26+ в Xorg значки в трее работают только если установлено <a "
+"href=\"https://extensions.gnome.org/extension/495/topicons/\">расширение "
 "\"TopIcons\"</a> или ему подобное."
 
 #: ../data/ui/preferences/appearance.ui:343
@@ -2445,7 +2447,7 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:370
 msgid "Show Status Bar"
-msgstr "Показать строку состояния"
+msgstr "Показывать строку состояния"
 
 #: ../data/ui/preferences/appearance.ui:374
 msgid ""
@@ -2457,11 +2459,11 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:399
 msgid "Show playlist track count"
-msgstr "Показать число треков в плейлисте"
+msgstr "Показывать число треков в плейлисте"
 
 #: ../data/ui/preferences/appearance.ui:413
 msgid "Show playlist duration"
-msgstr "Показать длительность плейлиста"
+msgstr "Показывать общее время плейлиста"
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -2775,7 +2777,7 @@ msgstr "Исполнитель"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:60
 msgid "Band/Orchestra"
-msgstr "Группа / Оркестр"
+msgstr "Группа/Оркестр"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:68
 msgid "Lyricist/text writer"
@@ -2795,7 +2797,7 @@ msgstr "Во время выступления"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:84
 msgid "Movie/video screen capture"
-msgstr "Запись событий видео экрана"
+msgstr "Скриншот видео/фильма"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:88
 msgid "A bright coloured fish"
@@ -2807,11 +2809,11 @@ msgstr "Иллюстрация"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:96
 msgid "Band/artist logotype"
-msgstr "Логотип группы или артиста"
+msgstr "Логотип группы/артиста"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:100
 msgid "Publisher/Studio logotype"
-msgstr "Логотип студии или издателя"
+msgstr "Логотип студии/издателя"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:115
 msgid "Click or drag files here to change the cover image"
@@ -3003,7 +3005,7 @@ msgstr "Выбрать место для сохранения"
 
 #: ../plugins/daapclient/__init__.py:742
 msgid "Connect to DAAP..."
-msgstr "Соеденяюсь с DAAP..."
+msgstr "Соеденение с DAAP..."
 
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
@@ -3018,7 +3020,7 @@ msgstr "Сервер DAAP"
 #: ../plugins/desktopcover/desktopcover_preferences.py:21
 #: ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr "Обложка рабочего стола"
+msgstr "Обложку трека на рабочий стол"
 
 #: ../plugins/developer/__init__.py:63
 msgid "Developer Tools"
@@ -3034,7 +3036,7 @@ msgstr "_Получить все теги из фонотеки"
 
 #: ../plugins/grouptagger/__init__.py:105
 msgid "_Import tags from directory"
-msgstr "_Импортировать теги из директории"
+msgstr "_Импорт тегов из каталога"
 
 #: ../plugins/grouptagger/__init__.py:114
 msgid "_Mass rename/delete tags"
@@ -3046,7 +3048,7 @@ msgstr "_Экспорт тегов фонотеки в JSON"
 
 #: ../plugins/grouptagger/__init__.py:130
 msgid "_GroupTagger"
-msgstr "_Редактор тегов"
+msgstr "_Групповые теги"
 
 #: ../plugins/grouptagger/__init__.py:142
 msgid "Show tracks with all tags"
@@ -3054,7 +3056,7 @@ msgstr "Показать треки со всеми тегами"
 
 #: ../plugins/grouptagger/__init__.py:152
 msgid "Show tracks with tags (custom)"
-msgstr "Показать треки с тегами (выборочно)"
+msgstr "Показать треки с тегами (пользователя)"
 
 #: ../plugins/grouptagger/__init__.py:164
 #: ../plugins/grouptagger/gt_widgets.py:946
@@ -3070,12 +3072,12 @@ msgstr "Удалить теги у всех"
 #: ../plugins/grouptagger/gt_widgets.py:691
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:106
 msgid "GroupTagger"
-msgstr "Редактор тегов"
+msgstr "Групповые теги"
 
 #: ../plugins/grouptagger/__init__.py:325
 #: ../plugins/grouptagger/__init__.py:340
 msgid "No categorization tags found in selected tracks"
-msgstr "Теги для сортировки в выбранных треках не найдены"
+msgstr "Теги по категориям в выбранных треках не найдены"
 
 #: ../plugins/grouptagger/gt_export.py:54
 msgid "Export tags to JSON"

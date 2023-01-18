@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-06 12:28+0200\n"
-"PO-Revision-Date: 2022-12-22 02:49+0000\n"
+"PO-Revision-Date: 2023-01-18 18:50+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -181,7 +181,7 @@ msgstr "Lisa muusikakogusse lugusid asukohast LOCATION"
 
 #: ../xl/main.py:158
 msgid "Playlist Options"
-msgstr "Esitlusloendi valikud"
+msgstr "Esitusloendi valikud"
 
 #: ../xl/main.py:164
 msgid "Export the current playlist to LOCATION"
@@ -193,7 +193,7 @@ msgstr "Loo valikud"
 
 #: ../xl/main.py:174
 msgid "Query player"
-msgstr "Päringu mängimine"
+msgstr "Päring meediamängijale"
 
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:180
@@ -1325,7 +1325,7 @@ msgstr "Uus esitusnimekiri"
 
 #: ../xlgui/panels.py:99
 msgid "P_anels"
-msgstr ""
+msgstr "P_aanid"
 
 #: ../xlgui/playlist_container.py:71
 msgid "Drop here to create a new playlist"
@@ -1362,7 +1362,7 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:546
 msgid "_Move to Other View"
-msgstr ""
+msgstr "_Suundu teise vaatesse"
 
 #: ../xlgui/preferences/__init__.py:113 ../xlgui/preferences/plugin.py:40
 msgid "Plugins"
@@ -2590,7 +2590,7 @@ msgstr ""
 #: ../data/ui/preferences/playback.ui:376
 #: ../plugins/previewdevice/previewprefs.ui:57
 msgid "Playback engine: "
-msgstr ""
+msgstr "Meedia esitusmootor: "
 
 #: ../data/ui/preferences/playback.ui:409
 msgid "Enable gapless playback"
@@ -2690,7 +2690,7 @@ msgstr "_Kustuta silt"
 
 #: ../data/ui/trackproperties_dialog.ui:127
 msgid "ab → A_b"
-msgstr ""
+msgstr "ab → A_b"
 
 #: ../data/ui/trackproperties_dialog.ui:131
 msgid "Uppercase first letter of all tags"
@@ -2794,7 +2794,7 @@ msgstr "Kirjeldus:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:154
 msgid "Type:"
-msgstr ""
+msgstr "Tüüp:"
 
 #: ../data/ui/widgets/filter_dialog.ui:137
 msgid "Match any of the criteria"
@@ -2802,7 +2802,7 @@ msgstr ""
 
 #: ../data/ui/widgets/filter_dialog.ui:151
 msgid "Randomize results"
-msgstr ""
+msgstr "Sega tulemused"
 
 #: ../data/ui/widgets/filter_dialog.ui:165
 msgid "Add"
@@ -2827,15 +2827,15 @@ msgstr "Helitugevus"
 
 #: ../plugins/abrepeat/__init__.py:57
 msgid "Repeat Segment"
-msgstr ""
+msgstr "Korda segmenti"
 
 #: ../plugins/abrepeat/__init__.py:64
 msgid "Repeat Beginning"
-msgstr ""
+msgstr "Korda algusest"
 
 #: ../plugins/abrepeat/__init__.py:68
 msgid "Repeat End"
-msgstr ""
+msgstr "Korda lõppu"
 
 #: ../plugins/alarmclock/acprefs.py:21 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
@@ -2916,11 +2916,11 @@ msgstr "Impordi lood heliplaadilt..."
 
 #: ../plugins/cd/_cdguipanel.py:178
 msgid "Error transcoding files from CD."
-msgstr ""
+msgstr "CD-plaadi failide konverteerimisel tekkis viga."
 
 #: ../plugins/cd/cdprefs.py:33
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:109 ../plugins/minimode/minimode_preferences.py:105
 msgid "Track number"

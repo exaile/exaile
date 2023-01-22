@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-06 12:28+0200\n"
-"PO-Revision-Date: 2023-01-06 05:48+0000\n"
-"Last-Translator: Piotr Strebski <strebski@gmail.com>\n"
+"PO-Revision-Date: 2023-01-22 21:20+0000\n"
+"Last-Translator: gnu-ewm <gnu.ewm@protonmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/>"
 "\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 4.15.1\n"
 "X-Launchpad-Export-Date: 2014-11-08 06:10+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -2529,7 +2529,7 @@ msgstr "GStreamer"
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
 msgid "Audio Sink:  "
-msgstr "Audio Sink:  "
+msgstr "Wyjście dźwiękowe:  "
 
 #: ../data/ui/preferences/playback.ui:98
 msgid "Audio Device: "
@@ -3108,22 +3108,20 @@ msgstr[1] "{amount} utwory znaleziono"
 msgstr[2] "{amount} utworów znaleziono"
 
 #: ../plugins/grouptagger/gt_mass.py:135
-#, fuzzy, python-brace-format
-#| msgid "Replace '%s' with '%s' on %s tracks?"
+#, python-brace-format
 msgid "Replace '{old_tag}' with '{new_tag}' on {amount} track?"
 msgid_plural "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?"
-msgstr[0] "Zastąpić '%s' przez '%s' w %s utworach?"
-msgstr[1] "Zastąpić '%s' przez '%s' w %s utworach?"
-msgstr[2] "Zastąpić '%s' przez '%s' w %s utworach?"
+msgstr[0] "Zastąpić {old_tag} przez {new_tag} w {amount} utworze?"
+msgstr[1] "Zastąpić {old_tag} przez {new_tag} w {amount} utworach?"
+msgstr[2] "Zastąpić {old_tag} przez {new_tag} w {amount} utworach?"
 
 #: ../plugins/grouptagger/gt_mass.py:145
-#, fuzzy, python-brace-format
-#| msgid "Delete '%s' from %s tracks?"
+#, python-brace-format
 msgid "Delete '{tag}' from {amount} track?"
 msgid_plural "Delete '{tag}' from {amount} tracks?"
-msgstr[0] "Usunąć „%s” z „%s” utworów?"
-msgstr[1] "Usunąć „%s” z „%s” utworów?"
-msgstr[2] "Usunąć „%s” z „%s” utworów?"
+msgstr[0] "Usunąć {tag} z {amount} utworu?"
+msgstr[1] "Usunąć{tag} z {amount} utworów?"
+msgstr[2] "Usunąć {tag} z {amount} utworów?"
 
 #: ../plugins/grouptagger/gt_mass.py:172
 msgid ""
@@ -3659,10 +3657,8 @@ msgid "Auto-Remove"
 msgstr "Usuń automatycznie"
 
 #: ../plugins/quickbuttons/__init__.py:64
-#, fuzzy
-#| msgid "Advanced"
 msgid "Auto-Advance"
-msgstr "Zaawansowane"
+msgstr "Automatyczne przewijanie"
 
 #: ../plugins/quickbuttons/__init__.py:73
 #: ../plugins/quickbuttons/__init__.py:74
@@ -4239,7 +4235,6 @@ msgstr "_Wyślij żądanie dostępu"
 
 #. TRANSLATORS: Get the link title from the Last.fm page title
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:95
-#, fuzzy
 msgid ""
 "Go to <b><a href=\"http://www.last.fm/api/account\">Your API Account</a></b> "
 "page to get an <b>API key</b> and <b>secret</b> and enter them here. After "
@@ -4815,7 +4810,6 @@ msgid "Dynamic Playlists"
 msgstr "Dynamiczne listy odtwarzania"
 
 #: ../plugins/lastfmlove/PLUGININFO:4
-#, fuzzy
 msgid ""
 "Shows which tracks have been loved and allows for loving tracks.\n"
 "\n"
@@ -4823,7 +4817,8 @@ msgid ""
 "\n"
 "Depends on the plugin \"AudioScrobbler\" for username and password."
 msgstr ""
-"Wyświetla ulubione utwory i pozwala dodawać do ulubionych.\n"
+"Pokazuje, które utwory zostały polubione i pozwala na dodawanie utworów do "
+"ulubionych.\n"
 "\n"
 "W ustawieniach wtyczki wpisz prawidłowy klucz API.\n"
 "\n"

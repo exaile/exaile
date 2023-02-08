@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-03 00:51+0100\n"
-"PO-Revision-Date: 2022-12-11 05:47+0000\n"
+"PO-Revision-Date: 2023-02-09 01:38+0000\n"
 "Last-Translator: Ecron <ecron_89@hotmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
 ">\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -5082,8 +5082,6 @@ msgid "Exaile"
 msgstr "Exaile"
 
 #: ../data/exaile.desktop.in:6
-#, fuzzy
-#| msgid "Exaile Music Player"
 msgid "Music Player"
 msgstr "Reproductor de música"
 
@@ -5093,11 +5091,11 @@ msgstr "Escolteu, navegueu o gestioneu la vostra col·lecció de fitxers d'àudi
 
 #: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;"
-msgstr ""
+msgstr "Música;Reproductor;Biblioteca;Col·lecció;MP3;"
 
 #: ../data/exaile.desktop.in:15
 msgid "player,mp3,ogg"
-msgstr ""
+msgstr "reproductor,mp3,ogg"
 
 #: ../data/exaile.appdata.xml.in:9
 msgid ""
@@ -5106,6 +5104,11 @@ msgid ""
 "lyrics fetching, streaming internet radio, tabbed playlists, smart playlists "
 "with extensive filtering/search capabilities, and much more."
 msgstr ""
+"L'Exaile és un reproductor de música amb una interfície simple i unes grans "
+"capacitats de gestió de música. Les característiques inclouen obtenció "
+"automàtica de la caràtula dels àlbums, obtenció de lletres, transmissió en "
+"directe d'emissores de ràdio, llistes de reproducció intel·ligents amb "
+"funcions de filtratge/cerca extensives, i moltes més."
 
 #: ../data/exaile.appdata.xml.in:15
 msgid ""
@@ -5115,6 +5118,12 @@ msgid ""
 "players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
 "output via a secondary output device (great for DJs!), and much more."
 msgstr ""
+"L'Exaile s'ha escrit amb python i GTK+ i és fàcilment extensible amb "
+"extensions. Hi ha més de 50 extensions que es distribueixen amb l'Exaile que "
+"inclouen etiquetatge avançat de pistes, navegació pel last.fm, "
+"compatibilitat per a reproductors portàtils, pòdcasts, emissores de ràdio "
+"per internet, ReplayGain, sortida via un dispositiu secundari (genial per a "
+"DJ!), i moltes més."
 
 #~ msgid "by {album}"
 #~ msgstr "per {album}"

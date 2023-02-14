@@ -155,6 +155,7 @@ class OSDPlugin:
         # TODO: OSD looks ugly with CSS not applied on first show. Why is that?
 
         event.add_callback(self.__on_playback_track_start, 'playback_track_start')
+        event.add_callback(self.__on_playback_track_start, 'track_tags_changed')
         event.add_callback(self.__on_playback_toggle_pause, 'playback_toggle_pause')
         event.add_callback(self.__on_playback_player_end, 'playback_player_end')
         event.add_callback(self.__on_playback_error, 'playback_error')

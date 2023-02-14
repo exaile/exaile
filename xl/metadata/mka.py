@@ -30,7 +30,6 @@ from xl.metadata import _base, _matroska
 
 
 class MkaFormat(_base.BaseFormat):
-
     others = False  # For now, stick with defined tags only.
     writable = False
 

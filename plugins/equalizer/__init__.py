@@ -215,7 +215,6 @@ class EqualizerWindow(Gtk.Window):
 
     @GtkTemplate.Callback
     def add_preset(self, _widget):
-
         new_preset = []
         new_preset.append(self.combo_presets.get_child().get_text())
         new_preset.append(settings.get_option("plugin/equalizer/pre"))

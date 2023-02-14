@@ -117,7 +117,6 @@ class DevicePanel(panel.Panel):
     ui_info = ('device.ui', 'DevicePanel')
 
     def __init__(self, parent, main, device, name):
-
         label = device.get_name()
         panel.Panel.__init__(self, parent, name, label)
         self.device = device
@@ -172,7 +171,6 @@ class FlatPlaylistDevicePanel(panel.Panel):
     ui_info = ('device.ui', 'DevicePanel')
 
     def __init__(self, parent, main, device, name):
-
         label = device.get_name()
         panel.Panel.__init__(self, parent, name, label)
         self.device = device

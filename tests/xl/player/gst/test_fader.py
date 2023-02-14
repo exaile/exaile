@@ -67,6 +67,7 @@ TmEx = 2
 # Test data:
 #   Position, Volume, State, TmSt/TmEx/None, [call, [arg1...]]
 
+
 # fmt: off
 @pytest.mark.parametrize('test', [
 
@@ -142,7 +143,6 @@ TmEx = 2
 ])
 # fmt: on
 def test_fader(test):
-
     # Test fade_out_on_play
 
     # Test setup_track

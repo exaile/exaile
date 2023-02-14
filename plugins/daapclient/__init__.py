@@ -236,7 +236,7 @@ class DaapHistory(common.LimitedCache):
                 except (IOError, EOFError):
                     # no file
                     pass
-        except (IOError):
+        except IOError:
             # file not present
             pass
 
@@ -720,7 +720,6 @@ class NetworkPanel(CollectionPanel):
 
 
 class DaapClientPlugin:
-
     __exaile = None
     __manager = None
 

@@ -82,7 +82,6 @@ class NotifierSettings:
 
 
 class Notifier(PlaybackAdapter):
-
     settings = NotifierSettings()
 
     def __init__(self, exaile, caps):

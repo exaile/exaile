@@ -224,7 +224,7 @@ class PodcastPanel(panel.Panel):
     def _done_loading_podcasts(self):
         self.model.clear()
         self.podcasts.sort()
-        for (title, url) in self.podcasts:
+        for title, url in self.podcasts:
             self.model.append([title, url])
 
         self._set_status('')
@@ -232,7 +232,7 @@ class PodcastPanel(panel.Panel):
     def _save_podcasts(self):
         try:
             with open(self.podcast_file, 'w') as fp:
-                for (title, url) in self.podcasts:
+                for title, url in self.podcasts:
                     fp.write('%s\t%s\n' % (url, title))
         except (OSError, IOError):
             dialogs.error(self.parent, _('Could not save podcast file'))

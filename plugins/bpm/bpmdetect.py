@@ -34,7 +34,6 @@ def detect_bpm(uri, on_complete):
     bpm = [None]
 
     def _on_message(bus, msg):
-
         if msg.type == Gst.MessageType.TAG:
             tags = msg.parse_tag()
 
@@ -52,7 +51,6 @@ def detect_bpm(uri, on_complete):
                 bpm[0] = v
 
         elif msg.type == Gst.MessageType.ERROR:
-
             playbin.set_state(Gst.State.NULL)
 
             gerror, debug_info = msg.parse_error()
@@ -103,7 +101,6 @@ def detect_bpm(uri, on_complete):
 
 
 if __name__ == '__main__':
-
     Gst.init(None)
 
     if len(sys.argv) != 2:

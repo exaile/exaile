@@ -60,7 +60,6 @@ class SecondaryOutputPlugin:
         self.exaile = exaile
 
     def on_gui_loaded(self):
-
         self.hooked = False
 
         #

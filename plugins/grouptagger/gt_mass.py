@@ -36,7 +36,6 @@ from . import gt_common
 
 @GtkTemplate('gt_mass.ui', relto=__file__)
 class GtMassRename(Gtk.Window):
-
     __gtype_name__ = 'GTMassRename'
 
     (
@@ -73,7 +72,6 @@ class GtMassRename(Gtk.Window):
 
     @GtkTemplate.Callback
     def on_find_clicked(self, widget):
-
         self.search_str = self.search_entry.get_text().strip()
         self.tagname = gt_common.get_tagname()
 
@@ -86,7 +84,6 @@ class GtMassRename(Gtk.Window):
 
         idx = self.playlists.get_active()
         if idx != -1 and self.search_str != '':
-
             smart, name = self.playlists.get_model()[idx]
             if smart:
                 pl = self.exaile.smart_playlists.get_playlist(name)
@@ -97,7 +94,6 @@ class GtMassRename(Gtk.Window):
                 pl = pl.get_playlist(self.exaile.collection)
 
             for track in pl:
-
                 groups = gt_common._get_track_groups(track, self.tagname)
 
                 if self.search_str != '' and self.search_str not in groups:
@@ -126,7 +122,6 @@ class GtMassRename(Gtk.Window):
 
     @GtkTemplate.Callback
     def on_replace_clicked(self, widget):
-
         tracks = [row[2] for row in self.tracks_list.get_model() if row[1]]
         replace_str = self.replace_entry.get_text().strip()
 
@@ -151,7 +146,6 @@ class GtMassRename(Gtk.Window):
             return
 
         for track in tracks:
-
             groups = gt_common._get_track_groups(track, self.tagname)
 
             if self.search_str != '':

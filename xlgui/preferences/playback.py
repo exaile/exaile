@@ -99,7 +99,6 @@ class SelectDeviceForSinkPreference(widgets.ComboPreference, widgets.Conditional
         return self.get_condition_value() == 'auto'
 
     def on_condition_met(self):
-
         # disable because the clear() causes a settings write
         self.is_enabled = False
 

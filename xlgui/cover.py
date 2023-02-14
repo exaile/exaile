@@ -574,7 +574,6 @@ class CoverWidget(Gtk.EventBox):
 
         @common.threaded
         def __get_cover():
-
             fetch = not settings.get_option('covers/automatic_fetching', True)
             cover_data = COVER_MANAGER.get_cover(track, set_only=fetch)
 

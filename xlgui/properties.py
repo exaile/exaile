@@ -289,9 +289,7 @@ class TrackPropertiesDialog(GObject.GObject):
             ab = True
 
         for tag, tag_info in self.def_tags.items():
-
             for i, entry in enumerate(trackdata.get(tag, [''])):
-
                 field = self._get_field_widget(tag_info, ab)
 
                 row = TagRow(self, self.tags_grid, field, tag, entry, i)
@@ -526,7 +524,6 @@ class TrackPropertiesDialog(GObject.GObject):
             self.apply_button.set_sensitive(False)
 
     def update_tag(self, widget, tag, multi_id, val):
-
         trackdata = self.trackdata[self.current_position]
         original_trackdata = self.trackdata_original[self.current_position]
         trackdata[tag][multi_id] = val()
@@ -933,7 +930,6 @@ class TagDblNumField(Gtk.Box):
 
 @GtkTemplate('ui', 'trackproperties_dialog_cover_row.ui')
 class TagImageField(Gtk.Box):
-
     __gtype_name__ = 'TagImageField'
 
     (
@@ -1281,7 +1277,6 @@ class AllButton(Gtk.ToggleButton):
         self.set_active(False)
 
     def set_all_mode(self, w=None, do_apply=True):
-
         if self.get_active and do_apply and self.field.parent_row:
             tag = self.field.parent_row.tag
             multi_id = self.field.parent_row.multi_id

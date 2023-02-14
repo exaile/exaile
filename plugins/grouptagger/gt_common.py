@@ -54,7 +54,6 @@ def migrate_settings():
     '''Automatically migrate group tagger 0.1 settings to 0.2'''
 
     if settings.get_option(migrated_option, False):
-
         default_groups = settings.get_option('plugin/grouptagger/default_groups', None)
         if default_groups is not None:
             group_categories = {_('Uncategorized'): [True, default_groups]}
@@ -117,7 +116,6 @@ def get_group_categories():
 
 
 def get_groups_from_categories():
-
     groups = set()
     categories = get_group_categories()
     for category, (expanded, cgroups) in categories.items():

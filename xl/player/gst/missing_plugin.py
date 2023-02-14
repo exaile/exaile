@@ -80,7 +80,6 @@ def handle_message(message, engine):
 
 
 def __handle_plugin_missing_message(message, engine):
-
     desc = GstPbutils.missing_plugin_message_get_description(message)
     installer_details = GstPbutils.missing_plugin_message_get_installer_detail(message)
     LOGGER.warning("A plugin for %s is missing, stopping playback", desc)

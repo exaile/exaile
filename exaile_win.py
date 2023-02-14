@@ -25,7 +25,6 @@ builtins.open = __open_inheritance_hack
 
 
 def error(message1, message2=None, die=True):
-
     import logging
 
     """Show error message and exit.
@@ -49,7 +48,6 @@ def error(message1, message2=None, die=True):
 
 
 def main():
-
     import logging
 
     logging.basicConfig(

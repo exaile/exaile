@@ -254,7 +254,6 @@ class FormatConverter:
         if track_uri.startswith('file:///') and not Gio.File.new_for_uri(
             track_uri
         ).query_exists(None):
-
             if not playlist_uri.startswith('file:///'):
                 logging.debug('Track does not seem to exist, using original path')
             else:
@@ -521,7 +520,6 @@ class PLSConverter(FormatConverter):
 
             with GioFileInputStream(gfile) as stream:
                 for line in stream:
-
                     line = line.strip()
 
                     if not line:
@@ -1162,7 +1160,6 @@ class Playlist:
                 return -1, None
 
     def __get_next(self, current_position):
-
         # don't recalculate
         if self.__next_data is not None:
             return self.__next_data[2]
@@ -1709,7 +1706,6 @@ class Playlist:
         return item
 
     def on_playback_track_start(self, event_type, player, track):
-
         if player.queue is not None and player.queue.current_playlist == self:
             if self.dynamic_mode != 'disabled':
                 self.__fetch_dynamic_tracks()

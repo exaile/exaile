@@ -504,7 +504,6 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 self._load_playlist_nodes(playlist)
 
     def _on_playlist_added(self, type, object, playlist_name):
-
         new_playlist = self.playlist_manager.get_playlist(playlist_name)
 
         for oldpl in self.playlist_nodes:

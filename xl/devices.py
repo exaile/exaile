@@ -137,7 +137,6 @@ class KeyedDevice(Device):
 
     @staticmethod
     def __new__(cls, key):
-
         devices = getattr(cls, '__devices', {})
 
         device = devices.get(key, None)

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-14 07:08+0100\n"
-"PO-Revision-Date: 2023-02-06 21:36+0000\n"
+"PO-Revision-Date: 2023-02-14 21:37+0000\n"
 "Last-Translator: Wellington Terumi Uemura <wellingtonuemura@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "exaile/master/pt_BR/>\n"
@@ -1425,13 +1425,11 @@ msgstr[1] "Falha nos plugins: %s"
 
 #: ../xlgui/preferences/plugin.py:235
 msgid "Do you really want to remove this plugin?"
-msgstr ""
+msgstr "Realmente deseja remover este plug-in?"
 
 #: ../xlgui/preferences/plugin.py:245
-#, fuzzy
-#| msgid "Could not enable plugin!"
 msgid "Could not remove plugin!"
-msgstr "Não foi possível ativar o plugin!"
+msgstr "Não foi possível remover o plug-in!"
 
 #: ../xlgui/preferences/plugin.py:261 ../xlgui/preferences/plugin.py:384
 msgid "Could not disable plugin!"
@@ -1456,11 +1454,11 @@ msgstr "Todos os Arquivos"
 
 #: ../xlgui/preferences/plugin.py:317
 msgid "Plugin already exists!"
-msgstr ""
+msgstr "O plug-in já existe!"
 
 #: ../xlgui/preferences/plugin.py:318
 msgid "Do you want to override it?"
-msgstr ""
+msgstr "Deseja substituí-lo?"
 
 #: ../xlgui/preferences/plugin.py:326
 msgid "Plugin file installation failed!"
@@ -2574,10 +2572,8 @@ msgid "Remove track from queue upon playback"
 msgstr "Remover faixa da fila após reprodução"
 
 #: ../data/ui/preferences/playback.ui:221
-#, fuzzy
-#| msgid "Repeat playback"
 msgid "Remove after playback"
-msgstr "Repetir reprodução"
+msgstr "Remover após a reprodução"
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -2963,10 +2959,8 @@ msgid "Audio Disc"
 msgstr "Disco de Áudio"
 
 #: ../plugins/cd/_cdguipanel.py:97
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown disc"
-msgstr "Desconhecido"
+msgstr "Disco desconhecido"
 
 #: ../plugins/cd/_cdguipanel.py:113
 msgid "Importing CD..."
@@ -3070,10 +3064,8 @@ msgid "_Mass rename/delete tags"
 msgstr "Renomear em _massa/deletar tags"
 
 #: ../plugins/grouptagger/__init__.py:122
-#, fuzzy
-#| msgid "E_xport collecton tags to JSON"
 msgid "E_xport collection tags to JSON"
-msgstr "E_xportar coleção de tags para JSON"
+msgstr "E_xportar a coleção das tags para JSON"
 
 #: ../plugins/grouptagger/__init__.py:129
 msgid "_GroupTagger"
@@ -3279,13 +3271,11 @@ msgstr "Erro ao conectar com o servidor Icecast."
 
 #: ../plugins/icecast/__init__.py:149
 msgid "Parsing stations XML..."
-msgstr ""
+msgstr "Analisando estações XML..."
 
 #: ../plugins/icecast/__init__.py:161
-#, fuzzy
-#| msgid "Retrieving song data..."
 msgid "Retrieving stations..."
-msgstr "Recebendo dados da canção..."
+msgstr "Recuperando as estações..."
 
 #: ../plugins/icecast/__init__.py:274
 msgid "Enter the search keywords"
@@ -3305,7 +3295,7 @@ msgstr "Resultados da busca no Icecast"
 
 #: ../plugins/icecast/__init__.py:353
 msgid "Parsing genre list..."
-msgstr ""
+msgstr "Analisando a lista de gêneros..."
 
 #: ../plugins/icecast/__init__.py:374
 #: ../plugins/developer/developer_window.ui:59
@@ -3944,27 +3934,23 @@ msgstr "WavPack"
 
 #: ../plugins/cd/cdprefs_pane.ui:56
 msgid "Fetch metadata from internet servers"
-msgstr ""
+msgstr "Obter os metadados a partir dos servidores da internet"
 
 #: ../plugins/cd/cdprefs_pane.ui:69
 msgid "Disc metadata"
-msgstr ""
+msgstr "Metadados do disco"
 
 #: ../plugins/cd/cdprefs_pane.ui:101
-#, fuzzy
-#| msgid "Format"
 msgid "Format: "
-msgstr "Formato"
+msgstr "Formato: "
 
 #: ../plugins/cd/cdprefs_pane.ui:131
-#, fuzzy
-#| msgid "Import quality: "
 msgid "Quality: "
-msgstr "Importar qualidade: "
+msgstr "Qualidade: "
 
 #: ../plugins/cd/cdprefs_pane.ui:160
 msgid "Path: "
-msgstr ""
+msgstr "Caminho: "
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
@@ -3977,10 +3963,8 @@ msgstr ""
 "<b>$__length</b> precisam ser especificadas com dois underlines no início."
 
 #: ../plugins/cd/cdprefs_pane.ui:218
-#, fuzzy
-#| msgid "Importing tracks"
 msgid "Import tracks to disk"
-msgstr "Importando faixas"
+msgstr "Importar as faixas para o disco"
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
@@ -4680,12 +4664,7 @@ msgid "CD Playback"
 msgstr "Reprodução de CD"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4695,8 +4674,9 @@ msgid ""
 msgstr ""
 "Adiciona suporte para reprodução de CDs de áudio.\n"
 "\n"
-"Requer que o UDisks2 detecte automaticamente CDs\n"
-"Requer cddb-py (%s) para procurar tags."
+"Requer que o UDisks2 detecte automaticamente os CDs\n"
+"Requer o python-libdiscid (%s) e o python-musicbrainzngs (%s) para localizar "
+"tags."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
 msgid "Devices"
@@ -4720,10 +4700,6 @@ msgid "Current Song in Pidgin"
 msgstr "Faixa atual no Pidgin"
 
 #: ../plugins/currentsong/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
-#| "out the suppported services."
 msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the supported services."

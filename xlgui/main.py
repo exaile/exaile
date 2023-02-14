@@ -1156,7 +1156,6 @@ class MainWindow(GObject.GObject):
         prev_minimized = self.minimized
 
         if not self.minimized:
-
             if (
                 event.changed_mask & Gdk.WindowState.ICONIFIED
                 and not event.changed_mask & Gdk.WindowState.WITHDRAWN
@@ -1176,7 +1175,6 @@ class MainWindow(GObject.GObject):
         self.window_state = event.new_window_state
 
         if settings.get_option('gui/minimize_to_tray', False):
-
             # old code to detect minimization
             # -> it must have worked at some point, perhaps this is a GTK version
             # specific set of behaviors? Current code works now on 2.24.17
@@ -1288,7 +1286,6 @@ class MainWindowStatusBarPane(Gtk.Statusbar, info.Statusbar, providers.ProviderH
     """
 
     def __init__(self, player):
-
         Gtk.Statusbar.__init__(self)
         info.Statusbar.__init__(self, self)
         self.__player = player

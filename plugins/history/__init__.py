@@ -132,7 +132,6 @@ class HistoryPlugin:
         self.show_history(not self.is_shown())
 
     def show_history(self, show):
-
         if show == self.is_shown():
             return
 
@@ -147,7 +146,6 @@ plugin_class = HistoryPlugin
 
 
 class HistoryPlaylistPage(PlaylistPageBase):
-
     # add two buttons on the bottom: 'save to playlist', and
     # clear history. Use the dirty key to figure out if we
     # warn about clearing history..
@@ -198,7 +196,6 @@ class HistoryPlaylistPage(PlaylistPageBase):
         self.save_history()
 
     def save_history(self):
-
         if len(self.playlist) == 0:
             return
 

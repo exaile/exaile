@@ -49,7 +49,6 @@ class PlaylistAnalyzerPlugin:
         self.exaile = exaile
 
     def on_gui_loaded(self):
-
         # register menu items
         item = menu.simple_menu_item(
             'pz-run', [], _('Analyze playlists'), callback=self.on_analyze_playlists
@@ -73,7 +72,6 @@ class PlaylistAnalyzerPlugin:
         pass
 
     def disable(self, exaile):
-
         if self.dialog is not None:
             self.dialog.destroy()
             self.dialog = None
@@ -86,9 +84,7 @@ class PlaylistAnalyzerPlugin:
     #
 
     def get_track_groups(self, track):
-
         if self._get_track_groups is None:
-
             if 'grouptagger' not in self.exaile.plugins.enabled_plugins:
                 raise ValueError(
                     "GroupTagger plugin must be loaded to use the GroupTagger tag"
@@ -127,7 +123,6 @@ class PlaylistAnalyzerPlugin:
     #
 
     def get_tag(self, track, tagname, extra):
-
         data = tag_data.get(tagname)
 
         if data is not None:
@@ -149,7 +144,6 @@ class PlaylistAnalyzerPlugin:
         return track.get_tag_raw(tagname, join=True)
 
     def generate_data(self, tracks, tagdata):
-
         data = []
 
         for track in tracks:

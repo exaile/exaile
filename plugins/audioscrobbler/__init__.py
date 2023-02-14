@@ -185,7 +185,6 @@ class ExaileScrobbler:
             logger.info("Attempting to connect to AudioScrobbler (%s)", server)
             scrobbler.login(username, password, hashpw=False, post_url=server)
         except Exception:
-
             try:
                 scrobbler.login(username, password, hashpw=True, post_url=server)
             except Exception:

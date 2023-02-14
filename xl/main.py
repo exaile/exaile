@@ -900,7 +900,6 @@ class Exaile:
         fmt = {'version': version}
 
         if not hasattr(self, '_user_agent_no_plugin'):
-
             from xl import settings
 
             default_no_plugin = 'Exaile/%(version)s (+https://www.exaile.org)'

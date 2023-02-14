@@ -55,7 +55,6 @@ LANGUAGES = ["ab", "aa", "af", "ak", "sq", "am", "ar", "an", "hy", "as", "av",
 
 
 class WikipediaPlugin:
-
     __exaile = None
     __wiki_panel = None
 

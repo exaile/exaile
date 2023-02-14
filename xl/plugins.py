@@ -50,7 +50,6 @@ class PluginExistsError(Exception):
 
 class PluginsManager:
     def __init__(self, exaile, load=True):
-
         self.user_installed_plugindir = xdg.get_user_plugin_dir()
         """Dir for user installed plugins"""
 

@@ -285,7 +285,6 @@ class Main:
         dialog.destroy()
 
     def on_gui_loaded(self, event, object, nothing):
-
         # This has to be idle_add so that plugin panels can be configured
         GLib.idle_add(self.panel_notebook.on_gui_loaded)
 
@@ -305,7 +304,6 @@ class Main:
         self.rescan_collection_with_progress(force_update=True)
 
     def rescan_collection_with_progress(self, startup=False, force_update=False):
-
         libraries = self.exaile.collection.get_libraries()
         if not self.exaile.collection._scanning and len(libraries) > 0:
             from xl.collection import CollectionScanThread

@@ -259,11 +259,9 @@ _REV_NMAP = {}
 
 # update the tables based on the globally stored tag list
 def __update_maps():
-
     from xl.metadata.tags import tag_data
 
     for tag, data in tag_data.items():
-
         if data is None:
             continue
 

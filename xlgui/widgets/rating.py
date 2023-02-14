@@ -79,7 +79,6 @@ class RatingWidget(Gtk.EventBox):
         self.props.rating = rating
 
         if self._player is not None:
-
             event.add_ui_callback(
                 self.on_rating_update, 'playback_track_start', self._player
             )

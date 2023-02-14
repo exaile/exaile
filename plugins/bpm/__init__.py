@@ -152,7 +152,6 @@ plugin_class = BPMCounterPlugin
 
 @GtkTemplate('msg.ui', relto=__file__)
 class BPMAutodetectResponse(Gtk.Dialog):
-
     __gtype_name__ = 'BPMAutodetectResponse'
 
     q_label, r1, r2, r3 = GtkTemplate.Child.widgets(4)
@@ -175,7 +174,6 @@ class BPMAutodetectResponse(Gtk.Dialog):
 
 @GtkTemplate('bpm.ui', relto=__file__)
 class BPMWidget(Gtk.Frame):
-
     __gtype_name__ = 'BPMWidget'
 
     eventbox, bpm_label, apply_button = GtkTemplate.Child.widgets(3)
@@ -251,7 +249,6 @@ class BPMWidget(Gtk.Frame):
 
     @GtkTemplate.Callback
     def on_eventbox_key_press_event(self, widget, event):
-
         if event.keyval == Gdk.KEY_Return:
             self.set_bpm()
             return False

@@ -57,7 +57,6 @@ class DeveloperPlugin:
             providers.unregister('menubar-tools-menu', self.menu)
 
     def on_gui_loaded(self):
-
         # add a thing to the view menu
         self.menu = menu.simple_menu_item(
             'developer', '', _('Developer Tools'), callback=self.on_view_menu
@@ -112,7 +111,6 @@ plugin_class = DeveloperPlugin
 
 @GtkTemplate('developer_window.ui', relto=__file__)
 class DeveloperWindow(Gtk.Window):
-
     __gtype_name__ = 'DeveloperWindow'
 
     (

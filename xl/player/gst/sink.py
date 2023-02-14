@@ -170,7 +170,6 @@ def create_device(player_name, return_errorsink=True):
     errmsg = None
 
     if sink_type == 'auto':
-
         specified_device = settings.get_option(
             '%s/audiosink_device' % player_name, 'auto'
         )
@@ -185,7 +184,6 @@ def create_device(player_name, return_errorsink=True):
             errmsg = errmsg % (specified_device, sink_type)
 
     elif sink_type == 'custom':
-
         pipeline = settings.get_option("%s/custom_sink_pipe" % player_name, "")
         if not pipeline:
             errmsg = _("No custom pipeline specified!")
@@ -214,7 +212,6 @@ def create_device(player_name, return_errorsink=True):
 
 
 def _get_error_audiosink(msg):
-
     sink = Gst.ElementFactory.make('fakesink', None)
 
     def handoff(s, b, p):

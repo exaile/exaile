@@ -120,7 +120,7 @@ class SettingsManager(RawConfigParser):
         :type settings: :class:`xl.settings.SettingsManager`
         """
         for section in self.sections():
-            for (key, value) in self.items(section):
+            for key, value in self.items(section):
                 settings._set_direct('%s/%s' % (section, key), value)
 
     def clone(self):

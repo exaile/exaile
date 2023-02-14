@@ -176,7 +176,7 @@ def __choose_release_and_medium(suitable_releases):
     chosen_prio = -10  # this is a threshold
     chosen_release = None
     chosen_release_media = None
-    for (prio, release_media, release) in suitable_releases:
+    for prio, release_media, release in suitable_releases:
         if prio > chosen_prio:
             chosen_prio = prio
             chosen_release_media = release_media
@@ -185,7 +185,7 @@ def __choose_release_and_medium(suitable_releases):
     # find the most suitable medium
     chosen_prio = -50  # this is a threshold
     chosen_medium = None
-    for (prio, medium) in chosen_release_media:
+    for prio, medium in chosen_release_media:
         if prio > chosen_prio:
             chosen_prio = prio
             chosen_medium = medium

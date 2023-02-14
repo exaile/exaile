@@ -354,7 +354,6 @@ class PlaylistNotebook(SmartNotebook):
 
         # closed tab history
         if not self._moving_tab:
-
             if settings.get_option('gui/save_closed_tabs', True) and isinstance(
                 child, PlaylistPage
             ):
@@ -431,11 +430,11 @@ class PlaylistNotebook(SmartNotebook):
             except IndexError:
                 return None
         elif playlist is not None:
-            for (pl, item) in self.tab_history:
+            for pl, item in self.tab_history:
                 if pl == playlist:
                     return (pl, item)
         elif item_name is not None:
-            for (pl, item) in self.tab_history:
+            for pl, item in self.tab_history:
                 if item.name == item_name:
                     return (pl, item)
 

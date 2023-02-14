@@ -237,7 +237,6 @@ class TrackInfoPane(Gtk.Bin):
     def __update_widget_state(self):
         if self.__display_progress:
             if self.__track == self.__player.current and not self.__player.is_stopped():
-
                 if self.__player.is_paused():
                     icon_name = 'media-playback-pause'
                 else:
@@ -548,7 +547,6 @@ class Statusbar:
         event.add_callback(self._on_option_set, "gui_option_set")
 
     def _get_substitutions(self) -> str:
-
         sub = settings.get_option('gui/statusbar_info_format', '')
 
         if sub:

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-14 07:08+0100\n"
-"PO-Revision-Date: 2023-01-18 18:50+0000\n"
+"PO-Revision-Date: 2023-02-16 18:35+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1432,13 +1432,11 @@ msgstr[2] "Ошибки в плагинах: %s"
 
 #: ../xlgui/preferences/plugin.py:235
 msgid "Do you really want to remove this plugin?"
-msgstr ""
+msgstr "Уверены, что хотите удалить этот плагин?"
 
 #: ../xlgui/preferences/plugin.py:245
-#, fuzzy
-#| msgid "Could not enable plugin!"
 msgid "Could not remove plugin!"
-msgstr "Не удалось включить плагин!"
+msgstr "Не удалось удалить плагин!"
 
 #: ../xlgui/preferences/plugin.py:261 ../xlgui/preferences/plugin.py:384
 msgid "Could not disable plugin!"
@@ -1463,11 +1461,11 @@ msgstr "Все файлы"
 
 #: ../xlgui/preferences/plugin.py:317
 msgid "Plugin already exists!"
-msgstr ""
+msgstr "Плагин уже существует!"
 
 #: ../xlgui/preferences/plugin.py:318
 msgid "Do you want to override it?"
-msgstr ""
+msgstr "Хотите перезаписать его?"
 
 #: ../xlgui/preferences/plugin.py:326
 msgid "Plugin file installation failed!"
@@ -2578,10 +2576,8 @@ msgid "Remove track from queue upon playback"
 msgstr "Удалить трек из «Очереди» после воспроизведения"
 
 #: ../data/ui/preferences/playback.ui:221
-#, fuzzy
-#| msgid "Repeat playback"
 msgid "Remove after playback"
-msgstr "Повторить воспроизведение"
+msgstr "Удалить по остановке воспроизведения"
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -2967,10 +2963,8 @@ msgid "Audio Disc"
 msgstr "Аудио Диск"
 
 #: ../plugins/cd/_cdguipanel.py:97
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown disc"
-msgstr "Неизвестно"
+msgstr "Неизвестный диск"
 
 #: ../plugins/cd/_cdguipanel.py:113
 msgid "Importing CD..."
@@ -3074,10 +3068,8 @@ msgid "_Mass rename/delete tags"
 msgstr "_Групповое переименование/удаление тегов"
 
 #: ../plugins/grouptagger/__init__.py:122
-#, fuzzy
-#| msgid "E_xport collecton tags to JSON"
 msgid "E_xport collection tags to JSON"
-msgstr "_Экспорт тегов фонотеки в JSON"
+msgstr "Эк_спорт тегов фонотеки в JSON"
 
 #: ../plugins/grouptagger/__init__.py:129
 msgid "_GroupTagger"
@@ -3286,13 +3278,11 @@ msgstr "Ошибка подключения к серверу Icecast."
 
 #: ../plugins/icecast/__init__.py:149
 msgid "Parsing stations XML..."
-msgstr ""
+msgstr "Разбор XML станций…"
 
 #: ../plugins/icecast/__init__.py:161
-#, fuzzy
-#| msgid "Retrieving song data..."
 msgid "Retrieving stations..."
-msgstr "Получаю информацию о треке..."
+msgstr "Получение станций…"
 
 #: ../plugins/icecast/__init__.py:274
 msgid "Enter the search keywords"
@@ -3312,7 +3302,7 @@ msgstr "Результаты поиска Icecast"
 
 #: ../plugins/icecast/__init__.py:353
 msgid "Parsing genre list..."
-msgstr ""
+msgstr "Разбор списка жанров…"
 
 #: ../plugins/icecast/__init__.py:374
 #: ../plugins/developer/developer_window.ui:59
@@ -3951,27 +3941,23 @@ msgstr "WavPack"
 
 #: ../plugins/cd/cdprefs_pane.ui:56
 msgid "Fetch metadata from internet servers"
-msgstr ""
+msgstr "Получить метаданные с интернет-серверов"
 
 #: ../plugins/cd/cdprefs_pane.ui:69
 msgid "Disc metadata"
-msgstr ""
+msgstr "Метаданные диска"
 
 #: ../plugins/cd/cdprefs_pane.ui:101
-#, fuzzy
-#| msgid "Format"
 msgid "Format: "
-msgstr "Формат"
+msgstr "Формат: "
 
 #: ../plugins/cd/cdprefs_pane.ui:131
-#, fuzzy
-#| msgid "Import quality: "
 msgid "Quality: "
 msgstr "Качество: "
 
 #: ../plugins/cd/cdprefs_pane.ui:160
 msgid "Path: "
-msgstr ""
+msgstr "Путь: "
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
@@ -3985,10 +3971,8 @@ msgstr ""
 "предшествующими подчёркиваниями."
 
 #: ../plugins/cd/cdprefs_pane.ui:218
-#, fuzzy
-#| msgid "Importing tracks"
 msgid "Import tracks to disk"
-msgstr "Импорт треков"
+msgstr "Импорт дорожек на диск"
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
@@ -4683,12 +4667,7 @@ msgid "CD Playback"
 msgstr "Воспроизведение CD"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4696,10 +4675,11 @@ msgid ""
 "Requires python-libdiscid (%s) and python-musicbrainzngs (%s) to look up "
 "tags."
 msgstr ""
-"Добавляет поддержку проигрывания аудио CD.\n"
+"Добавляет поддержку воспроизведения аудио-дисков.\n"
 "\n"
-"Требует UDisks2 для автоопределения дисков\n"
-"Требует cddb-py (%s) для поиска тегов."
+"Требуется UDisks2 для автоопределения компакт-дисков.\n"
+"Требуется python-libdiscid (%s) и python-musicbrainzngs (%s) для поиска "
+"тегов."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
 msgid "Devices"
@@ -4723,16 +4703,12 @@ msgid "Current Song in Pidgin"
 msgstr "Текущая песня в Pidgin"
 
 #: ../plugins/currentsong/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
-#| "out the suppported services."
 msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the supported services."
 msgstr ""
-"Показывает проигрывание текущей композиции в Pidgin. Проверьте FAQ Pidgin, "
-"чтобы узнать о поддерживаемых службах."
+"Устанавливает имя текущей композиции в статус Pidgin. Смотрите ЧаВо по "
+"Pidgin, чтобы узнать о поддерживаемых службах."
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid ""

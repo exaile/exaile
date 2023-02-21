@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-14 07:08+0100\n"
-"PO-Revision-Date: 2015-10-12 21:40+0200\n"
-"Last-Translator: Sandro Kakabadze <s.kakabadze@gmail.com>\n"
+"PO-Revision-Date: 2023-02-21 13:33+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/exaile/master/"
 "ka/>\n"
 "Language: ka\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2.5-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -129,7 +129,7 @@ msgstr ""
 
 #: ../xl/main.py:97
 msgid "Playback Options"
-msgstr "დაკვრის  პარამეტრები"
+msgstr "დაკვრის პარამეტრები"
 
 #: ../xl/main.py:104
 msgid "Play the next track"
@@ -420,10 +420,8 @@ msgid "Artist"
 msgstr "შემსრულებელი"
 
 #: ../xl/metadata/tags.py:48 ../xlgui/widgets/playlist_columns.py:301
-#, fuzzy
-#| msgid "Artist"
 msgid "Album artist"
-msgstr "შემსრულებელი"
+msgstr "ალბომის შემსრულებელი"
 
 #: ../xl/metadata/tags.py:49
 msgid "Author"
@@ -915,10 +913,8 @@ msgid "Decrease the volume"
 msgstr ""
 
 #: ../xlgui/main.py:201
-#, fuzzy
-#| msgid "Play the previous track"
 msgid "Switch to previous tab"
-msgstr "წინას დაკვრა"
+msgstr "წინა ჩანართზე გადართვა"
 
 #: ../xlgui/main.py:202
 msgid "Switch to next tab"
@@ -1029,10 +1025,8 @@ msgid "Open _Directories"
 msgstr ""
 
 #: ../xlgui/menu.py:126 ../xlgui/panel/menus.py:225
-#, fuzzy
-#| msgid "New Playlist"
 msgid "_Import Playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "_დასაკრავი სიის შემოტანა"
 
 #: ../xlgui/menu.py:156
 msgid "E_xport Current Playlist"
@@ -1047,10 +1041,8 @@ msgid "_Restart"
 msgstr ""
 
 #: ../xlgui/menu.py:193 ../xlgui/tray.py:115
-#, fuzzy
-#| msgid "Exaile"
 msgid "_Quit Exaile"
-msgstr "ექსაილი"
+msgstr "Exaile-დან გასვლა"
 
 #: ../xlgui/menu.py:219
 msgid "_Collection"
@@ -1065,10 +1057,8 @@ msgid "C_overs"
 msgstr ""
 
 #: ../xlgui/menu.py:253
-#, fuzzy
-#| msgid "Preferences"
 msgid "_Preferences"
-msgstr "პარამეტრები"
+msgstr "_პარამეტრები"
 
 #: ../xlgui/menu.py:278
 msgid "_Show Playing Track"
@@ -1079,25 +1069,20 @@ msgid "_Playlist Utilities Bar"
 msgstr ""
 
 #: ../xlgui/menu.py:312
-#, fuzzy
-#| msgid "_Columns"
 msgid "C_olumns"
-msgstr "კოლონები"
+msgstr "_სვეტები"
 
 #: ../xlgui/menu.py:323
-#, fuzzy
 msgid "_Clear playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "_დასაკრავი სიის გასუფთავება"
 
 #: ../xlgui/menu.py:352
 msgid "_Device Manager"
 msgstr ""
 
 #: ../xlgui/menu.py:362
-#, fuzzy
-#| msgid "Collection"
 msgid "_Rescan Collection"
-msgstr "კოლექცია"
+msgstr "კოლექციის _თავიდან სკანირება"
 
 #: ../xlgui/menu.py:372 ../data/ui/collection_manager.ui:226
 msgid "Rescan Collection (_slow)"
@@ -1124,10 +1109,8 @@ msgid "_About"
 msgstr ""
 
 #: ../xlgui/panel/collection.py:127
-#, fuzzy
-#| msgid "Artist"
 msgid "Album Artist"
-msgstr "შემსრულებელი"
+msgstr "ალბომის შემსრულებელი"
 
 #: ../xlgui/panel/collection.py:133
 msgid "Genre - Artist"
@@ -1212,10 +1195,8 @@ msgid "Any source"
 msgstr ""
 
 #: ../xlgui/panel/menus.py:217
-#, fuzzy
-#| msgid "New Playlist"
 msgid "New _Smart Playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "ახალი _ჭკვიანი დასაკრავი სია"
 
 #: ../xlgui/panel/menus.py:321
 msgid "_New Station"
@@ -1730,30 +1711,24 @@ msgid "_Move to Trash"
 msgstr ""
 
 #: ../xlgui/widgets/menuitems.py:287 ../xlgui/widgets/playlist.py:247
-#, fuzzy
-#| msgid "Filename"
 msgid "_Rename"
-msgstr "ფაილის სახელი"
+msgstr "_სახელის გადარქმევა"
 
 #: ../xlgui/widgets/menuitems.py:300 ../data/ui/main.ui:32
 msgid "_Edit"
 msgstr "რედაქტირება"
 
 #: ../xlgui/widgets/menuitems.py:313
-#, fuzzy
-#| msgid "New Playlist"
 msgid "E_xport Playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "დასაკრავი სიის _გატანა"
 
 #: ../xlgui/widgets/menuitems.py:323
 msgid "Export _Files"
 msgstr ""
 
 #: ../xlgui/widgets/menuitems.py:333
-#, fuzzy
-#| msgid "New Playlist"
 msgid "_Delete Playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "დასაკრავი სიის _წაშლა"
 
 #: ../xlgui/widgets/notebook.py:254
 msgid "Close Tab"
@@ -1777,10 +1752,8 @@ msgid "_Jump to"
 msgstr ""
 
 #: ../xlgui/widgets/playback.py:1396
-#, fuzzy
-#| msgid "Remove"
 msgid "_Remove Marker"
-msgstr "ამოშლა"
+msgstr "მარკერის _წაშლა"
 
 #: ../xlgui/widgets/playback.py:1439
 msgid "Muted"
@@ -1797,26 +1770,20 @@ msgid "Full Volume"
 msgstr ""
 
 #: ../xlgui/widgets/playback.py:1569
-#, fuzzy
-#| msgid "Pause"
 msgid "_Pause"
-msgstr "პაუზა"
+msgstr "_შეჩერება"
 
 #: ../xlgui/widgets/playback.py:1572
 msgid "P_lay"
 msgstr ""
 
 #: ../xlgui/widgets/playback.py:1584
-#, fuzzy
-#| msgid "Next Track"
 msgid "_Next Track"
-msgstr "შემდეგი ბილიკი"
+msgstr "შემდეგი _ტრეკი"
 
 #: ../xlgui/widgets/playback.py:1594
-#, fuzzy
-#| msgid "Previous Track"
 msgid "_Previous Track"
-msgstr "წინა ბილიკი"
+msgstr "_წინა ტრეკი"
 
 #: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
@@ -1824,32 +1791,24 @@ msgid "_Stop"
 msgstr ""
 
 #: ../xlgui/widgets/playlist.py:118
-#, fuzzy
-#| msgid "Shuffle"
 msgid "S_huffle"
-msgstr "შემთხვევითი შერჩევა"
+msgstr "_შემთხვევით"
 
 #: ../xlgui/widgets/playlist.py:123
-#, fuzzy
-#| msgid "Repeat"
 msgid "R_epeat"
-msgstr "გმეორება"
+msgstr "_გამეორება"
 
 #: ../xlgui/widgets/playlist.py:128
-#, fuzzy
-#| msgid "Dynamic"
 msgid "_Dynamic"
-msgstr "დინამიური"
+msgstr "_დინამიკური"
 
 #: ../xlgui/widgets/playlist.py:146
 msgid "Remove _Current Track From Playlist"
 msgstr ""
 
 #: ../xlgui/widgets/playlist.py:179
-#, fuzzy
-#| msgid "New Playlist"
 msgid "R_andomize Playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "დასაკრავი სიის შემთხვევითი არჩვა"
 
 #: ../xlgui/widgets/playlist.py:182
 msgid "R_andomize Selection"
@@ -1868,20 +1827,16 @@ msgid "_Clear"
 msgstr ""
 
 #: ../xlgui/widgets/playlist.py:325
-#, fuzzy
-#| msgid "Stop playback after current track"
 msgid "_Stop Playback After This Track"
-msgstr "მორჩი დაკვრას მიმდინარეს შემდეგ"
+msgstr "_ამ ტრეკის შემდეგ გაჩერება"
 
 #: ../xlgui/widgets/playlist.py:332
 msgid "_Continue Playback After This Track"
 msgstr ""
 
 #: ../xlgui/widgets/playlist.py:386
-#, fuzzy
-#| msgid "New Playlist"
 msgid "_Remove from Playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "_დასაკრავი სიიდან წაშლა"
 
 #: ../xlgui/widgets/playlist.py:758
 msgid "Requires plugins providing dynamic playlists"
@@ -2127,10 +2082,8 @@ msgid "Collection Manager"
 msgstr ""
 
 #: ../data/ui/collection_manager.ui:54
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
-msgstr "გუქმება"
+msgstr "_გაუქმება"
 
 #: ../data/ui/collection_manager.ui:71
 msgid "_Apply"
@@ -2149,16 +2102,12 @@ msgid "Add _Folder"
 msgstr ""
 
 #: ../data/ui/collection_manager.ui:191
-#, fuzzy
-#| msgid "Remove"
 msgid "_Remove Folder"
-msgstr "ამოშლა"
+msgstr "_საქაღალდის წაშლა"
 
 #: ../data/ui/collection_manager.ui:209
-#, fuzzy
-#| msgid "Collection"
 msgid "Rescan _Collection"
-msgstr "კოლექცია"
+msgstr "_კოლექციის თავიდან სკანირება"
 
 #: ../data/ui/coverchooser.ui:28
 msgid "Cover Finder"
@@ -2556,10 +2505,8 @@ msgid "Remove track from queue upon playback"
 msgstr ""
 
 #: ../data/ui/preferences/playback.ui:221
-#, fuzzy
-#| msgid "New Playlist"
 msgid "Remove after playback"
-msgstr "ახალი ფლეილისტი"
+msgstr "წაშლა დაკვრის შემდეგ"
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -2695,10 +2642,8 @@ msgid "Preferences"
 msgstr "პარამეტრები"
 
 #: ../data/ui/shortcuts_dialog.ui:90
-#, fuzzy
-#| msgid "Description:"
 msgid "Description"
-msgstr "აღწერილობა:"
+msgstr "აღწერა"
 
 #: ../data/ui/trackproperties_dialog.ui:37
 msgid "Track Properties"
@@ -3322,10 +3267,8 @@ msgid "Last.fm Loved"
 msgstr ""
 
 #: ../plugins/lastfmlove/__init__.py:157
-#, fuzzy
-#| msgid "Previous Track"
 msgid "_Love This Track"
-msgstr "წინა ბილიკი"
+msgstr "_მიყვარს ეს ტრეკი"
 
 #: ../plugins/lastfmlove/__init__.py:178
 msgid "Unlove This Track"
@@ -3551,15 +3494,13 @@ msgid ""
 msgstr ""
 
 #: ../plugins/playlistanalyzer/__init__.py:54
-#, fuzzy
 msgid "Analyze playlists"
-msgstr "ახალი ფლეილისტი"
+msgstr "დასაკრავი სიების ანალიზი"
 
 #: ../plugins/playlistanalyzer/__init__.py:62
 #: ../plugins/playlistanalyzer/analyzer.ui:55
-#, fuzzy
 msgid "Analyze playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "დასაკრავი სიის ანალიზი"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:193
 msgid "Modulus this number"
@@ -3642,16 +3583,12 @@ msgid "Enqueue"
 msgstr ""
 
 #: ../plugins/quickbuttons/__init__.py:46
-#, fuzzy
-#| msgid "Not Playing"
 msgid "Keep playing"
-msgstr "არ უკრავს"
+msgstr "დაკვრის გაგრძელება"
 
 #: ../plugins/quickbuttons/__init__.py:55
-#, fuzzy
-#| msgid "Remove"
 msgid "Auto-Remove"
-msgstr "ამოშლა"
+msgstr "ავტომატური წაშლა"
 
 #: ../plugins/quickbuttons/__init__.py:64
 msgid "Auto-Advance"
@@ -3793,10 +3730,8 @@ msgid "Use Fading"
 msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui:255
-#, fuzzy
-#| msgid "Preferences"
 msgid "<b>Audio Preferences</b>"
-msgstr "პარამეტრები"
+msgstr "<b>ხმის მორგებ</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:269
 msgid "Minimum volume:"
@@ -4036,10 +3971,8 @@ msgstr ""
 
 #: ../plugins/equalizer/equalizer.ui:139
 #: ../plugins/multialarmclock/malrmclk.ui:110
-#, fuzzy
-#| msgid "Remove"
 msgid "_Remove"
-msgstr "ამოშლა"
+msgstr "_წაშლა"
 
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
@@ -4122,9 +4055,8 @@ msgid "If empty, matches all tracks"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui:101
-#, fuzzy
 msgid "Search Tag"
-msgstr "ძიება: "
+msgstr "ჭდის ძებნა"
 
 #: ../plugins/grouptagger/gt_mass.ui:112
 msgid "Use the empty string to delete the tag"
@@ -4869,9 +4801,8 @@ msgid ""
 msgstr ""
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
-#, fuzzy
 msgid "Playlist Analyzer"
-msgstr "რეპერტუარები"
+msgstr "დასაკრავი სიის ანალიზი"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:4
 msgid ""
@@ -4957,10 +4888,8 @@ msgid ""
 msgstr ""
 
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
-#, fuzzy
-#| msgid "Exaile"
 msgid "Exaile"
-msgstr "ექსაილი"
+msgstr "Exaile"
 
 #: ../data/exaile.desktop.in:6
 msgid "Music Player"

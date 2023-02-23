@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-14 07:08+0100\n"
+"POT-Creation-Date: 2023-02-23 11:25+0100\n"
 "PO-Revision-Date: 2020-11-20 20:28+0000\n"
 "Last-Translator: Ajeje Brazorf <lmelonimamo@yahoo.it>\n"
 "Language-Team: Sardinian <https://hosted.weblate.org/projects/exaile/master/"
@@ -1492,11 +1492,11 @@ msgstr ""
 msgid "Restart"
 msgstr "Torra a aviare"
 
-#: ../xlgui/preferences/widgets.py:731
+#: ../xlgui/preferences/widgets.py:743
 msgid "Action"
 msgstr "Atzione"
 
-#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:79
+#: ../xlgui/preferences/widgets.py:751 ../data/ui/shortcuts_dialog.ui:79
 msgid "Shortcut"
 msgstr "Incurtzadura"
 
@@ -1705,7 +1705,7 @@ msgstr "Esportende %s"
 msgid "Choose directory to export files to"
 msgstr "Issèbera sa cartella in ue esportare sos documentos"
 
-#: ../xlgui/widgets/info.py:62
+#: ../xlgui/widgets/info.py:71
 msgid ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
 "by $artist\n"
@@ -1715,16 +1715,16 @@ msgstr ""
 "de $artist\n"
 "dae $album"
 
-#: ../xlgui/widgets/info.py:69 ../xlgui/widgets/playback.py:110
+#: ../xlgui/widgets/info.py:78 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
 msgstr "Non in riprodutzione"
 
-#: ../xlgui/widgets/info.py:418
+#: ../xlgui/widgets/info.py:427
 #, python-format
 msgid "%d in collection"
 msgstr "%d in sa regorta"
 
-#: ../xlgui/widgets/info.py:447 ../xlgui/widgets/info.py:456
+#: ../xlgui/widgets/info.py:456 ../xlgui/widgets/info.py:465
 #, fuzzy, python-format
 #| msgid "%d showing"
 msgid "%d showing"
@@ -1732,7 +1732,7 @@ msgid_plural "%d showing"
 msgstr[0] "%d ammustradas"
 msgstr[1] "%d ammustradas"
 
-#: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:461
+#: ../xlgui/widgets/info.py:460 ../xlgui/widgets/info.py:470
 #, fuzzy, python-format
 #| msgid "%d selected"
 msgid "%d selected"
@@ -5159,15 +5159,14 @@ msgstr "Teclas multimediales pro Windows"
 #: ../plugins/winmmkeys/PLUGININFO:4
 #, python-format
 msgid ""
-"Adds support for multimedia keys (present on most new keyboards) when "
-"running Exaile in Microsoft Windows.\n"
+"Adds support for keyboard multimedia keys on Windows.\n"
 "\n"
-"Requires: pyHook (%s) or keyboard (%s)"
+"Requires: pynput (%s) (included in the Exaile installer)\n"
+"\n"
+"Warning: When this plugin is enabled, Exaile will process every key event in "
+"the Windows session, which may cause some security software to detect Exaile "
+"as a keylogger."
 msgstr ""
-"Annanghet su suportu pro teclas multimediales (chi bi sunt in sa majoria de "
-"sas tastieras noas) cando ses impreende Exaile in Microsoft Windows.\n"
-"\n"
-"Tenet bisòngiu de: pyHook (%s) (o %s pro àteras versiones)"
 
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
 #, fuzzy
@@ -5209,6 +5208,18 @@ msgid ""
 "players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
 "output via a secondary output device (great for DJs!), and much more."
 msgstr ""
+
+#, python-format
+#~ msgid ""
+#~ "Adds support for multimedia keys (present on most new keyboards) when "
+#~ "running Exaile in Microsoft Windows.\n"
+#~ "\n"
+#~ "Requires: pyHook (%s) or keyboard (%s)"
+#~ msgstr ""
+#~ "Annanghet su suportu pro teclas multimediales (chi bi sunt in sa majoria "
+#~ "de sas tastieras noas) cando ses impreende Exaile in Microsoft Windows.\n"
+#~ "\n"
+#~ "Tenet bisòngiu de: pyHook (%s) (o %s pro àteras versiones)"
 
 #~ msgid "Import format: "
 #~ msgstr "Formatu de importatzione: "

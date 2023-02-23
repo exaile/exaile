@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-14 07:08+0100\n"
+"POT-Creation-Date: 2023-02-23 11:25+0100\n"
 "PO-Revision-Date: 2023-02-09 01:38+0000\n"
 "Last-Translator: Ecron <ecron_89@hotmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
@@ -1482,11 +1482,11 @@ msgstr "Es requereix que es reiniciï un cop perquè els canvis prenguin efecte.
 msgid "Restart"
 msgstr "Reinicia"
 
-#: ../xlgui/preferences/widgets.py:731
+#: ../xlgui/preferences/widgets.py:743
 msgid "Action"
 msgstr "Acció"
 
-#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:79
+#: ../xlgui/preferences/widgets.py:751 ../data/ui/shortcuts_dialog.ui:79
 msgid "Shortcut"
 msgstr "Drecera"
 
@@ -1695,7 +1695,7 @@ msgstr "Exportació %s"
 msgid "Choose directory to export files to"
 msgstr "Trieu el directori per exportar fitxers a"
 
-#: ../xlgui/widgets/info.py:62
+#: ../xlgui/widgets/info.py:71
 msgid ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
 "by $artist\n"
@@ -1705,23 +1705,23 @@ msgstr ""
 "per $artist\n"
 "des de $album"
 
-#: ../xlgui/widgets/info.py:69 ../xlgui/widgets/playback.py:110
+#: ../xlgui/widgets/info.py:78 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
 msgstr "No s'està reproduint res"
 
-#: ../xlgui/widgets/info.py:418
+#: ../xlgui/widgets/info.py:427
 #, python-format
 msgid "%d in collection"
 msgstr "%d a la col·lecció"
 
-#: ../xlgui/widgets/info.py:447 ../xlgui/widgets/info.py:456
+#: ../xlgui/widgets/info.py:456 ../xlgui/widgets/info.py:465
 #, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
 msgstr[0] "Se'n mostra %d"
 msgstr[1] "Se'n mostren %d"
 
-#: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:461
+#: ../xlgui/widgets/info.py:460 ../xlgui/widgets/info.py:470
 #, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
@@ -5130,15 +5130,14 @@ msgstr "Tecles multimèdia per a Windows"
 #: ../plugins/winmmkeys/PLUGININFO:4
 #, python-format
 msgid ""
-"Adds support for multimedia keys (present on most new keyboards) when "
-"running Exaile in Microsoft Windows.\n"
+"Adds support for keyboard multimedia keys on Windows.\n"
 "\n"
-"Requires: pyHook (%s) or keyboard (%s)"
+"Requires: pynput (%s) (included in the Exaile installer)\n"
+"\n"
+"Warning: When this plugin is enabled, Exaile will process every key event in "
+"the Windows session, which may cause some security software to detect Exaile "
+"as a keylogger."
 msgstr ""
-"Afegeix compatibilitat per a les tecles multimèdia (presents en la majoria "
-"dels teclats nous) quan s'executa Exaile en Microsoft Windows.\n"
-"\n"
-"Requereix: pyHook (%s) (o bé %s per a més versions)"
 
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
 msgid "Exaile"
@@ -5187,6 +5186,18 @@ msgstr ""
 "compatibilitat per a reproductors portàtils, pòdcasts, emissores de ràdio "
 "per internet, ReplayGain, sortida via un dispositiu secundari (genial per a "
 "DJ!), i moltes més."
+
+#, python-format
+#~ msgid ""
+#~ "Adds support for multimedia keys (present on most new keyboards) when "
+#~ "running Exaile in Microsoft Windows.\n"
+#~ "\n"
+#~ "Requires: pyHook (%s) or keyboard (%s)"
+#~ msgstr ""
+#~ "Afegeix compatibilitat per a les tecles multimèdia (presents en la "
+#~ "majoria dels teclats nous) quan s'executa Exaile en Microsoft Windows.\n"
+#~ "\n"
+#~ "Requereix: pyHook (%s) (o bé %s per a més versions)"
 
 #~ msgid "Import format: "
 #~ msgstr "Format de la importació: "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-14 07:08+0100\n"
+"POT-Creation-Date: 2023-02-23 11:25+0100\n"
 "PO-Revision-Date: 2015-04-24 19:19+0200\n"
 "Last-Translator: Viktar Palstsiuk <vipals@gmail.com>\n"
 "Language-Team: Belarusian <https://hosted.weblate.org/projects/exaile/master/"
@@ -1577,11 +1577,11 @@ msgstr "Неабходзен перазапуск для таго каб зме�
 msgid "Restart"
 msgstr "Перазапусціць"
 
-#: ../xlgui/preferences/widgets.py:731
+#: ../xlgui/preferences/widgets.py:743
 msgid "Action"
 msgstr "Дзеянне"
 
-#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:79
+#: ../xlgui/preferences/widgets.py:751 ../data/ui/shortcuts_dialog.ui:79
 msgid "Shortcut"
 msgstr "Камбінацыя клавіш"
 
@@ -1790,7 +1790,7 @@ msgstr "Экспартаванне %s"
 msgid "Choose directory to export files to"
 msgstr "Абярыце тэчку, у якую будуць экспартаваны файлы"
 
-#: ../xlgui/widgets/info.py:62
+#: ../xlgui/widgets/info.py:71
 msgid ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
 "by $artist\n"
@@ -1800,16 +1800,16 @@ msgstr ""
 "у выкананні $artist\n"
 "з $album"
 
-#: ../xlgui/widgets/info.py:69 ../xlgui/widgets/playback.py:110
+#: ../xlgui/widgets/info.py:78 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
 msgstr "Не прайграваецца"
 
-#: ../xlgui/widgets/info.py:418
+#: ../xlgui/widgets/info.py:427
 #, python-format
 msgid "%d in collection"
 msgstr "%d у калекцыі"
 
-#: ../xlgui/widgets/info.py:447 ../xlgui/widgets/info.py:456
+#: ../xlgui/widgets/info.py:456 ../xlgui/widgets/info.py:465
 #, fuzzy, python-format
 #| msgid "%d showing"
 msgid "%d showing"
@@ -1818,7 +1818,7 @@ msgstr[0] "%d паказана"
 msgstr[1] "%d паказана"
 msgstr[2] "%d паказана"
 
-#: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:461
+#: ../xlgui/widgets/info.py:460 ../xlgui/widgets/info.py:470
 #, fuzzy, python-format
 #| msgid "%d selected"
 msgid "%d selected"
@@ -5424,15 +5424,14 @@ msgstr "Мультымедыйныя клавішы для Windows"
 #: ../plugins/winmmkeys/PLUGININFO:4
 #, python-format
 msgid ""
-"Adds support for multimedia keys (present on most new keyboards) when "
-"running Exaile in Microsoft Windows.\n"
+"Adds support for keyboard multimedia keys on Windows.\n"
 "\n"
-"Requires: pyHook (%s) or keyboard (%s)"
+"Requires: pynput (%s) (included in the Exaile installer)\n"
+"\n"
+"Warning: When this plugin is enabled, Exaile will process every key event in "
+"the Windows session, which may cause some security software to detect Exaile "
+"as a keylogger."
 msgstr ""
-"Дадае падтрымку мультымедыйных клавіш (прысутных на большасці новых "
-"клавіятур) пры запуску Exaile ў Microsoft Windows.↵\n"
-"↵\n"
-"Патрабуецца: pyHook (%s) (ці %s для іншых версій)"
 
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
 #, fuzzy
@@ -5474,6 +5473,18 @@ msgid ""
 "players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
 "output via a secondary output device (great for DJs!), and much more."
 msgstr ""
+
+#, python-format
+#~ msgid ""
+#~ "Adds support for multimedia keys (present on most new keyboards) when "
+#~ "running Exaile in Microsoft Windows.\n"
+#~ "\n"
+#~ "Requires: pyHook (%s) or keyboard (%s)"
+#~ msgstr ""
+#~ "Дадае падтрымку мультымедыйных клавіш (прысутных на большасці новых "
+#~ "клавіятур) пры запуску Exaile ў Microsoft Windows.↵\n"
+#~ "↵\n"
+#~ "Патрабуецца: pyHook (%s) (ці %s для іншых версій)"
 
 #~ msgid "Import format: "
 #~ msgstr "Фармат імпартуемых файлаў: "

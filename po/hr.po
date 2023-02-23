@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-14 07:08+0100\n"
+"POT-Creation-Date: 2023-02-23 11:25+0100\n"
 "PO-Revision-Date: 2022-12-30 01:55+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/exaile/master/"
@@ -1489,11 +1489,11 @@ msgstr "Potrebno je ponovo pokrenuti program, kako bi se primijenile promjene."
 msgid "Restart"
 msgstr "Pokreni ponovo"
 
-#: ../xlgui/preferences/widgets.py:731
+#: ../xlgui/preferences/widgets.py:743
 msgid "Action"
 msgstr "Radnja"
 
-#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:79
+#: ../xlgui/preferences/widgets.py:751 ../data/ui/shortcuts_dialog.ui:79
 msgid "Shortcut"
 msgstr "Prečac"
 
@@ -1702,7 +1702,7 @@ msgstr "Izvozi se %s"
 msgid "Choose directory to export files to"
 msgstr "Odaberi direktorij za izvoz datoteka"
 
-#: ../xlgui/widgets/info.py:62
+#: ../xlgui/widgets/info.py:71
 msgid ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
 "by $artist\n"
@@ -1712,16 +1712,16 @@ msgstr ""
 "izvođač: $artist\n"
 "album: $album"
 
-#: ../xlgui/widgets/info.py:69 ../xlgui/widgets/playback.py:110
+#: ../xlgui/widgets/info.py:78 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
 msgstr "Ništa ne svira"
 
-#: ../xlgui/widgets/info.py:418
+#: ../xlgui/widgets/info.py:427
 #, python-format
 msgid "%d in collection"
 msgstr "%d u zbirci"
 
-#: ../xlgui/widgets/info.py:447 ../xlgui/widgets/info.py:456
+#: ../xlgui/widgets/info.py:456 ../xlgui/widgets/info.py:465
 #, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
@@ -1729,7 +1729,7 @@ msgstr[0] "%d prikazano"
 msgstr[1] "%d prikazano"
 msgstr[2] "%d prikazano"
 
-#: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:461
+#: ../xlgui/widgets/info.py:460 ../xlgui/widgets/info.py:470
 #, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
@@ -5102,15 +5102,14 @@ msgstr "Multimedijske tipke u Windowsu"
 #: ../plugins/winmmkeys/PLUGININFO:4
 #, python-format
 msgid ""
-"Adds support for multimedia keys (present on most new keyboards) when "
-"running Exaile in Microsoft Windows.\n"
+"Adds support for keyboard multimedia keys on Windows.\n"
 "\n"
-"Requires: pyHook (%s) or keyboard (%s)"
+"Requires: pynput (%s) (included in the Exaile installer)\n"
+"\n"
+"Warning: When this plugin is enabled, Exaile will process every key event in "
+"the Windows session, which may cause some security software to detect Exaile "
+"as a keylogger."
 msgstr ""
-"Dodaje podršku za multimedijske tipke (prisutne na većini novih tipkovnica) "
-"kad pokrećeš Exaile u Microsoft Windowsu.\n"
-"\n"
-"Zahtijeva: pyHook (%s) ili tipkovnica (%s)"
 
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
 msgid "Exaile"
@@ -5148,6 +5147,18 @@ msgid ""
 "players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
 "output via a secondary output device (great for DJs!), and much more."
 msgstr ""
+
+#, python-format
+#~ msgid ""
+#~ "Adds support for multimedia keys (present on most new keyboards) when "
+#~ "running Exaile in Microsoft Windows.\n"
+#~ "\n"
+#~ "Requires: pyHook (%s) or keyboard (%s)"
+#~ msgstr ""
+#~ "Dodaje podršku za multimedijske tipke (prisutne na većini novih "
+#~ "tipkovnica) kad pokrećeš Exaile u Microsoft Windowsu.\n"
+#~ "\n"
+#~ "Zahtijeva: pyHook (%s) ili tipkovnica (%s)"
 
 #~ msgid "Import format: "
 #~ msgstr "Format uvoza: "

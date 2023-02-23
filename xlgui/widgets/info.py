@@ -25,7 +25,16 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from typing import Literal
+try:
+    from typing import Literal  # python >= 3.8
+except ImportError:
+    # python <= 3.7 requires typing_extensions package
+    try:
+        from typing_extensions import Literal
+    except ModuleNotFoundError as e:
+        raise RuntimeError(
+            "Please install typing-extensions package to run exaile under python <= 3.7."
+        ) from e
 
 from gi.repository import GLib
 from gi.repository import Gtk

@@ -225,6 +225,11 @@ class Conditional:
             else:
                 self.on_condition_failed()
 
+    def check_condition(self):
+        if self.on_check_condition():
+            self.on_condition_met()
+        else:
+            self.on_condition_failed()
 
 class CheckConditional(Conditional):
     """
@@ -301,6 +306,12 @@ class MultiConditional:
                 self.on_condition_met()
             else:
                 self.on_condition_failed()
+
+    def check_condition(self):
+        if self.on_check_condition():
+            self.on_condition_met()
+        else:
+            self.on_condition_failed()
 
 
 class Button(Preference):

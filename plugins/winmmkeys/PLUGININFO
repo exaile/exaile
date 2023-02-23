@@ -1,7 +1,7 @@
 Version='4.1.2'
 Name=_('Multimedia keys for Windows')
 Authors=['Johannes Sasongko <sasongko@gmail.com>']
-Description=_('Adds support for multimedia keys (present on most new keyboards) when running Exaile in Microsoft Windows.\n\nRequires: pyHook (%s) or keyboard (%s)') % ('https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyhook', 'https://github.com/boppreh/keyboard')
+Description=_('Adds support for keyboard multimedia keys on Windows.\n\nRequires: pynput (%s) (included in the Exaile installer)\n\nWarning: When this plugin is enabled, Exaile will process every key event in the Windows session, which may cause some security software to detect Exaile as a keylogger.') % 'https://github.com/moses-palmer/pynput'
 Category=_('External Control')
-RequiredModules=['pyHook']
+RequiredModules=['pynput']
 Platforms=['win32']

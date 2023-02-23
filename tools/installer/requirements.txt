@@ -4,5 +4,5 @@ musicbrainzngs==0.6
 mutagen==1.40
 pylast==1.8.0
 feedparser==6.0.8
-keyboard==0.13.2
+pynput==1.7.6
 discid

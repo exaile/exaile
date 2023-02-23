@@ -4,21 +4,21 @@ import sys
 from PyInstaller.utils.hooks import collect_submodules
 
 if sys.platform == 'win32':
-    afile = '_inst/usr/lib/exaile/exaile_win.py'
+    entry_point_script = '_inst/usr/lib/exaile/exaile_win.py'
 elif sys.platform == 'darwin':
-    afile = '_inst/usr/lib/exaile/exaile_osx.py'
+    entry_point_script = '_inst/usr/lib/exaile/exaile_osx.py'
 else:
-    afile = '_inst/usr/lib/exaile/exaile.py'
+    entry_point_script = '_inst/usr/lib/exaile/exaile.py'
 
-block_cipher = None
-
-hiddenimports = collect_submodules('xl') + \
-                collect_submodules('xlgui') + \
-                collect_submodules('keyboard') + \
-                collect_submodules('feedparser') + \
-                collect_submodules('musicbrainzngs') + \
-                collect_submodules('mutagen') + \
-                collect_submodules('pylast')
+hiddenimports = (
+    collect_submodules('xl')
+    + collect_submodules('xlgui')
+    + collect_submodules('keyboard')
+    + collect_submodules('feedparser')
+    + collect_submodules('musicbrainzngs')
+    + collect_submodules('mutagen')
+    + collect_submodules('pylast')
+)
 
 binaries = []
 
@@ -27,87 +27,84 @@ binaries = []
 # packaging's subpackages.
 hiddenimports += collect_submodules('packaging')
 
-datas =[
-  ('_inst/usr/share/exaile/data', 'data'),
-  ('_inst/usr/share/exaile/plugins', 'plugins'),
-  ('_inst/usr/share/locale', 'share/locale')
+datas = [
+    ('_inst/usr/share/exaile/data', 'data'),
+    ('_inst/usr/share/exaile/plugins', 'plugins'),
+    ('_inst/usr/share/locale', 'share/locale'),
 ]
 
-# requires https://github.com/pyinstaller/pyinstaller/pull/3608
-def assemble_hook(analysis):
-    # filter out gstreamer plugins we don't want
-    to_remove = [
-      'gstaom',
-      'gstassrender',
-      'gstcacasink',
-      'gstdaala',
-      'gstdvdread',
-      'gstdvdsub',
-      'gstfaac',
-      'gstmxf',
-      'gstopenal',
-      'gstopenexr',
-      'gstopengl',
-      'gstopenh264',
-      'gstopencv',
-      'gstresindvd',
-      'gstrtmp',
-      'gstschro',
-      'gstvideo',
-      'gstvpx',
-      'gstwasapi',  # Generally buggy, e.g. https://github.com/exaile/exaile/issues/532
-      'gstwebp',
-      'gstwebrtc',
-      'gstx264',
-      'gstx265',
-      'gstxvimage',
-      'gstzbar',
-    ]
-    
-    def _exclude(b):
-        for r in to_remove:
-            if r in b and 'libgstvideo-1' not in b:
-                print("Excluding", b)
-                return True
-        return False
-    
-    analysis.binaries = [
-      b for b in analysis.binaries if not _exclude(b[0])
-    ]
+gst_exclude_plugins = [
+    'aom',
+    'assrender',
+    'cacasink',
+    'daala',
+    'dvdread',
+    'dvdsub',
+    'faac',
+    'mxf',
+    'openal',
+    'openexr',
+    'opengl',
+    'openh264',
+    'opencv',
+    'resindvd',
+    'rtmp*',
+    'schro',
+    'video*',
+    'vpx',
+    'wasapi',  # Generally buggy, e.g. https://github.com/exaile/exaile/issues/532
+    'webp',
+    'webrtc*',
+    'x264',
+    'x265',
+    'xvimage',
+    'zbar',
+]
 
-a = Analysis([afile],
-             pathex=['_inst/usr/lib/exaile'],
-             binaries=binaries,
-             datas=datas,
-             hiddenimports=hiddenimports,
-             hookspath=[],
-             runtime_hooks=[],
-             excludes=['tcl', 'tk', '_tkinter', 'tkinter', 'Tkinter'],
-             win_no_prefer_redirects=False,
-             win_private_assemblies=False,
-             cipher=block_cipher,
-             assemble_hook=assemble_hook)
+a = Analysis(
+    [entry_point_script],
+    pathex=['_inst/usr/lib/exaile'],
+    binaries=binaries,
+    datas=datas,
+    hiddenimports=hiddenimports,
+    excludes=['_tkinter', 'tkinter'],
+    hooksconfig={
+        "gstreamer": {
+            "exclude_plugins": gst_exclude_plugins,
+        },
+    },
+)
 
-pyz = PYZ(a.pure, a.zipped_data,
-             cipher=block_cipher)
-exe = EXE(pyz,
-          a.scripts,
-          exclude_binaries=True,
-          name='exaile',
-          debug=False,
-          strip=False,
-          upx=True,
-          console=False )
-coll = COLLECT(exe,
-               a.binaries,
-               a.zipfiles,
-               a.datas,
-               strip=False,
-               upx=True,
-               name='exaile')
+pyz = PYZ(
+    a.pure,
+    a.zipped_data,
+)
+
+exe = EXE(
+    pyz,
+    a.scripts,
+    exclude_binaries=True,
+    name='exaile',
+    debug=False,
+    strip=False,
+    upx=True,
+    console=False,
+)
+
+coll = COLLECT(
+    exe,
+    a.binaries,
+    a.zipfiles,
+    a.datas,
+    strip=False,
+    upx=True,
+    name='exaile',
+)
 
 if sys.platform == 'darwin':
-  app = BUNDLE(coll,
-               name='Exaile.app',
-               icon="../../data/images/exaile.icns",
-               bundle_identifier=None)
+    app = BUNDLE(
+        coll,
+        name='Exaile.app',
+        icon="../../data/images/exaile.icns",
+        bundle_identifier=None,
+    )

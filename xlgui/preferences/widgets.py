@@ -231,6 +231,7 @@ class Conditional:
         else:
             self.on_condition_failed()
 
+
 class CheckConditional(Conditional):
     """
     True if the conditional widget is active

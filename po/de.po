@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-14 07:08+0100\n"
+"POT-Creation-Date: 2023-02-23 12:21+0100\n"
 "PO-Revision-Date: 2022-06-12 01:19+0000\n"
 "Last-Translator: TrueXanadul <Xanadul@protonmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/"
@@ -1429,13 +1429,11 @@ msgstr[1] "Fehlgeschlagene Plugins: %s"
 
 #: ../xlgui/preferences/plugin.py:235
 msgid "Do you really want to remove this plugin?"
-msgstr ""
+msgstr "Möchten Sie diese Plugin wirklich entfernen?"
 
 #: ../xlgui/preferences/plugin.py:245
-#, fuzzy
-#| msgid "Could not enable plugin!"
 msgid "Could not remove plugin!"
-msgstr "Plugin konnte nicht aktiviert werden!"
+msgstr "Plugin konnte nicht entfernt werden!"
 
 #: ../xlgui/preferences/plugin.py:261 ../xlgui/preferences/plugin.py:384
 msgid "Could not disable plugin!"
@@ -1460,11 +1458,11 @@ msgstr "Alle Dateien"
 
 #: ../xlgui/preferences/plugin.py:317
 msgid "Plugin already exists!"
-msgstr ""
+msgstr "Dieses Plugin ist bereits installiert!"
 
 #: ../xlgui/preferences/plugin.py:318
 msgid "Do you want to override it?"
-msgstr ""
+msgstr "Möchten Sie es wirklich überschreiben?"
 
 #: ../xlgui/preferences/plugin.py:326
 msgid "Plugin file installation failed!"
@@ -1482,11 +1480,11 @@ msgstr "Ein Neustart ist erforderlich, um diese Änderung durchzuführen."
 msgid "Restart"
 msgstr "Neustarten"
 
-#: ../xlgui/preferences/widgets.py:731
+#: ../xlgui/preferences/widgets.py:743
 msgid "Action"
 msgstr "Aktion"
 
-#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:79
+#: ../xlgui/preferences/widgets.py:751 ../data/ui/shortcuts_dialog.ui:79
 msgid "Shortcut"
 msgstr "Tastenkürzel"
 
@@ -1695,7 +1693,7 @@ msgstr "Exportiere %s"
 msgid "Choose directory to export files to"
 msgstr "Verzeichnis für den Dateiexport auswählen"
 
-#: ../xlgui/widgets/info.py:62
+#: ../xlgui/widgets/info.py:71
 msgid ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
 "by $artist\n"
@@ -1705,23 +1703,23 @@ msgstr ""
 "von $artist\n"
 "aus $album"
 
-#: ../xlgui/widgets/info.py:69 ../xlgui/widgets/playback.py:110
+#: ../xlgui/widgets/info.py:78 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
 msgstr "Keine Wiedergabe"
 
-#: ../xlgui/widgets/info.py:418
+#: ../xlgui/widgets/info.py:427
 #, python-format
 msgid "%d in collection"
 msgstr "%d in Bibliothek"
 
-#: ../xlgui/widgets/info.py:447 ../xlgui/widgets/info.py:456
+#: ../xlgui/widgets/info.py:456 ../xlgui/widgets/info.py:465
 #, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
 msgstr[0] "%d angezeigt"
 msgstr[1] "%d angezeigt"
 
-#: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:461
+#: ../xlgui/widgets/info.py:460 ../xlgui/widgets/info.py:470
 #, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
@@ -2575,10 +2573,8 @@ msgid "Remove track from queue upon playback"
 msgstr "Bei Wiedergabe Titel aus der Warteschlange entfernen"
 
 #: ../data/ui/preferences/playback.ui:221
-#, fuzzy
-#| msgid "Repeat playback"
 msgid "Remove after playback"
-msgstr "Wiedergabe wiederholen"
+msgstr "Erst nach Wiedergabe entfernen"
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -2963,10 +2959,8 @@ msgid "Audio Disc"
 msgstr "Audio-CD"
 
 #: ../plugins/cd/_cdguipanel.py:97
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown disc"
-msgstr "Unbekannt"
+msgstr "Unbekannte CD"
 
 #: ../plugins/cd/_cdguipanel.py:113
 msgid "Importing CD..."
@@ -3070,8 +3064,6 @@ msgid "_Mass rename/delete tags"
 msgstr "Viele Tags umbenennen oder löschen"
 
 #: ../plugins/grouptagger/__init__.py:122
-#, fuzzy
-#| msgid "E_xport collecton tags to JSON"
 msgid "E_xport collection tags to JSON"
 msgstr "Schlagwörter der Bibliothek nach JSON exportieren"
 
@@ -3131,12 +3123,11 @@ msgid "Select directory to import grouping tags from"
 msgstr "Verzeichnis für den Import von Tags für Gruppen auswählen"
 
 #: ../plugins/grouptagger/gt_mass.py:117
-#, fuzzy, python-brace-format
-#| msgid "0 tracks found"
+#, python-brace-format
 msgid "{amount} track found"
 msgid_plural "{amount} tracks found"
 msgstr[0] "Kein Titel gefunden"
-msgstr[1] "Kein Titel gefunden"
+msgstr[1] "{amount} Titel gefunden"
 
 #: ../plugins/grouptagger/gt_mass.py:130
 #, fuzzy, python-brace-format
@@ -3285,13 +3276,11 @@ msgstr "Fehler beim Verbindungsaufbau zum Icecast-Server."
 
 #: ../plugins/icecast/__init__.py:149
 msgid "Parsing stations XML..."
-msgstr ""
+msgstr "Parse XML der Sender"
 
 #: ../plugins/icecast/__init__.py:161
-#, fuzzy
-#| msgid "Retrieving song data..."
 msgid "Retrieving stations..."
-msgstr "Stückinformationen abrufen …"
+msgstr "Sender abrufen …"
 
 #: ../plugins/icecast/__init__.py:274
 msgid "Enter the search keywords"
@@ -3311,7 +3300,7 @@ msgstr "Suchergebnisse von Icecast"
 
 #: ../plugins/icecast/__init__.py:353
 msgid "Parsing genre list..."
-msgstr ""
+msgstr "Parse Genre-Liste"
 
 #: ../plugins/icecast/__init__.py:374
 #: ../plugins/developer/developer_window.ui:59
@@ -3955,27 +3944,23 @@ msgstr "WavPack"
 
 #: ../plugins/cd/cdprefs_pane.ui:56
 msgid "Fetch metadata from internet servers"
-msgstr ""
+msgstr "Lade Metadaten aus dem Internet"
 
 #: ../plugins/cd/cdprefs_pane.ui:69
 msgid "Disc metadata"
-msgstr ""
+msgstr "CD-Metadaten"
 
 #: ../plugins/cd/cdprefs_pane.ui:101
-#, fuzzy
-#| msgid "Format"
 msgid "Format: "
-msgstr "Format"
+msgstr "Format: "
 
 #: ../plugins/cd/cdprefs_pane.ui:131
-#, fuzzy
-#| msgid "Import quality: "
 msgid "Quality: "
 msgstr "Importqualität: "
 
 #: ../plugins/cd/cdprefs_pane.ui:160
 msgid "Path: "
-msgstr ""
+msgstr "Pfad: "
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
@@ -3989,10 +3974,8 @@ msgstr ""
 "werden."
 
 #: ../plugins/cd/cdprefs_pane.ui:218
-#, fuzzy
-#| msgid "Importing tracks"
 msgid "Import tracks to disk"
-msgstr "Titel werden importiert"
+msgstr "Titel importieren als"
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
@@ -4700,7 +4683,8 @@ msgstr "CD-Wiedergabe"
 #| "Adds support for playing audio CDs.\n"
 #| "\n"
 #| "Requires UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#| "Requires python-libdiscid (%s) and python-musicbrainzngs (%s) to look up "
+#| "tags."
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4735,10 +4719,6 @@ msgid "Current Song in Pidgin"
 msgstr "Aktueller Titel in Pidgin"
 
 #: ../plugins/currentsong/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
-#| "out the suppported services."
 msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the supported services."
@@ -5115,25 +5095,27 @@ msgstr "Multimediatasten für Windows"
 #: ../plugins/winmmkeys/PLUGININFO:4
 #, python-format
 msgid ""
-"Adds support for multimedia keys (present on most new keyboards) when "
-"running Exaile in Microsoft Windows.\n"
+"Adds support for keyboard multimedia keys on Windows.\n"
 "\n"
-"Requires: pyHook (%s) or keyboard (%s)"
+"Requires: pynput (%s) (included in the Exaile installer)\n"
+"\n"
+"Warning: When this plugin is enabled, Exaile will process every key event in "
+"the Windows session, which may cause some security software to detect Exaile "
+"as a keylogger."
 msgstr ""
-"Ermöglicht die Nutzung von Multimediatasten (zu finden auf den meisten "
-"modernen Tastaturen) bei Nutzung von Exaile unter Windows.\n"
+"Unterstützung für Multimedia-Tasten unter Windows.\n"
 "\n"
-"Benötigt: pyHook (%s) oder Tastatur (%s)"
+"Benötigt: pynput (%s) (im Installer enthalten)\n"
+"\n"
+"Warnung: Wenn diese Plugin aktiviert wird, wird Exaile auf jeden Tastendruck "
+"in der aktuellen Sitzung reagieren. Dies kann dazu führen, dass Exaile als "
+"Keylogger erkannt wird."
 
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
-#, fuzzy
-#| msgid "_Quit Exaile"
 msgid "Exaile"
 msgstr "Exaile"
 
 #: ../data/exaile.desktop.in:6
-#, fuzzy
-#| msgid "Exaile Music Player"
 msgid "Music Player"
 msgstr "Musik-Wiedergabe"
 
@@ -5143,7 +5125,7 @@ msgstr "Audiodateien und -streams wiedergeben, verwalten und Tags bearbeiten"
 
 #: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;"
-msgstr ""
+msgstr "Musik;Abspielsoftware;Media-Bibliothek;Sammlung;MP3;"
 
 #: ../data/exaile.desktop.in:15
 msgid "player,mp3,ogg"
@@ -5166,6 +5148,18 @@ msgid ""
 "output via a secondary output device (great for DJs!), and much more."
 msgstr ""
 
+#, python-format
+#~ msgid ""
+#~ "Adds support for multimedia keys (present on most new keyboards) when "
+#~ "running Exaile in Microsoft Windows.\n"
+#~ "\n"
+#~ "Requires: pyHook (%s) or keyboard (%s)"
+#~ msgstr ""
+#~ "Ermöglicht die Nutzung von Multimediatasten (zu finden auf den meisten "
+#~ "modernen Tastaturen) bei Nutzung von Exaile unter Windows.\n"
+#~ "\n"
+#~ "Benötigt: pyHook (%s) oder Tastatur (%s)"
+
 #~ msgid "Import format: "
 #~ msgstr "Importformat: "
 
@@ -5186,7 +5180,6 @@ msgstr ""
 #~ msgstr "vom {album}"
 
 #, fuzzy
-#~| msgid "Close"
 #~ msgid "C_lose"
 #~ msgstr "_Schließen"
 

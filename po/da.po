@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-14 07:08+0100\n"
+"POT-Creation-Date: 2023-02-23 11:25+0100\n"
 "PO-Revision-Date: 2020-05-30 02:41+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/exaile/master/da/"
@@ -1477,11 +1477,11 @@ msgstr "Der kræves en genstart for denne ændring træder i kraft."
 msgid "Restart"
 msgstr "Genstart"
 
-#: ../xlgui/preferences/widgets.py:731
+#: ../xlgui/preferences/widgets.py:743
 msgid "Action"
 msgstr "Handling"
 
-#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:79
+#: ../xlgui/preferences/widgets.py:751 ../data/ui/shortcuts_dialog.ui:79
 msgid "Shortcut"
 msgstr "Genvej"
 
@@ -1690,7 +1690,7 @@ msgstr "Eksporterer %s"
 msgid "Choose directory to export files to"
 msgstr "Vælg mappe som filer skal eksporteres til"
 
-#: ../xlgui/widgets/info.py:62
+#: ../xlgui/widgets/info.py:71
 msgid ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
 "by $artist\n"
@@ -1700,16 +1700,16 @@ msgstr ""
 "af $artist\n"
 "fra $album"
 
-#: ../xlgui/widgets/info.py:69 ../xlgui/widgets/playback.py:110
+#: ../xlgui/widgets/info.py:78 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
 msgstr "Afspiller ikke"
 
-#: ../xlgui/widgets/info.py:418
+#: ../xlgui/widgets/info.py:427
 #, python-format
 msgid "%d in collection"
 msgstr "%d i samling"
 
-#: ../xlgui/widgets/info.py:447 ../xlgui/widgets/info.py:456
+#: ../xlgui/widgets/info.py:456 ../xlgui/widgets/info.py:465
 #, fuzzy, python-format
 #| msgid "%d showing"
 msgid "%d showing"
@@ -1717,7 +1717,7 @@ msgid_plural "%d showing"
 msgstr[0] "%d vises"
 msgstr[1] "%d vises"
 
-#: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:461
+#: ../xlgui/widgets/info.py:460 ../xlgui/widgets/info.py:470
 #, fuzzy, python-format
 #| msgid "%d selected"
 msgid "%d selected"
@@ -5119,15 +5119,14 @@ msgstr "Multimedietaster til Windows"
 #: ../plugins/winmmkeys/PLUGININFO:4
 #, python-format
 msgid ""
-"Adds support for multimedia keys (present on most new keyboards) when "
-"running Exaile in Microsoft Windows.\n"
+"Adds support for keyboard multimedia keys on Windows.\n"
 "\n"
-"Requires: pyHook (%s) or keyboard (%s)"
+"Requires: pynput (%s) (included in the Exaile installer)\n"
+"\n"
+"Warning: When this plugin is enabled, Exaile will process every key event in "
+"the Windows session, which may cause some security software to detect Exaile "
+"as a keylogger."
 msgstr ""
-"Tilføjer understøttelse af multimedietaster (findes på de fleste nye "
-"tastaturer) når Exaile køres i Microsoft Windows.\n"
-"\n"
-"Kræver: pyHook (%s) eller keyboard (%s)"
 
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
 msgid "Exaile"
@@ -5167,6 +5166,18 @@ msgid ""
 "players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
 "output via a secondary output device (great for DJs!), and much more."
 msgstr ""
+
+#, python-format
+#~ msgid ""
+#~ "Adds support for multimedia keys (present on most new keyboards) when "
+#~ "running Exaile in Microsoft Windows.\n"
+#~ "\n"
+#~ "Requires: pyHook (%s) or keyboard (%s)"
+#~ msgstr ""
+#~ "Tilføjer understøttelse af multimedietaster (findes på de fleste nye "
+#~ "tastaturer) når Exaile køres i Microsoft Windows.\n"
+#~ "\n"
+#~ "Kræver: pyHook (%s) eller keyboard (%s)"
 
 #~ msgid "Import format: "
 #~ msgstr "Importformat: "

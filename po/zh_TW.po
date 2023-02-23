@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-14 07:08+0100\n"
+"POT-Creation-Date: 2023-02-23 11:25+0100\n"
 "PO-Revision-Date: 2018-09-09 19:15+0000\n"
 "Last-Translator: Retia Adolf <retia@protonmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -1541,11 +1541,11 @@ msgstr "必須重新啟動，變更才會生效。"
 msgid "Restart"
 msgstr "重新啟動"
 
-#: ../xlgui/preferences/widgets.py:731
+#: ../xlgui/preferences/widgets.py:743
 msgid "Action"
 msgstr "動作"
 
-#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:79
+#: ../xlgui/preferences/widgets.py:751 ../data/ui/shortcuts_dialog.ui:79
 msgid "Shortcut"
 msgstr "快捷鍵"
 
@@ -1755,7 +1755,7 @@ msgstr "匯出 %s"
 msgid "Choose directory to export files to"
 msgstr "選擇檔案匯出的存放目錄"
 
-#: ../xlgui/widgets/info.py:62
+#: ../xlgui/widgets/info.py:71
 msgid ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
 "by $artist\n"
@@ -1765,23 +1765,23 @@ msgstr ""
 "由 $artist 演唱\n"
 "從專輯「$album」"
 
-#: ../xlgui/widgets/info.py:69 ../xlgui/widgets/playback.py:110
+#: ../xlgui/widgets/info.py:78 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
 msgstr "未播放"
 
-#: ../xlgui/widgets/info.py:418
+#: ../xlgui/widgets/info.py:427
 #, python-format
 msgid "%d in collection"
 msgstr "%d 在音樂庫中"
 
-#: ../xlgui/widgets/info.py:447 ../xlgui/widgets/info.py:456
+#: ../xlgui/widgets/info.py:456 ../xlgui/widgets/info.py:465
 #, fuzzy, python-format
 #| msgid "%d showing"
 msgid "%d showing"
 msgid_plural "%d showing"
 msgstr[0] "%d 首陳列"
 
-#: ../xlgui/widgets/info.py:451 ../xlgui/widgets/info.py:461
+#: ../xlgui/widgets/info.py:460 ../xlgui/widgets/info.py:470
 #, fuzzy, python-format
 #| msgid "%d selected"
 msgid "%d selected"
@@ -5248,10 +5248,13 @@ msgstr ""
 #: ../plugins/winmmkeys/PLUGININFO:4
 #, python-format
 msgid ""
-"Adds support for multimedia keys (present on most new keyboards) when "
-"running Exaile in Microsoft Windows.\n"
+"Adds support for keyboard multimedia keys on Windows.\n"
 "\n"
-"Requires: pyHook (%s) or keyboard (%s)"
+"Requires: pynput (%s) (included in the Exaile installer)\n"
+"\n"
+"Warning: When this plugin is enabled, Exaile will process every key event in "
+"the Windows session, which may cause some security software to detect Exaile "
+"as a keylogger."
 msgstr ""
 
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6

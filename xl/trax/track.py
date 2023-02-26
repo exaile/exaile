@@ -895,10 +895,8 @@ class Track:
 
         :rtype: int
         """
-        f = self._get_format_obj()
-        rating = None
         try:
-            rating = self.get_tag_raw('__rating')
+            rating = float(self.get_tag_raw('__rating'))
         except (TypeError, KeyError, ValueError):
             return 0
 

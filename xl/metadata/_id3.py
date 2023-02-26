@@ -191,7 +191,7 @@ class ID3Format(BaseFormat):
         # 3: 96 - 159
         # 4: 160 - 223
         # 5: 224 -
-        if data == 0:
+        if data <= 0:
             # 0
             rating = 0
         elif data <= 31:

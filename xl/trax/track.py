@@ -901,13 +901,13 @@ class Track:
         ):
             try:
                 rating = self.get_tag_disk('__rating')[0]
-            except (TypeError, KeyError, ValueError) as e:
+            except (TypeError) as e:
                 pass
         if not rating:
             try:
                 rating = self.get_tag_raw('__rating')
             except (TypeError, KeyError, ValueError) as e:
-                return 0
+                pass
         if not rating:
             return 0
 

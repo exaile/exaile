@@ -333,7 +333,7 @@ class BaseFormat:
         # 3: 50 - 69
         # 4: 70 - 89
         # 5: 90 -
-        if data == 0:
+        if data <= 0:
             # 0
             rating = 0
         elif data <= 29:

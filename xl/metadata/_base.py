@@ -190,7 +190,7 @@ class BaseFormat:
             # __ is used to denote exaile's internal tags, so we skip
             # loading them to avoid conflicts. usually this shouldn't be
             # an issue.
-            if t.startswith("__"):
+            if t.startswith("__") and t != '__rating':
                 continue
             tags.append(t)
         alltags = self.read_tags(tags)

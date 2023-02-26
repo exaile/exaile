@@ -51,7 +51,7 @@ class MP4Format(BaseFormat):
         'originaldate': '----:com.apple.iTunes:ORIGYEAR',
         'cover':       'covr',
         'language':    '----:com.apple.iTunes:LANGUAGE',
-        '__rating':      'rate',
+        '__rating':    'rate',
         # fmt: on
     }
     others = False
@@ -78,7 +78,7 @@ class MP4Format(BaseFormat):
             # Rating Stars
             data = int(f['rate'][0])
             rating = self._rating_to_stars(data)
-            return [rating]
+            return [str(rating)]
         else:
             return [t for t in f[name]]
 

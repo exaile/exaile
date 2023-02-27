@@ -525,11 +525,6 @@ class ExailePlayer:
     #
 
     def _get_play_params(self, track, start_at, paused, stopped, autoadvance):
-        if start_at is None or start_at <= 0:
-            start_at = None
-            start_offset = track.get_tag_raw('__startoffset') or 0
-            if start_offset > 0:
-                start_at = start_offset
         if start_at is None:
             start_at = track.get_tag_raw('__startoffset') or 0
 

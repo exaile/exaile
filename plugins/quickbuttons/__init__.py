@@ -148,7 +148,6 @@ class QuickButtons:
             )
 
     def _add_button(self, setting: str) -> None:
-
         if self.options[setting]["type"] == "toggle":
             tbs = qb_toggle(setting, self)
 
@@ -307,7 +306,6 @@ class qb_equalizer(Gtk.Button):
         self.connect("clicked", self._on_equalizer_press)
 
     def _on_equalizer_press(self, widget) -> None:
-
         if "equalizer" not in self._qb.exaile.plugins.enabled_plugins:
             return None
 

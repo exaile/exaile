@@ -25,12 +25,23 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+try:
+    from typing import Literal  # python >= 3.8
+except ImportError:
+    # python <= 3.7 requires typing_extensions package
+    try:
+        from typing_extensions import Literal
+    except ModuleNotFoundError as e:
+        raise RuntimeError(
+            "Please install typing-extensions package to run exaile under python <= 3.7."
+        ) from e
+
 from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Pango
 
 from xl import event, formatter, main, settings, xdg
-from xl.nls import gettext as _
+from xl.nls import gettext as _, ngettext
 import xlgui
 from xlgui import cover, guiutil
 from xlgui.widgets import playlist, queue
@@ -46,9 +57,9 @@ class TrackInfoPane(Gtk.Bin):
         Gtk.Bin.__init__(self)
         self.__player = player
 
-        builder = Gtk.Builder()
-        builder.add_from_file(xdg.get_data_path('ui', 'widgets', 'track_info.ui'))
-
+        builder = guiutil.get_builder(
+            xdg.get_data_path('ui', 'widgets', 'track_info.ui')
+        )
         info_box = builder.get_object('info_box')
         info_box.get_parent().remove(info_box)
         self.add(info_box)
@@ -235,7 +246,6 @@ class TrackInfoPane(Gtk.Bin):
     def __update_widget_state(self):
         if self.__display_progress:
             if self.__track == self.__player.current and not self.__player.is_stopped():
-
                 if self.__player.is_paused():
                     icon_name = 'media-playback-pause'
                 else:
@@ -416,7 +426,9 @@ class StatusbarTextFormatter(formatter.Formatter):
             return ''
         return _('%d in collection') % main.exaile().collection.get_count()
 
-    def get_playlist_count(self, selection='none'):
+    def get_playlist_count(
+        self, selection: Literal['none', 'override', 'only'] = 'none'
+    ):
         """
         Retrieves the count of tracks in either the
         full playlist or the current selection
@@ -424,50 +436,46 @@ class StatusbarTextFormatter(formatter.Formatter):
         :param selection: 'none' for playlist count only,
             'override' for selection count if tracks are selected,
             playlist count otherwise, 'only' for selection count only
-        :type selection: string
         """
         if not settings.get_option(
             'gui/show_status_bar_count_tracks_in_playlist', True
         ):
-            return ''
+            return ""
 
         page = xlgui.main.get_selected_page()
 
         if not isinstance(page, playlist.PlaylistPage) and not isinstance(
             page, queue.QueuePage
         ):
-            return ''
+            return ""
 
         playlist_count = len(page.playlist)
         selection_count = page.view.get_selection_count()
 
         if selection == 'none':
-            count = playlist_count
-            text = _('%d showing')
+            return ngettext("%d showing", "%d showing", playlist_count) % playlist_count
         elif selection == 'override':
             if selection_count > 1:
-                count = selection_count
-                text = _('%d selected')
+                return (
+                    ngettext("%d selected", "%d selected", selection_count)
+                    % selection_count
+                )
             else:
-                count = playlist_count
-                text = _('%d showing')
+                return (
+                    ngettext("%d showing", "%d showing", playlist_count)
+                    % playlist_count
+                )
         elif selection == 'only':
-            if selection_count > 1:
-                count = selection_count
-                text = _('%d selected')
-            else:
-                count = 0
-        else:
-            raise ValueError(
-                'Invalid argument "%s" passed to parameter '
-                '"selection" for "playlist_count", possible arguments are '
-                '"none", "override" and "only"' % selection
+            return (
+                ngettext("%d selected", "%d selected", selection_count)
+                % selection_count
             )
 
-        if count == 0:
-            return ''
-
-        return text % count
+        raise ValueError(
+            'Invalid argument "%s" passed to parameter '
+            '"selection" for "playlist_count", possible arguments are '
+            '"none", "override" and "only"' % selection
+        )
 
     def get_playlist_duration(self, format='short', selection='none'):
         """
@@ -520,9 +528,6 @@ class StatusbarTextFormatter(formatter.Formatter):
                 '"none", "override" and "only"' % selection
             )
 
-        if duration == 0:
-            return ''
-
         return formatter.LengthTagFormatter.format_value(duration, format)
 
 
@@ -551,7 +556,6 @@ class Statusbar:
         event.add_callback(self._on_option_set, "gui_option_set")
 
     def _get_substitutions(self) -> str:
-
         sub = settings.get_option('gui/statusbar_info_format', '')
 
         if sub:
@@ -648,8 +652,7 @@ class Splash:
     """
 
     def __init__(self):
-        builder = Gtk.Builder()
-        builder.add_from_file(xdg.get_data_path('ui', 'splash.ui'))
+        builder = guiutil.get_builder(xdg.get_data_path('ui', 'splash.ui'))
 
         image = builder.get_object('splash_image')
         image.set_from_file(xdg.get_data_path('images', 'splash.png'))

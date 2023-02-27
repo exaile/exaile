@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+ <id type="desktop">exaile.desktop</id>
+ <metadata_license>CC0-1.0</metadata_license>
+ <project_license>GPL-2.0+</project_license>
+ <name>Exaile</name>
+ <summary>Listen to, explore, or manage your audio collection</summary>
+ <description>
+  <p>
+   Exaile is a music player with a simple interface and powerful music
+   management capabilities. Features include automatic fetching of album art,
+   lyrics fetching, streaming internet radio, tabbed playlists, smart
+   playlists with extensive filtering/search capabilities, and much more.
+  </p>
+  <p>
+   Exaile is written using python and GTK+ and is easily extensible via
+   plugins. There are over 50 plugins distributed with Exaile that include
+   advanced track tagging, last.fm scrobbling, support for portable media
+   players, podcasts, internet radio such as icecast and Soma.FM,
+   ReplayGain, output via a secondary output device (great for DJs!), and
+   much more.
+  </p>
+ </description>
+ <screenshots>
+  <screenshot type="default" width="800" height="600">https://www.exaile.org/public/images/exaile-3.4.png</screenshot>
+ </screenshots>
+ <url type="homepage">https://www.exaile.org</url>
+ <updatecontact>exaile-devel@googlegroups.com</updatecontact>
+ <provides>
+  <binary>exaile</binary>
+  <dbus type="user">org.exaile.Exaile</dbus>
+ </provides>
+ <launchable type="desktop-id">exaile.desktop</launchable>
+ <update_contact>exaile-devel@googlegroups.com</update_contact>
+ <url type="bugtracker">https://github.com/exaile/exaile/issues</url>
+ <url type="translate">https://hosted.weblate.org/projects/exaile</url>
+ <translation type="gettext">exaile</translation>
+ <releases>
+  <release version="4.1.2" date="2022-08-09" type="stable"/>
+  <release version="4.1.1" date="2021-03-28" type="stable"/>
+  <release version="4.1.0" date="2021-02-14" type="stable"/>
+  <release version="4.0.2" date="2020-01-14" type="stable"/>
+  <release version="4.0.0" date="2019-06-07" type="stable"/>
+  <release version="3.4.5" date="2015-04-27" type="stable"/>
+  <release version="3.4.4" date="2015-03-15" type="stable"/>
+  <release version="3.4.3" date="2014-12-15" type="stable"/>
+  <release version="3.4.2" date="2014-11-10" type="stable"/>
+  <release version="3.4.1" date="2014-11-01" type="stable"/>
+  <release version="3.4.0.2" date="2014-09-15" type="stable"/>
+  <release version="3.4.0" date="2014-09-02" type="stable"/>
+ </releases>
+ <content_rating type="oars-1.1"/>
+</component>

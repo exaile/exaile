@@ -94,7 +94,6 @@ class ElementBin(Gst.Bin):
 
         elems = []
         for _unused, e in all_elems:
-
             # Don't add empty elements!
             if hasattr(e, 'setup_elements'):
                 if not e.setup_elements():
@@ -282,7 +281,7 @@ def parse_stream_tags(track, tag_list):
             etags['__rawtitle'] = v
             newsong = True
 
-        if not track.get_tag_raw('artist'):
+        if not etags.get('artist'):
             title_array = v[0].split(' - ', 1)
             if len(title_array) == 1 or track.get_loc_for_io().lower().endswith(".mp3"):
                 etags['title'] = v

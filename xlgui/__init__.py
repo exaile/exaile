@@ -76,8 +76,8 @@ class Main:
         self.first_removed = False
         self.tray_icon = None
 
-        self.builder = Gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui', 'main.ui'))
+        self.builder = guiutil.get_builder(xdg.get_data_path('ui', 'main.ui'))
+
         self.progress_box = self.builder.get_object('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
 
@@ -86,7 +86,7 @@ class Main:
 
         exaile_icon_path = add_icon('exaile', images_dir)
         Gtk.Window.set_default_icon_name('exaile')
-        if xdg.local_hack:
+        if not xdg.fhs_compliant:
             # PulseAudio also attaches the above name to streams. However, if
             # Exaile is not installed, any app trying to display the icon won't
             # be able to find it just by name. The following is a hack to tell
@@ -285,7 +285,6 @@ class Main:
         dialog.destroy()
 
     def on_gui_loaded(self, event, object, nothing):
-
         # This has to be idle_add so that plugin panels can be configured
         GLib.idle_add(self.panel_notebook.on_gui_loaded)
 
@@ -305,7 +304,6 @@ class Main:
         self.rescan_collection_with_progress(force_update=True)
 
     def rescan_collection_with_progress(self, startup=False, force_update=False):
-
         libraries = self.exaile.collection.get_libraries()
         if not self.exaile.collection._scanning and len(libraries) > 0:
             from xl.collection import CollectionScanThread
@@ -346,6 +344,9 @@ class Main:
         Returns the provider object associated with a panel in the sidebar
         """
         return self.panel_notebook.panels[panel_name].panel
+
+    def get_playlist_container(self):
+        return self.main.playlist_container
 
     def quit(self):
         """

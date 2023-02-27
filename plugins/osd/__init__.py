@@ -155,6 +155,7 @@ class OSDPlugin:
         # TODO: OSD looks ugly with CSS not applied on first show. Why is that?
 
         event.add_callback(self.__on_playback_track_start, 'playback_track_start')
+        event.add_callback(self.__on_playback_track_start, 'track_tags_changed')
         event.add_callback(self.__on_playback_toggle_pause, 'playback_toggle_pause')
         event.add_callback(self.__on_playback_player_end, 'playback_player_end')
         event.add_callback(self.__on_playback_error, 'playback_error')
@@ -384,7 +385,7 @@ class OSDWindow(Gtk.Window):
         # Without decorations, the window cannot be resized on some desktops
         # this especially effects GNOME/Wayland and is probably caused by
         # missing client-side decorations (CSD). This code might break when
-        # using client side decorations. In this case, we probably shoud hide
+        # using client side decorations. In this case, we probably should hide
         # the titlebar instead of removing the decorations.
         # Removing decorations is ignored on some platforms to enable
         # the resize grid.

@@ -25,13 +25,13 @@
 # from your version.
 
 import xl.unicode
-from xl.metadata._base import CaseInsensitveBaseFormat, CoverImage
+from xl.metadata._base import CaseInsensitiveBaseFormat, CoverImage
 from mutagen import oggvorbis, oggopus
 from mutagen.flac import Picture
 import base64
 
 
-class OggFormat(CaseInsensitveBaseFormat):
+class OggFormat(CaseInsensitiveBaseFormat):
     MutagenType = oggvorbis.OggVorbis
     tag_mapping = {
         'bpm': 'tempo',
@@ -41,7 +41,7 @@ class OggFormat(CaseInsensitveBaseFormat):
     writable = True
 
     def _get_tag(self, raw, tag):
-        value = CaseInsensitveBaseFormat._get_tag(self, raw, tag)
+        value = CaseInsensitiveBaseFormat._get_tag(self, raw, tag)
         if value and tag == 'metadata_block_picture':
             new_value = []
             for v in value:
@@ -73,7 +73,7 @@ class OggFormat(CaseInsensitveBaseFormat):
         else:
             # vorbis has text based attributes, so convert everything to unicode
             value = [xl.unicode.to_unicode(v) for v in value]
-        CaseInsensitveBaseFormat._set_tag(self, raw, tag, value)
+        CaseInsensitiveBaseFormat._set_tag(self, raw, tag, value)
 
 
 class OggOpusFormat(OggFormat):

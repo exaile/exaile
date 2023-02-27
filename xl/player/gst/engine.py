@@ -31,6 +31,7 @@ from gi.repository import Gst
 import logging
 import os
 import urllib.parse
+import copy
 import time
 
 from xl import common
@@ -148,7 +149,6 @@ class ExaileGstEngine(ExaileEngine):
     #
 
     def initialize(self):
-
         object.__setattr__(self, 'initialized', True)
 
         self.main_stream = AudioStream(self)
@@ -160,7 +160,6 @@ class ExaileGstEngine(ExaileEngine):
         self._reconfigure_crossfader()
 
     def _reconfigure_crossfader(self):
-
         self.logger.info("Reconfiguring crossfading")
 
         cf_duration = None
@@ -181,7 +180,6 @@ class ExaileGstEngine(ExaileEngine):
         self.main_stream.reconfigure_fader(cf_duration, cf_duration)
 
     def _reconfigure_sink(self):
-
         self.logger.info("Reconfiguring audiosinks")
 
         self.main_stream.reconfigure_sink()
@@ -226,9 +224,7 @@ class ExaileGstEngine(ExaileEngine):
         return self.main_stream.get_user_volume()
 
     def on_track_stopoffset_changed(self, track):
-
         for stream in [self.main_stream, self.other_stream]:
-
             if stream is None or stream.current_track != track:
                 continue
 
@@ -247,8 +243,8 @@ class ExaileGstEngine(ExaileEngine):
         if self.other_stream is not None:
             self.other_stream.stop()
 
-    def play(self, track, start_at, paused):
-        self._next_track(track, start_at, paused, False, False)
+    def play(self, track, start_at, paused, stopped):
+        self._next_track(track, start_at, paused, stopped, False, False)
 
     def seek(self, value):
         return self.main_stream.seek(value)
@@ -273,7 +269,6 @@ class ExaileGstEngine(ExaileEngine):
     #
 
     def _autoadvance_track(self, still_fading=False):
-
         track = self.player.engine_autoadvance_get_next_track()
 
         if track:
@@ -289,7 +284,6 @@ class ExaileGstEngine(ExaileEngine):
 
     @common.idle_add()
     def _eos_func(self, stream):
-
         if stream == self.main_stream:
             self._autoadvance_track()
 
@@ -300,8 +294,9 @@ class ExaileGstEngine(ExaileEngine):
         self.destroy(permanent=False)
         self.initialize()
 
-    def _next_track(self, track, start_at, paused, already_queued, autoadvance):
-
+    def _next_track(
+        self, track, start_at, paused, stopped, already_queued, autoadvance
+    ):
         prior_track = self.main_stream.current_track
 
         # Notify that the track is done
@@ -314,6 +309,7 @@ class ExaileGstEngine(ExaileEngine):
                 track,
                 start_at,
                 paused,
+                stopped,
                 already_queued,
                 self.crossfade_duration / 1000.0,
                 self.crossfade_duration / 1000.0,
@@ -324,13 +320,17 @@ class ExaileGstEngine(ExaileEngine):
                 track,
                 start_at,
                 paused,
+                stopped,
                 already_queued,
                 self.user_fade_duration / 1000.0,
             )
         else:
-            self.main_stream.play(track, start_at, paused, already_queued)
+            self.main_stream.play(track, start_at, paused, stopped, already_queued)
 
-        self.player.engine_notify_track_start(track)
+        if stopped:
+            event.log_event('playlist_track_next', self.player, track)
+        else:
+            self.player.engine_notify_track_start(track)
 
 
 class AudioStream:
@@ -341,7 +341,6 @@ class AudioStream:
     idx = 0
 
     def __init__(self, engine):
-
         AudioStream.idx += 1
         self.name = '%s-audiostream-%s' % (engine.name, self.idx)
         self.engine = engine
@@ -417,7 +416,6 @@ class AudioStream:
         )
 
     def destroy(self):
-
         self.fader.stop()
         self.playbin.set_state(Gst.State.NULL)
         self.playbin.get_bus().remove_signal_watch()
@@ -526,6 +524,7 @@ class AudioStream:
         track,
         start_at,
         paused,
+        stopped,
         already_queued,
         fade_in_duration=None,
         fade_out_duration=None,
@@ -564,8 +563,11 @@ class AudioStream:
                     'source-setup', self.on_source_setup, track
                 )
 
+        if stopped:
+            self.playbin.set_state(Gst.State.NULL)
+            self.engine.player.engine_notify_track_end(self.current_track, True)
         # Start in paused mode if we need to seek
-        if paused or start_at is not None:
+        elif paused or start_at is not None:
             self.playbin.set_state(Gst.State.PAUSED)
         elif not already_queued:
             self.playbin.set_state(Gst.State.PLAYING)
@@ -735,7 +737,6 @@ class AudioStream:
             )
 
     def on_fade_out_begin(self):
-
         if self.engine.crossfade_enabled:
             self.engine._autoadvance_track(still_fading=True)
 
@@ -756,9 +757,12 @@ class AudioStream:
             Useful for streams and files mutagen doesn't understand."""
 
             current = self.current_track
-
+            remote_newsong = False
             if not current.is_local():
-                gst_utils.parse_stream_tags(current, message.parse_tag())
+                prior_track = copy.deepcopy(current)
+                remote_newsong = gst_utils.parse_stream_tags(
+                    current, message.parse_tag()
+                )
 
             if current and not current.get_tag_raw('__length'):
                 res, raw_duration = self.playbin.query_duration(Gst.Format.TIME)
@@ -768,6 +772,10 @@ class AudioStream:
                 duration = float(raw_duration) / Gst.SECOND
                 if duration > 0:
                     current.set_tag_raw('__length', duration)
+
+            if remote_newsong:
+                self.engine.player.engine_notify_track_end(prior_track, False)
+                self.engine.player.engine_notify_track_start(current)
 
         elif (
             message.type == Gst.MessageType.EOS
@@ -780,7 +788,6 @@ class AudioStream:
             and message.src == self.playbin
             and self.buffered_track is not None
         ):
-
             # This handles starting the next track during gapless transition
             buffered_track = self.buffered_track
             self.buffered_track = None
@@ -790,7 +797,6 @@ class AudioStream:
             self.engine._next_track(*play_args)
 
         elif message.type == Gst.MessageType.STATE_CHANGED:
-
             # This idea from quodlibet: pulsesink will not notify us when
             # volume changes if the stream is paused, so do it when the
             # state changes.

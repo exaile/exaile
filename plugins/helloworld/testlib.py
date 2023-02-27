@@ -25,5 +25,5 @@
 # from your version.
 
 
-def sucess():
+def success():
     print("w00t!")

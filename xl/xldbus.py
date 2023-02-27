@@ -213,7 +213,7 @@ class DbusManager(dbus.service.Object):
 
     def __init__(self, exaile):
         """
-        Initilializes the interface
+        Initializes the interface
         """
         self.exaile = exaile
         self.bus = dbus.SessionBus()

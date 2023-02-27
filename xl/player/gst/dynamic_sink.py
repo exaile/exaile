@@ -61,13 +61,11 @@ class DynamicAudioSink(Gst.Bin):
         self.add_pad(Gst.GhostPad.new('sink', sinkpad))
 
     def reconfigure(self, audio_sink):
-
         # don't try to switch more than one source at a time
         release_lock = True
         self.__audio_sink_lock.acquire()
 
         try:
-
             # If this is the first time we added a sink, just add it to
             # the pipeline and we're done.
 
@@ -152,7 +150,6 @@ class DynamicAudioSink(Gst.Bin):
         self.identity.link(audio_sink)
 
         if buffer_position is not None:
-
             # buffer position is the output from get_position. If set, we
             # seek to that position.
 

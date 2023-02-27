@@ -25,12 +25,12 @@
 # from your version.
 
 import xl.unicode
-from xl.metadata._base import CaseInsensitveBaseFormat, CoverImage
+from xl.metadata._base import CaseInsensitiveBaseFormat, CoverImage
 from mutagen import flac
 from mutagen.flac import Picture
 
 
-class FlacFormat(CaseInsensitveBaseFormat):
+class FlacFormat(CaseInsensitiveBaseFormat):
     MutagenType = flac.FLAC
     tag_mapping = {
         'bpm': 'tempo',
@@ -45,7 +45,7 @@ class FlacFormat(CaseInsensitveBaseFormat):
         return -1
 
     def get_keys_disk(self):
-        keys = CaseInsensitveBaseFormat.get_keys_disk(self)
+        keys = CaseInsensitiveBaseFormat.get_keys_disk(self)
         if self.mutagen.pictures:
             keys.append('cover')
         return keys
@@ -57,7 +57,7 @@ class FlacFormat(CaseInsensitveBaseFormat):
                 for p in raw.pictures
             ]
 
-        return CaseInsensitveBaseFormat._get_tag(self, raw, tag)
+        return CaseInsensitiveBaseFormat._get_tag(self, raw, tag)
 
     def _set_tag(self, raw, tag, value):
         if tag == '__cover':
@@ -73,7 +73,7 @@ class FlacFormat(CaseInsensitveBaseFormat):
 
         # flac has text based attributes, so convert everything to unicode
         value = [xl.unicode.to_unicode(v) for v in value]
-        CaseInsensitveBaseFormat._set_tag(self, raw, tag, value)
+        CaseInsensitiveBaseFormat._set_tag(self, raw, tag, value)
 
     def _del_tag(self, raw, tag):
         if tag == '__cover':

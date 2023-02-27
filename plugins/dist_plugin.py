@@ -70,7 +70,6 @@ _ = lambda x: x
 
 
 for dir in args:
-
     if not os.path.exists(dir):
         print("No such folder %s" % dir)
         break

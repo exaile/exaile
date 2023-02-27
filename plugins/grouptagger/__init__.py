@@ -60,7 +60,6 @@ class GroupTaggerPlugin:
         self.exaile = exaile
 
     def on_gui_loaded(self):
-
         self.track = None
         self.tag_dialog = None
 
@@ -120,7 +119,7 @@ class GroupTaggerPlugin:
             menu.simple_menu_item(
                 'gt_export',
                 [],
-                _('E_xport collecton tags to JSON'),
+                _('E_xport collection tags to JSON'),
                 callback=self.on_export_tags,
             )
         )
@@ -242,7 +241,6 @@ class GroupTaggerPlugin:
         gt_export.export_tags(exaile)
 
     def on_get_tags_menu(self, widget, name, parent, exaile):
-
         if self.tag_dialog is None:
             self.tag_dialog = gt_widgets.AllTagsDialog(
                 exaile, self.panel.tagger.add_groups

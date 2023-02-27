@@ -30,7 +30,7 @@
 
         def enable(exaile):
             print("Hello, world!")
-            testlib.sucess()
+            testlib.success()
 
         def disable(exaile):
             print("Goodbye. :(")
@@ -82,7 +82,7 @@ class HelloWorld:
 
     def enable(self, exaile):
         print("Hello, world!")
-        testlib.sucess()
+        testlib.success()
 
     def disable(self, exaile):
         print("Goodbye. :(")

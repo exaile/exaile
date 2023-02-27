@@ -52,7 +52,7 @@ class Bookmark:
     ):
         """
         Creates a bookmark for current track/position if path or time are
-        None. Creates a bookmark for the given track/positon otherwise.
+        None. Creates a bookmark for the given track/position otherwise.
         """
         if not path:
             # get currently playing track
@@ -280,7 +280,7 @@ class BookmarksManager:
         if not self.menu:
             return  # this plugin is shutting down
 
-        for (key, pos) in loaded_bookmarks:
+        for key, pos in loaded_bookmarks:
             self.__add_bookmark(key, pos, save_db=False)
 
     def __save_db(self):

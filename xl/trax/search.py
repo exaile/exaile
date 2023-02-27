@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import time
 import re
 from typing import Collection
 
@@ -536,14 +535,6 @@ def search_tracks(trackiter, trackmatchers: Collection[TracksMatcher]):
             srtr = SearchResultTrack(srtr)
         if all(tma.match(srtr) for tma in trackmatchers):
             yield srtr
-
-        # On large collections, searching can take a while. Due to
-        # peculiarities in python's GIL that means the now-cpu-bound
-        # thread running the search can end up blocking other threads.
-        # Calling out to time.sleep forces a release of the GIL and
-        # allows other threads to run. Benchmarks show this has no
-        # noticable effect on search speed.
-        time.sleep(0)
 
 
 def search_tracks_from_string(

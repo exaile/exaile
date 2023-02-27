@@ -94,7 +94,6 @@ class LVPanel:
             self.treestore.remove(l_iter)
 
     def __init__(self, exaile):
-
         self.name = 'librivox'  # needed for panel provider
         self._panel = None
 

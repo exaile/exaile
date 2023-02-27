@@ -24,15 +24,20 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from gi.repository import Gdk
-from gi.repository import GdkPixbuf
-from gi.repository import Gio
-from gi.repository import GLib
-from gi.repository import GObject
-from gi.repository import Gtk
 import logging
-from gi.repository import Pango
 import os.path
+from threading import Thread
+from typing import Iterable, Optional, Union
+
+from gi.repository import (
+    Gdk,
+    GdkPixbuf,
+    Gio,
+    GLib,
+    GObject,
+    Gtk,
+    Pango,
+)
 
 from xl import metadata, providers, settings, xdg
 from xl.common import clamp
@@ -44,9 +49,7 @@ from xl.playlist import (
     PlaylistExportOptions,
 )
 from xl.nls import gettext as _
-
 from xlgui.guiutil import GtkTemplate
-from threading import Thread
 
 logger = logging.getLogger(__name__)
 
@@ -596,17 +599,17 @@ class ListBox:
 class FileOperationDialog(Gtk.FileChooserDialog):
     """
     An extension of the Gtk.FileChooserDialog that
-    adds a collapsable panel to the bottom listing
+    adds a collapsible panel to the bottom listing
     valid file extensions that the file can be
     saved in. (similar to the one in GIMP)
     """
 
     def __init__(
         self,
-        title=None,
-        parent=None,
-        action=Gtk.FileChooserAction.OPEN,
-        buttons=None,
+        title: str = None,
+        parent: Optional[Gtk.Window] = None,
+        action: Gtk.FileChooserAction = Gtk.FileChooserAction.OPEN,
+        buttons: Optional[Iterable[Union[str, int]]] = None,
         backend=None,
     ):
         """
@@ -624,7 +627,7 @@ class FileOperationDialog(Gtk.FileChooserDialog):
 
         # Create the list that will hold the file type/extensions pair
         self.liststore = Gtk.ListStore(str, str)
-        self.list = Gtk.TreeView(self.liststore)
+        self.list = Gtk.TreeView(model=self.liststore)
         self.list.set_headers_visible(False)
 
         # Create the columns
@@ -798,20 +801,19 @@ class DirectoryOpenDialog(Gtk.FileChooserDialog):
     _last_location = None
 
     def __init__(
-        self, parent=None, title=_('Choose Directory to Open'), select_multiple=True
+        self,
+        parent: Optional[Gtk.Window] = None,
+        title: str = _('Choose Directory to Open'),
+        select_multiple: bool = True,
     ):
-        Gtk.FileChooserDialog.__init__(
-            self,
-            title,
-            parent=parent,
-            buttons=(
-                Gtk.STOCK_CANCEL,
-                Gtk.ResponseType.CANCEL,
-                Gtk.STOCK_OPEN,
-                Gtk.ResponseType.OK,
-            ),
-        )
+        Gtk.FileChooserDialog.__init__(self, title=title, transient_for=parent)
 
+        self.add_buttons(
+            Gtk.STOCK_CANCEL,
+            Gtk.ResponseType.CANCEL,
+            Gtk.STOCK_OPEN,
+            Gtk.ResponseType.OK,
+        )
         self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         self.set_action(Gtk.FileChooserAction.SELECT_FOLDER)
         self.set_local_only(False)
@@ -1475,7 +1477,6 @@ class XMessageDialog(Gtk.Dialog):
         show_no_all=True,
         show_cancel=True,
     ):
-
         Gtk.Dialog.__init__(self, title=title, transient_for=parent)
 
         #
@@ -1550,7 +1551,6 @@ class FileCopyDialog(Gtk.Dialog):
         text=_("Saved %(count)s of %(total)s."),
         parent=None,
     ):
-
         self.file_uris = file_uris
         self.destination_uri = destination_uri
         self.is_copying = False
@@ -1609,7 +1609,6 @@ class FileCopyDialog(Gtk.Dialog):
         self._label.set_markup(self.text % {'count': self.count, 'total': self.total})
 
     def _start_next_copy(self, overwrite=False):
-
         if self.count == len(self.file_uris):
             self.response(Gtk.ResponseType.OK)
             return
@@ -1631,7 +1630,6 @@ class FileCopyDialog(Gtk.Dialog):
                     self.overwrite_response == XRESPONSE_NO_ALL
                     or self.overwrite_response == XRESPONSE_NO
                 ):
-
                     # only deny the overwrite once..
                     if self.overwrite_response == XRESPONSE_NO:
                         self.overwrite_response = None
@@ -1678,7 +1676,6 @@ class FileCopyDialog(Gtk.Dialog):
             self._start_next_copy()
 
     def _finish_single_copy_async(self, source, async_result):
-
         try:
             if source.copy_finish(async_result):
                 self._step()
@@ -1693,7 +1690,6 @@ class FileCopyDialog(Gtk.Dialog):
             )
 
     def _query_overwrite(self):
-
         self.hide()
 
         text = _('File exists, overwrite %s ?') % GLib.markup_escape_text(
@@ -1721,7 +1717,6 @@ class FileCopyDialog(Gtk.Dialog):
             self._start_next_copy(overwrite)
 
     def _on_error(self, message):
-
         self.hide()
 
         dialog = Gtk.MessageDialog(
@@ -1752,7 +1747,6 @@ def ask_for_playlist_name(parent, playlist_manager, name=None):
     """
 
     while True:
-
         dialog = TextEntryDialog(
             _('Playlist name:'),
             _('Add new playlist...'),

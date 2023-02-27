@@ -71,7 +71,7 @@ find "$DESTDIR" -name '*.pyo' -delete
 if [ "$SDK_PLATFORM" == "darwin" ]; then
   pyinstaller -w --clean --distpath $DIST --workpath _build_osx exaile.spec
 else
-  build_python -m PyInstaller --clean --distpath _dist --workpath _build --paths ./_inst/usr/lib/exaile exaile.spec
+  build_python -m PyInstaller --clean --distpath _dist --workpath _build exaile.spec
 fi
 
 # Copy extra data

@@ -241,7 +241,6 @@ class UDisksBase(providers.ProviderHandler):
             self.devices[path] = device
 
     def _on_change(self, path):
-
         assert self._state == 'addremove'
 
         obj = self.get_object_by_path(path)
@@ -360,7 +359,6 @@ class UDisksBase(providers.ProviderHandler):
 
 
 class UDisks2(UDisksBase):
-
     name = 'udisks2'
     root = 'org.freedesktop.UDisks2'
     paths = [
@@ -370,7 +368,6 @@ class UDisks2(UDisksBase):
     ]
 
     def _connect(self):
-
         self.bus = dbus.SystemBus()
         obj = self.get_object_by_path('/org/freedesktop/UDisks2')
 

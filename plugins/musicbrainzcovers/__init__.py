@@ -17,15 +17,11 @@ import logging
 import urllib.error
 import urllib.request
 
-from xl import common, covers, providers
+from xl import common, covers, main, providers
 
 import musicbrainzngs
 
 logger = logging.getLogger(__name__)
-
-musicbrainzngs.set_useragent(
-    'Exaile_MusicBrainz_Covers', '1.0.0', 'https://exaile.org/'
-)
 
 
 def enable(exaile):
@@ -64,6 +60,9 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
         except (AttributeError, TypeError):
             return []
 
+        musicbrainzngs.set_useragent(
+            'Exaile_MusicBrainz_Covers', main.__version__, 'https://exaile.org/'
+        )
         result = musicbrainzngs.search_releases(
             release=album,
             artistname=artist,

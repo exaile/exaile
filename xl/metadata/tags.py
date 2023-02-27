@@ -6,7 +6,6 @@ def N_(x):
 
 
 class _TD:
-
     __slots__ = [
         'name',  # descriptive name
         'translated_name',  # translated name

@@ -311,7 +311,6 @@ class EventManager:
             self._emit(event, self.callbacks, False, emit_verbose)
 
     def _emit_pending(self):
-
         with self.pending_ui_lock:
             events = self.pending_ui
             self.pending_ui = []
@@ -320,7 +319,6 @@ class EventManager:
             self._emit(*event)
 
     def _emit(self, event, exc_callbacks, emit_logmsg, emit_verbose):
-
         # Accumulate in this set to ensure callbacks only get called once
         callbacks = set()
 

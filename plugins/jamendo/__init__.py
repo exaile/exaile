@@ -69,7 +69,6 @@ def disable(exaile):
 
 
 class JamendoPanel(panel.Panel):
-
     __gsignals__ = {
         'append-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
         'download-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
@@ -89,7 +88,7 @@ class JamendoPanel(panel.Panel):
 
         self.setup_widgets()
 
-    # find out whats selected and add the tracks under it to the playlist
+    # find out what's selected and add the tracks under it to the playlist
     def add_to_playlist(self):
         sel = self.get_selected_item()
         if isinstance(sel, jamtree.Artist):
@@ -313,7 +312,6 @@ class JamendoPanel(panel.Panel):
 
     # is called when a user doubleclicks an item in the TreeView
     def button_press(self, widget, event):
-
         if event.type == Gdk.EventType._2BUTTON_PRESS:
             self.add_to_playlist()
 
@@ -440,7 +438,7 @@ class JamendoCoverSearch(CoverSearchMethod):
     name = 'jamendo'
     use_cache = False  # do this since the tracks dont stay on local.
     fixed = True
-    fixed_priority = 5  # take precendence, since we know we are 'right'
+    fixed_priority = 5  # take precedence, since we know we are 'right'
     # for matching tracks.
 
     def __init__(self, user_agent):
@@ -451,7 +449,6 @@ class JamendoCoverSearch(CoverSearchMethod):
         # http://stream10.jamendo.com/stream/61541/ogg2/02%20-%20PieRreF%20-%20Hologram.ogg?u=0&h=f2b227d38d
         split = jamendo_url.split('/')
         if len(split) > 5 and split[0] == 'http:' and split[2].endswith('.jamendo.com'):
-
             track_num = split[4]
             image_url = jamapi.get_album_image_url_from_track(track_num)
 

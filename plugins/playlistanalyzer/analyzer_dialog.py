@@ -77,7 +77,6 @@ class AnalyzerDialog:
     ]
 
     def __init__(self, plugin, parent_window, selected_playlist=None):
-
         self.plugin = plugin
 
         guiutil.initialize_from_xml(self)
@@ -115,7 +114,6 @@ class AnalyzerDialog:
         )
 
     def __initialize_presets(self):
-
         presets = settings.get_option(
             'plugin/playlistanalyzer/presets', DEFAULT_PRESETS
         )
@@ -124,9 +122,7 @@ class AnalyzerDialog:
             self.preset_model.append(preset)
 
     def __build_template_list(self):
-
         for fname in glob(join(dirname(__file__), 'templates', '*.html')):
-
             # let's not do a full DOM parse here, just scan the first few
             # lines and extract out the meta tags that match
 
@@ -155,7 +151,6 @@ class AnalyzerDialog:
                 logger.error("Invalid meta parameter in %s", fname)
 
     def __build_playlist_list(self, selected_playlist):
-
         self.playlists_list.get_selection().set_mode(Gtk.SelectionMode.MULTIPLE)
 
         manager = self.plugin.exaile.playlists
@@ -167,7 +162,6 @@ class AnalyzerDialog:
                 self.playlists_list.scroll_to_cell(self.playlist_store.get_path(i))
 
     def __build_tag_combo(self, idx):
-
         model = Gtk.ListStore(
             GObject.TYPE_STRING, GObject.TYPE_PYOBJECT, GObject.TYPE_STRING
         )
@@ -191,7 +185,6 @@ class AnalyzerDialog:
         return widget
 
     def __build_spin(self, idx):
-
         # TODO: persist value
 
         spin = Gtk.SpinButton()
@@ -207,7 +200,6 @@ class AnalyzerDialog:
         return spin
 
     def __build_tag_table(self):
-
         self.__tag_widgets = []
         self.tags_table.foreach(self.tags_table.remove)
 
@@ -216,7 +208,6 @@ class AnalyzerDialog:
             return
 
         for i in range(0, tmpl['maxtags']):
-
             label = Gtk.Label(label=_('Tag %s') % (i + 1))
             combo = self.__build_tag_combo(i)
             spin = self.__build_spin(i)
@@ -288,7 +279,6 @@ class AnalyzerDialog:
         self.plugin.dialog = None
 
     def on_preset_combo_changed(self, widget):
-
         if widget.get_active() < 0:
             return
 
@@ -320,7 +310,6 @@ class AnalyzerDialog:
         pass
 
     def on_generate_clicked(self, widget):
-
         output_fname = 'analysis'
         playlists = self._get_selected_playlists()
 

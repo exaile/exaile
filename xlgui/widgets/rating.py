@@ -79,7 +79,6 @@ class RatingWidget(Gtk.EventBox):
         self.props.rating = rating
 
         if self._player is not None:
-
             event.add_ui_callback(
                 self.on_rating_update, 'playback_track_start', self._player
             )
@@ -415,7 +414,7 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
                   cell_area, flags):
         """
             Renders the rating images
-            (Overriden since Gtk.CellRendererPixbuf
+            (Overridden since Gtk.CellRendererPixbuf
              fails at vertical padding)
         """
         cell_area.width *= self.props.xalign

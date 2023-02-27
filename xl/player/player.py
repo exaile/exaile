@@ -83,7 +83,6 @@ class ExailePlayer:
         event.add_callback(self._on_track_tags_changed, 'track_tags_changed')
 
     def _setup_engine(self, disable_autoswitch):
-
         if self._engine is not None:
             self._engine.destroy()
 
@@ -190,7 +189,7 @@ class ExailePlayer:
             if self.is_stopped():
                 event.log_event('playback_player_start', self, track)
 
-            play_args = self._get_play_params(track, start_at, paused, False)
+            play_args = self._get_play_params(track, start_at, paused, False, False)
             self._engine.play(*play_args)
             if play_args[2]:
                 event.log_event('playback_player_pause', self, track)
@@ -228,7 +227,6 @@ class ExailePlayer:
         """
         self._cancel_delayed_start()
         if self.is_playing():
-
             current = self.current
             self._update_playtime(current)
             self._engine.pause()
@@ -253,7 +251,6 @@ class ExailePlayer:
         """
         self._cancel_delayed_start()
         if self.is_paused():
-
             self._reset_playtime_stamp()
             self._engine.unpause()
 
@@ -504,9 +501,9 @@ class ExailePlayer:
 
         return self.queue.get_next()
 
-    def engine_autoadvance_notify_next(self, track):
+    def engine_autoadvance_notify_next(self, buffered_track):
         """
-        Engine calls this when it has started playing the next track as
+        Engine calls this when preparing to play the next track as
         part of an auto advance action.
 
         :param track: The track that will be played
@@ -517,15 +514,22 @@ class ExailePlayer:
         .. note:: Only to be called from engine
         """
 
-        self.queue.next(autoplay=False)
+        next = self.queue.next(autoplay=False)
 
-        return self._get_play_params(track, None, False, True)
+        stopped = bool(next is None)
+
+        return self._get_play_params(buffered_track, None, False, stopped, True)
 
     #
     # Playtime related stuffs
     #
 
-    def _get_play_params(self, track, start_at, paused, autoadvance):
+    def _get_play_params(self, track, start_at, paused, stopped, autoadvance):
+        if start_at is None or start_at <= 0:
+            start_at = None
+            start_offset = track.get_tag_raw('__startoffset') or 0
+            if start_offset > 0:
+                start_at = start_offset
         if start_at is None:
             start_at = track.get_tag_raw('__startoffset') or 0
 
@@ -539,7 +543,7 @@ class ExailePlayer:
             self._delay_id = GLib.timeout_add(delay, self._delayed_start)
             paused = True
 
-        return track, start_at, paused
+        return track, start_at, paused, stopped
 
     def _delayed_start(self):
         logger.debug("Resuming playback after delayed start")

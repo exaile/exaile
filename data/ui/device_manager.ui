@@ -112,7 +112,7 @@
             <property name="layout_style">start</property>
             <child>
               <object class="GtkButton" id="btn_connect">
-                <property name="label">_Connect</property>
+                <property name="label" translatable="yes">_Connect</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -130,7 +130,7 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_disconnect">
-                <property name="label">_Disconnect</property>
+                <property name="label" translatable="yes">_Disconnect</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -148,7 +148,7 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_close">
-                <property name="label">C_lose</property>
+                <property name="label" translatable="yes">_Close</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>

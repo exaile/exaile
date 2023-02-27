@@ -39,7 +39,7 @@ class APIKeyPreference(widgets.Preference):
     name = 'plugin/lastfmlove/api_key'
 
 
-class APISecretPrefence(widgets.Preference):
+class APISecretPreference(widgets.Preference):
     name = 'plugin/lastfmlove/api_secret'
 
 

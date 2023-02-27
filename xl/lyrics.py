@@ -41,7 +41,7 @@ class LyricsNotFoundException(Exception):
 
 class LyricsCache:
     """
-    Basically just a thread-safe shelf for convinience.
+    Basically just a thread-safe shelf for convenience.
     Supports container syntax.
     """
 
@@ -347,7 +347,6 @@ class LyricSearchMethod:
 
 
 class LocalLyricSearch(LyricSearchMethod):
-
     name = "__local"
     display_name = _("Local")
 

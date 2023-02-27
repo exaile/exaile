@@ -20,7 +20,6 @@ from gi.repository import Pango
 
 class AboutWindow:
     def __init__(self):
-
         self.book = None
         self.showing = False
 

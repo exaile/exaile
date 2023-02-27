@@ -51,7 +51,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="cancel_button">
-                <property name="label">_Cancel</property>
+                <property name="label" translatable="yes">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
@@ -68,7 +68,7 @@
             </child>
             <child>
               <object class="GtkButton" id="apply_button">
-                <property name="label">_Apply</property>
+                <property name="label" translatable="yes">_Apply</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
@@ -171,7 +171,7 @@
                 <property name="layout_style">start</property>
                 <child>
                   <object class="GtkButton" id="add_button">
-                    <property name="label">Add _Folder</property>
+                    <property name="label" translatable="yes">Add _Folder</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -188,7 +188,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="remove_button">
-                    <property name="label">_Remove Folder</property>
+                    <property name="label" translatable="yes">_Remove Folder</property>
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>

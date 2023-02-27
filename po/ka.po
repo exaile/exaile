@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-10 20:00+1000\n"
-"PO-Revision-Date: 2015-10-12 21:40+0200\n"
-"Last-Translator: Sandro Kakabadze <s.kakabadze@gmail.com>\n"
+"POT-Creation-Date: 2023-02-23 11:25+0100\n"
+"PO-Revision-Date: 2023-02-21 22:38+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/exaile/master/"
 "ka/>\n"
 "Language: ka\n"
@@ -17,571 +17,574 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2.5-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
-msgstr ""
+msgstr "ჭდეები"
 
 #: ../xl/covers.py:566
 msgid "Local file"
-msgstr ""
+msgstr "ლოკალური ფაილი"
 
-#: ../xl/formatter.py:603
+#: ../xl/formatter.py:606
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
 msgstr[0] "%d დღე "
 
-#: ../xl/formatter.py:605
+#: ../xl/formatter.py:608
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
 msgstr[0] "%d საათი "
 
-#: ../xl/formatter.py:606
+#: ../xl/formatter.py:609
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
 msgstr[0] "%d წუთი "
 
-#: ../xl/formatter.py:607
+#: ../xl/formatter.py:610
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] "%d წამი"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:612
-#, python-format
-msgid "%dd, "
-msgstr ""
-
-#. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:615
 #, python-format
+msgid "%dd, "
+msgstr "%dd, "
+
+#. TRANSLATORS: Short form of an amount of hours
+#: ../xl/formatter.py:618
+#, python-format
 msgid "%dh, "
-msgstr ""
+msgstr "%dh, "
 
 #. TRANSLATORS: Short form of an amount of minutes
-#: ../xl/formatter.py:617
+#: ../xl/formatter.py:620
 #, python-format
 msgid "%dm, "
-msgstr ""
+msgstr "%dm, "
 
 #. TRANSLATORS: Short form of an amount of seconds
-#: ../xl/formatter.py:619
+#: ../xl/formatter.py:622
 #, python-format
 msgid "%ds"
-msgstr ""
+msgstr "%dწმ"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:624
-#, python-format
-msgid "%dd "
-msgstr ""
-
-#. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:627
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr ""
+msgid "%dd "
+msgstr "%dd "
 
-#. TRANSLATORS: Time duration (minutes:seconds)
+#. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:630
 #, python-format
-msgid "%d:%02d"
-msgstr ""
+msgid "%d:%02d:%02d"
+msgstr "%d:%02d:%02d"
 
-#: ../xl/formatter.py:727 ../xl/main.py:619 ../xl/trax/track.py:71
+#. TRANSLATORS: Time duration (minutes:seconds)
+#: ../xl/formatter.py:633
+#, python-format
+msgid "%d:%02d"
+msgstr "%d:%02d"
+
+#: ../xl/formatter.py:730 ../xl/main.py:799 ../xl/trax/track.py:72
+#: ../plugins/icecast/__init__.py:171
 msgid "Unknown"
-msgstr ""
+msgstr "უცნობი"
 
 #. TRANSLATORS: Indicates that a track has never been played before
-#: ../xl/formatter.py:761 ../xl/formatter.py:766
+#: ../xl/formatter.py:764 ../xl/formatter.py:769
 msgid "Never"
-msgstr ""
+msgstr "არასდროს"
 
-#: ../xl/formatter.py:772
+#: ../xl/formatter.py:775
 msgid "Today"
 msgstr "დღეს"
 
-#: ../xl/formatter.py:774
+#: ../xl/formatter.py:777
 msgid "Yesterday"
 msgstr "გუშინ"
 
-#: ../xl/lyrics.py:352
+#: ../xl/lyrics.py:351
 msgid "Local"
-msgstr ""
+msgstr "ლოკალური"
 
-#: ../xl/main.py:82
+#: ../xl/main.py:84
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr ""
 
-#: ../xl/main.py:84
+#: ../xl/main.py:86
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
 
-#: ../xl/main.py:95
+#: ../xl/main.py:97
 msgid "Playback Options"
-msgstr "დაკვრის  პარამეტრები"
+msgstr "დაკვრის პარამეტრები"
 
-#: ../xl/main.py:102
+#: ../xl/main.py:104
 msgid "Play the next track"
 msgstr "შემდეგის დაკვრა"
 
-#: ../xl/main.py:110
+#: ../xl/main.py:112
 msgid "Play the previous track"
 msgstr "წინას დაკვრა"
 
-#: ../xl/main.py:118 ../plugins/minimode/controls.py:351
+#: ../xl/main.py:120 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:368
 msgid "Stop playback"
 msgstr "დაკვრის გაჩერება"
 
-#: ../xl/main.py:121
+#: ../xl/main.py:123
 msgid "Play"
 msgstr "დაკვრა"
 
-#: ../xl/main.py:129 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:131 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "პაუზა"
 
-#: ../xl/main.py:137
+#: ../xl/main.py:139
 msgid "Pause or resume playback"
 msgstr "დაკვრის გაჩერება ან გაგრძელება"
 
-#: ../xl/main.py:144 ../plugins/minimode/controls.py:376
+#: ../xl/main.py:146 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
 msgstr "მორჩი დაკვრას მიმდინარეს შემდეგ"
 
-#: ../xl/main.py:147
+#: ../xl/main.py:149
 msgid "Collection Options"
 msgstr "კოლექციის პარამეტრები"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:152 ../xl/main.py:161
+#: ../xl/main.py:154 ../xl/main.py:163
 msgid "LOCATION"
 msgstr "მდებარეობა"
 
-#: ../xl/main.py:153
+#: ../xl/main.py:155
 msgid "Add tracks from LOCATION to the collection"
 msgstr ""
 
-#: ../xl/main.py:156
+#: ../xl/main.py:158
 msgid "Playlist Options"
-msgstr ""
+msgstr "დასაკრავი სიების მორგება"
 
-#: ../xl/main.py:162
+#: ../xl/main.py:164
 msgid "Export the current playlist to LOCATION"
 msgstr ""
 
-#: ../xl/main.py:165
+#: ../xl/main.py:167
 msgid "Track Options"
-msgstr ""
+msgstr "ტრეკის მორგება"
 
-#: ../xl/main.py:172
+#: ../xl/main.py:174
 msgid "Query player"
 msgstr ""
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:178
+#: ../xl/main.py:180
 msgid "FORMAT"
-msgstr ""
+msgstr "FORMAT"
 
-#: ../xl/main.py:179
+#: ../xl/main.py:181
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr ""
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:185
+#: ../xl/main.py:187
 msgid "TAGS"
 msgstr ""
 
-#: ../xl/main.py:186
+#: ../xl/main.py:188
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr ""
 
-#: ../xl/main.py:193
+#: ../xl/main.py:195
 msgid "Show a popup with data of the current track"
 msgstr ""
 
-#: ../xl/main.py:200
+#: ../xl/main.py:202
 msgid "Print the title of current track"
 msgstr ""
 
-#: ../xl/main.py:207
+#: ../xl/main.py:209
 msgid "Print the album of current track"
 msgstr ""
 
-#: ../xl/main.py:214
+#: ../xl/main.py:216
 msgid "Print the artist of current track"
 msgstr ""
 
-#: ../xl/main.py:221
+#: ../xl/main.py:223
 msgid "Print the length of current track"
 msgstr ""
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:228 ../xl/main.py:260 ../xl/main.py:269
+#: ../xl/main.py:230 ../xl/main.py:262 ../xl/main.py:271
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:229
+#: ../xl/main.py:231
 msgid "Set rating for current track to N%"
 msgstr ""
 
-#: ../xl/main.py:236
+#: ../xl/main.py:238
 msgid "Get rating for current track"
 msgstr ""
 
-#: ../xl/main.py:243
+#: ../xl/main.py:245
 msgid "Print the current playback position as time"
 msgstr ""
 
-#: ../xl/main.py:250
+#: ../xl/main.py:252
 msgid "Print the current playback progress as percentage"
 msgstr ""
 
-#: ../xl/main.py:253
+#: ../xl/main.py:255
 msgid "Volume Options"
 msgstr "ხმის პარამეტრები"
 
-#: ../xl/main.py:261
+#: ../xl/main.py:263
 msgid "Increase the volume by N%"
 msgstr ""
 
-#: ../xl/main.py:270
+#: ../xl/main.py:272
 msgid "Decrease the volume by N%"
 msgstr ""
 
-#: ../xl/main.py:278
+#: ../xl/main.py:280
 msgid "Mute or unmute the volume"
 msgstr ""
 
-#: ../xl/main.py:285
+#: ../xl/main.py:287
 msgid "Print the current volume percentage"
 msgstr ""
 
-#: ../xl/main.py:288
+#: ../xl/main.py:290
 msgid "Other Options"
 msgstr "სხვა პარამეტრები"
 
-#: ../xl/main.py:294
+#: ../xl/main.py:296
 msgid "Start new instance"
 msgstr ""
 
-#: ../xl/main.py:297
+#: ../xl/main.py:299
 msgid "Show this help message and exit"
 msgstr ""
 
-#: ../xl/main.py:303
+#: ../xl/main.py:305
 msgid "Show program's version number and exit."
 msgstr ""
 
-#: ../xl/main.py:310
+#: ../xl/main.py:312
 msgid "Start minimized (to tray, if possible)"
 msgstr ""
 
-#: ../xl/main.py:317
+#: ../xl/main.py:319
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr ""
 
-#: ../xl/main.py:325
+#: ../xl/main.py:327
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 
-#: ../xl/main.py:334
+#: ../xl/main.py:336
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 
-#: ../xl/main.py:342
+#: ../xl/main.py:344
 msgid "Do not import old data from version 0.2.x"
 msgstr ""
 
-#: ../xl/main.py:349
+#: ../xl/main.py:351
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 
-#: ../xl/main.py:352
+#: ../xl/main.py:357
+msgid "Locale to use for Exaile"
+msgstr ""
+
+#: ../xl/main.py:360
 msgid "Development/Debug Options"
 msgstr ""
 
-#: ../xl/main.py:356 ../xl/main.py:362
+#: ../xl/main.py:364 ../xl/main.py:370
 msgid "DIRECTORY"
 msgstr ""
 
-#: ../xl/main.py:357
+#: ../xl/main.py:365
 msgid "Set data directory"
 msgstr ""
 
-#: ../xl/main.py:363
+#: ../xl/main.py:371
 msgid "Set data and config directory"
 msgstr ""
 
-#: ../xl/main.py:368
+#: ../xl/main.py:376
 msgid "MODULE"
-msgstr ""
+msgstr "მოდული"
 
-#: ../xl/main.py:369
+#: ../xl/main.py:377
 msgid "Limit log output to MODULE"
 msgstr ""
 
-#: ../xl/main.py:374
+#: ../xl/main.py:382
 msgid "LEVEL"
-msgstr ""
+msgstr "დონე"
 
-#: ../xl/main.py:375
+#: ../xl/main.py:383
 msgid "Limit log output to LEVEL"
 msgstr ""
 
-#: ../xl/main.py:383
+#: ../xl/main.py:391
 msgid "Show debugging output"
-msgstr ""
+msgstr "გამართვის გამონატანის ჩვენება"
 
-#: ../xl/main.py:390
+#: ../xl/main.py:398
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr ""
 
-#: ../xl/main.py:397
+#: ../xl/main.py:405
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr ""
 
-#: ../xl/main.py:404
+#: ../xl/main.py:412
 msgid "Add thread name to logging messages."
 msgstr ""
 
-#: ../xl/main.py:409
+#: ../xl/main.py:417
 msgid "TYPE"
-msgstr ""
+msgstr "ტიპი"
 
-#: ../xl/main.py:410
+#: ../xl/main.py:418
 msgid "Limit xl.event debug to output of TYPE"
 msgstr ""
 
-#: ../xl/main.py:417
+#: ../xl/main.py:425
 msgid "Reduce level of output"
 msgstr ""
 
-#: ../xl/main.py:427
+#: ../xl/main.py:435
 msgid "Disable D-Bus support"
 msgstr ""
 
-#: ../xl/main.py:434
+#: ../xl/main.py:442
 msgid "Disable HAL support."
 msgstr ""
 
-#: ../xl/main.py:796
+#: ../xl/main.py:820
 msgid "Entire Library"
 msgstr ""
 
-#: ../xl/main.py:803
+#: ../xl/main.py:827
 #, python-format
 msgid "Random %d"
 msgstr ""
 
-#: ../xl/main.py:812
+#: ../xl/main.py:836
 #, python-format
 msgid "Rating > %d"
 msgstr ""
 
-#: ../xl/main.py:981
+#: ../xl/main.py:1004
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
 
-#: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:130
-#: ../xlgui/widgets/playlist_columns.py:322 ../plugins/cd/cdprefs.py:113
+#: ../xl/metadata/tags.py:45 ../xlgui/panel/collection.py:130
+#: ../xlgui/widgets/playlist_columns.py:321 ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/minimode_preferences.py:109
 #: ../plugins/jamendo/ui/jamendo_panel.ui:90
 msgid "Album"
 msgstr "ალბომი"
 
-#: ../xl/metadata/tags.py:47
+#: ../xl/metadata/tags.py:46
 msgid "Arranger"
-msgstr ""
+msgstr "ხმის რეჟისორი"
 
-#: ../xl/metadata/tags.py:48 ../xlgui/panel/collection.py:124
-#: ../xlgui/widgets/playlist_columns.py:292 ../plugins/cd/cdprefs.py:111
+#: ../xl/metadata/tags.py:47 ../xlgui/panel/collection.py:124
+#: ../xlgui/widgets/playlist_columns.py:291 ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:107
 #: ../plugins/jamendo/ui/jamendo_panel.ui:86
 msgid "Artist"
 msgstr "შემსრულებელი"
 
-#: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:302
-#, fuzzy
-#| msgid "Artist"
+#: ../xl/metadata/tags.py:48 ../xlgui/widgets/playlist_columns.py:301
 msgid "Album artist"
-msgstr "შემსრულებელი"
+msgstr "ალბომის შემსრულებელი"
 
-#: ../xl/metadata/tags.py:50
+#: ../xl/metadata/tags.py:49
 msgid "Author"
-msgstr ""
+msgstr "ავტორი"
 
-#: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:468
-#: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:120
+#: ../xl/metadata/tags.py:50 ../xlgui/widgets/playlist_columns.py:467
+#: ../plugins/cd/cdprefs.py:127 ../plugins/minimode/minimode_preferences.py:120
 msgid "BPM"
-msgstr ""
+msgstr "BPM"
 
-#: ../xl/metadata/tags.py:52
+#: ../xl/metadata/tags.py:51
 msgid "Copyright"
-msgstr ""
+msgstr "საავტორო უფლებები"
 
-#: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:640
+#: ../xl/metadata/tags.py:52 ../xlgui/widgets/playlist_columns.py:639
 msgid "Comment"
-msgstr ""
+msgstr "კომენტარი"
 
-#: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:312
+#: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:311
 #: ../data/ui/trackproperties_dialog_cover_row.ui:64
-#: ../plugins/cd/cdprefs.py:112 ../plugins/minimode/minimode_preferences.py:108
+#: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:108
 msgid "Composer"
-msgstr ""
+msgstr "კომპოზიტორი"
 
-#: ../xl/metadata/tags.py:55 ../data/ui/trackproperties_dialog_cover_row.ui:56
+#: ../xl/metadata/tags.py:54 ../data/ui/trackproperties_dialog_cover_row.ui:56
 msgid "Conductor"
-msgstr ""
+msgstr "დირიჟორი"
 
-#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:814
+#: ../xl/metadata/tags.py:55 ../xlgui/cover.py:812
 msgid "Cover"
-msgstr ""
+msgstr "ყდა"
 
-#: ../xl/metadata/tags.py:57 ../xlgui/widgets/playlist_columns.py:400
-#: ../plugins/cd/cdprefs.py:117 ../plugins/minimode/minimode_preferences.py:113
+#: ../xl/metadata/tags.py:56 ../xlgui/widgets/playlist_columns.py:399
+#: ../plugins/cd/cdprefs.py:120 ../plugins/minimode/minimode_preferences.py:113
 msgid "Date"
-msgstr ""
+msgstr "თარიღი"
 
-#: ../xl/metadata/tags.py:58 ../xlgui/widgets/playlist_columns.py:342
+#: ../xl/metadata/tags.py:57 ../xlgui/widgets/playlist_columns.py:341
 msgid "Disc"
 msgstr "დისკი"
 
-#: ../xl/metadata/tags.py:59
+#: ../xl/metadata/tags.py:58
 msgid "Encoded by"
-msgstr ""
+msgstr "ენკოდერის სახელი"
 
-#: ../xl/metadata/tags.py:60 ../xlgui/widgets/playlist_columns.py:418
-#: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:114
+#: ../xl/metadata/tags.py:59 ../xlgui/widgets/playlist_columns.py:417
+#: ../plugins/cd/cdprefs.py:121 ../plugins/minimode/minimode_preferences.py:114
 msgid "Genre"
 msgstr "ჟანრი"
 
-#: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:654
+#: ../xl/metadata/tags.py:60 ../xlgui/widgets/playlist_columns.py:653
 msgid "Grouping"
-msgstr ""
+msgstr "დაჯგუფება"
 
-#: ../xl/metadata/tags.py:62
+#: ../xl/metadata/tags.py:61
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
-#: ../xl/metadata/tags.py:63 ../xlgui/widgets/playlist_columns.py:479
+#: ../xl/metadata/tags.py:62 ../xlgui/widgets/playlist_columns.py:478
 msgid "Language"
-msgstr ""
+msgstr "ენა"
 
-#: ../xl/metadata/tags.py:64 ../xlgui/panel/lyrics.py:44
-#: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
+#: ../xl/metadata/tags.py:63 ../xlgui/panel/lyrics.py:43
+#: ../plugins/lyricsmania/PLUGININFO:5
 msgid "Lyrics"
-msgstr ""
+msgstr "ლირიკა"
+
+#: ../xl/metadata/tags.py:64
+msgid "Lyricist"
+msgstr "ლირიკოსი"
 
 #: ../xl/metadata/tags.py:65
-msgid "Lyricist"
-msgstr ""
+msgid "Organization"
+msgstr "ორგანიზაცია"
 
 #: ../xl/metadata/tags.py:66
-msgid "Organization"
-msgstr ""
+msgid "Original album"
+msgstr "საწყისი ალბომი"
 
 #: ../xl/metadata/tags.py:67
-msgid "Original album"
-msgstr ""
+msgid "Original artist"
+msgstr "ორიგინალი შემსრულებელი"
 
 #: ../xl/metadata/tags.py:68
-msgid "Original artist"
-msgstr ""
-
-#: ../xl/metadata/tags.py:69
 msgid "Original date"
-msgstr ""
+msgstr "საწყისი თარიღი"
 
-#: ../xl/metadata/tags.py:71
+#: ../xl/metadata/tags.py:70
 msgid "Performer"
-msgstr ""
+msgstr "შემსრულებელი"
 
-#: ../xl/metadata/tags.py:72 ../xlgui/panel/flatplaylist.py:101
-#: ../xlgui/widgets/playlist_columns.py:282
+#: ../xl/metadata/tags.py:71 ../xlgui/panel/flatplaylist.py:101
+#: ../xlgui/widgets/playlist_columns.py:281
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:51
-#: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:106
+#: ../plugins/cd/cdprefs.py:113 ../plugins/minimode/minimode_preferences.py:106
 #: ../plugins/grouptagger/gt_import.ui:69
 msgid "Title"
 msgstr "სათაური"
 
-#: ../xl/metadata/tags.py:73 ../plugins/grouptagger/gt_mass.ui:162
+#: ../xl/metadata/tags.py:72 ../plugins/grouptagger/gt_mass.ui:162
 #: ../plugins/jamendo/ui/jamendo_panel.ui:98
 msgid "Track"
-msgstr ""
+msgstr "ბილიკი"
 
-#: ../xl/metadata/tags.py:74
+#: ../xl/metadata/tags.py:73
 msgid "Version"
-msgstr ""
+msgstr "ვერსია"
 
-#: ../xl/metadata/tags.py:75 ../xlgui/widgets/playlist_columns.py:698
+#: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:697
 msgid "Website"
-msgstr ""
+msgstr "ვებსაიტი"
 
-#: ../xl/metadata/tags.py:79 ../xlgui/widgets/playlist_columns.py:428
-#: ../plugins/cd/cdprefs.py:119 ../plugins/icecast/__init__.py:398
+#: ../xl/metadata/tags.py:78 ../xlgui/widgets/playlist_columns.py:427
+#: ../plugins/cd/cdprefs.py:122 ../plugins/icecast/__init__.py:380
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "Bitrate"
-msgstr ""
+msgstr "სიჩქარე"
 
-#: ../xl/metadata/tags.py:81 ../xlgui/widgets/playlist_columns.py:498
+#: ../xl/metadata/tags.py:80 ../xlgui/widgets/playlist_columns.py:497
 msgid "Date added"
-msgstr ""
+msgstr "დამატების თარიღი"
 
-#: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:489
-#: ../plugins/cd/cdprefs.py:123 ../plugins/minimode/minimode_preferences.py:119
+#: ../xl/metadata/tags.py:81 ../xlgui/widgets/playlist_columns.py:488
+#: ../plugins/cd/cdprefs.py:126 ../plugins/minimode/minimode_preferences.py:119
 msgid "Last played"
-msgstr ""
+msgstr "ბოლოს დაკვრის დრო"
 
-#: ../xl/metadata/tags.py:83 ../xlgui/widgets/playlist_columns.py:332
-#: ../plugins/cd/cdprefs.py:114 ../plugins/minimode/minimode_preferences.py:110
+#: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:331
+#: ../plugins/cd/cdprefs.py:117 ../plugins/minimode/minimode_preferences.py:110
 msgid "Length"
 msgstr "სიგრძე"
 
-#: ../xl/metadata/tags.py:84 ../xlgui/widgets/playlist_columns.py:438
-#: ../data/ui/collection_manager.ui:119 ../plugins/cd/cdprefs.py:120
+#: ../xl/metadata/tags.py:83 ../xlgui/widgets/playlist_columns.py:437
+#: ../data/ui/collection_manager.ui:119 ../plugins/cd/cdprefs.py:123
 #: ../plugins/minimode/minimode_preferences.py:116
 msgid "Location"
 msgstr "მდებარეობა"
 
-#: ../xl/metadata/tags.py:85
+#: ../xl/metadata/tags.py:84
 msgid "Modified"
-msgstr ""
+msgstr "ცვლილება"
+
+#: ../xl/metadata/tags.py:85
+msgid "Play time"
+msgstr "დაკვრის დრო"
 
 #: ../xl/metadata/tags.py:86
-msgid "Play time"
-msgstr ""
-
-#: ../xl/metadata/tags.py:87
 msgid "Times played"
-msgstr ""
+msgstr "დაკვრების რაოდენობა"
+
+#: ../xl/metadata/tags.py:88
+msgid "Start offset"
+msgstr "წანაცვლების საწყისი"
 
 #: ../xl/metadata/tags.py:89
-msgid "Start offset"
-msgstr ""
-
-#: ../xl/metadata/tags.py:90
 msgid "Stop offset"
 msgstr ""
 
-#: ../xl/player/gst/engine.py:708
+#: ../xl/player/gst/engine.py:713
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ""
 
-#: ../xl/player/gst/missing_plugin.py:89
+#: ../xl/player/gst/missing_plugin.py:88
 #, python-format
 msgid ""
 "A GStreamer 1.x plugin for %s is missing. Without this software installed, "
@@ -597,111 +600,111 @@ msgstr "ავტომატურად"
 msgid "Custom"
 msgstr "ინდივიდუალურად"
 
-#: ../xl/player/gst/sink.py:184
+#: ../xl/player/gst/sink.py:183
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:191
+#: ../xl/player/gst/sink.py:189
 msgid "No custom pipeline specified!"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:196
+#: ../xl/player/gst/sink.py:194
 #, python-format
 msgid "Error creating custom audiosink '%s'"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:202
+#: ../xl/player/gst/sink.py:200
 #, python-format
 msgid "Invalid sink type '%s' specified"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:206
+#: ../xl/player/gst/sink.py:204
 #, python-format
 msgid "Could not create sink type '%s'"
 msgstr ""
 
-#: ../xl/playlist.py:154 ../xl/playlist.py:176
+#: ../xl/playlist.py:151 ../xl/playlist.py:173
 msgid "Invalid playlist type."
 msgstr ""
 
-#: ../xl/playlist.py:185 ../xlgui/widgets/playlist.py:406
+#: ../xl/playlist.py:182 ../xlgui/widgets/playlist.py:406
 #: ../xlgui/widgets/smart_playlist_editor.py:254
 #: ../plugins/grouptagger/gt_mass.ui:126
 msgid "Playlist"
-msgstr ""
+msgstr "დასაკრავი სია"
 
-#: ../xl/playlist.py:339
+#: ../xl/playlist.py:335
 msgid "M3U Playlist"
 msgstr ""
 
-#: ../xl/playlist.py:454
+#: ../xl/playlist.py:450
 msgid "PLS Playlist"
 msgstr ""
 
-#: ../xl/playlist.py:545 ../xl/playlist.py:560
+#: ../xl/playlist.py:540 ../xl/playlist.py:555
 #, python-format
 msgid "Invalid format for %s."
 msgstr ""
 
-#: ../xl/playlist.py:555
+#: ../xl/playlist.py:550
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr ""
 
-#: ../xl/playlist.py:615
+#: ../xl/playlist.py:610
 msgid "ASX Playlist"
 msgstr ""
 
-#: ../xl/playlist.py:794
+#: ../xl/playlist.py:789
 msgid "XSPF Playlist"
 msgstr ""
 
-#: ../xl/playlist.py:913
+#: ../xl/playlist.py:908
 msgid "Shuffle _Off"
 msgstr ""
 
-#: ../xl/playlist.py:914
+#: ../xl/playlist.py:909
 msgid "Shuffle _Tracks"
 msgstr ""
 
-#: ../xl/playlist.py:915
+#: ../xl/playlist.py:910
 msgid "Shuffle _Albums"
 msgstr ""
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:911
 msgid "_Random"
 msgstr ""
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:916
 msgid "Repeat _Off"
 msgstr ""
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:916
 msgid "Repeat _All"
 msgstr ""
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:916
 msgid "Repeat O_ne"
 msgstr ""
 
-#: ../xl/playlist.py:925
+#: ../xl/playlist.py:920
 msgid "Dynamic _Off"
 msgstr ""
 
-#: ../xl/playlist.py:925
+#: ../xl/playlist.py:920
 msgid "Dynamic by Similar _Artists"
 msgstr ""
 
-#: ../xl/plugins.py:87
+#: ../xl/plugins.py:85
 msgid "Plugin is already loaded or has a conflicting name."
 msgstr ""
 
-#: ../xl/plugins.py:102
+#: ../xl/plugins.py:100
 msgid "Plugin archive is not in the correct format."
 msgstr ""
 
-#: ../xl/plugins.py:109
+#: ../xl/plugins.py:108
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
 msgstr ""
@@ -748,30 +751,30 @@ msgstr ""
 msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
 
-#: ../xl/trax/track.py:70
+#: ../xl/trax/track.py:71
 msgid "Various Artists"
-msgstr ""
+msgstr "სხვადასხვა შემსრულებლები"
 
 #. TRANSLATORS: String multiple tag values will be joined by
-#: ../xl/trax/track.py:73
+#: ../xl/trax/track.py:74
 msgid " / "
 msgstr ""
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:721 ../xl/trax/track.py:787
+#: ../xl/trax/track.py:725 ../xl/trax/track.py:791
 #, python-format
 msgid "%dk"
 msgstr ""
 
-#: ../xl/trax/trackdb.py:184
+#: ../xl/trax/trackdb.py:181
 msgid "You did not specify a location to load the db from"
 msgstr ""
 
-#: ../xl/trax/trackdb.py:253
+#: ../xl/trax/trackdb.py:249
 msgid "You did not specify a location to save the db"
 msgstr ""
 
-#: ../xl/xldbus.py:131 ../xl/xldbus.py:523 ../xlgui/panel/lyrics.py:149
+#: ../xl/xldbus.py:131 ../xl/xldbus.py:523 ../xlgui/panel/lyrics.py:148
 msgid "Not playing."
 msgstr ""
 
@@ -782,11 +785,11 @@ msgid ""
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
 
-#: ../xlgui/__init__.py:318
+#: ../xlgui/__init__.py:316
 msgid "Scanning collection..."
 msgstr ""
 
-#: ../xlgui/__init__.py:397
+#: ../xlgui/__init__.py:398
 #, python-format
 msgid "Scanning %s..."
 msgstr ""
@@ -824,162 +827,160 @@ msgstr ""
 
 #: ../xlgui/cover.py:502
 msgid "Fetch Cover"
-msgstr ""
+msgstr "ყდის გამოთხოვა"
 
 #: ../xlgui/cover.py:503
 msgid "Remove Cover"
-msgstr ""
+msgstr "ყდის წაშლა"
 
-#: ../xlgui/cover.py:812
+#: ../xlgui/cover.py:810
 #, python-format
 msgid "Cover for %s"
 msgstr ""
 
-#: ../xlgui/cover.py:880
+#: ../xlgui/cover.py:878
 #, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
 msgstr ""
 
-#: ../xlgui/cover.py:931
+#: ../xlgui/cover.py:929
 msgid "Save File"
-msgstr ""
+msgstr "ფაილის შენახვა"
 
-#: ../xlgui/cover.py:1029
+#: ../xlgui/cover.py:1027
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr ""
 
-#: ../xlgui/cover.py:1133
+#: ../xlgui/cover.py:1131
 msgid "No covers found."
 msgstr ""
 
-#: ../xlgui/cover.py:1135
+#: ../xlgui/cover.py:1133
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1105
+#: ../xlgui/cover.py:1176 ../xlgui/properties.py:1106
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr ""
 
-#: ../xlgui/main.py:95
+#: ../xlgui/main.py:94
 msgid "$title (by $artist)"
 msgstr ""
 
-#: ../xlgui/main.py:149
+#: ../xlgui/main.py:148
 msgid "Save currently selected playlist"
 msgstr ""
 
-#: ../xlgui/main.py:154
+#: ../xlgui/main.py:153
 msgid "Save currently selected playlist under a custom name"
 msgstr ""
 
-#: ../xlgui/main.py:159
+#: ../xlgui/main.py:158
 msgid "Focus filter in currently focused panel"
 msgstr ""
 
-#: ../xlgui/main.py:164
+#: ../xlgui/main.py:163
 msgid "Focus playlist search"
 msgstr ""
 
-#: ../xlgui/main.py:169
+#: ../xlgui/main.py:168
 msgid "Clear queue"
 msgstr ""
 
-#: ../xlgui/main.py:174 ../plugins/minimode/controls.py:270
+#: ../xlgui/main.py:173 ../plugins/minimode/controls.py:270
 msgid "Start, pause or resume the playback"
 msgstr ""
 
-#: ../xlgui/main.py:179
+#: ../xlgui/main.py:178
 msgid "Seek to the right"
 msgstr ""
 
-#: ../xlgui/main.py:184
+#: ../xlgui/main.py:183
 msgid "Seek to the left"
 msgstr ""
 
-#: ../xlgui/main.py:189 ../xlgui/main.py:194
+#: ../xlgui/main.py:188 ../xlgui/main.py:193
 msgid "Increase the volume"
 msgstr ""
 
-#: ../xlgui/main.py:199
+#: ../xlgui/main.py:198
 msgid "Decrease the volume"
 msgstr ""
 
-#: ../xlgui/main.py:202
-#, fuzzy
-#| msgid "Play the previous track"
+#: ../xlgui/main.py:201
 msgid "Switch to previous tab"
-msgstr "წინას დაკვრა"
+msgstr "წინა ჩანართზე გადართვა"
 
-#: ../xlgui/main.py:203
+#: ../xlgui/main.py:202
 msgid "Switch to next tab"
 msgstr ""
 
-#: ../xlgui/main.py:206
+#: ../xlgui/main.py:205
 msgid "Focus the playlist container"
 msgstr ""
 
-#: ../xlgui/main.py:213
+#: ../xlgui/main.py:212
 msgid "Focus the files panel"
 msgstr ""
 
-#: ../xlgui/main.py:220
+#: ../xlgui/main.py:219
 msgid "Focus the radio panel"
 msgstr ""
 
-#: ../xlgui/main.py:225
+#: ../xlgui/main.py:224
 msgid "Focus the playlists panel"
 msgstr ""
 
-#: ../xlgui/main.py:228
+#: ../xlgui/main.py:227
 msgid "Focus the first tab"
 msgstr ""
 
-#: ../xlgui/main.py:229
+#: ../xlgui/main.py:228
 msgid "Focus the second tab"
 msgstr ""
 
-#: ../xlgui/main.py:230
+#: ../xlgui/main.py:229
 msgid "Focus the third tab"
 msgstr ""
 
-#: ../xlgui/main.py:231
+#: ../xlgui/main.py:230
 msgid "Focus the fourth tab"
 msgstr ""
 
-#: ../xlgui/main.py:232
+#: ../xlgui/main.py:231
 msgid "Focus the fifth tab"
 msgstr ""
 
-#: ../xlgui/main.py:233
+#: ../xlgui/main.py:232
 msgid "Focus the sixth tab"
 msgstr ""
 
-#: ../xlgui/main.py:234
+#: ../xlgui/main.py:233
 msgid "Focus the seventh tab"
 msgstr ""
 
-#: ../xlgui/main.py:235
+#: ../xlgui/main.py:234
 msgid "Focus the eighth tab"
 msgstr ""
 
-#: ../xlgui/main.py:236
+#: ../xlgui/main.py:235
 msgid "Focus the ninth tab"
 msgstr ""
 
-#: ../xlgui/main.py:237
+#: ../xlgui/main.py:236
 msgid "Focus the tenth tab"
 msgstr ""
 
-#: ../xlgui/main.py:592
+#: ../xlgui/main.py:596
 msgid "Toggle: Stop after Selected Track"
 msgstr ""
 
-#: ../xlgui/main.py:705 ../plugins/previewdevice/__init__.py:355
+#: ../xlgui/main.py:705 ../plugins/previewdevice/__init__.py:348
 msgid "Playback error encountered!"
 msgstr ""
 
@@ -988,32 +989,32 @@ msgstr ""
 msgid "Buffering: %d%%..."
 msgstr ""
 
-#: ../xlgui/main.py:753 ../plugins/previewdevice/__init__.py:364
+#: ../xlgui/main.py:753 ../plugins/previewdevice/__init__.py:357
 msgid "Continue Playback"
 msgstr ""
 
-#: ../xlgui/main.py:756 ../xlgui/main.py:929
-#: ../plugins/previewdevice/__init__.py:367
+#: ../xlgui/main.py:756 ../xlgui/main.py:922
+#: ../plugins/previewdevice/__init__.py:360
 msgid "Pause Playback"
-msgstr ""
+msgstr "დაკვრის შეჩერება"
 
 #: ../xlgui/main.py:885 ../xlgui/menu.py:145
 msgid "Playlist export failed!"
 msgstr ""
 
-#: ../xlgui/main.py:938 ../data/ui/main.ui:174
-#: ../plugins/previewdevice/__init__.py:349
+#: ../xlgui/main.py:931 ../data/ui/main.ui:174
+#: ../plugins/previewdevice/__init__.py:342
 msgid "Start Playback"
-msgstr ""
+msgstr "დაკვრის დაწყება"
 
-#: ../xlgui/menu.py:62 ../xlgui/panel/menus.py:211
+#: ../xlgui/menu.py:62 ../xlgui/panel/menus.py:209
 #: ../xlgui/widgets/playlist.py:213
 msgid "_New Playlist"
 msgstr ""
 
 #: ../xlgui/menu.py:75
 msgid "_Open"
-msgstr ""
+msgstr "_გახსნა"
 
 #: ../xlgui/menu.py:92
 msgid "Open _URL"
@@ -1023,11 +1024,9 @@ msgstr "ბმულის გახნა"
 msgid "Open _Directories"
 msgstr ""
 
-#: ../xlgui/menu.py:126 ../xlgui/panel/menus.py:227
-#, fuzzy
-#| msgid "New Playlist"
+#: ../xlgui/menu.py:126 ../xlgui/panel/menus.py:225
 msgid "_Import Playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "_დასაკრავი სიის შემოტანა"
 
 #: ../xlgui/menu.py:156
 msgid "E_xport Current Playlist"
@@ -1035,35 +1034,31 @@ msgstr ""
 
 #: ../xlgui/menu.py:166 ../xlgui/widgets/playlist.py:278
 msgid "Close _Tab"
-msgstr ""
+msgstr "დაფის დ_ახურვა"
 
 #: ../xlgui/menu.py:183
 msgid "_Restart"
-msgstr ""
+msgstr "გადატვირთვა"
 
 #: ../xlgui/menu.py:193 ../xlgui/tray.py:115
-#, fuzzy
-#| msgid "Exaile"
 msgid "_Quit Exaile"
-msgstr "ექსაილი"
+msgstr "Exaile-დან გასვლა"
 
 #: ../xlgui/menu.py:219
 msgid "_Collection"
-msgstr ""
+msgstr "_კოლექცია"
 
 #: ../xlgui/menu.py:225
 msgid "_Queue"
-msgstr ""
+msgstr "_რიგი"
 
 #: ../xlgui/menu.py:237
 msgid "C_overs"
-msgstr ""
+msgstr "_ყდები"
 
 #: ../xlgui/menu.py:253
-#, fuzzy
-#| msgid "Preferences"
 msgid "_Preferences"
-msgstr "პარამეტრები"
+msgstr "_პარამეტრები"
 
 #: ../xlgui/menu.py:278
 msgid "_Show Playing Track"
@@ -1074,25 +1069,20 @@ msgid "_Playlist Utilities Bar"
 msgstr ""
 
 #: ../xlgui/menu.py:312
-#, fuzzy
-#| msgid "_Columns"
 msgid "C_olumns"
-msgstr "კოლონები"
+msgstr "_სვეტები"
 
 #: ../xlgui/menu.py:323
-#, fuzzy
 msgid "_Clear playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "_დასაკრავი სიის გასუფთავება"
 
 #: ../xlgui/menu.py:352
 msgid "_Device Manager"
 msgstr ""
 
 #: ../xlgui/menu.py:362
-#, fuzzy
-#| msgid "Collection"
 msgid "_Rescan Collection"
-msgstr "კოლექცია"
+msgstr "კოლექციის _თავიდან სკანირება"
 
 #: ../xlgui/menu.py:372 ../data/ui/collection_manager.ui:226
 msgid "Rescan Collection (_slow)"
@@ -1104,7 +1094,7 @@ msgstr ""
 
 #: ../xlgui/menu.py:408 ../data/ui/shortcuts_dialog.ui:21
 msgid "Shortcuts"
-msgstr ""
+msgstr "მალსახმობები"
 
 #: ../xlgui/menu.py:415
 msgid "Report an issue (GitHub)"
@@ -1116,13 +1106,11 @@ msgstr ""
 
 #: ../xlgui/menu.py:425
 msgid "_About"
-msgstr ""
+msgstr "_შესახებ"
 
 #: ../xlgui/panel/collection.py:127
-#, fuzzy
-#| msgid "Artist"
 msgid "Album Artist"
-msgstr "შემსრულებელი"
+msgstr "ალბომის შემსრულებელი"
 
 #: ../xlgui/panel/collection.py:133
 msgid "Genre - Artist"
@@ -1164,7 +1152,7 @@ msgstr "კოლექცია"
 msgid "Rescan Collection"
 msgstr ""
 
-#: ../xlgui/panel/device.py:151
+#: ../xlgui/panel/device.py:150
 #, python-format
 msgid "Transferring to %s..."
 msgstr ""
@@ -1173,96 +1161,94 @@ msgstr ""
 msgid "Files"
 msgstr "ფაილები"
 
-#: ../xlgui/panel/files.py:122 ../xlgui/widgets/playlist_columns.py:448
-#: ../plugins/cd/cdprefs.py:121 ../plugins/minimode/minimode_preferences.py:117
+#: ../xlgui/panel/files.py:122 ../xlgui/widgets/playlist_columns.py:447
+#: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:117
 msgid "Filename"
 msgstr "ფაილის სახელი"
 
 #. TRANSLATORS: File size column in the file browser
 #: ../xlgui/panel/files.py:146
 msgid "Size"
-msgstr ""
+msgstr "ზომა"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
 #: ../xlgui/panel/files.py:459
 #, python-format
 msgid "%s kB"
-msgstr ""
+msgstr "%s კბ"
 
 #. TRANSLATORS: Title of the track number column
-#: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:271
+#: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:270
 msgid "#"
-msgstr ""
+msgstr "#"
 
-#: ../xlgui/panel/lyrics.py:185
+#: ../xlgui/panel/lyrics.py:184
 msgid "No lyrics found."
 msgstr ""
 
-#: ../xlgui/panel/lyrics.py:198
+#: ../xlgui/panel/lyrics.py:197
 msgid "Source: "
-msgstr ""
+msgstr "წყარო: "
 
-#: ../xlgui/panel/lyrics.py:226
+#: ../xlgui/panel/lyrics.py:225
 msgid "Any source"
-msgstr ""
+msgstr "ნებისმიერი წყარო"
 
-#: ../xlgui/panel/menus.py:219
-#, fuzzy
-#| msgid "New Playlist"
+#: ../xlgui/panel/menus.py:217
 msgid "New _Smart Playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "ახალი _ჭკვიანი დასაკრავი სია"
 
-#: ../xlgui/panel/menus.py:325
+#: ../xlgui/panel/menus.py:321
 msgid "_New Station"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:136
+#: ../xlgui/panel/playlists.py:134
 #, python-format
 msgid "Delete the playlist \"%s\"?"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:152
+#: ../xlgui/panel/playlists.py:151
 msgid "Enter the new name you want for your playlist"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:153
+#: ../xlgui/panel/playlists.py:152
 msgid "Rename Playlist"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:169 ../xlgui/widgets/dialogs.py:1766
-#: ../xlgui/widgets/smart_playlist_editor.py:395
+#: ../xlgui/panel/playlists.py:168 ../xlgui/widgets/dialogs.py:1768
+#: ../xlgui/widgets/smart_playlist_editor.py:393
 msgid "The playlist name you entered is already in use."
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:215
+#: ../xlgui/panel/playlists.py:214
 #, python-format
 msgid "Error loading smart playlist: %s"
 msgstr ""
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
-#: ../xlgui/panel/playlists.py:276 ../xlgui/panel/playlists.py:292
-#: ../xlgui/panel/playlists.py:308
+#: ../xlgui/panel/playlists.py:275 ../xlgui/panel/playlists.py:291
+#: ../xlgui/panel/playlists.py:307
 #, python-format
 msgid "%(first)s, %(second)s and others"
 msgstr ""
 
 #. TRANSLATORS: Playlist title suggestion with two values
-#: ../xlgui/panel/playlists.py:282 ../xlgui/panel/playlists.py:298
-#: ../xlgui/panel/playlists.py:314
+#: ../xlgui/panel/playlists.py:281 ../xlgui/panel/playlists.py:297
+#: ../xlgui/panel/playlists.py:313
 #, python-format
 msgid "%(first)s and %(second)s"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:390 ../xlgui/preferences/playlists.py:31
+#: ../xlgui/panel/playlists.py:389 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
 msgstr "რეპერტუარები"
 
-#: ../xlgui/panel/playlists.py:534
+#: ../xlgui/panel/playlists.py:532
 msgid "Smart Playlists"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:537
+#: ../xlgui/panel/playlists.py:535
 msgid "Custom Playlists"
 msgstr ""
 
@@ -1281,15 +1267,15 @@ msgstr ""
 
 #: ../xlgui/panel/radio.py:197 ../data/ui/widgets/filter_dialog.ui:58
 msgid "Name:"
-msgstr ""
+msgstr "სახელი:"
 
 #: ../xlgui/panel/radio.py:198 ../plugins/audioscrobbler/asprefs_pane.ui:118
 msgid "URL:"
-msgstr ""
+msgstr "URL:"
 
 #: ../xlgui/panel/radio.py:274
 msgid "Saved Stations"
-msgstr ""
+msgstr "შენახული სადგურები"
 
 #: ../xlgui/panel/radio.py:276
 msgid "Radio Streams"
@@ -1308,9 +1294,9 @@ msgstr ""
 msgid "New Playlist"
 msgstr "ახალი ფლეილისტი"
 
-#: ../xlgui/panels.py:99
+#: ../xlgui/panels.py:98
 msgid "P_anels"
-msgstr ""
+msgstr "_პანელები"
 
 #: ../xlgui/playlist_container.py:71
 msgid "Drop here to create a new playlist"
@@ -1347,13 +1333,13 @@ msgstr ""
 msgid "_Move to Other View"
 msgstr ""
 
-#: ../xlgui/preferences/__init__.py:115 ../xlgui/preferences/plugin.py:40
+#: ../xlgui/preferences/__init__.py:113 ../xlgui/preferences/plugin.py:40
 msgid "Plugins"
-msgstr ""
+msgstr "დამატებები"
 
 #: ../xlgui/preferences/appearance.py:34 ../plugins/osd/osd_preferences.ui:216
 msgid "Appearance"
-msgstr ""
+msgstr "გარემოს იერსახე"
 
 #: ../xlgui/preferences/appearance.py:118
 msgid "Tray icons are not supported on your platform"
@@ -1366,17 +1352,17 @@ msgstr ""
 #. translate this to string with single space.
 #: ../xlgui/preferences/collection.py:36
 msgid "the"
-msgstr ""
+msgstr "&nbsp"
 
 #: ../xlgui/preferences/collection.py:60
 msgid "Reset to _Defaults"
-msgstr ""
+msgstr "ნა_გულისხმევზე გადართვა"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
 #: ../plugins/musicbrainzcovers/PLUGININFO:5
 msgid "Covers"
-msgstr ""
+msgstr "ყდები"
 
 #: ../xlgui/preferences/lyrics.py:20
 msgid "Lyrics Viewer"
@@ -1384,46 +1370,62 @@ msgstr ""
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
-msgstr ""
+msgstr "დაკვრა"
 
-#: ../xlgui/preferences/plugin.py:107 ../plugins/grouptagger/gt_common.py:60
+#: ../xlgui/preferences/plugin.py:119 ../plugins/grouptagger/gt_common.py:59
 #: ../plugins/grouptagger/gt_widgets.py:60
 msgid "Uncategorized"
-msgstr ""
+msgstr "დაულაგებელი"
 
-#: ../xlgui/preferences/plugin.py:179
+#: ../xlgui/preferences/plugin.py:199
 msgid "Could not load plugin info!"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:180
+#: ../xlgui/preferences/plugin.py:200
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../xlgui/preferences/plugin.py:212 ../xlgui/preferences/plugin.py:313
+#: ../xlgui/preferences/plugin.py:235
+msgid "Do you really want to remove this plugin?"
+msgstr ""
+
+#: ../xlgui/preferences/plugin.py:245
+msgid "Could not remove plugin!"
+msgstr ""
+
+#: ../xlgui/preferences/plugin.py:261 ../xlgui/preferences/plugin.py:384
 msgid "Could not disable plugin!"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:222 ../xlgui/preferences/plugin.py:307
+#: ../xlgui/preferences/plugin.py:271 ../xlgui/preferences/plugin.py:378
 msgid "Could not enable plugin!"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:231
+#: ../xlgui/preferences/plugin.py:280
 msgid "Choose a Plugin"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:242
+#: ../xlgui/preferences/plugin.py:291
 msgid "Plugin Archives"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:249 ../xlgui/widgets/dialogs.py:721
-#: ../xlgui/widgets/dialogs.py:898
+#: ../xlgui/preferences/plugin.py:298 ../xlgui/widgets/dialogs.py:724
+#: ../xlgui/widgets/dialogs.py:900
 msgid "All Files"
+msgstr "ყველა ფაილი"
+
+#: ../xlgui/preferences/plugin.py:317
+msgid "Plugin already exists!"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:260
+#: ../xlgui/preferences/plugin.py:318
+msgid "Do you want to override it?"
+msgstr ""
+
+#: ../xlgui/preferences/plugin.py:326
 msgid "Plugin file installation failed!"
 msgstr ""
 
@@ -1437,244 +1439,246 @@ msgstr ""
 
 #: ../xlgui/preferences/widgets.py:80
 msgid "Restart"
-msgstr ""
+msgstr "რესტარტ"
 
-#: ../xlgui/preferences/widgets.py:731
+#: ../xlgui/preferences/widgets.py:743
 msgid "Action"
-msgstr ""
+msgstr "ქმედება"
 
-#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:78
+#: ../xlgui/preferences/widgets.py:751 ../data/ui/shortcuts_dialog.ui:79
 msgid "Shortcut"
-msgstr ""
+msgstr "მალსახმობი"
 
-#: ../xlgui/properties.py:253
+#: ../xlgui/properties.py:258
 msgid "Writing of tags failed"
 msgstr ""
 
-#: ../xlgui/properties.py:255
+#: ../xlgui/properties.py:260
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
 
-#: ../xlgui/properties.py:275
+#: ../xlgui/properties.py:280
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr ""
 
-#: ../xlgui/properties.py:398
+#: ../xlgui/properties.py:400
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr ""
 
-#: ../xlgui/properties.py:440
+#: ../xlgui/properties.py:443
 msgid "Apply changes before closing?"
 msgstr ""
 
-#: ../xlgui/properties.py:441
+#: ../xlgui/properties.py:444
 msgid "Your changes will be lost if you do not apply them now."
 msgstr ""
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:624
+#: ../xlgui/properties.py:626
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #. TRANSLATORS: Remove tag value
-#: ../xlgui/properties.py:631 ../plugins/developer/developer_window.ui:131
+#: ../xlgui/properties.py:633 ../plugins/developer/developer_window.ui:131
 msgid "Clear"
-msgstr ""
+msgstr "გაწმენდა"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:853
+#: ../xlgui/properties.py:855
 msgid "of:"
 msgstr ""
 
-#: ../xlgui/properties.py:960
+#: ../xlgui/properties.py:961
 msgid "JPEG image"
-msgstr ""
+msgstr "JPEG გამოსახულება"
 
-#: ../xlgui/properties.py:965
+#: ../xlgui/properties.py:966
 msgid "PNG image"
-msgstr ""
+msgstr "PNG გამოსახულება"
 
-#: ../xlgui/properties.py:967
+#: ../xlgui/properties.py:968
 msgid "Image"
-msgstr ""
+msgstr "სურათი"
 
-#: ../xlgui/properties.py:973
+#: ../xlgui/properties.py:974
 msgid "Linked image"
 msgstr ""
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1108
+#: ../xlgui/properties.py:1109
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr ""
 
-#: ../xlgui/properties.py:1122
+#: ../xlgui/properties.py:1123
 msgid "Select image to set as cover"
 msgstr ""
 
-#: ../xlgui/properties.py:1135
+#: ../xlgui/properties.py:1136
 msgid "Supported image formats"
 msgstr ""
 
-#: ../xlgui/properties.py:1218
+#: ../xlgui/properties.py:1219
 msgid "Open Directory"
-msgstr ""
+msgstr "საქაღალდის გახსნა"
 
-#: ../xlgui/properties.py:1268
+#: ../xlgui/properties.py:1269
 msgid "Apply current value to all tracks"
 msgstr ""
 
-#: ../xlgui/properties.py:1288 ../xlgui/widgets/dialogs.py:1543
+#: ../xlgui/properties.py:1288 ../xlgui/widgets/dialogs.py:1551
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr ""
 
-#: ../xlgui/tray.py:203
+#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:7
 msgid "Exaile Music Player"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:355
+#: ../xlgui/widgets/dialogs.py:358
 msgid "Enter the URL to open"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:355
+#: ../xlgui/widgets/dialogs.py:358
 msgid "Open URL"
-msgstr ""
+msgstr "URL-ის გახსნა"
 
-#: ../xlgui/widgets/dialogs.py:642
+#: ../xlgui/widgets/dialogs.py:645
 msgid "Select File Type (by Extension)"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:700
+#: ../xlgui/widgets/dialogs.py:703
 msgid "Choose Media to Open"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:715
+#: ../xlgui/widgets/dialogs.py:718
 msgid "Supported Files"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:717
+#: ../xlgui/widgets/dialogs.py:720
 msgid "Music Files"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:719 ../xlgui/widgets/dialogs.py:896
+#: ../xlgui/widgets/dialogs.py:722 ../xlgui/widgets/dialogs.py:898
 msgid "Playlist Files"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:801
+#: ../xlgui/widgets/dialogs.py:806
 msgid "Choose Directory to Open"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:881
+#: ../xlgui/widgets/dialogs.py:883
 msgid "Import Playlist"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:996
+#: ../xlgui/widgets/dialogs.py:998
 msgid "Export Current Playlist"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1009
+#: ../xlgui/widgets/dialogs.py:1016
 msgid "Use relative paths to tracks"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1066
+#: ../xlgui/widgets/dialogs.py:1075
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1083
+#: ../xlgui/widgets/dialogs.py:1092
 #, python-format
 msgid "Close %s"
-msgstr ""
+msgstr "%s-ის დახურვა"
 
-#: ../xlgui/widgets/dialogs.py:1084
+#: ../xlgui/widgets/dialogs.py:1093
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1086
+#: ../xlgui/widgets/dialogs.py:1095
 msgid "Your changes will be lost if you don't save them"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1090
+#: ../xlgui/widgets/dialogs.py:1099
 msgid "Close Without Saving"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1483
-msgid "Yes to all"
-msgstr ""
-
 #: ../xlgui/widgets/dialogs.py:1491
+msgid "Yes to all"
+msgstr "დიახ ყველაფერზე"
+
+#: ../xlgui/widgets/dialogs.py:1499
 msgid "No to all"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1663 ../xlgui/widgets/dialogs.py:1681
+#: ../xlgui/widgets/dialogs.py:1668 ../xlgui/widgets/dialogs.py:1685
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1692
+#: ../xlgui/widgets/dialogs.py:1695
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1749
+#: ../xlgui/widgets/dialogs.py:1751
 msgid "Playlist name:"
-msgstr ""
+msgstr "დასაკრავი სიის სახელი:"
 
-#: ../xlgui/widgets/dialogs.py:1750
+#: ../xlgui/widgets/dialogs.py:1752
 msgid "Add new playlist..."
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1763
-#: ../xlgui/widgets/smart_playlist_editor.py:387
+#: ../xlgui/widgets/dialogs.py:1765
+#: ../xlgui/widgets/smart_playlist_editor.py:385
 msgid "You did not enter a name for your playlist"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1772
+#: ../xlgui/widgets/dialogs.py:1774
 msgid "Save As"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1841
+#: ../xlgui/widgets/dialogs.py:1843
 #, python-format
 msgid "Exporting %s"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1846
+#: ../xlgui/widgets/dialogs.py:1848
 msgid "Choose directory to export files to"
 msgstr ""
 
-#: ../xlgui/widgets/info.py:60
+#: ../xlgui/widgets/info.py:71
 msgid ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
 "by $artist\n"
 "from $album"
 msgstr ""
 
-#: ../xlgui/widgets/info.py:67 ../xlgui/widgets/playback.py:110
+#: ../xlgui/widgets/info.py:78 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
 msgstr "არ უკრავს"
 
-#: ../xlgui/widgets/info.py:415
+#: ../xlgui/widgets/info.py:427
 #, python-format
 msgid "%d in collection"
 msgstr ""
 
-#: ../xlgui/widgets/info.py:437 ../xlgui/widgets/info.py:444
+#: ../xlgui/widgets/info.py:456 ../xlgui/widgets/info.py:465
 #, python-format
 msgid "%d showing"
-msgstr ""
+msgid_plural "%d showing"
+msgstr[0] ""
 
-#: ../xlgui/widgets/info.py:441 ../xlgui/widgets/info.py:448
+#: ../xlgui/widgets/info.py:460 ../xlgui/widgets/info.py:470
 #, python-format
 msgid "%d selected"
-msgstr ""
+msgid_plural "%d selected"
+msgstr[0] "%d მონიშნულია"
 
 #: ../xlgui/widgets/menuitems.py:117
 msgid "En_queue"
@@ -1696,45 +1700,39 @@ msgstr ""
 msgid "_Open Directory"
 msgstr ""
 
-#: ../xlgui/widgets/menuitems.py:239
+#: ../xlgui/widgets/menuitems.py:238
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
 msgstr ""
 
-#: ../xlgui/widgets/menuitems.py:269
+#: ../xlgui/widgets/menuitems.py:268
 msgid "_Move to Trash"
 msgstr ""
 
-#: ../xlgui/widgets/menuitems.py:288 ../xlgui/widgets/playlist.py:247
-#, fuzzy
-#| msgid "Filename"
+#: ../xlgui/widgets/menuitems.py:287 ../xlgui/widgets/playlist.py:247
 msgid "_Rename"
-msgstr "ფაილის სახელი"
+msgstr "_სახელის გადარქმევა"
 
-#: ../xlgui/widgets/menuitems.py:301 ../data/ui/main.ui:32
+#: ../xlgui/widgets/menuitems.py:300 ../data/ui/main.ui:32
 msgid "_Edit"
-msgstr "რედაქტირება"
+msgstr "_ჩასწორება"
 
-#: ../xlgui/widgets/menuitems.py:314
-#, fuzzy
-#| msgid "New Playlist"
+#: ../xlgui/widgets/menuitems.py:313
 msgid "E_xport Playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "დასაკრავი სიის _გატანა"
 
-#: ../xlgui/widgets/menuitems.py:324
+#: ../xlgui/widgets/menuitems.py:323
 msgid "Export _Files"
 msgstr ""
 
-#: ../xlgui/widgets/menuitems.py:334
-#, fuzzy
-#| msgid "New Playlist"
+#: ../xlgui/widgets/menuitems.py:333
 msgid "_Delete Playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "დასაკრავი სიის _წაშლა"
 
-#: ../xlgui/widgets/notebook.py:246
+#: ../xlgui/widgets/notebook.py:254
 msgid "Close Tab"
-msgstr ""
+msgstr "ჩანართის დახურვა"
 
 #: ../xlgui/widgets/playback.py:834
 #, python-format
@@ -1743,7 +1741,7 @@ msgstr ""
 
 #: ../xlgui/widgets/playback.py:1184
 msgid "Move"
-msgstr ""
+msgstr "გადატანა"
 
 #: ../xlgui/widgets/playback.py:1329
 msgid "New Marker"
@@ -1751,180 +1749,161 @@ msgstr ""
 
 #: ../xlgui/widgets/playback.py:1388
 msgid "_Jump to"
-msgstr ""
+msgstr "_გადასვლა"
 
 #: ../xlgui/widgets/playback.py:1396
-#, fuzzy
-#| msgid "Remove"
 msgid "_Remove Marker"
-msgstr "ამოშლა"
+msgstr "მარკერის _წაშლა"
 
 #: ../xlgui/widgets/playback.py:1439
 msgid "Muted"
-msgstr ""
+msgstr "ხმა გამორთული"
 
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1445
 #, python-format
 msgid "%d%%"
-msgstr ""
+msgstr "%d%%"
 
 #: ../xlgui/widgets/playback.py:1450
 msgid "Full Volume"
-msgstr ""
+msgstr "სრული ხმა"
 
 #: ../xlgui/widgets/playback.py:1569
-#, fuzzy
-#| msgid "Pause"
 msgid "_Pause"
-msgstr "პაუზა"
+msgstr "_შეჩერება"
 
 #: ../xlgui/widgets/playback.py:1572
 msgid "P_lay"
-msgstr ""
+msgstr "_დაკვრა"
 
 #: ../xlgui/widgets/playback.py:1584
-#, fuzzy
-#| msgid "Next Track"
 msgid "_Next Track"
-msgstr "შემდეგი ბილიკი"
+msgstr "შემდეგი _ტრეკი"
 
 #: ../xlgui/widgets/playback.py:1594
-#, fuzzy
-#| msgid "Previous Track"
 msgid "_Previous Track"
-msgstr "წინა ბილიკი"
+msgstr "_წინა ტრეკი"
 
-#: ../xlgui/widgets/playback.py:1604
+#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
-msgstr ""
+msgstr "გაჩერე_ბა"
 
 #: ../xlgui/widgets/playlist.py:118
-#, fuzzy
-#| msgid "Shuffle"
 msgid "S_huffle"
-msgstr "შემთხვევითი შერჩევა"
+msgstr "_შემთხვევით"
 
 #: ../xlgui/widgets/playlist.py:123
-#, fuzzy
-#| msgid "Repeat"
 msgid "R_epeat"
-msgstr "გმეორება"
+msgstr "_გამეორება"
 
 #: ../xlgui/widgets/playlist.py:128
-#, fuzzy
-#| msgid "Dynamic"
 msgid "_Dynamic"
-msgstr "დინამიური"
+msgstr "_დინამიკური"
 
 #: ../xlgui/widgets/playlist.py:146
 msgid "Remove _Current Track From Playlist"
 msgstr ""
 
 #: ../xlgui/widgets/playlist.py:179
-#, fuzzy
-#| msgid "New Playlist"
 msgid "R_andomize Playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "დასაკრავი სიის შემთხვევითი არჩვა"
 
 #: ../xlgui/widgets/playlist.py:182
 msgid "R_andomize Selection"
 msgstr ""
 
-#: ../xlgui/widgets/playlist.py:224
+#: ../xlgui/widgets/playlist.py:224 ../data/ui/trackproperties_dialog.ui:298
 msgid "_Save"
-msgstr ""
+msgstr "_შენახვა"
 
 #: ../xlgui/widgets/playlist.py:237 ../data/ui/coverwindow.ui:26
 msgid "Save _As"
-msgstr ""
+msgstr "_შენახვა, როგორც"
 
 #: ../xlgui/widgets/playlist.py:257
 msgid "_Clear"
-msgstr ""
+msgstr "გასუფთავება"
 
 #: ../xlgui/widgets/playlist.py:325
-#, fuzzy
-#| msgid "Stop playback after current track"
 msgid "_Stop Playback After This Track"
-msgstr "მორჩი დაკვრას მიმდინარეს შემდეგ"
+msgstr "_ამ ტრეკის შემდეგ გაჩერება"
 
 #: ../xlgui/widgets/playlist.py:332
 msgid "_Continue Playback After This Track"
 msgstr ""
 
 #: ../xlgui/widgets/playlist.py:386
-#, fuzzy
-#| msgid "New Playlist"
 msgid "_Remove from Playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "_დასაკრავი სიიდან წაშლა"
 
-#: ../xlgui/widgets/playlist.py:739
+#: ../xlgui/widgets/playlist.py:758
 msgid "Requires plugins providing dynamic playlists"
 msgstr ""
 
-#: ../xlgui/widgets/playlist.py:743 ../data/ui/playlist.ui:99
+#: ../xlgui/widgets/playlist.py:762 ../data/ui/playlist.ui:99
 msgid "Dynamically add similar tracks to the playlist"
 msgstr ""
 
-#: ../xlgui/widgets/playlist.py:799
+#: ../xlgui/widgets/playlist.py:804
 msgid "Loading"
-msgstr ""
+msgstr "იტვირთება"
 
-#: ../xlgui/widgets/playlist_columns.py:272
+#: ../xlgui/widgets/playlist_columns.py:271
 msgid "Track Number"
 msgstr "ბილიკის ნომერი"
 
-#: ../xlgui/widgets/playlist_columns.py:343
+#: ../xlgui/widgets/playlist_columns.py:342
 msgid "Disc Number"
-msgstr ""
+msgstr "დისკის ნომერი"
 
-#: ../xlgui/widgets/playlist_columns.py:353
-#: ../xlgui/widgets/smart_playlist_editor.py:253 ../plugins/cd/cdprefs.py:116
+#: ../xlgui/widgets/playlist_columns.py:352
+#: ../xlgui/widgets/smart_playlist_editor.py:253 ../plugins/cd/cdprefs.py:119
 #: ../plugins/minimode/controls.py:555
 #: ../plugins/minimode/minimode_preferences.py:112
 #: ../plugins/jamendo/ui/jamendo_panel.ui:44
 msgid "Rating"
 msgstr "რეიტინგი"
 
-#: ../xlgui/widgets/playlist_columns.py:409
+#: ../xlgui/widgets/playlist_columns.py:408
 msgid "Year"
 msgstr "წელი"
 
-#: ../xlgui/widgets/playlist_columns.py:458
+#: ../xlgui/widgets/playlist_columns.py:457
 msgid "Playcount"
 msgstr "დაკვრების რაოდენობა"
 
-#: ../xlgui/widgets/playlist_columns.py:507
+#: ../xlgui/widgets/playlist_columns.py:506
 msgid "Schedule"
-msgstr ""
+msgstr "განრიგი"
 
-#: ../xlgui/widgets/playlist_columns.py:676
+#: ../xlgui/widgets/playlist_columns.py:675
 msgid "Start Offset"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:687
+#: ../xlgui/widgets/playlist_columns.py:686
 msgid "Stop Offset"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:838
+#: ../xlgui/widgets/playlist_columns.py:847
 msgid "_Resizable"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:849
+#: ../xlgui/widgets/playlist_columns.py:858
 msgid "_Autosize"
 msgstr ""
 
-#: ../xlgui/widgets/queue.py:81
+#: ../xlgui/widgets/queue.py:79
 msgid "Queue"
-msgstr ""
+msgstr "რიგი"
 
-#: ../xlgui/widgets/queue.py:83
+#: ../xlgui/widgets/queue.py:81
 #, python-format
 msgid "Queue (%d)"
 msgstr ""
 
-#: ../xlgui/widgets/rating.py:266
+#: ../xlgui/widgets/rating.py:265
 msgid "Rating:"
 msgstr ""
 
@@ -1933,45 +1912,45 @@ msgstr ""
 #: ../xlgui/widgets/smart_playlist_editor.py:89
 #: ../plugins/osd/osd_preferences.ui:130
 msgid "seconds"
-msgstr ""
+msgstr "წამი"
 
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xlgui/widgets/smart_playlist_editor.py:62
 msgid "and"
-msgstr ""
+msgstr "და"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:67
 #: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "days"
-msgstr ""
+msgstr "დღე"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "minutes"
-msgstr ""
+msgstr "წუთი"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "hours"
-msgstr ""
+msgstr "საათი"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "weeks"
-msgstr ""
+msgstr "კვირა"
 
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xlgui/widgets/smart_playlist_editor.py:206
 msgid "is"
-msgstr ""
+msgstr "არის"
 
 #. TRANSLATORS: True if haystack is not equal to needle
 #: ../xlgui/widgets/smart_playlist_editor.py:208
 msgid "is not"
-msgstr ""
+msgstr "არ არის"
 
 #. TRANSLATORS: True if the specified tag is present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/widgets/smart_playlist_editor.py:211
 msgid "is set"
-msgstr ""
+msgstr "დაყენებულია"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
@@ -1982,12 +1961,12 @@ msgstr ""
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/widgets/smart_playlist_editor.py:216
 msgid "contains"
-msgstr ""
+msgstr "შეიცავს"
 
 #. TRANSLATORS: True if haystack does not contain needle
 #: ../xlgui/widgets/smart_playlist_editor.py:218
 msgid "does not contain"
-msgstr ""
+msgstr "არ შეიცავს"
 
 #. TRANSLATORS: True if haystack contains whole word
 #: ../xlgui/widgets/smart_playlist_editor.py:220
@@ -2002,45 +1981,45 @@ msgstr ""
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:224
 msgid "regex"
-msgstr ""
+msgstr "რეგექსი"
 
 #. TRANSLATORS: True if haystack does not match regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:226
 msgid "not regex"
-msgstr ""
+msgstr "რეგექსი არ"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/widgets/smart_playlist_editor.py:228
 msgid "at least"
-msgstr ""
+msgstr "მინიმუმ"
 
 #. TRANSLATORS: Example: rating <= 3
 #: ../xlgui/widgets/smart_playlist_editor.py:230
 msgid "at most"
-msgstr ""
+msgstr "მაქსიმუმ"
 
 #. TRANSLATORS: Example: year < 1999
 #: ../xlgui/widgets/smart_playlist_editor.py:232
 msgid "before"
-msgstr ""
+msgstr "მითითებულ დრომდე"
 
 #. TRANSLATORS: Example: year > 2002
 #: ../xlgui/widgets/smart_playlist_editor.py:234
 msgid "after"
-msgstr ""
+msgstr "მითითებულ დროის შემდეგ"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
 #: ../xlgui/widgets/smart_playlist_editor.py:236
 msgid "between"
-msgstr ""
+msgstr "მითითებულ დროის შუალედში"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:237
 msgid "greater than"
-msgstr ""
+msgstr "მეტი ვიდრე"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:238
 msgid "less than"
-msgstr ""
+msgstr "ნაკლები, ვიდრე"
 
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #: ../xlgui/widgets/smart_playlist_editor.py:240
@@ -2062,27 +2041,27 @@ msgstr ""
 msgid "Track not in"
 msgstr ""
 
-#: ../xlgui/widgets/smart_playlist_editor.py:301
+#: ../xlgui/widgets/smart_playlist_editor.py:299
 msgid "Add Smart Playlist"
 msgstr ""
 
-#: ../xlgui/widgets/smart_playlist_editor.py:352
+#: ../xlgui/widgets/smart_playlist_editor.py:350
 msgid "Edit Smart Playlist"
 msgstr ""
 
-#: ../xlgui/widgets/smart_playlist_editor.py:423
+#: ../xlgui/widgets/smart_playlist_editor.py:421
 msgid "Sort by:"
-msgstr ""
+msgstr "სორტირება:"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:438
+#: ../xlgui/widgets/smart_playlist_editor.py:436
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
 msgid "Ascending"
-msgstr ""
+msgstr "ზრდის მიხედვით"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:439
+#: ../xlgui/widgets/smart_playlist_editor.py:437
 #: ../plugins/jamendo/ui/jamendo_panel.ui:22
 msgid "Descending"
-msgstr ""
+msgstr "Დაღმავალი"
 
 #: ../data/ui/about_dialog.ui:8
 msgid "About Exaile"
@@ -2096,11 +2075,19 @@ msgstr ""
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr ""
+msgstr "თემური დოღონაძე"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
-msgstr ""
+msgstr "კოლექციის მმართველი"
+
+#: ../data/ui/collection_manager.ui:54
+msgid "_Cancel"
+msgstr "_გაუქმება"
+
+#: ../data/ui/collection_manager.ui:71
+msgid "_Apply"
+msgstr "_გადატარება"
 
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
@@ -2110,11 +2097,17 @@ msgstr ""
 msgid "Scan At Startup"
 msgstr ""
 
+#: ../data/ui/collection_manager.ui:174
+msgid "Add _Folder"
+msgstr "_საქაღალდის დამატება"
+
+#: ../data/ui/collection_manager.ui:191
+msgid "_Remove Folder"
+msgstr "_საქაღალდის წაშლა"
+
 #: ../data/ui/collection_manager.ui:209
-#, fuzzy
-#| msgid "Collection"
 msgid "Rescan _Collection"
-msgstr "კოლექცია"
+msgstr "_კოლექციის თავიდან სკანირება"
 
 #: ../data/ui/coverchooser.ui:28
 msgid "Cover Finder"
@@ -2124,54 +2117,69 @@ msgstr "ყდის ძიება"
 msgid "The origin of this cover"
 msgstr ""
 
+#: ../data/ui/coverchooser.ui:159
+msgid "_Abort"
+msgstr "_შეწყვეტა"
+
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr ""
 
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
-msgstr ""
+msgstr "ყდის მმართველი"
+
+#. Closes the preferences dialog
+#: ../data/ui/covermanager.ui:112 ../data/ui/coverwindow.ui:96
+#: ../data/ui/device_manager.ui:151
+#: ../data/ui/preferences/preferences_dialog.ui:39
+#: ../data/ui/shortcuts_dialog.ui:39 ../data/ui/trackproperties_dialog.ui:317
+msgid "_Close"
+msgstr "დახურვა"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
-msgstr ""
+msgstr "ყდების _გამოთხოვა"
 
 #: ../data/ui/coverwindow.ui:40
 msgid "Zoom _In"
-msgstr ""
+msgstr "_გადიდება"
 
 #: ../data/ui/coverwindow.ui:54
 msgid "Zoom _Out"
-msgstr ""
+msgstr "და_პატარავება"
 
 #: ../data/ui/coverwindow.ui:68
 msgid "_Original Size"
-msgstr ""
+msgstr "საწყისი _ზომა"
 
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
-msgstr ""
-
-#. Closes the preferences dialog
-#: ../data/ui/coverwindow.ui:96 ../data/ui/preferences/preferences_dialog.ui:39
-msgid "_Close"
-msgstr ""
+msgstr "საუკეთესოდ _ჩატევა"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
-msgstr ""
+msgstr "მოწყობილობის მმართველი"
 
 #: ../data/ui/device_manager.ui:65
 msgid "Icon"
-msgstr ""
+msgstr "_ხატულა"
 
 #: ../data/ui/device_manager.ui:77
 msgid "Device"
-msgstr ""
+msgstr "მოწყობილობა"
 
 #: ../data/ui/device_manager.ui:88
 msgid "Driver"
-msgstr ""
+msgstr "დრაივერი"
+
+#: ../data/ui/device_manager.ui:115
+msgid "_Connect"
+msgstr "_დაკავშირება"
+
+#: ../data/ui/device_manager.ui:133
+msgid "_Disconnect"
+msgstr "_გათიშვა"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -2179,7 +2187,7 @@ msgstr "ფაილი"
 
 #: ../data/ui/main.ui:45
 msgid "_View"
-msgstr ""
+msgstr "_ხედი"
 
 #: ../data/ui/main.ui:58
 msgid "_Tools"
@@ -2191,7 +2199,7 @@ msgstr "_დახმარება"
 
 #: ../data/ui/main.ui:151
 msgid "Previous Track"
-msgstr "წინა ბილიკი"
+msgstr "წინა აუდიობილიკი"
 
 #: ../data/ui/main.ui:197
 msgid ""
@@ -2202,7 +2210,7 @@ msgstr ""
 
 #: ../data/ui/main.ui:221
 msgid "Next Track"
-msgstr "შემდეგი ბილიკი"
+msgstr "შემდეგი ტრეკი"
 
 #: ../data/ui/main.ui:246
 msgid "0:00 / 0:00"
@@ -2227,9 +2235,9 @@ msgid "Clear search field"
 msgstr ""
 
 #: ../data/ui/panel/collection.ui:131 ../data/ui/panel/files.ui:171
-#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:384
+#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:334
 msgid "Search"
-msgstr ""
+msgstr "ძებნა"
 
 #: ../data/ui/panel/files.ui:29
 msgid "Previous visited directory"
@@ -2249,7 +2257,7 @@ msgstr ""
 
 #: ../data/ui/panel/files.ui:114
 msgid "Home directory"
-msgstr ""
+msgstr "სახლის დირექტორია"
 
 #: ../data/ui/panel/flatplaylist.ui:21
 msgid "Append All Tracks to Playlist"
@@ -2277,111 +2285,134 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:20
 msgid "Left"
-msgstr ""
+msgstr "მარცხენა"
 
 #: ../data/ui/preferences/appearance.ui:24
 msgid "Right"
-msgstr ""
+msgstr "მარჯვენა"
 
 #: ../data/ui/preferences/appearance.ui:28
 msgid "Top"
-msgstr ""
+msgstr "თავში"
 
 #: ../data/ui/preferences/appearance.ui:32
 msgid "Bottom"
-msgstr ""
+msgstr "ქვემოთ"
 
-#: ../data/ui/preferences/appearance.ui:50
+#: ../data/ui/preferences/appearance.ui:52
 msgid "Show info area"
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:54
+#: ../data/ui/preferences/appearance.ui:56
 msgid "The info area contains the cover art and track information"
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:66
+#: ../data/ui/preferences/appearance.ui:68
 msgid "Show cover art in info area"
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:81
+#: ../data/ui/preferences/appearance.ui:83
 msgid "Always show tab bar"
-msgstr ""
+msgstr "ჩანართების ზოლის ყოველთვის ჩვენება"
 
-#: ../data/ui/preferences/appearance.ui:99
+#: ../data/ui/preferences/appearance.ui:101
 msgid "Tab placement:"
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:139
+#: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:156 ../data/ui/preferences/lyrics.ui:47
+#: ../data/ui/preferences/appearance.ui:154
+msgid "_Revert"
+msgstr "_აღდგენა"
+
+#: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
 msgid "Reset to the system font"
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:194
+#: ../data/ui/preferences/appearance.ui:196
+#: ../data/ui/preferences/appearance.ui:385
 msgid "Display track counts in collection"
 msgstr ""
 
 #. TRANSLATORS: Remark at the alpha transparency option
-#: ../data/ui/preferences/appearance.ui:208
+#: ../data/ui/preferences/appearance.ui:210
 #: ../plugins/minimode/minimode_preferences.ui:237
 msgid "Use alpha transparency:"
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:212
+#: ../data/ui/preferences/appearance.ui:214
 msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:228
+#: ../data/ui/preferences/appearance.ui:230
 msgid "Alpha transparency"
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:239
+#: ../data/ui/preferences/appearance.ui:241
 msgid "Show tray icon"
-msgstr ""
+msgstr "სისტემის კუთხეში ხატულის ჩვენება"
 
-#: ../data/ui/preferences/appearance.ui:257
+#: ../data/ui/preferences/appearance.ui:259
 msgid "Minimize to tray"
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:271
+#: ../data/ui/preferences/appearance.ui:273
 msgid "Close to tray"
 msgstr ""
 
 #. TRANSLATORS: Keep the current track visible in playlist
-#: ../data/ui/preferences/appearance.ui:285
+#: ../data/ui/preferences/appearance.ui:287
 msgid "Jump to current song on track change"
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:301
+#: ../data/ui/preferences/appearance.ui:303
 msgid "Show splash screen on startup"
 msgstr "პროგრამის აბრის ჩვენება გაშვებისას"
 
-#: ../data/ui/preferences/appearance.ui:328
+#: ../data/ui/preferences/appearance.ui:330
 msgid ""
 "Tray icons are not supported on some platforms, most notably on Wayland. On "
-"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
-"\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
+"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a "
+"href=\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
 "extension</a> (or a similar one) installed."
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:341
+#: ../data/ui/preferences/appearance.ui:343
 msgid "Note:"
-msgstr ""
+msgstr "შენიშვნა:"
 
-#: ../data/ui/preferences/appearance.ui:353
+#: ../data/ui/preferences/appearance.ui:355
 msgid "Prefer dark theme"
 msgstr ""
 
 #. TRANSLATORS: "Checked" here refers to checkbox state.
-#: ../data/ui/preferences/appearance.ui:357
+#: ../data/ui/preferences/appearance.ui:359
 msgid ""
 "If not checked, will not specify a preference to GTK. May not work on some "
 "platforms."
+msgstr ""
+
+#: ../data/ui/preferences/appearance.ui:370
+msgid "Show Status Bar"
+msgstr "მდგომარეობის ზოლის ჩვენება"
+
+#: ../data/ui/preferences/appearance.ui:374
+msgid ""
+"Show or hide the status bar. The status bar will always be shown if a plugin "
+"requests it."
+msgstr ""
+
+#: ../data/ui/preferences/appearance.ui:399
+msgid "Show playlist track count"
+msgstr ""
+
+#: ../data/ui/preferences/appearance.ui:413
+msgid "Show playlist duration"
 msgstr ""
 
 #: ../data/ui/preferences/collection.ui:13
@@ -2439,7 +2470,7 @@ msgstr ""
 #: ../data/ui/preferences/playback.ui:32
 #: ../plugins/previewdevice/previewprefs.ui:27
 msgid "GStreamer"
-msgstr ""
+msgstr "GStreamer"
 
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
@@ -2468,63 +2499,73 @@ msgid "Adding an item to an empty queue begins playback"
 msgstr ""
 
 #: ../data/ui/preferences/playback.ui:206
+#: ../plugins/quickbuttons/__init__.py:56
+#: ../plugins/quickbuttons/qb_prefs.ui:42
 msgid "Remove track from queue upon playback"
 msgstr ""
 
 #: ../data/ui/preferences/playback.ui:221
+msgid "Remove after playback"
+msgstr "წაშლა დაკვრის შემდეგ"
+
+#: ../data/ui/preferences/playback.ui:236
+#: ../plugins/quickbuttons/__init__.py:47
+#: ../plugins/quickbuttons/qb_prefs.ui:27
 msgid "Disallow playing new tracks when another track is playing"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:225
+#: ../data/ui/preferences/playback.ui:240
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:237
+#: ../data/ui/preferences/playback.ui:252
+#: ../plugins/quickbuttons/__init__.py:65
+#: ../plugins/quickbuttons/qb_prefs.ui:57
 msgid "Automatically advance to the next track"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:254
+#: ../data/ui/preferences/playback.ui:269
 msgid "Delay between tracks (ms):"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:268
+#: ../data/ui/preferences/playback.ui:283
 msgid "Only works when crossfading not enabled"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:300
+#: ../data/ui/preferences/playback.ui:315
 msgid "Crossfade duration (ms):"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:312
+#: ../data/ui/preferences/playback.ui:327
 #: ../plugins/previewdevice/previewprefs.ui:125
 msgid "Use crossfading (EXPERIMENTAL)"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:316
+#: ../data/ui/preferences/playback.ui:331
 msgid "Forces automatically advancing to the next track"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:346
+#: ../data/ui/preferences/playback.ui:361
 msgid "Fade duration (ms):"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:358
+#: ../data/ui/preferences/playback.ui:373
 #: ../plugins/previewdevice/previewprefs.ui:85
 msgid "Use fade transitions on user actions"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:376
+#: ../data/ui/preferences/playback.ui:391
 #: ../plugins/previewdevice/previewprefs.ui:57
 msgid "Playback engine: "
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:409
+#: ../data/ui/preferences/playback.ui:424
 msgid "Enable gapless playback"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:413
+#: ../data/ui/preferences/playback.ui:428
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
 msgstr ""
@@ -2559,6 +2600,8 @@ msgid ""
 msgstr ""
 
 #: ../data/ui/preferences/playlists.ui:66
+#: ../plugins/quickbuttons/__init__.py:38
+#: ../plugins/quickbuttons/qb_prefs.ui:12
 msgid "Queue tracks by default instead of playing them"
 msgstr ""
 
@@ -2568,29 +2611,29 @@ msgid ""
 "the track instead of playing it"
 msgstr ""
 
-#: ../data/ui/preferences/plugin.ui:64
+#: ../data/ui/preferences/plugin.ui:66
 msgid "Plugin"
-msgstr ""
+msgstr "დამატება"
 
-#: ../data/ui/preferences/plugin.ui:76
+#: ../data/ui/preferences/plugin.ui:78
 msgid "Status"
 msgstr ""
 
-#: ../data/ui/preferences/plugin.ui:88
+#: ../data/ui/preferences/plugin.ui:90
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:38
 #: ../plugins/equalizer/equalizer.ui:166
 msgid "Enabled"
-msgstr ""
+msgstr "აქტიური"
 
-#: ../data/ui/preferences/plugin.ui:110
+#: ../data/ui/preferences/plugin.ui:112
 msgid "Show incompatible plugins"
 msgstr ""
 
-#: ../data/ui/preferences/plugin.ui:128
+#: ../data/ui/preferences/plugin.ui:130
 msgid "No Plugin Selected"
 msgstr ""
 
-#: ../data/ui/preferences/plugin.ui:177
+#: ../data/ui/preferences/plugin.ui:179
 msgid "Add _Plugin File"
 msgstr ""
 
@@ -2598,19 +2641,13 @@ msgstr ""
 msgid "Preferences"
 msgstr "პარამეტრები"
 
-#: ../data/ui/shortcuts_dialog.ui:39
-msgid "Close"
-msgstr ""
-
-#: ../data/ui/shortcuts_dialog.ui:89
-#, fuzzy
-#| msgid "Description:"
+#: ../data/ui/shortcuts_dialog.ui:90
 msgid "Description"
-msgstr "აღწერილობა:"
+msgstr "აღწერა"
 
 #: ../data/ui/trackproperties_dialog.ui:37
 msgid "Track Properties"
-msgstr ""
+msgstr "ბილიკის თვისებები"
 
 #: ../data/ui/trackproperties_dialog.ui:83
 msgid "A_dd tag"
@@ -2630,15 +2667,15 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog.ui:228
 msgid "File Properties"
-msgstr ""
+msgstr "ფაილის თვისებები"
 
 #: ../data/ui/trackproperties_dialog.ui:249
 msgid "_Previous"
-msgstr ""
+msgstr "_წინა"
 
 #: ../data/ui/trackproperties_dialog.ui:278
 msgid "_Next"
-msgstr ""
+msgstr "_შემდეგი"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:20
 msgid "Other"
@@ -2650,19 +2687,19 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:28
 msgid "Other file icon"
-msgstr ""
+msgstr "სხვა ფაილის ხატულა"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:32
 msgid "Cover (front)"
-msgstr ""
+msgstr "ყდა (წინა)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:36
 msgid "Cover (back)"
-msgstr ""
+msgstr "ყდა (უკანა)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:40
 msgid "Leaflet page"
-msgstr ""
+msgstr "ბროშურის გვერდი"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:44
 msgid "Media (e.g. label side of CD)"
@@ -2670,51 +2707,51 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:48
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "წამყვანი შემსრულებელი/სოლისტი"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:52
 msgid "Artist/performer"
-msgstr ""
+msgstr "შემსრულებელი"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:60
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "ბენდი/ორკესტრი"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:68
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "ტექსტის ავტორი"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:72
 msgid "Recording Location"
-msgstr ""
+msgstr "ჩაწერის მდებარეობა"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:76
 msgid "During recording"
-msgstr ""
+msgstr "ჩაწერისას"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:80
 msgid "During performance"
-msgstr ""
+msgstr "შესრულებისას"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:84
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "ფილმი/ეკრანის ჩანაწერი"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:88
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "კაშკაშა ფერადი თევზი"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:92
 msgid "Illustration"
-msgstr ""
+msgstr "ილუსტრაცია"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:96
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "ბენდის/შემსრულებლის ლოგოტიპი"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:100
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "გამომცემლის/სტუდიის ლოგოტიპი"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:115
 msgid "Click or drag files here to change the cover image"
@@ -2726,7 +2763,7 @@ msgstr "აღწერილობა:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:154
 msgid "Type:"
-msgstr ""
+msgstr "ტიპი:"
 
 #: ../data/ui/widgets/filter_dialog.ui:137
 msgid "Match any of the criteria"
@@ -2751,11 +2788,11 @@ msgstr "გუქმება"
 
 #: ../data/ui/widgets/volume_control.ui:20
 msgid "Toggle mute"
-msgstr ""
+msgstr "დადუმების გადართვა"
 
 #: ../data/ui/widgets/volume_control.ui:51 ../plugins/minimode/controls.py:447
 msgid "Volume"
-msgstr ""
+msgstr "საცავი"
 
 #: ../plugins/abrepeat/__init__.py:57
 msgid "Repeat Segment"
@@ -2793,11 +2830,11 @@ msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs.py:111
 msgid "Verification successful"
-msgstr ""
+msgstr "გადამოწმება წარმატებულია"
 
 #: ../plugins/audioscrobbler/asprefs.py:115
 msgid "Verification failed"
-msgstr ""
+msgstr "შემოწმების შეცდომა"
 
 #: ../plugins/audioscrobbler/asprefs.py:116
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
@@ -2810,7 +2847,7 @@ msgstr ""
 
 #: ../plugins/bookmarks/__init__.py:215
 msgid "_Delete Bookmark"
-msgstr ""
+msgstr "_სანიშის წაშლა"
 
 #: ../plugins/bookmarks/__init__.py:219
 msgid "_Clear Bookmarks"
@@ -2818,9 +2855,9 @@ msgstr ""
 
 #: ../plugins/bookmarks/__init__.py:333
 msgid "_Bookmarks"
-msgstr ""
+msgstr "_სანიშნეები"
 
-#: ../plugins/bpm/__init__.py:66 ../plugins/bpm/__init__.py:205
+#: ../plugins/bpm/__init__.py:67 ../plugins/bpm/__init__.py:204
 msgid "Autodetect BPM"
 msgstr ""
 
@@ -2829,48 +2866,52 @@ msgstr ""
 msgid "Set BPM of %d on %s?"
 msgstr ""
 
-#: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
+#: ../plugins/bpm/__init__.py:182 ../plugins/bpm/bpm.ui:59
 #: ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
 msgstr ""
 
-#: ../plugins/bpm/__init__.py:335 ../plugins/bpm/bpm.ui:30
+#: ../plugins/bpm/__init__.py:333 ../plugins/bpm/bpm.ui:31
 msgid "Update"
 msgstr ""
 
-#: ../plugins/cd/__init__.py:152 ../plugins/cd/__init__.py:223
+#: ../plugins/cd/__init__.py:161 ../plugins/cd/__init__.py:265
 msgid "Audio Disc"
+msgstr "აუდიო დისკი"
+
+#: ../plugins/cd/_cdguipanel.py:97
+msgid "Unknown disc"
 msgstr ""
 
-#: ../plugins/cd/_cdguipanel.py:99
+#: ../plugins/cd/_cdguipanel.py:113
 msgid "Importing CD..."
 msgstr ""
 
-#: ../plugins/cd/_cdguipanel.py:178
+#: ../plugins/cd/_cdguipanel.py:192
 msgid "Error transcoding files from CD."
 msgstr ""
 
 #: ../plugins/cd/cdprefs.py:33
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
-#: ../plugins/cd/cdprefs.py:109 ../plugins/minimode/minimode_preferences.py:105
+#: ../plugins/cd/cdprefs.py:112 ../plugins/minimode/minimode_preferences.py:105
 msgid "Track number"
 msgstr ""
 
-#: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:111
+#: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:111
 msgid "Disc number"
 msgstr ""
 
-#: ../plugins/cd/cdprefs.py:122 ../plugins/minimode/minimode_preferences.py:118
+#: ../plugins/cd/cdprefs.py:125 ../plugins/minimode/minimode_preferences.py:118
 msgid "Play count"
-msgstr ""
+msgstr "დაკვრების რაოდენობა"
 
-#: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:187
-#: ../plugins/history/__init__.py:236
+#: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:185
+#: ../plugins/history/__init__.py:233
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
-msgstr ""
+msgstr "ისტორია"
 
 #: ../plugins/daapclient/__init__.py:272
 msgid "Manually..."
@@ -2884,7 +2925,7 @@ msgstr ""
 msgid "Enter IP address and port."
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:549
+#: ../plugins/daapclient/__init__.py:548
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -2902,7 +2943,7 @@ msgstr ""
 msgid "Select a Location for Saving"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:742
+#: ../plugins/daapclient/__init__.py:741
 msgid "Connect to DAAP..."
 msgstr ""
 
@@ -2921,60 +2962,60 @@ msgstr ""
 msgid "Desktop Cover"
 msgstr ""
 
-#: ../plugins/developer/__init__.py:63
+#: ../plugins/developer/__init__.py:62
 msgid "Developer Tools"
-msgstr ""
+msgstr "პროგრამირება"
 
-#: ../plugins/equalizer/__init__.py:362
+#: ../plugins/equalizer/__init__.py:361
 msgid "_Equalizer"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:96
+#: ../plugins/grouptagger/__init__.py:95
 msgid "_Get all tags from collection"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:105
+#: ../plugins/grouptagger/__init__.py:104
 msgid "_Import tags from directory"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:114
+#: ../plugins/grouptagger/__init__.py:113
 msgid "_Mass rename/delete tags"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:123
-msgid "E_xport collecton tags to JSON"
+#: ../plugins/grouptagger/__init__.py:122
+msgid "E_xport collection tags to JSON"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:130
+#: ../plugins/grouptagger/__init__.py:129
 msgid "_GroupTagger"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:142
+#: ../plugins/grouptagger/__init__.py:141
 msgid "Show tracks with all tags"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:152
+#: ../plugins/grouptagger/__init__.py:151
 msgid "Show tracks with tags (custom)"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:164
-#: ../plugins/grouptagger/gt_widgets.py:946
+#: ../plugins/grouptagger/__init__.py:163
+#: ../plugins/grouptagger/gt_widgets.py:934
 msgid "Add tags to all"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:175
-#: ../plugins/grouptagger/gt_widgets.py:948
+#: ../plugins/grouptagger/__init__.py:174
+#: ../plugins/grouptagger/gt_widgets.py:936
 msgid "Remove tags from all"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:184 ../plugins/grouptagger/gt_prefs.py:20
-#: ../plugins/grouptagger/gt_widgets.py:691
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:106
+#: ../plugins/grouptagger/__init__.py:183 ../plugins/grouptagger/gt_prefs.py:20
+#: ../plugins/grouptagger/gt_widgets.py:684
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:105
 msgid "GroupTagger"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:325
-#: ../plugins/grouptagger/__init__.py:340
+#: ../plugins/grouptagger/__init__.py:323
+#: ../plugins/grouptagger/__init__.py:338
 msgid "No categorization tags found in selected tracks"
 msgstr ""
 
@@ -2990,180 +3031,192 @@ msgstr ""
 msgid "Importing groups"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_import.py:181
+#: ../plugins/grouptagger/gt_import.py:178
 msgid "Updating groups"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_import.py:271
+#: ../plugins/grouptagger/gt_import.py:265
 msgid "Select directory to import grouping tags from"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_mass.py:121
+#: ../plugins/grouptagger/gt_mass.py:117
 #, python-brace-format
 msgid "{amount} track found"
 msgid_plural "{amount} tracks found"
 msgstr[0] ""
 
-#: ../plugins/grouptagger/gt_mass.py:135
+#: ../plugins/grouptagger/gt_mass.py:130
 #, python-brace-format
 msgid "Replace '{old_tag}' with '{new_tag}' on {amount} track?"
 msgid_plural "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?"
 msgstr[0] ""
 
-#: ../plugins/grouptagger/gt_mass.py:145
+#: ../plugins/grouptagger/gt_mass.py:140
 #, python-brace-format
 msgid "Delete '{tag}' from {amount} track?"
 msgid_plural "Delete '{tag}' from {amount} tracks?"
 msgstr[0] ""
 
-#: ../plugins/grouptagger/gt_mass.py:172
+#: ../plugins/grouptagger/gt_mass.py:166
 msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:72
+#: ../plugins/grouptagger/gt_widgets.py:71
 msgid "Show tracks with selected"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:74
+#: ../plugins/grouptagger/gt_widgets.py:73
 #, python-format
 msgid "Show tracks tagged with \"%s\""
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:76
+#: ../plugins/grouptagger/gt_widgets.py:75
 msgid "Show tracks with all selected"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:155
+#: ../plugins/grouptagger/gt_widgets.py:153
 msgid "Tag"
-msgstr ""
+msgstr "ჭდე"
 
-#: ../plugins/grouptagger/gt_widgets.py:171
+#: ../plugins/grouptagger/gt_widgets.py:168
 msgid "Add new tag"
-msgstr ""
+msgstr "ახალი ჭდეს დამატება"
 
-#: ../plugins/grouptagger/gt_widgets.py:177
+#: ../plugins/grouptagger/gt_widgets.py:174
 msgid "Delete tag"
-msgstr ""
+msgstr "ჭდის წაშლა"
 
-#: ../plugins/grouptagger/gt_widgets.py:188
+#: ../plugins/grouptagger/gt_widgets.py:185
 msgid "Add new category"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:196
+#: ../plugins/grouptagger/gt_widgets.py:193
 msgid "Remove category"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:211
+#: ../plugins/grouptagger/gt_widgets.py:208
 msgid "Show tracks with selected (custom)"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:308
+#: ../plugins/grouptagger/gt_widgets.py:305
 msgid "New tag value?"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:308
+#: ../plugins/grouptagger/gt_widgets.py:305
 msgid "Enter new tag value"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:341
+#: ../plugins/grouptagger/gt_widgets.py:338
 msgid "New Category?"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:341
+#: ../plugins/grouptagger/gt_widgets.py:338
 msgid "Enter new category name"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:559
+#: ../plugins/grouptagger/gt_widgets.py:554
 msgid "Add Tag"
-msgstr ""
+msgstr "ჭდის დამატება"
 
-#: ../plugins/grouptagger/gt_widgets.py:713
-#: ../plugins/grouptagger/gt_widgets.py:819
+#: ../plugins/grouptagger/gt_widgets.py:706
+#: ../plugins/grouptagger/gt_widgets.py:810
 msgid "Group"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:749
+#: ../plugins/grouptagger/gt_widgets.py:741
 msgid "Get all tags from collection"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:770
+#: ../plugins/grouptagger/gt_widgets.py:762
 msgid "Add selected to choices"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:796
+#: ../plugins/grouptagger/gt_widgets.py:787
 msgid "Show tracks with groups"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:808
+#: ../plugins/grouptagger/gt_widgets.py:799
 msgid "Must have this tag [AND]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:809
+#: ../plugins/grouptagger/gt_widgets.py:800
 msgid "May have this tag [OR]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:810
+#: ../plugins/grouptagger/gt_widgets.py:801
 msgid "Must not have this tag [NOT]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:811
+#: ../plugins/grouptagger/gt_widgets.py:802
 msgid "Ignored"
-msgstr ""
+msgstr "იგნორირებულია"
 
-#: ../plugins/grouptagger/gt_widgets.py:820
+#: ../plugins/grouptagger/gt_widgets.py:811
 msgid "Selected Tracks"
-msgstr ""
+msgstr "მონიშნული ტრეკები"
 
 #: ../plugins/history/__init__.py:77
 msgid "Playback history"
 msgstr ""
 
-#: ../plugins/history/__init__.py:117
+#: ../plugins/history/__init__.py:116
 msgid "Erase stored history?"
 msgstr ""
 
-#: ../plugins/history/__init__.py:218
+#: ../plugins/history/__init__.py:215
 msgid "Save History"
 msgstr ""
 
-#: ../plugins/history/__init__.py:227
+#: ../plugins/history/__init__.py:224
 msgid "_Clear History"
-msgstr ""
+msgstr "ისტორიის _გასუფთავება"
 
-#: ../plugins/icecast/__init__.py:115 ../plugins/icecast/__init__.py:183
-#: ../plugins/icecast/__init__.py:206
+#: ../plugins/icecast/__init__.py:135 ../plugins/icecast/__init__.py:231
+#: ../plugins/icecast/__init__.py:340
 msgid "Contacting Icecast server..."
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:122 ../plugins/icecast/__init__.py:125
-#: ../plugins/icecast/__init__.py:218 ../plugins/icecast/__init__.py:221
+#: ../plugins/icecast/__init__.py:144 ../plugins/icecast/__init__.py:147
+#: ../plugins/icecast/__init__.py:348 ../plugins/icecast/__init__.py:351
 msgid "Error connecting to Icecast server."
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:323
+#: ../plugins/icecast/__init__.py:149
+msgid "Parsing stations XML..."
+msgstr ""
+
+#: ../plugins/icecast/__init__.py:161
+msgid "Retrieving stations..."
+msgstr ""
+
+#: ../plugins/icecast/__init__.py:274
 msgid "Enter the search keywords"
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:323
+#: ../plugins/icecast/__init__.py:274
 msgid "Icecast Search"
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:347
+#: ../plugins/icecast/__init__.py:298
 msgid "No Stations Found"
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:350
+#: ../plugins/icecast/__init__.py:301
 msgid "Icecast Search Results"
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:392
+#: ../plugins/icecast/__init__.py:353
+msgid "Parsing genre list..."
+msgstr ""
+
+#: ../plugins/icecast/__init__.py:374
 #: ../plugins/developer/developer_window.ui:59
 msgid "Name"
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:408
+#: ../plugins/icecast/__init__.py:390
 msgid "Format"
 msgstr ""
 
@@ -3177,21 +3230,21 @@ msgstr ""
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:23 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
-msgstr ""
+msgstr "IPython -ის კონსოლი"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:40
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
 msgstr ""
 
-#: ../plugins/jamendo/__init__.py:86 ../plugins/jamendo/ui/jamendo_panel.ui:294
+#: ../plugins/jamendo/__init__.py:85 ../plugins/jamendo/ui/jamendo_panel.ui:294
 msgid "Ready"
-msgstr ""
+msgstr "მზადაა"
 
-#: ../plugins/jamendo/__init__.py:87
+#: ../plugins/jamendo/__init__.py:86
 msgid "Searching Jamendo catalogue..."
 msgstr ""
 
-#: ../plugins/jamendo/__init__.py:88
+#: ../plugins/jamendo/__init__.py:87
 msgid "Retrieving song data..."
 msgstr ""
 
@@ -3214,10 +3267,8 @@ msgid "Last.fm Loved"
 msgstr ""
 
 #: ../plugins/lastfmlove/__init__.py:157
-#, fuzzy
-#| msgid "Previous Track"
 msgid "_Love This Track"
-msgstr "წინა ბილიკი"
+msgstr "_მიყვარს ეს ტრეკი"
 
 #: ../plugins/lastfmlove/__init__.py:178
 msgid "Unlove This Track"
@@ -3247,10 +3298,10 @@ msgstr ""
 msgid "This plugin needs at least one visible panel"
 msgstr ""
 
-#: ../plugins/mainmenubutton/__init__.py:82
-#: ../plugins/mainmenubutton/__init__.py:88
+#: ../plugins/mainmenubutton/__init__.py:80
+#: ../plugins/mainmenubutton/__init__.py:86
 msgid "Main Menu"
-msgstr ""
+msgstr "მთავარი მენიუ"
 
 #: ../plugins/minimode/__init__.py:105 ../plugins/minimode/__init__.py:118
 #: ../plugins/minimode/minimode_preferences.py:24
@@ -3268,7 +3319,7 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:231
 msgid "Previous track"
-msgstr ""
+msgstr "წინა აუდიობილიკი"
 
 #: ../plugins/minimode/controls.py:246
 msgid "Next"
@@ -3280,11 +3331,11 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:253
 msgid "Next track"
-msgstr ""
+msgstr "შემდეგი აუდიობილიკი"
 
 #: ../plugins/minimode/controls.py:269
 msgid "Play/Pause"
-msgstr ""
+msgstr "დაკვრა/პაუზა"
 
 #: ../plugins/minimode/controls.py:290
 msgid "Start playback"
@@ -3292,15 +3343,15 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:294
 msgid "Continue playback"
-msgstr ""
+msgstr "დაკვრის გაგრძელება"
 
 #: ../plugins/minimode/controls.py:297
 msgid "Pause playback"
-msgstr ""
+msgstr "დაკვრის შეჩერება"
 
 #: ../plugins/minimode/controls.py:337
 msgid "Stop"
-msgstr ""
+msgstr "გაჩერება"
 
 #: ../plugins/minimode/controls.py:338
 msgid "Stop the playback"
@@ -3316,7 +3367,7 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:514
 msgid "Restore"
-msgstr ""
+msgstr "აღდგენა"
 
 #: ../plugins/minimode/controls.py:515
 msgid "Restore the main window"
@@ -3416,24 +3467,24 @@ msgstr ""
 
 #: ../plugins/notify/__init__.py:50
 #, python-brace-format
-msgid "by {album}"
+msgid "from {album}"
 msgstr ""
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "შემატყობინე"
 
-#: ../plugins/osd/__init__.py:356
+#: ../plugins/osd/__init__.py:357
 msgid "No track played yet"
 msgstr ""
 
-#: ../plugins/osd/__init__.py:396
+#: ../plugins/osd/__init__.py:397
 msgid "Move or resize OSD"
 msgstr ""
 
 #: ../plugins/osd/osd_preferences.py:24 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
-msgstr ""
+msgstr "ეკრანზე ჩვენება"
 
 #: ../plugins/osd/osd_preferences.py:72
 msgid ""
@@ -3442,41 +3493,39 @@ msgid ""
 "from $album"
 msgstr ""
 
-#: ../plugins/playlistanalyzer/__init__.py:55
-#, fuzzy
+#: ../plugins/playlistanalyzer/__init__.py:54
 msgid "Analyze playlists"
-msgstr "ახალი ფლეილისტი"
+msgstr "დასაკრავი სიების ანალიზი"
 
-#: ../plugins/playlistanalyzer/__init__.py:63
+#: ../plugins/playlistanalyzer/__init__.py:62
 #: ../plugins/playlistanalyzer/analyzer.ui:55
-#, fuzzy
 msgid "Analyze playlist"
-msgstr "ახალი ფლეილისტი"
+msgstr "დასაკრავი სიის ანალიზი"
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:200
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:193
 msgid "Modulus this number"
 msgstr ""
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:220
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:211
 #, python-format
 msgid "Tag %s"
 msgstr ""
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:348
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:337
 msgid "Save analysis"
 msgstr ""
 
 #: ../plugins/podcasts/__init__.py:54 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
-msgstr ""
+msgstr "პოდკასტები"
 
 #: ../plugins/podcasts/__init__.py:71
 msgid "Podcast"
-msgstr ""
+msgstr "პოდკასტი"
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Refresh Podcast"
-msgstr ""
+msgstr "პოდკასტის განახლება"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Delete"
@@ -3488,7 +3537,7 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:121
 msgid "Open Podcast"
-msgstr ""
+msgstr "პოდკასტის გახსნა"
 
 #: ../plugins/podcasts/__init__.py:157
 #, python-format
@@ -3511,21 +3560,69 @@ msgstr ""
 msgid "Could not save podcast file"
 msgstr ""
 
-#: ../plugins/previewdevice/__init__.py:146
+#: ../plugins/previewdevice/__init__.py:147
 msgid "Preview Player"
 msgstr ""
 
-#: ../plugins/previewdevice/__init__.py:156
+#: ../plugins/previewdevice/__init__.py:157
 msgid "Preview"
 msgstr ""
 
-#: ../plugins/previewdevice/__init__.py:341
+#: ../plugins/previewdevice/__init__.py:334
 msgid "Pause Playback (double click to stop)"
 msgstr ""
 
 #: ../plugins/previewdevice/previewprefs.py:32
+#: ../plugins/quickbuttons/__init__.py:101
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
+msgstr ""
+
+#: ../plugins/quickbuttons/__init__.py:37
+msgid "Enqueue"
+msgstr "რიგში ჩაყენება"
+
+#: ../plugins/quickbuttons/__init__.py:46
+msgid "Keep playing"
+msgstr "დაკვრის გაგრძელება"
+
+#: ../plugins/quickbuttons/__init__.py:55
+msgid "Auto-Remove"
+msgstr "ავტომატური წაშლა"
+
+#: ../plugins/quickbuttons/__init__.py:64
+msgid "Auto-Advance"
+msgstr ""
+
+#: ../plugins/quickbuttons/__init__.py:73
+#: ../plugins/quickbuttons/__init__.py:74
+msgid "Delay between tracks (in seconds):"
+msgstr ""
+
+#: ../plugins/quickbuttons/__init__.py:82
+msgid "EQ"
+msgstr ""
+
+#: ../plugins/quickbuttons/__init__.py:83 ../plugins/equalizer/equalizer.ui:109
+#: ../plugins/equalizer/PLUGININFO:3
+msgid "Equalizer"
+msgstr "ეკვალაიზერი"
+
+#: ../plugins/quickbuttons/__init__.py:92
+msgid "Main Device"
+msgstr ""
+
+#: ../plugins/quickbuttons/__init__.py:93
+#: ../plugins/quickbuttons/qb_prefs.ui:101
+msgid "Select main audio device"
+msgstr ""
+
+#: ../plugins/quickbuttons/__init__.py:102
+msgid "Select preview audio device"
+msgstr ""
+
+#: ../plugins/quickbuttons/qb_prefs.py:5
+msgid "Quickbuttons"
 msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs.py:31
@@ -3561,21 +3658,21 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
-msgstr ""
+msgstr "გამორთვის შეცდომა"
 
 #: ../plugins/shutdown/__init__.py:151
 msgid "Computer could not be shutdown using D-Bus."
 msgstr ""
 
-#: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:178
+#: ../plugins/somafm/__init__.py:81 ../plugins/somafm/__init__.py:176
 msgid "Contacting SomaFM server..."
 msgstr ""
 
-#: ../plugins/somafm/__init__.py:94 ../plugins/somafm/__init__.py:97
+#: ../plugins/somafm/__init__.py:93 ../plugins/somafm/__init__.py:96
 msgid "Error connecting to SomaFM server."
 msgstr ""
 
-#: ../plugins/somafm/__init__.py:182
+#: ../plugins/somafm/__init__.py:180
 msgid "Error importing playlist"
 msgstr ""
 
@@ -3587,10 +3684,10 @@ msgstr ""
 msgid "Streamripper"
 msgstr ""
 
-#: ../plugins/wikipedia/__init__.py:150 ../plugins/wikipedia/preferences.py:21
+#: ../plugins/wikipedia/__init__.py:149 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
-msgstr ""
+msgstr "Wikipedia - უფასო ენციკლოპედია"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:52
 msgid "<b>Alarm Time</b>"
@@ -3633,10 +3730,8 @@ msgid "Use Fading"
 msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui:255
-#, fuzzy
-#| msgid "Preferences"
 msgid "<b>Audio Preferences</b>"
-msgstr "პარამეტრები"
+msgstr "<b>ხმის მორგებ</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:269
 msgid "Minimum volume:"
@@ -3648,7 +3743,7 @@ msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui:319
 msgid "Increment:"
-msgstr ""
+msgstr "ზრდა:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:344
 msgid "Time step:"
@@ -3657,7 +3752,7 @@ msgstr ""
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:15
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:20
 msgid "API key:"
-msgstr ""
+msgstr "API-ის გასაღები:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:39
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:43
@@ -3697,7 +3792,7 @@ msgstr "პაროლი:"
 msgid "_Verify Login Data"
 msgstr ""
 
-#: ../plugins/bpm/bpm.ui:41
+#: ../plugins/bpm/bpm.ui:42
 msgid "Apply BPM"
 msgstr ""
 
@@ -3716,15 +3811,15 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui:12
 msgid "Ogg Vorbis"
-msgstr ""
+msgstr "Ogg Vorbis"
 
 #: ../plugins/cd/cdprefs_pane.ui:15
 msgid "FLAC"
-msgstr ""
+msgstr "FLAC"
 
 #: ../plugins/cd/cdprefs_pane.ui:18
 msgid "AAC"
-msgstr ""
+msgstr "AAC"
 
 #: ../plugins/cd/cdprefs_pane.ui:21
 msgid "MP3 (VBR)"
@@ -3736,26 +3831,38 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui:27
 msgid "WavPack"
+msgstr "WavPack"
+
+#: ../plugins/cd/cdprefs_pane.ui:56
+msgid "Fetch metadata from internet servers"
 msgstr ""
 
-#: ../plugins/cd/cdprefs_pane.ui:49
-msgid "Import format: "
+#: ../plugins/cd/cdprefs_pane.ui:69
+msgid "Disc metadata"
 msgstr ""
 
-#: ../plugins/cd/cdprefs_pane.ui:79
-msgid "Import quality: "
+#: ../plugins/cd/cdprefs_pane.ui:101
+msgid "Format: "
 msgstr ""
 
-#: ../plugins/cd/cdprefs_pane.ui:108
-msgid "Import path: "
+#: ../plugins/cd/cdprefs_pane.ui:131
+msgid "Quality: "
+msgstr "ხარისხი: "
+
+#: ../plugins/cd/cdprefs_pane.ui:160
+msgid "Path: "
 msgstr ""
 
-#: ../plugins/cd/cdprefs_pane.ui:149
+#: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
 #, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
+msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.ui:218
+msgid "Import tracks to disk"
 msgstr ""
 
 #. Window title
@@ -3773,7 +3880,7 @@ msgstr ""
 
 #: ../plugins/daapserver/daapserver_prefs.ui:21
 msgid "Server name:"
-msgstr ""
+msgstr "სერვერის სახელი:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui:45
 msgid "Server host:"
@@ -3789,27 +3896,27 @@ msgstr ""
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:35
 msgid "Top left"
-msgstr ""
+msgstr "ზედა მარცხენა"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:39
 msgid "Top right"
-msgstr ""
+msgstr "ზედა მარჯვენა"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:43
 msgid "Bottom left"
-msgstr ""
+msgstr "ქვედა მარცხენა"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:47
 msgid "Bottom right"
-msgstr ""
+msgstr "ქვედა მარჯვენა"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:61
 msgid "Anchor:"
-msgstr ""
+msgstr "მიმაგრება:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:93
 msgid "X offset:"
-msgstr ""
+msgstr "X წანაცვლება:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:122
 #: ../plugins/desktopcover/desktopcover_preferences.ui:162
@@ -3819,7 +3926,7 @@ msgstr ""
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:135
 msgid "Y offset:"
-msgstr ""
+msgstr "Y წანაცვლება:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:172
 msgid "Override cover size"
@@ -3839,7 +3946,7 @@ msgstr ""
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:271
 msgid "ms"
-msgstr ""
+msgstr "მწმ"
 
 #: ../plugins/developer/developer_window.ui:21
 msgid "Exaile Developer Tools"
@@ -3847,7 +3954,7 @@ msgstr ""
 
 #: ../plugins/developer/developer_window.ui:75
 msgid "Count"
-msgstr ""
+msgstr "რაოდენობა"
 
 #: ../plugins/developer/developer_window.ui:106
 msgid "Filter event types"
@@ -3855,11 +3962,17 @@ msgstr ""
 
 #: ../plugins/developer/developer_window.ui:156
 msgid "Events"
+msgstr "მოვლენები"
+
+#: ../plugins/equalizer/equalizer.ui:123
+#: ../plugins/multialarmclock/malrmclk.ui:94
+msgid "_Add"
 msgstr ""
 
-#: ../plugins/equalizer/equalizer.ui:109 ../plugins/equalizer/PLUGININFO:3
-msgid "Equalizer"
-msgstr ""
+#: ../plugins/equalizer/equalizer.ui:139
+#: ../plugins/multialarmclock/malrmclk.ui:110
+msgid "_Remove"
+msgstr "_წაშლა"
 
 #: ../plugins/equalizer/equalizer.ui:206
 msgid "pre"
@@ -3867,7 +3980,7 @@ msgstr ""
 
 #: ../plugins/equalizer/equalizer.ui:356
 msgid "29"
-msgstr ""
+msgstr "29"
 
 #: ../plugins/equalizer/equalizer.ui:383
 msgid "59"
@@ -3927,7 +4040,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_import.ui:129
 msgid "Merge"
-msgstr ""
+msgstr "_შერწყმა"
 
 #: ../plugins/grouptagger/gt_import.ui:144
 msgid "Replace"
@@ -3942,9 +4055,8 @@ msgid "If empty, matches all tracks"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui:101
-#, fuzzy
 msgid "Search Tag"
-msgstr "ძიება: "
+msgstr "ჭდის ძებნა"
 
 #: ../plugins/grouptagger/gt_mass.ui:112
 msgid "Use the empty string to delete the tag"
@@ -3986,7 +4098,7 @@ msgstr ""
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:49
 msgid "Font:"
-msgstr ""
+msgstr "ფონტი:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:74
 msgid "Text Color:"
@@ -3994,7 +4106,7 @@ msgstr ""
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:99
 msgid "Background Color:"
-msgstr ""
+msgstr "ფონის ფერი:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:121
 msgid "Launch IPython console when Exaile starts"
@@ -4002,7 +4114,7 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:40
 msgid "Release date"
-msgstr ""
+msgstr "რელიზის თარიღი"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:48
 msgid "Rating this week"
@@ -4026,7 +4138,7 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:68
 msgid "Starred"
-msgstr ""
+msgstr "ვარსკვლავდასმული"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:72
 msgid "Date of starring"
@@ -4038,7 +4150,7 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:176
 msgid "Order by:"
-msgstr ""
+msgstr "დალაგება:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:206
 msgid "Order direction:"
@@ -4046,11 +4158,11 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:237
 msgid "Results:"
-msgstr ""
+msgstr "შედეგები:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:264
 msgid "Advanced"
-msgstr ""
+msgstr "დამატებით"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:63
 msgid "_Request Access Permission"
@@ -4068,12 +4180,12 @@ msgstr ""
 #. TRANSLATORS: Minimode window decoration option
 #: ../plugins/minimode/minimode_preferences.ui:15
 msgid "Full"
-msgstr ""
+msgstr "სრული"
 
 #. TRANSLATORS: Minimode window decoration option
 #: ../plugins/minimode/minimode_preferences.ui:19
 msgid "Simple"
-msgstr ""
+msgstr "მარტივი"
 
 #: ../plugins/minimode/minimode_preferences.ui:70
 msgid ""
@@ -4083,7 +4195,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimode_preferences.ui:84
 msgid "Controls"
-msgstr ""
+msgstr "მმართველები"
 
 #: ../plugins/minimode/minimode_preferences.ui:149
 msgid "Track Title Format"
@@ -4091,7 +4203,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimode_preferences.ui:165
 msgid "Always on top"
-msgstr ""
+msgstr "ყოველთვის ყველა ფანჯარაზე ზემოდან"
 
 #: ../plugins/minimode/minimode_preferences.ui:179
 msgid "Show in tasklist"
@@ -4099,7 +4211,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimode_preferences.ui:193
 msgid "Show on all desktops"
-msgstr ""
+msgstr "ყველა სამუშაო მაგიდაზე ჩვენება"
 
 #: ../plugins/minimode/minimode_preferences.ui:207
 msgid "Display window decorations:"
@@ -4124,16 +4236,6 @@ msgstr ""
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
 msgstr ""
-
-#: ../plugins/multialarmclock/malrmclk.ui:94
-msgid "_Add"
-msgstr ""
-
-#: ../plugins/multialarmclock/malrmclk.ui:110
-#, fuzzy
-#| msgid "Remove"
-msgid "_Remove"
-msgstr "ამოშლა"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"
@@ -4174,11 +4276,11 @@ msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.ui:33
 msgid "Display"
-msgstr ""
+msgstr "დისპლეი"
 
 #: ../plugins/notify/notifyprefs_pane.ui:61
 msgid "Icons"
-msgstr ""
+msgstr "ხატულები"
 
 #: ../plugins/notify/notifyprefs_pane.ui:74
 msgid "Use album covers as icons"
@@ -4205,8 +4307,8 @@ msgstr ""
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
-"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-"\">Pango Text Attribute Markup</a> is supported."
+"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat."
+"html\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui:87
@@ -4219,15 +4321,15 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui:142
 msgid "Background:"
-msgstr ""
+msgstr "ფონი:"
 
 #: ../plugins/osd/osd_preferences.ui:166
 msgid "Border radius:"
-msgstr ""
+msgstr "საზღვრის რადიუსი:"
 
 #: ../plugins/osd/osd_preferences.ui:188
 msgid "Show progress bar"
-msgstr ""
+msgstr "მიმდინარების ზოლის ჩვენება"
 
 #: ../plugins/osd/osd_preferences.ui:271
 msgid ""
@@ -4236,7 +4338,7 @@ msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui:73
 msgid "Presets"
-msgstr ""
+msgstr "პრესეტები"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 msgid "<none selected>"
@@ -4264,7 +4366,7 @@ msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui:555
 msgid "Generate"
-msgstr ""
+msgstr "გენერაცია"
 
 #: ../plugins/podcasts/podcasts.ui:18
 msgid "_Add Podcast"
@@ -4272,7 +4374,7 @@ msgstr ""
 
 #: ../plugins/previewdevice/previewprefs.ui:103
 msgid "Fade duration:"
-msgstr ""
+msgstr "მინავლების ხანგრძლივობა:"
 
 #: ../plugins/previewdevice/previewprefs.ui:143
 msgid "Crossfade duration:"
@@ -4280,6 +4382,18 @@ msgstr ""
 
 #: ../plugins/previewdevice/previewprefs.ui:223
 msgid "Audio Device:"
+msgstr ""
+
+#: ../plugins/quickbuttons/qb_prefs.ui:72
+msgid "Delay between tracks (in seconds)"
+msgstr ""
+
+#: ../plugins/quickbuttons/qb_prefs.ui:87
+msgid "Equalizer (depends on Equalizer Plugin)"
+msgstr ""
+
+#: ../plugins/quickbuttons/qb_prefs.ui:115
+msgid "Select preview audio device (depends on previewdevice plugin)"
 msgstr ""
 
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
@@ -4341,15 +4455,15 @@ msgstr ""
 #: ../plugins/wikipedia/data/wikipanel.ui:24
 #: ../plugins/wikipedia/data/wikipanel.ui:25
 msgid "Home"
-msgstr ""
+msgstr "სახლი"
 
 #: ../plugins/wikipedia/data/wikipanel.ui:49
 msgid "Back"
-msgstr ""
+msgstr "უკან"
 
 #: ../plugins/wikipedia/data/wikipanel.ui:101
 msgid "Forward"
-msgstr ""
+msgstr "წინ"
 
 #: ../plugins/abrepeat/PLUGININFO:3
 msgid "A-B Repeat"
@@ -4363,7 +4477,7 @@ msgstr ""
 #: ../plugins/karaoke/PLUGININFO:5 ../plugins/mono/PLUGININFO:5
 #: ../plugins/replaygain/PLUGININFO:5
 msgid "Effect"
-msgstr ""
+msgstr "ეფექტი"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -4376,10 +4490,10 @@ msgstr ""
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5
 #: ../plugins/inhibitsuspend/PLUGININFO:5
-#: ../plugins/multialarmclock/PLUGININFO:5
+#: ../plugins/multialarmclock/PLUGININFO:5 ../plugins/quickbuttons/PLUGININFO:5
 #: ../plugins/screensaverpause/PLUGININFO:5 ../plugins/shutdown/PLUGININFO:5
 msgid "Utility"
-msgstr ""
+msgstr "ხელსაწყო"
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -4397,11 +4511,11 @@ msgstr ""
 #: ../plugins/audioscrobbler/PLUGININFO:5 ../plugins/currentsong/PLUGININFO:5
 #: ../plugins/notify/PLUGININFO:5 ../plugins/osd/PLUGININFO:5
 msgid "Notifications"
-msgstr ""
+msgstr "გაფრთხილებები"
 
 #: ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
-msgstr ""
+msgstr "სანიშნეები"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
@@ -4423,12 +4537,13 @@ msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
 "Requires UDisks2 to autodetect CDs\n"
-"Requires cddb-py (%s) to look up tags."
+"Requires python-libdiscid (%s) and python-musicbrainzngs (%s) to look up "
+"tags."
 msgstr ""
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
 msgid "Devices"
-msgstr ""
+msgstr "მოწყობილობები"
 
 #: ../plugins/console/PLUGININFO:3
 msgid "Simple console"
@@ -4441,7 +4556,7 @@ msgstr ""
 #: ../plugins/console/PLUGININFO:5 ../plugins/developer/PLUGININFO:5
 #: ../plugins/helloworld/PLUGININFO:5 ../plugins/ipconsole/PLUGININFO:5
 msgid "Development"
-msgstr ""
+msgstr "შემუშავება"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song in Pidgin"
@@ -4450,7 +4565,7 @@ msgstr ""
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
-"out the suppported services."
+"out the supported services."
 msgstr ""
 
 #: ../plugins/daapclient/PLUGININFO:4
@@ -4482,11 +4597,11 @@ msgstr ""
 #: ../plugins/desktopcover/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5
 #: ../plugins/minimode/PLUGININFO:5 ../plugins/moodbar/PLUGININFO:5
 msgid "GUI"
-msgstr ""
+msgstr "ინტერფეისი"
 
 #: ../plugins/developer/PLUGININFO:3
 msgid "Developer"
-msgstr ""
+msgstr "პროგრამისტი"
 
 #: ../plugins/developer/PLUGININFO:4
 msgid "Provides diagnostic information for Exaile developers"
@@ -4512,7 +4627,7 @@ msgstr ""
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "გამარჯობა კინო"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
@@ -4532,7 +4647,7 @@ msgstr ""
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
-msgstr ""
+msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
@@ -4580,7 +4695,7 @@ msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:5
 msgid "Dynamic Playlists"
-msgstr ""
+msgstr "დინამიკური დასაკრავი სიები"
 
 #: ../plugins/lastfmlove/PLUGININFO:4
 msgid ""
@@ -4603,16 +4718,6 @@ msgstr ""
 msgid ""
 "Plugin to fetch lyrics from lyricsmania.com\n"
 "Requires: lxml"
-msgstr ""
-
-#: ../plugins/lyricwiki/PLUGININFO:3
-msgid "Lyrics Wiki"
-msgstr ""
-
-#: ../plugins/lyricwiki/PLUGININFO:4
-msgid ""
-"Plugin to fetch lyrics from lyrics.wikia.com\n"
-"Requires: BeautifulSoup4, lxml"
 msgstr ""
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
@@ -4639,7 +4744,7 @@ msgstr ""
 
 #: ../plugins/mono/PLUGININFO:3
 msgid "Mono"
-msgstr ""
+msgstr "მონო"
 
 #: ../plugins/mono/PLUGININFO:4
 msgid "Downmixes audio to one channel."
@@ -4696,9 +4801,8 @@ msgid ""
 msgstr ""
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
-#, fuzzy
 msgid "Playlist Analyzer"
-msgstr "რეპერტუარები"
+msgstr "დასაკრავი სიის ანალიზი"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:4
 msgid ""
@@ -4708,7 +4812,7 @@ msgstr ""
 
 #: ../plugins/playlistanalyzer/PLUGININFO:5 ../plugins/wikipedia/PLUGININFO:5
 msgid "Information"
-msgstr ""
+msgstr "ინფორმაცია"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
@@ -4722,6 +4826,15 @@ msgstr ""
 
 #: ../plugins/previewdevice/PLUGININFO:5 ../plugins/streamripper/PLUGININFO:5
 msgid "Output"
+msgstr "გამოტანა"
+
+#: ../plugins/quickbuttons/PLUGININFO:3
+msgid "Quick Settings Buttons"
+msgstr ""
+
+#: ../plugins/quickbuttons/PLUGININFO:4
+msgid ""
+"Provides buttons on bottom of the playlist to quickly change some settings"
 msgstr ""
 
 #: ../plugins/replaygain/PLUGININFO:4
@@ -4768,10 +4881,50 @@ msgstr ""
 #: ../plugins/winmmkeys/PLUGININFO:4
 #, python-format
 msgid ""
-"Adds support for multimedia keys (present on most new keyboards) when "
-"running Exaile in Microsoft Windows.\n"
+"Adds support for keyboard multimedia keys on Windows.\n"
 "\n"
-"Requires: pyHook (%s) or keyboard (%s)"
+"Requires: pynput (%s) (included in the Exaile installer)\n"
+"\n"
+"Warning: When this plugin is enabled, Exaile will process every key event in "
+"the Windows session, which may cause some security software to detect Exaile "
+"as a keylogger."
+msgstr ""
+
+#: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
+msgid "Exaile"
+msgstr "Exaile"
+
+#: ../data/exaile.desktop.in:6
+msgid "Music Player"
+msgstr "მედია დამკვრელი"
+
+#: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
+msgid "Listen to, explore, or manage your audio collection"
+msgstr ""
+
+#: ../data/exaile.desktop.in:14
+msgid "Music;Player;Library;Collection;MP3;"
+msgstr ""
+
+#: ../data/exaile.desktop.in:15
+msgid "player,mp3,ogg"
+msgstr ""
+
+#: ../data/exaile.appdata.xml.in:9
+msgid ""
+"Exaile is a music player with a simple interface and powerful music "
+"management capabilities. Features include automatic fetching of album art, "
+"lyrics fetching, streaming internet radio, tabbed playlists, smart playlists "
+"with extensive filtering/search capabilities, and much more."
+msgstr ""
+
+#: ../data/exaile.appdata.xml.in:15
+msgid ""
+"Exaile is written using python and GTK+ and is easily extensible via "
+"plugins. There are over 50 plugins distributed with Exaile that include "
+"advanced track tagging, last.fm scrobbling, support for portable media "
+"players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
+"output via a secondary output device (great for DJs!), and much more."
 msgstr ""
 
 #, fuzzy

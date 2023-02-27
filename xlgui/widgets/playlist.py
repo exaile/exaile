@@ -442,6 +442,57 @@ class PlaylistPageBase(NotebookPage):
 
     menu_provider_name = 'playlist-tab-context-menu'
 
+    def __init__(self, playlist, player):
+        NotebookPage.__init__(self)
+
+        self.player = player
+        self.playlist = playlist
+
+        self.play_pixbuf = icons.MANAGER.pixbuf_from_icon_name(
+            'media-playback-start', size=Gtk.IconSize.MENU
+        )
+        self.pause_pixbuf = icons.MANAGER.pixbuf_from_icon_name(
+            'media-playback-pause', size=Gtk.IconSize.MENU
+        )
+
+        event.add_ui_callback(
+            self.on_playback_state_change,
+            "playback_track_start",
+            player,
+            destroy_with=self,
+        )
+        event.add_ui_callback(
+            self.on_playback_state_change,
+            "playback_track_end",
+            player,
+            destroy_with=self,
+        )
+        event.add_ui_callback(
+            self.on_playback_state_change,
+            "playback_player_pause",
+            player,
+            destroy_with=self,
+        )
+        event.add_ui_callback(
+            self.on_playback_state_change,
+            "playback_player_resume",
+            player,
+            destroy_with=self,
+        )
+
+    def on_playback_state_change(self, typ, player, track):
+        """
+        Sets the tab icon to reflect the playback status
+        """
+        if player.queue.current_playlist != self.playlist:
+            self.tab.set_icon(None)
+        elif typ in ('playback_player_end', 'playback_track_end'):
+            self.tab.set_icon(None)
+        elif typ in ('playback_track_start', 'playback_player_resume'):
+            self.tab.set_icon(self.play_pixbuf)
+        elif typ == 'playback_player_pause':
+            self.tab.set_icon(self.pause_pixbuf)
+
     def can_save(self):
         return hasattr(self, 'on_save')
 
@@ -462,24 +513,17 @@ class PlaylistPage(PlaylistPageBase):
             this page is associated with
         :param queue:
         """
+        PlaylistPageBase.__init__(self, playlist, player)
         NotebookPage.__init__(self)
 
-        self.playlist = playlist
         self.icon = None
 
         self.loading = None
         self.loading_timer = None
 
-        self.play_pixbuf = icons.MANAGER.pixbuf_from_icon_name(
-            'media-playback-start', size=Gtk.IconSize.MENU
-        )
-        self.pause_pixbuf = icons.MANAGER.pixbuf_from_icon_name(
-            'media-playback-pause', size=Gtk.IconSize.MENU
-        )
-
         uifile = xdg.get_data_path("ui", "playlist.ui")
-        self.builder = Gtk.Builder()
-        self.builder.add_from_file(uifile)
+
+        self.builder = guiutil.get_builder(uifile)
         playlist_page = self.builder.get_object("playlist_page")
 
         for child in playlist_page.get_children():
@@ -538,31 +582,6 @@ class PlaylistPage(PlaylistPageBase):
             destroy_with=self,
         )
         event.add_ui_callback(self.on_option_set, 'gui_option_set', destroy_with=self)
-
-        event.add_ui_callback(
-            self.on_playback_state_change,
-            "playback_track_start",
-            player,
-            destroy_with=self,
-        )
-        event.add_ui_callback(
-            self.on_playback_state_change,
-            "playback_track_end",
-            player,
-            destroy_with=self,
-        )
-        event.add_ui_callback(
-            self.on_playback_state_change,
-            "playback_player_pause",
-            player,
-            destroy_with=self,
-        )
-        event.add_ui_callback(
-            self.on_playback_state_change,
-            "playback_player_resume",
-            player,
-            destroy_with=self,
-        )
 
         self.on_mode_changed(
             None, None, self.playlist.shuffle_mode, self.shuffle_button
@@ -755,19 +774,6 @@ class PlaylistPage(PlaylistPageBase):
             self.playlist_utilities_bar.set_sensitive(visible)
             self.playlist_utilities_bar.set_no_show_all(not visible)
 
-    def on_playback_state_change(self, typ, player, track):
-        """
-        Sets the tab icon to reflect the playback status
-        """
-        if player.queue.current_playlist != self.playlist:
-            self.tab.set_icon(None)
-        elif typ in ('playback_player_end', 'playback_track_end'):
-            self.tab.set_icon(None)
-        elif typ in ('playback_track_start', 'playback_player_resume'):
-            self.tab.set_icon(self.play_pixbuf)
-        elif typ == 'playback_player_pause':
-            self.tab.set_icon(self.pause_pixbuf)
-
     def on_data_loading(self, model, loading):
         '''Called when tracks are being loaded into the model'''
         if loading:
@@ -787,7 +793,6 @@ class PlaylistPage(PlaylistPageBase):
                 self.loading = None
 
     def on_data_loading_timer(self):
-
         if self.loading_timer is None:
             return
 
@@ -842,6 +847,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         self.menu = PlaylistContextMenu(self)
         self.header_menu = menu.ProviderMenu('playlist-columns-menu', self)
+        self.header_menu.set_context_func(self.get_header_context)
         self.header_menu.attach_to_widget(self)
 
         self.dragging = False
@@ -893,6 +899,12 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         event.add_ui_callback(
             self.on_playback_start,
             "playback_track_start",
+            self.player,
+            destroy_with=self,
+        )
+        event.add_ui_callback(
+            self.on_playback_start,
+            "playlist_track_next",
             self.player,
             destroy_with=self,
         )
@@ -1093,15 +1105,14 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             header = playlist_column.get_widget()
             header.show()
             header.get_ancestor(Gtk.Button).connect(
-                'button-press-event', self.on_header_button_press
+                'button-press-event', self.on_header_button_press, playlist_column
             )
 
             header.get_ancestor(Gtk.Button).connect(
-                'key-press-event', self.on_header_key_press_event
+                'key-press-event', self.on_header_key_press_event, playlist_column
             )
 
     def _compute_font(self):
-
         font = settings.get_option('gui/playlist_font', None)
         if font is not None:
             font = Pango.FontDescription(font)
@@ -1163,11 +1174,22 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def _setup_models(self):
         self.model = PlaylistModel(self.playlist, [], self.player, self)
-        self.model.connect('row-inserted', self.on_row_inserted)
+        self.__setup_model_hook = self.model.connect(
+            'data-loading', self._on_after_model_loading
+        )
 
         self.modelfilter = self.model.filter_new()
         self.modelfilter.set_visible_func(self._modelfilter_visible_func)
         self.set_model(self.modelfilter)
+
+    def _on_after_model_loading(self, ar1, now_loading):
+        """
+        This is necessary to ensure that row-insert is connected after the initial loading
+        due to threaded PlaylistModel::_load_data_thread and playlists greater than 500 tracks
+        """
+        if not now_loading:
+            self.model.connect('row-inserted', self.on_row_inserted)
+            self.model.disconnect(self.__setup_model_hook)
 
     def _modelfilter_visible_func(self, model, iter, data):
         if self._filter_matcher is not None:
@@ -1175,10 +1197,36 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             return self._filter_matcher.match(trax.SearchResultTrack(track))
         return True
 
-    def on_header_button_press(self, widget, event):
+    def on_header_button_press(
+        self,
+        widget: Gtk.Widget,
+        event: Gdk.EventButton,
+        header_column: playlist_columns.Column,
+    ):
         if event.triggers_context_menu():
-            self.header_menu.popup(None, None, None, None, event.button, event.time)
+            self.set_selected_header(header_column)
+            self.header_menu.popup_at_pointer(event)
             return True
+
+    def on_header_key_press_event(
+        self,
+        widget: Gtk.Widget,
+        event: Gdk.EventButton,
+        header_column: playlist_columns.Column,
+    ):
+        if event.keyval == Gdk.KEY_Menu:
+            # Open context menu for selecting visible columns
+            self.set_selected_header(header_column)
+            self.header_menu.popup_at_widget(widget, event)
+            return True
+
+    def get_header_context(self, dummy):
+        context = {}
+        context['trigger_column'] = self.selected_header
+        return context
+
+    def set_selected_header(self, header: playlist_columns.Column) -> None:
+        self.selected_header = header
 
     def on_columns_changed(self, widget):
         columns = [c.name for c in self.get_columns()[1:]]
@@ -1322,7 +1370,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 and not e.state & Gtk.accelerator_get_default_mod_mask()
                 and selection.path_is_selected(path)
             ):
-
                 if selection.count_selected_rows() > 1:
                     selection.set_select_function(lambda *args: False, None)
                     self.pending_event = (path, col)
@@ -1459,13 +1506,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         elif event.keyval == Gdk.KEY_Return:
             self.on_row_activated()
             return True  # Prevent 'row-activated'
-
-    def on_header_key_press_event(self, widget, event):
-        if event.keyval == Gdk.KEY_Menu:
-            # Open context menu for selecting visible columns
-            m = menu.ProviderMenu('playlist-columns-menu', self)
-            m.popup(None, None, None, None, 0, event.time)
-            return True
 
     ### DND handlers ###
     # Source
@@ -1949,12 +1989,10 @@ class PlaylistModel(Gtk.ListStore):
             pixbuf = self.stop_pixbuf.pixbuf
 
         if playlist is self.player.queue.current_playlist:
-
             if (
                 playlist.current_position == rowidx
                 and playlist[rowidx] == self.player.current
             ):
-
                 # this row is the current track, set a special icon
                 state = self.player.get_state()
 
@@ -2058,7 +2096,6 @@ class PlaylistModel(Gtk.ListStore):
     #
 
     def _load_data(self, tracks):
-
         # Don't allow race condition between adds.. there's probably a race
         # condition for removal
         if self.data_loading:

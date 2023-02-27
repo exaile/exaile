@@ -47,7 +47,7 @@ DEFAULT_ICON_SIZE = (48, 48)
 
 BODY_ARTIST_ALBUM = _('from {album} by {artist}')
 BODY_ARTIST = _('by {artist}')
-BODY_ALBUM = _('by {album}')
+BODY_ALBUM = _('from {album}')
 
 
 class NotifierSettings:
@@ -82,7 +82,6 @@ class NotifierSettings:
 
 
 class Notifier(PlaybackAdapter):
-
     settings = NotifierSettings()
 
     def __init__(self, exaile, caps):

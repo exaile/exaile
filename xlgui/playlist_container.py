@@ -325,15 +325,16 @@ class PlaylistNotebook(SmartNotebook):
         and selects it and its containing tab page
         """
         for n, page in enumerate(self):
-            if not isinstance(page, PlaylistPage):
+            if not isinstance(page, PlaylistPage) and not isinstance(page, QueuePage):
                 continue
 
             if page.playlist is not self.player.queue.current_playlist:
                 continue
 
             self.set_current_page(n)
-            page.view.scroll_to_cell(page.playlist.current_position)
-            page.view.set_cursor(page.playlist.current_position)
+            if page.playlist.current_position > -1:
+                page.view.scroll_to_cell(page.playlist.current_position)
+                page.view.set_cursor(page.playlist.current_position)
             return True
 
     def on_page_added(self, notebook, child, page_number):
@@ -353,7 +354,6 @@ class PlaylistNotebook(SmartNotebook):
 
         # closed tab history
         if not self._moving_tab:
-
             if settings.get_option('gui/save_closed_tabs', True) and isinstance(
                 child, PlaylistPage
             ):
@@ -430,11 +430,11 @@ class PlaylistNotebook(SmartNotebook):
             except IndexError:
                 return None
         elif playlist is not None:
-            for (pl, item) in self.tab_history:
+            for pl, item in self.tab_history:
                 if pl == playlist:
                     return (pl, item)
         elif item_name is not None:
-            for (pl, item) in self.tab_history:
+            for pl, item in self.tab_history:
                 if item.name == item_name:
                     return (pl, item)
 

@@ -36,6 +36,8 @@ import platform
 import sys
 import threading
 
+from .version import register
+
 from xl import logger_setup
 from xl.externals.sigint import InterruptibleLoopContext
 from xl.nls import gettext as _
@@ -348,6 +350,12 @@ def create_argument_parser():
         default=False,
         help=_("Make control options like" " --play start Exaile if it is not running"),
     )
+    group.add_argument(
+        "--use-lang",
+        dest="UseLanguage",
+        default='',
+        help=_("Locale to use for Exaile"),
+    )
 
     group = p.add_argument_group(_('Development/Debug Options'))
     group.add_argument(
@@ -489,6 +497,7 @@ class Exaile:
             xdg.config_home = alldatadir
             xdg.config_dirs.insert(0, xdg.config_home)
             xdg.cache_home = alldatadir
+            xdg.plugin_dirs[0] = os.path.join(alldatadir, 'plugins')
 
         try:
             xdg._make_missing_dirs()
@@ -594,7 +603,6 @@ class Exaile:
         logger.info("Loading Exaile %s...", __version__)
 
         from gi.repository import GObject
-        from .version import register
 
         register('Python', platform.python_version())
         register('PyGObject', '%d.%d.%d' % GObject.pygobject_version)
@@ -608,19 +616,7 @@ class Exaile:
 
         logger.debug("Settings loaded from %s", settings.location)
 
-        # display locale information if available
-        try:
-            import locale
-
-            lc, enc = locale.getlocale()
-            if enc is not None:
-                locale_str = '%s %s' % (lc, enc)
-            else:
-                locale_str = _('Unknown')
-
-            register('Locale', locale_str)
-        except Exception:
-            pass
+        self._set_locale(self.options.UseLanguage)
 
         splash = None
 
@@ -693,7 +689,7 @@ class Exaile:
 
         event.log_event("player_loaded", player.PLAYER, None)
 
-        # Initalize playlist manager
+        # Initialize playlist manager
         from xl import playlist
 
         self.playlists = playlist.PlaylistManager()
@@ -709,7 +705,7 @@ class Exaile:
 
         dynamic.MANAGER.collection = self.collection
 
-        # Initalize device manager
+        # Initialize device manager
         logger.info("Loading devices...")
         from xl import devices
 
@@ -742,7 +738,8 @@ class Exaile:
             import xlgui
 
             self.gui = xlgui.Main(self)
-            self.gui.main.window.show_all()
+            if not self.options.StartMinimized:
+                self.gui.main.window.show_all()
             event.log_event("gui_loaded", self, None)
 
             if splash is not None:
@@ -772,12 +769,39 @@ class Exaile:
             # -> don't do it in command line mode, since that isn't expected
             self.gui.rescan_collection_with_progress(True)
 
-        if restore:
+        restore_play_state = settings.get_option("player/resume_playback", True)
+
+        if restore and restore_play_state:
             player.QUEUE._restore_player_state(
                 os.path.join(xdg.get_data_dir(), 'player.state')
             )
 
+            if self.gui:
+                GLib.idle_add(self.gui.get_playlist_container().show_current_track)
+
         # pylint: enable-msg=W0201
+
+    def _set_locale(self, custom_lang: str = None) -> None:
+        """
+        Get and set locale setting
+        """
+        try:
+            import locale
+
+            lc, enc = locale.getlocale()
+
+            if custom_lang:
+                lc = custom_lang
+
+            if enc is not None:
+                locale_str = '%s %s' % (lc, enc)
+            else:
+                locale_str = _('Unknown')
+
+            os.environ['LANGUAGE'] = lc
+            register('Locale', locale_str)
+        except Exception:
+            pass
 
     def version(self):
         from xl.version import __version__
@@ -876,7 +900,6 @@ class Exaile:
         fmt = {'version': version}
 
         if not hasattr(self, '_user_agent_no_plugin'):
-
             from xl import settings
 
             default_no_plugin = 'Exaile/%(version)s (+https://www.exaile.org)'

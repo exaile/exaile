@@ -41,7 +41,6 @@ def disable(exaile):
 
 
 class LyricsMania(LyricSearchMethod):
-
     name = "lyricsmania"
     display_name = "Lyrics Mania"
 

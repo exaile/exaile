@@ -228,7 +228,6 @@ class DAAPPlaylist:
 
 
 class DAAPTrack:
-
     attrmap = {
         'name': 'minm',
         'artist': 'asar',
@@ -252,7 +251,7 @@ class DAAPTrack:
 
     def request(self):
         """returns a 'response' object for the track's mp3 data.
-        presumably you can strem from this or something"""
+        presumably you can stream from this or something"""
 
         # gotta bump this every track download
         self.database.session.connection.request_id += 1

@@ -36,7 +36,6 @@ from xlgui.preferences import lyrics as lyricsprefs
 
 
 class LyricsPanel(panel.Panel):
-
     # public variable for xlgui.panel.Panel
     ui_info = ('lyrics.ui', 'LyricsPanel')
 
@@ -187,7 +186,7 @@ class LyricsPanel(panel.Panel):
         url = ""
         if self.__lyrics_found:
             (index, selected_method) = self.__lyrics_methods_combo.get_active_item()
-            for (name, i_lyrics, i_source, i_url) in self.__lyrics_found:
+            for name, i_lyrics, i_source, i_url in self.__lyrics_found:
                 if name == selected_method or index == 0:
                     lyrics, source, url = i_lyrics, i_source, i_url
                     break

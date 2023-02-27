@@ -54,7 +54,6 @@ from xlgui.widgets import menu, menuitems
 
 
 def __create_track_panel_menus():
-
     items = []
 
     items.append(menuitems.EnqueueMenuItem('enqueue', after=['top-sep']))
@@ -202,7 +201,6 @@ class FilesContextMenu(menu.MultiProviderMenu):
 
 
 def __create_playlist_panel_menus():
-
     # w, n, o, c: window, name, parent, context
 
     menu.simple_menu_item(
@@ -250,7 +248,6 @@ class PlaylistPanelMenu(menu.ProviderMenu):
 
 
 def __create_playlist_panel_playlist_menus():
-
     items = []
 
     items.append(menu.simple_separator('pp-top-sep', ['properties']))
@@ -316,7 +313,6 @@ class PlaylistsPanelPlaylistMenu(menu.MultiProviderMenu):
 
 
 def __create_radio_panel_menus():
-
     # w, n, o, c: window, name, parent, context
 
     menu.simple_menu_item(

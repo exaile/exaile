@@ -12,6 +12,7 @@ Core dependencies
 Essential:
 
 * python3 >= 3.6
+* python3-typing-extensions (python3 <= 3.7 only)
 * python3-bsddb3
 * gtk+ >= 3.22
 * gstreamer (>= 1.14)
@@ -54,7 +55,8 @@ Device detection:
 
 CD info: (TODO: This is currently broken on python3, see #608 and #652)
 
-* cddb (python2), from http://cddb-py.sourceforge.net/
+* python-libdiscid or python-discid (optional on linux, required to use musicbrainz)
+* python-musicbrainzngs (optional)
 
 DAAP plugins (daapserver and daapclient):
 
@@ -67,11 +69,6 @@ Last.FM integration:
 
 Lyrics from lyricsmania.com (lyricsmania):
 
-* lxml (python3)
-
-Lyrics from lyrics.wikia.com (lyricwiki):
-
-* Beautifulsoup4 (python3)
 * lxml (python3)
 
 Musicbrainz covers:
@@ -112,6 +109,5 @@ BPM Counter plugin:
 
 Test dependencies:
 
-* mox3 (python3)
 * pytest (python3)
 

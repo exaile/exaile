@@ -31,9 +31,11 @@ preparation of data for display in various contexts.
 """
 
 from datetime import date
+import re
+from typing import Dict, Tuple, Union
+
 from gi.repository import GLib
 from gi.repository import GObject
-import re
 
 from xl import common, providers, settings, trax
 from xl.common import TimeSpan
@@ -211,7 +213,9 @@ class Formatter(GObject.GObject):
         else:
             raise AttributeError('unknown property %s' % property.name)
 
-    def extract(self):
+    Extractions = Dict[str, Tuple[str, Dict[str, Union[bool, str]]]]
+
+    def extract(self) -> Extractions:
         """
         Retrieves the identifiers and their optional parameters
 
@@ -227,10 +231,9 @@ class Formatter(GObject.GObject):
             }
 
         :returns: the extractions
-        :rtype: dict
         """
         matches = self._template.pattern.finditer(self._template.template)
-        extractions = {}
+        extractions: Formatter.Extractions = {}
 
         # Extract list of identifiers and parameters from the format string
         for match in matches:
@@ -269,7 +272,7 @@ class Formatter(GObject.GObject):
 
                 identifier_parts += [groups['parameters']]
 
-            # Required to make multiple occurences of the same
+            # Required to make multiple occurrences of the same
             # identifier with different parameters work
             extractions[':'.join(identifier_parts)] = (identifier, parameters)
 

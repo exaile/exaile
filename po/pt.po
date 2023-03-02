@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-23 11:25+0100\n"
-"PO-Revision-Date: 2022-12-23 02:03+0000\n"
-"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
+"PO-Revision-Date: 2023-02-28 18:37+0000\n"
+"Last-Translator: Felipe Nogueira <contato.fnog@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 4.16-rc\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1425,13 +1425,11 @@ msgstr[1] "Plugins que falharam: %s"
 
 #: ../xlgui/preferences/plugin.py:235
 msgid "Do you really want to remove this plugin?"
-msgstr ""
+msgstr "Você realmente deseja remover este plug-in?"
 
 #: ../xlgui/preferences/plugin.py:245
-#, fuzzy
-#| msgid "Could not enable plugin!"
 msgid "Could not remove plugin!"
-msgstr "Não foi possível ativar o plugin!"
+msgstr "Não foi possível remover o plug-in!"
 
 #: ../xlgui/preferences/plugin.py:261 ../xlgui/preferences/plugin.py:384
 msgid "Could not disable plugin!"
@@ -1456,11 +1454,11 @@ msgstr "Todos os ficheiros"
 
 #: ../xlgui/preferences/plugin.py:317
 msgid "Plugin already exists!"
-msgstr ""
+msgstr "O plug-in já existe!"
 
 #: ../xlgui/preferences/plugin.py:318
 msgid "Do you want to override it?"
-msgstr ""
+msgstr "Deseja substituí-lo?"
 
 #: ../xlgui/preferences/plugin.py:326
 msgid "Plugin file installation failed!"
@@ -2573,10 +2571,8 @@ msgid "Remove track from queue upon playback"
 msgstr "Remover faixa da fila após a reprodução"
 
 #: ../data/ui/preferences/playback.ui:221
-#, fuzzy
-#| msgid "Repeat playback"
 msgid "Remove after playback"
-msgstr "Repetir reprodução"
+msgstr "Remover após a reprodução"
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -2963,10 +2959,8 @@ msgid "Audio Disc"
 msgstr "Disco de áudio"
 
 #: ../plugins/cd/_cdguipanel.py:97
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown disc"
-msgstr "Desconhecido"
+msgstr "Disco desconhecido"
 
 #: ../plugins/cd/_cdguipanel.py:113
 msgid "Importing CD..."
@@ -3280,13 +3274,11 @@ msgstr "Erro na ligação ao servidor Icecast."
 
 #: ../plugins/icecast/__init__.py:149
 msgid "Parsing stations XML..."
-msgstr ""
+msgstr "Analisando estações XML..."
 
 #: ../plugins/icecast/__init__.py:161
-#, fuzzy
-#| msgid "Retrieving song data..."
 msgid "Retrieving stations..."
-msgstr "Recebendo dados da canção..."
+msgstr "Recuperando as estações..."
 
 #: ../plugins/icecast/__init__.py:274
 msgid "Enter the search keywords"
@@ -3306,7 +3298,7 @@ msgstr "Resultados da pesquisa Icecast"
 
 #: ../plugins/icecast/__init__.py:353
 msgid "Parsing genre list..."
-msgstr ""
+msgstr "Analisando a lista de gêneros..."
 
 #: ../plugins/icecast/__init__.py:374
 #: ../plugins/developer/developer_window.ui:59
@@ -3948,23 +3940,19 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui:69
 msgid "Disc metadata"
-msgstr ""
+msgstr "Metadados do disco"
 
 #: ../plugins/cd/cdprefs_pane.ui:101
-#, fuzzy
-#| msgid "Format"
 msgid "Format: "
-msgstr "Formato"
+msgstr "Formato: "
 
 #: ../plugins/cd/cdprefs_pane.ui:131
-#, fuzzy
-#| msgid "Import quality: "
 msgid "Quality: "
-msgstr "Importar qualidade: "
+msgstr "Qualidade: "
 
 #: ../plugins/cd/cdprefs_pane.ui:160
 msgid "Path: "
-msgstr ""
+msgstr "Caminho: "
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
@@ -3977,10 +3965,8 @@ msgstr ""
 "<b>$__length</b> precisam ser especificadas com dois underlines no início."
 
 #: ../plugins/cd/cdprefs_pane.ui:218
-#, fuzzy
-#| msgid "Importing tracks"
 msgid "Import tracks to disk"
-msgstr "A importar faixas"
+msgstr "A importar faixas para o disco"
 
 #. Window title
 #: ../plugins/console/console_window.ui:8

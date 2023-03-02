@@ -420,7 +420,7 @@ class Track:
             ntags['__basedir'] = gloc.get_parent().get_path()
 
             if '__rating' in ntags and settings.get_option(
-                    'collection/write_rating_to_audio_file_metadata', False
+                'collection/write_rating_to_audio_file_metadata', False
             ):
                 ntags['__rating'] = int(ntags['__rating'][0])
 

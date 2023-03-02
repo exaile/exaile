@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-02 06:46+0100\n"
-"PO-Revision-Date: 2023-02-24 00:57+0000\n"
+"PO-Revision-Date: 2023-03-03 07:37+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1401,7 +1401,7 @@ msgstr "_Восстановить по умолчанию"
 
 #: ../xlgui/preferences/collection.py:130
 msgid "Migrating ratings to audio file metadata"
-msgstr ""
+msgstr "Перенос оценок в метаданные аудиофайлов"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -2504,7 +2504,7 @@ msgstr "Определять сборники по файлам"
 
 #: ../data/ui/preferences/collection.ui:71
 msgid "Read and write ratings additionally in audio file metadata"
-msgstr ""
+msgstr "Читать и записывать оценки дополнительно в метаданные аудиофайлов"
 
 #: ../data/ui/preferences/collection.ui:86
 msgid ""
@@ -2512,14 +2512,17 @@ msgid ""
 "metadata instead of database, if possible.\n"
 "This feature should work for MP3, MP4, FLAC and OGG. "
 msgstr ""
+"Использовать эту пробную функцию для чтения и записи оценок в метаданных "
+"аудиофайла вместо базы данных по возможности.\n"
+"Эта функция должна работать для MP3, MP4, FLAC и OGG. "
 
 #: ../data/ui/preferences/collection.ui:105
 msgid "Use e-mail for Popularimeter (MP3 only):"
-msgstr ""
+msgstr "Использовать эл. почту для Popularimeter (только MP3):"
 
 #: ../data/ui/preferences/collection.ui:134
 msgid "Write existing ratings to track files now"
-msgstr ""
+msgstr "Записать существующие оценки в файлы дорожек сейчас"
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"

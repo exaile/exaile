@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-02 06:46+0100\n"
-"PO-Revision-Date: 2023-02-24 00:57+0000\n"
+"PO-Revision-Date: 2023-03-03 07:37+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/exaile/master/es/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1400,7 +1400,7 @@ msgstr "Restablecer valores pre_determinados"
 
 #: ../xlgui/preferences/collection.py:130
 msgid "Migrating ratings to audio file metadata"
-msgstr ""
+msgstr "Migración de calificaciones a metadatos de archivos de audio"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -2508,6 +2508,8 @@ msgstr "Utilizar detección de compilación basada en archivos"
 #: ../data/ui/preferences/collection.ui:71
 msgid "Read and write ratings additionally in audio file metadata"
 msgstr ""
+"Leer y escribir calificaciones adicionalmente en metadatos de archivos de "
+"audio"
 
 #: ../data/ui/preferences/collection.ui:86
 msgid ""
@@ -2515,14 +2517,18 @@ msgid ""
 "metadata instead of database, if possible.\n"
 "This feature should work for MP3, MP4, FLAC and OGG. "
 msgstr ""
+"Utilice esta función experimental para leer y escribir clasificaciones en "
+"metadatos de archivos de audio en lugar de bases de datos, si es posible.\n"
+"Esta función debería funcionar para MP3, MP4, FLAC y OGG. "
 
 #: ../data/ui/preferences/collection.ui:105
 msgid "Use e-mail for Popularimeter (MP3 only):"
-msgstr ""
+msgstr "Utiliza el correo electrónico para Popularimeter (sólo MP3):"
 
 #: ../data/ui/preferences/collection.ui:134
 msgid "Write existing ratings to track files now"
 msgstr ""
+"Escriba ahora las clasificaciones existentes en los archivos de seguimiento"
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"

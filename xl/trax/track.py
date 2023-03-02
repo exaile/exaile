@@ -419,6 +419,11 @@ class Track:
             # TODO: this probably breaks on non-local files
             ntags['__basedir'] = gloc.get_parent().get_path()
 
+            if '__rating' in ntags and settings.get_option(
+                'collection/write_rating_to_audio_file_metadata', False
+            ):
+                ntags['__rating'] = int(ntags['__rating'][0])
+
             # remove tags that could be in the file, but are in fact not
             # in the file. Retain tags in the DB that aren't supported by
             # the file format.
@@ -917,6 +922,15 @@ class Track:
         rating = max(0, rating)
         rating = 100 * rating / maximum
         self.set_tags(__rating=rating)
+
+        f = self._get_format_obj()
+        if f is None:
+            return rating
+        keys = f.tag_mapping
+        if '__rating' in keys and settings.get_option(
+            'collection/write_rating_to_audio_file_metadata', False
+        ):
+            self.set_tag_disk('__rating', rating)
         return rating
 
     ### Special functions for wrangling tag values ###

@@ -25,6 +25,7 @@
 # from your version.
 
 from xl.metadata._base import BaseFormat, CoverImage
+from xl import settings
 from mutagen import id3
 
 
@@ -60,12 +61,14 @@ class ID3Format(BaseFormat):
         "grouping": "TIT1",
         "comment": "COMM",
         'language': "TLAN",
+        '__rating': "POPM",
     }
     writable = True
     others = False  # make this true once custom tag support actually works
 
     def get_keys_disk(self):
         keys = []
+        vals = self._get_raw().values()
         for v in self._get_raw().values():
             # Have to use this because some ID3 tags have a colon
             # in them, and so self._get_raw().keys() doesn't return
@@ -105,6 +108,11 @@ class ID3Format(BaseFormat):
         elif t == 'COMM':  # Newlines within comments are allowed, keep them
             for item in field:
                 ret.extend([value for value in item.text])
+        elif t == 'POPM':
+            # Rating Stars
+            data = field[0].rating
+            rating = str(self._rating_to_stars(data))
+            ret.append(rating)
         else:
             for value in field:
                 try:
@@ -143,6 +151,14 @@ class ID3Format(BaseFormat):
             ]
         elif tag == 'WOAR':
             frames = [id3.WOAR(encoding=3, url=d) for d in data]
+        elif tag == 'POPM':
+            # Rating Stars
+            data = int(data)
+            rating = self._stars_to_rating(data)
+            email = settings.get_option(
+                'collection/write_rating_to_audio_file_metadata_popm_mail'
+            )
+            frames = [id3.POPM(email=email, rating=rating)]
         else:
             frames = [id3.Frames[tag](encoding=3, text=data)]
 
@@ -155,6 +171,45 @@ class ID3Format(BaseFormat):
             tag = "TXXX:" + tag
         if raw.tags is not None:
             raw.tags.delall(tag)
+
+    def _stars_to_rating(self, data: int) -> int:
+        stars_to_rating = {
+            0: 0,
+            20: 1,
+            40: 64,
+            60: 128,
+            80: 196,
+            100: 255,
+        }
+        return stars_to_rating[data]
+
+    def _rating_to_stars(self, data: int) -> int:
+        # mapping according to kid3
+        # 0: 0
+        # 1: 1 - 31
+        # 2: 32 - 95
+        # 3: 96 - 159
+        # 4: 160 - 223
+        # 5: 224 -
+        if data <= 0:
+            # 0
+            rating = 0
+        elif data <= 31:
+            # 1
+            rating = 20
+        elif data <= 95:
+            # 2
+            rating = 40
+        elif data <= 159:
+            # 3
+            rating = 60
+        elif data <= 223:
+            # 4
+            rating = 80
+        else:
+            # 5
+            rating = 100
+        return rating
 
 
 # vim: et sts=4 sw=4

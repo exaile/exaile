@@ -190,7 +190,7 @@ class BaseFormat:
             # __ is used to denote exaile's internal tags, so we skip
             # loading them to avoid conflicts. usually this shouldn't be
             # an issue.
-            if t.startswith("__"):
+            if t.startswith("__") and t != '__rating':
                 continue
             tags.append(t)
         alltags = self.read_tags(tags)
@@ -274,7 +274,7 @@ class BaseFormat:
             # tags starting with __ are internal and should not be written
             # -> this covers INFO_TAGS, which also shouldn't be written
             for tag in list(tagdict.keys()):
-                if tag.startswith("__"):
+                if tag.startswith("__") and tag != '__rating':
                     del tagdict[tag]
 
             # Only modify the tags we were told to modify
@@ -320,6 +320,38 @@ class BaseFormat:
                 return self._get_raw()['__bitrate']
             except (KeyError, TypeError):
                 return None
+
+    def _stars_to_rating(self, data: int) -> int:
+        # exactly the same
+        return int(data)
+
+    def _rating_to_stars(self, data: int) -> int:
+        # mapping according to kid3
+        # 0: 0
+        # 1: 1 - 29
+        # 2: 30 - 49
+        # 3: 50 - 69
+        # 4: 70 - 89
+        # 5: 90 -
+        if data <= 0:
+            # 0
+            rating = 0
+        elif data <= 29:
+            # 1
+            rating = 20
+        elif data <= 49:
+            # 2
+            rating = 40
+        elif data <= 69:
+            # 3
+            rating = 60
+        elif data <= 89:
+            # 4
+            rating = 80
+        else:
+            # 5
+            rating = 100
+        return rating
 
 
 class CaseInsensitiveBaseFormat(BaseFormat):

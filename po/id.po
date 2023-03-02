@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-23 11:25+0100\n"
+"POT-Creation-Date: 2023-03-02 06:46+0100\n"
 "PO-Revision-Date: 2021-05-20 12:33+0000\n"
 "Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/exaile/master/"
@@ -802,7 +802,7 @@ msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:725 ../xl/trax/track.py:791
+#: ../xl/trax/track.py:730 ../xl/trax/track.py:796
 #, python-format
 msgid "%dk"
 msgstr "%dk"
@@ -1228,7 +1228,7 @@ msgstr ""
 msgid "Album Artist - (Date - Album)"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:183 ../xlgui/preferences/collection.py:21
+#: ../xlgui/panel/collection.py:183 ../xlgui/preferences/collection.py:23
 msgid "Collection"
 msgstr "Koleksi"
 
@@ -1443,15 +1443,19 @@ msgstr ""
 #. the space-separated list "l' la le les".
 #. If this practice is not common in your locale, simply
 #. translate this to string with single space.
-#: ../xlgui/preferences/collection.py:36
+#: ../xlgui/preferences/collection.py:38
 msgid "the"
 msgstr ""
 
-#: ../xlgui/preferences/collection.py:60
+#: ../xlgui/preferences/collection.py:62
 #, fuzzy
 #| msgid "Reset to Defaults"
 msgid "Reset to _Defaults"
 msgstr "Atur ulang ke Bawaan"
+
+#: ../xlgui/preferences/collection.py:130
+msgid "Migrating ratings to audio file metadata"
+msgstr ""
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -2616,15 +2620,34 @@ msgstr ""
 "Kata yang dihilangkan dari awal penanda nama artis ketika menyortir "
 "(dipisahkan oleh spasi):"
 
-#: ../data/ui/preferences/collection.ui:42
+#: ../data/ui/preferences/collection.ui:44
 msgid "(Right click to reset to defaults)"
 msgstr "(Klik kanan untuk mengembalikan ke bawaan)"
 
-#: ../data/ui/preferences/collection.ui:54
+#: ../data/ui/preferences/collection.ui:57
 #, fuzzy
 #| msgid "Use file based compilation detection"
 msgid "Use file-based compilation detection"
 msgstr "Gunakan pendeteksian kompilasi berdasarkan berkas"
+
+#: ../data/ui/preferences/collection.ui:71
+msgid "Read and write ratings additionally in audio file metadata"
+msgstr ""
+
+#: ../data/ui/preferences/collection.ui:86
+msgid ""
+"Use this experimental feature to read and write ratings in audio file "
+"metadata instead of database, if possible.\n"
+"This feature should work for MP3, MP4, FLAC and OGG. "
+msgstr ""
+
+#: ../data/ui/preferences/collection.ui:105
+msgid "Use e-mail for Popularimeter (MP3 only):"
+msgstr ""
+
+#: ../data/ui/preferences/collection.ui:134
+msgid "Write existing ratings to track files now"
+msgstr ""
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"

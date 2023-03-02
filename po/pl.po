@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-02 06:46+0100\n"
-"PO-Revision-Date: 2023-01-22 21:20+0000\n"
+"PO-Revision-Date: 2023-03-03 07:37+0000\n"
 "Last-Translator: gnu-ewm <gnu.ewm@protonmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/"
-">\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/>"
+"\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.15.1\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 "X-Launchpad-Export-Date: 2014-11-08 06:10+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1435,13 +1435,11 @@ msgstr[2] "Błąd wtyczek: %s"
 
 #: ../xlgui/preferences/plugin.py:235
 msgid "Do you really want to remove this plugin?"
-msgstr ""
+msgstr "Czy na pewno chcesz usunąć tę wtyczkę?"
 
 #: ../xlgui/preferences/plugin.py:245
-#, fuzzy
-#| msgid "Could not enable plugin!"
 msgid "Could not remove plugin!"
-msgstr "Nie można włączyć wtyczki!"
+msgstr "Nie można usunąć wtyczki!"
 
 #: ../xlgui/preferences/plugin.py:261 ../xlgui/preferences/plugin.py:384
 msgid "Could not disable plugin!"
@@ -1466,11 +1464,11 @@ msgstr "Wszystkie pliki"
 
 #: ../xlgui/preferences/plugin.py:317
 msgid "Plugin already exists!"
-msgstr ""
+msgstr "Ta wtyczka już istnieje!"
 
 #: ../xlgui/preferences/plugin.py:318
 msgid "Do you want to override it?"
-msgstr ""
+msgstr "Czy chcesz to nadpisać?"
 
 #: ../xlgui/preferences/plugin.py:326
 msgid "Plugin file installation failed!"
@@ -2517,7 +2515,7 @@ msgstr ""
 
 #: ../data/ui/preferences/collection.ui:105
 msgid "Use e-mail for Popularimeter (MP3 only):"
-msgstr ""
+msgstr "Użyj e-maila do Popularimeter (tylko MP3):"
 
 #: ../data/ui/preferences/collection.ui:134
 msgid "Write existing ratings to track files now"
@@ -2601,10 +2599,8 @@ msgid "Remove track from queue upon playback"
 msgstr "Usuń utwór z kolejki po odtworzeniu"
 
 #: ../data/ui/preferences/playback.ui:221
-#, fuzzy
-#| msgid "Repeat playback"
 msgid "Remove after playback"
-msgstr "Powtórz odtwarzanie"
+msgstr "Usuń po odtwarzaniu"
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -2990,10 +2986,8 @@ msgid "Audio Disc"
 msgstr "Płyta CD-Audio"
 
 #: ../plugins/cd/_cdguipanel.py:97
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown disc"
-msgstr "Nieznany"
+msgstr "Nieznany nośnik"
 
 #: ../plugins/cd/_cdguipanel.py:113
 msgid "Importing CD..."
@@ -3097,10 +3091,8 @@ msgid "_Mass rename/delete tags"
 msgstr "_Masowo przemianuj/usuń znaczniki"
 
 #: ../plugins/grouptagger/__init__.py:122
-#, fuzzy
-#| msgid "E_xport collecton tags to JSON"
 msgid "E_xport collection tags to JSON"
-msgstr "E_ksportuj znaczniki kolekcji do JSON"
+msgstr "Eksportuj znaczniki kolekcji do pliku JSON (_x)"
 
 #: ../plugins/grouptagger/__init__.py:129
 msgid "_GroupTagger"
@@ -3310,13 +3302,11 @@ msgstr "Błąd połączenia z serwerem Icecast."
 
 #: ../plugins/icecast/__init__.py:149
 msgid "Parsing stations XML..."
-msgstr ""
+msgstr "Pobieranie stacji XML..."
 
 #: ../plugins/icecast/__init__.py:161
-#, fuzzy
-#| msgid "Retrieving song data..."
 msgid "Retrieving stations..."
-msgstr "Pobieranie danych utworu..."
+msgstr "Znajdowanie stacji..."
 
 #: ../plugins/icecast/__init__.py:274
 msgid "Enter the search keywords"
@@ -3336,7 +3326,7 @@ msgstr "Wyniki wyszukiwania w Icecast"
 
 #: ../plugins/icecast/__init__.py:353
 msgid "Parsing genre list..."
-msgstr ""
+msgstr "Pobieranie listy gatunków..."
 
 #: ../plugins/icecast/__init__.py:374
 #: ../plugins/developer/developer_window.ui:59
@@ -3977,27 +3967,23 @@ msgstr "WavPack"
 
 #: ../plugins/cd/cdprefs_pane.ui:56
 msgid "Fetch metadata from internet servers"
-msgstr ""
+msgstr "Pobierz metadane z serwera internetowego"
 
 #: ../plugins/cd/cdprefs_pane.ui:69
 msgid "Disc metadata"
-msgstr ""
+msgstr "Metadane nośnika"
 
 #: ../plugins/cd/cdprefs_pane.ui:101
-#, fuzzy
-#| msgid "Format"
 msgid "Format: "
-msgstr "Format"
+msgstr "Format: "
 
 #: ../plugins/cd/cdprefs_pane.ui:131
-#, fuzzy
-#| msgid "Import quality: "
 msgid "Quality: "
-msgstr "Jakość importu: "
+msgstr "Jakość: "
 
 #: ../plugins/cd/cdprefs_pane.ui:160
 msgid "Path: "
-msgstr ""
+msgstr "Ścieżka: "
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
@@ -4011,10 +3997,8 @@ msgstr ""
 "podkreśleniami."
 
 #: ../plugins/cd/cdprefs_pane.ui:218
-#, fuzzy
-#| msgid "Importing tracks"
 msgid "Import tracks to disk"
-msgstr "Importowanie utworów"
+msgstr "Importowanie utworów na nośnik"
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
@@ -4713,12 +4697,7 @@ msgid "CD Playback"
 msgstr "Odtwarzanie CD"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4729,7 +4708,8 @@ msgstr ""
 "Dodaje obsługę odtwarzania płyt audio CD.\n"
 "\n"
 "Wymaga UDisks2 do automatycznego wykrywania CD\n"
-"Wymaga cddb-py (%s) do sprawdzania znaczników."
+"Wymaga python-libdiscid (%s) oraz python-musicbrainzngs (%s) do sprawdzania "
+"znaczników."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
 msgid "Devices"
@@ -4753,10 +4733,6 @@ msgid "Current Song in Pidgin"
 msgstr "Obecny utwór w Pidgin"
 
 #: ../plugins/currentsong/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
-#| "out the suppported services."
 msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the supported services."

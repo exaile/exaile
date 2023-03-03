@@ -1,4 +1,4 @@
-Version='4.1.2'
+Version='4.1.3'
 Authors=['Johannes Sasongko <sasongko@gmail.com>']
 Name=_('Karaoke')
 Description=_('Removes voice from audio')

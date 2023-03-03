@@ -1,4 +1,4 @@
-Version='4.1.2'
+Version='4.1.3'
 Name=_('Multimedia keys for Windows')
 Authors=['Johannes Sasongko <sasongko@gmail.com>']
 Description=_('Adds support for keyboard multimedia keys on Windows.\n\nRequires: pynput (%s) (included in the Exaile installer)\n\nWarning: When this plugin is enabled, Exaile will process every key event in the Windows session, which may cause some security software to detect Exaile as a keylogger.') % 'https://github.com/moses-palmer/pynput'

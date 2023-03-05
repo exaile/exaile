@@ -1,7 +1,7 @@
 pywin32-ctypes==0.2.0
 pyinstaller==5.7
 musicbrainzngs==0.6
-mutagen==1.40
+mutagen==1.46
 pylast==1.8.0
 feedparser==6.0.8
 pynput==1.7.6

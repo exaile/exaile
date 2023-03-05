@@ -17,6 +17,7 @@ hiddenimports = (
     + collect_submodules('feedparser')
     + collect_submodules('musicbrainzngs')
     + collect_submodules('mutagen')
+    + collect_submodules('pynput')
     + collect_submodules('pylast')
 )
 

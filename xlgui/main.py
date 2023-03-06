@@ -49,7 +49,7 @@ SEEK_STEP_DEFAULT = 10
 VOLUME_STEP_DEFAULT = 0.1
 
 
-class MainWindow(GObject.GObject):
+class MainWindow(GObject.Object):
     """
     Main Exaile Window
     """
@@ -74,7 +74,7 @@ class MainWindow(GObject.GObject):
 
         @param controller: the main gui controller
         """
-        GObject.GObject.__init__(self)
+        GObject.Object.__init__(self)
 
         self.controller = controller
         self.collection = collection
@@ -502,7 +502,7 @@ class MainWindow(GObject.GObject):
         if prop.name == 'is-fullscreen':
             return self._fullscreen
         else:
-            return GObject.GObject.do_get_property(self, prop)
+            return GObject.Object.do_get_property(self, prop)
 
     def do_set_property(self, prop, value):
         if prop.name == 'is-fullscreen':
@@ -511,7 +511,7 @@ class MainWindow(GObject.GObject):
             else:
                 self.window.unfullscreen()
         else:
-            GObject.GObject.do_set_property(self, prop, value)
+            GObject.Object.do_set_property(self, prop, value)
 
     def on_screen_changed(self, widget, event):
         """

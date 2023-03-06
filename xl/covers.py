@@ -619,7 +619,7 @@ class LocalFileCoverFetcher(CoverSearchMethod):
         try:
             data = Gio.File.new_for_uri(db_string).load_contents(None)[1]
             return data
-        except GLib.GError:
+        except GLib.Error:
             return None
 
     def on_option_set(self, e, settings, option):

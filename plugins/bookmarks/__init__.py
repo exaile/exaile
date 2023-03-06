@@ -92,7 +92,7 @@ class Bookmark:
                 if image:
                     try:
                         self.__cover_pixbuf = pixbuf_from_data(image, size=(16, 16))
-                    except GLib.GError:
+                    except GLib.Error:
                         LOGGER.warning('Could not load cover')
             else:
                 self.__cover_pixbuf = None

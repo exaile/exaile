@@ -63,7 +63,7 @@ class TrackWrapper:
         return self.track.get_loc_for_io()
 
 
-class BasePlaylistPanelMixin(GObject.GObject):
+class BasePlaylistPanelMixin(GObject.Object):
     """
     Base playlist tree object.
 
@@ -93,7 +93,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
         """
         Initializes the mixin
         """
-        GObject.GObject.__init__(self)
+        GObject.Object.__init__(self)
         self.playlist_nodes = {}
         self.track_image = icons.MANAGER.pixbuf_from_icon_name(
             'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR

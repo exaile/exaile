@@ -38,7 +38,7 @@ import logging
 LOGGER = logging.getLogger(__name__)
 
 
-class Panel(GObject.GObject):
+class Panel(GObject.Object):
     """
     The base panel class.
 
@@ -57,7 +57,7 @@ class Panel(GObject.GObject):
         @param name: the name of the panel. should be unique.
         @param label: text of the label displayed to the user
         """
-        GObject.GObject.__init__(self)
+        GObject.Object.__init__(self)
         self.name = name  # panel id
         self.label = label  # label to be displayed
         self.parent = parent

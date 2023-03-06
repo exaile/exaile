@@ -296,7 +296,7 @@ class FilesPanel(panel.Panel):
             ftype = f.query_info(
                 'standard::type', Gio.FileQueryInfoFlags.NONE, None
             ).get_file_type()
-        except GLib.GError as e:
+        except GLib.Error as e:
             logger.exception(e)
             self.entry.set_text(self.current.get_parse_name())
             return

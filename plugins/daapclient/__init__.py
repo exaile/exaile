@@ -69,7 +69,7 @@ except Exception:
     AUTH = True
 
 
-class DaapZeroconfInterface(GObject.GObject):
+class DaapZeroconfInterface(GObject.Object):
     __gsignals__ = {
         'connect': (GObject.SignalFlags.RUN_LAST, None, (GObject.TYPE_PYOBJECT,))
     }
@@ -186,7 +186,7 @@ class DaapZeroconfInterface(GObject.GObject):
         """
         Sets up the zeroconf listener.
         """
-        GObject.GObject.__init__(self)
+        GObject.Object.__init__(self)
         self.services = {}
         self.menu = _menu
 

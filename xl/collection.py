@@ -355,7 +355,7 @@ class Collection(trax.TrackDB):
                 lib.delete(tr.get_loc_for_io())
 
 
-class LibraryMonitor(GObject.GObject):
+class LibraryMonitor(GObject.Object):
     """
     Monitors library locations for changes
     """
@@ -379,7 +379,7 @@ class LibraryMonitor(GObject.GObject):
         :param library: the library to monitor
         :type library: :class:`Library`
         """
-        GObject.GObject.__init__(self)
+        GObject.Object.__init__(self)
 
         self.__library = library
         self.__root = Gio.File.new_for_uri(library.location)

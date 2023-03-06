@@ -230,7 +230,7 @@ def _on_trash_tracks(
 
     try:
         trash_tracks_func(parent, context, tracks)
-    except GLib.GError:
+    except GLib.Error:
         dialog = Gtk.MessageDialog(
             parent=parent.parent,
             message_type=Gtk.MessageType.WARNING,

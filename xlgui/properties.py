@@ -54,7 +54,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class TrackPropertiesDialog(GObject.GObject):
+class TrackPropertiesDialog(GObject.Object):
     def __init__(
         self,
         parent: Gtk.Window,
@@ -67,7 +67,7 @@ class TrackPropertiesDialog(GObject.GObject):
         :param current_position: the position of the currently
             selected track in the list
         """
-        GObject.GObject.__init__(self)
+        GObject.Object.__init__(self)
 
         self.builder = guiutil.get_builder(
             xdg.get_data_path('ui', 'trackproperties_dialog.ui')
@@ -1007,7 +1007,7 @@ class TagImageField(Gtk.Box):
                 try:
                     loader.write(val.data)
                     loader.close()
-                except GLib.GError:
+                except GLib.Error:
                     pass
                 else:
                     self.batch_update = True

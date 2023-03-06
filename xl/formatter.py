@@ -158,7 +158,7 @@ class ParameterTemplate(metaclass=_ParameterTemplateMetaclass):
         return self.pattern.sub(convert, self.template)
 
 
-class Formatter(GObject.GObject):
+class Formatter(GObject.Object):
     R"""
     A generic text formatter based on a format string
 
@@ -189,7 +189,7 @@ class Formatter(GObject.GObject):
             of :class:`string.Template` for details
         :type format: string
         """
-        GObject.GObject.__init__(self)
+        GObject.Object.__init__(self)
 
         self._template = ParameterTemplate(format)
         self._substitutions = {}

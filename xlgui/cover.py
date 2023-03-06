@@ -64,7 +64,7 @@ def save_pixbuf(pixbuf, path, type_):
     pixbuf.savev(path, type_, [None], [])
 
 
-class CoverManager(GObject.GObject):
+class CoverManager(GObject.Object):
     """
     Cover manager window
     """
@@ -87,7 +87,7 @@ class CoverManager(GObject.GObject):
         """
         Initializes the window
         """
-        GObject.GObject.__init__(self)
+        GObject.Object.__init__(self)
 
         # List of identifiers of albums without covers
         self.outstanding = []
@@ -529,7 +529,7 @@ class CoverWidget(Gtk.EventBox):
         :param image: the image to wrap
         :type image: :class:`Gtk.Image`
         """
-        GObject.GObject.__init__(self)
+        GObject.Object.__init__(self)
 
         self.image = image
         self.cover_data = None
@@ -1001,7 +1001,7 @@ class CoverWindow:
             self.cover_window_height = allocation.height
 
 
-class CoverChooser(GObject.GObject):
+class CoverChooser(GObject.Object):
     """
     Fetches all album covers for a string, and allows the user to choose
     one out of the list
@@ -1016,7 +1016,7 @@ class CoverChooser(GObject.GObject):
         """
         Expects the parent control, a track, an an optional search string
         """
-        GObject.GObject.__init__(self)
+        GObject.Object.__init__(self)
         self.parent = parent
 
         self.builder = guiutil.get_builder(xdg.get_data_path('ui', 'coverchooser.ui'))

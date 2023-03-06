@@ -651,7 +651,7 @@ class IconManager:
         if icon_info:
             try:
                 return icon_info.load_icon()
-            except GLib.GError as e:
+            except GLib.Error as e:
                 logger.warning('Failed to load icon "%s": %s', icon_name, e.message)
         else:
             logger.warning('Icon "%s" not found', icon_name)

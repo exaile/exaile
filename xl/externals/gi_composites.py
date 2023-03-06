@@ -255,7 +255,7 @@ class _GtkTemplate:
             template_bytes = Gio.resources_lookup_data(
                 self.ui, Gio.ResourceLookupFlags.NONE
             )
-        except GLib.GError:
+        except GLib.Error:
             ui = self.ui
             if isinstance(ui, (list, tuple)):
                 ui = join(ui)

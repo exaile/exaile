@@ -204,7 +204,7 @@ def pixbuf_from_data(data, size=None, keep_ratio=True, upscale=False):
     try:
         loader.write(data)
         loader.close()
-    except GLib.GError as e:
+    except GLib.Error as e:
         logger.warning(
             'Failed to get pixbuf from data: {error}'.format(error=e.message)
         )

@@ -188,7 +188,7 @@ for i, a in enumerate(
     setattr(Anchor, a, Anchor(i))
 
 
-class Marker(GObject.GObject):
+class Marker(GObject.Object):
     """
     A marker pointing to a playback position
     """
@@ -236,7 +236,7 @@ class Marker(GObject.GObject):
     __gsignals__ = {'reached': (GObject.SignalFlags.RUN_LAST, None, ())}
 
     def __init__(self, position=0):
-        GObject.GObject.__init__(self)
+        GObject.Object.__init__(self)
 
         self.__values = {
             'anchor': Anchor.SOUTH,

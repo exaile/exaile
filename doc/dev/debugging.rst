@@ -38,14 +38,14 @@ On Linux/OSX:
 
 On Windows:
 
-* ```%APPDATA%\..\Local\exaile``
+* ``%APPDATA%\..\Local\exaile``
 
 Viewing stack traces when Exaile hangs
 --------------------------------------
 
 On Linux/OSX if you send SIGUSR2 to Exaile it will dump stacktraces
 of all current Python threads to stderr.
-		
+
 GStreamer Debugging Techniques
 ------------------------------
 
@@ -54,7 +54,7 @@ When tracking down GST issues, a useful thing to do is the following:
 .. code-block:: sh
 
     $ GST_DEBUG=3 ./exaile
-    $ GST_DEBUG="cat:5;cat2:3" .. etc. 
+    $ GST_DEBUG="cat:5;cat2:3" .. etc.
 
     $ GST_DEBUG="GST_STATES:4" ./exaile
 
@@ -77,7 +77,7 @@ Then if you run exaile like so:
 
 .. code-block:: sh
 
-    GST_DEBUG_DUMP_DOT_DIR=foo ./exaile 
+    GST_DEBUG_DUMP_DOT_DIR=foo ./exaile
 
 It will dump a dot file that you can turn into an image:
 

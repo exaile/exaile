@@ -1,7 +1,7 @@
 Plugin Development Guide
 ========================
 
-.. note:: these instructions always track current Exaile trunk, and may not
+.. note:: These instructions always track current Exaile trunk, and may not
           be fully compatible with stable releases.  It is recommended that
           you develop plugins against trunk, so that you can submit patches
           to trunk if need be during the creation of your plugin, and so
@@ -11,7 +11,7 @@ Style
 -----
 
 If you plan to submit your plugin for inclusion in Exaile, please read and
-follow the guidelines in the :ref:`code_guidelines`
+follow the guidelines in the :ref:`code_guidelines`.
 
 Basic plugin structure
 ----------------------

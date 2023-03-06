@@ -2,46 +2,30 @@
 Windows Notes
 =============
 
-We're excited to announce that Exaile has official support for Windows 
-platforms as of version 3.3.0, and is distributed in an official installer
-program. 
+Exaile has official support for Microsoft Windows, and is distributed in an
+official installer program.
 
-Exaile (and its installer) has been tested on:
-
-* Windows 7 x64 SP1
-* Windows 8.1
-* Windows 10
-    
-* Python 2.7.10 (32-bit and 64-bit)
-* PyGObject 3.14 + GTK+ 3.14
-* GStreamer 1.4.5
-
-Exaile now requires GStreamer 1.x and GTK3. The best way to install these
-requirements on Windows is using the `All-In-One PyGI/PyGObject for Windows
-Installer <https://sourceforge.net/projects/pygobjectwin32/>`_. When using this
-installer, you must select the following options:
-
-* GTK 3.x
-* GStreamer 1.4.5
-* The gst-plugins options you desire (recommend installing them all)
+Exaile (and its installer) has been tested on Windows 10.
 
 Running Exaile
 --------------
 
-If you installed exaile using the Windows installer, you can find icons to
-launch Exaile in the Start Menu under "All Programs" -> "Exaile".
+If you installed Exaile using the Windows installer, you can find a shortcut to
+launch Exaile in the Start Menu.
 
-Alternatively, you can directly launch "exaile_win.py".
+Alternatively, you can directly launch "exaile_win.py" in the source directory.
+This requires you to have an MSYS2 environment set up.
+
 
 Bug Reporting
 -------------
 
-If exaile crashes, you should be able to find a logfile from the last time
-exaile was launched in the following directories:
-    
+If Exaile crashes, you should be able to find a logfile from the last time
+Exaile was launched in the following directories:
+
 * Windows XP: ``%USERPROFILE%\Local Settings\Application Data\exaile\logs``
 * Windows 7+: ``%USERPROFILE%\AppData\Local\exaile\logs``
 
 If you run into any bugs not mentioned in this document, please report them
 to us via `GitHub <https://github.com/exaile/exaile/issues>`_. Please include any
-relevant logfile snippets. 
+relevant logfile snippets.

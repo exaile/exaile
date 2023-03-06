@@ -791,8 +791,7 @@ class ProgressThread(GObject.Object, threading.Thread):
 
     def __init__(self):
         GObject.Object.__init__(self)
-        threading.Thread.__init__(self)
-        self.setDaemon(True)
+        threading.Thread.__init__(self, daemon=True)
 
     def stop(self):
         """

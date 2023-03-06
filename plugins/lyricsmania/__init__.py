@@ -76,11 +76,15 @@ class LyricsMania(LyricSearchMethod):
 
         try:
             lyrics_body = lyrics_html.find_class('lyrics-body')[0]
-            lyrics_body.remove(lyrics_body.get_element_by_id('video-musictory'))
-            lyrics = re.sub(r'^\s+Lyrics to .+', '', lyrics_body.text_content())
+            video_elem = lyrics_body.get_element_by_id('video-musictory')
+
+            lyrics = lyrics_body.text_content()
+            lyrics = lyrics.replace(video_elem.text_content(), '', 1)
+            lyrics = re.sub(r'^\s+Lyrics to .+', '', lyrics)
             lyrics = lyrics.replace('\t', '')
             lyrics = self.remove_script(lyrics)
             lyrics = self.remove_html_tags(lyrics)
+            lyrics = lyrics.strip()
         except Exception:
             raise LyricsNotFoundException
 

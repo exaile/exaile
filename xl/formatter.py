@@ -159,7 +159,7 @@ class ParameterTemplate(metaclass=_ParameterTemplateMetaclass):
 
 
 class Formatter(GObject.GObject):
-    """
+    R"""
     A generic text formatter based on a format string
 
     By default the following parameters are provided

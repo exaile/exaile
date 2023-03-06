@@ -26,6 +26,7 @@
 
 import xl.unicode
 from xl.metadata._base import CaseInsensitiveBaseFormat, CoverImage
+from xl import settings
 from mutagen import oggvorbis, oggopus
 from mutagen.flac import Picture
 import base64
@@ -34,8 +35,8 @@ import base64
 class OggFormat(CaseInsensitiveBaseFormat):
     MutagenType = oggvorbis.OggVorbis
     tag_mapping = {
-        'bpm': 'tempo',
-        'comment': 'description',
+        # 'bpm': 'bpm',
+        # 'comment': 'description',
         'cover': 'metadata_block_picture',
         '__rating': 'rating',
     }
@@ -59,6 +60,20 @@ class OggFormat(CaseInsensitiveBaseFormat):
         if value and tag == 'rating':
             value = [str(self._rating_to_stars(int(value[0])))]
 
+        elif tag == 'bpm':
+            if (
+                settings.get_option('collection/use_legacy_metadata_mapping', False)
+                and 'tempo' in raw
+            ):
+                value = CaseInsensitiveBaseFormat._get_tag(self, raw, 'tempo')
+
+        elif tag == 'comment':
+            if (
+                settings.get_option('collection/use_legacy_metadata_mapping', False)
+                and 'description' in raw
+            ):
+                value = CaseInsensitiveBaseFormat._get_tag(self, raw, 'description')
+
         return value
 
     def _set_tag(self, raw, tag, value):
@@ -77,6 +92,14 @@ class OggFormat(CaseInsensitiveBaseFormat):
         elif tag == 'rating':
             rating = self._stars_to_rating(value[0])
             value = [str(rating)]
+        elif tag == 'bpm':
+            if settings.get_option('collection/use_legacy_metadata_mapping', False):
+                tag = 'tempo'
+            value = [xl.unicode.to_unicode(v) for v in value]
+        elif tag == 'comment':
+            if settings.get_option('collection/use_legacy_metadata_mapping', False):
+                tag = 'description'
+            value = [xl.unicode.to_unicode(v) for v in value]
         else:
             # vorbis has text based attributes, so convert everything to unicode
             value = [xl.unicode.to_unicode(v) for v in value]

@@ -190,12 +190,7 @@ class BaseFormat:
             # __ is used to denote exaile's internal tags, so we skip
             # loading them to avoid conflicts. usually this shouldn't be
             # an issue.
-            if t.startswith("__") and (
-                t != '__rating'
-                or not settings.get_option(
-                    'collection/write_rating_to_audio_file_metadata', False
-                )
-            ):
+            if self._remove_internal_tag(t):
                 continue
             tags.append(t)
         alltags = self.read_tags(tags)
@@ -279,12 +274,7 @@ class BaseFormat:
             # tags starting with __ are internal and should not be written
             # -> this covers INFO_TAGS, which also shouldn't be written
             for tag in list(tagdict.keys()):
-                if tag.startswith("__") and (
-                    tag != '__rating'
-                    or not settings.get_option(
-                        'collection/write_rating_to_audio_file_metadata', False
-                    )
-                ):
+                if self._remove_internal_tag(tag):
                     del tagdict[tag]
 
             # Only modify the tags we were told to modify
@@ -362,6 +352,17 @@ class BaseFormat:
             # 5
             rating = 100
         return rating
+
+    def _remove_internal_tag(self, tag):
+        if tag.startswith("__") and (
+            tag != '__rating'
+            or not settings.get_option(
+                'collection/write_rating_to_audio_file_metadata', False
+            )
+        ):
+            return True
+
+        return False
 
 
 class CaseInsensitiveBaseFormat(BaseFormat):

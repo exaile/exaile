@@ -613,7 +613,7 @@ class Track:
         elif tag == '__rating' and self._write_rating_to_disk():
             try:
                 value = self.__tags.get(tag)[0]
-            except (TypeError) as e:
+            except TypeError as e:
                 value = self.__tags.get(tag)
         else:
             value = self.__tags.get(tag)

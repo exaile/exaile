@@ -153,7 +153,7 @@ class ID3Format(BaseFormat):
             frames = [id3.WOAR(encoding=3, url=d) for d in data]
         elif tag == 'POPM':
             # Rating Stars
-            data = int(data)
+            data = int(data[0])
             rating = self._stars_to_rating(data)
             email = settings.get_option(
                 'collection/write_rating_to_audio_file_metadata_popm_mail'

@@ -75,7 +75,7 @@ class OggFormat(CaseInsensitiveBaseFormat):
                 new_value.append(tmp)
             value = new_value
         elif tag == 'rating':
-            rating = self._stars_to_rating(value)
+            rating = self._stars_to_rating(value[0])
             value = [str(rating)]
         else:
             # vorbis has text based attributes, so convert everything to unicode

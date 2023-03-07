@@ -81,7 +81,7 @@ class FlacFormat(CaseInsensitiveBaseFormat):
 
         elif tag == 'rating':
             # Rating Stars
-            value = [str(self._stars_to_rating(int(value)))]
+            value = [str(self._stars_to_rating(int(value[0])))]
 
         else:
             # flac has text based attributes, so convert everything to unicode

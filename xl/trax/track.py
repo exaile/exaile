@@ -507,6 +507,13 @@ class Track:
             if not tag.startswith("__"):  # internal tags dont have to be lists
                 values = [values]
 
+        if (
+            tag == '__rating'
+            and not isinstance(values, list)
+            and self._write_rating_to_disk()
+        ):
+            values = [values]
+
         # For lists, filter out empty values
         if isinstance(values, list):
             values = [v for v in values if v not in (None, '')]
@@ -603,6 +610,8 @@ class Track:
             # TODO: This is only necessary because some places that deal with
             # __startoffset don't check for None. Those need to be fixed.
             value = self.__tags.get(tag, 0)
+        elif tag == '__rating' and self._write_rating_to_disk():
+            value = self.__tags.get(tag)[0]
         else:
             value = self.__tags.get(tag)
 
@@ -923,13 +932,7 @@ class Track:
         rating = 100 * rating / maximum
         self.set_tags(__rating=rating)
 
-        f = self._get_format_obj()
-        if f is None:
-            return rating
-        keys = f.tag_mapping
-        if '__rating' in keys and settings.get_option(
-            'collection/write_rating_to_audio_file_metadata', False
-        ):
+        if self._write_rating_to_disk():
             self.set_tag_disk('__rating', rating)
         return rating
 
@@ -1090,6 +1093,22 @@ class Track:
     def _get_track_count(cls):
         '''Internal API, returns number of track objects we have'''
         return len(cls._Track__tracksdict)
+
+    def _write_rating_to_disk(self):
+        if not settings.get_option(
+            'collection/write_rating_to_audio_file_metadata', False
+        ):
+            return False
+
+        f = self._get_format_obj()
+        if f is None:
+            return False
+
+        keys = f.tag_mapping
+        if not '__rating' in keys:
+            return False
+
+        return True
 
 
 event.add_callback(Track._the_cuts_cb, 'collection_option_set')

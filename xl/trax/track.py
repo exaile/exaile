@@ -611,7 +611,10 @@ class Track:
             # __startoffset don't check for None. Those need to be fixed.
             value = self.__tags.get(tag, 0)
         elif tag == '__rating' and self._write_rating_to_disk():
-            value = self.__tags.get(tag)[0]
+            try:
+                value = self.__tags.get(tag)[0]
+            except (TypeError) as e:
+                value = self.__tags.get(tag)
         else:
             value = self.__tags.get(tag)
 

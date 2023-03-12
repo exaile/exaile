@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-02 06:46+0100\n"
-"PO-Revision-Date: 2023-03-06 11:37+0000\n"
-"Last-Translator: Felipe Nogueira <contato.fnog@gmail.com>\n"
+"PO-Revision-Date: 2023-03-12 21:36+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
 "Language: pt\n"
@@ -1395,7 +1395,7 @@ msgstr "Repor pre_definições"
 
 #: ../xlgui/preferences/collection.py:130
 msgid "Migrating ratings to audio file metadata"
-msgstr ""
+msgstr "A migrar as classificações para os metadados dos ficheiros de áudio"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -2508,10 +2508,14 @@ msgid ""
 "metadata instead of database, if possible.\n"
 "This feature should work for MP3, MP4, FLAC and OGG. "
 msgstr ""
+"Use este recurso experimental para ler e para gravar as classificações nos "
+"metadados do ficheiro de áudio em vez do banco de dados, caso seja possível."
+"\n"
+"Esse recurso deve funcionar para MP3, MP4, FLAC e OGG. "
 
 #: ../data/ui/preferences/collection.ui:105
 msgid "Use e-mail for Popularimeter (MP3 only):"
-msgstr ""
+msgstr "Use o e-mail para o Popularimeter (apenas MP3):"
 
 #: ../data/ui/preferences/collection.ui:134
 msgid "Write existing ratings to track files now"
@@ -3090,10 +3094,8 @@ msgid "_Mass rename/delete tags"
 msgstr "Renomear/apagar etiquetas em _massa"
 
 #: ../plugins/grouptagger/__init__.py:122
-#, fuzzy
-#| msgid "E_xport collecton tags to JSON"
 msgid "E_xport collection tags to JSON"
-msgstr "Exportar tags de coleção para JSON"
+msgstr "E_xportar a coleção das tags para JSON"
 
 #: ../plugins/grouptagger/__init__.py:129
 msgid "_GroupTagger"
@@ -3962,7 +3964,7 @@ msgstr "WavPack"
 
 #: ../plugins/cd/cdprefs_pane.ui:56
 msgid "Fetch metadata from internet servers"
-msgstr ""
+msgstr "Obter os metadados a partir dos servidores da internet"
 
 #: ../plugins/cd/cdprefs_pane.ui:69
 msgid "Disc metadata"
@@ -4692,12 +4694,7 @@ msgid "CD Playback"
 msgstr "Reprodução de CD"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4705,10 +4702,11 @@ msgid ""
 "Requires python-libdiscid (%s) and python-musicbrainzngs (%s) to look up "
 "tags."
 msgstr ""
-"Adiciona suporte para a reprodução de CDs de áudio.\n"
+"Adiciona suporte para reprodução de CDs de áudio.\n"
 "\n"
-"Requer UDisks2 para a deteção automática de CDs\n"
-"Requer cddb-py (%s) para procurar etiquetas."
+"Requer que o UDisks2 detecte automaticamente os CDs\n"
+"Requer o python-libdiscid (%s) e o python-musicbrainzngs (%s) para localizar "
+"tags."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
 msgid "Devices"
@@ -4732,10 +4730,6 @@ msgid "Current Song in Pidgin"
 msgstr "Canção atual em Pidgin"
 
 #: ../plugins/currentsong/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
-#| "out the suppported services."
 msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the supported services."
@@ -5124,6 +5118,13 @@ msgid ""
 "the Windows session, which may cause some security software to detect Exaile "
 "as a keylogger."
 msgstr ""
+"Adiciona suporte para as teclas multimídia do teclado no Windows.\n"
+"\n"
+"Requer: pynput (%s) (incluído no instalador do Exaile)\n"
+"\n"
+"Aviso: quando este plug-in está ativado, o Exaile processará todos os "
+"eventos importantes na sessão do Windows, o que pode fazer com que algum "
+"software de segurança detecte o Exaile como se fosse um keylogger."
 
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
 msgid "Exaile"

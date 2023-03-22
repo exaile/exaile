@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-02 06:46+0100\n"
-"PO-Revision-Date: 2023-03-21 20:38+0000\n"
+"PO-Revision-Date: 2023-03-22 20:39+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -1999,13 +1999,13 @@ msgstr "ei ole"
 #. to compare to __null__)
 #: ../xlgui/widgets/smart_playlist_editor.py:211
 msgid "is set"
-msgstr ""
+msgstr "on määratud"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/widgets/smart_playlist_editor.py:214
 msgid "is not set"
-msgstr ""
+msgstr "pole määratud"
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/widgets/smart_playlist_editor.py:216
@@ -2100,17 +2100,17 @@ msgstr "Nutika esitusnimekirja muutmine"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:421
 msgid "Sort by:"
-msgstr ""
+msgstr "Sordi:"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:436
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
 msgid "Ascending"
-msgstr "Kasvav"
+msgstr "Kasvavalt"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:437
 #: ../plugins/jamendo/ui/jamendo_panel.ui:22
 msgid "Descending"
-msgstr "Kahanev"
+msgstr "Kahanevalt"
 
 #: ../data/ui/about_dialog.ui:8
 msgid "About Exaile"
@@ -2124,7 +2124,7 @@ msgstr "© 2009–2020 Erinevad kaasautorid"
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr "Priit Jõerüüt (2021-2022)"
+msgstr "Priit Jõerüüt (2021-2023)"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -2553,7 +2553,7 @@ msgstr "GStreamer"
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
 msgid "Audio Sink:  "
-msgstr ""
+msgstr "Helineel:  "
 
 #: ../data/ui/preferences/playback.ui:98
 msgid "Audio Device: "

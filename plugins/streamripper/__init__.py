@@ -20,7 +20,7 @@ import os
 import shutil
 from gi.repository import Gtk
 
-from xl import event, player, settings
+from xl import event, player, settings, common
 from xl.nls import gettext as _
 from xlgui.widgets import dialogs
 
@@ -36,8 +36,10 @@ def get_preferences_pane():
 
 
 class Streamripper:
-    def __init__(self):
+    def __init__(self, exaile):
+        self.exaile = exaile
         self.savedir = None
+        self.current_url = None
 
     def toggle_record(self, add_call):
         current_track = player.PLAYER.current
@@ -47,14 +49,18 @@ class Streamripper:
             logger.warning('Streamripper can only record streams')
             return True
 
+        self.current_url = current_track.get_loc_for_io()
+
         self.savedir = settings.get_option(
             'plugin/streamripper/save_location', os.getenv('HOME')
         )
         options = []
         options.append('streamripper')
-        options.append(player.PLAYER._pipe.get_property('uri'))
+        options.append(common.sanitize_url(current_track.get_loc_for_io()))
         options.append('-D')
         options.append('%A/%a/%T')
+        options.append('-u')
+        options.append('"' + self.exaile.get_user_agent_string() + '"')
         if settings.get_option('plugin/streamripper/single_file', False):
             options.append("-a")
             options.append("-A")
@@ -104,6 +110,9 @@ class Streamripper:
         self.remove_callbacks()
 
     def start_track(self, type, player, track):
+        current_url = track.get_loc_for_io()
+        if current_url == self.current_url:
+            return
         self.stop_ripping()
         if self.toggle_record(False):
             self.button.set_active(False)
@@ -117,7 +126,7 @@ class Streamripper:
 
 class Button(Streamripper):
     def __init__(self, exaile):
-        self.exaile = exaile
+        Streamripper.__init__(self, exaile)
         self.button = Gtk.ToggleButton()
         self.button.set_relief(Gtk.ReliefStyle.NONE)
         image = Gtk.Image.new_from_icon_name('media-record', Gtk.IconSize.MENU)

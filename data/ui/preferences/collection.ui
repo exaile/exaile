@@ -152,7 +152,7 @@ This feature should work for MP3, MP4, FLAC and OGG. </property>
     </child>
     <child>
       <object class="GtkCheckButton" id="collection/use_legacy_metadata_mapping">
-        <property name="label" translatable="yes">FLAC: Read and write bpm to tempo tag</property>
+        <property name="label" translatable="yes">Use legacy tag mapping</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
@@ -167,8 +167,8 @@ This feature should work for MP3, MP4, FLAC and OGG. </property>
     <child>
       <object class="GtkLabel" id="collection/use_legacy_metadata_mapping_hint">
         <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Use this feature to read and write bpm instead to tempo tag in flac files.
-This is the old behaviour. To get rid of it, migrate using the button. After migration this feature will be disabled.</property>
+        <property name="label" translatable="yes">Use legacy tag mapping as up to Exaile 4.1.2 for OGG and FLAC files for comment and bpm tags. From Exaile 4.1.3 the mapping is equivalent to Musicbrainz.
+Your can start migration here. After migration this feature will be disabled.</property>
         <property name="justify">fill</property>
         <property name="wrap">True</property>
         <accessibility>

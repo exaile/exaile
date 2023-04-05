@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-02 06:46+0100\n"
-"PO-Revision-Date: 2022-12-21 08:48+0000\n"
-"Last-Translator: Eric <hamburger1024@duck.com>\n"
+"PO-Revision-Date: 2023-04-05 18:48+0000\n"
+"Last-Translator: Eric <hamburger2048@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "exaile/master/zh_Hans/>\n"
 "Language: zh\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 4.17-dev\n"
 "X-Launchpad-Export-Date: 2009-08-19 14:52+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -3912,10 +3912,8 @@ msgid "Disc metadata"
 msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui:101
-#, fuzzy
-#| msgid "Format"
 msgid "Format: "
-msgstr "格式"
+msgstr "格式： "
 
 #: ../plugins/cd/cdprefs_pane.ui:131
 msgid "Quality: "

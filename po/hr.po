@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-02 06:46+0100\n"
-"PO-Revision-Date: 2023-04-07 21:51+0000\n"
+"PO-Revision-Date: 2023-04-08 08:51+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/exaile/master/"
 "hr/>\n"
@@ -179,7 +179,7 @@ msgstr "Opcije za zbirke"
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:154 ../xl/main.py:163
 msgid "LOCATION"
-msgstr "Lokacija"
+msgstr "LOKACIJA"
 
 #: ../xl/main.py:155
 msgid "Add tracks from LOCATION to the collection"
@@ -1405,7 +1405,7 @@ msgstr "Vrati na _standardno"
 
 #: ../xlgui/preferences/collection.py:130
 msgid "Migrating ratings to audio file metadata"
-msgstr ""
+msgstr "Migriranje ocjena u metapodatke audio datoteke"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -1591,7 +1591,7 @@ msgstr "Spremljeno %(count)s od %(total)s."
 
 #: ../xlgui/tray.py:203 ../data/exaile.desktop.in:7
 msgid "Exaile Music Player"
-msgstr "Exaile muzički player"
+msgstr "Exaile player muzike"
 
 #: ../xlgui/widgets/dialogs.py:358
 msgid "Enter the URL to open"
@@ -2517,6 +2517,9 @@ msgid ""
 "metadata instead of database, if possible.\n"
 "This feature should work for MP3, MP4, FLAC and OGG. "
 msgstr ""
+"Koristi ovu eksperimentalnu funkciju za čitanje i pisanje ocjena u "
+"metapodatke audio datoteke umjesto u bazu podataka, ako je moguće.\n"
+"Ova bi funkcija trebala raditi za MP3, MP4, FLAC i OGG. "
 
 #: ../data/ui/preferences/collection.ui:105
 msgid "Use e-mail for Popularimeter (MP3 only):"
@@ -4742,7 +4745,7 @@ msgid ""
 "Requires: spydaap\n"
 "Optional: python-zeroconf"
 msgstr ""
-"Omogućuje pristup DAAP dijeljenju glazbe putem biblioteke spydaap. "
+"Omogućuje pristup DAAP dijeljenju muzike putem biblioteke spydaap. "
 "Automatsko otkrivanje dijeljenja opcionalno je dostupno putem python-"
 "zeroconf.\n"
 "Zahtijeva: spydaap\n"
@@ -4828,7 +4831,7 @@ msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
-msgstr "Uključuje pristup muzičkim katalozima od Jamendo."
+msgstr "Uključuje pristup Jamendo katalogu muzike."
 
 #: ../plugins/karaoke/PLUGININFO:3
 msgid "Karaoke"
@@ -4986,7 +4989,7 @@ msgid ""
 "\n"
 "Requires: musicbrainzngs"
 msgstr ""
-"Integrira MusicBrainz traženje omota.\n"
+"Integrira MusicBrainz za traženje omota.\n"
 "\n"
 "Zahtijeva: musicbrainzngs"
 
@@ -5116,7 +5119,7 @@ msgstr "Exaile"
 
 #: ../data/exaile.desktop.in:6
 msgid "Music Player"
-msgstr "Reproduktor glazbe"
+msgstr "Player muzike"
 
 #: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
 msgid "Listen to, explore, or manage your audio collection"
@@ -5124,7 +5127,7 @@ msgstr "Slušaj, istraži ili upravljaj tvojom audio zbirkom"
 
 #: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;"
-msgstr "Muzika;Glazba;Player;Biblioteka;Zbirka;MP3;"
+msgstr "Muzika;Player;Biblioteka;Zbirka;MP3;"
 
 #: ../data/exaile.desktop.in:15
 msgid "player,mp3,ogg"

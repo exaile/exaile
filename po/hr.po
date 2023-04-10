@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-02 06:46+0100\n"
-"PO-Revision-Date: 2022-12-30 01:55+0000\n"
+"PO-Revision-Date: 2023-04-08 21:49+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/exaile/master/"
 "hr/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 4.17-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -179,7 +179,7 @@ msgstr "Opcije za zbirke"
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:154 ../xl/main.py:163
 msgid "LOCATION"
-msgstr "Lokacija"
+msgstr "LOKACIJA"
 
 #: ../xl/main.py:155
 msgid "Add tracks from LOCATION to the collection"
@@ -1366,13 +1366,13 @@ msgstr "Playlista %d"
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 msgstr ""
-"{playlist_name} (broj pjesama {track_count}, zatvoreno prije {minutes} min)"
+"{playlist_name} (broj pjesama: {track_count}, zatvoreno prije {minutes} min)"
 
 #: ../xlgui/playlist_container.py:394
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr ""
-"{playlist_name} (broj pjesama {track_count}, zatvoreno prije {seconds} s)"
+"{playlist_name} (broj pjesama: {track_count}, zatvoreno prije {seconds} s)"
 
 #: ../xlgui/playlist_container.py:546
 msgid "_Move to Other View"
@@ -1405,7 +1405,7 @@ msgstr "Vrati na _standardno"
 
 #: ../xlgui/preferences/collection.py:130
 msgid "Migrating ratings to audio file metadata"
-msgstr ""
+msgstr "Migriranje ocjena u metapodatke audio datoteke"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -1440,13 +1440,11 @@ msgstr[2] "Neuspjeli dodaci: %s"
 
 #: ../xlgui/preferences/plugin.py:235
 msgid "Do you really want to remove this plugin?"
-msgstr ""
+msgstr "Stvarno želiš ukloniti ovaj dodatak?"
 
 #: ../xlgui/preferences/plugin.py:245
-#, fuzzy
-#| msgid "Could not enable plugin!"
 msgid "Could not remove plugin!"
-msgstr "Nije bilo moguće uključiti dodatak!"
+msgstr "Nije bilo moguće ukloniti dodatak!"
 
 #: ../xlgui/preferences/plugin.py:261 ../xlgui/preferences/plugin.py:384
 msgid "Could not disable plugin!"
@@ -1471,11 +1469,11 @@ msgstr "Sve datoteke"
 
 #: ../xlgui/preferences/plugin.py:317
 msgid "Plugin already exists!"
-msgstr ""
+msgstr "Dodatak već postoji!"
 
 #: ../xlgui/preferences/plugin.py:318
 msgid "Do you want to override it?"
-msgstr ""
+msgstr "Žeiliš i ga prepisati?"
 
 #: ../xlgui/preferences/plugin.py:326
 msgid "Plugin file installation failed!"
@@ -1593,7 +1591,7 @@ msgstr "Spremljeno %(count)s od %(total)s."
 
 #: ../xlgui/tray.py:203 ../data/exaile.desktop.in:7
 msgid "Exaile Music Player"
-msgstr "Exaile muzički player"
+msgstr "Exaile player muzike"
 
 #: ../xlgui/widgets/dialogs.py:358
 msgid "Enter the URL to open"
@@ -2272,7 +2270,7 @@ msgid ""
 msgstr ""
 "Prekini sviranje\n"
 "\n"
-"Desni klik za „Prekini nakon pjesme”"
+"Pritisni desnu tipku miša za „Prekini nakon pjesme”"
 
 #: ../data/ui/main.ui:221
 msgid "Next Track"
@@ -2503,7 +2501,8 @@ msgstr ""
 
 #: ../data/ui/preferences/collection.ui:44
 msgid "(Right click to reset to defaults)"
-msgstr "(Desni klik miša za ponovno postavljanje na standardne postavke)"
+msgstr ""
+"(Pritisni desnu tipku miša za ponovno postavljanje na standardne postavke)"
 
 #: ../data/ui/preferences/collection.ui:57
 msgid "Use file-based compilation detection"
@@ -2511,7 +2510,7 @@ msgstr "Koristi otkrivanje kompilacija na temelju datoteka"
 
 #: ../data/ui/preferences/collection.ui:71
 msgid "Read and write ratings additionally in audio file metadata"
-msgstr ""
+msgstr "Dodatno čitaj i piši ocjene u metapodatke audio datoteke"
 
 #: ../data/ui/preferences/collection.ui:86
 msgid ""
@@ -2519,14 +2518,17 @@ msgid ""
 "metadata instead of database, if possible.\n"
 "This feature should work for MP3, MP4, FLAC and OGG. "
 msgstr ""
+"Koristi ovu eksperimentalnu funkciju za čitanje i pisanje ocjena u "
+"metapodatke audio datoteke umjesto u bazu podataka, ako je moguće.\n"
+"Ova bi funkcija trebala raditi za MP3, MP4, FLAC i OGG. "
 
 #: ../data/ui/preferences/collection.ui:105
 msgid "Use e-mail for Popularimeter (MP3 only):"
-msgstr ""
+msgstr "Koristi e-mail za Popularimeter (samo MP3):"
 
 #: ../data/ui/preferences/collection.ui:134
 msgid "Write existing ratings to track files now"
-msgstr ""
+msgstr "Zapiši postojeće ocjene za praćenje datoteka"
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"
@@ -2606,10 +2608,8 @@ msgid "Remove track from queue upon playback"
 msgstr "Ukloni pjesmu iz reda za sviranje nakon sviranja"
 
 #: ../data/ui/preferences/playback.ui:221
-#, fuzzy
-#| msgid "Repeat playback"
 msgid "Remove after playback"
-msgstr "Ponovi sviranje"
+msgstr "Ukloni nakon sviranja"
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -2623,7 +2623,7 @@ msgid ""
 "except when clicking the playback controls"
 msgstr ""
 "Ako pjesma trenutačno svira, nemoj dopustiti pokretanje novih pjesama, osim "
-"kad klikneš na kontrole za sviranje"
+"kad pritisneš kontrole za sviranje"
 
 #: ../data/ui/preferences/playback.ui:252
 #: ../plugins/quickbuttons/__init__.py:65
@@ -2687,15 +2687,15 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui:38
 msgid "Replace content on side pane double click"
-msgstr "Zamijeni sadržaj bočne trake dvostrukim klikom"
+msgstr "Zamijeni sadržaj u bočnoj traci dvostrukim pritiskom"
 
 #: ../data/ui/preferences/playlists.ui:42
 msgid ""
 "Instead of appending, tracks added via double click in the panes will "
 "replace the content of the current playlist."
 msgstr ""
-"Umjesto dodavanja na kraj, pjesme koje se dodaju dvostrukim klikom, "
-"zamijenit će sadržaj trenutačne playliste."
+"Umjesto dodavanja na kraj, pjesme koje se dodaju dvostrukim pritiskom će "
+"zamijeniti sadržaj trenutačne playliste."
 
 #: ../data/ui/preferences/playlists.ui:52
 msgid "Appending/replacing via menu item triggers playback"
@@ -2722,8 +2722,8 @@ msgid ""
 "When you double click or press enter to play a track in a playlist, queue "
 "the track instead of playing it"
 msgstr ""
-"Kad pritisneš dvaput ili kad klikneš na tipku enter za sviranje pjesme u "
-"playlisti, stavi pjesmu u red za sviranje, umjesto da je sviraš"
+"Kad pritisneš dvaput ili kad pritisneš tipku enter za sviranje pjesme u "
+"playlisti, postavi pjesmu u red za sviranje umjesto da je sviraš"
 
 #: ../data/ui/preferences/plugin.ui:66
 msgid "Plugin"
@@ -2869,7 +2869,7 @@ msgstr "Logotip izdavača/studija"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:115
 msgid "Click or drag files here to change the cover image"
-msgstr "Klikni ili povuci datoteke ovamo, za mijenjanje slike omota"
+msgstr "Za mijenjanje slike omota pritisni ili povuci datoteke ovamo"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:139
 msgid "Description:"
@@ -2994,10 +2994,8 @@ msgid "Audio Disc"
 msgstr "Audio disk"
 
 #: ../plugins/cd/_cdguipanel.py:97
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown disc"
-msgstr "Nepoznato"
+msgstr "Nepoznat disk"
 
 #: ../plugins/cd/_cdguipanel.py:113
 msgid "Importing CD..."
@@ -3101,8 +3099,6 @@ msgid "_Mass rename/delete tags"
 msgstr "_Masovno preimenovanje/uklanjanje oznaka"
 
 #: ../plugins/grouptagger/__init__.py:122
-#, fuzzy
-#| msgid "E_xport collecton tags to JSON"
 msgid "E_xport collection tags to JSON"
 msgstr "I_zvezi oznake zbirke u JSON"
 
@@ -3313,13 +3309,11 @@ msgstr "Greška pri povezivanju sa Shoutcast poslužiteljem."
 
 #: ../plugins/icecast/__init__.py:149
 msgid "Parsing stations XML..."
-msgstr ""
+msgstr "Obrada XML-a stanica …"
 
 #: ../plugins/icecast/__init__.py:161
-#, fuzzy
-#| msgid "Retrieving song data..."
 msgid "Retrieving stations..."
-msgstr "Preuzimanje podataka pjesme …"
+msgstr "Preuzimanje stanica …"
 
 #: ../plugins/icecast/__init__.py:274
 msgid "Enter the search keywords"
@@ -3339,7 +3333,7 @@ msgstr "Rezultati Icecast pretrage"
 
 #: ../plugins/icecast/__init__.py:353
 msgid "Parsing genre list..."
-msgstr ""
+msgstr "Obrada popisa žanra …"
 
 #: ../plugins/icecast/__init__.py:374
 #: ../plugins/developer/developer_window.ui:59
@@ -3707,7 +3701,7 @@ msgstr "Pregled"
 
 #: ../plugins/previewdevice/__init__.py:334
 msgid "Pause Playback (double click to stop)"
-msgstr "Zaustavi sviranje (dupli klik za prekid)"
+msgstr "Zaustavi sviranje (pritisni dvaput za prekid)"
 
 #: ../plugins/previewdevice/previewprefs.py:32
 #: ../plugins/quickbuttons/__init__.py:101
@@ -3977,27 +3971,23 @@ msgstr "WavPack"
 
 #: ../plugins/cd/cdprefs_pane.ui:56
 msgid "Fetch metadata from internet servers"
-msgstr ""
+msgstr "Dohvati metapodatake s internetskih poslužitelja"
 
 #: ../plugins/cd/cdprefs_pane.ui:69
 msgid "Disc metadata"
-msgstr ""
+msgstr "Metapodaci diska"
 
 #: ../plugins/cd/cdprefs_pane.ui:101
-#, fuzzy
-#| msgid "Format"
 msgid "Format: "
-msgstr "Format"
+msgstr "Format: "
 
 #: ../plugins/cd/cdprefs_pane.ui:131
-#, fuzzy
-#| msgid "Import quality: "
 msgid "Quality: "
-msgstr "Kvaliteta uvoza: "
+msgstr "Kvaliteta: "
 
 #: ../plugins/cd/cdprefs_pane.ui:160
 msgid "Path: "
-msgstr ""
+msgstr "Staza: "
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
@@ -4010,10 +4000,8 @@ msgstr ""
 "oznake poput <b>$__length</b> moraju se odrediti s dvije podvlake."
 
 #: ../plugins/cd/cdprefs_pane.ui:218
-#, fuzzy
-#| msgid "Importing tracks"
 msgid "Import tracks to disk"
-msgstr "Uvoz pjesama"
+msgstr "Uvezi pjesme na disk"
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
@@ -4238,7 +4226,7 @@ msgstr ""
 
 #: ../plugins/history/history_preferences.ui:18
 msgid "Persist history after player exits"
-msgstr "Sačuvaj kronologiju nakon što player izađe"
+msgstr "Sačuvaj kronologiju nakon što se player zatvori"
 
 #: ../plugins/history/history_preferences.ui:36
 msgid "History length:"
@@ -4708,12 +4696,7 @@ msgid "CD Playback"
 msgstr "Sviranje CD-a"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4724,7 +4707,8 @@ msgstr ""
 "Dodaje podršku za sviranje audio CD-a.\n"
 "\n"
 "Zahtijeva UDisks2 za automatsko otkrivanje CD-a\n"
-"Zahtijeva cddb-py (%s) za traženje oznaka."
+"Zahtijeva python-libdiscid (%s) i python-musicbrainzngs (%s) za traženje "
+"oznaka."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
 msgid "Devices"
@@ -4748,16 +4732,12 @@ msgid "Current Song in Pidgin"
 msgstr "Trenutačna pjesma u Pidgin"
 
 #: ../plugins/currentsong/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
-#| "out the suppported services."
 msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the supported services."
 msgstr ""
-"Postavlja trenutačno stanje sviranja u Pidgin. Potraži podržane usluge na "
-"Pidgin stranici s često postavljenim pitanjima."
+"Postavlja trenutačno stanje sviranja u Pidgin. Pregledaj ČPP Pidgin stranicu "
+"za pronalaženje podržanih usluga."
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid ""
@@ -4766,7 +4746,7 @@ msgid ""
 "Requires: spydaap\n"
 "Optional: python-zeroconf"
 msgstr ""
-"Omogućuje pristup DAAP dijeljenju glazbe putem biblioteke spydaap. "
+"Omogućuje pristup DAAP dijeljenju muzike putem biblioteke spydaap. "
 "Automatsko otkrivanje dijeljenja opcionalno je dostupno putem python-"
 "zeroconf.\n"
 "Zahtijeva: spydaap\n"
@@ -4852,7 +4832,7 @@ msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
-msgstr "Uključuje pristup muzičkim katalozima od Jamendo."
+msgstr "Uključuje pristup Jamendo katalogu muzike."
 
 #: ../plugins/karaoke/PLUGININFO:3
 msgid "Karaoke"
@@ -4997,8 +4977,8 @@ msgstr ""
 "Svira muziku u određeno vrijeme i određene dane.\n"
 "\n"
 "Imaj na umu da kad dođe određeno vrijeme, Exaile će se jednostavno ponašati "
-"kao da si pritisnuo/la tipku za reprodukciju, stoga pazi da se na popisu "
-"pjesama koje želiš slušati nalaze te glazbe"
+"kao da si pritisnuo/la tipku za reprodukciju, stoga pazi da se muzika koju "
+"želiš slušati nalazi u tvojoj playlisti"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3
 msgid "MusicBrainz Covers"
@@ -5010,7 +4990,7 @@ msgid ""
 "\n"
 "Requires: musicbrainzngs"
 msgstr ""
-"Integrira MusicBrainz traženje omota.\n"
+"Integrira MusicBrainz za traženje omota.\n"
 "\n"
 "Zahtijeva: musicbrainzngs"
 
@@ -5056,7 +5036,7 @@ msgid ""
 "select 'preview'). Useful for DJs."
 msgstr ""
 "Omogućuje sviranje audio snimaka putem sekundarnog uređaja (desnom tipkom "
-"miša klikni na playlistu i odaberi „pregled”. Korisno za DJ-eve."
+"miša pritisni na playlistu i odaberi „pregled”). Korisno za DJ-eve."
 
 #: ../plugins/previewdevice/PLUGININFO:5 ../plugins/streamripper/PLUGININFO:5
 msgid "Output"
@@ -5070,7 +5050,7 @@ msgstr "Gumbi brzih postavki"
 msgid ""
 "Provides buttons on bottom of the playlist to quickly change some settings"
 msgstr ""
-"Omogućuje gumbe na dnu popisa playliste za brzu promjenu nekih postavki"
+"Omogućuje gumbe na dnu popisa playliste za brzo mijenjanje nekih postavki"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
@@ -5133,6 +5113,13 @@ msgid ""
 "the Windows session, which may cause some security software to detect Exaile "
 "as a keylogger."
 msgstr ""
+"Dodaje podršku za multimedijske tipke na tipkovnici u sustavu Windows.\n"
+"\n"
+"Zahtijeva: pynput (%s) (uključeno u instalacijskom programu za Exaile)\n"
+"\n"
+"Upozorenje: kad je ovaj dodatak aktiviran, Exaile će obraditi svaki tipkovni "
+"događaj u Windows sesiji, što može uzrokovati da neki sigurnosni softver "
+"otkrije Exaile kao zapisivač tipkanja."
 
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
 msgid "Exaile"
@@ -5140,7 +5127,7 @@ msgstr "Exaile"
 
 #: ../data/exaile.desktop.in:6
 msgid "Music Player"
-msgstr "Reproduktor glazbe"
+msgstr "Player muzike"
 
 #: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
 msgid "Listen to, explore, or manage your audio collection"
@@ -5148,7 +5135,7 @@ msgstr "Slušaj, istraži ili upravljaj tvojom audio zbirkom"
 
 #: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;"
-msgstr "Muzika;Glazba;Player;Biblioteka;Zbirka;MP3;"
+msgstr "Muzika;Player;Biblioteka;Zbirka;MP3;"
 
 #: ../data/exaile.desktop.in:15
 msgid "player,mp3,ogg"
@@ -5161,6 +5148,11 @@ msgid ""
 "lyrics fetching, streaming internet radio, tabbed playlists, smart playlists "
 "with extensive filtering/search capabilities, and much more."
 msgstr ""
+"Exaile je glazbeni player s jednostavnim sučeljem i moćnim mogućnostima "
+"upravljanja glazbom. Uključuje automatsko dohvaćanje omota albuma, "
+"dohvaćanje tektsova pjesama, prijenos internetskog radija, playliste u "
+"karticama, pametne playliste s opsežnim mogućnostima filtriranja/"
+"pretraživanja i još mnogo toga."
 
 #: ../data/exaile.appdata.xml.in:15
 msgid ""
@@ -5170,6 +5162,12 @@ msgid ""
 "players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
 "output via a secondary output device (great for DJs!), and much more."
 msgstr ""
+"Exaile je napisan pomoću pythona i GTK+ te se može lako proširiti pomoću "
+"dodataka. Postoji više od 50 dodataka koji se distribuiraju s Exaileom koji "
+"uključuju napredno označavanje pjesama, praćenje i zapisivanje pjesama s "
+"last.fm, podršku za prijenosne media playere, podcaste, internetski radio "
+"kao što su icecast i Soma.FM, ReplayGain, slušanje putem sekundarnog "
+"izlaznog uređaja (odlično za DJ-e! ) i još puno više."
 
 #, python-format
 #~ msgid ""

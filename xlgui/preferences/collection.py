@@ -217,9 +217,11 @@ class UseLegacyMetadataMappingSyncNow(widgets.Button, widgets.Conditional):
 
             settings.set_option('collection/use_legacy_metadata_mapping', True)
             bpm = trax.get_tag_disk('tempo')
+            comment = trax.get_tag_disk('description')
 
             settings.set_option('collection/use_legacy_metadata_mapping', False)
             trax.set_tag_disk('bpm', bpm)
+            trax.set_tag_disk('comment', comment)
 
             i += 1
             yield i, total

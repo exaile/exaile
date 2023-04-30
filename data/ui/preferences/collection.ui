@@ -186,7 +186,7 @@ Your can start migration here. After migration this feature will be disabled.</p
 		<property name="width_request">150</property>
 		<property name="visible">True</property>
 		<property name="can_focus">True</property>
-		<property name="label" translatable="yes">Migrate existing tempo tags to bpm tag now</property>
+		<property name="label" translatable="yes">Migrate existing tempo and comment tags now</property>
 	  </object>
 	  <packing>
 		<property name="left_attach">0</property>

@@ -24,8 +24,8 @@ def migrate():
     Otherwise leave it disabled
     """
     firstrun = settings.get_option("general/first_run", True)
-    migrated = settings.get_option('collection/flac_write_bpm_to_tempo', None)
+    migrated = settings.get_option('collection/use_legacy_metadata_mapping', None)
     if not firstrun and migrated == None:
-        settings.set_option('collection/flac_write_bpm_to_tempo', True)
+        settings.set_option('collection/use_legacy_metadata_mapping', True)
     elif firstrun:
-        settings.set_option('collection/flac_write_bpm_to_tempo', False)
+        settings.set_option('collection/use_legacy_metadata_mapping', False)

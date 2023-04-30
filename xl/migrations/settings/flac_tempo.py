@@ -19,7 +19,7 @@ from xl import settings
 
 def migrate():
     """
-    Migration for flac bpm tag.
+    Migration for flac bpm and tempo tag setting.
     In case it's a new instance disable the old behaviour.
     Otherwise leave it disabled
     """

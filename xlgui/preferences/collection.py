@@ -192,7 +192,7 @@ class UseLegacyMetadataMappingSyncNow(widgets.Button, widgets.Conditional):
         self.scan_thread.connect('done', self.on_done)
         self.monitor = self.progress.add_monitor(
             self.scan_thread,
-            _("Migrating ratings to audio file metadata"),
+            _("Migrating metadata"),
             'document-open',
         )
 

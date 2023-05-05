@@ -56,8 +56,11 @@ class CdPlugin:
 
     def __import_dependency(self, module_name):
         try:
-            full_name = 'plugins.cd.' + module_name + '_parser'
-            return importlib.import_module(full_name)
+            sys.path.append(os.path.dirname(__file__))
+            full_name = module_name + '_parser'
+            imported = importlib.import_module(full_name)
+            sys.path.pop()
+            return imported
         except ImportError:
             logger.warn(
                 'Cannot import optional dependency "%s" for plugin cd.', module_name

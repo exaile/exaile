@@ -165,7 +165,7 @@ class CDPlaylist(playlist.Playlist):
             self.__device = "/dev/cdrom"
         else:
             self.__device = device
-        self.__read_disc_index_async(device)
+        GLib.idle_add(self.__read_disc_index_async, device)
 
     @common.threaded
     def __read_disc_index_async(self, device):

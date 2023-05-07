@@ -85,7 +85,7 @@ FORMATS = {
         "default"   : 160,
         "raw_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
         "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
-        "command"   : "lame vbr=4 vbr-mean-bitrate=%i",
+        "command"   : "lamemp3enc vbr=4 vbr-mean-bitrate=%i",
         "extension" : "mp3",
         "plugins"   : ["lamemp3enc"],
         "desc"      : _("A proprietary and older, but also popular, lossy "
@@ -96,7 +96,7 @@ FORMATS = {
         "default"   : 160,
         "raw_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
         "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
-        "command"   : "lame bitrate=%i",
+        "command"   : "lamemp3enc bitrate=%i",
         "extension" : "mp3",
         "plugins"   : ["lamemp3enc"],
         "desc"      : _("A proprietary and older, but also popular, "

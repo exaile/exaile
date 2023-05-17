@@ -138,7 +138,7 @@ class CDImporter:
 
     def __prepare_transcoder(self):
         formats = transcoder.get_formats()
-        default_format = next(formats.keys())
+        default_format = next(iter(formats))
         self.format = settings.get_option("cd_import/format", default_format)
         default_quality = formats[default_format]['default']
         self.quality = settings.get_option("cd_import/quality", default_quality)
@@ -184,7 +184,7 @@ class CDImporter:
 
     def _end_cb(self):
         self.cont.set()
-        xlgui.main.mainwindow().message.show_info("Finished transcoding files")
+        xlgui.main.mainwindow().message.show_info(_("Finished transcoding files"))
 
     def _error_cb(self, gerror, message_string):
         self.running = False

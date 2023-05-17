@@ -35,8 +35,6 @@ import base64
 class OggFormat(CaseInsensitiveBaseFormat):
     MutagenType = oggvorbis.OggVorbis
     tag_mapping = {
-        # 'bpm': 'bpm',
-        # 'comment': 'description',
         'cover': 'metadata_block_picture',
         '__rating': 'rating',
     }

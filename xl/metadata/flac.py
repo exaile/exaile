@@ -26,6 +26,7 @@
 
 import xl.unicode
 from xl.metadata._base import CaseInsensitiveBaseFormat, CoverImage
+from xl import settings
 from mutagen import flac
 from mutagen.flac import Picture
 
@@ -33,9 +34,7 @@ from mutagen.flac import Picture
 class FlacFormat(CaseInsensitiveBaseFormat):
     MutagenType = flac.FLAC
     tag_mapping = {
-        'bpm': 'tempo',
         'cover': '__cover',
-        'comment': 'description',
         'language': "Language",
         '__rating': 'rating',
     }
@@ -65,6 +64,20 @@ class FlacFormat(CaseInsensitiveBaseFormat):
             data = int(raw['rating'][0])
             return [str(self._rating_to_stars(data))]
 
+        elif tag == 'bpm':
+            if (
+                settings.get_option('collection/use_legacy_metadata_mapping', False)
+                and 'tempo' in raw
+            ):
+                tag = 'tempo'
+
+        elif tag == 'comment':
+            if (
+                settings.get_option('collection/use_legacy_metadata_mapping', False)
+                and 'description' in raw
+            ):
+                tag = 'description'
+
         return CaseInsensitiveBaseFormat._get_tag(self, raw, tag)
 
     def _set_tag(self, raw, tag, value):
@@ -82,6 +95,16 @@ class FlacFormat(CaseInsensitiveBaseFormat):
         elif tag == 'rating':
             # Rating Stars
             value = [str(self._stars_to_rating(int(value[0])))]
+
+        elif tag == 'bpm':
+            if settings.get_option('collection/use_legacy_metadata_mapping', False):
+                tag = 'tempo'
+            value = [xl.unicode.to_unicode(v) for v in value]
+
+        elif tag == 'comment':
+            if settings.get_option('collection/use_legacy_metadata_mapping', False):
+                tag = 'description'
+            value = [xl.unicode.to_unicode(v) for v in value]
 
         else:
             # flac has text based attributes, so convert everything to unicode

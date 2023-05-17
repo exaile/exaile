@@ -150,5 +150,60 @@ This feature should work for MP3, MP4, FLAC and OGG. </property>
         <property name="width">2</property>
       </packing>
     </child>
+    <child>
+      <object class="GtkCheckButton" id="collection/use_legacy_metadata_mapping">
+        <property name="label" translatable="yes">Use legacy tag mapping</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">9</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="collection/use_legacy_metadata_mapping_hint">
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Use legacy tag mapping for Ogg Vorbis and FLAC files for comment and bpm tags. From Exaile 4.1.3 the mapping is equivalent to MusicBrainz.
+Your can start migration here. After migration this feature will be disabled.</property>
+        <property name="justify">fill</property>
+        <property name="wrap">True</property>
+        <accessibility>
+          <relation type="label-for" target="collection/use_legacy_metadata_mapping"/>
+        </accessibility>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">10</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+	<child>
+	  <object class="GtkButton" id="collection/use_legacy_metadata_mapping_sync_now">
+		<property name="width_request">150</property>
+		<property name="visible">True</property>
+		<property name="can_focus">True</property>
+		<property name="label" translatable="yes">Migrate existing tempo and comment tags now</property>
+	  </object>
+	  <packing>
+		<property name="left_attach">0</property>
+		<property name="top_attach">11</property>
+        <property name="width">2</property>
+	  </packing>
+	</child>
+    <child>
+      <object class="GtkBox" id="collection/use_legacy_metadata_mapping_progress">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">12</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
   </object>
 </interface>

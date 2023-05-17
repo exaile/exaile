@@ -644,6 +644,11 @@ class Exaile:
 
         engine.migrate()
 
+        # Activate new flac/ogg metadata handling for new installations
+        from xl.migrations.settings import flac_tempo
+
+        flac_tempo.migrate()
+
         # TODO: enable audio plugins separately from normal
         #       plugins? What about plugins that use the player?
 

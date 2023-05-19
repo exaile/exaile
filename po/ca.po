@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-02 06:46+0100\n"
-"PO-Revision-Date: 2023-02-09 01:38+0000\n"
+"PO-Revision-Date: 2023-05-19 19:50+0000\n"
 "Last-Translator: Ecron <ecron_89@hotmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
 ">\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1399,7 +1399,7 @@ msgstr "Restableix als valors pre_determinats"
 
 #: ../xlgui/preferences/collection.py:130
 msgid "Migrating ratings to audio file metadata"
-msgstr ""
+msgstr "Migració de valoracions al fitxer de metadades de l'àudio"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -1433,13 +1433,11 @@ msgstr[1] "Han fallat els connectors: %s"
 
 #: ../xlgui/preferences/plugin.py:235
 msgid "Do you really want to remove this plugin?"
-msgstr ""
+msgstr "Segur que voleu suprimir el connector?"
 
 #: ../xlgui/preferences/plugin.py:245
-#, fuzzy
-#| msgid "Could not enable plugin!"
 msgid "Could not remove plugin!"
-msgstr "No s'ha pogut habilitar el connector!"
+msgstr "No s'ha pogut suprimir el connector."
 
 #: ../xlgui/preferences/plugin.py:261 ../xlgui/preferences/plugin.py:384
 msgid "Could not disable plugin!"
@@ -1464,11 +1462,11 @@ msgstr "Tots els fitxers"
 
 #: ../xlgui/preferences/plugin.py:317
 msgid "Plugin already exists!"
-msgstr ""
+msgstr "El connector ja existeix."
 
 #: ../xlgui/preferences/plugin.py:318
 msgid "Do you want to override it?"
-msgstr ""
+msgstr "El voleu sobreescriure?"
 
 #: ../xlgui/preferences/plugin.py:326
 msgid "Plugin file installation failed!"
@@ -2131,7 +2129,7 @@ msgstr "© 2009–2020 diversos contribuïdors"
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr "Artur Vicedo <artur@softcatala.org>, 2019"
+msgstr "Artur Vicedo <artur@softcatala.org>, 2019-2023"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -2509,6 +2507,8 @@ msgstr "Utilitza la detecció de la compilació basada en fitxers"
 #: ../data/ui/preferences/collection.ui:71
 msgid "Read and write ratings additionally in audio file metadata"
 msgstr ""
+"Lectura i escriptura de valoracions addicionals al fitxer de metadades de "
+"l'àudio"
 
 #: ../data/ui/preferences/collection.ui:86
 msgid ""
@@ -2516,14 +2516,18 @@ msgid ""
 "metadata instead of database, if possible.\n"
 "This feature should work for MP3, MP4, FLAC and OGG. "
 msgstr ""
+"Utilitzeu aquesta funcionalitat experimental per a llegir i escriure "
+"valoracions al fitxer de metadades de l'àudio en compte d'en la base de "
+"dades, si és possible.\n"
+"Això hauria de funcionar per als MP3, MP4, FLAC i OGG. "
 
 #: ../data/ui/preferences/collection.ui:105
 msgid "Use e-mail for Popularimeter (MP3 only):"
-msgstr ""
+msgstr "Utilitza una adreça electrònica per al Popularimeter (només MP3):"
 
 #: ../data/ui/preferences/collection.ui:134
 msgid "Write existing ratings to track files now"
-msgstr ""
+msgstr "Aplica a les pistes les valoracions existents"
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"
@@ -2604,10 +2608,8 @@ msgid "Remove track from queue upon playback"
 msgstr "Suprimeix la pista del capdamunt de la cua de reproducció"
 
 #: ../data/ui/preferences/playback.ui:221
-#, fuzzy
-#| msgid "Repeat playback"
 msgid "Remove after playback"
-msgstr "Repeteix la reproducció"
+msgstr "Suprimeix en acabar de reproduir"
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -2711,9 +2713,9 @@ msgid ""
 "before Exaile 0.3.3"
 msgstr ""
 "Quan s'utilitzi l'element del menú per afegir/substituir les pistes a la "
-"llista de reproducció, inicia la reproducció si hi ha actualment una pista n "
-"reproducció. Aquesta opció era el comportament predeterminat abans d'Exaile "
-"0.3.3"
+"llista de reproducció, inicia la reproducció si hi ha actualment una pista "
+"en reproducció. Aquesta opció era el comportament predeterminat abans "
+"d'Exaile 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui:66
 #: ../plugins/quickbuttons/__init__.py:38
@@ -2899,7 +2901,7 @@ msgstr "Afegeix"
 #. This is a check box in the Add Smart Playlist dialog. If checked, a numeric text entry becomes active and it specifies a limit on the number of tracks the resulting playlist contains.
 #: ../data/ui/widgets/filter_dialog.ui:194
 msgid "Maximum number of tracks:"
-msgstr "Nombre màxim de peces:"
+msgstr "Nombre màxim de pistes:"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -2999,10 +3001,8 @@ msgid "Audio Disc"
 msgstr "Disc d'àudio"
 
 #: ../plugins/cd/_cdguipanel.py:97
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown disc"
-msgstr "Desconegut"
+msgstr "Disc desconegut"
 
 #: ../plugins/cd/_cdguipanel.py:113
 msgid "Importing CD..."
@@ -3106,8 +3106,6 @@ msgid "_Mass rename/delete tags"
 msgstr "Reanomenament/eliminació d'etiquetes _massiu"
 
 #: ../plugins/grouptagger/__init__.py:122
-#, fuzzy
-#| msgid "E_xport collecton tags to JSON"
 msgid "E_xport collection tags to JSON"
 msgstr "E_xporta les etiquetes de les col·leccions a JSON"
 
@@ -3317,13 +3315,11 @@ msgstr "Error en contactar amb el servidor Icecast."
 
 #: ../plugins/icecast/__init__.py:149
 msgid "Parsing stations XML..."
-msgstr ""
+msgstr "S'estan analitzant les estacions XML..."
 
 #: ../plugins/icecast/__init__.py:161
-#, fuzzy
-#| msgid "Retrieving song data..."
 msgid "Retrieving stations..."
-msgstr "S'estan recuperant les dades de la cançó..."
+msgstr "S'estan recuperant les estacions..."
 
 #: ../plugins/icecast/__init__.py:274
 msgid "Enter the search keywords"
@@ -3343,7 +3339,7 @@ msgstr "Resultats de la cerca d'Icecast"
 
 #: ../plugins/icecast/__init__.py:353
 msgid "Parsing genre list..."
-msgstr ""
+msgstr "S'està analitzant la llista de gèneres..."
 
 #: ../plugins/icecast/__init__.py:374
 #: ../plugins/developer/developer_window.ui:59
@@ -3983,27 +3979,23 @@ msgstr "WavPack"
 
 #: ../plugins/cd/cdprefs_pane.ui:56
 msgid "Fetch metadata from internet servers"
-msgstr ""
+msgstr "Obtén metadades dels servidors d'internet"
 
 #: ../plugins/cd/cdprefs_pane.ui:69
 msgid "Disc metadata"
-msgstr ""
+msgstr "Metadades del disc"
 
 #: ../plugins/cd/cdprefs_pane.ui:101
-#, fuzzy
-#| msgid "Format"
 msgid "Format: "
-msgstr "Format"
+msgstr "Format: "
 
 #: ../plugins/cd/cdprefs_pane.ui:131
-#, fuzzy
-#| msgid "Import quality: "
 msgid "Quality: "
-msgstr "Qualitat de la importació: "
+msgstr "Qualitat: "
 
 #: ../plugins/cd/cdprefs_pane.ui:160
 msgid "Path: "
-msgstr ""
+msgstr "Ruta: "
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
@@ -4017,10 +4009,8 @@ msgstr ""
 "amb dues línies de subratllat."
 
 #: ../plugins/cd/cdprefs_pane.ui:218
-#, fuzzy
-#| msgid "Importing tracks"
 msgid "Import tracks to disk"
-msgstr "Importació de pistes"
+msgstr "Importa les pistes al disc"
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
@@ -4723,12 +4713,7 @@ msgid "CD Playback"
 msgstr "Reproducció de CD"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4739,7 +4724,8 @@ msgstr ""
 "Afegeix compatibilitat per a la reproducció dels CD d'àudio.\n"
 "\n"
 "Requereix UDisks2 per a detectar automàticament els CD\n"
-"Requereix cddb-py (%s) per cercar etiquetes."
+"Requereix python-libdiscid (%s) i python-musicbrainzngs (%s) per cercar "
+"etiquetes."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
 msgid "Devices"
@@ -4763,10 +4749,6 @@ msgid "Current Song in Pidgin"
 msgstr "Cançó actual a Pidgin"
 
 #: ../plugins/currentsong/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
-#| "out the suppported services."
 msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the supported services."
@@ -5161,6 +5143,13 @@ msgid ""
 "the Windows session, which may cause some security software to detect Exaile "
 "as a keylogger."
 msgstr ""
+"Afegeix compatibilitat amb les tecles multimèdia del teclat al Windows.\n"
+"\n"
+"Requereix: pynput (%s) (inclós a l'instal·lador de l'Exaile)\n"
+"\n"
+"Atenció: En activar aquest connector, l'Exaile processarà cada esdeveniment "
+"de tecla a la sessió del Windows, el que podria fer que algun programa de "
+"seguretat detectés l'Exaile com a un registrador de tecles (keylogger)."
 
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
 msgid "Exaile"

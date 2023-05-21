@@ -1851,3 +1851,26 @@ def export_playlist_files(playlist, parent=None):
     dialog.connect('uris-selected', lambda widget, uris: _on_uri(uris[0]))
     dialog.run()
     dialog.destroy()
+
+
+class UpdateInfoDialog(Gtk.Dialog):
+    def __init__(
+        self,
+        title,
+        text,
+            parent=None
+    ):
+        Gtk.Dialog.__init__(self, title=title, transient_for=parent)
+
+        btn = self.add_button(Gtk.STOCK_CLOSE, XRESPONSE_YES)
+        btn.connect('clicked', self.on_close_clicked)
+
+
+        vbox = self.get_content_area()
+        self._label = Gtk.Label()
+        self._label.set_use_markup(True)
+        self._label.set_markup(text)
+        vbox.pack_start(self._label, True, True, 0)
+
+    def on_close_clicked(self, widget):
+        self.destroy()

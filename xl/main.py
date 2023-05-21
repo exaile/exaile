@@ -745,6 +745,11 @@ class Exaile:
             self.gui = xlgui.Main(self)
             if not self.options.StartMinimized:
                 self.gui.main.window.show_all()
+
+                from xlgui.widgets import dialogs
+                dialog = dialogs.UpdateInfoDialog('A', 'B', self.gui.main.window)
+                dialog.show_all()
+
             event.log_event("gui_loaded", self, None)
 
             if splash is not None:

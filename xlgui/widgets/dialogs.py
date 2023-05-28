@@ -49,6 +49,7 @@ from xl.playlist import (
     PlaylistExportOptions,
 )
 from xl.nls import gettext as _
+from xlgui import guiutil
 from xlgui.guiutil import GtkTemplate
 
 logger = logging.getLogger(__name__)
@@ -1853,24 +1854,23 @@ def export_playlist_files(playlist, parent=None):
     dialog.destroy()
 
 
-class UpdateInfoDialog(Gtk.Dialog):
+class UpdateInfoDialog:
     def __init__(
         self,
         title,
         text,
             parent=None
     ):
-        Gtk.Dialog.__init__(self, title=title, transient_for=parent)
 
-        btn = self.add_button(Gtk.STOCK_CLOSE, XRESPONSE_YES)
-        btn.connect('clicked', self.on_close_clicked)
+        self.builder = guiutil.get_builder(
+            xdg.get_data_path('ui', 'widgets', 'info_dialog.ui')
+        )
+        self.builder.connect_signals(self)
 
+        self.window = self.builder.get_object('info_dialog')
+        self.window.set_transient_for(parent)
+        self.window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+        self.window.show_all()
 
-        vbox = self.get_content_area()
-        self._label = Gtk.Label()
-        self._label.set_use_markup(True)
-        self._label.set_markup(text)
-        vbox.pack_start(self._label, True, True, 0)
-
-    def on_close_clicked(self, widget):
-        self.destroy()
+    def on_close_button_clicked(self, widget):
+        self.window.destroy()

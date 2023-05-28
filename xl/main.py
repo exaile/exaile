@@ -747,8 +747,7 @@ class Exaile:
                 self.gui.main.window.show_all()
 
                 from xlgui.widgets import dialogs
-                dialog = dialogs.UpdateInfoDialog('A', 'B', self.gui.main.window)
-                dialog.show_all()
+                dialogs.UpdateInfoDialog('A', 'B', self.gui.main.window)
 
             event.log_event("gui_loaded", self, None)
 

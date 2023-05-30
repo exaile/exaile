@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-02 06:46+0100\n"
-"PO-Revision-Date: 2023-03-03 07:37+0000\n"
-"Last-Translator: gnu-ewm <gnu.ewm@protonmail.com>\n"
+"PO-Revision-Date: 2023-05-30 21:51+0000\n"
+"Last-Translator: Piotr Strebski <strebski@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/>"
 "\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 "X-Launchpad-Export-Date: 2014-11-08 06:10+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1400,7 +1400,7 @@ msgstr "Przywróć _domyślne"
 
 #: ../xlgui/preferences/collection.py:130
 msgid "Migrating ratings to audio file metadata"
-msgstr ""
+msgstr "Migrowanie ocen do metadanych pliku dźwiękowego"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -2504,7 +2504,7 @@ msgstr "Użyj detekcji na podstawie nazwy pliku"
 
 #: ../data/ui/preferences/collection.ui:71
 msgid "Read and write ratings additionally in audio file metadata"
-msgstr ""
+msgstr "Oceny odczytu i zapisu dodatkowo w metadanych pliku dźwiękowego"
 
 #: ../data/ui/preferences/collection.ui:86
 msgid ""
@@ -2512,6 +2512,9 @@ msgid ""
 "metadata instead of database, if possible.\n"
 "This feature should work for MP3, MP4, FLAC and OGG. "
 msgstr ""
+"Użyj tej eksperymentalnej funkcji, aby odczytywać i zapisywać oceny w "
+"metadanych pliku dźwiękowego zamiast w bazie danych, jeśli to możliwe.\n"
+"Funkcja ta powinna działać dla plików MP3, MP4, FLAC i OGG. "
 
 #: ../data/ui/preferences/collection.ui:105
 msgid "Use e-mail for Popularimeter (MP3 only):"
@@ -2519,7 +2522,7 @@ msgstr "Użyj e-maila do Popularimeter (tylko MP3):"
 
 #: ../data/ui/preferences/collection.ui:134
 msgid "Write existing ratings to track files now"
-msgstr ""
+msgstr "Zapisz teraz istniejące oceny, aby śledzić pliki"
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"
@@ -5120,6 +5123,13 @@ msgid ""
 "the Windows session, which may cause some security software to detect Exaile "
 "as a keylogger."
 msgstr ""
+"Dodaje obsługę klawiszy multimedialnych klawiatury w systemie Windows.\n"
+"\n"
+"Wymaga: pynput (%s) (dołączony do instalatora Exaile)\n"
+"\n"
+"Ostrzeżenie: Gdy ta wtyczka jest włączona, Exaile będzie przetwarzać każde "
+"kluczowe zdarzenie w sesji Windows, co może spowodować, że niektóre programy "
+"zabezpieczające wykryją Exaile jako keylogger."
 
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
 msgid "Exaile"

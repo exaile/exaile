@@ -86,7 +86,7 @@ If you want to test please go to Settings &gt; Library and activate "Read and wr
 There is also a tool to migrate all allready stored ratings to the media files.
 
 &lt;b&gt;Updated tagging for flac and ogg files&lt;/b&gt;
-With this version Exaile can use the tags bpm for bpm countings and comment for comments om flac and ogg media files to be compatible with MusicBrainz.
+With this version Exaile can use the tags bpm for bpm countings and comment for comments on flac and ogg media files to be compatible with MusicBrainz.
 If you want to use please go to Settings &gt; Library and uncheck "Use legacy tag mapping".
 There is also a tool to migrate legacy tags to the modern one.
 

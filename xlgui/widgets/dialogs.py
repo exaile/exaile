@@ -1857,8 +1857,6 @@ def export_playlist_files(playlist, parent=None):
 class UpdateInfoDialog:
     def __init__(
         self,
-        title,
-        text,
             parent=None
     ):
 
@@ -1879,6 +1877,6 @@ class UpdateInfoDialog:
 
     def on_window_destroy(self, widget):
         if self.dont_show_again.get_active():
-            settings.set_option('hide_413_dialog', True)
+            settings.set_option('general/hide_413_dialog', True)
         else:
-            settings.set_option('hide_413_dialog', False)
+            settings.set_option('general/hide_413_dialog', False)

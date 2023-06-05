@@ -1872,5 +1872,13 @@ class UpdateInfoDialog:
         self.window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         self.window.show_all()
 
+        self.dont_show_again = self.builder.get_object('dont_show_again')
+
     def on_close_button_clicked(self, widget):
         self.window.destroy()
+
+    def on_window_destroy(self, widget):
+        if self.dont_show_again.get_active():
+            settings.set_option('hide_413_dialog', True)
+        else:
+            settings.set_option('hide_413_dialog', False)

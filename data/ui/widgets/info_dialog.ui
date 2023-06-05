@@ -5,6 +5,7 @@
   <object class="GtkDialog" id="info_dialog">
     <property name="can-focus">False</property>
     <property name="type-hint">dialog</property>
+    <signal name="destroy" handler="on_window_destroy" swapped="no"/>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="can-focus">False</property>
@@ -15,7 +16,7 @@
             <property name="can-focus">False</property>
             <property name="layout-style">end</property>
             <child>
-              <object class="GtkCheckButton">
+              <object class="GtkCheckButton" id="dont_show_again">
                 <property name="label" translatable="yes">Don't show this message againg</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>

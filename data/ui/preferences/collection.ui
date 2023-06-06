@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
+  <!-- n-columns=3 n-rows=13 -->
   <object class="GtkGrid" id="preferences_pane">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="row_spacing">4</property>
-    <property name="column_spacing">2</property>
+    <property name="can-focus">False</property>
+    <property name="row-spacing">4</property>
+    <property name="column-spacing">2</property>
     <child>
       <object class="GtkLabel" id="strip_list_label">
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="label" translatable="yes">Words to strip from the beginning of artist tags when sorting (space separated):</property>
         <property name="justify">fill</property>
         <property name="wrap">True</property>
@@ -18,28 +19,28 @@
         </accessibility>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">0</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">0</property>
         <property name="width">2</property>
       </packing>
     </child>
     <child>
       <object class="GtkEntry" id="collection/strip_list">
-        <property name="can_focus">True</property>
+        <property name="can-focus">True</property>
         <accessibility>
           <relation type="labelled-by" target="strip_list_label"/>
           <relation type="described-by" target="collection/strip_list_label2"/>
         </accessibility>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">1</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">1</property>
         <property name="width">2</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="collection/strip_list_label2">
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">center</property>
         <property name="label" translatable="yes">(Right click to reset to defaults)</property>
         <accessibility>
@@ -47,8 +48,8 @@
         </accessibility>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">2</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">2</property>
         <property name="width">2</property>
       </packing>
     </child>
@@ -56,13 +57,13 @@
       <object class="GtkCheckButton" id="collection/file_based_compilations">
         <property name="label" translatable="yes">Use file-based compilation detection</property>
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="draw_indicator">True</property>
+        <property name="can-focus">True</property>
+        <property name="receives-default">False</property>
+        <property name="draw-indicator">True</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">3</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">3</property>
         <property name="width">2</property>
       </packing>
     </child>
@@ -70,83 +71,83 @@
       <object class="GtkCheckButton" id="collection/write_rating_to_audio_file_metadata">
         <property name="label" translatable="yes">Read and write ratings additionally in audio file metadata</property>
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="draw_indicator">True</property>
+        <property name="can-focus">True</property>
+        <property name="receives-default">False</property>
+        <property name="draw-indicator">True</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">4</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">4</property>
         <property name="width">2</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="collection/write_rating_to_audio_file_metadata_hint">
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="label" translatable="yes">Use this experimental feature to read and write ratings in audio file metadata instead of database, if possible.
 This feature should work for MP3, MP4, FLAC and OGG. </property>
-        <property name="justify">fill</property>
         <property name="wrap">True</property>
         <accessibility>
           <relation type="label-for" target="collection/write_rating_to_audio_file_metadata"/>
         </accessibility>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">5</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">5</property>
         <property name="width">2</property>
       </packing>
     </child>
     <child>
-	  <object class="GtkLabel" id="label:collection/write_rating_to_audio_file_metadata_popm_mail">
-		<property name="visible">True</property>
-		<property name="can_focus">False</property>
-		<property name="halign">start</property>
-		<property name="label" translatable="yes">Use e-mail for Popularimeter (MP3 only):</property>
-		<accessibility>
-		  <relation type="label-for" target="collection/write_rating_to_audio_file_metadata_popm_mail"/>
-		</accessibility>
-	  </object>
-	  <packing>
-		<property name="left_attach">0</property>
-		<property name="top_attach">6</property>
-	  </packing>
-	</child>
-	<child>
-	  <object class="GtkEntry" id="collection/write_rating_to_audio_file_metadata_popm_mail">
-		<property name="width_request">150</property>
-		<property name="visible">True</property>
-		<property name="can_focus">True</property>
-		<accessibility>
-		  <relation type="labelled-by" target="label:collection/write_rating_to_audio_file_metadata_popm_mail"/>
-		</accessibility>
-	  </object>
-	  <packing>
-		<property name="left_attach">1</property>
-		<property name="top_attach">6</property>
-	  </packing>
-	</child>
-	<child>
-	  <object class="GtkButton" id="collection/write_rating_to_audio_file_metadata_sync_now">
-		<property name="width_request">150</property>
-		<property name="visible">True</property>
-		<property name="can_focus">True</property>
-		<property name="label" translatable="yes">Write existing ratings to track files now</property>
-	  </object>
-	  <packing>
-		<property name="left_attach">0</property>
-		<property name="top_attach">7</property>
+      <object class="GtkLabel" id="label:collection/write_rating_to_audio_file_metadata_popm_mail">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="halign">start</property>
+        <property name="label" translatable="yes">Use e-mail for Popularimeter (MP3 only):</property>
+        <accessibility>
+          <relation type="label-for" target="collection/write_rating_to_audio_file_metadata_popm_mail"/>
+        </accessibility>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="collection/write_rating_to_audio_file_metadata_popm_mail">
+        <property name="width-request">150</property>
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <accessibility>
+          <relation type="labelled-by" target="label:collection/write_rating_to_audio_file_metadata_popm_mail"/>
+        </accessibility>
+      </object>
+      <packing>
+        <property name="left-attach">1</property>
+        <property name="top-attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="collection/write_rating_to_audio_file_metadata_sync_now">
+        <property name="label" translatable="yes">Write existing ratings to track files now</property>
+        <property name="width-request">150</property>
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="receives-default">False</property>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">7</property>
         <property name="width">2</property>
-	  </packing>
-	</child>
+      </packing>
+    </child>
     <child>
       <object class="GtkBox" id="collection/write_rating_to_audio_file_metadata_progress">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
+        <property name="can-focus">True</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">8</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">8</property>
         <property name="width">2</property>
       </packing>
     </child>
@@ -154,56 +155,95 @@ This feature should work for MP3, MP4, FLAC and OGG. </property>
       <object class="GtkCheckButton" id="collection/use_legacy_metadata_mapping">
         <property name="label" translatable="yes">Use legacy tag mapping</property>
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="draw_indicator">True</property>
+        <property name="can-focus">True</property>
+        <property name="receives-default">False</property>
+        <property name="draw-indicator">True</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">9</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">9</property>
         <property name="width">2</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="collection/use_legacy_metadata_mapping_hint">
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="label" translatable="yes">Use legacy tag mapping for Ogg Vorbis and FLAC files for comment and bpm tags. From Exaile 4.1.3 the mapping is equivalent to MusicBrainz.
 Your can start migration here. After migration this feature will be disabled.</property>
-        <property name="justify">fill</property>
         <property name="wrap">True</property>
         <accessibility>
           <relation type="label-for" target="collection/use_legacy_metadata_mapping"/>
         </accessibility>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">10</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">10</property>
         <property name="width">2</property>
       </packing>
     </child>
-	<child>
-	  <object class="GtkButton" id="collection/use_legacy_metadata_mapping_sync_now">
-		<property name="width_request">150</property>
-		<property name="visible">True</property>
-		<property name="can_focus">True</property>
-		<property name="label" translatable="yes">Migrate existing tempo and comment tags now</property>
-	  </object>
-	  <packing>
-		<property name="left_attach">0</property>
-		<property name="top_attach">11</property>
+    <child>
+      <object class="GtkButton" id="collection/use_legacy_metadata_mapping_sync_now">
+        <property name="label" translatable="yes">Migrate existing tempo and comment tags now</property>
+        <property name="width-request">150</property>
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="receives-default">False</property>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">11</property>
         <property name="width">2</property>
-	  </packing>
-	</child>
+      </packing>
+    </child>
     <child>
       <object class="GtkBox" id="collection/use_legacy_metadata_mapping_progress">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
+        <property name="can-focus">True</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">12</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">12</property>
         <property name="width">2</property>
       </packing>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
     </child>
   </object>
 </interface>

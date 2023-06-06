@@ -746,8 +746,11 @@ class Exaile:
             if not self.options.StartMinimized:
                 self.gui.main.window.show_all()
 
-                if not settings.get_option('general/hide_413_dialog', False) and not firstrun:
+                if firstrun:
+                    settings.set_option('general/hide_413_dialog', True)
+                if not settings.get_option('general/hide_413_dialog', False):
                     from xlgui.widgets import dialogs
+
                     dialogs.UpdateInfoDialog(self.gui.main.window)
 
             event.log_event("gui_loaded", self, None)

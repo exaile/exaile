@@ -1855,11 +1855,7 @@ def export_playlist_files(playlist, parent=None):
 
 
 class UpdateInfoDialog:
-    def __init__(
-        self,
-            parent=None
-    ):
-
+    def __init__(self, parent=None):
         self.builder = guiutil.get_builder(
             xdg.get_data_path('ui', 'widgets', 'info_dialog.ui')
         )

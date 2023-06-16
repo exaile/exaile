@@ -427,8 +427,6 @@ class M3UConverter(FormatConverter):
                                 try:
                                     track.set_tag_raw(tag, value)
                                 except Exception as e:
-                                    # Python 3: raise UnknownPlaylistTrackError() from e
-                                    # Python 2: .. no good solution
                                     raise UnknownPlaylistTrackError(
                                         "line %s: %s" % (lineno, e)
                                     )

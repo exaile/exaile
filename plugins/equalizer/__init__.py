@@ -27,6 +27,7 @@
 
 import logging
 import os
+import math
 
 from gi.repository import Gst
 from gi.repository import Gtk
@@ -38,15 +39,6 @@ from xlgui.guiutil import GtkTemplate
 from xlgui.widgets import menu
 
 logger = logging.getLogger('equalizer')
-
-
-def isclose(float_a, float_b, rel_tol=1e-09, abs_tol=0.0):
-    """
-    copied from python 3.5, where this function was introduced to the math module
-    """
-    return abs(float_a - float_b) <= max(
-        rel_tol * max(abs(float_a), abs(float_b)), abs_tol
-    )
 
 
 # Values from <http://www.xmms.org/faq.php#General3>, adjusted to be less loud
@@ -200,7 +192,7 @@ class EqualizerWindow(Gtk.Window):
         widget_name = Gtk.Buildable.get_name(widget)
         band = widget_name[-1]
         settings_value = settings.get_option("plugin/equalizer/band" + band)
-        if not isclose(widget.get_value(), settings_value):
+        if not math.isclose(widget.get_value(), settings_value):
             settings.set_option("plugin/equalizer/band" + band, widget.get_value())
             self.combo_presets.set_active(0)
 

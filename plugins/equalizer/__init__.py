@@ -26,8 +26,8 @@
 
 
 import logging
-import os
 import math
+import os
 
 from gi.repository import Gst
 from gi.repository import Gtk

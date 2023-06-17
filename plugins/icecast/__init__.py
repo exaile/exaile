@@ -69,7 +69,7 @@ class IcecastRadioStation(RadioStation):
         """
         self.exaile = exaile
         self.user_agent = exaile.get_user_agent_string('icecast')
-        self.icecast_url = 'http://dir.xiph.org'
+        self.icecast_url = 'https://dir.xiph.org'
 
         self.xml_url = self.icecast_url + '/yp.xml'
         self.genres_url = self.icecast_url + '/genres'

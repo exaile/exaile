@@ -257,7 +257,7 @@ pot:
 	  xgettext -j -o messages.pot --keyword=X-GNOME-FullName '../data/exaile.desktop.in' && \
 	  xgettext -j -o messages.pot '../data/exaile.appdata.xml.in' )
 	find po -name '*.po' -exec \
-	  msgmerge --previous --update {} po/messages.pot \;
+	  msgmerge --previous --no-fuzzy-matching --update {} po/messages.pot \;
 	echo $(LINGUAS) > po/LINGUAS
 
 potball: builddir

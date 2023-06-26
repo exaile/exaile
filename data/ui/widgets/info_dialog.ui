@@ -17,7 +17,7 @@
             <property name="layout-style">end</property>
             <child>
               <object class="GtkCheckButton" id="dont_show_again">
-                <property name="label" translatable="yes">Don't show this message againg</property>
+                <property name="label" translatable="yes">Don't show this message again</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>

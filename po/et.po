@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-02 06:46+0100\n"
-"PO-Revision-Date: 2023-06-30 02:52+0000\n"
+"PO-Revision-Date: 2023-06-30 16:52+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.1\n"
+"X-Generator: Weblate 5.0-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1897,7 +1897,7 @@ msgstr "Lisa sarnaseid lugusid dünaamiliselt esitusloendisse"
 
 #: ../xlgui/widgets/playlist.py:804
 msgid "Loading"
-msgstr "Laen"
+msgstr "Laadin"
 
 #: ../xlgui/widgets/playlist_columns.py:271
 msgid "Track Number"

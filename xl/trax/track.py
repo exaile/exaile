@@ -155,7 +155,14 @@ class Track:
     """
 
     # save a little memory this way
-    __slots__ = ["__tags", "_scan_valid", "_dirty", "__weakref__", "_init", "_is_supported"]
+    __slots__ = [
+        "__tags",
+        "_scan_valid",
+        "_dirty",
+        "__weakref__",
+        "_init",
+        "_is_supported",
+    ]
     # this is used to enforce the one-track-per-uri rule
     __tracksdict = weakref.WeakValueDictionary()
     # store a copy of the settings values here - much faster (0.25 cpu
@@ -410,6 +417,7 @@ class Track:
                 ).get_modification_time()
                 mtime = mtime.tv_sec + (mtime.tv_usec / 100000.0)
 
+            f = metadata.get_format(loc)
             if not force and self.__tags.get('__modified', 0) >= mtime:
                 return f
 

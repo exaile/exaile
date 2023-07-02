@@ -337,6 +337,9 @@ class TrackDB:
             # Don't add duplicates -- track URLs are unique
             if location in self.tracks:
                 continue
+            # Don't add unsupported media files
+            if not tr.is_supported():
+                continue
             locations += [location]
             self.tracks[location] = TrackHolder(tr, self._key)
             self._key += 1

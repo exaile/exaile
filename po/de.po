@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-02 06:46+0100\n"
-"PO-Revision-Date: 2022-06-12 01:19+0000\n"
-"Last-Translator: TrueXanadul <Xanadul@protonmail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/"
-">\n"
+"PO-Revision-Date: 2023-07-09 23:47+0000\n"
+"Last-Translator: Luzip665 <luzip665@posteo.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/>"
+"\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1095,7 +1095,7 @@ msgstr "C_over"
 
 #: ../xlgui/menu.py:253
 msgid "_Preferences"
-msgstr "Einstellungen"
+msgstr "_Einstellungen"
 
 #: ../xlgui/menu.py:278
 msgid "_Show Playing Track"
@@ -1900,7 +1900,7 @@ msgstr "Dynamisch ähnliche Stücke der Wiedergabeliste hinzufügen"
 
 #: ../xlgui/widgets/playlist.py:804
 msgid "Loading"
-msgstr "Wird geladen …"
+msgstr "Wird geladen…"
 
 #: ../xlgui/widgets/playlist_columns.py:271
 msgid "Track Number"
@@ -2127,7 +2127,7 @@ msgstr "© 2009–2020 Verschiedene Mitwirkende"
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr "Übersetzer/innen:"
+msgstr "Übersetzer/innen"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -2711,7 +2711,7 @@ msgid ""
 "the track instead of playing it"
 msgstr ""
 "Bei Doppelklick oder Druck auf die Eingabe-Taste in einer Wiedergabeliste, "
-"Titel in die Wiedergabeliste einreihen, statt ihn wiederzugeben."
+"Titel in die Wiedergabeliste einreihen statt ihn wiederzugeben"
 
 #: ../data/ui/preferences/plugin.ui:66
 msgid "Plugin"
@@ -3153,20 +3153,18 @@ msgstr[0] "Kein Titel gefunden"
 msgstr[1] "{amount} Titel gefunden"
 
 #: ../plugins/grouptagger/gt_mass.py:130
-#, fuzzy, python-brace-format
-#| msgid "Replace '%s' with '%s' on %s tracks?"
+#, python-brace-format
 msgid "Replace '{old_tag}' with '{new_tag}' on {amount} track?"
 msgid_plural "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?"
-msgstr[0] "„%s” durch „%s” in allen %s Titeln ersetzen?"
-msgstr[1] "„%s” durch „%s” in allen %s Titeln ersetzen?"
+msgstr[0] "'{old_tag}' durch '{new_tag}' ersetzen?"
+msgstr[1] "'{old_tag}' durch '{new_tag}' in allen {amount} Titeln ersetzen?"
 
 #: ../plugins/grouptagger/gt_mass.py:140
-#, fuzzy, python-brace-format
-#| msgid "Delete '%s' from %s tracks?"
+#, python-brace-format
 msgid "Delete '{tag}' from {amount} track?"
 msgid_plural "Delete '{tag}' from {amount} tracks?"
-msgstr[0] "„%s” aus %s Titeln löschen?"
-msgstr[1] "„%s” aus %s Titeln löschen?"
+msgstr[0] "'{tag}' aus {amount} Titel löschen?"
+msgstr[1] "'{tag}' aus {amount} Titeln löschen?"
 
 #: ../plugins/grouptagger/gt_mass.py:166
 msgid ""
@@ -3299,7 +3297,7 @@ msgstr "Fehler beim Verbindungsaufbau zum Icecast-Server."
 
 #: ../plugins/icecast/__init__.py:149
 msgid "Parsing stations XML..."
-msgstr "Parse XML der Sender"
+msgstr "Parse XML der Sender..."
 
 #: ../plugins/icecast/__init__.py:161
 msgid "Retrieving stations..."
@@ -3323,7 +3321,7 @@ msgstr "Suchergebnisse von Icecast"
 
 #: ../plugins/icecast/__init__.py:353
 msgid "Parsing genre list..."
-msgstr "Parse Genre-Liste"
+msgstr "Parse Genre-Liste..."
 
 #: ../plugins/icecast/__init__.py:374
 #: ../plugins/developer/developer_window.ui:59
@@ -3415,7 +3413,7 @@ msgstr ""
 
 #: ../plugins/mainmenubutton/__init__.py:60
 msgid "This plugin needs at least one visible panel"
-msgstr "Dieses Plugin benötigt mindestens ein sichtbares Eingabefeld."
+msgstr "Dieses Plugin benötigt mindestens eine sichtbare Seitenleiste"
 
 #: ../plugins/mainmenubutton/__init__.py:80
 #: ../plugins/mainmenubutton/__init__.py:86
@@ -3585,10 +3583,9 @@ msgid "by {artist}"
 msgstr "von {artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "from %(album)s"
+#, python-brace-format
 msgid "from {album}"
-msgstr "aus %(album)s"
+msgstr "aus {album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3746,7 +3743,7 @@ msgstr "Gerät für Vorschau"
 
 #: ../plugins/quickbuttons/qb_prefs.py:5
 msgid "Quickbuttons"
-msgstr "Quickbuttons"
+msgstr "Schnelleinstellungen"
 
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
@@ -4317,7 +4314,7 @@ msgstr ""
 "Um einen <b>API-Schlüssel</b> und ein <b>Geheimnis</b> zu erhalten bitte "
 "<b><a href=\"http://www.last.fm/api/account\">Your API Account</a></b> "
 "aufrufen. Nachdem diese Daten hier eingegeben und die <b>Zugriffsgenehmigung "
-"angefragt</b> und bestätigt wurde sind alle Vorbereitungen abgeschlossen."
+"angefragt</b> und bestätigt wurde, sind alle Vorbereitungen abgeschlossen."
 
 #. TRANSLATORS: Minimode window decoration option
 #: ../plugins/minimode/minimode_preferences.ui:15
@@ -4694,20 +4691,14 @@ msgid ""
 "plugin from gst-plugins-bad is installed"
 msgstr ""
 "Bietet einen manuellen BPM-Zähler und eine automatische BPM-Erkennung, wenn "
-"das bpmdetect-Plugin aus dem Paket gst-plugins-bad installiert sind."
+"das bpmdetect-Plugin aus dem Paket gst-plugins-bad installiert sind"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
 msgstr "CD-Wiedergabe"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires UDisks2 to autodetect CDs\n"
-#| "Requires python-libdiscid (%s) and python-musicbrainzngs (%s) to look up "
-#| "tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4718,7 +4709,8 @@ msgstr ""
 "Ermöglicht die Wiedergabe von Audio-CDs.\n"
 "\n"
 "Benötigt udisks2 für die automatische Erkennung von CDs\n"
-"Benötigt cddb-py (%s) für die Suche nach Schlagwörtern."
+"Benötigt python-libdiscid (%s) und python-musicbrainzngs (%s) für die Suche "
+"nach Schlagwörtern."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
 msgid "Devices"

@@ -417,7 +417,7 @@ class Track:
                 ).get_modification_time()
                 mtime = mtime.tv_sec + (mtime.tv_usec / 100000.0)
 
-            f = self._get_format_obj()
+            f = metadata.get_format(loc)
             if not force and self.__tags.get('__modified', 0) >= mtime:
                 return f
 
@@ -474,7 +474,8 @@ class Track:
         Determines if a file has a supported media format
         """
         if self._is_supported is None:
-            f = self._get_format_obj()
+            loc = self.get_loc_for_io()
+            f = metadata.get_format(loc)
             if f is None:
                 self._is_supported = False
             else:

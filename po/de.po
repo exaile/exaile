@@ -536,7 +536,7 @@ msgstr "Titel"
 #: ../xl/metadata/tags.py:72 ../plugins/grouptagger/gt_mass.ui:162
 #: ../plugins/jamendo/ui/jamendo_panel.ui:98
 msgid "Track"
-msgstr "Titel"
+msgstr "Stück"
 
 #: ../xl/metadata/tags.py:73
 msgid "Version"
@@ -1399,11 +1399,11 @@ msgstr "Auf Standardwerte zurücksetzen"
 
 #: ../xlgui/preferences/collection.py:130
 msgid "Migrating ratings to audio file metadata"
-msgstr ""
+msgstr "Speichere Bewertungen in den Metadaten der Dateien"
 
 #: ../xlgui/preferences/collection.py:195
 msgid "Migrating metadata"
-msgstr ""
+msgstr "Aktualisiere Metadaten"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -2440,8 +2440,8 @@ msgstr "Begrüßungsbildschirm beim Starten anzeigen"
 #: ../data/ui/preferences/appearance.ui:330
 msgid ""
 "Tray icons are not supported on some platforms, most notably on Wayland. On "
-"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a "
-"href=\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
+"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
+"\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
 "extension</a> (or a similar one) installed."
 msgstr ""
 "Tray-Symbole werden auf einigen Plattformen nicht unterstützt, vor allem "
@@ -2506,6 +2506,8 @@ msgstr "Dateibasierte Kompilierungserkennung verwenden"
 #: ../data/ui/preferences/collection.ui:72
 msgid "Read and write ratings additionally in audio file metadata"
 msgstr ""
+"Bewertungen zusätzlich in den Metadaten der Dateien selbst lesen und "
+"schreiben"
 
 #: ../data/ui/preferences/collection.ui:87
 msgid ""
@@ -2516,15 +2518,15 @@ msgstr ""
 
 #: ../data/ui/preferences/collection.ui:105
 msgid "Use e-mail for Popularimeter (MP3 only):"
-msgstr ""
+msgstr "E-Mail für Popularimeter (Nur MP3):"
 
 #: ../data/ui/preferences/collection.ui:131
 msgid "Write existing ratings to track files now"
-msgstr ""
+msgstr "Vorhandene Bewertungen jetzt in die Dateien schreiben"
 
 #: ../data/ui/preferences/collection.ui:156
 msgid "Use legacy tag mapping"
-msgstr ""
+msgstr "Veraltetes Tag-Mapping verwenden"
 
 #: ../data/ui/preferences/collection.ui:171
 msgid ""
@@ -2532,10 +2534,15 @@ msgid ""
 "tags. From Exaile 4.1.3 the mapping is equivalent to MusicBrainz.\n"
 "Your can start migration here. After migration this feature will be disabled."
 msgstr ""
+"Verwenden Sie das veraltete Tag-Mapping für Ogg Vorbis und FLAC Dateien für "
+"die Tags comment und bpm. Mit Exaile 4.1.3 wurde das Mapping dem von "
+"MusicBrainz angepasst.\n"
+"Sie können die Migration hier durchführen. Nach der Migration wird das alte "
+"Tag-Mapping deaktiviert."
 
 #: ../data/ui/preferences/collection.ui:186
 msgid "Migrate existing tempo and comment tags now"
-msgstr ""
+msgstr "Aktualisiere vorhandene Tempo - und Kommentar-Tags jetzt"
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"
@@ -2905,7 +2912,7 @@ msgstr "Höchstzahl an Titeln:"
 
 #: ../data/ui/widgets/info_dialog.ui:20
 msgid "Don't show this message again"
-msgstr ""
+msgstr "Nicht wieder anzeigen"
 
 #: ../data/ui/widgets/info_dialog.ui:79
 msgid ""
@@ -2932,6 +2939,31 @@ msgid ""
 "There is also a tool to migrate legacy tags to the modern one. \n"
 "\n"
 msgstr ""
+"<span font-size=\"x-large\" font-weight=\"bold\">Willkommen zu Exaile 4.1.3</"
+"span>\n"
+"\n"
+"In dieser Version gibt es zwei wichtige Änderungen in der Verwendung von "
+"Tags und Metadaten von Medien-Dateien.\n"
+"\n"
+"<b>Bewertungen in den Medien-Dateien speichern</b>\n"
+"Mit dieser experimentellen Funktion ist es möglich, Bewertungen in den "
+"Metadaten der Medien-Dateien selbst zu speichern.\n"
+"Wenn Sie dieses Feature aktivieren möchten, gehen Sie zu Einstellungen > "
+"Bibliothek und aktivieren Sie die Checkbox bei \"Bewertungen zusätzlich in "
+"den Metadaten der Dateien selbst lesen und schreiben\".\n"
+"Ebenfalls gibt es die Möglichkeit, bereits vorhandene Bewertungen in die "
+"Medien-Dateien übertragen zu lassen.\n"
+"\n"
+"<b>Geändertes Metadaten-Mapping für FLAC und OGG-Dateien</b>\n"
+"Ab dieser Version kann Exaile die Tags \"bpm\" für BPM-Zahlen und \"comment"
+"\" für Kommentare nutzen, um damit kompatibel zu MusicBrainz zu sein.\n"
+"Möchten Sie die neuen Tags benutzen, gehen Sie zu Einstellungen > Bibliothek "
+"und deaktivieren die Checkbox \"Veraltetes Tag-Mapping verwenden\". Sollten "
+"Sie Exaile zum ersten Mal verwenden, ist diese Checkbox bereits "
+"deaktiviert.\n"
+"Ebenfalls gibt es dort die Möglichkeit, die Inhalte der alten Tags in die "
+"neuen Tags zu übernehmen. \n"
+"\n"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -3040,7 +3072,7 @@ msgstr "CD importieren …"
 
 #: ../plugins/cd/_cdguipanel.py:187
 msgid "Finished transcoding files"
-msgstr ""
+msgstr "Import beendet"
 
 #: ../plugins/cd/_cdguipanel.py:192
 msgid "Error transcoding files from CD."
@@ -3980,7 +4012,7 @@ msgstr "BPM anwenden"
 
 #: ../plugins/bpm/bpm_prefs.ui:12
 msgid "Enable confirmation dialog after manually setting bpm"
-msgstr ""
+msgstr "Bestätigungsdialog nach manuellem Setzen der BPM-Zahl"
 
 #: ../plugins/bpm/msg.ui:7
 msgid "Set BPM?"
@@ -4507,14 +4539,14 @@ msgstr "Wenn das Hauptfenster fokussiert ist"
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
-"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat."
-"html\">Pango Text Attribute Markup</a> is supported."
+"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
+"\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 "Jeder Tag kann mittels <b>$tag</b> oder <b>${tag}</b> genutzt werden. "
 "Internen Tags wie <b>$__length</b> müssen zwei Unterstriche vorangestellt "
 "werden.\n"
-"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat."
-"html\">Pango Text Attribute Markup</a> wird unterstützt."
+"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
+"\">Pango Text Attribute Markup</a> wird unterstützt."
 
 #: ../plugins/osd/osd_preferences.ui:87
 msgid "Display Format"
@@ -5197,7 +5229,7 @@ msgstr "Audiodateien und -streams wiedergeben, verwalten und Tags bearbeiten"
 
 #: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;OGG;FLAC;MP4"
-msgstr ""
+msgstr "Musik;Abspieler;Bibliothek;Sammlung;MP3;OGG;FLAC;MP4"
 
 #: ../data/exaile.appdata.xml.in:9
 msgid ""
@@ -5214,6 +5246,13 @@ msgid ""
 "advanced track tagging, last.fm scrobbling, support for portable media "
 "players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
 "output via a secondary output device (great for DJs!), and much more."
+msgstr ""
+
+#: ../data/ui/preferences/collection.ui:87
+msgid ""
+"Use this experimental feature to read and write ratings in audio file "
+"metadata instead of database, if possible.\n"
+"This feature should work for MP3, MP4, FLAC and OGG. "
 msgstr ""
 
 #~ msgid "Music;Player;Library;Collection;MP3;"
@@ -5255,12 +5294,10 @@ msgstr ""
 #~ msgstr "_Schließen"
 
 #, fuzzy
-#~| msgid "Display track counts in collection"
 #~ msgid "Show total count of tracks in collection"
 #~ msgstr "Anzahl der Titel in der Bibliothek anzeigen"
 
 #, fuzzy
-#~| msgid "Disallow playing new tracks when another track is playing"
 #~ msgid "Disable new track when playing"
 #~ msgstr ""
 #~ "Aktuellen Titel zu Ende spielen, bevor neues Stück wiedergegeben wird"
@@ -5272,7 +5309,6 @@ msgstr ""
 #~ msgstr "Automatisch weitergehen"
 
 #, fuzzy
-#~| msgid "Audio Device:"
 #~ msgid "Main Audio Device"
 #~ msgstr "Gerät hinzufügen:"
 

@@ -155,7 +155,14 @@ class Track:
     """
 
     # save a little memory this way
-    __slots__ = ["__tags", "_scan_valid", "_dirty", "__weakref__", "_init"]
+    __slots__ = [
+        "__tags",
+        "_scan_valid",
+        "_dirty",
+        "__weakref__",
+        "_init",
+        "_is_supported",
+    ]
     # this is used to enforce the one-track-per-uri rule
     __tracksdict = weakref.WeakValueDictionary()
     # store a copy of the settings values here - much faster (0.25 cpu
@@ -249,6 +256,7 @@ class Track:
 
         self.__tags = {}
         self._scan_valid = None  # whether our last tag read attempt worked
+        self._is_supported = None
 
         # This is not used by write_tags, this is used by the collection to
         # indicate that the tags haven't been written to the collection
@@ -388,13 +396,13 @@ class Track:
         Returns False if unsuccessful, and a Format object from
         `xl.metadata` otherwise.
         """
+
+        if not self.is_supported():
+            self._scan_valid = False
+            return False
+
         loc = self.get_loc_for_io()
         try:
-            f = metadata.get_format(loc)
-            if f is None:
-                self._scan_valid = False
-                return False  # not a supported type
-
             # Retrieve file specific metadata
             gloc = Gio.File.new_for_uri(loc)
             if hasattr(Gio.FileInfo, 'get_modification_date_time'):  # GLib >=2.62
@@ -409,6 +417,7 @@ class Track:
                 ).get_modification_time()
                 mtime = mtime.tv_sec + (mtime.tv_usec / 100000.0)
 
+            f = metadata.get_format(loc)
             if not force and self.__tags.get('__modified', 0) >= mtime:
                 return f
 
@@ -459,6 +468,20 @@ class Track:
         if self.get_local_path():
             return True
         return False
+
+    def is_supported(self):
+        """
+        Determines if a file has a supported media format
+        """
+        if self._is_supported is None:
+            loc = self.get_loc_for_io()
+            f = metadata.get_format(loc)
+            if f is None:
+                self._is_supported = False
+            else:
+                self._is_supported = True
+
+        return self._is_supported
 
     def get_size(self):
         """

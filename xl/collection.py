@@ -735,6 +735,10 @@ class Library:
             # on windows, unknown why fix isn't needed on linux.
             elif not tr._init:
                 self.collection.add(tr)
+
+        if not tr.is_supported():
+            return None
+
         return tr
 
     def rescan(
@@ -837,6 +841,9 @@ class Library:
                 continue
 
             if not gloc.query_exists(None):
+                removals.append(tr)
+
+            if not tr.is_supported():
                 removals.append(tr)
 
         for tr in removals:

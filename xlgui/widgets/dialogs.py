@@ -49,6 +49,7 @@ from xl.playlist import (
     PlaylistExportOptions,
 )
 from xl.nls import gettext as _
+from xlgui import guiutil
 from xlgui.guiutil import GtkTemplate
 
 logger = logging.getLogger(__name__)
@@ -1851,3 +1852,27 @@ def export_playlist_files(playlist, parent=None):
     dialog.connect('uris-selected', lambda widget, uris: _on_uri(uris[0]))
     dialog.run()
     dialog.destroy()
+
+
+class UpdateInfoDialog:
+    def __init__(self, parent=None):
+        self.builder = guiutil.get_builder(
+            xdg.get_data_path('ui', 'widgets', 'info_dialog.ui')
+        )
+        self.builder.connect_signals(self)
+
+        self.window = self.builder.get_object('info_dialog')
+        self.window.set_transient_for(parent)
+        self.window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+        self.window.show_all()
+
+        self.dont_show_again = self.builder.get_object('dont_show_again')
+
+    def on_close_button_clicked(self, widget):
+        self.window.destroy()
+
+    def on_window_destroy(self, widget):
+        if self.dont_show_again.get_active():
+            settings.set_option('general/hide_413_dialog', True)
+        else:
+            settings.set_option('general/hide_413_dialog', False)

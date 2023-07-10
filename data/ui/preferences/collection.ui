@@ -84,7 +84,7 @@
     <child>
       <object class="GtkLabel" id="collection/write_rating_to_audio_file_metadata_hint">
         <property name="can-focus">False</property>
-        <property name="label" translatable="yes">Use this experimental feature to read and write ratings in audio file metadata instead of database, if possible.
+        <property name="label" translatable="yes">Use this experimental feature to read and write ratings in audio file metadata additionally to database, if possible.
 This feature should work for MP3, MP4, FLAC and OGG. </property>
         <property name="wrap">True</property>
         <accessibility>

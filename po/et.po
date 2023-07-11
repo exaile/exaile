@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-10 21:21+0200\n"
-"PO-Revision-Date: 2023-06-30 16:52+0000\n"
+"PO-Revision-Date: 2023-07-11 22:53+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -1401,7 +1401,7 @@ msgstr "Tõstame hinnangud andmebaasist meediafailide metaandmetesse"
 
 #: ../xlgui/preferences/collection.py:195
 msgid "Migrating metadata"
-msgstr ""
+msgstr "Metainfo ümbertõstmine"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -2510,10 +2510,15 @@ msgid ""
 "metadata additionally to database, if possible.\n"
 "This feature should work for MP3, MP4, FLAC and OGG. "
 msgstr ""
+"Seda katselist funktsionaalsust saad kasutada helifaili salvestatud "
+"hinnangute lugemiseks ja muutmiseks ning kui võimalik siis Exaile'i "
+"andmebaasi salvestamiseks.\n"
+"Niisugine võimalus peaks olema kasutatav MP3, MP4, FLAC ja OGG failide "
+"puhul. "
 
 #: ../data/ui/preferences/collection.ui:105
 msgid "Use e-mail for Popularimeter (MP3 only):"
-msgstr "Kasuta Popularimeter'i jaokd e-posti aadressi (vaid MP3 puhul):"
+msgstr "Kasuta Popularimeter'i jaoks e-posti aadressi (vaid MP3 puhul):"
 
 #: ../data/ui/preferences/collection.ui:131
 msgid "Write existing ratings to track files now"
@@ -2521,7 +2526,7 @@ msgstr "Salvesta hetkel kehtivad hinnangud meediafailidesse"
 
 #: ../data/ui/preferences/collection.ui:156
 msgid "Use legacy tag mapping"
-msgstr ""
+msgstr "Kasuta vanas stiilis siltide vastavust"
 
 #: ../data/ui/preferences/collection.ui:171
 msgid ""
@@ -2529,10 +2534,15 @@ msgid ""
 "tags. From Exaile 4.1.3 the mapping is equivalent to MusicBrainz.\n"
 "Your can start migration here. After migration this feature will be disabled."
 msgstr ""
+"Kasuta Ogg Vorbis ja FLAC failide puhul vanas stiilis tempo ja kommentaaride "
+"silte. Alates Exaile versioonist 4.1.3 siltide lahendus on sama, mida "
+"MusicBrainz kasutab.\n"
+"Andmete ümber kolimist saad alustada siin. Peale seda antud funktsionaalsus "
+"jääb väljalülitatuks."
 
 #: ../data/ui/preferences/collection.ui:186
 msgid "Migrate existing tempo and comment tags now"
-msgstr ""
+msgstr "Tõsta olemasolevad tempo ja kommentaaride sildid ümber nüüd"
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"
@@ -2901,7 +2911,7 @@ msgstr "Suurim lugude arv:"
 
 #: ../data/ui/widgets/info_dialog.ui:20
 msgid "Don't show this message again"
-msgstr ""
+msgstr "Ära näita seda sõnumit uuesti"
 
 #: ../data/ui/widgets/info_dialog.ui:79
 msgid ""
@@ -2928,6 +2938,29 @@ msgid ""
 "There is also a tool to migrate legacy tags to the modern one. \n"
 "\n"
 msgstr ""
+"<span font-size=\"x-large\" font-weight=\"bold\">Tere tulemast kasutama "
+"Exaile versiooni 4.1.3</span>\n"
+"\n"
+"Selles versioonis on kaks olulist muudatust meediafailide lugemisel.\n"
+"\n"
+"<b>Hinnangute salvestamine meediafailidesse</b>\n"
+"Selle katselise funktsionaalsusega saad nüüd salvestade hinnanguid ehk "
+"„tärne“ salvestada otse meediafailidesse!\n"
+"Kui sa soovid seda proovida, siis ava Eelistused > Muusikakogu ning vali „"
+"Salvesta hinnangud ka meediafailide metaandmetesse ning loe neid sealt“.\n"
+"Lisaks on olemas tarvik, mis võimaldab Exaile'i andmebaasi salvestatud "
+"metainfo failidesse kirjutada.\n"
+"\n"
+"<b>Ogg ja FLAC failide sildistamise täiendavad võimalused</b>\n"
+"See Exaile'i versioon oskab flac ja ogg meediafailidesse salvestatud tempo "
+"ning kommentaaride silte kasutada viisil, mis ühildub MusicBrainz'i "
+"lahendusega.\n"
+"Kui sa soovid sellist võimalust kasutada, siis ava Eelistused > Muusikakogu "
+"ja eemalda valik „Kasuta vanas stiilis siltide vastavust“. Kui sa kasutad "
+"Exaile'i esimest korda, siis see valik on juba välja lülitatud.\n"
+"Lisaks on olemas tarvik, mis võimaldab vanas stiilis sildid muuta vastavaks "
+"uuele lahendusele. \n"
+"\n"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -3036,7 +3069,7 @@ msgstr "Impordin lugusid heliplaadilt..."
 
 #: ../plugins/cd/_cdguipanel.py:187
 msgid "Finished transcoding files"
-msgstr ""
+msgstr "Failide kodeeringu muutmine on lõppenud"
 
 #: ../plugins/cd/_cdguipanel.py:192
 msgid "Error transcoding files from CD."
@@ -3970,7 +4003,7 @@ msgstr "Kasuta tempot (bpm)"
 
 #: ../plugins/bpm/bpm_prefs.ui:12
 msgid "Enable confirmation dialog after manually setting bpm"
-msgstr ""
+msgstr "Peale tempo käsitsi seadistamist näita kinnituse vaadet"
 
 #: ../plugins/bpm/msg.ui:7
 msgid "Set BPM?"
@@ -5179,7 +5212,7 @@ msgstr "Kuula, uuri ja halda oma muusikakogu"
 
 #: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;OGG;FLAC;MP4"
-msgstr ""
+msgstr "Muusika;Meediamängija;Muusikakogu;Kogumik;MP3;OGG;FLAC;MP4;OPUS"
 
 #: ../data/exaile.appdata.xml.in:9
 msgid ""

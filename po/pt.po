@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-10 21:21+0200\n"
-"PO-Revision-Date: 2023-03-12 21:36+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
+"PO-Revision-Date: 2023-07-13 02:27+0000\n"
+"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -209,7 +209,7 @@ msgstr ""
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:187
 msgid "TAGS"
-msgstr "Etiquetas"
+msgstr "ETIQUETAS"
 
 #: ../xl/main.py:188
 msgid "Tags to retrieve from the current track; use with --format-query"
@@ -1399,7 +1399,7 @@ msgstr "A migrar as classificações para os metadados dos ficheiros de áudio"
 
 #: ../xlgui/preferences/collection.py:195
 msgid "Migrating metadata"
-msgstr ""
+msgstr "A migrar metadados"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -2512,6 +2512,10 @@ msgid ""
 "metadata additionally to database, if possible.\n"
 "This feature should work for MP3, MP4, FLAC and OGG. "
 msgstr ""
+"Utilize esta funcionalidade experimental para ler e escrever classificações "
+"em metadados de ficheiros de áudio adicionalmente à base de dados, se "
+"possível.\n"
+"Esta funcionalidade deve funcionar para MP3, MP4, FLAC e OGG. "
 
 #: ../data/ui/preferences/collection.ui:105
 msgid "Use e-mail for Popularimeter (MP3 only):"
@@ -2524,7 +2528,7 @@ msgstr ""
 
 #: ../data/ui/preferences/collection.ui:156
 msgid "Use legacy tag mapping"
-msgstr ""
+msgstr "Utilizar mapeamento de etiquetas antigo"
 
 #: ../data/ui/preferences/collection.ui:171
 msgid ""
@@ -2532,10 +2536,15 @@ msgid ""
 "tags. From Exaile 4.1.3 the mapping is equivalent to MusicBrainz.\n"
 "Your can start migration here. After migration this feature will be disabled."
 msgstr ""
+"Utilizar o mapeamento de etiquetas antigo para ficheiros Ogg Vorbis e FLAC "
+"para etiquetas de comentário e bpm. A partir do Exaile 4.1.3, o mapeamento é "
+"equivalente ao MusicBrainz.\n"
+"Pode iniciar a migração aqui. Após a migração, esta funcionalidade será "
+"desativada."
 
 #: ../data/ui/preferences/collection.ui:186
 msgid "Migrate existing tempo and comment tags now"
-msgstr ""
+msgstr "Migrar as etiquetas de tempo e comentário existentes agora"
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"
@@ -2908,7 +2917,7 @@ msgstr "Quantidade máxima de faixas:"
 
 #: ../data/ui/widgets/info_dialog.ui:20
 msgid "Don't show this message again"
-msgstr ""
+msgstr "Não voltar a mostrar esta mensagem"
 
 #: ../data/ui/widgets/info_dialog.ui:79
 msgid ""
@@ -2935,6 +2944,30 @@ msgid ""
 "There is also a tool to migrate legacy tags to the modern one. \n"
 "\n"
 msgstr ""
+"<span font-size=\"x-large\" font-weight=\"bold\">Bem-vindo ao Exaile 4.1."
+"3</span>\n"
+"\n"
+"Nesta versão há duas alterações importantes na gestão das etiquetas dos "
+"ficheiros multimédia.\n"
+"\n"
+"<b>Armazenar classificações de faixas em ficheiros multimédia</b>\n"
+"Com esta funcionalidade experimental, é agora possível armazenar as "
+"classificações de estrelas nos próprios ficheiros multimédia!\n"
+"Se quiser testar, vá a Definições > Biblioteca e ativar \"Ler e gravar "
+"classificações adicionalmente nos metadados dos ficheiros de áudio\".\n"
+"Existe também uma ferramenta para migrar todas as classificações já "
+"armazenadas para os ficheiros multimédia.\n"
+"\n"
+"<b>Etiquetagem atualizada para ficheiros flac e ogg</b>\n"
+"Com esta versão, o Exaile pode utilizar as etiquetas bpm para contagens de "
+"bpm e comment para comentários em ficheiros multimédia flac e ogg para ser "
+"compatível com o MusicBrainz.\n"
+"Se pretender utilizar, vá a Definições > Biblioteca e desmarque a opção "
+"\"Utilizar mapeamento de etiquetas antigo\". Se usares o Exaile pela "
+"primeira vez, esta opção já está desmarcada.\n"
+"Há também uma ferramenta para migrar as etiquetas antigas para as modernas. "
+"\n"
+"\n"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -3043,7 +3076,7 @@ msgstr "A importar CD..."
 
 #: ../plugins/cd/_cdguipanel.py:187
 msgid "Finished transcoding files"
-msgstr ""
+msgstr "Transcodificação de ficheiros terminada"
 
 #: ../plugins/cd/_cdguipanel.py:192
 msgid "Error transcoding files from CD."
@@ -3976,7 +4009,7 @@ msgstr "Aplicar BPM"
 
 #: ../plugins/bpm/bpm_prefs.ui:12
 msgid "Enable confirmation dialog after manually setting bpm"
-msgstr ""
+msgstr "Ativar o diálogo de confirmação após a definição manual de bpm"
 
 #: ../plugins/bpm/msg.ui:7
 msgid "Set BPM?"
@@ -5193,7 +5226,7 @@ msgstr "Ouça, explore, ou faça a gestão da sua coleção de áudio"
 
 #: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;OGG;FLAC;MP4"
-msgstr ""
+msgstr "Música;Reprodutor;Biblioteca;Coleção;MP3;OGG;FLAC;MP4"
 
 #: ../data/exaile.appdata.xml.in:9
 msgid ""

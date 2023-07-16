@@ -30,7 +30,10 @@ from . import preferences
 
 import gi
 
-gi.require_version('WebKit2', '4.0')
+try:
+    gi.require_version('WebKit2', '4.1')
+except:
+    gi.require_version('WebKit2', '4.0')
 from gi.repository import WebKit2
 
 
@@ -124,7 +127,7 @@ class BrowserPage(WebKit2.WebView):
         url = "https://%s.m.wikipedia.org/wiki/Special:Search/%s" % (language, artist)
 
         try:
-            html = common.get_url_contents(url, self.__user_agent)
+            html = common.get_url_contents(url, self.__user_agent).decode("utf-8")
         except urllib.error.URLError as e:
             log.error(e)
             log.error(

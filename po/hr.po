@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-10 21:21+0200\n"
-"PO-Revision-Date: 2023-04-08 21:49+0000\n"
+"PO-Revision-Date: 2023-07-30 05:07+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/exaile/master/"
 "hr/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1409,7 +1409,7 @@ msgstr "Migriranje ocjena u metapodatke audio datoteke"
 
 #: ../xlgui/preferences/collection.py:195
 msgid "Migrating metadata"
-msgstr ""
+msgstr "Migriranje metapodataka"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -1745,7 +1745,7 @@ msgstr[2] "%d odabrano"
 
 #: ../xlgui/widgets/menuitems.py:117
 msgid "En_queue"
-msgstr "Dodaj u red za sviranje"
+msgstr "Dodaj u _red za sviranje"
 
 #: ../xlgui/widgets/menuitems.py:153
 msgid "_Replace Current"
@@ -2522,6 +2522,9 @@ msgid ""
 "metadata additionally to database, if possible.\n"
 "This feature should work for MP3, MP4, FLAC and OGG. "
 msgstr ""
+"Koristi ovu eksperimentalnu funkciju za čitanje i pisanje ocjena u "
+"metapodacima audio datoteke dodatno u bazu podataka, ako je moguće.\n"
+"Ova bi funkcija trebala raditi za MP3, MP4, FLAC i OGG. "
 
 #: ../data/ui/preferences/collection.ui:105
 msgid "Use e-mail for Popularimeter (MP3 only):"
@@ -2533,7 +2536,7 @@ msgstr "Zapiši postojeće ocjene za praćenje datoteka"
 
 #: ../data/ui/preferences/collection.ui:156
 msgid "Use legacy tag mapping"
-msgstr ""
+msgstr "Koristi zastarjelo mapiranje oznaka"
 
 #: ../data/ui/preferences/collection.ui:171
 msgid ""
@@ -2544,7 +2547,7 @@ msgstr ""
 
 #: ../data/ui/preferences/collection.ui:186
 msgid "Migrate existing tempo and comment tags now"
-msgstr ""
+msgstr "Migriraj postojeće oznake tempa i komentara sada"
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"
@@ -2914,7 +2917,7 @@ msgstr "Maksimalni broj pjesama:"
 
 #: ../data/ui/widgets/info_dialog.ui:20
 msgid "Don't show this message again"
-msgstr ""
+msgstr "Ovu poruku više nemoj prikazivati"
 
 #: ../data/ui/widgets/info_dialog.ui:79
 msgid ""
@@ -3049,7 +3052,7 @@ msgstr "Uvoz CD-a …"
 
 #: ../plugins/cd/_cdguipanel.py:187
 msgid "Finished transcoding files"
-msgstr ""
+msgstr "Transkodiranje datoteka završeno"
 
 #: ../plugins/cd/_cdguipanel.py:192
 msgid "Error transcoding files from CD."
@@ -3984,7 +3987,7 @@ msgstr "Primijeni BPM"
 
 #: ../plugins/bpm/bpm_prefs.ui:12
 msgid "Enable confirmation dialog after manually setting bpm"
-msgstr ""
+msgstr "Aktiviraj dijaloški okvir za potvrdu nakon ručnog postavljanja bpm-a"
 
 #: ../plugins/bpm/msg.ui:7
 msgid "Set BPM?"
@@ -5129,7 +5132,7 @@ msgstr "Omogućuje isključivanje računala na kraju sviranja."
 
 #: ../plugins/somafm/PLUGININFO:3
 msgid "SomaFM Radio"
-msgstr "SomaFM radio"
+msgstr "SomaFM Radio"
 
 #: ../plugins/somafm/PLUGININFO:4
 #, python-format
@@ -5189,7 +5192,7 @@ msgstr "Slušaj, istraži ili upravljaj tvojom audio zbirkom"
 
 #: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;OGG;FLAC;MP4"
-msgstr ""
+msgstr "Glazba;Player;Biblioteka;Zbirka;MP3;OGG;FLAC;MP4"
 
 #: ../data/exaile.appdata.xml.in:9
 msgid ""

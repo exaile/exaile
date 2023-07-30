@@ -11,20 +11,19 @@ Core dependencies
 
 Essential:
 
-* python3 >= 3.6
-* python3-typing-extensions (python3 <= 3.7 only)
+* python3 >= 3.8
 * python3-bsddb3
-* gtk+ >= 3.22
-* gstreamer (>= 1.14)
-* gstreamer-plugins-base (>= 1.14)
-* gstreamer-plugins-good (>= 1.14)
-* python3-mutagen (>= 1.38)
+* gtk+ >= 3.24
+* gstreamer (>= 1.16)
+* gstreamer-plugins-base (>= 1.16)
+* gstreamer-plugins-good (>= 1.16)
+* python3-mutagen (>= 1.44)
 * python3-dbus
 * GI typelib files for GTK+, GStreamer (including gstreamer-plugins-base) and cairo and their python bindings
 
   * Packages on Debian and Ubuntu:
 
-    * python3-gi >= 3.22
+    * python3-gi >= 3.36
     * python3-gi-cairo
     * gir1.2-gtk-3.0
     * gir1.2-gstreamer-1.0
@@ -33,7 +32,7 @@ Essential:
   * Packages on Fedora:
 
     * python3-cairo
-    * python3-gobject >= 3.22
+    * python3-gobject >= 3.24
     * python3-gstreamer1
 
 Optional dependencies
@@ -53,7 +52,7 @@ Device detection:
 
 * udisks2
 
-CD info: (TODO: This is currently broken on python3, see #608 and #652)
+CD info:
 
 * python-libdiscid or python-discid (optional on linux, required to use musicbrainz)
 * python-musicbrainzngs (optional)

@@ -21,11 +21,11 @@ jobs:
     strategy:
       matrix:
         imgtag:
-          - debian-10
+          - debian-11
           - debian-stable
-          - fedora-34
+          - fedora-37
           - fedora-latest
-          - ubuntu-18.04
+          - ubuntu-20.04
           - ubuntu-rolling
     timeout-minutes: 4
     runs-on: ubuntu-latest
@@ -37,12 +37,10 @@ jobs:
         # we de-escalate manually here.
         # This requires the image to already have a user named `exaile`, created
         # using e.g. `useradd -MN exaile`.
-        # The GST_REGISTRY_FORK=no works around <https://github.com/exaile/exaile/issues/783>
-        # until it's supposedly fixed in GLib 2.70.3.
         run: |
           chown -R exaile .
           export HOME=/tmp/home
-          su -m exaile -c "GST_REGISTRY_FORK=no make BUILDDIR=/tmp/build test test_compile check-doc"
+          su -m exaile -c "make BUILDDIR=/tmp/build test test_compile check-doc"
 
   deploy:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')

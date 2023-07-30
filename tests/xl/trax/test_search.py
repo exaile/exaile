@@ -19,7 +19,7 @@ def get_search_result_track():
 
 
 class TestMatcher:
-    def setup(self):
+    def setup_method(self):
         self.strack = get_search_result_track()
         self.strack.track.set_tag_raw('artist', ['foo', 'bar'])
 
@@ -54,7 +54,7 @@ class TestMatcher:
 
 
 class TestExactMatcher:
-    def setup(self):
+    def setup_method(self):
         self.str = get_search_result_track()
 
     def test_exact_matcher_true(self):
@@ -69,7 +69,7 @@ class TestExactMatcher:
 
 
 class TestInMatcher:
-    def setup(self):
+    def setup_method(self):
         self.str = get_search_result_track()
 
     def test_in_matcher_none(self):
@@ -94,7 +94,7 @@ class TestInMatcher:
 
 
 class TestGtLtMatchers:
-    def setup(self):
+    def setup_method(self):
         self.str = get_search_result_track()
 
     def test_gt_bitrate_matcher_true(self):
@@ -197,7 +197,7 @@ class TestManyMultiMetaMatcher(TestMetaMatcherClasses):
 
 
 class TestTracksMatcher:
-    def setup(self):
+    def setup_method(self):
         self.str = get_search_result_track()
 
     def test_in_matcher(self):

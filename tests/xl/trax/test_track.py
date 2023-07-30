@@ -21,7 +21,7 @@ class Test_MetadataCacher:
     TIMEOUT = 2000
     MAX_ENTRIES = 2
 
-    def setup(self):
+    def setup_method(self):
         self.mc: track._MetadataCacher[str, str] = track._MetadataCacher(
             self.TIMEOUT, self.MAX_ENTRIES
         )

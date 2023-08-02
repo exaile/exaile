@@ -41,7 +41,7 @@ class TestGetTracksFromUri:
 
 
 class TestSortTracks:
-    def setup(self):
+    def setup_method(self):
         self.tracks = [
             xl.trax.track.Track(url) for url in ('/tmp/foo', '/tmp/bar', '/tmp/baz')
         ]
@@ -62,7 +62,7 @@ class TestSortTracks:
 
 
 class TestSortResultTracks:
-    def setup(self):
+    def setup_method(self):
         tracks = [
             xl.trax.track.Track(url) for url in ('/tmp/foo', '/tmp/bar', '/tmp/baz')
         ]

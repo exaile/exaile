@@ -72,9 +72,6 @@ def _register_template(cls, template_bytes):
     # This implementation won't work if there are nested templates, but
     # we can't do that anyways due to PyGObject limitations so it's ok
 
-    if not hasattr(cls, 'set_template'):
-        raise TypeError("Requires PyGObject 3.13.2 or greater")
-
     cls.set_template(template_bytes)
 
     bound_methods = set()

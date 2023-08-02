@@ -16,17 +16,11 @@ from gi.repository import Gst
 
 Gst.init(None)
 
-try:
-    __gst_version__ = '%s.%s.%s' % (
-        Gst.VERSION_MAJOR,
-        Gst.VERSION_MINOR,
-        Gst.VERSION_MICRO,
-    )
-except AttributeError:
-    # Old version of GStreamer < 1.3.3
-    # https://bugzilla.gnome.org/show_bug.cgi?id=703021
-    __gst_version__ = '**unknown version < 1.3.3**'
-
+__gst_version__ = '%s.%s.%s' % (
+    Gst.VERSION_MAJOR,
+    Gst.VERSION_MINOR,
+    Gst.VERSION_MICRO,
+)
 
 from xl.version import register
 

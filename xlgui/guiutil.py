@@ -115,18 +115,9 @@ def get_workarea_dimensions(window=None):
         screen = Gdk.Screen.get_default()
         default_monitor = screen.get_primary_monitor()
         return screen.get_monitor_workarea(default_monitor)
-    elif (
-        Gtk.get_major_version() > 3
-        or Gtk.get_major_version() == 3
-        and Gtk.get_minor_version() >= 22
-    ):
-        # Gdk.Monitor was introduced in Gtk+ 3.22
+    else:
         display = window.get_window().get_display()
         work_area = display.get_monitor_at_window(window.get_window()).get_workarea()
-    else:
-        screen = window.get_screen()
-        monitor_nr = screen.get_monitor_at_window(window.get_window())
-        work_area = screen.get_monitor_workarea(monitor_nr)
     return work_area
 
 

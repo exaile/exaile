@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-10 21:21+0200\n"
-"PO-Revision-Date: 2023-07-11 22:53+0000\n"
+"PO-Revision-Date: 2023-08-07 17:48+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -3866,7 +3866,7 @@ msgstr "Ошибка выполнения Streamripper"
 
 #: ../plugins/streamripper/srprefs.py:21 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr "Streamripper запись аудиопотока"
+msgstr "Запись аудиопотока Streamripper"
 
 #: ../plugins/wikipedia/__init__.py:149 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3

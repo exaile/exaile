@@ -203,7 +203,7 @@ class MultiTextEntryDialog(Gtk.Dialog):
 
         self.fields = []
 
-    def add_field(self, label, value = None, tooltip = None):
+    def add_field(self, label, value=None, tooltip=None):
         """
         Adds a field and corresponding label
 
@@ -226,7 +226,9 @@ class MultiTextEntryDialog(Gtk.Dialog):
             entry.set_text(value)
 
         if tooltip is not None:
-            entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, 'dialog-information')
+            entry.set_icon_from_icon_name(
+                Gtk.EntryIconPosition.SECONDARY, 'dialog-information'
+            )
             entry.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, tooltip)
 
         self.__entry_area.attach(entry, 1, line_number, 1, 1)

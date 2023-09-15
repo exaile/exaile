@@ -247,7 +247,6 @@ class Collection(trax.TrackDB):
         scan_interval = 20
 
         for library in self.libraries.values():
-
             if (
                 not force_update
                 and startup_only
@@ -481,7 +480,6 @@ class LibraryMonitor(GObject.GObject):
                 fileinfo.get_file_type() == Gio.FileType.DIRECTORY
                 and gfile not in self.__monitors
             ):
-
                 for directory in common.walk_directories(gfile):
                     monitor = directory.monitor_directory(
                         Gio.FileMonitorFlags.NONE, None
@@ -774,7 +772,7 @@ class Library:
                 if dirtracks:
                     for tr in dirtracks:
                         self._check_compilation(ccheck, compilations, tr)
-                    for (basedir, album) in compilations:
+                    for basedir, album in compilations:
                         base = basedir.replace('"', '\\"')
                         alb = album.replace('"', '\\"')
                         items = [

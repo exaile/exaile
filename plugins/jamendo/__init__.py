@@ -69,7 +69,6 @@ def disable(exaile):
 
 
 class JamendoPanel(panel.Panel):
-
     __gsignals__ = {
         'append-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
         'download-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
@@ -313,7 +312,6 @@ class JamendoPanel(panel.Panel):
 
     # is called when a user doubleclicks an item in the TreeView
     def button_press(self, widget, event):
-
         if event.type == Gdk.EventType._2BUTTON_PRESS:
             self.add_to_playlist()
 
@@ -451,7 +449,6 @@ class JamendoCoverSearch(CoverSearchMethod):
         # http://stream10.jamendo.com/stream/61541/ogg2/02%20-%20PieRreF%20-%20Hologram.ogg?u=0&h=f2b227d38d
         split = jamendo_url.split('/')
         if len(split) > 5 and split[0] == 'http:' and split[2].endswith('.jamendo.com'):
-
             track_num = split[4]
             image_url = jamapi.get_album_image_url_from_track(track_num)
 

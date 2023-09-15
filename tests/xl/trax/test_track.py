@@ -18,7 +18,6 @@ LOG = logging.getLogger(__name__)
 
 
 class Test_MetadataCacher:
-
     TIMEOUT = 2000
     MAX_ENTRIES = 2
 
@@ -438,7 +437,6 @@ class TestTrack:
 
     @unittest.skip("TODO")
     def test_get_sort_tag_compilation_unknown(self):
-
         tr = track.Track('/foo')
         tr.set_tag_raw('__compilation', 'foo')
         # Does not actually modify anything

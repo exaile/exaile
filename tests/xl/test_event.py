@@ -76,7 +76,6 @@ def test_ui_events():
 
 
 def test_thread_events():
-
     _init_events()
     ucb = UiCallback()
     ncb = NormalCallback()

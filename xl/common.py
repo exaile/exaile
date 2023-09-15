@@ -938,7 +938,6 @@ class LazyDict:
 
 
 class _GioFileStream:
-
     __slots__ = ['stream']
 
     def __enter__(self):

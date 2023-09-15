@@ -26,7 +26,6 @@ def disable(exaile):
 
 
 class LyricWiki(LyricSearchMethod):
-
     name = "lyricwiki"
     display_name = "Lyric Wiki"
 

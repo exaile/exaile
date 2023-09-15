@@ -347,7 +347,6 @@ class LyricSearchMethod:
 
 
 class LocalLyricSearch(LyricSearchMethod):
-
     name = "__local"
     display_name = _("Local")
 

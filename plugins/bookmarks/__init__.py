@@ -280,7 +280,7 @@ class BookmarksManager:
         if not self.menu:
             return  # this plugin is shutting down
 
-        for (key, pos) in loaded_bookmarks:
+        for key, pos in loaded_bookmarks:
             self.__add_bookmark(key, pos, save_db=False)
 
     def __save_db(self):

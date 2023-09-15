@@ -1477,7 +1477,6 @@ class XMessageDialog(Gtk.Dialog):
         show_no_all=True,
         show_cancel=True,
     ):
-
         Gtk.Dialog.__init__(self, title=title, transient_for=parent)
 
         #
@@ -1552,7 +1551,6 @@ class FileCopyDialog(Gtk.Dialog):
         text=_("Saved %(count)s of %(total)s."),
         parent=None,
     ):
-
         self.file_uris = file_uris
         self.destination_uri = destination_uri
         self.is_copying = False
@@ -1611,7 +1609,6 @@ class FileCopyDialog(Gtk.Dialog):
         self._label.set_markup(self.text % {'count': self.count, 'total': self.total})
 
     def _start_next_copy(self, overwrite=False):
-
         if self.count == len(self.file_uris):
             self.response(Gtk.ResponseType.OK)
             return
@@ -1633,7 +1630,6 @@ class FileCopyDialog(Gtk.Dialog):
                     self.overwrite_response == XRESPONSE_NO_ALL
                     or self.overwrite_response == XRESPONSE_NO
                 ):
-
                     # only deny the overwrite once..
                     if self.overwrite_response == XRESPONSE_NO:
                         self.overwrite_response = None
@@ -1680,7 +1676,6 @@ class FileCopyDialog(Gtk.Dialog):
             self._start_next_copy()
 
     def _finish_single_copy_async(self, source, async_result):
-
         try:
             if source.copy_finish(async_result):
                 self._step()
@@ -1695,7 +1690,6 @@ class FileCopyDialog(Gtk.Dialog):
             )
 
     def _query_overwrite(self):
-
         self.hide()
 
         text = _('File exists, overwrite %s ?') % GLib.markup_escape_text(
@@ -1723,7 +1717,6 @@ class FileCopyDialog(Gtk.Dialog):
             self._start_next_copy(overwrite)
 
     def _on_error(self, message):
-
         self.hide()
 
         dialog = Gtk.MessageDialog(
@@ -1754,7 +1747,6 @@ def ask_for_playlist_name(parent, playlist_manager, name=None):
     """
 
     while True:
-
         dialog = TextEntryDialog(
             _('Playlist name:'),
             _('Add new playlist...'),

@@ -82,7 +82,6 @@ def _register_template(cls, template_bytes):
 
     # Walk the class, find marked callbacks and child attributes
     for name in dir(cls):
-
         o = getattr(cls, name, None)
 
         if inspect.ismethod(o):
@@ -245,7 +244,6 @@ class _GtkTemplate:
         self.ui = ui
 
     def __call__(self, cls):
-
         if not issubclass(cls, Gtk.Widget):
             raise TypeError("Can only use @GtkTemplate on Widgets")
 

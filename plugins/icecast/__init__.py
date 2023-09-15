@@ -354,7 +354,6 @@ class IcecastRadioStation(RadioStation):
         self._keyword = keyword
 
     def _search_response(self, dialog, result, *e):
-
         dialog.hide()
         if result == Gtk.ResponseType.OK:
             items = dialog.get_items()

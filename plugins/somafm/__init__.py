@@ -56,7 +56,6 @@ def set_status(message, timeout=0):
 
 
 class SomaFMRadioStation(RadioStation):
-
     name = "somafm"
 
     def __init__(self):
@@ -162,7 +161,6 @@ class SomaFMRadioStation(RadioStation):
         Gets the subrlists for a rlist
         """
         if no_cache or id not in self.subs:
-
             rlists = self._get_stations(id)
             rlists.sort(key=operator.attrgetter('name'))
 

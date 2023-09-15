@@ -65,7 +65,6 @@ class GTShowTracksMenuItem(menu.MenuItem):
         menu.MenuItem.__init__(self, name, None, after)
 
     def factory(self, menu, parent, context):
-
         groups = context['groups']
 
         if len(groups) == 0:
@@ -120,7 +119,6 @@ class GroupTaggerView(Gtk.TreeView):
     }
 
     def __init__(self, exaile, model=None, editable=False):
-
         super(GroupTaggerView, self).__init__()
 
         self.exaile = exaile
@@ -167,7 +165,6 @@ class GroupTaggerView(Gtk.TreeView):
         self.connect('button-press-event', self.on_button_press)
 
         if editable:
-
             item = smi('addgrp', [], _('Add new tag'), callback=self.on_menu_add_group)
             self.menu.add_item(item)
 
@@ -350,7 +347,6 @@ class GroupTaggerView(Gtk.TreeView):
                     self.emit('category-changed', category_change.added, category)
 
     def on_menu_del_category(self, widget, name, parent, context):
-
         model, paths = context['selected-rows']
         categories = model.delete_selected_categories(paths)
 
@@ -440,7 +436,6 @@ class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
         return old
 
     def delete_selected_categories(self, paths):
-
         categories = {}
         iters = [self.get_iter(path) for path in paths if self[path].parent is None]
 
@@ -615,7 +610,6 @@ class GroupTaggerWidget(Gtk.Box):
             self.set_artist(track.get_tag_display('artist'))
 
     def add_groups(self, groups):
-
         added = False
 
         self.view.freeze_child_notify()
@@ -676,7 +670,6 @@ class GroupTaggerPanel(notebook.NotebookPage):
     menu_provider_name = 'panel-tab-context'
 
     def __init__(self, exaile):
-
         notebook.NotebookPage.__init__(self)
 
         # add the tagger widget
@@ -744,7 +737,6 @@ class AllTagsListStore(Gtk.ListStore):
 
 class AllTagsDialog(Gtk.Window):
     def __init__(self, exaile, callback):
-
         Gtk.Window.__init__(self)
         self.set_title(_('Get all tags from collection'))
         self.set_resizable(True)
@@ -792,7 +784,6 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
     """
 
     def __init__(self, groups):
-
         Gtk.Dialog.__init__(self, title=_('Show tracks with groups'))
 
         # setup combo box selections
@@ -825,7 +816,6 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
         # TODO: Add/remove groups to/from table
 
         for i, group in enumerate(sorted(groups)):
-
             # label
             gcombo = self._init_combo(self.group_model)
             gcombo.set_active(self._get_group_index(group))
@@ -871,7 +861,6 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
 
         # gather the data
         for gcombo, combo in self.combos:
-
             active_group = self.group_model[gcombo.get_active()][0]
             wsel = self.combo_model[combo.get_active()][0]
 
@@ -938,7 +927,6 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
 
 class GroupTaggerAddRemoveDialog(Gtk.Dialog):
     def __init__(self, add, tracks, exaile):
-
         self.add = add
         self.tracks = tracks
 

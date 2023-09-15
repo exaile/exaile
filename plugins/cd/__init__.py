@@ -160,7 +160,6 @@ class CDPlaylist(playlist.Playlist):
         self.open_disc()
 
     def open_disc(self):
-
         toc = CDTocParser(self.__device)
         lengths = toc._get_track_lengths()
 

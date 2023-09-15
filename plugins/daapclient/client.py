@@ -228,7 +228,6 @@ class DAAPPlaylist:
 
 
 class DAAPTrack:
-
     attrmap = {
         'name': 'minm',
         'artist': 'asar',

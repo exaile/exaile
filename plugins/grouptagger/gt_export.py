@@ -56,7 +56,6 @@ def export_tags(exaile):
     )
 
     if uri is not None:
-
         # collect the data
         trackdata = {}
         for strack in search.search_tracks_from_string(exaile.collection, ''):

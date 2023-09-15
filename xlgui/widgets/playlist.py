@@ -787,7 +787,6 @@ class PlaylistPage(PlaylistPageBase):
                 self.loading = None
 
     def on_data_loading_timer(self):
-
         if self.loading_timer is None:
             return
 
@@ -1102,7 +1101,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             )
 
     def _compute_font(self):
-
         font = settings.get_option('gui/playlist_font', None)
         if font is not None:
             font = Pango.FontDescription(font)
@@ -1349,7 +1347,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 and not e.state & Gtk.accelerator_get_default_mod_mask()
                 and selection.path_is_selected(path)
             ):
-
                 if selection.count_selected_rows() > 1:
                     selection.set_select_function(lambda *args: False, None)
                     self.pending_event = (path, col)
@@ -1969,12 +1966,10 @@ class PlaylistModel(Gtk.ListStore):
             pixbuf = self.stop_pixbuf.pixbuf
 
         if playlist is self.player.queue.current_playlist:
-
             if (
                 playlist.current_position == rowidx
                 and playlist[rowidx] == self.player.current
             ):
-
                 # this row is the current track, set a special icon
                 state = self.player.get_state()
 
@@ -2078,7 +2073,6 @@ class PlaylistModel(Gtk.ListStore):
     #
 
     def _load_data(self, tracks):
-
         # Don't allow race condition between adds.. there's probably a race
         # condition for removal
         if self.data_loading:

@@ -94,7 +94,6 @@ class ElementBin(Gst.Bin):
 
         elems = []
         for _unused, e in all_elems:
-
             # Don't add empty elements!
             if hasattr(e, 'setup_elements'):
                 if not e.setup_elements():

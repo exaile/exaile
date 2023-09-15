@@ -33,7 +33,6 @@ class PlaybackAdapter:
     """
 
     def __init__(self, player):
-
         self.__player = player
         self.__events = (
             'playback_track_start',

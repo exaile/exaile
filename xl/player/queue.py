@@ -330,9 +330,7 @@ class PlayQueue(playlist.Playlist):
 
     @common.idle_add()
     def _do_restore_player_state(self, state):
-
         if state['state'] in ['playing', 'paused']:
-
             start_at = None
             if state['position'] is not None:
                 start_at = state['position']

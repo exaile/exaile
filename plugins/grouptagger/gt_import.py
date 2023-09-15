@@ -135,7 +135,6 @@ class GtImporter(Gtk.Window):
 
     @idle_add()
     def _on_update_done(self, thread):
-
         if self.update_thread is None:
             return
 
@@ -150,7 +149,6 @@ class GtImporter(Gtk.Window):
 
     @GtkTemplate.Callback
     def on_cancel_button_clicked(self, widget):
-
         if self.rescan_thread is not None:
             self.rescan_thread.stop()
         elif self.import_thread is not None:
@@ -166,7 +164,6 @@ class GtImporter(Gtk.Window):
 
     @GtkTemplate.Callback
     def on_ok_button_clicked(self, widget):
-
         self.ok_button.set_sensitive(False)
         self.tags_vbox.set_sensitive(False)
 
@@ -204,7 +201,6 @@ def track_import_thread(import_collection, user_collection, track_data):
     # determine which tracks in this collection match existing
     # tracks in the exaile collection. grab the groups from them
     for i, track in enumerate(import_collection):
-
         # search for a matching track
         # -> currently exaile doesn't index tracks, and linear searches
         #    for the track instead. Oh well.
@@ -214,7 +210,6 @@ def track_import_thread(import_collection, user_collection, track_data):
 
         # if there are matches, add the data to the track data
         for matched_track in matched_tracks:
-
             # ignore exact duplicates
             if track is matched_track:
                 exact_dups += 1
@@ -247,7 +242,6 @@ def track_update_thread(trackdata, replace):
     total = len(trackdata)
 
     for i, (curtrack, newgroups) in enumerate(trackdata):
-
         if replace:
             set_track_groups(curtrack, newgroups)
         else:

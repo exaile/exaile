@@ -83,7 +83,6 @@ class ExailePlayer:
         event.add_callback(self._on_track_tags_changed, 'track_tags_changed')
 
     def _setup_engine(self, disable_autoswitch):
-
         if self._engine is not None:
             self._engine.destroy()
 
@@ -208,7 +207,6 @@ class ExailePlayer:
         state = self.get_state()
 
         if state == 'playing' or state == 'paused':
-
             self._engine.stop()
             return True
         else:
@@ -229,7 +227,6 @@ class ExailePlayer:
         """
         self._cancel_delayed_start()
         if self.is_playing():
-
             current = self.current
             self._update_playtime(current)
             self._engine.pause()
@@ -254,7 +251,6 @@ class ExailePlayer:
         """
         self._cancel_delayed_start()
         if self.is_paused():
-
             self._reset_playtime_stamp()
             self._engine.unpause()
 

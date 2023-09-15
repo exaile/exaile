@@ -226,7 +226,6 @@ def _on_trash_tracks(
     trash_tracks_func,
     delete_tracks_func,
 ):
-
     tracks = get_tracks_func(parent, context)
 
     try:

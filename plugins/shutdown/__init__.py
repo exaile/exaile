@@ -144,9 +144,10 @@ class Shutdown:
         """
         self.countdown = None
         if self.counter > 0:
-
             msg_close = _('Exaile will be closed in %d seconds.') % self.counter
-            msg_shutdown = _('The computer will be shut down in %d seconds.') % self.counter
+            msg_shutdown = (
+                _('The computer will be shut down in %d seconds.') % self.counter
+            )
 
             if self.do_close:
                 msg = msg_close
@@ -163,7 +164,7 @@ class Shutdown:
         if self.do_close:
             self.do_close = False
             self.exaile.quit()
-            return  #Should not be necessary
+            return  # Should not be necessary
 
         self.do_shutdown = False
 

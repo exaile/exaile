@@ -29,6 +29,7 @@ class Shutdown:
     def __init__(self, exaile):
         self.exaile = exaile
         self.do_shutdown = False
+        self.do_close = False
 
         # add menuitem to tools menu
         providers.register(
@@ -42,7 +43,17 @@ class Shutdown:
             _('Shutdown after Playback'),
             #   checked func                # callback func
             lambda *x: self.do_shutdown,
-            lambda w, n, p, c: self.on_toggled(w),
+            lambda w, n, p, c: self.on_toggled_shutdown(w),
+        )
+        providers.register('menubar-tools-menu', item)
+
+        item = menu.check_menu_item(
+            'close',
+            ['plugin-sep'],
+            _('Close Exaile after Playback'),
+            #   checked func                # callback func
+            lambda *x: self.do_close,
+            lambda w, n, p, c: self.on_toggled_close(w),
         )
         providers.register('menubar-tools-menu', item)
 
@@ -55,7 +66,7 @@ class Shutdown:
         )
         self.message.connect('response', self.on_response)
 
-    def on_toggled(self, menuitem):
+    def on_toggled_shutdown(self, menuitem):
         """
         Enables or disables deferred shutdown
         """
@@ -69,6 +80,21 @@ class Shutdown:
             )
         else:
             self.disable_shutdown()
+
+    def on_toggled_close(self, menuitem):
+        """
+        Enables or disables deferred shutdown
+        """
+        if menuitem.get_active():
+            self.do_close = True
+            event.add_ui_callback(self.on_playback_player_end, 'playback_player_end')
+
+            self.message.show_info(
+                _('Close scheduled'),
+                _('Exaile will be closed at the end of playback.'),
+            )
+        else:
+            self.disable_closing()
 
     def disable_shutdown(self):
         self.do_shutdown = False
@@ -92,7 +118,10 @@ class Shutdown:
         Tries to shutdown the computer
         """
         self.message.set_message_type(Gtk.MessageType.INFO)
-        self.message.set_markup(_('Imminent Shutdown'))
+        if self.do_close:
+            self.message.set_markup(_('Imminent Closing'))
+        else:
+            self.message.set_markup(_('Imminent Shutdown'))
         self.message.clear_buttons()
         self.message.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
 
@@ -115,14 +144,26 @@ class Shutdown:
         """
         self.countdown = None
         if self.counter > 0:
-            self.message.set_secondary_text(
-                _('The computer will be shut down in %d seconds.') % self.counter
-            )
+
+            msg_close = _('Exaile will be closed in %d seconds.') % self.counter
+            msg_shutdown = _('The computer will be shut down in %d seconds.') % self.counter
+
+            if self.do_close:
+                msg = msg_close
+            else:
+                msg = msg_shutdown
+
+            self.message.set_secondary_text(msg)
             self.message.show()
 
             self.counter -= 1
 
             return True
+
+        if self.do_close:
+            self.do_close = False
+            self.exaile.quit()
+            return  #Should not be necessary
 
         self.do_shutdown = False
 

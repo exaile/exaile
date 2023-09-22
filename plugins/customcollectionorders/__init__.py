@@ -23,11 +23,8 @@ class CustomCollectionOrders:
         self.last_active_view = settings.get_option('gui/collection_active_view')
         event.add_callback(self._on_option_update, 'cco_option_set')
 
-        pass
-
     def _on_option_update(self, event_name, event_source, option):
         self.populate_orders()
-        pass
 
     def disable(self, exaile):
         pass
@@ -35,7 +32,7 @@ class CustomCollectionOrders:
     def on_gui_loaded(self):
         """
         Called when the gui is loaded
-        Before that there is no panel
+        Before that there is no collection panel
         """
         self.populate_orders()
 
@@ -71,10 +68,6 @@ class CustomCollectionOrders:
 
         self.collection_panel.repopulate_choices()
         settings.set_option('gui/collection_active_view', self.last_active_view)
-
-    def on_exaile_loaded(self):
-        # self.collection_panel.repopulate_choices()
-        pass
 
     def get_preferences_pane(self):
         return cco_prefs

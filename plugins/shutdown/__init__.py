@@ -38,16 +38,6 @@ class Shutdown:
         )
 
         item = menu.check_menu_item(
-            'shutdown',
-            ['plugin-sep'],
-            _('Shutdown after Playback'),
-            #   checked func                # callback func
-            lambda *x: self.do_shutdown,
-            lambda w, n, p, c: self.on_toggled_shutdown(w),
-        )
-        providers.register('menubar-tools-menu', item)
-
-        item = menu.check_menu_item(
             'close',
             ['plugin-sep'],
             _('Close Exaile after Playback'),
@@ -56,6 +46,18 @@ class Shutdown:
             lambda w, n, p, c: self.on_toggled_close(w),
         )
         providers.register('menubar-tools-menu', item)
+
+        item = menu.check_menu_item(
+            'shutdown',
+            ['close'],
+            _('Shutdown after Playback'),
+            #   checked func                # callback func
+            lambda *x: self.do_shutdown,
+            lambda w, n, p, c: self.on_toggled_shutdown(w),
+        )
+        providers.register('menubar-tools-menu', item)
+
+        items = providers.get('menubar-tools-menu')
 
         self.countdown = None
         self.counter = 10

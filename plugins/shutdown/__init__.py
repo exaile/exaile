@@ -34,7 +34,7 @@ class Shutdown:
         # add menuitem to tools menu
         providers.register(
             'menubar-tools-menu',
-            menu.simple_separator('plugin-sep', ['track-properties']),
+            menu.simple_separator('plugin-sep', ['slow-scan-collection']),
         )
 
         item = menu.check_menu_item(
@@ -56,8 +56,6 @@ class Shutdown:
             lambda w, n, p, c: self.on_toggled_shutdown(w),
         )
         providers.register('menubar-tools-menu', item)
-
-        items = providers.get('menubar-tools-menu')
 
         self.countdown = None
         self.counter = 10
@@ -100,6 +98,23 @@ class Shutdown:
 
     def disable_shutdown(self):
         self.do_shutdown = False
+        event.remove_callback(self.on_playback_player_end, 'playback_player_end')
+
+        # Stop possible countdown
+        if self.countdown is not None:
+            GLib.source_remove(self.countdown)
+            self.countdown = None
+
+        # Prepare for a new run
+        self.counter = 10
+
+        # Reset message button layout
+        self.message.hide()
+        self.message.clear_buttons()
+        self.message.add_button(Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE)
+
+    def disable_closing(self):
+        self.do_close = False
         event.remove_callback(self.on_playback_player_end, 'playback_player_end')
 
         # Stop possible countdown
@@ -204,9 +219,8 @@ class Shutdown:
 
         event.remove_callback(self.on_playback_player_end, 'playback_player_end')
         for item in providers.get('menubar-tools-menu'):
-            if item.name == 'shutdown':
+            if item.name == 'shutdown' or item.name == 'close':
                 providers.unregister('menubar-tools-menu', item)
-                break
 
 
 def enable(exaile):

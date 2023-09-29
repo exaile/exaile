@@ -34,16 +34,16 @@ class Shutdown:
         # add menuitem to tools menu
         providers.register(
             'menubar-tools-menu',
-            menu.simple_separator('plugin-sep', ['slow-scan-collection']),
+            menu.simple_separator('plugin-sep-shutdown', ['slow-scan-collection']),
         )
 
         item = menu.check_menu_item(
             'close',
-            ['plugin-sep'],
+            ['plugin-sep-shutdown'],
             _('Close Exaile after Playback'),
             #   checked func                # callback func
             lambda *x: self.do_close,
-            lambda w, n, p, c: self.on_toggled_close(w),
+            lambda w, n, p, c: self.on_toggle(w),
         )
         providers.register('menubar-tools-menu', item)
 
@@ -53,7 +53,7 @@ class Shutdown:
             _('Shutdown after Playback'),
             #   checked func                # callback func
             lambda *x: self.do_shutdown,
-            lambda w, n, p, c: self.on_toggled_shutdown(w),
+            lambda w, n, p, c: self.on_toggle(w),
         )
         providers.register('menubar-tools-menu', item)
 
@@ -66,11 +66,34 @@ class Shutdown:
         )
         self.message.connect('response', self.on_response)
 
+
+    def on_toggle(self, menuitem):
+
+        if menuitem.get_active() and menuitem.get_name() == 'close':
+            self.do_close = True
+            self.do_shutdown = False
+            self.message.show_info(
+                _('Close scheduled'),
+                _('Exaile will be closed at the end of playback.'),
+            )
+        elif menuitem.get_active() and menuitem.get_name() == 'shutdown':
+            self.do_close = False
+            self.do_shutdown = True
+            self.message.show_info(
+                _('Shutdown scheduled'),
+                _('Computer will be shutdown at the end of playback.'),
+            )
+        else:
+            self.disable_all()
+
+        if self.do_close or self.do_shutdown:
+            event.add_ui_callback(self.on_playback_player_end, 'playback_player_end')
+
     def on_toggled_shutdown(self, menuitem):
         """
         Enables or disables deferred shutdown
         """
-        if menuitem.get_active():
+        if menuitem.get_active() :
             self.do_shutdown = True
             event.add_ui_callback(self.on_playback_player_end, 'playback_player_end')
 
@@ -96,8 +119,9 @@ class Shutdown:
         else:
             self.disable_closing()
 
-    def disable_shutdown(self):
+    def disable_all(self):
         self.do_shutdown = False
+        self.do_close = False
         event.remove_callback(self.on_playback_player_end, 'playback_player_end')
 
         # Stop possible countdown

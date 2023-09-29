@@ -325,11 +325,11 @@ class BookmarksPlugin:
 
         # add tools menu items
         providers.register(
-            'menubar-tools-menu', _sep('plugin-sep', ['slow-scan-collection'])
+            'menubar-tools-menu', _sep('plugin-sep-bookmarks', ['slow-scan-collection'])
         )
         item = _smi(
             'bookmarks',
-            ['plugin-sep'],
+            ['plugin-sep-bookmarks'],
             _('_Bookmarks'),
             'user-bookmarks',
             submenu=self.__manager.menu,

@@ -33,7 +33,7 @@ class Shutdown:
         # add menuitem to tools menu
         providers.register(
             'menubar-tools-menu',
-            menu.simple_separator('plugin-sep', ['track-properties']),
+            menu.simple_separator('plugin-sep', ['slow-scan-collection']),
         )
 
         item = menu.check_menu_item(

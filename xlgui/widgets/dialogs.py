@@ -203,11 +203,13 @@ class MultiTextEntryDialog(Gtk.Dialog):
 
         self.fields = []
 
-    def add_field(self, label, value=None, tooltip=None):
+    def add_field(self, label: str, value: str = None, tooltip: str = None):
         """
         Adds a field and corresponding label
 
         :param label: the label to display
+        :param value: the text in entry field
+        :param tooltip: a tooltip to show
         :returns: the newly created entry
         :rtype: :class:`Gtk.Entry`
         """

@@ -138,7 +138,7 @@ class ExaileScrobbler:
 
         providers.register(
             'menubar-tools-menu',
-            menu.simple_separator('plugin-sep', ['track-properties']),
+            menu.simple_separator('plugin-sep', ['slow-scan-collection']),
         )
 
         def factory(menu_, parent, context):

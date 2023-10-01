@@ -1,7 +1,7 @@
 import json
 
 from xl import event, settings
-from xlgui.panel.collection import Order
+from xlgui.panel.collection import Order, DEFAULT_ORDERS
 
 from . import cco_prefs
 
@@ -12,19 +12,36 @@ class CustomCollectionOrders:
     """
 
     collection_panel = None
-    last_active_view = None
     custom_orders = []
+    default_orders_count = None
 
     def enable(self, exaile):
         """
         Called on startup of exaile
         """
         self.exaile = exaile
-        self.last_active_view = settings.get_option('gui/collection_active_view')
-        event.add_callback(self._on_option_update, 'cco_option_set')
+        event.add_callback(self._on_orders_update, 'cco_option_set')
+        event.add_callback(self._on_active_order_update, 'gui_option_set')
 
-    def _on_option_update(self, event_name, event_source, option):
+    def _on_orders_update(self, event_name, event_source, option):
+        if option != 'cco/orders':
+            return
         self.populate_orders()
+
+    def _on_active_order_update(self, event_name, event_source, option):
+        """
+        Called when 'gui/collection_active_view' is updated.
+
+        This is necessary because if on startup the last active view is not allready there
+        'gui/collection_active_view' will be updated to -1
+        So it needs to be reset after all orders are present
+        """
+        if option != 'gui/collection_active_view':
+            return
+
+        set = settings.get_option('gui/collection_active_view')
+        if set > -1:
+            settings.set_option('cco/collection_active_view', set)
 
     def disable(self, exaile):
         pass
@@ -34,16 +51,16 @@ class CustomCollectionOrders:
         Called when the gui is loaded
         Before that there is no collection panel
         """
+        self.collection_panel = self.exaile.gui.panel_notebook.panels[
+            'collection'
+        ].panel
+        self.default_orders_count = len(DEFAULT_ORDERS)
         self.populate_orders()
 
     def populate_orders(self):
         setting = settings.get_option('cco/orders', None)
         if setting is None:
             return
-
-        self.collection_panel = self.exaile.gui.panel_notebook.panels[
-            'collection'
-        ].panel
 
         for order in self.custom_orders:
             self.collection_panel.orders.remove(order)
@@ -66,8 +83,13 @@ class CustomCollectionOrders:
             self.collection_panel.orders.append(new_order)
             self.custom_orders.append(new_order)
 
+        real_len = len(self.collection_panel.orders) - 1
+        active = settings.get_option('cco/collection_active_view')
+        if real_len < active:
+            # In case the last active order is deleted
+            active = real_len
+        settings.set_option('gui/collection_active_view', active)
         self.collection_panel.repopulate_choices()
-        settings.set_option('gui/collection_active_view', self.last_active_view)
 
     def get_preferences_pane(self):
         return cco_prefs

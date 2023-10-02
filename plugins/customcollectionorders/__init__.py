@@ -31,16 +31,14 @@ class CustomCollectionOrders:
     def _on_active_order_update(self, event_name, event_source, option):
         """
         Called when 'gui/collection_active_view' is updated.
-
-        This is necessary because if on startup the last active view is not allready there
-        'gui/collection_active_view' will be updated to -1
-        So it needs to be reset after all orders are present
         """
         if option != 'gui/collection_active_view':
             return
 
         set = settings.get_option('gui/collection_active_view')
         if set > -1:
+            # This is necessary because if on startup the last active view is not allready there
+            # 'gui/collection_active_view' will be updated to -1
             settings.set_option('cco/collection_active_view', set)
 
     def disable(self, exaile):
@@ -83,11 +81,11 @@ class CustomCollectionOrders:
             self.collection_panel.orders.append(new_order)
             self.custom_orders.append(new_order)
 
-        real_len = len(self.collection_panel.orders) - 1
+        orders_count = len(self.collection_panel.orders) - 1
         active = settings.get_option('cco/collection_active_view')
-        if real_len < active:
-            # In case the last active order is deleted
-            active = real_len
+        if orders_count < active:
+            # In case the last active order is deleted set to last existing order
+            active = orders_count
         settings.set_option('gui/collection_active_view', active)
         self.collection_panel.repopulate_choices()
 

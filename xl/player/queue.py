@@ -135,6 +135,10 @@ class PlayQueue(playlist.Playlist):
                 if track is None:
                     # pop the last track
                     self.pop(0)
+
+                    if self.last_playlist is not self:
+                        return self.last_playlist.get_next()
+
                 return track
             else:
                 return playlist.Playlist.get_next(self)
@@ -367,7 +371,7 @@ class PlayQueue(playlist.Playlist):
         elif len(self) > 0:
             return self[0]
 
-        if self.last_playlist is not self:
-            return self.last_playlist.get_next()
+        # if self.last_playlist is not self:
+        #     return self.last_playlist.get_next()
 
         return None

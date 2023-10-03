@@ -172,7 +172,9 @@ class PlayQueue(playlist.Playlist):
                             except IndexError:
                                 pass
                         if track is not None:
-                            self.current_position = 0 # necessary the mark the first track in queue
+                            self.current_position = (
+                                0  # necessary the mark the first track in queue
+                            )
                     else:
                         track = self.pop(0)
                         self.current_position = -1
@@ -186,7 +188,9 @@ class PlayQueue(playlist.Playlist):
                 else:
                     # otherwise set current playlist to queue
                     if self.current_playlist is not self:
-                        self.player.queue.last_playlist = self.player.queue.current_playlist
+                        self.player.queue.last_playlist = (
+                            self.player.queue.current_playlist
+                        )
                     self.player.queue.current_playlist = self
 
             if track is None and self.current_playlist is not self:
@@ -371,8 +375,5 @@ class PlayQueue(playlist.Playlist):
                 return self[1]
         elif len(self) > 0:
             return self[0]
-
-        # if self.last_playlist is not self:
-        #     return self.last_playlist.get_next()
 
         return None

@@ -162,10 +162,11 @@ class PlayQueue(playlist.Playlist):
                 if self.__remove_item_on_playback:
                     if self.__remove_item_after_playback:
                         track = self._calculate_next_track()
-                        try:
-                            self.pop(self.current_position)
-                        except IndexError:
-                            pass
+                        if self.current_playlist is self:
+                            try:
+                                self.pop(self.current_position)
+                            except IndexError:
+                                pass
                         self.current_position = 0
                     else:
                         track = self.pop(0)
@@ -176,8 +177,11 @@ class PlayQueue(playlist.Playlist):
                 # reached the end of the internal queue, don't repeat
                 if track is None:
                     self.__queue_has_tracks = False
+                    self.current_playlist = self.last_playlist
                 else:
                     # otherwise set current playlist to queue
+                    if self.current_playlist is not self:
+                        self.player.queue.last_playlist = self.player.queue.current_playlist
                     self.player.queue.current_playlist = self
 
             if track is None and self.current_playlist is not self:
@@ -362,5 +366,8 @@ class PlayQueue(playlist.Playlist):
                 return self[1]
         elif len(self) > 0:
             return self[0]
+
+        if self.last_playlist is not self:
+            return self.last_playlist.get_next()
 
         return None

@@ -58,6 +58,7 @@ class PlayQueue(playlist.Playlist):
 
         self.__queue_has_tracks_val = False
         self.__current_playlist = self  # this should never be None
+        self.last_playlist = None
         self.player = player
 
         # hack for making docs work
@@ -130,20 +131,14 @@ class PlayQueue(playlist.Playlist):
         :rtype: :class:`xl.trax.Track` or None
         """
         if self.__queue_has_tracks and len(self):
-            if self.__remove_item_on_playback:
-                track = self._calculate_next_track()
-                if track is None:
-                    # pop the last track
-                    self.pop(0)
-
-                    if self.last_playlist is not self:
-                        return self.last_playlist.get_next()
-
+            track = self._calculate_next_track()
+            if track is not None:
                 return track
-            else:
-                return playlist.Playlist.get_next(self)
-        elif self.current_playlist is not self:
+            # self.__queue_has_tracks = False
+        if self.current_playlist is not self:
             return self.current_playlist.get_next()
+        elif self.last_playlist is not None:
+            return self.last_playlist.get_next()
         else:
             return None
 
@@ -162,7 +157,7 @@ class PlayQueue(playlist.Playlist):
             * `playback_playlist_end`: indicates that the end of the queue has been reached
         """
         if track is None:
-            if self.__queue_has_tracks:
+            if self.__queue_has_tracks and len(self):
                 if self.__remove_item_on_playback:
                     if self.__remove_item_after_playback:
                         track = self._calculate_next_track()
@@ -173,7 +168,7 @@ class PlayQueue(playlist.Playlist):
                                 pass
                         if track is not None:
                             self.current_position = (
-                                0  # necessary the mark the first track in queue
+                                    0  # necessary to mark the first track in queue
                             )
                     else:
                         track = self.pop(0)

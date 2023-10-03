@@ -171,7 +171,8 @@ class PlayQueue(playlist.Playlist):
                                 self.pop(self.current_position)
                             except IndexError:
                                 pass
-                        self.current_position = 0
+                        if track is not None:
+                            self.current_position = 0 # necessary the mark the first track in queue
                     else:
                         track = self.pop(0)
                         self.current_position = -1

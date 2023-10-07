@@ -134,7 +134,6 @@ class PlayQueue(playlist.Playlist):
             track = self._calculate_next_track()
             if track is not None:
                 return track
-            # self.__queue_has_tracks = False
         if self.current_playlist is not self:
             return self.current_playlist.get_next()
         elif self.last_playlist is not None:
@@ -157,7 +156,7 @@ class PlayQueue(playlist.Playlist):
             * `playback_playlist_end`: indicates that the end of the queue has been reached
         """
         if track is None:
-            if self.__queue_has_tracks and len(self):
+            if self.__queue_has_tracks:
                 if self.__remove_item_on_playback:
                     if self.__remove_item_after_playback:
                         track = self._calculate_next_track()
@@ -168,10 +167,13 @@ class PlayQueue(playlist.Playlist):
                                 pass
                         if track is not None:
                             self.current_position = (
-                                    0  # necessary to mark the first track in queue
+                                0  # necessary to mark the first track in queue
                             )
                     else:
-                        track = self.pop(0)
+                        try:
+                            track = self.pop(0)
+                        except IndexError:
+                            track = None
                         self.current_position = -1
                 else:
                     track = super().next()
@@ -183,10 +185,8 @@ class PlayQueue(playlist.Playlist):
                 else:
                     # otherwise set current playlist to queue and store last playlist
                     if self.current_playlist is not self:
-                        self.player.queue.last_playlist = (
-                            self.player.queue.current_playlist
-                        )
-                    self.player.queue.current_playlist = self
+                        self.last_playlist = self.current_playlist
+                    self.current_playlist = self
 
             if track is None and self.current_playlist is not self:
                 track = self.current_playlist.next()

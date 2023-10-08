@@ -20,6 +20,8 @@ class TestQueue:
         settings.set_option('queue/remove_item_when_played', True)
         settings.set_option('queue/remove_item_after_played', False)
 
+        settings.set_option('player/auto_advance', True)
+
         p = player.ExailePlayer('player')
         tr1 = track.Track('/foo')
         tr2 = track.Track('/bar')

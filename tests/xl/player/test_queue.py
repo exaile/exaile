@@ -17,7 +17,7 @@ import xl.settings as settings
 
 class TestQueue:
     def test_remove_on_play(self):
-        settings.set_option('queue/remove_item_when_played', True)
+        settings.set_option('queue/remove_item_when_played', False)
         settings.set_option('queue/remove_item_after_played', False)
 
         settings.set_option('player/auto_advance', True)

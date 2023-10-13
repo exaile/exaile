@@ -87,36 +87,6 @@ class Shutdown:
         if self.do_close or self.do_shutdown:
             event.add_ui_callback(self.on_playback_player_end, 'playback_player_end')
 
-    def on_toggled_shutdown(self, menuitem):
-        """
-        Enables or disables deferred shutdown
-        """
-        if menuitem.get_active():
-            self.do_shutdown = True
-            event.add_ui_callback(self.on_playback_player_end, 'playback_player_end')
-
-            self.message.show_info(
-                _('Shutdown scheduled'),
-                _('Computer will be shutdown at the end of playback.'),
-            )
-        else:
-            self.disable_shutdown()
-
-    def on_toggled_close(self, menuitem):
-        """
-        Enables or disables deferred shutdown
-        """
-        if menuitem.get_active():
-            self.do_close = True
-            event.add_ui_callback(self.on_playback_player_end, 'playback_player_end')
-
-            self.message.show_info(
-                _('Close scheduled'),
-                _('Exaile will be closed at the end of playback.'),
-            )
-        else:
-            self.disable_closing()
-
     def disable_all(self):
         self.do_shutdown = False
         self.do_close = False

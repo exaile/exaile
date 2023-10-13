@@ -66,9 +66,7 @@ class Shutdown:
         )
         self.message.connect('response', self.on_response)
 
-
     def on_toggle(self, menuitem):
-
         if menuitem.get_active() and menuitem.get_name() == 'close':
             self.do_close = True
             self.do_shutdown = False
@@ -93,7 +91,7 @@ class Shutdown:
         """
         Enables or disables deferred shutdown
         """
-        if menuitem.get_active() :
+        if menuitem.get_active():
             self.do_shutdown = True
             event.add_ui_callback(self.on_playback_player_end, 'playback_player_end')
 

@@ -43,7 +43,7 @@ class Shutdown:
             _('Close Exaile after Playback'),
             #   checked func                # callback func
             lambda *x: self.do_close,
-            lambda w, n, p, c: self.on_toggle(w),
+            lambda w, n, p, c: self.on_toggle(w, n),
         )
         providers.register('menubar-tools-menu', item)
 
@@ -53,7 +53,7 @@ class Shutdown:
             _('Shutdown after Playback'),
             #   checked func                # callback func
             lambda *x: self.do_shutdown,
-            lambda w, n, p, c: self.on_toggle(w),
+            lambda w, n, p, c: self.on_toggle(w, n),
         )
         providers.register('menubar-tools-menu', item)
 
@@ -66,15 +66,15 @@ class Shutdown:
         )
         self.message.connect('response', self.on_response)
 
-    def on_toggle(self, menuitem):
-        if menuitem.get_active() and menuitem.get_name() == 'close':
+    def on_toggle(self, menuitem, name):
+        if menuitem.get_active() and name == 'close':
             self.do_close = True
             self.do_shutdown = False
             self.message.show_info(
                 _('Close scheduled'),
                 _('Exaile will be closed at the end of playback.'),
             )
-        elif menuitem.get_active() and menuitem.get_name() == 'shutdown':
+        elif menuitem.get_active() and name == 'shutdown':
             self.do_close = False
             self.do_shutdown = True
             self.message.show_info(

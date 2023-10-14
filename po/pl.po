@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-10 21:21+0200\n"
-"PO-Revision-Date: 2023-07-22 22:09+0000\n"
-"Last-Translator: Eryk Michalak <gnu.ewm@protonmail.com>\n"
+"PO-Revision-Date: 2023-10-11 17:01+0000\n"
+"Last-Translator: Piotr Strebski <strebski@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/>"
 "\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 "X-Launchpad-Export-Date: 2014-11-08 06:10+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -439,7 +439,7 @@ msgstr "Wykonawca"
 
 #: ../xl/metadata/tags.py:48 ../xlgui/widgets/playlist_columns.py:301
 msgid "Album artist"
-msgstr "Album artysty"
+msgstr "Artysta albumu"
 
 #: ../xl/metadata/tags.py:49
 msgid "Author"
@@ -1148,7 +1148,7 @@ msgstr "_O programie"
 
 #: ../xlgui/panel/collection.py:127
 msgid "Album Artist"
-msgstr "Album artysty"
+msgstr "Artysta albumu"
 
 #: ../xlgui/panel/collection.py:133
 msgid "Genre - Artist"
@@ -1404,7 +1404,7 @@ msgstr "Migrowanie ocen do metadanych pliku dźwiękowego"
 
 #: ../xlgui/preferences/collection.py:195
 msgid "Migrating metadata"
-msgstr ""
+msgstr "Migracja metadanych"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -2516,6 +2516,9 @@ msgid ""
 "metadata additionally to database, if possible.\n"
 "This feature should work for MP3, MP4, FLAC and OGG. "
 msgstr ""
+"Jeśli to możliwe, użyj tej eksperymentalnej funkcji, aby dodatkowo "
+"odczytywać i zapisywać oceny metadanych plików audio w bazie danych.\n"
+"Ta funkcja powinna działać w przypadku plików MP3, MP4, FLAC i OGG. "
 
 #: ../data/ui/preferences/collection.ui:105
 msgid "Use e-mail for Popularimeter (MP3 only):"
@@ -2527,7 +2530,7 @@ msgstr "Zapisz teraz istniejące oceny, aby śledzić pliki"
 
 #: ../data/ui/preferences/collection.ui:156
 msgid "Use legacy tag mapping"
-msgstr ""
+msgstr "Użyj starszego mapowania znaczników"
 
 #: ../data/ui/preferences/collection.ui:171
 msgid ""
@@ -2535,10 +2538,14 @@ msgid ""
 "tags. From Exaile 4.1.3 the mapping is equivalent to MusicBrainz.\n"
 "Your can start migration here. After migration this feature will be disabled."
 msgstr ""
+"Użyj starszego mapowania znaczników dla plików Ogg Vorbis i FLAC dla "
+"znaczników komentarzy i bpm. Od wersji Exaile 4.1.3 mapowanie jest "
+"równoważne MusicBrainz.\n"
+"Tutaj możesz rozpocząć migrację. Po migracji ta funkcja zostanie wyłączona."
 
 #: ../data/ui/preferences/collection.ui:186
 msgid "Migrate existing tempo and comment tags now"
-msgstr ""
+msgstr "Przeprowadź teraz migrację istniejących znaczników tempa i komentarzy"
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"
@@ -2909,7 +2916,7 @@ msgstr "Maksymalna liczba utworów:"
 
 #: ../data/ui/widgets/info_dialog.ui:20
 msgid "Don't show this message again"
-msgstr ""
+msgstr "Nie pokazuj więcej tego komunikatu"
 
 #: ../data/ui/widgets/info_dialog.ui:79
 msgid ""
@@ -3044,7 +3051,7 @@ msgstr "Importowanie CD..."
 
 #: ../plugins/cd/_cdguipanel.py:187
 msgid "Finished transcoding files"
-msgstr ""
+msgstr "Zakończono transkodowanie plików"
 
 #: ../plugins/cd/_cdguipanel.py:192
 msgid "Error transcoding files from CD."
@@ -3983,7 +3990,7 @@ msgstr "Zastosuj tempo uderzeń na minutę"
 
 #: ../plugins/bpm/bpm_prefs.ui:12
 msgid "Enable confirmation dialog after manually setting bpm"
-msgstr ""
+msgstr "Włącz okno dialogowe potwierdzenia po ręcznym ustawieniu tempa"
 
 #: ../plugins/bpm/msg.ui:7
 msgid "Set BPM?"
@@ -4585,7 +4592,7 @@ msgstr "Czas zanikania:"
 
 #: ../plugins/previewdevice/previewprefs.ui:143
 msgid "Crossfade duration:"
-msgstr "Czas przenikania:"
+msgstr "Czas przejścia:"
 
 #: ../plugins/previewdevice/previewprefs.ui:223
 msgid "Audio Device:"
@@ -5139,7 +5146,7 @@ msgstr "Pozwala na wyłączenie komputera po zakończeniu odtwarzania."
 
 #: ../plugins/somafm/PLUGININFO:3
 msgid "SomaFM Radio"
-msgstr "SomaFM Radio"
+msgstr "Radio SomaFM"
 
 #: ../plugins/somafm/PLUGININFO:4
 #, python-format
@@ -5199,7 +5206,7 @@ msgstr "Słuchanie, przeglądanie i modyfikowanie twojej kolekcji muzyczynej"
 
 #: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;OGG;FLAC;MP4"
-msgstr ""
+msgstr "Muzyka;Odtwarzacz;Biblioteka;Kolekcja;MP3;OGG;FLAC;MP4"
 
 #: ../data/exaile.appdata.xml.in:9
 msgid ""

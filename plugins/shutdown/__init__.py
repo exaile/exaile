@@ -105,7 +105,6 @@ class Shutdown:
         self.message.clear_buttons()
         self.message.add_button(Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE)
 
-
     def on_playback_player_end(self, event, player, track):
         """
         Tries to shutdown the computer
@@ -135,7 +134,6 @@ class Shutdown:
         """
         Tries to shutdown the computer
         """
-        # self.countdown = None
         if self.counter > 0:
             msg_close = _('Exaile will be closed in %d seconds.') % self.counter
             msg_shutdown = (

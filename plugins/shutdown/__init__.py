@@ -105,22 +105,6 @@ class Shutdown:
         self.message.clear_buttons()
         self.message.add_button(Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE)
 
-    def disable_closing(self):
-        self.do_close = False
-        event.remove_callback(self.on_playback_player_end, 'playback_player_end')
-
-        # Stop possible countdown
-        if self.countdown is not None:
-            GLib.source_remove(self.countdown)
-            self.countdown = None
-
-        # Prepare for a new run
-        self.counter = 10
-
-        # Reset message button layout
-        self.message.hide()
-        self.message.clear_buttons()
-        self.message.add_button(Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE)
 
     def on_playback_player_end(self, event, player, track):
         """
@@ -145,13 +129,13 @@ class Shutdown:
         Cancels shutdown if requested
         """
         if response == Gtk.ResponseType.CANCEL:
-            self.disable_shutdown()
+            self.disable_all()
 
     def on_timeout(self):
         """
         Tries to shutdown the computer
         """
-        self.countdown = None
+        # self.countdown = None
         if self.counter > 0:
             msg_close = _('Exaile will be closed in %d seconds.') % self.counter
             msg_shutdown = (
@@ -160,8 +144,10 @@ class Shutdown:
 
             if self.do_close:
                 msg = msg_close
-            else:
+            elif self.do_shutdown:
                 msg = msg_shutdown
+            else:
+                return False
 
             self.message.set_secondary_text(msg)
             self.message.show()

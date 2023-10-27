@@ -29,20 +29,31 @@ class Shutdown:
     def __init__(self, exaile):
         self.exaile = exaile
         self.do_shutdown = False
+        self.do_close = False
 
         # add menuitem to tools menu
         providers.register(
             'menubar-tools-menu',
-            menu.simple_separator('plugin-sep', ['slow-scan-collection']),
+            menu.simple_separator('plugin-sep-shutdown', ['slow-scan-collection']),
         )
 
         item = menu.check_menu_item(
+            'close',
+            ['plugin-sep-shutdown'],
+            _('Close Exaile after Playback'),
+            #   checked func                # callback func
+            lambda *x: self.do_close,
+            lambda w, n, p, c: self.on_toggle(w, n),
+        )
+        providers.register('menubar-tools-menu', item)
+
+        item = menu.check_menu_item(
             'shutdown',
-            ['plugin-sep'],
+            ['close'],
             _('Shutdown after Playback'),
             #   checked func                # callback func
             lambda *x: self.do_shutdown,
-            lambda w, n, p, c: self.on_toggled(w),
+            lambda w, n, p, c: self.on_toggle(w, n),
         )
         providers.register('menubar-tools-menu', item)
 
@@ -55,23 +66,30 @@ class Shutdown:
         )
         self.message.connect('response', self.on_response)
 
-    def on_toggled(self, menuitem):
-        """
-        Enables or disables deferred shutdown
-        """
-        if menuitem.get_active():
+    def on_toggle(self, menuitem, name):
+        if menuitem.get_active() and name == 'close':
+            self.do_close = True
+            self.do_shutdown = False
+            self.message.show_info(
+                _('Close scheduled'),
+                _('Exaile will be closed at the end of playback.'),
+            )
+        elif menuitem.get_active() and name == 'shutdown':
+            self.do_close = False
             self.do_shutdown = True
-            event.add_ui_callback(self.on_playback_player_end, 'playback_player_end')
-
             self.message.show_info(
                 _('Shutdown scheduled'),
                 _('Computer will be shutdown at the end of playback.'),
             )
         else:
-            self.disable_shutdown()
+            self.disable_all()
 
-    def disable_shutdown(self):
+        if self.do_close or self.do_shutdown:
+            event.add_ui_callback(self.on_playback_player_end, 'playback_player_end')
+
+    def disable_all(self):
         self.do_shutdown = False
+        self.do_close = False
         event.remove_callback(self.on_playback_player_end, 'playback_player_end')
 
         # Stop possible countdown
@@ -92,7 +110,10 @@ class Shutdown:
         Tries to shutdown the computer
         """
         self.message.set_message_type(Gtk.MessageType.INFO)
-        self.message.set_markup(_('Imminent Shutdown'))
+        if self.do_close:
+            self.message.set_markup(_('Imminent Closing'))
+        else:
+            self.message.set_markup(_('Imminent Shutdown'))
         self.message.clear_buttons()
         self.message.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
 
@@ -107,22 +128,36 @@ class Shutdown:
         Cancels shutdown if requested
         """
         if response == Gtk.ResponseType.CANCEL:
-            self.disable_shutdown()
+            self.disable_all()
 
     def on_timeout(self):
         """
         Tries to shutdown the computer
         """
-        self.countdown = None
         if self.counter > 0:
-            self.message.set_secondary_text(
+            msg_close = _('Exaile will be closed in %d seconds.') % self.counter
+            msg_shutdown = (
                 _('The computer will be shut down in %d seconds.') % self.counter
             )
+
+            if self.do_close:
+                msg = msg_close
+            elif self.do_shutdown:
+                msg = msg_shutdown
+            else:
+                return False
+
+            self.message.set_secondary_text(msg)
             self.message.show()
 
             self.counter -= 1
 
             return True
+
+        if self.do_close:
+            self.do_close = False
+            self.exaile.quit()
+            return  # Should not be necessary
 
         self.do_shutdown = False
 
@@ -160,9 +195,8 @@ class Shutdown:
 
         event.remove_callback(self.on_playback_player_end, 'playback_player_end')
         for item in providers.get('menubar-tools-menu'):
-            if item.name == 'shutdown':
+            if item.name == 'shutdown' or item.name == 'close':
                 providers.unregister('menubar-tools-menu', item)
-                break
 
 
 def enable(exaile):

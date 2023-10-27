@@ -58,6 +58,7 @@ class PlayQueue(playlist.Playlist):
 
         self.__queue_has_tracks_val = False
         self.__current_playlist = self  # this should never be None
+        self.last_playlist = None
         self.player = player
 
         # hack for making docs work
@@ -130,16 +131,13 @@ class PlayQueue(playlist.Playlist):
         :rtype: :class:`xl.trax.Track` or None
         """
         if self.__queue_has_tracks and len(self):
-            if self.__remove_item_on_playback:
-                track = self._calculate_next_track()
-                if track is None:
-                    # pop the last track
-                    self.pop(0)
+            track = self._calculate_next_track()
+            if track is not None:
                 return track
-            else:
-                return playlist.Playlist.get_next(self)
-        elif self.current_playlist is not self:
+        if self.current_playlist is not self:
             return self.current_playlist.get_next()
+        elif self.last_playlist is not None:
+            return self.last_playlist.get_next()
         else:
             return None
 
@@ -162,23 +160,33 @@ class PlayQueue(playlist.Playlist):
                 if self.__remove_item_on_playback:
                     if self.__remove_item_after_playback:
                         track = self._calculate_next_track()
-                        try:
-                            self.pop(self.current_position)
-                        except IndexError:
-                            pass
-                        self.current_position = 0
+                        if self.current_playlist is self:
+                            try:
+                                self.pop(self.current_position)
+                            except IndexError:
+                                pass
+                        if track is not None:
+                            self.current_position = (
+                                0  # necessary to mark the first track in queue
+                            )
                     else:
-                        track = self.pop(0)
+                        try:
+                            track = self.pop(0)
+                        except IndexError:
+                            track = None
                         self.current_position = -1
                 else:
                     track = super().next()
 
-                # reached the end of the internal queue, don't repeat
+                # reached the end of the internal queue, don't repeat and switch back to last playlist
                 if track is None:
                     self.__queue_has_tracks = False
+                    self.current_playlist = self.last_playlist
                 else:
-                    # otherwise set current playlist to queue
-                    self.player.queue.current_playlist = self
+                    # otherwise set current playlist to queue and store last playlist
+                    if self.current_playlist is not self:
+                        self.last_playlist = self.current_playlist
+                    self.current_playlist = self
 
             if track is None and self.current_playlist is not self:
                 track = self.current_playlist.next()

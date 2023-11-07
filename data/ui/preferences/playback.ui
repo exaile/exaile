@@ -350,7 +350,7 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">15</property>
+        <property name="top_attach">14</property>
       </packing>
     </child>
     <child>

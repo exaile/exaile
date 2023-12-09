@@ -1,5 +1,5 @@
 pywin32-ctypes==0.2.0
-pyinstaller==5.7
+pyinstaller==5.13.1
 musicbrainzngs==0.6
 mutagen==1.46
 pylast==1.8.0

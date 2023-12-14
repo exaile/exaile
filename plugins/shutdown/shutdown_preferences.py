@@ -8,7 +8,7 @@ ui = os.path.join(basedir, "shutdown_preferences.ui")
 
 
 class ActivateClosingByDefault(widgets.CheckPreference):
-    default = True
+    default = False
     name = "shutdown/activate_closing_by_default"
 
 

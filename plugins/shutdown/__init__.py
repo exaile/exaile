@@ -22,6 +22,8 @@ from xl import event, providers
 from xl.nls import gettext as _
 from xlgui.widgets import dialogs, menu
 
+from . import shutdown_preferences
+
 SHUTDOWN = None
 
 
@@ -65,6 +67,7 @@ class Shutdown:
             buttons=Gtk.ButtonsType.CLOSE,
         )
         self.message.connect('response', self.on_response)
+
 
     def on_toggle(self, menuitem, name):
         if menuitem.get_active() and name == 'close':
@@ -214,3 +217,6 @@ def _enable(eventname, exaile, nothing):
 def disable(exaile):
     global SHUTDOWN
     SHUTDOWN.destroy()
+
+def get_preferences_pane():
+    return shutdown_preferences

@@ -45,7 +45,7 @@
     </child>
     <child>
       <object class="GtkCheckButton" id="shutdown/activate_closing_by_default">
-        <property name="label" translatable="yes">Activate Closing by default each time Exaile starts</property>
+        <property name="label" translatable="yes">Activate "Close Exaile after Playback" automatically</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>

@@ -13,33 +13,18 @@
     <property name="row_spacing">4</property>
     <property name="column_spacing">2</property>
     <child>
-      <object class="GtkCheckButton" id="shutdown/activate_closing_by_default">
-        <property name="label" translatable="yes">Activate Closing by default each time Exaile starts</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="tooltip_text" translatable="yes"></property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">0</property>
-        <property name="width">3</property>
-      </packing>
-    </child>
-    <child>
       <object class="GtkLabel" id="label2">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
-        <property name="label" translatable="yes">Fade duration (ms):</property>
+        <property name="label" translatable="yes">Timeout (in s):</property>
         <accessibility>
           <relation type="label-for" target="shutdown/timeout"/>
         </accessibility>
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">1</property>
+        <property name="top_attach">0</property>
       </packing>
     </child>
     <child>
@@ -54,6 +39,21 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
+        <property name="top_attach">0</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkCheckButton" id="shutdown/activate_closing_by_default">
+        <property name="label" translatable="yes">Activate Closing by default each time Exaile starts</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="tooltip_text" translatable="yes"></property>
+        <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
         <property name="top_attach">1</property>
         <property name="width">3</property>
       </packing>

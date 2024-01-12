@@ -389,9 +389,9 @@ def open_file_directory(path_or_uri: str) -> None:
         ILFree(pidl)
         CoUninitialize()
     elif platform == 'darwin':
-        subprocess.Popen(["open", f.get_parent().get_parse_name()])
+        subprocess.Popen(["open", (f.get_parent() or f).get_parse_name()])
     else:
-        subprocess.Popen(["xdg-open", f.get_parent().get_parse_name()])
+        subprocess.Popen(["xdg-open", (f.get_parent() or f).get_parse_name()])
 
 
 def open_shelf(path):

@@ -342,7 +342,10 @@ class AudioStream:
 
     def __init__(self, engine):
         AudioStream.idx += 1
-        self.name = '%s-audiostream-%s' % (engine.name, str(self.idx) + '-' + str(time.time()))
+        self.name = '%s-audiostream-%s' % (
+            engine.name,
+            str(self.idx) + '-' + str(time.time()),
+        )
         self.engine = engine
 
         self.logger = logging.getLogger(

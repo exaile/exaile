@@ -18,9 +18,11 @@ import dbus
 from gi.repository import GLib
 from gi.repository import Gtk
 
-from xl import event, providers
+from xl import event, providers, settings
 from xl.nls import gettext as _
 from xlgui.widgets import dialogs, menu
+
+from . import shutdown_preferences
 
 SHUTDOWN = None
 
@@ -29,7 +31,9 @@ class Shutdown:
     def __init__(self, exaile):
         self.exaile = exaile
         self.do_shutdown = False
-        self.do_close = False
+        self.do_close = settings.get_option(
+            "shutdown/activate_closing_by_default", False
+        )
 
         # add menuitem to tools menu
         providers.register(
@@ -46,6 +50,9 @@ class Shutdown:
             lambda w, n, p, c: self.on_toggle(w, n),
         )
         providers.register('menubar-tools-menu', item)
+
+        if self.do_close:
+            event.add_ui_callback(self.on_playback_player_end, 'playback_player_end')
 
         item = menu.check_menu_item(
             'shutdown',
@@ -120,7 +127,7 @@ class Shutdown:
         if self.countdown is not None:
             GLib.source_remove(self.countdown)
 
-        self.counter = 10
+        self.counter = settings.get_option("shutdown/timeout", 10)
         self.countdown = GLib.timeout_add_seconds(1, self.on_timeout)
 
     def on_response(self, widget, response):
@@ -214,3 +221,7 @@ def _enable(eventname, exaile, nothing):
 def disable(exaile):
     global SHUTDOWN
     SHUTDOWN.destroy()
+
+
+def get_preferences_pane():
+    return shutdown_preferences

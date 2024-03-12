@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-10 21:21+0200\n"
-"PO-Revision-Date: 2024-03-12 14:01+0000\n"
+"PO-Revision-Date: 2024-03-13 03:01+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -2917,7 +2917,7 @@ msgstr "Максимальное число треков:"
 
 #: ../data/ui/widgets/info_dialog.ui:20
 msgid "Don't show this message again"
-msgstr "Не показывать это сообщение снова"
+msgstr "Больше не показывать это сообщение"
 
 #: ../data/ui/widgets/info_dialog.ui:79
 msgid ""
@@ -3397,7 +3397,7 @@ msgstr "Введите ключевые слова для поиска"
 
 #: ../plugins/icecast/__init__.py:274
 msgid "Icecast Search"
-msgstr "Поиск Icecast"
+msgstr "Поиск в Icecast"
 
 #: ../plugins/icecast/__init__.py:298
 msgid "No Stations Found"
@@ -3405,7 +3405,7 @@ msgstr "Станции не найдены"
 
 #: ../plugins/icecast/__init__.py:301
 msgid "Icecast Search Results"
-msgstr "Результаты поиска Icecast"
+msgstr "Результаты поиска в Icecast"
 
 #: ../plugins/icecast/__init__.py:353
 msgid "Parsing genre list..."
@@ -3434,7 +3434,7 @@ msgstr "Консоль IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:40
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
-msgstr "Из-за ошибки в Gtk+ невозможно задать прозрачность в Windows"
+msgstr "Из-за ошибки в Gtk+ невозможно задать прозрачность окна"
 
 #: ../plugins/jamendo/__init__.py:85 ../plugins/jamendo/ui/jamendo_panel.ui:294
 msgid "Ready"
@@ -3442,11 +3442,11 @@ msgstr "Готово"
 
 #: ../plugins/jamendo/__init__.py:86
 msgid "Searching Jamendo catalogue..."
-msgstr "Ищу в каталоге Jamendo..."
+msgstr "Поиск по каталогу Jamendo..."
 
 #: ../plugins/jamendo/__init__.py:87
 msgid "Retrieving song data..."
-msgstr "Получаю информацию о треке..."
+msgstr "Получение данных о треке..."
 
 #: ../plugins/jamendo/menu.py:13
 msgid "Append to Current"

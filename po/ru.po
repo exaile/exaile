@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-10 21:21+0200\n"
-"PO-Revision-Date: 2024-03-13 15:01+0000\n"
+"PO-Revision-Date: 2024-03-14 00:01+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -351,7 +351,7 @@ msgstr "МОДУЛЬ"
 
 #: ../xl/main.py:377
 msgid "Limit log output to MODULE"
-msgstr "Ограничить журнал событий до МОДУЛЯ"
+msgstr "Ограничить вывод log-журнала до МОДУЛЯ"
 
 #: ../xl/main.py:382
 msgid "LEVEL"
@@ -359,7 +359,7 @@ msgstr "УРОВЕНЬ"
 
 #: ../xl/main.py:383
 msgid "Limit log output to LEVEL"
-msgstr "Ограничить журнал событий до УРОВНЯ"
+msgstr "Ограничить вывод log-журнала до УРОВНЯ"
 
 #: ../xl/main.py:391
 msgid "Show debugging output"
@@ -376,7 +376,7 @@ msgstr ""
 
 #: ../xl/main.py:412
 msgid "Add thread name to logging messages."
-msgstr "Добавить название потока для лог-журнала."
+msgstr "Добавить название потока для log-журнала."
 
 #: ../xl/main.py:417
 msgid "TYPE"
@@ -1107,7 +1107,7 @@ msgstr "П_оказать проигрываемый трек"
 
 #: ../xlgui/menu.py:302
 msgid "_Playlist Utilities Bar"
-msgstr "_Панель инструментов плейлиста"
+msgstr "_Инструменты плейлиста"
 
 #: ../xlgui/menu.py:312
 msgid "C_olumns"

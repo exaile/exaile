@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-10 21:21+0200\n"
-"PO-Revision-Date: 2024-03-13 03:01+0000\n"
+"PO-Revision-Date: 2024-03-13 15:01+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -251,7 +251,7 @@ msgstr "Оценить текущий трек на N%"
 
 #: ../xl/main.py:238
 msgid "Get rating for current track"
-msgstr "Получить рейтинг текущего трека"
+msgstr "Получить рейтинг для текущего трека"
 
 #: ../xl/main.py:245
 msgid "Print the current playback position as time"
@@ -915,11 +915,11 @@ msgstr "$title ($artist)"
 
 #: ../xlgui/main.py:148
 msgid "Save currently selected playlist"
-msgstr "Сохранить текущий выбранный плейлист"
+msgstr "Сохранить выбранный плейлист"
 
 #: ../xlgui/main.py:153
 msgid "Save currently selected playlist under a custom name"
-msgstr "Сохранить текущий выбранный плейлист под новым именем"
+msgstr "Сохранить выбранный плейлист c новым именем"
 
 #: ../xlgui/main.py:158
 msgid "Focus filter in currently focused panel"

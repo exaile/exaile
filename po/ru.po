@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-10 21:21+0200\n"
-"PO-Revision-Date: 2024-03-14 00:01+0000\n"
+"PO-Revision-Date: 2024-03-16 04:01+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -5158,7 +5158,7 @@ msgstr ""
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
-msgstr "Позволяет выключить компьютер по окончании воспроизведения."
+msgstr "Позволяет выключать компьютер по окончании воспроизведения."
 
 #: ../plugins/somafm/PLUGININFO:3
 msgid "SomaFM Radio"
@@ -5175,7 +5175,7 @@ msgid ""
 "Depends: streamripper"
 msgstr ""
 "Позволяет записывать аудиопотоки с помощью streamripper\n"
-"Необходимы библиотеки: streamripper"
+"Требуется: streamripper"
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
@@ -5183,7 +5183,7 @@ msgid ""
 "Requires: webkit2gtk and its typelib file"
 msgstr ""
 "Предоставляет сведения о текущем исполнителе, взятые из Wikipedia.\n"
-"Требуется: webkit2gtk и его typelib файл"
+"Требуется: webkit2gtk и его библиотека typelib"
 
 #: ../plugins/winmmkeys/PLUGININFO:2
 msgid "Multimedia keys for Windows"
@@ -5218,13 +5218,13 @@ msgstr "Музыкальный проигрыватель"
 
 #: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
 msgid "Listen to, explore, or manage your audio collection"
-msgstr "Слушайте, изучайте или управляйте своей фонотекой"
+msgstr "Слушайте, изучайте и управляйте своей фонотекой"
 
 #: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;OGG;FLAC;MP4"
 msgstr ""
-"Music;Player;Library;Collection;MP3;OGG;FLAC;MP4;Музыка;Проигрыватель;Плеер;Ф"
-"онотека;Коллекция"
+"Music;Player;Library;Collection;MP3;OGG;FLAC;MP4;Музыка;Плеер;Фонотека;Коллек"
+"ция"
 
 #: ../data/exaile.appdata.xml.in:9
 msgid ""
@@ -5233,11 +5233,11 @@ msgid ""
 "lyrics fetching, streaming internet radio, tabbed playlists, smart playlists "
 "with extensive filtering/search capabilities, and much more."
 msgstr ""
-"Exaile — это музыкальный проигрыватель с простым интерфейсом и мощными "
-"возможностями управления музыкой. Среди функций представлены автоматическая "
-"загрузка обложек альбомов, получение текстов песен, потоковое интернет-"
-"радио, списки воспроизведения с вкладками, интеллектуальные списки "
-"воспроизведения с расширенными возможностями фильтрации/поиска и другие."
+"Exaile — это музыкальный проигрыватель с простым интерфейсом и большими "
+"возможностями управления фонотекой. Среди функций представлены "
+"автоматическая загрузка обложек альбомов, получение текстов песен, потоковое "
+"интернет-радио, плейлисты с вкладками, «умные» плейлисты с расширенными "
+"возможностями фильтрации/поиска и многое другое."
 
 #: ../data/exaile.appdata.xml.in:15
 msgid ""
@@ -5248,11 +5248,11 @@ msgid ""
 "output via a secondary output device (great for DJs!), and much more."
 msgstr ""
 "Exaile написан с использованием python и GTK+ и легко расширяется с помощью "
-"плагинов. Вместе с Exaile поставляется более 50 плагинов, среди которых "
-"расширенное теггирование треков, скробблер last.fm, поддержка портативных "
-"медиаплееров, подкастов, интернет-радио, таких как icecast и Soma.FM, "
-"ReplayGain, вывод через вторичное устройство вывода (отлично подходит для "
-"диджеев!) и прочее."
+"плагинов. Вместе с Exaile поставляется более 50-ти плагинов, среди которых "
+"расширенное тегирование треков, скробблер Last.fm, поддержка портативных "
+"медиаплееров, подкаст, интернет-радио, таких как Icecast и Soma.FM, "
+"выравнивание громкости с помощью ReplayGain, вывод через вторичное "
+"устройство вывода (отлично подходит для диджеев!) и другое."
 
 #~ msgid ""
 #~ "Use this experimental feature to read and write ratings in audio file "

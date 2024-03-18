@@ -1,0 +1,60 @@
+{
+  "app-id": "org.exaile.exaile",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "3.36",
+  "sdk": "org.gnome.Sdk",
+  "command": "exaile",
+    "finish-args": [
+    "--share=ipc",
+    "--socket=x11",
+    "--socket=wayland",
+    "--socket=fallback-x11",
+    "--socket=session-bus",
+    "--share=network",
+    "--filesystem=home"
+  ],
+  "modules": [
+    {
+      "name": "cpython",
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://www.python.org/ftp/python/3.7.7/Python-3.7.7.tgz",
+          "md5": "d348d978a5387512fbc7d7d52dd3a5ef"
+        }
+      ]
+    },
+    {
+      "name": "berkeleydb",
+      "buildsystem": "simple",
+      "build-commands": [
+        "cd build_unix && ../dist/configure --prefix=/app --enable-compat185 --enable-dbm --enable-shared",
+        "cd build_unix && make",
+        "cd build_unix && make install"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "http://anduin.linuxfromscratch.org/BLFS/bdb/db-5.3.28.tar.gz",
+          "sha256": "e0a992d740709892e81f9d93f06daf305cf73fb81b545afe72478043172c3628"
+        }
+      ]
+    },
+    "python-depends.json",
+    {
+      "name": "exaile",
+      "buildsystem": "simple",
+      "build-commands": [
+        "make",
+        "make install PREFIX=/app"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/exaile/exaile.git",
+          "tag": "4.1.0-alpha1"
+        }
+      ]
+    }
+  ]
+}

@@ -840,10 +840,7 @@ class Library:
                 logger.exception("Error decoding file location")
                 continue
 
-            if not gloc.query_exists(None):
-                removals.append(tr)
-
-            if not tr.is_supported():
+            if not (gloc.query_exists(None) or tr.is_supported()):
                 removals.append(tr)
 
         for tr in removals:

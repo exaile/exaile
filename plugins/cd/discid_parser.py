@@ -3,7 +3,6 @@
     It is compatible with both python-discid and python-libdiscid.
 """
 
-
 try:  # allow both python-discid and python-libdiscid
     from libdiscid.compat import discid
 except ImportError:

@@ -462,11 +462,15 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         return (
             self.playlist_menu
             if isinstance(pl, Playlist)
-            else self.smart_menu
-            if isinstance(pl, SmartPlaylist)
-            else self.track_menu
-            if isinstance(pl, TrackWrapper)
-            else self.default_menu
+            else (
+                self.smart_menu
+                if isinstance(pl, SmartPlaylist)
+                else (
+                    self.track_menu
+                    if isinstance(pl, TrackWrapper)
+                    else self.default_menu
+                )
+            )
         )
 
     def _connect_events(self):

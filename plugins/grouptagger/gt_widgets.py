@@ -192,9 +192,9 @@ class GroupTaggerView(Gtk.TreeView):
                 ['addcat'],
                 _('Remove category'),
                 callback=self.on_menu_del_category,
-                condition_fn=lambda n, p, c: False
-                if len(c['categories']) == 0
-                else True,
+                condition_fn=lambda n, p, c: (
+                    False if len(c['categories']) == 0 else True
+                ),
             )
             self.menu.add_item(item)
 
@@ -232,9 +232,9 @@ class GroupTaggerView(Gtk.TreeView):
     def get_context(self):
         '''Returns context parameter required by menus'''
         context = common.LazyDict(self)
-        context[
-            'selected-rows'
-        ] = lambda name, parent: parent.get_selection().get_selected_rows()
+        context['selected-rows'] = (
+            lambda name, parent: parent.get_selection().get_selected_rows()
+        )
         context['groups'] = lambda name, parent: parent.get_selected_groups(
             context['selected-rows']
         )

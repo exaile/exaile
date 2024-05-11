@@ -435,9 +435,7 @@ class StatusbarTextFormatter(formatter.Formatter):
 
         page = xlgui.main.get_selected_page()
 
-        if not isinstance(page, playlist.PlaylistPage) and not isinstance(
-            page, queue.QueuePage
-        ):
+        if not isinstance(page, playlist.PlaylistPageBase):
             return ""
 
         playlist_count = len(page.playlist)
@@ -488,9 +486,7 @@ class StatusbarTextFormatter(formatter.Formatter):
 
         page = xlgui.main.get_selected_page()
 
-        if not isinstance(page, playlist.PlaylistPage) and not isinstance(
-            page, queue.QueuePage
-        ):
+        if not isinstance(page, playlist.PlaylistPageBase):
             return ''
 
         playlist_duration = sum(t.get_tag_raw('__length') or 0 for t in page.playlist)

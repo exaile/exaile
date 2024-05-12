@@ -21,7 +21,6 @@
         see https://wiki.musicbrainz.org/Genre
 """
 
-
 from __future__ import division
 
 import logging

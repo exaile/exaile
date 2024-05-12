@@ -546,9 +546,9 @@ class PlaylistContainer(Gtk.Box):
             _('_Move to Other View'),
             None,
             lambda w, n, p, c: self._move_tab(p.tab),
-            condition_fn=lambda n, p, c: True
-            if p.tab.notebook in self.notebooks
-            else False,
+            condition_fn=lambda n, p, c: (
+                True if p.tab.notebook in self.notebooks else False
+            ),
         )
         providers.register('playlist-tab-context-menu', item)
         providers.register('queue-tab-context', item)

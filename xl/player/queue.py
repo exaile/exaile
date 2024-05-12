@@ -134,6 +134,9 @@ class PlayQueue(playlist.Playlist):
             track = self._calculate_next_track()
             if track is not None:
                 return track
+            if self.__remove_item_after_playback and len(self) == 1:
+                #pop the last track
+                self.pop(0)
         if self.current_playlist is not self:
             return self.current_playlist.get_next()
         elif self.last_playlist is not None:

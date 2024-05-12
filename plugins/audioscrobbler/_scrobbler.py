@@ -2,6 +2,7 @@
 A pure-python library to assist sending data to AudioScrobbler (the Last.fm
 backend)
 """
+
 import urllib.parse
 import urllib.request
 import logging

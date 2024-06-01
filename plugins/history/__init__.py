@@ -67,8 +67,8 @@ class HistoryPlugin:
         if save_on_exit:
             self.history_playlist.load_from_location(self.history_loc)
 
-        self.history_page = HistoryPlaylistPage(self.history_playlist, player.PLAYER)
-        self.history_tab = NotebookTab(main.get_playlist_notebook(), self.history_page)
+        self.history_tab = None
+        self.history_page = None
 
         # add menu item to 'view' to display our playlist
         self.menu = menu.check_menu_item(
@@ -81,7 +81,13 @@ class HistoryPlugin:
 
         providers.register('menubar-view-menu', self.menu)
 
+    def on_exaile_loaded(self):
         # add the history playlist to the primary notebook
+        save_on_exit = settings.get_option(
+            'plugin/history/save_on_exit', history_preferences.save_on_exit_default
+        )
+        shown = settings.get_option('plugin/history/shown', False)
+
         if save_on_exit and shown:
             self.show_history(True)
 
@@ -126,6 +132,8 @@ class HistoryPlugin:
             dialog.destroy()
 
     def is_shown(self):
+        if self.history_page is None:
+            return False
         return main.get_playlist_notebook().page_num(self.history_page) != -1
 
     def on_playback_history(self, menu, name, parent, context):
@@ -135,11 +143,17 @@ class HistoryPlugin:
         if show == self.is_shown():
             return
 
+        pn = main.get_playlist_notebook()
         if show:
-            pn = main.get_playlist_notebook()
+            self.history_page = HistoryPlaylistPage(
+                self.history_playlist, player.PLAYER
+            )
+            self.history_tab = NotebookTab(
+                main.get_playlist_notebook(), self.history_page
+            )
             pn.add_tab(self.history_tab, self.history_page)
         else:
-            self.history_tab.close()
+            pn.remove_tab(self.history_tab)
 
 
 plugin_class = HistoryPlugin
@@ -190,7 +204,7 @@ class HistoryPlaylistPage(PlaylistPageBase):
         self.save_history()
 
     def on_clear_history(self, widget):
-        self.playlist._clear()
+        self.playlist.clear()
 
     def on_save_history(self, widget):
         self.save_history()

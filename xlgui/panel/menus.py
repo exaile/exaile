@@ -85,12 +85,12 @@ class TrackPanelMenu(menu.ProviderMenu):
 
     def get_context(self):
         context = common.LazyDict(self._parent)
-        context[
-            'selected-tracks'
-        ] = lambda name, parent: parent.tree.get_selected_tracks()
-        context[
-            'selection-empty'
-        ] = lambda name, parent: parent.tree.get_selection_empty()
+        context['selected-tracks'] = (
+            lambda name, parent: parent.tree.get_selected_tracks()
+        )
+        context['selection-empty'] = (
+            lambda name, parent: parent.tree.get_selection_empty()
+        )
         return context
 
 
@@ -135,12 +135,12 @@ class CollectionContextMenu(menu.MultiProviderMenu):
 
     def get_context(self):
         context = common.LazyDict(self._parent)
-        context[
-            'selected-tracks'
-        ] = lambda name, parent: parent.tree.get_selected_tracks()
-        context[
-            'selection-empty'
-        ] = lambda name, parent: parent.tree.get_selection_empty()
+        context['selected-tracks'] = (
+            lambda name, parent: parent.tree.get_selected_tracks()
+        )
+        context['selection-empty'] = (
+            lambda name, parent: parent.tree.get_selection_empty()
+        )
         return context
 
 
@@ -184,15 +184,15 @@ class FilesContextMenu(menu.MultiProviderMenu):
 
     def get_context(self):
         context = common.LazyDict(self._parent)
-        context[
-            'needs-computing'
-        ] = lambda name, parent: parent.tree.get_selection_is_computed()
-        context[
-            'selected-tracks'
-        ] = lambda name, parent: parent.tree.get_selected_tracks()
-        context[
-            'selection-empty'
-        ] = lambda name, parent: parent.tree.get_selection_empty()
+        context['needs-computing'] = (
+            lambda name, parent: parent.tree.get_selection_is_computed()
+        )
+        context['selected-tracks'] = (
+            lambda name, parent: parent.tree.get_selected_tracks()
+        )
+        context['selection-empty'] = (
+            lambda name, parent: parent.tree.get_selection_empty()
+        )
 
         return context
 
@@ -294,18 +294,18 @@ class PlaylistsPanelPlaylistMenu(menu.MultiProviderMenu):
 
     def get_context(self):
         context = common.LazyDict(self._parent)
-        context[
-            'needs-computing'
-        ] = lambda name, parent: parent.tree.get_selection_is_computed()
-        context[
-            'selected-playlist'
-        ] = lambda name, parent: parent.tree.get_selected_page(raw=True)
-        context[
-            'selected-tracks'
-        ] = lambda name, parent: parent.tree.get_selected_tracks()
-        context[
-            'selection-empty'
-        ] = lambda name, parent: parent.tree.get_selection_empty()
+        context['needs-computing'] = (
+            lambda name, parent: parent.tree.get_selection_is_computed()
+        )
+        context['selected-playlist'] = (
+            lambda name, parent: parent.tree.get_selected_page(raw=True)
+        )
+        context['selected-tracks'] = (
+            lambda name, parent: parent.tree.get_selected_tracks()
+        )
+        context['selection-empty'] = (
+            lambda name, parent: parent.tree.get_selection_empty()
+        )
         return context
 
 
@@ -341,13 +341,13 @@ class RadioPanelPlaylistMenu(menu.MultiProviderMenu):
 
     def get_context(self):
         context = common.LazyDict(self._parent)
-        context[
-            'selected-playlist'
-        ] = lambda name, parent: parent.tree.get_selected_page(raw=True)
-        context[
-            'selected-tracks'
-        ] = lambda name, parent: parent.tree.get_selected_tracks()
-        context[
-            'selection-empty'
-        ] = lambda name, parent: parent.tree.get_selection_empty()
+        context['selected-playlist'] = (
+            lambda name, parent: parent.tree.get_selected_page(raw=True)
+        )
+        context['selected-tracks'] = (
+            lambda name, parent: parent.tree.get_selected_tracks()
+        )
+        context['selection-empty'] = (
+            lambda name, parent: parent.tree.get_selection_empty()
+        )
         return context

@@ -111,9 +111,11 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             station = (
                 item
                 if isinstance(item, xl.radio.RadioStation)
-                else item.station
-                if isinstance(item, (xl.radio.RadioList, xl.radio.RadioItem))
-                else None
+                else (
+                    item.station
+                    if isinstance(item, (xl.radio.RadioList, xl.radio.RadioItem))
+                    else None
+                )
             )
             if station and hasattr(station, 'get_menu'):
                 return station.get_menu(self)

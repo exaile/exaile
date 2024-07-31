@@ -93,7 +93,7 @@ def fish_completion(parser):
     :type parser: argparse.ArgumentParser
     """
 
-    import pipes
+    import shlex
 
     options = []
     for action in parser._actions:
@@ -104,11 +104,11 @@ def fish_completion(parser):
         for name in names:
             assert len(name) >= 2 and name[0] == '-' and name != '--'
             if len(name) == 2:
-                option.append('-s ' + pipes.quote(name[1]))
+                option.append('-s ' + shlex.quote(name[1]))
             elif name[1] == '-':
-                option.append('-l ' + pipes.quote(name[2:]))
+                option.append('-l ' + shlex.quote(name[2:]))
             else:
-                option.append('-o ' + pipes.quote(name[1:]))
+                option.append('-o ' + shlex.quote(name[1:]))
         if action.metavar in ('LOCATION', 'DIRECTORY'):
             option.append('-r')
         elif action.metavar is not None:
@@ -116,10 +116,10 @@ def fish_completion(parser):
         if action.choices:
             choices = action.choices
             if isinstance(choices, (list, tuple)):
-                choices = (pipes.quote(str(c))+'\\t' for c in choices)
-                option.append('-a ' + pipes.quote(' '.join(choices)))
+                choices = (shlex.quote(str(c))+'\\t' for c in choices)
+                option.append('-a ' + shlex.quote(' '.join(choices)))
         if action.help:
-            option.append('-d ' + pipes.quote(action.help % action.__dict__))
+            option.append('-d ' + shlex.quote(action.help % action.__dict__))
         options.append(' '.join(option))
 
     return '\n'.join(options)

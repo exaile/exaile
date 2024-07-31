@@ -135,7 +135,7 @@ class PlayQueue(playlist.Playlist):
             if track is not None:
                 return track
             if self.__remove_item_after_playback and len(self) == 1:
-                #pop the last track
+                # pop the last track
                 self.pop(0)
         if self.current_playlist is not self:
             return self.current_playlist.get_next()

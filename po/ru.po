@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-10 21:21+0200\n"
-"PO-Revision-Date: 2023-09-25 03:00+0000\n"
-"Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
+"PO-Revision-Date: 2024-03-16 04:01+0000\n"
+"Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -136,7 +136,7 @@ msgid ""
 "instance instead of creating a new one."
 msgstr ""
 "Запустите Exaile, при необходимости добавив треки из РАСПОЛОЖЕНИЯ в текущий "
-"плейлист. Если Exaile уже запущен, то будет использоваться существующий "
+"плейлист. Если Exaile уже запущен, будет использоваться существующий "
 "экземпляр вместо запуска нового."
 
 #: ../xl/main.py:97
@@ -251,7 +251,7 @@ msgstr "Оценить текущий трек на N%"
 
 #: ../xl/main.py:238
 msgid "Get rating for current track"
-msgstr "Получить рейтинг текущего трека"
+msgstr "Получить рейтинг для текущего трека"
 
 #: ../xl/main.py:245
 msgid "Print the current playback position as time"
@@ -351,7 +351,7 @@ msgstr "МОДУЛЬ"
 
 #: ../xl/main.py:377
 msgid "Limit log output to MODULE"
-msgstr "Ограничить журнал событий до МОДУЛЯ"
+msgstr "Ограничить вывод log-журнала до МОДУЛЯ"
 
 #: ../xl/main.py:382
 msgid "LEVEL"
@@ -359,7 +359,7 @@ msgstr "УРОВЕНЬ"
 
 #: ../xl/main.py:383
 msgid "Limit log output to LEVEL"
-msgstr "Ограничить журнал событий до УРОВНЯ"
+msgstr "Ограничить вывод log-журнала до УРОВНЯ"
 
 #: ../xl/main.py:391
 msgid "Show debugging output"
@@ -376,7 +376,7 @@ msgstr ""
 
 #: ../xl/main.py:412
 msgid "Add thread name to logging messages."
-msgstr "Добавить название потока для лог-журнала."
+msgstr "Добавить название потока для log-журнала."
 
 #: ../xl/main.py:417
 msgid "TYPE"
@@ -612,7 +612,7 @@ msgid ""
 msgstr ""
 "Отсутствует плагин GStreamer 1.x для %s. Без него Exaile не может "
 "воспроизвести текущий файл. Установите необходимое программное обеспечение. "
-"Подробности см. в %s."
+"Подробнее см. в %s."
 
 #: ../xl/player/gst/sink.py:48 ../xl/player/gst/sink.py:144
 msgid "Automatic"
@@ -915,11 +915,11 @@ msgstr "$title ($artist)"
 
 #: ../xlgui/main.py:148
 msgid "Save currently selected playlist"
-msgstr "Сохранить текущий выбранный плейлист"
+msgstr "Сохранить выбранный плейлист"
 
 #: ../xlgui/main.py:153
 msgid "Save currently selected playlist under a custom name"
-msgstr "Сохранить текущий выбранный плейлист под новым именем"
+msgstr "Сохранить выбранный плейлист c новым именем"
 
 #: ../xlgui/main.py:158
 msgid "Focus filter in currently focused panel"
@@ -1107,7 +1107,7 @@ msgstr "П_оказать проигрываемый трек"
 
 #: ../xlgui/menu.py:302
 msgid "_Playlist Utilities Bar"
-msgstr "_Панель инструментов плейлиста"
+msgstr "_Инструменты плейлиста"
 
 #: ../xlgui/menu.py:312
 msgid "C_olumns"
@@ -2917,7 +2917,7 @@ msgstr "Максимальное число треков:"
 
 #: ../data/ui/widgets/info_dialog.ui:20
 msgid "Don't show this message again"
-msgstr "Не показывать это сообщение снова"
+msgstr "Больше не показывать это сообщение"
 
 #: ../data/ui/widgets/info_dialog.ui:79
 msgid ""
@@ -3397,7 +3397,7 @@ msgstr "Введите ключевые слова для поиска"
 
 #: ../plugins/icecast/__init__.py:274
 msgid "Icecast Search"
-msgstr "Поиск Icecast"
+msgstr "Поиск в Icecast"
 
 #: ../plugins/icecast/__init__.py:298
 msgid "No Stations Found"
@@ -3405,7 +3405,7 @@ msgstr "Станции не найдены"
 
 #: ../plugins/icecast/__init__.py:301
 msgid "Icecast Search Results"
-msgstr "Результаты поиска Icecast"
+msgstr "Результаты поиска в Icecast"
 
 #: ../plugins/icecast/__init__.py:353
 msgid "Parsing genre list..."
@@ -3434,7 +3434,7 @@ msgstr "Консоль IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:40
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
-msgstr "Из-за ошибки в Gtk+ невозможно задать прозрачность в Windows"
+msgstr "Из-за ошибки в Gtk+ невозможно задать прозрачность окна"
 
 #: ../plugins/jamendo/__init__.py:85 ../plugins/jamendo/ui/jamendo_panel.ui:294
 msgid "Ready"
@@ -3442,11 +3442,11 @@ msgstr "Готово"
 
 #: ../plugins/jamendo/__init__.py:86
 msgid "Searching Jamendo catalogue..."
-msgstr "Ищу в каталоге Jamendo..."
+msgstr "Поиск по каталогу Jamendo..."
 
 #: ../plugins/jamendo/__init__.py:87
 msgid "Retrieving song data..."
-msgstr "Получаю информацию о треке..."
+msgstr "Получение данных о треке..."
 
 #: ../plugins/jamendo/menu.py:13
 msgid "Append to Current"
@@ -5158,7 +5158,7 @@ msgstr ""
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
-msgstr "Позволяет выключить компьютер по окончании воспроизведения."
+msgstr "Позволяет выключать компьютер по окончании воспроизведения."
 
 #: ../plugins/somafm/PLUGININFO:3
 msgid "SomaFM Radio"
@@ -5175,7 +5175,7 @@ msgid ""
 "Depends: streamripper"
 msgstr ""
 "Позволяет записывать аудиопотоки с помощью streamripper\n"
-"Необходимы библиотеки: streamripper"
+"Требуется: streamripper"
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
@@ -5183,7 +5183,7 @@ msgid ""
 "Requires: webkit2gtk and its typelib file"
 msgstr ""
 "Предоставляет сведения о текущем исполнителе, взятые из Wikipedia.\n"
-"Требуется: webkit2gtk и его typelib файл"
+"Требуется: webkit2gtk и его библиотека typelib"
 
 #: ../plugins/winmmkeys/PLUGININFO:2
 msgid "Multimedia keys for Windows"
@@ -5218,13 +5218,13 @@ msgstr "Музыкальный проигрыватель"
 
 #: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
 msgid "Listen to, explore, or manage your audio collection"
-msgstr "Слушайте, изучайте или управляйте своей фонотекой"
+msgstr "Слушайте, изучайте и управляйте своей фонотекой"
 
 #: ../data/exaile.desktop.in:14
 msgid "Music;Player;Library;Collection;MP3;OGG;FLAC;MP4"
 msgstr ""
-"Music;Player;Library;Collection;MP3;OGG;FLAC;MP4;Музыка;Проигрыватель;Плеер;Ф"
-"онотека;Коллекция"
+"Music;Player;Library;Collection;MP3;OGG;FLAC;MP4;Музыка;Плеер;Фонотека;Коллек"
+"ция"
 
 #: ../data/exaile.appdata.xml.in:9
 msgid ""
@@ -5233,11 +5233,11 @@ msgid ""
 "lyrics fetching, streaming internet radio, tabbed playlists, smart playlists "
 "with extensive filtering/search capabilities, and much more."
 msgstr ""
-"Exaile — это музыкальный проигрыватель с простым интерфейсом и мощными "
-"возможностями управления музыкой. Среди функций представлены автоматическая "
-"загрузка обложек альбомов, получение текстов песен, потоковое интернет-"
-"радио, списки воспроизведения с вкладками, интеллектуальные списки "
-"воспроизведения с расширенными возможностями фильтрации/поиска и другие."
+"Exaile — это музыкальный проигрыватель с простым интерфейсом и большими "
+"возможностями управления фонотекой. Среди функций представлены "
+"автоматическая загрузка обложек альбомов, получение текстов песен, потоковое "
+"интернет-радио, плейлисты с вкладками, «умные» плейлисты с расширенными "
+"возможностями фильтрации/поиска и многое другое."
 
 #: ../data/exaile.appdata.xml.in:15
 msgid ""
@@ -5248,11 +5248,11 @@ msgid ""
 "output via a secondary output device (great for DJs!), and much more."
 msgstr ""
 "Exaile написан с использованием python и GTK+ и легко расширяется с помощью "
-"плагинов. Вместе с Exaile поставляется более 50 плагинов, среди которых "
-"расширенное теггирование треков, скробблер last.fm, поддержка портативных "
-"медиаплееров, подкастов, интернет-радио, таких как icecast и Soma.FM, "
-"ReplayGain, вывод через вторичное устройство вывода (отлично подходит для "
-"диджеев!) и прочее."
+"плагинов. Вместе с Exaile поставляется более 50-ти плагинов, среди которых "
+"расширенное тегирование треков, скробблер Last.fm, поддержка портативных "
+"медиаплееров, подкаст, интернет-радио, таких как Icecast и Soma.FM, "
+"выравнивание громкости с помощью ReplayGain, вывод через вторичное "
+"устройство вывода (отлично подходит для диджеев!) и другое."
 
 #~ msgid ""
 #~ "Use this experimental feature to read and write ratings in audio file "

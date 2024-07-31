@@ -11,7 +11,6 @@
     published by the Free Software Foundation.
 '''
 
-
 import inspect
 import sys
 from gi.repository import Gst, GObject, Gio

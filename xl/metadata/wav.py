@@ -26,21 +26,14 @@
 
 
 import wave
-import sunau
-import os
 
 from xl.metadata._base import BaseFormat, NotReadable
-
-type_map = {"au": sunau, "wav": wave}
 
 
 class WavFormat(BaseFormat):
     writable = False
 
     def load(self):
-        ext = os.path.splitext(self.loc)[1][1:].lower()
-        opener = type_map[ext]
-
         try:
             fp = open(self.loc, 'rb')
         except IOError:
@@ -48,7 +41,7 @@ class WavFormat(BaseFormat):
 
         try:
             with fp:
-                f = opener.open(fp)
+                f = wave.open(fp)
                 length = f.getnframes() // f.getframerate()
             self.mutagen = {'__bitrate': -1, '__length': length}
         except (IOError, KeyError):

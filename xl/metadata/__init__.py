@@ -98,6 +98,7 @@ formats = {
     'tta'   : tta.TTAFormat,
     'ult'   : mod.ModFormat,
     'wav'   : wav.WavFormat,
+    'webm'  : None,
     'wma'   : asf.AsfFormat,
     'wv'    : wv.WavpackFormat,
     'xm'    : mod.ModFormat,

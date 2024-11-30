@@ -25,7 +25,7 @@
 # from your version.
 
 
-import os
+import os, logging
 from typing import Optional
 import urllib.parse
 
@@ -52,6 +52,8 @@ from xl.metadata import (
     wav,
     wv,
 )
+
+logger = logging.getLogger(__name__)
 
 #: dictionary mapping extensions to Format classes.
 formats = {
@@ -149,6 +151,7 @@ def get_format(loc: str) -> Optional[BaseFormat]:
     try:
         return formatclass(loc)
     except NotReadable:
+        logger.info("Unable to read file: %s", loc)
         return None
 
 

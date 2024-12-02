@@ -218,7 +218,7 @@
     </child>
     <child>
       <object class="GtkCheckButton" id="queue/remove_item_after_played">
-        <property name="label" translatable="yes">Remove after playback</property>
+        <property name="label" translatable="yes">Remove track from queue after playback</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>

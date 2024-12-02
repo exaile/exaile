@@ -82,12 +82,33 @@ class PlayQueue(playlist.Playlist):
         self._on_option_set(None, settings, self.__opt_disable_new_track_when_playing)
 
     def _on_option_set(self, evtype, settings, option):
-        if option == self.__opt_remove_item_when_played:
-            self.__remove_item_on_playback = settings.get_option(option, True)
+        if option in (
+            self.__opt_remove_item_when_played,
+            self.__opt_remove_item_after_played,
+        ):
+            # The remove_item_when_played and remove_item_after_played options are
+            # related to each other, but we're going to store them here as
+            # __remove_item_before_playback and __remove_item_after_playback so
+            # that you don't have to check both options
+
+            when_played = settings.get_option(self.__opt_remove_item_when_played, True)
+            after_played = settings.get_option(
+                self.__opt_remove_item_after_played, False
+            )
+
+            before_played = False
+            if when_played:
+                if not after_played:
+                    before_played = True
+            else:
+                after_played = False
+
+            self.__remove_item_before_playback = before_played
+            self.__remove_item_after_playback = after_played
+            self.__queue_removes_items = before_played or after_played
+
             if len(self):
                 self.__queue_has_tracks = True
-        if option == self.__opt_remove_item_after_played:
-            self.__remove_item_after_playback = settings.get_option(option, True)
         elif option == self.__opt_disable_new_track_when_playing:
             self.__disable_new_track_when_playing = settings.get_option(option, False)
 
@@ -130,13 +151,27 @@ class PlayQueue(playlist.Playlist):
         :returns: the next track to be played
         :rtype: :class:`xl.trax.Track` or None
         """
-        if self.__queue_has_tracks and len(self):
-            track = self._calculate_next_track()
-            if track is not None:
-                return track
-            if self.__remove_item_after_playback and len(self) == 1:
-                # pop the last track
-                self.pop(0)
+
+        if self.__queue_has_tracks:
+            if self.__remove_item_before_playback:
+                # item was previously removed, so always point at the head
+                if len(self):
+                    return self[0]
+            elif self.__remove_item_after_playback:
+                # special case: this function isn't supposed to adjust the position but
+                # if this is the last track then we won't be called again, so just
+                # remove it now instead of removing it in next()
+                if len(self) == 1:
+                    self.pop(0)
+                elif len(self) > 1:
+                    # if item is the head, return next, otherwise return the head
+                    if self.current_position == 0:
+                        return self[1]
+                    else:
+                        return self[0]
+            else:
+                # if queue isn't removing items, it's just a normal playlist
+                return playlist.Playlist.get_next(self)
         if self.current_playlist is not self:
             return self.current_playlist.get_next()
         elif self.last_playlist is not None:
@@ -160,25 +195,24 @@ class PlayQueue(playlist.Playlist):
         """
         if track is None:
             if self.__queue_has_tracks:
-                if self.__remove_item_on_playback:
-                    if self.__remove_item_after_playback:
-                        track = self._calculate_next_track()
-                        if self.current_playlist is self:
-                            try:
-                                self.pop(self.current_position)
-                            except IndexError:
-                                pass
-                        if track is not None:
-                            self.current_position = (
-                                0  # necessary to mark the first track in queue
-                            )
-                    else:
-                        try:
-                            track = self.pop(0)
-                        except IndexError:
-                            track = None
+                if self.__remove_item_before_playback:
+                    # next track is always the head
+                    try:
+                        track = self.pop(0)
+                        self.current_position = 0
+                    except IndexError:
+                        pass
+                elif self.__remove_item_after_playback:
+                    # next track is always the head
+                    current_position = self.current_position
+                    if current_position != -1:
+                        self.pop(current_position)
                         self.current_position = -1
+                    if len(self):
+                        track = self[0]
+                        self.current_position = 0
                 else:
+                    # next track is always normal playlist behavior
                     track = super().next()
 
                 # reached the end of the internal queue, don't repeat and switch back to last playlist
@@ -208,7 +242,7 @@ class PlayQueue(playlist.Playlist):
         track = None
         if self.player.current:
             if self.player.get_time() < 5:
-                if self.__queue_has_tracks and not self.__remove_item_on_playback:
+                if self.__queue_has_tracks and not self.__queue_removes_items:
                     position = self.current_position - 1
                     if position < 0:
                         position = 0 if len(self) else -1
@@ -259,7 +293,7 @@ class PlayQueue(playlist.Playlist):
             track = self.current
         if track:
             self.player.play(track)
-            if self.__remove_item_on_playback and not self.__remove_item_after_playback:
+            if self.__remove_item_before_playback:
                 try:
                     del self[self.index(track)]
                 except ValueError:
@@ -272,7 +306,7 @@ class PlayQueue(playlist.Playlist):
         Returns the number of tracks left to play in the queue's
         internal playlist.
         """
-        if self.__remove_item_on_playback:
+        if self.__remove_item_before_playback:
             return len(self)
         else:
             if not self.__queue_has_tracks:
@@ -360,18 +394,3 @@ class PlayQueue(playlist.Playlist):
             self.player.play(
                 self.current_playlist.get_current(), start_at=start_at, paused=paused
             )
-
-    def _calculate_next_track(self):
-        player_track = self.player.current
-        try:
-            real_position = self.index(player_track)
-        except:
-            real_position = -1
-
-        if real_position == 0:
-            if len(self) > 1:
-                return self[1]
-        elif len(self) > 0:
-            return self[0]
-
-        return None

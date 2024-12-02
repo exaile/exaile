@@ -25,6 +25,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from gi.repository import GObject
 from gi.repository import Gst
 
 from xl import settings
@@ -105,6 +106,10 @@ def _gst_device_autodetect():
 
     dm = Gst.DeviceMonitor.new()
     dm.add_filter('Audio/Sink', Gst.Caps.new_empty_simple('audio/x-raw'))
+
+    show_all = settings.get_option("player/show_hidden_devices", False)
+    dm.set_show_all_devices(show_all)
+
     dm.start()
 
     try:
@@ -128,6 +133,10 @@ def _gst_device_autodetect():
                     # TODO: remove this when wasapi is stable
                     if api == 'wasapi':
                         continue
+
+            if show_all:
+                device_cls = GObject.type_name_from_instance(device.g_type_instance)
+                display_name = '%s (%s)' % (display_name, device_cls)
 
             yield (display_name, device_id, device.create_element)
     finally:

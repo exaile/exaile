@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-10 21:21+0200\n"
+"POT-Creation-Date: 2024-12-02 12:09+1000\n"
 "PO-Revision-Date: 2020-12-23 13:29+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/exaile/master/it/"
@@ -421,7 +421,6 @@ msgstr ""
 #: ../xl/metadata/tags.py:45 ../xlgui/panel/collection.py:130
 #: ../xlgui/widgets/playlist_columns.py:321 ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/minimode_preferences.py:109
-#: ../plugins/jamendo/ui/jamendo_panel.ui:90
 msgid "Album"
 msgstr "Album"
 
@@ -432,7 +431,6 @@ msgstr "Arrangiatore"
 #: ../xl/metadata/tags.py:47 ../xlgui/panel/collection.py:124
 #: ../xlgui/widgets/playlist_columns.py:291 ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:107
-#: ../plugins/jamendo/ui/jamendo_panel.ui:86
 msgid "Artist"
 msgstr "Artista"
 
@@ -539,7 +537,6 @@ msgid "Title"
 msgstr "Titolo"
 
 #: ../xl/metadata/tags.py:72 ../plugins/grouptagger/gt_mass.ui:162
-#: ../plugins/jamendo/ui/jamendo_panel.ui:98
 msgid "Track"
 msgstr "Traccia"
 
@@ -599,7 +596,7 @@ msgstr "Scostamento X:"
 msgid "Stop offset"
 msgstr "Scostamento X:"
 
-#: ../xl/player/gst/engine.py:713
+#: ../xl/player/gst/engine.py:717
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ": Possibile errore del dispositivo audio, è collegato?"
 
@@ -799,7 +796,7 @@ msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:765 ../xl/trax/track.py:831
+#: ../xl/trax/track.py:758 ../xl/trax/track.py:824
 #, python-format
 msgid "%dk"
 msgstr "%dk"
@@ -1308,7 +1305,7 @@ msgstr "Inserisci il nuovo nome per la scaletta"
 msgid "Rename Playlist"
 msgstr "Rinomina scaletta"
 
-#: ../xlgui/panel/playlists.py:168 ../xlgui/widgets/dialogs.py:1769
+#: ../xlgui/panel/playlists.py:168 ../xlgui/widgets/dialogs.py:1781
 #: ../xlgui/widgets/smart_playlist_editor.py:393
 msgid "The playlist name you entered is already in use."
 msgstr "Il nome inserito per la scaletta è già in uso."
@@ -1337,11 +1334,11 @@ msgstr "%(first)s e %(second)s"
 msgid "Playlists"
 msgstr "Scalette"
 
-#: ../xlgui/panel/playlists.py:532
+#: ../xlgui/panel/playlists.py:536
 msgid "Smart Playlists"
 msgstr "Scalette automatiche"
 
-#: ../xlgui/panel/playlists.py:535
+#: ../xlgui/panel/playlists.py:539
 msgid "Custom Playlists"
 msgstr "Scalette personalizzate"
 
@@ -1349,41 +1346,42 @@ msgstr "Scalette personalizzate"
 msgid "Radio"
 msgstr "Radio"
 
-#: ../xlgui/panel/radio.py:147 ../xlgui/panel/radio.py:476
-#: ../xlgui/panel/radio.py:554
+#: ../xlgui/panel/radio.py:149 ../xlgui/panel/radio.py:478
+#: ../xlgui/panel/radio.py:556
 msgid "Loading streams..."
 msgstr "Caricamento flussi..."
 
-#: ../xlgui/panel/radio.py:195
+#: ../xlgui/panel/radio.py:197
 msgid "Add Radio Station"
 msgstr "Aggiungi stazione radio"
 
-#: ../xlgui/panel/radio.py:197 ../data/ui/widgets/filter_dialog.ui:58
+#: ../xlgui/panel/radio.py:199 ../data/ui/widgets/filter_dialog.ui:58
+#: ../plugins/customcollectionorders/cco_prefs.py:96
 msgid "Name:"
 msgstr "Nome:"
 
-#: ../xlgui/panel/radio.py:198 ../plugins/audioscrobbler/asprefs_pane.ui:118
+#: ../xlgui/panel/radio.py:200 ../plugins/audioscrobbler/asprefs_pane.ui:118
 msgid "URL:"
 msgstr "URL:"
 
-#: ../xlgui/panel/radio.py:274
+#: ../xlgui/panel/radio.py:276
 msgid "Saved Stations"
 msgstr "Stazioni Salvate"
 
-#: ../xlgui/panel/radio.py:276
+#: ../xlgui/panel/radio.py:278
 msgid "Radio Streams"
 msgstr "Flussi radio"
 
-#: ../xlgui/panel/radio.py:306 ../plugins/wikipedia/data/wikipanel.ui:75
+#: ../xlgui/panel/radio.py:308 ../plugins/wikipedia/data/wikipanel.ui:75
 #: ../plugins/wikipedia/data/wikipanel.ui:76
 msgid "Refresh"
 msgstr "Aggiorna"
 
-#: ../xlgui/panel/radio.py:417
+#: ../xlgui/panel/radio.py:419
 msgid "Enter the name you want for your new playlist"
 msgstr "Inserire il nome per la nuova scaletta"
 
-#: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:70
+#: ../xlgui/panel/radio.py:419 ../xlgui/playlist_container.py:70
 msgid "New Playlist"
 msgstr "Nuova scaletta"
 
@@ -1523,8 +1521,8 @@ msgstr "Scegli un plugin"
 msgid "Plugin Archives"
 msgstr "Archivi Dei Plugin"
 
-#: ../xlgui/preferences/plugin.py:298 ../xlgui/widgets/dialogs.py:725
-#: ../xlgui/widgets/dialogs.py:901
+#: ../xlgui/preferences/plugin.py:298 ../xlgui/widgets/dialogs.py:737
+#: ../xlgui/widgets/dialogs.py:913
 msgid "All Files"
 msgstr "Tutti i Files"
 
@@ -1646,7 +1644,7 @@ msgstr "Apri directory"
 msgid "Apply current value to all tracks"
 msgstr "Applica il valore corrente a tutte le tracce"
 
-#: ../xlgui/properties.py:1288 ../xlgui/widgets/dialogs.py:1552
+#: ../xlgui/properties.py:1288 ../xlgui/widgets/dialogs.py:1564
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Salvate %(count)s di %(total)s."
@@ -1655,118 +1653,118 @@ msgstr "Salvate %(count)s di %(total)s."
 msgid "Exaile Music Player"
 msgstr "Riproduttore musicale Exaile"
 
-#: ../xlgui/widgets/dialogs.py:359
+#: ../xlgui/widgets/dialogs.py:371
 msgid "Enter the URL to open"
 msgstr "Inserisci l'URL da aprire"
 
-#: ../xlgui/widgets/dialogs.py:359
+#: ../xlgui/widgets/dialogs.py:371
 msgid "Open URL"
 msgstr "Apri URL"
 
-#: ../xlgui/widgets/dialogs.py:646
+#: ../xlgui/widgets/dialogs.py:658
 msgid "Select File Type (by Extension)"
 msgstr "Seleziona il tipo di file (per estensione)"
 
-#: ../xlgui/widgets/dialogs.py:704
+#: ../xlgui/widgets/dialogs.py:716
 msgid "Choose Media to Open"
 msgstr "Seleziona il dispositivo da aprire"
 
-#: ../xlgui/widgets/dialogs.py:719
+#: ../xlgui/widgets/dialogs.py:731
 msgid "Supported Files"
 msgstr "File supportati"
 
-#: ../xlgui/widgets/dialogs.py:721
+#: ../xlgui/widgets/dialogs.py:733
 msgid "Music Files"
 msgstr "File musicali"
 
-#: ../xlgui/widgets/dialogs.py:723 ../xlgui/widgets/dialogs.py:899
+#: ../xlgui/widgets/dialogs.py:735 ../xlgui/widgets/dialogs.py:911
 msgid "Playlist Files"
 msgstr "File della scaletta"
 
-#: ../xlgui/widgets/dialogs.py:807
+#: ../xlgui/widgets/dialogs.py:819
 msgid "Choose Directory to Open"
 msgstr "Seleziona la directory da aprire"
 
-#: ../xlgui/widgets/dialogs.py:884
+#: ../xlgui/widgets/dialogs.py:896
 msgid "Import Playlist"
 msgstr "Importa Playlist"
 
-#: ../xlgui/widgets/dialogs.py:999
+#: ../xlgui/widgets/dialogs.py:1011
 msgid "Export Current Playlist"
 msgstr "Esporta la scaletta corrente"
 
-#: ../xlgui/widgets/dialogs.py:1017
+#: ../xlgui/widgets/dialogs.py:1029
 msgid "Use relative paths to tracks"
 msgstr "Usa i percorsi relativi per le tracce"
 
-#: ../xlgui/widgets/dialogs.py:1076
+#: ../xlgui/widgets/dialogs.py:1088
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Scaletta salvata come <b>%s</b>."
 
-#: ../xlgui/widgets/dialogs.py:1093
+#: ../xlgui/widgets/dialogs.py:1105
 #, python-format
 msgid "Close %s"
 msgstr "Chiudi %s"
 
-#: ../xlgui/widgets/dialogs.py:1094
+#: ../xlgui/widgets/dialogs.py:1106
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Salvare le modifiche a %s prima di chiudere?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1096
+#: ../xlgui/widgets/dialogs.py:1108
 msgid "Your changes will be lost if you don't save them"
 msgstr "Le modifiche andranno perse se non vengono salvate"
 
-#: ../xlgui/widgets/dialogs.py:1100
+#: ../xlgui/widgets/dialogs.py:1112
 msgid "Close Without Saving"
 msgstr "Chiudi senza salvare"
 
-#: ../xlgui/widgets/dialogs.py:1492
+#: ../xlgui/widgets/dialogs.py:1504
 msgid "Yes to all"
 msgstr "Sì a tutti"
 
-#: ../xlgui/widgets/dialogs.py:1500
+#: ../xlgui/widgets/dialogs.py:1512
 msgid "No to all"
 msgstr "No a tutti"
 
-#: ../xlgui/widgets/dialogs.py:1669 ../xlgui/widgets/dialogs.py:1686
+#: ../xlgui/widgets/dialogs.py:1681 ../xlgui/widgets/dialogs.py:1698
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Sì è verificato un errore durante la copia di %s: %s"
 
-#: ../xlgui/widgets/dialogs.py:1696
+#: ../xlgui/widgets/dialogs.py:1708
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "Il file esiste, sovrascrivere %s ?"
 
-#: ../xlgui/widgets/dialogs.py:1752
+#: ../xlgui/widgets/dialogs.py:1764
 msgid "Playlist name:"
 msgstr "Nome playlist:"
 
-#: ../xlgui/widgets/dialogs.py:1753
+#: ../xlgui/widgets/dialogs.py:1765
 msgid "Add new playlist..."
 msgstr "Aggiungi nuova playlist..."
 
-#: ../xlgui/widgets/dialogs.py:1766
+#: ../xlgui/widgets/dialogs.py:1778
 #: ../xlgui/widgets/smart_playlist_editor.py:385
 msgid "You did not enter a name for your playlist"
 msgstr "Non è stato inserito alcun nome per la scaletta"
 
-#: ../xlgui/widgets/dialogs.py:1775
+#: ../xlgui/widgets/dialogs.py:1787
 msgid "Save As"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1844
+#: ../xlgui/widgets/dialogs.py:1856
 #, python-format
 msgid "Exporting %s"
 msgstr "Esportazione %s in corso"
 
-#: ../xlgui/widgets/dialogs.py:1849
+#: ../xlgui/widgets/dialogs.py:1861
 msgid "Choose directory to export files to"
 msgstr "Seleziona la cartella in cui esportare i file"
 
-#: ../xlgui/widgets/info.py:71
+#: ../xlgui/widgets/info.py:62
 msgid ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
 "by $artist\n"
@@ -1776,16 +1774,16 @@ msgstr ""
 "di $artist\n"
 "da $album"
 
-#: ../xlgui/widgets/info.py:78 ../xlgui/widgets/playback.py:110
+#: ../xlgui/widgets/info.py:69 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
 msgstr "Non in riproduzione"
 
-#: ../xlgui/widgets/info.py:427
+#: ../xlgui/widgets/info.py:418
 #, python-format
 msgid "%d in collection"
 msgstr "%d nella collezione"
 
-#: ../xlgui/widgets/info.py:456 ../xlgui/widgets/info.py:465
+#: ../xlgui/widgets/info.py:445 ../xlgui/widgets/info.py:454
 #, fuzzy, python-format
 #| msgid "%d showing"
 msgid "%d showing"
@@ -1793,7 +1791,7 @@ msgid_plural "%d showing"
 msgstr[0] "%d in visualizzazione"
 msgstr[1] "%d in visualizzazione"
 
-#: ../xlgui/widgets/info.py:460 ../xlgui/widgets/info.py:470
+#: ../xlgui/widgets/info.py:449 ../xlgui/widgets/info.py:459
 #, fuzzy, python-format
 #| msgid "%d selected"
 msgid "%d selected"
@@ -2033,7 +2031,6 @@ msgstr "Numero disco"
 #: ../xlgui/widgets/smart_playlist_editor.py:253 ../plugins/cd/cdprefs.py:119
 #: ../plugins/minimode/controls.py:555
 #: ../plugins/minimode/minimode_preferences.py:112
-#: ../plugins/jamendo/ui/jamendo_panel.ui:44
 msgid "Rating"
 msgstr "Valutazione"
 
@@ -2233,12 +2230,10 @@ msgid "Sort by:"
 msgstr "Percorso di importazione: "
 
 #: ../xlgui/widgets/smart_playlist_editor.py:436
-#: ../plugins/jamendo/ui/jamendo_panel.ui:26
 msgid "Ascending"
 msgstr "Crescente"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:437
-#: ../plugins/jamendo/ui/jamendo_panel.ui:22
 msgid "Descending"
 msgstr "Decrescente"
 
@@ -2874,6 +2869,7 @@ msgid ""
 msgstr ""
 
 #: ../data/ui/preferences/plugin.ui:66
+#: ../plugins/customcollectionorders/cco_pane.ui:51
 msgid "Plugin"
 msgstr "Plugin"
 
@@ -3223,8 +3219,46 @@ msgstr "Numero disco"
 msgid "Play count"
 msgstr "Numero di riproduzioni"
 
-#: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:185
-#: ../plugins/history/__init__.py:233
+#: ../plugins/customcollectionorders/cco_prefs.py:9
+msgid "Custom Collections"
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_prefs.py:63
+msgid "really delete?"
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_prefs.py:76
+msgid "Add or edit custom order"
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_prefs.py:88
+msgid ""
+"Comma separated list of the nodes in the tree view. Right now it's not "
+"possible to use more than one tag per level.\n"
+"Every tag can be used."
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_prefs.py:92
+msgid ""
+"Comma separated list of the tags to use for displaying single tracks as "
+"leaves in the tree. Tags are joined with a hyphen.\n"
+"Every tag can be used."
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_prefs.py:96
+msgid "Name of your order"
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_prefs.py:97
+msgid "Tree Levels:"
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_prefs.py:98
+msgid "Display:"
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:199
+#: ../plugins/history/__init__.py:247
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
 msgstr ""
@@ -3494,15 +3528,15 @@ msgstr ""
 msgid "Playback history"
 msgstr ""
 
-#: ../plugins/history/__init__.py:116
+#: ../plugins/history/__init__.py:122
 msgid "Erase stored history?"
 msgstr ""
 
-#: ../plugins/history/__init__.py:215
+#: ../plugins/history/__init__.py:229
 msgid "Save History"
 msgstr ""
 
-#: ../plugins/history/__init__.py:224
+#: ../plugins/history/__init__.py:238
 #, fuzzy
 #| msgid "C_lear playlist"
 msgid "_Clear History"
@@ -3582,23 +3616,7 @@ msgstr "Console IPython"
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
 msgstr ""
 
-#: ../plugins/jamendo/__init__.py:85 ../plugins/jamendo/ui/jamendo_panel.ui:294
-msgid "Ready"
-msgstr "Pronto"
-
-#: ../plugins/jamendo/__init__.py:86
-msgid "Searching Jamendo catalogue..."
-msgstr "Ricerca del catalogo Jamendo..."
-
-#: ../plugins/jamendo/__init__.py:87
-msgid "Retrieving song data..."
-msgstr "Recupero dati del brano..."
-
-#: ../plugins/jamendo/menu.py:13
-msgid "Append to Current"
-msgstr "Aggiungi alla corrente"
-
-#: ../plugins/keybinder/__init__.py:58
+#: ../plugins/keybinder/__init__.py:50
 msgid ""
 "Keybinder is not supported on this platform! It is only supported on X "
 "servers."
@@ -4000,34 +4018,59 @@ msgstr "Guadagno riproduzione"
 msgid "Pause on Screensaver"
 msgstr "Pausa con salvaschermo"
 
-#: ../plugins/shutdown/__init__.py:42 ../plugins/shutdown/PLUGININFO:3
+#: ../plugins/shutdown/__init__.py:47
+msgid "Close Exaile after Playback"
+msgstr ""
+
+#: ../plugins/shutdown/__init__.py:60 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
 msgstr "Spegni dopo la riproduzione"
 
-#: ../plugins/shutdown/__init__.py:67
+#: ../plugins/shutdown/__init__.py:81
+msgid "Close scheduled"
+msgstr ""
+
+#: ../plugins/shutdown/__init__.py:82
+msgid "Exaile will be closed at the end of playback."
+msgstr ""
+
+#: ../plugins/shutdown/__init__.py:88
 msgid "Shutdown scheduled"
 msgstr "Arresto del computer programmato"
 
-#: ../plugins/shutdown/__init__.py:68
+#: ../plugins/shutdown/__init__.py:89
 msgid "Computer will be shutdown at the end of playback."
 msgstr "Il computer verrà spento al termine della riproduzione."
 
-#: ../plugins/shutdown/__init__.py:95
+#: ../plugins/shutdown/__init__.py:121
+msgid "Imminent Closing"
+msgstr ""
+
+#: ../plugins/shutdown/__init__.py:123
 msgid "Imminent Shutdown"
 msgstr "Arresta del computer imminente"
 
-#: ../plugins/shutdown/__init__.py:119
+#: ../plugins/shutdown/__init__.py:145
+#, python-format
+msgid "Exaile will be closed in %d seconds."
+msgstr ""
+
+#: ../plugins/shutdown/__init__.py:147
 #, python-format
 msgid "The computer will be shut down in %d seconds."
 msgstr "Il computer sarà arrestato tra %d secondi."
 
-#: ../plugins/shutdown/__init__.py:150
+#: ../plugins/shutdown/__init__.py:192
 msgid "Shutdown failed"
 msgstr "Spegnimento fallito"
 
-#: ../plugins/shutdown/__init__.py:151
+#: ../plugins/shutdown/__init__.py:193
 msgid "Computer could not be shutdown using D-Bus."
 msgstr "Il computer non può essere spento utilizzando D-Bus."
+
+#: ../plugins/shutdown/shutdown_preferences.py:5
+msgid "Shutdown"
+msgstr ""
 
 #: ../plugins/somafm/__init__.py:81 ../plugins/somafm/__init__.py:176
 #, fuzzy
@@ -4052,7 +4095,7 @@ msgstr "Errore nell'eseguire streamripper"
 msgid "Streamripper"
 msgstr "Streamripper"
 
-#: ../plugins/wikipedia/__init__.py:149 ../plugins/wikipedia/preferences.py:21
+#: ../plugins/wikipedia/__init__.py:154 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
 msgstr ""
@@ -4181,7 +4224,6 @@ msgid "Set BPM?"
 msgstr ""
 
 #: ../plugins/bpm/msg.ui:63
-#, python-format
 msgid "Set autodetected BPM on %s?"
 msgstr ""
 
@@ -4238,7 +4280,6 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
-#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
@@ -4257,6 +4298,10 @@ msgstr "Importazione CD..."
 #, fuzzy
 msgid "Simple Console"
 msgstr "Semplice"
+
+#: ../plugins/customcollectionorders/cco_pane.ui:83
+msgid "Add _Order"
+msgstr ""
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
 msgid "Show IPv6 servers"
@@ -4510,58 +4555,6 @@ msgstr "Colore di sfondo:"
 msgid "Launch IPython console when Exaile starts"
 msgstr "Console IPython - Exaile"
 
-#: ../plugins/jamendo/ui/jamendo_panel.ui:40
-msgid "Release date"
-msgstr "Data di rilascio"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:48
-msgid "Rating this week"
-msgstr "Valutazione in questa settimana"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:52
-msgid "Rating this month"
-msgstr "Valutazione in questo mese"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:56
-msgid "Number of playlist additions"
-msgstr "Numero di aggiunte alla scaletta"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:60
-msgid "Number of downloads"
-msgstr "Numero di scaricamenti"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:64
-msgid "Number of listens"
-msgstr "Numero di ascolti"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:68
-msgid "Starred"
-msgstr "Votato"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:72
-msgid "Date of starring"
-msgstr "Data della votazione"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:94
-msgid "Genre/Tags"
-msgstr "Genere/Etichetta"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:176
-msgid "Order by:"
-msgstr "Ordina per:"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:206
-msgid "Order direction:"
-msgstr "Direzione ordinamento:"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:237
-msgid "Results:"
-msgstr "Risultati:"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:264
-msgid "Advanced"
-msgstr "Avanzate"
-
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:63
 #, fuzzy
 #| msgid "Request Access Permission"
@@ -4719,7 +4712,6 @@ msgid "When main window is focused"
 msgstr "Quando la finestra principale è selezionata"
 
 #: ../plugins/osd/osd_preferences.ui:69
-#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
@@ -4861,6 +4853,14 @@ msgstr "Livello di correzione del ripiego (dB):"
 
 #: ../plugins/screensaverpause/prefs.ui:12
 msgid "Unpause when screensaver ends"
+msgstr ""
+
+#: ../plugins/shutdown/shutdown_preferences.ui:20
+msgid "Timeout (in s):"
+msgstr ""
+
+#: ../plugins/shutdown/shutdown_preferences.ui:48
+msgid "Activate \"Close Exaile after Playback\" automatically"
 msgstr ""
 
 #: ../plugins/streamripper/streamripper.ui:15
@@ -5031,6 +5031,20 @@ msgstr ""
 "Imposta lo stato di riproduzione corrente in Pidgin. Controllare le FAQ di "
 "Pidgin per verificare i servizi supportati."
 
+#: ../plugins/customcollectionorders/PLUGININFO:3
+msgid "Custom Collection Orders"
+msgstr ""
+
+#: ../plugins/customcollectionorders/PLUGININFO:4
+msgid "Users can add custom order to the collection panel"
+msgstr ""
+
+#: ../plugins/customcollectionorders/PLUGININFO:5
+#: ../plugins/desktopcover/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5
+#: ../plugins/minimode/PLUGININFO:5 ../plugins/moodbar/PLUGININFO:5
+msgid "GUI"
+msgstr ""
+
 #: ../plugins/daapclient/PLUGININFO:4
 msgid ""
 "Enables access to DAAP music shares via the spydaap library. Share auto-"
@@ -5040,9 +5054,8 @@ msgid ""
 msgstr ""
 
 #: ../plugins/daapclient/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
-#: ../plugins/icecast/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5
-#: ../plugins/librivox/PLUGININFO:5 ../plugins/podcasts/PLUGININFO:5
-#: ../plugins/somafm/PLUGININFO:5
+#: ../plugins/icecast/PLUGININFO:5 ../plugins/librivox/PLUGININFO:5
+#: ../plugins/podcasts/PLUGININFO:5 ../plugins/somafm/PLUGININFO:5
 msgid "Media Sources"
 msgstr ""
 
@@ -5061,11 +5074,6 @@ msgstr ""
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
 msgstr "Mostra la copertina dell'album corrente sul desktop"
-
-#: ../plugins/desktopcover/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5
-#: ../plugins/minimode/PLUGININFO:5 ../plugins/moodbar/PLUGININFO:5
-msgid "GUI"
-msgstr ""
 
 #: ../plugins/developer/PLUGININFO:3
 msgid "Developer"
@@ -5114,14 +5122,6 @@ msgid "Provides an IPython console that can be used to manipulate Exaile."
 msgstr ""
 "Fornisce una console IPython che può essere usata per controllare il "
 "programma."
-
-#: ../plugins/jamendo/PLUGININFO:3
-msgid "Jamendo"
-msgstr "Jamendo"
-
-#: ../plugins/jamendo/PLUGININFO:4
-msgid "Enables access to the Jamendo music catalogue."
-msgstr "Abilita l'accesso al catalogo musicale Jamendo."
 
 #: ../plugins/karaoke/PLUGININFO:3
 msgid "Karaoke"
@@ -5360,6 +5360,7 @@ msgstr ""
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
 "Provides Wikipedia information about the current artist.\n"
+"\n"
 "Requires: webkit2gtk and its typelib file"
 msgstr ""
 
@@ -5413,6 +5414,63 @@ msgid ""
 "players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
 "output via a secondary output device (great for DJs!), and much more."
 msgstr ""
+
+#~ msgid "Ready"
+#~ msgstr "Pronto"
+
+#~ msgid "Searching Jamendo catalogue..."
+#~ msgstr "Ricerca del catalogo Jamendo..."
+
+#~ msgid "Retrieving song data..."
+#~ msgstr "Recupero dati del brano..."
+
+#~ msgid "Append to Current"
+#~ msgstr "Aggiungi alla corrente"
+
+#~ msgid "Release date"
+#~ msgstr "Data di rilascio"
+
+#~ msgid "Rating this week"
+#~ msgstr "Valutazione in questa settimana"
+
+#~ msgid "Rating this month"
+#~ msgstr "Valutazione in questo mese"
+
+#~ msgid "Number of playlist additions"
+#~ msgstr "Numero di aggiunte alla scaletta"
+
+#~ msgid "Number of downloads"
+#~ msgstr "Numero di scaricamenti"
+
+#~ msgid "Number of listens"
+#~ msgstr "Numero di ascolti"
+
+#~ msgid "Starred"
+#~ msgstr "Votato"
+
+#~ msgid "Date of starring"
+#~ msgstr "Data della votazione"
+
+#~ msgid "Genre/Tags"
+#~ msgstr "Genere/Etichetta"
+
+#~ msgid "Order by:"
+#~ msgstr "Ordina per:"
+
+#~ msgid "Order direction:"
+#~ msgstr "Direzione ordinamento:"
+
+#~ msgid "Results:"
+#~ msgstr "Risultati:"
+
+#~ msgid "Advanced"
+#~ msgstr "Avanzate"
+
+#~ msgid "Jamendo"
+#~ msgstr "Jamendo"
+
+#~ msgid "Enables access to the Jamendo music catalogue."
+#~ msgstr "Abilita l'accesso al catalogo musicale Jamendo."
 
 #~ msgid "Import format: "
 #~ msgstr "Formato di importazione: "

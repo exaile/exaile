@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-10 21:21+0200\n"
+"POT-Creation-Date: 2024-12-02 12:09+1000\n"
 "PO-Revision-Date: 2023-07-12 08:52+0000\n"
 "Last-Translator: Wellington Terumi Uemura <wellingtonuemura@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
@@ -418,7 +418,6 @@ msgstr ""
 #: ../xl/metadata/tags.py:45 ../xlgui/panel/collection.py:130
 #: ../xlgui/widgets/playlist_columns.py:321 ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/minimode_preferences.py:109
-#: ../plugins/jamendo/ui/jamendo_panel.ui:90
 msgid "Album"
 msgstr "Álbum"
 
@@ -429,7 +428,6 @@ msgstr "Arranjador"
 #: ../xl/metadata/tags.py:47 ../xlgui/panel/collection.py:124
 #: ../xlgui/widgets/playlist_columns.py:291 ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:107
-#: ../plugins/jamendo/ui/jamendo_panel.ui:86
 msgid "Artist"
 msgstr "Artista"
 
@@ -536,7 +534,6 @@ msgid "Title"
 msgstr "Título"
 
 #: ../xl/metadata/tags.py:72 ../plugins/grouptagger/gt_mass.ui:162
-#: ../plugins/jamendo/ui/jamendo_panel.ui:98
 msgid "Track"
 msgstr "Faixa"
 
@@ -594,7 +591,7 @@ msgstr "Deslocamento inicial"
 msgid "Stop offset"
 msgstr "Deslocamento final"
 
-#: ../xl/player/gst/engine.py:713
+#: ../xl/player/gst/engine.py:717
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ": Possível erro no dispositivo de som, este está conectado?"
 
@@ -789,7 +786,7 @@ msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:765 ../xl/trax/track.py:831
+#: ../xl/trax/track.py:758 ../xl/trax/track.py:824
 #, python-format
 msgid "%dk"
 msgstr "%dk"
@@ -1249,7 +1246,7 @@ msgstr "Digite o novo nome que você quer para sua lista de reprodução"
 msgid "Rename Playlist"
 msgstr "Renomear Lista de Reprodução"
 
-#: ../xlgui/panel/playlists.py:168 ../xlgui/widgets/dialogs.py:1769
+#: ../xlgui/panel/playlists.py:168 ../xlgui/widgets/dialogs.py:1781
 #: ../xlgui/widgets/smart_playlist_editor.py:393
 msgid "The playlist name you entered is already in use."
 msgstr "Já existe uma lista de reprodução com esse nome."
@@ -1278,11 +1275,11 @@ msgstr "%(first)s e %(second)s"
 msgid "Playlists"
 msgstr "Listas de Reprodução"
 
-#: ../xlgui/panel/playlists.py:532
+#: ../xlgui/panel/playlists.py:536
 msgid "Smart Playlists"
 msgstr "Listas Inteligentes de Músicas"
 
-#: ../xlgui/panel/playlists.py:535
+#: ../xlgui/panel/playlists.py:539
 msgid "Custom Playlists"
 msgstr "Listas de Reprodução Personalizadas"
 
@@ -1290,41 +1287,42 @@ msgstr "Listas de Reprodução Personalizadas"
 msgid "Radio"
 msgstr "Rádio"
 
-#: ../xlgui/panel/radio.py:147 ../xlgui/panel/radio.py:476
-#: ../xlgui/panel/radio.py:554
+#: ../xlgui/panel/radio.py:149 ../xlgui/panel/radio.py:478
+#: ../xlgui/panel/radio.py:556
 msgid "Loading streams..."
 msgstr "Carregando fluxos..."
 
-#: ../xlgui/panel/radio.py:195
+#: ../xlgui/panel/radio.py:197
 msgid "Add Radio Station"
 msgstr "Adicionar Estação de Rádio"
 
-#: ../xlgui/panel/radio.py:197 ../data/ui/widgets/filter_dialog.ui:58
+#: ../xlgui/panel/radio.py:199 ../data/ui/widgets/filter_dialog.ui:58
+#: ../plugins/customcollectionorders/cco_prefs.py:96
 msgid "Name:"
 msgstr "Nome:"
 
-#: ../xlgui/panel/radio.py:198 ../plugins/audioscrobbler/asprefs_pane.ui:118
+#: ../xlgui/panel/radio.py:200 ../plugins/audioscrobbler/asprefs_pane.ui:118
 msgid "URL:"
 msgstr "URL:"
 
-#: ../xlgui/panel/radio.py:274
+#: ../xlgui/panel/radio.py:276
 msgid "Saved Stations"
 msgstr "Estações salvas"
 
-#: ../xlgui/panel/radio.py:276
+#: ../xlgui/panel/radio.py:278
 msgid "Radio Streams"
 msgstr "Streams de Rádio"
 
-#: ../xlgui/panel/radio.py:306 ../plugins/wikipedia/data/wikipanel.ui:75
+#: ../xlgui/panel/radio.py:308 ../plugins/wikipedia/data/wikipanel.ui:75
 #: ../plugins/wikipedia/data/wikipanel.ui:76
 msgid "Refresh"
 msgstr "Atualizar"
 
-#: ../xlgui/panel/radio.py:417
+#: ../xlgui/panel/radio.py:419
 msgid "Enter the name you want for your new playlist"
 msgstr "Informe o nome desejado para sua nova lista de reprodução"
 
-#: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:70
+#: ../xlgui/panel/radio.py:419 ../xlgui/playlist_container.py:70
 msgid "New Playlist"
 msgstr "Nova Lista de Reprodução"
 
@@ -1455,8 +1453,8 @@ msgstr "Escolha um Plugin"
 msgid "Plugin Archives"
 msgstr "Arquivos de plugins"
 
-#: ../xlgui/preferences/plugin.py:298 ../xlgui/widgets/dialogs.py:725
-#: ../xlgui/widgets/dialogs.py:901
+#: ../xlgui/preferences/plugin.py:298 ../xlgui/widgets/dialogs.py:737
+#: ../xlgui/widgets/dialogs.py:913
 msgid "All Files"
 msgstr "Todos os Arquivos"
 
@@ -1577,7 +1575,7 @@ msgstr "Abrir Diretório"
 msgid "Apply current value to all tracks"
 msgstr "Aplicar valor atual para todas as faixas"
 
-#: ../xlgui/properties.py:1288 ../xlgui/widgets/dialogs.py:1552
+#: ../xlgui/properties.py:1288 ../xlgui/widgets/dialogs.py:1564
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Salvo %(count)s de %(total)s."
@@ -1586,118 +1584,118 @@ msgstr "Salvo %(count)s de %(total)s."
 msgid "Exaile Music Player"
 msgstr "Reprodutor de Música Exaile"
 
-#: ../xlgui/widgets/dialogs.py:359
+#: ../xlgui/widgets/dialogs.py:371
 msgid "Enter the URL to open"
 msgstr "Insira a URL a ser aberta"
 
-#: ../xlgui/widgets/dialogs.py:359
+#: ../xlgui/widgets/dialogs.py:371
 msgid "Open URL"
 msgstr "Abrir URL"
 
-#: ../xlgui/widgets/dialogs.py:646
+#: ../xlgui/widgets/dialogs.py:658
 msgid "Select File Type (by Extension)"
 msgstr "Selecione Tipo de Arquivo (por Extensão)"
 
-#: ../xlgui/widgets/dialogs.py:704
+#: ../xlgui/widgets/dialogs.py:716
 msgid "Choose Media to Open"
 msgstr "Escolher Mídia para Abrir"
 
-#: ../xlgui/widgets/dialogs.py:719
+#: ../xlgui/widgets/dialogs.py:731
 msgid "Supported Files"
 msgstr "Arquivos Suportados"
 
-#: ../xlgui/widgets/dialogs.py:721
+#: ../xlgui/widgets/dialogs.py:733
 msgid "Music Files"
 msgstr "Arquivos de Música"
 
-#: ../xlgui/widgets/dialogs.py:723 ../xlgui/widgets/dialogs.py:899
+#: ../xlgui/widgets/dialogs.py:735 ../xlgui/widgets/dialogs.py:911
 msgid "Playlist Files"
 msgstr "Arquivos da Lista de Reprodução"
 
-#: ../xlgui/widgets/dialogs.py:807
+#: ../xlgui/widgets/dialogs.py:819
 msgid "Choose Directory to Open"
 msgstr "Escolher Diretório para Abrir"
 
-#: ../xlgui/widgets/dialogs.py:884
+#: ../xlgui/widgets/dialogs.py:896
 msgid "Import Playlist"
 msgstr "Importar Lista de Reprodução"
 
-#: ../xlgui/widgets/dialogs.py:999
+#: ../xlgui/widgets/dialogs.py:1011
 msgid "Export Current Playlist"
 msgstr "Exportar Lista de Reprodução Atual"
 
-#: ../xlgui/widgets/dialogs.py:1017
+#: ../xlgui/widgets/dialogs.py:1029
 msgid "Use relative paths to tracks"
 msgstr "Usar caminhos relativos a faixas"
 
-#: ../xlgui/widgets/dialogs.py:1076
+#: ../xlgui/widgets/dialogs.py:1088
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Lista salva como <b>%s</b>."
 
-#: ../xlgui/widgets/dialogs.py:1093
+#: ../xlgui/widgets/dialogs.py:1105
 #, python-format
 msgid "Close %s"
 msgstr "Fechar %s"
 
-#: ../xlgui/widgets/dialogs.py:1094
+#: ../xlgui/widgets/dialogs.py:1106
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Salvar modificações em %s antes de fechar?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1096
+#: ../xlgui/widgets/dialogs.py:1108
 msgid "Your changes will be lost if you don't save them"
 msgstr "Suas alterações serão perdidas, caso não salve-as"
 
-#: ../xlgui/widgets/dialogs.py:1100
+#: ../xlgui/widgets/dialogs.py:1112
 msgid "Close Without Saving"
 msgstr "Fechar sem salvar"
 
-#: ../xlgui/widgets/dialogs.py:1492
+#: ../xlgui/widgets/dialogs.py:1504
 msgid "Yes to all"
 msgstr "Sim para todos"
 
-#: ../xlgui/widgets/dialogs.py:1500
+#: ../xlgui/widgets/dialogs.py:1512
 msgid "No to all"
 msgstr "Não para todos"
 
-#: ../xlgui/widgets/dialogs.py:1669 ../xlgui/widgets/dialogs.py:1686
+#: ../xlgui/widgets/dialogs.py:1681 ../xlgui/widgets/dialogs.py:1698
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Um erro ocorreu ao copiar %s: %s"
 
-#: ../xlgui/widgets/dialogs.py:1696
+#: ../xlgui/widgets/dialogs.py:1708
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "Arquivo já existe, substituir %s ?"
 
-#: ../xlgui/widgets/dialogs.py:1752
+#: ../xlgui/widgets/dialogs.py:1764
 msgid "Playlist name:"
 msgstr "Nome da lista:"
 
-#: ../xlgui/widgets/dialogs.py:1753
+#: ../xlgui/widgets/dialogs.py:1765
 msgid "Add new playlist..."
 msgstr "Adicionar nova lista ..."
 
-#: ../xlgui/widgets/dialogs.py:1766
+#: ../xlgui/widgets/dialogs.py:1778
 #: ../xlgui/widgets/smart_playlist_editor.py:385
 msgid "You did not enter a name for your playlist"
 msgstr "Não foi especificado um nome para sua lista de reprodução"
 
-#: ../xlgui/widgets/dialogs.py:1775
+#: ../xlgui/widgets/dialogs.py:1787
 msgid "Save As"
 msgstr "Salvar como"
 
-#: ../xlgui/widgets/dialogs.py:1844
+#: ../xlgui/widgets/dialogs.py:1856
 #, python-format
 msgid "Exporting %s"
 msgstr "Exportando %s"
 
-#: ../xlgui/widgets/dialogs.py:1849
+#: ../xlgui/widgets/dialogs.py:1861
 msgid "Choose directory to export files to"
 msgstr "Escolha uma pasta para exportar os arquivos"
 
-#: ../xlgui/widgets/info.py:71
+#: ../xlgui/widgets/info.py:62
 msgid ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
 "by $artist\n"
@@ -1707,23 +1705,23 @@ msgstr ""
 "por $artist\n"
 "em $album"
 
-#: ../xlgui/widgets/info.py:78 ../xlgui/widgets/playback.py:110
+#: ../xlgui/widgets/info.py:69 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
 msgstr "Parado"
 
-#: ../xlgui/widgets/info.py:427
+#: ../xlgui/widgets/info.py:418
 #, python-format
 msgid "%d in collection"
 msgstr "%d na coleção"
 
-#: ../xlgui/widgets/info.py:456 ../xlgui/widgets/info.py:465
+#: ../xlgui/widgets/info.py:445 ../xlgui/widgets/info.py:454
 #, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
 msgstr[0] "exibindo %d"
 msgstr[1] "sendo exibidos %d"
 
-#: ../xlgui/widgets/info.py:460 ../xlgui/widgets/info.py:470
+#: ../xlgui/widgets/info.py:449 ../xlgui/widgets/info.py:459
 #, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
@@ -1914,7 +1912,6 @@ msgstr "Número do Disco"
 #: ../xlgui/widgets/smart_playlist_editor.py:253 ../plugins/cd/cdprefs.py:119
 #: ../plugins/minimode/controls.py:555
 #: ../plugins/minimode/minimode_preferences.py:112
-#: ../plugins/jamendo/ui/jamendo_panel.ui:44
 msgid "Rating"
 msgstr "Avaliação"
 
@@ -2106,12 +2103,10 @@ msgid "Sort by:"
 msgstr "Reordenar por:"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:436
-#: ../plugins/jamendo/ui/jamendo_panel.ui:26
 msgid "Ascending"
 msgstr "Ascendente"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:437
-#: ../plugins/jamendo/ui/jamendo_panel.ui:22
 msgid "Descending"
 msgstr "Descendente"
 
@@ -2437,8 +2432,8 @@ msgstr "Mostrar \"splash screen\" na inicialização"
 #: ../data/ui/preferences/appearance.ui:330
 msgid ""
 "Tray icons are not supported on some platforms, most notably on Wayland. On "
-"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
-"\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
+"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a "
+"href=\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
 "extension</a> (or a similar one) installed."
 msgstr ""
 "Ícones da bandeja do sistema não são suportados em algumas plataformas, mais "
@@ -2744,6 +2739,7 @@ msgstr ""
 "reprodução, enfileirar a faixa ao invés de reproduzi-la"
 
 #: ../data/ui/preferences/plugin.ui:66
+#: ../plugins/customcollectionorders/cco_pane.ui:51
 msgid "Plugin"
 msgstr "Módulo"
 
@@ -3096,8 +3092,46 @@ msgstr "Número do disco"
 msgid "Play count"
 msgstr "Reproduções"
 
-#: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:185
-#: ../plugins/history/__init__.py:233
+#: ../plugins/customcollectionorders/cco_prefs.py:9
+msgid "Custom Collections"
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_prefs.py:63
+msgid "really delete?"
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_prefs.py:76
+msgid "Add or edit custom order"
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_prefs.py:88
+msgid ""
+"Comma separated list of the nodes in the tree view. Right now it's not "
+"possible to use more than one tag per level.\n"
+"Every tag can be used."
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_prefs.py:92
+msgid ""
+"Comma separated list of the tags to use for displaying single tracks as "
+"leaves in the tree. Tags are joined with a hyphen.\n"
+"Every tag can be used."
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_prefs.py:96
+msgid "Name of your order"
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_prefs.py:97
+msgid "Tree Levels:"
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_prefs.py:98
+msgid "Display:"
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:199
+#: ../plugins/history/__init__.py:247
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
 msgstr "História"
@@ -3357,15 +3391,15 @@ msgstr "Faixas Selecionadas"
 msgid "Playback history"
 msgstr "Histórico de reprodução"
 
-#: ../plugins/history/__init__.py:116
+#: ../plugins/history/__init__.py:122
 msgid "Erase stored history?"
 msgstr "Apagar o histórico armazenado?"
 
-#: ../plugins/history/__init__.py:215
+#: ../plugins/history/__init__.py:229
 msgid "Save History"
 msgstr "Salvar Histórico"
 
-#: ../plugins/history/__init__.py:224
+#: ../plugins/history/__init__.py:238
 msgid "_Clear History"
 msgstr "_Limpar Histórico"
 
@@ -3432,23 +3466,7 @@ msgstr "Console do IPython"
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
 msgstr "A opacidade não pode ser definida na Janela devido a um bug no Gtk +"
 
-#: ../plugins/jamendo/__init__.py:85 ../plugins/jamendo/ui/jamendo_panel.ui:294
-msgid "Ready"
-msgstr "Pronto"
-
-#: ../plugins/jamendo/__init__.py:86
-msgid "Searching Jamendo catalogue..."
-msgstr "Procurando catálogo do Jamendo..."
-
-#: ../plugins/jamendo/__init__.py:87
-msgid "Retrieving song data..."
-msgstr "Recebendo dados da canção..."
-
-#: ../plugins/jamendo/menu.py:13
-msgid "Append to Current"
-msgstr "Adicionar à Lista atual"
-
-#: ../plugins/keybinder/__init__.py:58
+#: ../plugins/keybinder/__init__.py:50
 msgid ""
 "Keybinder is not supported on this platform! It is only supported on X "
 "servers."
@@ -3838,34 +3856,59 @@ msgstr "ReplayGain"
 msgid "Pause on Screensaver"
 msgstr "Pausar na Proteção de Tela"
 
-#: ../plugins/shutdown/__init__.py:42 ../plugins/shutdown/PLUGININFO:3
+#: ../plugins/shutdown/__init__.py:47
+msgid "Close Exaile after Playback"
+msgstr ""
+
+#: ../plugins/shutdown/__init__.py:60 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
 msgstr "Desligar após a reprodução"
 
-#: ../plugins/shutdown/__init__.py:67
+#: ../plugins/shutdown/__init__.py:81
+msgid "Close scheduled"
+msgstr ""
+
+#: ../plugins/shutdown/__init__.py:82
+msgid "Exaile will be closed at the end of playback."
+msgstr ""
+
+#: ../plugins/shutdown/__init__.py:88
 msgid "Shutdown scheduled"
 msgstr "Desligamento programado"
 
-#: ../plugins/shutdown/__init__.py:68
+#: ../plugins/shutdown/__init__.py:89
 msgid "Computer will be shutdown at the end of playback."
 msgstr "O computador será desligado após o fim da reprodução."
 
-#: ../plugins/shutdown/__init__.py:95
+#: ../plugins/shutdown/__init__.py:121
+msgid "Imminent Closing"
+msgstr ""
+
+#: ../plugins/shutdown/__init__.py:123
 msgid "Imminent Shutdown"
 msgstr "Desligamento eminente"
 
-#: ../plugins/shutdown/__init__.py:119
+#: ../plugins/shutdown/__init__.py:145
+#, python-format
+msgid "Exaile will be closed in %d seconds."
+msgstr ""
+
+#: ../plugins/shutdown/__init__.py:147
 #, python-format
 msgid "The computer will be shut down in %d seconds."
 msgstr "O computador será desligado em %d segundos."
 
-#: ../plugins/shutdown/__init__.py:150
+#: ../plugins/shutdown/__init__.py:192
 msgid "Shutdown failed"
 msgstr "Falha ao desligar"
 
-#: ../plugins/shutdown/__init__.py:151
+#: ../plugins/shutdown/__init__.py:193
 msgid "Computer could not be shutdown using D-Bus."
 msgstr "O computador não pode ser desligado utilizando D-Bus."
+
+#: ../plugins/shutdown/shutdown_preferences.py:5
+msgid "Shutdown"
+msgstr ""
 
 #: ../plugins/somafm/__init__.py:81 ../plugins/somafm/__init__.py:176
 msgid "Contacting SomaFM server..."
@@ -3887,7 +3930,7 @@ msgstr "Erro ao executar streamripper"
 msgid "Streamripper"
 msgstr "Gravador de fluxo"
 
-#: ../plugins/wikipedia/__init__.py:149 ../plugins/wikipedia/preferences.py:21
+#: ../plugins/wikipedia/__init__.py:154 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
 msgstr "Wikipédia"
@@ -4015,7 +4058,6 @@ msgid "Set BPM?"
 msgstr "Definir BPM?"
 
 #: ../plugins/bpm/msg.ui:63
-#, python-format
 msgid "Set autodetected BPM on %s?"
 msgstr "Definir detecção automática de BPM no %s?"
 
@@ -4069,7 +4111,6 @@ msgstr "Caminho: "
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
-#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
@@ -4085,6 +4126,10 @@ msgstr "Importar as faixas para o disco"
 #: ../plugins/console/console_window.ui:8
 msgid "Simple Console"
 msgstr "Console Simples"
+
+#: ../plugins/customcollectionorders/cco_pane.ui:83
+msgid "Add _Order"
+msgstr ""
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
 msgid "Show IPv6 servers"
@@ -4331,58 +4376,6 @@ msgstr "Cor de fundo:"
 msgid "Launch IPython console when Exaile starts"
 msgstr "Iniciar Console do IPython quando Exaile é inicializado"
 
-#: ../plugins/jamendo/ui/jamendo_panel.ui:40
-msgid "Release date"
-msgstr "Data de lançamento"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:48
-msgid "Rating this week"
-msgstr "Avaliação nesta semana"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:52
-msgid "Rating this month"
-msgstr "Avaliação neste mês"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:56
-msgid "Number of playlist additions"
-msgstr "Número de adições à lista de reprodução"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:60
-msgid "Number of downloads"
-msgstr "Número de downloads"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:64
-msgid "Number of listens"
-msgstr "Número de Execuções"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:68
-msgid "Starred"
-msgstr "Marcados com estrela"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:72
-msgid "Date of starring"
-msgstr "Data de estréia"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:94
-msgid "Genre/Tags"
-msgstr "Gênero/Etiquetas"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:176
-msgid "Order by:"
-msgstr "Ordenar por:"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:206
-msgid "Order direction:"
-msgstr "Direção de ordem:"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:237
-msgid "Results:"
-msgstr "Resultados:"
-
-#: ../plugins/jamendo/ui/jamendo_panel.ui:264
-msgid "Advanced"
-msgstr "Avançado"
-
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:63
 msgid "_Request Access Permission"
 msgstr "_Solicitar Permissão de Acesso"
@@ -4528,18 +4521,17 @@ msgid "When main window is focused"
 msgstr "Quando a janela principal está focalizada"
 
 #: ../plugins/osd/osd_preferences.ui:69
-#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
-"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-"\">Pango Text Attribute Markup</a> is supported."
+"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat."
+"html\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 "Todo rótulo pode ser usado com <b>$tag</b> ou <b>${tag}</b>. Rótulos "
 "internos como <b>$__length</b> precisam ser especificados com duas linhas "
 "sublinhadas antes do seu nome.\n"
-"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-"\">O Atributo de remarcação Pango</a> é suportado."
+"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat."
+"html\">O Atributo de remarcação Pango</a> é suportado."
 
 #: ../plugins/osd/osd_preferences.ui:87
 msgid "Display Format"
@@ -4661,6 +4653,14 @@ msgstr "Fallback para Nível da correção de queda:"
 #: ../plugins/screensaverpause/prefs.ui:12
 msgid "Unpause when screensaver ends"
 msgstr "Retomar quando sair da tela de descanso"
+
+#: ../plugins/shutdown/shutdown_preferences.ui:20
+msgid "Timeout (in s):"
+msgstr ""
+
+#: ../plugins/shutdown/shutdown_preferences.ui:48
+msgid "Activate \"Close Exaile after Playback\" automatically"
+msgstr ""
 
 #: ../plugins/streamripper/streamripper.ui:15
 msgid "Save location:"
@@ -4822,6 +4822,20 @@ msgstr ""
 "Define o status atual da reprodução no Pidgin. Verifique a FAQ do Pidgin "
 "para encontrar os serviços suportados."
 
+#: ../plugins/customcollectionorders/PLUGININFO:3
+msgid "Custom Collection Orders"
+msgstr ""
+
+#: ../plugins/customcollectionorders/PLUGININFO:4
+msgid "Users can add custom order to the collection panel"
+msgstr ""
+
+#: ../plugins/customcollectionorders/PLUGININFO:5
+#: ../plugins/desktopcover/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5
+#: ../plugins/minimode/PLUGININFO:5 ../plugins/moodbar/PLUGININFO:5
+msgid "GUI"
+msgstr "GUI"
+
 #: ../plugins/daapclient/PLUGININFO:4
 msgid ""
 "Enables access to DAAP music shares via the spydaap library. Share auto-"
@@ -4836,9 +4850,8 @@ msgstr ""
 "Opcional: python-zeroconf"
 
 #: ../plugins/daapclient/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
-#: ../plugins/icecast/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5
-#: ../plugins/librivox/PLUGININFO:5 ../plugins/podcasts/PLUGININFO:5
-#: ../plugins/somafm/PLUGININFO:5
+#: ../plugins/icecast/PLUGININFO:5 ../plugins/librivox/PLUGININFO:5
+#: ../plugins/podcasts/PLUGININFO:5 ../plugins/somafm/PLUGININFO:5
 msgid "Media Sources"
 msgstr "Fontes de Mídia"
 
@@ -4854,11 +4867,6 @@ msgstr ""
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
 msgstr "Mostra a capa do álbum atual na área de trabalho"
-
-#: ../plugins/desktopcover/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5
-#: ../plugins/minimode/PLUGININFO:5 ../plugins/moodbar/PLUGININFO:5
-msgid "GUI"
-msgstr "GUI"
 
 #: ../plugins/developer/PLUGININFO:3
 msgid "Developer"
@@ -4910,14 +4918,6 @@ msgstr ""
 msgid "Provides an IPython console that can be used to manipulate Exaile."
 msgstr ""
 "Fornece um console IPython que pode ser utilizado para manipular o Exaile."
-
-#: ../plugins/jamendo/PLUGININFO:3
-msgid "Jamendo"
-msgstr "Jamendo"
-
-#: ../plugins/jamendo/PLUGININFO:4
-msgid "Enables access to the Jamendo music catalogue."
-msgstr "Habilita acesso ao catálogo de músicas do Jamendo."
 
 #: ../plugins/karaoke/PLUGININFO:3
 msgid "Karaoke"
@@ -5184,9 +5184,11 @@ msgstr ""
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
 "Provides Wikipedia information about the current artist.\n"
+"\n"
 "Requires: webkit2gtk and its typelib file"
 msgstr ""
 "Fornece informação do Wikipedia sobre o artista em reprodução.\n"
+"\n"
 "Requer: webkit2gtk and its typelib file"
 
 #: ../plugins/winmmkeys/PLUGININFO:2
@@ -5256,15 +5258,72 @@ msgstr ""
 "ReplayGain, saída através de um dispositivo de saída secundário (ótimo para "
 "DJs!) e muito mais."
 
-#: ../data/ui/preferences/collection.ui:87
-msgid ""
-"Use this experimental feature to read and write ratings in audio file "
-"metadata instead of database, if possible.\n"
-"This feature should work for MP3, MP4, FLAC and OGG. "
-msgstr ""
-"Use este recurso experimental para ler e para gravar as classificações nos "
-"metadados do arquivo de áudio em vez do banco de dados, caso seja possível.\n"
-"Esse recurso deve funcionar para MP3, MP4, FLAC e OGG. "
+#~ msgid "Ready"
+#~ msgstr "Pronto"
+
+#~ msgid "Searching Jamendo catalogue..."
+#~ msgstr "Procurando catálogo do Jamendo..."
+
+#~ msgid "Retrieving song data..."
+#~ msgstr "Recebendo dados da canção..."
+
+#~ msgid "Append to Current"
+#~ msgstr "Adicionar à Lista atual"
+
+#~ msgid "Release date"
+#~ msgstr "Data de lançamento"
+
+#~ msgid "Rating this week"
+#~ msgstr "Avaliação nesta semana"
+
+#~ msgid "Rating this month"
+#~ msgstr "Avaliação neste mês"
+
+#~ msgid "Number of playlist additions"
+#~ msgstr "Número de adições à lista de reprodução"
+
+#~ msgid "Number of downloads"
+#~ msgstr "Número de downloads"
+
+#~ msgid "Number of listens"
+#~ msgstr "Número de Execuções"
+
+#~ msgid "Starred"
+#~ msgstr "Marcados com estrela"
+
+#~ msgid "Date of starring"
+#~ msgstr "Data de estréia"
+
+#~ msgid "Genre/Tags"
+#~ msgstr "Gênero/Etiquetas"
+
+#~ msgid "Order by:"
+#~ msgstr "Ordenar por:"
+
+#~ msgid "Order direction:"
+#~ msgstr "Direção de ordem:"
+
+#~ msgid "Results:"
+#~ msgstr "Resultados:"
+
+#~ msgid "Advanced"
+#~ msgstr "Avançado"
+
+#~ msgid "Jamendo"
+#~ msgstr "Jamendo"
+
+#~ msgid "Enables access to the Jamendo music catalogue."
+#~ msgstr "Habilita acesso ao catálogo de músicas do Jamendo."
+
+#~ msgid ""
+#~ "Use this experimental feature to read and write ratings in audio file "
+#~ "metadata instead of database, if possible.\n"
+#~ "This feature should work for MP3, MP4, FLAC and OGG. "
+#~ msgstr ""
+#~ "Use este recurso experimental para ler e para gravar as classificações "
+#~ "nos metadados do arquivo de áudio em vez do banco de dados, caso seja "
+#~ "possível.\n"
+#~ "Esse recurso deve funcionar para MP3, MP4, FLAC e OGG. "
 
 #~ msgid "Music;Player;Library;Collection;MP3;"
 #~ msgstr "Música;Tocador;Biblioteca;Coleção;MP3;"

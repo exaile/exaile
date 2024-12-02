@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-02 12:09+1000\n"
-"PO-Revision-Date: 2023-07-12 08:52+0000\n"
+"PO-Revision-Date: 2024-12-02 17:00+0000\n"
 "Last-Translator: Wellington Terumi Uemura <wellingtonuemura@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "exaile/master/pt_BR/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.9-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -3094,15 +3094,15 @@ msgstr "Reproduções"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:9
 msgid "Custom Collections"
-msgstr ""
+msgstr "Coleções personalizadas"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:63
 msgid "really delete?"
-msgstr ""
+msgstr "excluir de fato?"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:76
 msgid "Add or edit custom order"
-msgstr ""
+msgstr "Adicionar ou editar um pedido personalizado"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:88
 msgid ""
@@ -3110,6 +3110,9 @@ msgid ""
 "possible to use more than one tag per level.\n"
 "Every tag can be used."
 msgstr ""
+"Lista separada por vírgulas dos nós na exibição em forma de árvore. No "
+"momento, não é possível usar mais de uma tag por nível.\n"
+"Cada tag pode ser utilizada."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:92
 msgid ""
@@ -3117,18 +3120,21 @@ msgid ""
 "leaves in the tree. Tags are joined with a hyphen.\n"
 "Every tag can be used."
 msgstr ""
+"Lista separada por vírgulas das tags a serem usadas para exibir faixas "
+"individuais, como folhas na árvore. As tags devem ser unidas por um hífen.\n"
+"Todas as tags podem ser usadas."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:96
 msgid "Name of your order"
-msgstr ""
+msgstr "O nome do seu pedido"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:97
 msgid "Tree Levels:"
-msgstr ""
+msgstr "Níveis das árvores:"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:98
 msgid "Display:"
-msgstr ""
+msgstr "Exibir:"
 
 #: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:199
 #: ../plugins/history/__init__.py:247
@@ -3858,7 +3864,7 @@ msgstr "Pausar na Proteção de Tela"
 
 #: ../plugins/shutdown/__init__.py:47
 msgid "Close Exaile after Playback"
-msgstr ""
+msgstr "Fechar o Exaile após a reprodução"
 
 #: ../plugins/shutdown/__init__.py:60 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
@@ -3866,11 +3872,11 @@ msgstr "Desligar após a reprodução"
 
 #: ../plugins/shutdown/__init__.py:81
 msgid "Close scheduled"
-msgstr ""
+msgstr "Fechar a programação"
 
 #: ../plugins/shutdown/__init__.py:82
 msgid "Exaile will be closed at the end of playback."
-msgstr ""
+msgstr "O Exaile será fechado no final da reprodução."
 
 #: ../plugins/shutdown/__init__.py:88
 msgid "Shutdown scheduled"
@@ -3882,7 +3888,7 @@ msgstr "O computador será desligado após o fim da reprodução."
 
 #: ../plugins/shutdown/__init__.py:121
 msgid "Imminent Closing"
-msgstr ""
+msgstr "Fechamento iminente"
 
 #: ../plugins/shutdown/__init__.py:123
 msgid "Imminent Shutdown"
@@ -3891,7 +3897,7 @@ msgstr "Desligamento eminente"
 #: ../plugins/shutdown/__init__.py:145
 #, python-format
 msgid "Exaile will be closed in %d seconds."
-msgstr ""
+msgstr "O Exaile será fechado em %d segundos."
 
 #: ../plugins/shutdown/__init__.py:147
 #, python-format
@@ -3908,7 +3914,7 @@ msgstr "O computador não pode ser desligado utilizando D-Bus."
 
 #: ../plugins/shutdown/shutdown_preferences.py:5
 msgid "Shutdown"
-msgstr ""
+msgstr "Desligar"
 
 #: ../plugins/somafm/__init__.py:81 ../plugins/somafm/__init__.py:176
 msgid "Contacting SomaFM server..."
@@ -4129,7 +4135,7 @@ msgstr "Console Simples"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:83
 msgid "Add _Order"
-msgstr ""
+msgstr "Adicionar pedid_o"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
 msgid "Show IPv6 servers"
@@ -4656,11 +4662,11 @@ msgstr "Retomar quando sair da tela de descanso"
 
 #: ../plugins/shutdown/shutdown_preferences.ui:20
 msgid "Timeout (in s):"
-msgstr ""
+msgstr "Tempo limite (em segundos):"
 
 #: ../plugins/shutdown/shutdown_preferences.ui:48
 msgid "Activate \"Close Exaile after Playback\" automatically"
-msgstr ""
+msgstr "Ativar a opção \"Fechar o Exaile após a reprodução\" automaticamente"
 
 #: ../plugins/streamripper/streamripper.ui:15
 msgid "Save location:"
@@ -4824,11 +4830,11 @@ msgstr ""
 
 #: ../plugins/customcollectionorders/PLUGININFO:3
 msgid "Custom Collection Orders"
-msgstr ""
+msgstr "Pedidos das coleções personalizadas"
 
 #: ../plugins/customcollectionorders/PLUGININFO:4
 msgid "Users can add custom order to the collection panel"
-msgstr ""
+msgstr "Os usuários podem adicionar pedidos personalizados ao painel de coleta"
 
 #: ../plugins/customcollectionorders/PLUGININFO:5
 #: ../plugins/desktopcover/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5

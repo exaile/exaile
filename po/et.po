@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-02 12:09+1000\n"
-"PO-Revision-Date: 2024-10-31 06:00+0000\n"
+"PO-Revision-Date: 2024-12-03 17:00+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.2-dev\n"
+"X-Generator: Weblate 5.9-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -3089,15 +3089,15 @@ msgstr "Esituskordi"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:9
 msgid "Custom Collections"
-msgstr ""
+msgstr "Sinu loodud muusikakogud"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:63
 msgid "really delete?"
-msgstr ""
+msgstr "tõesti kustutame?"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:76
 msgid "Add or edit custom order"
-msgstr ""
+msgstr "Lisa või muuda kohandatud järjestust"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:88
 msgid ""
@@ -3105,6 +3105,9 @@ msgid ""
 "possible to use more than one tag per level.\n"
 "Every tag can be used."
 msgstr ""
+"Komadega eraldatud loend sõlmedest puuvaates. Hetkel saad kasutada vaid ühte "
+"silti ühe puuharu kohta.\n"
+"Võid kasutada kõiki silte."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:92
 msgid ""
@@ -3112,18 +3115,21 @@ msgid ""
 "leaves in the tree. Tags are joined with a hyphen.\n"
 "Every tag can be used."
 msgstr ""
+"Komadega eraldatud loend siltidest, mis üksikute lugude kuvamiseks "
+"puulehtede rollis. Silte ühendavad sidekriipsud.\n"
+"Võid kasutada kõiki silte."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:96
 msgid "Name of your order"
-msgstr ""
+msgstr "Sinu loodud järjestuse nimi"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:97
 msgid "Tree Levels:"
-msgstr ""
+msgstr "Puutasemed:"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:98
 msgid "Display:"
-msgstr ""
+msgstr "Kuva:"
 
 #: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:199
 #: ../plugins/history/__init__.py:247
@@ -3853,19 +3859,19 @@ msgstr "Taasesituse peatamine ekraanisäästja käivitumisel"
 
 #: ../plugins/shutdown/__init__.py:47
 msgid "Close Exaile after Playback"
-msgstr ""
+msgstr "Peale taasesituse lõppu sulge Exaile"
 
 #: ../plugins/shutdown/__init__.py:60 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
-msgstr "Väljalülitamine peale taasesituse lõppu"
+msgstr "Lülita välja peale taasesituse lõppu"
 
 #: ../plugins/shutdown/__init__.py:81
 msgid "Close scheduled"
-msgstr ""
+msgstr "Sulge märgitud ajal"
 
 #: ../plugins/shutdown/__init__.py:82
 msgid "Exaile will be closed at the end of playback."
-msgstr ""
+msgstr "Exaile suletakse taasesituse lõppedes."
 
 #: ../plugins/shutdown/__init__.py:88
 msgid "Shutdown scheduled"
@@ -3877,7 +3883,7 @@ msgstr "Arvuti väljalülitamine peale taasesituse lõppu."
 
 #: ../plugins/shutdown/__init__.py:121
 msgid "Imminent Closing"
-msgstr ""
+msgstr "Sulge koheselt"
 
 #: ../plugins/shutdown/__init__.py:123
 msgid "Imminent Shutdown"
@@ -3886,7 +3892,7 @@ msgstr "Lülita kohe välja"
 #: ../plugins/shutdown/__init__.py:145
 #, python-format
 msgid "Exaile will be closed in %d seconds."
-msgstr ""
+msgstr "Exaile suletakse %d sekundi pärast."
 
 #: ../plugins/shutdown/__init__.py:147
 #, python-format
@@ -3903,7 +3909,7 @@ msgstr "Kasutades D-Bus'i infosiini arvuti väljalülitamine ei õnnestunud."
 
 #: ../plugins/shutdown/shutdown_preferences.py:5
 msgid "Shutdown"
-msgstr ""
+msgstr "Lülita välja"
 
 #: ../plugins/somafm/__init__.py:81 ../plugins/somafm/__init__.py:176
 msgid "Contacting SomaFM server..."
@@ -4124,7 +4130,7 @@ msgstr "Lihtne konsool"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:83
 msgid "Add _Order"
-msgstr ""
+msgstr "Lisa _järjestus"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
 msgid "Show IPv6 servers"
@@ -4650,11 +4656,11 @@ msgstr "Jätka muusaika esitamist peale ekraanisäästja tegevuse lõppemist"
 
 #: ../plugins/shutdown/shutdown_preferences.ui:20
 msgid "Timeout (in s):"
-msgstr ""
+msgstr "Aegumine (sekundites):"
 
 #: ../plugins/shutdown/shutdown_preferences.ui:48
 msgid "Activate \"Close Exaile after Playback\" automatically"
-msgstr ""
+msgstr "Lülita valik „Peale taasesituse lõppu sulge Exaile“ sisse automaatselt"
 
 #: ../plugins/streamripper/streamripper.ui:15
 msgid "Save location:"
@@ -4819,11 +4825,12 @@ msgstr ""
 
 #: ../plugins/customcollectionorders/PLUGININFO:3
 msgid "Custom Collection Orders"
-msgstr ""
+msgstr "Sinu loodud muusikakogude jätjestus"
 
 #: ../plugins/customcollectionorders/PLUGININFO:4
 msgid "Users can add custom order to the collection panel"
 msgstr ""
+"Kasutajad saavad lisada muusikakogude blokis neile endavalitud järjestust"
 
 #: ../plugins/customcollectionorders/PLUGININFO:5
 #: ../plugins/desktopcover/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5

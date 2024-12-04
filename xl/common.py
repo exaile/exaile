@@ -730,7 +730,7 @@ class MetadataList:
         else:
             e = i
         self[i:e] = [item]
-        self.metadata[i:e] = [metadata]
+        self.metadata[i] = metadata
 
     def pop(self, i=-1):
         item = self[i]

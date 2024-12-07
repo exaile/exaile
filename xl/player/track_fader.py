@@ -83,6 +83,9 @@ class TrackFader:
         stop_offset = track.get_tag_raw('__stopoffset') or 0
         tracklen = track.get_tag_raw('__length') or 0
 
+        if tracklen == 0:
+            return (None,) * 4
+
         if stop_offset < 1:
             stop_offset = tracklen
 

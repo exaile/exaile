@@ -241,6 +241,10 @@ class CollectionPanel(panel.Panel):
         # FIXME: use something other than index here, since index
         # doesn't deal well with dynamic lists...
         active = settings.get_option('gui/collection_active_view', 0)
+        if len(self.orders) - 1 < active:
+            active = len(self.orders) - 1
+        if active < 0:
+            active = 0
         self.choice.set_active(active)
 
     def _check_collection_empty(self, *e):

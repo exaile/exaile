@@ -1,4 +1,4 @@
-Version='4.1.3'
+Version='4.1.4'
 Authors=['Brian Parma <execrable@gmail.com>']
 Name=_('DAAP Server')
 Description=_('This plugin integrates Spydaap (%s) into Exaile, so that a collection can be shared over DAAP.') % 'https://gitlab.com/egh/spydaap'

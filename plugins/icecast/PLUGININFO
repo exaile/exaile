@@ -1,4 +1,4 @@
-Version='4.1.3'
+Version='4.1.4'
 Authors=['Ingo Brunberg <ingo_brunberg@web.de>']
 Name='Icecast Radio'
 Description='Icecast Radio list'

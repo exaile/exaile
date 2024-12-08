@@ -1,6 +1,8 @@
 import os, json
 from gi.repository import Gtk
 
+from gi.repository import GLib
+
 from xl.nls import gettext as _
 from xl.metadata import tags
 from xlgui.widgets import common, dialogs
@@ -18,7 +20,7 @@ def init(dialog, builder):
 class eco_prefs:
     def __init__(self, dialog, builder):
         self.builder = builder
-        self.parent = dialog.window
+        self.parent = dialog.parent
 
         self.grid = self.builder.get_object('preferences_pane')
         self.model = self.builder.get_object('model')
@@ -58,9 +60,12 @@ class eco_prefs:
         order_number = self.model[path][1]
         self._order_edit(order_number)
 
-    def _on_remove_cellrenderer_clicked(self, cellrenderer, path):
+    def _on_remove_cellrenderer_clicked(self, cellrenderer, path: str):
         order_number = self.model[path][1]
-        check = dialogs.yesno(self.parent, _('really delete?'))
+        GLib.idle_add(self.ask_for_del, order_number)
+
+    def _ask_for_delete_order(self, order_number: int):
+        check = dialogs.yesno(self.parent, _('Really delete this order?'))
         if check != Gtk.ResponseType.YES:
             return
         del self.custom_orders[order_number]

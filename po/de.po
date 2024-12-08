@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-02 12:09+1000\n"
-"PO-Revision-Date: 2024-07-25 08:09+0000\n"
-"Last-Translator: Kuro Chu <mitecolider@gmail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/"
-">\n"
+"PO-Revision-Date: 2024-12-08 22:00+0000\n"
+"Last-Translator: Luzip665 <luzip665@posteo.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/>"
+"\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.9-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -3096,7 +3096,7 @@ msgstr "Wiedergabeanzahl"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:9
 msgid "Custom Collections"
-msgstr ""
+msgstr "Bibliotheksfilter"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:63
 msgid "really delete?"

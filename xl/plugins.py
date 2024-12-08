@@ -80,7 +80,7 @@ class PluginsManager:
         )
         plugin = importlib.util.module_from_spec(spec)
         # We need to temporarily add the plugin to sys.modules because otherwise the loader will fail to exec_module() if the plugin uses relative imports.
-        if pluginname in sys.modules:
+        if pluginname in sys.modules and sys.modules[pluginname] != None:
             raise InvalidPluginError(
                 _('Plugin is already loaded or has a conflicting name.')
             )

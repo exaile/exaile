@@ -230,7 +230,7 @@ class PluginManager:
 
         GLib.idle_add(self.ask_for_remove, plugin_name)
 
-    def ask_for_remove(self,  plugin_name: str):
+    def ask_for_remove(self, plugin_name: str):
         response = dialogs.yesno(
             self.window,
             "\n".join(

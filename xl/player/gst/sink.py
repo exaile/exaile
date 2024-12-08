@@ -55,6 +55,10 @@ SINK_PRESETS = {
         "name": "OSS",
         "pipe": "osssink"
     },
+    "pipewire": {
+        "name": "PipeWire",
+        "pipe": "pipewiresink"
+    },
     "pulse": {
         "name": "PulseAudio",
         "pipe": "pulsesink"
@@ -97,6 +101,10 @@ _autodetect_propnames = [
     'device',  # wasapi
 ]
 
+_autodetect_properties = [
+    'node.name',  # pipewire
+]
+
 
 def _gst_device_autodetect():
     # Linux: support was added in gstreamer 1.4
@@ -114,7 +122,14 @@ def _gst_device_autodetect():
                     device_id = getattr(device.props, prop)
                     break
             else:
-                continue
+                if not hasattr(device.props, 'properties'):
+                    continue
+                for prop in _autodetect_properties:
+                    if device.props.properties.has_field(prop):
+                        device_id = device.props.properties.get_string(prop)
+                        break
+                else:
+                    continue
 
             if not device_id:
                 continue

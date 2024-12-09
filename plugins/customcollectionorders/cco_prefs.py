@@ -1,6 +1,5 @@
 import os, json
 from gi.repository import Gtk
-
 from gi.repository import GLib
 
 from xl.nls import gettext as _

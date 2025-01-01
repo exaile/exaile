@@ -25,17 +25,31 @@ class eco_prefs:
         self.model = self.builder.get_object('model')
         self.list = self.builder.get_object('orders_tree')
 
-        """Show trash can"""
+        self.list.connect("row-activated", self._on_row_activated)
+        self.builder.connect_signals(self)
+
+        name_column = builder.get_object('name_column')
+
+        """Name column"""
+        name_cellrenderer = Gtk.CellRendererText()
+        name_column.pack_start(name_cellrenderer, True)
+        name_column.add_attribute(name_cellrenderer, 'text', 0)
+
+        """Edit button"""
+        edit_cellrenderer = common.ClickableCellRendererPixbuf()
+        edit_cellrenderer.props.icon_name = 'edit'
+        edit_cellrenderer.props.xalign = 1
+        edit_cellrenderer.props.width = 30
+        edit_cellrenderer.connect('clicked', self._on_edit_cellrenderer_clicked)
+        name_column.pack_start(edit_cellrenderer, False)
+
+        """Trash can"""
         remove_cellrenderer = common.ClickableCellRendererPixbuf()
         remove_cellrenderer.props.icon_name = 'edit-delete'
         remove_cellrenderer.props.xalign = 1
+        remove_cellrenderer.props.width = 30
         remove_cellrenderer.connect('clicked', self._on_remove_cellrenderer_clicked)
-
-        name_column = builder.get_object('name_column')
-        name_column.pack_start(remove_cellrenderer, True)
-
-        self.list.connect("row-activated", self._on_row_activated)
-        self.builder.connect_signals(self)
+        name_column.pack_start(remove_cellrenderer, False)
 
         self.custom_orders = custom_orders()
 
@@ -59,9 +73,13 @@ class eco_prefs:
         order_number = self.model[path][1]
         self._order_edit(order_number)
 
+    def _on_edit_cellrenderer_clicked(self, cellrenderer, path: str):
+        order_number = self.model[path][1]
+        GLib.idle_add(self._order_edit, order_number)
+
     def _on_remove_cellrenderer_clicked(self, cellrenderer, path: str):
         order_number = self.model[path][1]
-        GLib.idle_add(self.ask_for_del, order_number)
+        GLib.idle_add(self._ask_for_delete_order, order_number)
 
     def _ask_for_delete_order(self, order_number: int):
         check = dialogs.yesno(self.parent, _('Really delete this order?'))
@@ -89,7 +107,7 @@ class eco_prefs:
                 )
 
         tree_level_hint = _(
-            'Comma separated list of the nodes in the tree view. Right now it\'s not possible to use more than one tag per level.\n'
+            'Comma separated list of tags to use as nodes in the tree view. Right now it\'s not possible to use more than one tag per node.\n'
             'Every tag can be used.'
         )
         display_hint = _(

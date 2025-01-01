@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-02 12:09+1000\n"
-"PO-Revision-Date: 2021-08-28 23:32+0000\n"
-"Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
+"PO-Revision-Date: 2024-12-17 22:00+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/exaile/master/fi/"
 ">\n"
 "Language: fi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8.1-dev\n"
+"X-Generator: Weblate 5.9.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -811,7 +811,7 @@ msgid ""
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
 "tila: %(status)s, raita: %(title)s, esittäjä: %(artist)s, albumi: %(album)s, "
-"pituus: %(length)s, sijainti: %(progress)s%% [%(position)s]"
+"pituus: %(length)s, sijainti: %(progress)s %% [%(position)s]"
 
 #: ../xlgui/__init__.py:316
 msgid "Scanning collection..."
@@ -1017,7 +1017,7 @@ msgstr "Tapahtui toistovirhe!"
 #: ../xlgui/main.py:712
 #, python-format
 msgid "Buffering: %d%%..."
-msgstr "Puskuroidaan: %d%%..."
+msgstr "Puskuroidaan: %d %%..."
 
 #: ../xlgui/main.py:753 ../plugins/previewdevice/__init__.py:357
 msgid "Continue Playback"
@@ -1816,7 +1816,7 @@ msgstr "Vaimennettu"
 #: ../xlgui/widgets/playback.py:1445
 #, python-format
 msgid "%d%%"
-msgstr "%d%%"
+msgstr "%d %%"
 
 #: ../xlgui/widgets/playback.py:1450
 msgid "Full Volume"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-02 12:09+1000\n"
+"POT-Creation-Date: 2025-01-02 23:02+0100\n"
 "PO-Revision-Date: 2024-12-03 17:00+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
@@ -1179,7 +1179,7 @@ msgstr "Albumi esitaja - (Kuupäev - Album)"
 msgid "Collection"
 msgstr "Muusikakogu"
 
-#: ../xlgui/panel/collection.py:286
+#: ../xlgui/panel/collection.py:290
 msgid "Rescan Collection"
 msgstr "Analüüsi muusikakogu uuesti"
 
@@ -1297,7 +1297,7 @@ msgid "Add Radio Station"
 msgstr "Lisa raadiojaam"
 
 #: ../xlgui/panel/radio.py:199 ../data/ui/widgets/filter_dialog.ui:58
-#: ../plugins/customcollectionorders/cco_prefs.py:96
+#: ../plugins/customcollectionorders/cco_prefs.py:118
 msgid "Name:"
 msgstr "Nimi:"
 
@@ -1431,44 +1431,44 @@ msgid_plural "Failed plugins: %s"
 msgstr[0] "Viga pistikprogrammis: %s"
 msgstr[1] "Viga pistikprogrammides: %s"
 
-#: ../xlgui/preferences/plugin.py:235
+#: ../xlgui/preferences/plugin.py:238
 msgid "Do you really want to remove this plugin?"
 msgstr "Kas sa kindlasti soovid selle pistikprogrammi eemaldada?"
 
-#: ../xlgui/preferences/plugin.py:245
+#: ../xlgui/preferences/plugin.py:248
 msgid "Could not remove plugin!"
 msgstr "Pistikprogrammi ei õnnestunud eemaldada!"
 
-#: ../xlgui/preferences/plugin.py:261 ../xlgui/preferences/plugin.py:384
+#: ../xlgui/preferences/plugin.py:264 ../xlgui/preferences/plugin.py:387
 msgid "Could not disable plugin!"
 msgstr "Pistikprogrammi ei õnnestunud välja lülitada!"
 
-#: ../xlgui/preferences/plugin.py:271 ../xlgui/preferences/plugin.py:378
+#: ../xlgui/preferences/plugin.py:274 ../xlgui/preferences/plugin.py:381
 msgid "Could not enable plugin!"
 msgstr "Pistikprogrammi ei õnnestunud sisse lülitada!"
 
-#: ../xlgui/preferences/plugin.py:280
+#: ../xlgui/preferences/plugin.py:283
 msgid "Choose a Plugin"
 msgstr "Vali pistikprogramm"
 
-#: ../xlgui/preferences/plugin.py:291
+#: ../xlgui/preferences/plugin.py:294
 msgid "Plugin Archives"
 msgstr "Pistikprogrammide arhiiv"
 
-#: ../xlgui/preferences/plugin.py:298 ../xlgui/widgets/dialogs.py:737
+#: ../xlgui/preferences/plugin.py:301 ../xlgui/widgets/dialogs.py:737
 #: ../xlgui/widgets/dialogs.py:913
 msgid "All Files"
 msgstr "Kõik failid"
 
-#: ../xlgui/preferences/plugin.py:317
+#: ../xlgui/preferences/plugin.py:320
 msgid "Plugin already exists!"
 msgstr "Selline pistikprogramm on juba olemas!"
 
-#: ../xlgui/preferences/plugin.py:318
+#: ../xlgui/preferences/plugin.py:321
 msgid "Do you want to override it?"
 msgstr "Kas sa soovid eelmise versiooni asendada?"
 
-#: ../xlgui/preferences/plugin.py:326
+#: ../xlgui/preferences/plugin.py:329
 msgid "Plugin file installation failed!"
 msgstr "Pistikprogrammi paigaldamine ei õnnestunud!"
 
@@ -2617,8 +2617,8 @@ msgid "Remove track from queue upon playback"
 msgstr "Peale esitamist eemalda lugu esitusloendist"
 
 #: ../data/ui/preferences/playback.ui:221
-msgid "Remove after playback"
-msgstr "Eemalda peale esitust"
+msgid "Remove track from queue after playback"
+msgstr ""
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -2734,7 +2734,6 @@ msgstr ""
 "esituse järjekorda"
 
 #: ../data/ui/preferences/plugin.ui:66
-#: ../plugins/customcollectionorders/cco_pane.ui:51
 msgid "Plugin"
 msgstr "Pistikprogramm"
 
@@ -3087,29 +3086,26 @@ msgstr "Plaadi number"
 msgid "Play count"
 msgstr "Esituskordi"
 
-#: ../plugins/customcollectionorders/cco_prefs.py:9
+#: ../plugins/customcollectionorders/cco_prefs.py:10
 msgid "Custom Collections"
 msgstr "Sinu loodud muusikakogud"
 
-#: ../plugins/customcollectionorders/cco_prefs.py:63
-msgid "really delete?"
-msgstr "tõesti kustutame?"
+#: ../plugins/customcollectionorders/cco_prefs.py:85
+msgid "Really delete this order?"
+msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:76
+#: ../plugins/customcollectionorders/cco_prefs.py:98
 msgid "Add or edit custom order"
 msgstr "Lisa või muuda kohandatud järjestust"
 
-#: ../plugins/customcollectionorders/cco_prefs.py:88
+#: ../plugins/customcollectionorders/cco_prefs.py:110
 msgid ""
-"Comma separated list of the nodes in the tree view. Right now it's not "
-"possible to use more than one tag per level.\n"
+"Comma separated list of tags to use as nodes in the tree view. Right now "
+"it's not possible to use more than one tag per node.\n"
 "Every tag can be used."
 msgstr ""
-"Komadega eraldatud loend sõlmedest puuvaates. Hetkel saad kasutada vaid ühte "
-"silti ühe puuharu kohta.\n"
-"Võid kasutada kõiki silte."
 
-#: ../plugins/customcollectionorders/cco_prefs.py:92
+#: ../plugins/customcollectionorders/cco_prefs.py:114
 msgid ""
 "Comma separated list of the tags to use for displaying single tracks as "
 "leaves in the tree. Tags are joined with a hyphen.\n"
@@ -3119,15 +3115,15 @@ msgstr ""
 "puulehtede rollis. Silte ühendavad sidekriipsud.\n"
 "Võid kasutada kõiki silte."
 
-#: ../plugins/customcollectionorders/cco_prefs.py:96
+#: ../plugins/customcollectionorders/cco_prefs.py:118
 msgid "Name of your order"
 msgstr "Sinu loodud järjestuse nimi"
 
-#: ../plugins/customcollectionorders/cco_prefs.py:97
+#: ../plugins/customcollectionorders/cco_prefs.py:119
 msgid "Tree Levels:"
 msgstr "Puutasemed:"
 
-#: ../plugins/customcollectionorders/cco_prefs.py:98
+#: ../plugins/customcollectionorders/cco_prefs.py:120
 msgid "Display:"
 msgstr "Kuva:"
 
@@ -4059,6 +4055,7 @@ msgid "Set BPM?"
 msgstr "Kas seadistame tempo (bpm)?"
 
 #: ../plugins/bpm/msg.ui:63
+#, python-format
 msgid "Set autodetected BPM on %s?"
 msgstr "Kas määrame %s puhul automaatselt tuvastatud tempo (bpm)?"
 
@@ -4112,6 +4109,7 @@ msgstr "Asukoht: "
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
@@ -4128,7 +4126,11 @@ msgstr "Impordi lood andmekandjale"
 msgid "Simple Console"
 msgstr "Lihtne konsool"
 
-#: ../plugins/customcollectionorders/cco_pane.ui:83
+#: ../plugins/customcollectionorders/cco_pane.ui:51
+msgid "Custom orders"
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_pane.ui:77
 msgid "Add _Order"
 msgstr "Lisa _järjestus"
 
@@ -4521,6 +4523,7 @@ msgid "When main window is focused"
 msgstr "Kui põhiaken on fookuses"
 
 #: ../plugins/osd/osd_preferences.ui:69
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
@@ -5180,8 +5183,7 @@ msgid ""
 "\n"
 "Requires: webkit2gtk and its typelib file"
 msgstr ""
-"Võimaldab Wikipedia'st kuvada teavet hetkel esitusel oleva muusiku "
-"kohta.\n"
+"Võimaldab Wikipedia'st kuvada teavet hetkel esitusel oleva muusiku kohta.\n"
 "\n"
 "Eeldab: webkit2gtk ja tema typelib fail"
 
@@ -5252,6 +5254,21 @@ msgstr ""
 "taskuhäälingud, internetiraadiod nagu Icecast või Soma.FM, esitusvaljuse "
 "tundlikkus (ReplyGain), heliväljund teise seadmesse (see meeldib DJ'dele) "
 "ning palju muud huvitavat."
+
+#~ msgid "Remove after playback"
+#~ msgstr "Eemalda peale esitust"
+
+#~ msgid "really delete?"
+#~ msgstr "tõesti kustutame?"
+
+#~ msgid ""
+#~ "Comma separated list of the nodes in the tree view. Right now it's not "
+#~ "possible to use more than one tag per level.\n"
+#~ "Every tag can be used."
+#~ msgstr ""
+#~ "Komadega eraldatud loend sõlmedest puuvaates. Hetkel saad kasutada vaid "
+#~ "ühte silti ühe puuharu kohta.\n"
+#~ "Võid kasutada kõiki silte."
 
 #~ msgid "Ready"
 #~ msgstr "Valmis"

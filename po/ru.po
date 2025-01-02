@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-02 12:09+1000\n"
+"POT-Creation-Date: 2025-01-02 23:02+0100\n"
 "PO-Revision-Date: 2024-08-05 01:09+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
@@ -1186,7 +1186,7 @@ msgstr "Исполнитель альбома - (Дата - Альбом)"
 msgid "Collection"
 msgstr "Фонотека"
 
-#: ../xlgui/panel/collection.py:286
+#: ../xlgui/panel/collection.py:290
 msgid "Rescan Collection"
 msgstr "Пересканировать фонотеку"
 
@@ -1304,7 +1304,7 @@ msgid "Add Radio Station"
 msgstr "Добавить радиостанцию"
 
 #: ../xlgui/panel/radio.py:199 ../data/ui/widgets/filter_dialog.ui:58
-#: ../plugins/customcollectionorders/cco_prefs.py:96
+#: ../plugins/customcollectionorders/cco_prefs.py:118
 msgid "Name:"
 msgstr "Название:"
 
@@ -1436,44 +1436,44 @@ msgstr[0] "Ошибка в плагине: %s"
 msgstr[1] "Ошибки в плагинах: %s"
 msgstr[2] "Ошибки в плагинах: %s"
 
-#: ../xlgui/preferences/plugin.py:235
+#: ../xlgui/preferences/plugin.py:238
 msgid "Do you really want to remove this plugin?"
 msgstr "Уверены, что хотите удалить этот плагин?"
 
-#: ../xlgui/preferences/plugin.py:245
+#: ../xlgui/preferences/plugin.py:248
 msgid "Could not remove plugin!"
 msgstr "Не удалось удалить плагин!"
 
-#: ../xlgui/preferences/plugin.py:261 ../xlgui/preferences/plugin.py:384
+#: ../xlgui/preferences/plugin.py:264 ../xlgui/preferences/plugin.py:387
 msgid "Could not disable plugin!"
 msgstr "Не удалось отключить плагин!"
 
-#: ../xlgui/preferences/plugin.py:271 ../xlgui/preferences/plugin.py:378
+#: ../xlgui/preferences/plugin.py:274 ../xlgui/preferences/plugin.py:381
 msgid "Could not enable plugin!"
 msgstr "Не удалось включить плагин!"
 
-#: ../xlgui/preferences/plugin.py:280
+#: ../xlgui/preferences/plugin.py:283
 msgid "Choose a Plugin"
 msgstr "Выберите плагин"
 
-#: ../xlgui/preferences/plugin.py:291
+#: ../xlgui/preferences/plugin.py:294
 msgid "Plugin Archives"
 msgstr "Архивы плагинов"
 
-#: ../xlgui/preferences/plugin.py:298 ../xlgui/widgets/dialogs.py:737
+#: ../xlgui/preferences/plugin.py:301 ../xlgui/widgets/dialogs.py:737
 #: ../xlgui/widgets/dialogs.py:913
 msgid "All Files"
 msgstr "Все файлы"
 
-#: ../xlgui/preferences/plugin.py:317
+#: ../xlgui/preferences/plugin.py:320
 msgid "Plugin already exists!"
 msgstr "Плагин уже существует!"
 
-#: ../xlgui/preferences/plugin.py:318
+#: ../xlgui/preferences/plugin.py:321
 msgid "Do you want to override it?"
 msgstr "Хотите перезаписать его?"
 
-#: ../xlgui/preferences/plugin.py:326
+#: ../xlgui/preferences/plugin.py:329
 msgid "Plugin file installation failed!"
 msgstr "Установка плагина не удалась!"
 
@@ -2621,8 +2621,8 @@ msgid "Remove track from queue upon playback"
 msgstr "Удалить трек из «Очереди» после воспроизведения"
 
 #: ../data/ui/preferences/playback.ui:221
-msgid "Remove after playback"
-msgstr "Удалить по остановке воспроизведения"
+msgid "Remove track from queue after playback"
+msgstr ""
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -2740,7 +2740,6 @@ msgstr ""
 "треки из плейлиста, добавлять их в очередь, а не воспроизводить"
 
 #: ../data/ui/preferences/plugin.ui:66
-#: ../plugins/customcollectionorders/cco_pane.ui:51
 msgid "Plugin"
 msgstr "Плагины"
 
@@ -3093,41 +3092,41 @@ msgstr "Диск №"
 msgid "Play count"
 msgstr "Прослушиваний"
 
-#: ../plugins/customcollectionorders/cco_prefs.py:9
+#: ../plugins/customcollectionorders/cco_prefs.py:10
 msgid "Custom Collections"
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:63
-msgid "really delete?"
+#: ../plugins/customcollectionorders/cco_prefs.py:85
+msgid "Really delete this order?"
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:76
+#: ../plugins/customcollectionorders/cco_prefs.py:98
 msgid "Add or edit custom order"
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:88
+#: ../plugins/customcollectionorders/cco_prefs.py:110
 msgid ""
-"Comma separated list of the nodes in the tree view. Right now it's not "
-"possible to use more than one tag per level.\n"
+"Comma separated list of tags to use as nodes in the tree view. Right now "
+"it's not possible to use more than one tag per node.\n"
 "Every tag can be used."
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:92
+#: ../plugins/customcollectionorders/cco_prefs.py:114
 msgid ""
 "Comma separated list of the tags to use for displaying single tracks as "
 "leaves in the tree. Tags are joined with a hyphen.\n"
 "Every tag can be used."
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:96
+#: ../plugins/customcollectionorders/cco_prefs.py:118
 msgid "Name of your order"
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:97
+#: ../plugins/customcollectionorders/cco_prefs.py:119
 msgid "Tree Levels:"
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:98
+#: ../plugins/customcollectionorders/cco_prefs.py:120
 msgid "Display:"
 msgstr ""
 
@@ -4061,6 +4060,7 @@ msgid "Set BPM?"
 msgstr "Задать BPM?"
 
 #: ../plugins/bpm/msg.ui:63
+#, python-format
 msgid "Set autodetected BPM on %s?"
 msgstr "Задать автоопределённый BPM на %s?"
 
@@ -4114,6 +4114,7 @@ msgstr "Путь: "
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
@@ -4131,7 +4132,11 @@ msgstr "Импорт дорожек на диск"
 msgid "Simple Console"
 msgstr "Простая консоль"
 
-#: ../plugins/customcollectionorders/cco_pane.ui:83
+#: ../plugins/customcollectionorders/cco_pane.ui:51
+msgid "Custom orders"
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_pane.ui:77
 msgid "Add _Order"
 msgstr ""
 
@@ -4524,6 +4529,7 @@ msgid "When main window is focused"
 msgstr "Когда главное окно в фокусе"
 
 #: ../plugins/osd/osd_preferences.ui:69
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
@@ -5255,6 +5261,9 @@ msgstr ""
 "медиаплееров, подкаст, интернет-радио, таких как Icecast и Soma.FM, "
 "выравнивание громкости с помощью ReplayGain, вывод через вторичное "
 "устройство вывода (отлично подходит для диджеев!) и другое."
+
+#~ msgid "Remove after playback"
+#~ msgstr "Удалить по остановке воспроизведения"
 
 #~ msgid "Ready"
 #~ msgstr "Готово"

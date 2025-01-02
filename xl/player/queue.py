@@ -171,7 +171,9 @@ class PlayQueue(playlist.Playlist):
                         return self[0]
             else:
                 # if queue isn't removing items, it's just a normal playlist
-                return playlist.Playlist.get_next(self)
+                next = playlist.Playlist.get_next(self)
+                if next is not None:
+                    return next
         if self.current_playlist is not self:
             return self.current_playlist.get_next()
         elif self.last_playlist is not None:

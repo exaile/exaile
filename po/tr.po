@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-02 12:09+1000\n"
+"POT-Creation-Date: 2025-01-02 23:02+0100\n"
 "PO-Revision-Date: 2022-09-23 23:31+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/exaile/master/tr/"
@@ -1202,7 +1202,7 @@ msgstr "Albüm Sanatçısı - (Tarih - Albüm)"
 msgid "Collection"
 msgstr "Koleksiyon"
 
-#: ../xlgui/panel/collection.py:286
+#: ../xlgui/panel/collection.py:290
 msgid "Rescan Collection"
 msgstr "Koleksiyonu Yeniden Tara"
 
@@ -1324,7 +1324,7 @@ msgid "Add Radio Station"
 msgstr "Radyo istasyonu ekle"
 
 #: ../xlgui/panel/radio.py:199 ../data/ui/widgets/filter_dialog.ui:58
-#: ../plugins/customcollectionorders/cco_prefs.py:96
+#: ../plugins/customcollectionorders/cco_prefs.py:118
 msgid "Name:"
 msgstr "İsim:"
 
@@ -1463,46 +1463,46 @@ msgid_plural "Failed plugins: %s"
 msgstr[0] "Eklenti başarısız oldu: %s"
 msgstr[1] "Eklentiler başarısız oldu:%s"
 
-#: ../xlgui/preferences/plugin.py:235
+#: ../xlgui/preferences/plugin.py:238
 msgid "Do you really want to remove this plugin?"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:245
+#: ../xlgui/preferences/plugin.py:248
 #, fuzzy
 #| msgid "Could not enable plugin!"
 msgid "Could not remove plugin!"
 msgstr "Eklenti etkinleştirilemedi!"
 
-#: ../xlgui/preferences/plugin.py:261 ../xlgui/preferences/plugin.py:384
+#: ../xlgui/preferences/plugin.py:264 ../xlgui/preferences/plugin.py:387
 msgid "Could not disable plugin!"
 msgstr "Eklenti devre dışı bırakılamadı!"
 
-#: ../xlgui/preferences/plugin.py:271 ../xlgui/preferences/plugin.py:378
+#: ../xlgui/preferences/plugin.py:274 ../xlgui/preferences/plugin.py:381
 msgid "Could not enable plugin!"
 msgstr "Eklenti etkinleştirilemedi!"
 
-#: ../xlgui/preferences/plugin.py:280
+#: ../xlgui/preferences/plugin.py:283
 msgid "Choose a Plugin"
 msgstr "Eklenti Seç"
 
-#: ../xlgui/preferences/plugin.py:291
+#: ../xlgui/preferences/plugin.py:294
 msgid "Plugin Archives"
 msgstr "Eklenti Arşivleri"
 
-#: ../xlgui/preferences/plugin.py:298 ../xlgui/widgets/dialogs.py:737
+#: ../xlgui/preferences/plugin.py:301 ../xlgui/widgets/dialogs.py:737
 #: ../xlgui/widgets/dialogs.py:913
 msgid "All Files"
 msgstr "Bütün Dosyalar"
 
-#: ../xlgui/preferences/plugin.py:317
+#: ../xlgui/preferences/plugin.py:320
 msgid "Plugin already exists!"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:318
+#: ../xlgui/preferences/plugin.py:321
 msgid "Do you want to override it?"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:326
+#: ../xlgui/preferences/plugin.py:329
 msgid "Plugin file installation failed!"
 msgstr "Eklenti dosyası kurulumu başarısız oldu!"
 
@@ -2714,10 +2714,8 @@ msgid "Remove track from queue upon playback"
 msgstr ""
 
 #: ../data/ui/preferences/playback.ui:221
-#, fuzzy
-#| msgid "Repeat playback"
-msgid "Remove after playback"
-msgstr "Çalmayı tekrarla"
+msgid "Remove track from queue after playback"
+msgstr ""
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -2825,7 +2823,6 @@ msgid ""
 msgstr ""
 
 #: ../data/ui/preferences/plugin.ui:66
-#: ../plugins/customcollectionorders/cco_pane.ui:51
 msgid "Plugin"
 msgstr "Eklenti"
 
@@ -3174,41 +3171,41 @@ msgstr "Disk numarası"
 msgid "Play count"
 msgstr "Çalınma sayısı"
 
-#: ../plugins/customcollectionorders/cco_prefs.py:9
+#: ../plugins/customcollectionorders/cco_prefs.py:10
 msgid "Custom Collections"
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:63
-msgid "really delete?"
+#: ../plugins/customcollectionorders/cco_prefs.py:85
+msgid "Really delete this order?"
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:76
+#: ../plugins/customcollectionorders/cco_prefs.py:98
 msgid "Add or edit custom order"
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:88
+#: ../plugins/customcollectionorders/cco_prefs.py:110
 msgid ""
-"Comma separated list of the nodes in the tree view. Right now it's not "
-"possible to use more than one tag per level.\n"
+"Comma separated list of tags to use as nodes in the tree view. Right now "
+"it's not possible to use more than one tag per node.\n"
 "Every tag can be used."
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:92
+#: ../plugins/customcollectionorders/cco_prefs.py:114
 msgid ""
 "Comma separated list of the tags to use for displaying single tracks as "
 "leaves in the tree. Tags are joined with a hyphen.\n"
 "Every tag can be used."
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:96
+#: ../plugins/customcollectionorders/cco_prefs.py:118
 msgid "Name of your order"
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:97
+#: ../plugins/customcollectionorders/cco_prefs.py:119
 msgid "Tree Levels:"
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:98
+#: ../plugins/customcollectionorders/cco_prefs.py:120
 msgid "Display:"
 msgstr ""
 
@@ -4176,6 +4173,7 @@ msgid "Set BPM?"
 msgstr ""
 
 #: ../plugins/bpm/msg.ui:63
+#, python-format
 msgid "Set autodetected BPM on %s?"
 msgstr ""
 
@@ -4232,6 +4230,7 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
@@ -4249,7 +4248,11 @@ msgstr "Parçalar içe aktarılıyor"
 msgid "Simple Console"
 msgstr "Basit"
 
-#: ../plugins/customcollectionorders/cco_pane.ui:83
+#: ../plugins/customcollectionorders/cco_pane.ui:51
+msgid "Custom orders"
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_pane.ui:77
 msgid "Add _Order"
 msgstr ""
 
@@ -4651,6 +4654,7 @@ msgid "When main window is focused"
 msgstr "Ana pencere odaklandığında"
 
 #: ../plugins/osd/osd_preferences.ui:69
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
@@ -5310,6 +5314,11 @@ msgid ""
 "players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
 "output via a secondary output device (great for DJs!), and much more."
 msgstr ""
+
+#, fuzzy
+#~| msgid "Repeat playback"
+#~ msgid "Remove after playback"
+#~ msgstr "Çalmayı tekrarla"
 
 #~ msgid "Ready"
 #~ msgstr "Hazır"

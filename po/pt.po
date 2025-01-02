@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-02 12:09+1000\n"
+"POT-Creation-Date: 2025-01-02 23:02+0100\n"
 "PO-Revision-Date: 2024-05-30 06:09+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
@@ -1180,7 +1180,7 @@ msgstr "Artista do Álbum - (Data - Álbum)"
 msgid "Collection"
 msgstr "Coleção"
 
-#: ../xlgui/panel/collection.py:286
+#: ../xlgui/panel/collection.py:290
 msgid "Rescan Collection"
 msgstr "Reanalisar coleção"
 
@@ -1298,7 +1298,7 @@ msgid "Add Radio Station"
 msgstr "Adicionar estação de rádio"
 
 #: ../xlgui/panel/radio.py:199 ../data/ui/widgets/filter_dialog.ui:58
-#: ../plugins/customcollectionorders/cco_prefs.py:96
+#: ../plugins/customcollectionorders/cco_prefs.py:118
 msgid "Name:"
 msgstr "Nome:"
 
@@ -1429,44 +1429,44 @@ msgid_plural "Failed plugins: %s"
 msgstr[0] "Plugin que falhou: %s"
 msgstr[1] "Plugins que falharam: %s"
 
-#: ../xlgui/preferences/plugin.py:235
+#: ../xlgui/preferences/plugin.py:238
 msgid "Do you really want to remove this plugin?"
 msgstr "Você realmente deseja remover este plug-in?"
 
-#: ../xlgui/preferences/plugin.py:245
+#: ../xlgui/preferences/plugin.py:248
 msgid "Could not remove plugin!"
 msgstr "Não foi possível remover o plug-in!"
 
-#: ../xlgui/preferences/plugin.py:261 ../xlgui/preferences/plugin.py:384
+#: ../xlgui/preferences/plugin.py:264 ../xlgui/preferences/plugin.py:387
 msgid "Could not disable plugin!"
 msgstr "Não foi possível desativar o plugin!"
 
-#: ../xlgui/preferences/plugin.py:271 ../xlgui/preferences/plugin.py:378
+#: ../xlgui/preferences/plugin.py:274 ../xlgui/preferences/plugin.py:381
 msgid "Could not enable plugin!"
 msgstr "Não foi possível ativar o plugin!"
 
-#: ../xlgui/preferences/plugin.py:280
+#: ../xlgui/preferences/plugin.py:283
 msgid "Choose a Plugin"
 msgstr "Escolha um Plugin"
 
-#: ../xlgui/preferences/plugin.py:291
+#: ../xlgui/preferences/plugin.py:294
 msgid "Plugin Archives"
 msgstr "Arquivos de plugin"
 
-#: ../xlgui/preferences/plugin.py:298 ../xlgui/widgets/dialogs.py:737
+#: ../xlgui/preferences/plugin.py:301 ../xlgui/widgets/dialogs.py:737
 #: ../xlgui/widgets/dialogs.py:913
 msgid "All Files"
 msgstr "Todos os ficheiros"
 
-#: ../xlgui/preferences/plugin.py:317
+#: ../xlgui/preferences/plugin.py:320
 msgid "Plugin already exists!"
 msgstr "O plug-in já existe!"
 
-#: ../xlgui/preferences/plugin.py:318
+#: ../xlgui/preferences/plugin.py:321
 msgid "Do you want to override it?"
 msgstr "Deseja substituí-lo?"
 
-#: ../xlgui/preferences/plugin.py:326
+#: ../xlgui/preferences/plugin.py:329
 msgid "Plugin file installation failed!"
 msgstr "A instalação do plugin falhou!"
 
@@ -2620,8 +2620,8 @@ msgid "Remove track from queue upon playback"
 msgstr "Remover faixa da fila após a reprodução"
 
 #: ../data/ui/preferences/playback.ui:221
-msgid "Remove after playback"
-msgstr "Remover após a reprodução"
+msgid "Remove track from queue after playback"
+msgstr ""
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -2740,7 +2740,6 @@ msgstr ""
 "faixa da lista de reprodução, enfileire-a a faixa em vez de reproduzi-la"
 
 #: ../data/ui/preferences/plugin.ui:66
-#: ../plugins/customcollectionorders/cco_pane.ui:51
 msgid "Plugin"
 msgstr "Plugin"
 
@@ -3094,41 +3093,41 @@ msgstr "Número do disco"
 msgid "Play count"
 msgstr "Número de reproduções"
 
-#: ../plugins/customcollectionorders/cco_prefs.py:9
+#: ../plugins/customcollectionorders/cco_prefs.py:10
 msgid "Custom Collections"
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:63
-msgid "really delete?"
+#: ../plugins/customcollectionorders/cco_prefs.py:85
+msgid "Really delete this order?"
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:76
+#: ../plugins/customcollectionorders/cco_prefs.py:98
 msgid "Add or edit custom order"
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:88
+#: ../plugins/customcollectionorders/cco_prefs.py:110
 msgid ""
-"Comma separated list of the nodes in the tree view. Right now it's not "
-"possible to use more than one tag per level.\n"
+"Comma separated list of tags to use as nodes in the tree view. Right now "
+"it's not possible to use more than one tag per node.\n"
 "Every tag can be used."
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:92
+#: ../plugins/customcollectionorders/cco_prefs.py:114
 msgid ""
 "Comma separated list of the tags to use for displaying single tracks as "
 "leaves in the tree. Tags are joined with a hyphen.\n"
 "Every tag can be used."
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:96
+#: ../plugins/customcollectionorders/cco_prefs.py:118
 msgid "Name of your order"
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:97
+#: ../plugins/customcollectionorders/cco_prefs.py:119
 msgid "Tree Levels:"
 msgstr ""
 
-#: ../plugins/customcollectionorders/cco_prefs.py:98
+#: ../plugins/customcollectionorders/cco_prefs.py:120
 msgid "Display:"
 msgstr ""
 
@@ -4059,6 +4058,7 @@ msgid "Set BPM?"
 msgstr "Definir BPM?"
 
 #: ../plugins/bpm/msg.ui:63
+#, python-format
 msgid "Set autodetected BPM on %s?"
 msgstr "Definir BPM autodetectado em %s?"
 
@@ -4112,6 +4112,7 @@ msgstr "Caminho: "
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
@@ -4128,7 +4129,11 @@ msgstr "A importar faixas para o disco"
 msgid "Simple Console"
 msgstr "Console simples"
 
-#: ../plugins/customcollectionorders/cco_pane.ui:83
+#: ../plugins/customcollectionorders/cco_pane.ui:51
+msgid "Custom orders"
+msgstr ""
+
+#: ../plugins/customcollectionorders/cco_pane.ui:77
 msgid "Add _Order"
 msgstr ""
 
@@ -4522,6 +4527,7 @@ msgid "When main window is focused"
 msgstr "Quando a janela principal está focalizada"
 
 #: ../plugins/osd/osd_preferences.ui:69
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
@@ -5258,6 +5264,9 @@ msgstr ""
 "media portáteis, podcasts, rádio de internet como icecast e Soma.FM, "
 "ReplayGain, saída através de um dispositivo de saída secundária (óptimo para "
 "DJs!), e muito mais."
+
+#~ msgid "Remove after playback"
+#~ msgstr "Remover após a reprodução"
 
 #~ msgid "Ready"
 #~ msgstr "Pronto"

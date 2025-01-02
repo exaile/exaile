@@ -48,14 +48,8 @@
                 <child>
                   <object class="GtkTreeViewColumn" id="name_column">
                     <property name="sizing">fixed</property>
-                    <property name="title" translatable="yes">Plugin</property>
+                    <property name="title" translatable="yes">Custom orders</property>
                     <property name="expand">True</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="cellrenderertext1"/>
-                      <attributes>
-                        <attribute name="text">0</attribute>
-                      </attributes>
-                    </child>
                   </object>
                 </child>
               </object>

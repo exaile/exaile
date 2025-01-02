@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-02 23:02+0100\n"
-"PO-Revision-Date: 2024-12-08 22:00+0000\n"
+"PO-Revision-Date: 2025-01-03 07:04+0000\n"
 "Last-Translator: Luzip665 <luzip665@posteo.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/"
-">\n"
+"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/>"
+"\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -2621,7 +2621,7 @@ msgstr "Bei Wiedergabe Titel aus der Warteschlange entfernen"
 
 #: ../data/ui/preferences/playback.ui:221
 msgid "Remove track from queue after playback"
-msgstr ""
+msgstr "Erst nach Wiedergabe entfernen"
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -3099,11 +3099,11 @@ msgstr "Bibliotheksfilter"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:85
 msgid "Really delete this order?"
-msgstr ""
+msgstr "Soll dieser Filter wirklich gelöscht werden?"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:98
 msgid "Add or edit custom order"
-msgstr ""
+msgstr "Hinzufügen oder Bearbeiten eines Filters"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:110
 msgid ""
@@ -3111,6 +3111,9 @@ msgid ""
 "it's not possible to use more than one tag per node.\n"
 "Every tag can be used."
 msgstr ""
+"Kommagetrennte Liste der Tags, die als Knoten im Baum verwendet werden "
+"sollen. Derzeit ist es nur möglich, einen Tag pro Knoten anzugeben.\n"
+"Jeder Tag kann verwendet werden."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:114
 msgid ""
@@ -3118,18 +3121,21 @@ msgid ""
 "leaves in the tree. Tags are joined with a hyphen.\n"
 "Every tag can be used."
 msgstr ""
+"Kommagetrennte Liste der Tags, die für die Anzeige eines Titels verwendet "
+"werden sollen. Die Tags werden mit '-' verbunden.\n"
+"Jeder Tag kann verwendet werden."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:118
 msgid "Name of your order"
-msgstr ""
+msgstr "Name des Filters"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:119
 msgid "Tree Levels:"
-msgstr ""
+msgstr "Knoten:"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:120
 msgid "Display:"
-msgstr ""
+msgstr "Anzeige:"
 
 #: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:199
 #: ../plugins/history/__init__.py:247
@@ -3863,7 +3869,7 @@ msgstr "Pause durch Bildschirmschoner"
 
 #: ../plugins/shutdown/__init__.py:47
 msgid "Close Exaile after Playback"
-msgstr ""
+msgstr "Exaile nach der Wiedergabe beenden"
 
 #: ../plugins/shutdown/__init__.py:60 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
@@ -3871,11 +3877,11 @@ msgstr "Herunterfahren nach Wiedergabe"
 
 #: ../plugins/shutdown/__init__.py:81
 msgid "Close scheduled"
-msgstr ""
+msgstr "Beenden geplant"
 
 #: ../plugins/shutdown/__init__.py:82
 msgid "Exaile will be closed at the end of playback."
-msgstr ""
+msgstr "Exaile wird beendet, wenn die Wiedergabe beendet wird."
 
 #: ../plugins/shutdown/__init__.py:88
 msgid "Shutdown scheduled"
@@ -3887,7 +3893,7 @@ msgstr "Der Computer wird am Ende der Wiedergabe heruntergefahren."
 
 #: ../plugins/shutdown/__init__.py:121
 msgid "Imminent Closing"
-msgstr ""
+msgstr "Bevorstehendes Beenden"
 
 #: ../plugins/shutdown/__init__.py:123
 msgid "Imminent Shutdown"
@@ -3896,7 +3902,7 @@ msgstr "Bevorstehendes Herunterfahren"
 #: ../plugins/shutdown/__init__.py:145
 #, python-format
 msgid "Exaile will be closed in %d seconds."
-msgstr ""
+msgstr "Exaile wird in %d Sekunden beendet."
 
 #: ../plugins/shutdown/__init__.py:147
 #, python-format
@@ -3913,7 +3919,7 @@ msgstr "Der Computer konnte nicht mit Hilfe von D-Bus heruntergefahren werden."
 
 #: ../plugins/shutdown/shutdown_preferences.py:5
 msgid "Shutdown"
-msgstr ""
+msgstr "Herunterfahren"
 
 #: ../plugins/somafm/__init__.py:81 ../plugins/somafm/__init__.py:176
 msgid "Contacting SomaFM server..."
@@ -4139,11 +4145,11 @@ msgstr "Einfache Konsole"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:51
 msgid "Custom orders"
-msgstr ""
+msgstr "Benutzerdefinierte Filter"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:77
 msgid "Add _Order"
-msgstr ""
+msgstr "Filter hinzufügen"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
 msgid "Show IPv6 servers"
@@ -4673,7 +4679,7 @@ msgstr "Wiedergabe beim Schließen des Bildschirmschoners fortsetzen"
 
 #: ../plugins/shutdown/shutdown_preferences.ui:20
 msgid "Timeout (in s):"
-msgstr ""
+msgstr "Wartezeit (in s):"
 
 #: ../plugins/shutdown/shutdown_preferences.ui:48
 msgid "Activate \"Close Exaile after Playback\" automatically"
@@ -4842,11 +4848,11 @@ msgstr ""
 
 #: ../plugins/customcollectionorders/PLUGININFO:3
 msgid "Custom Collection Orders"
-msgstr ""
+msgstr "Benutzerdefinierte Filter in der Bibliothek"
 
 #: ../plugins/customcollectionorders/PLUGININFO:4
 msgid "Users can add custom order to the collection panel"
-msgstr ""
+msgstr "Hinzufügen eigener Filter im Bibliotheks-Panel"
 
 #: ../plugins/customcollectionorders/PLUGININFO:5
 #: ../plugins/desktopcover/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5

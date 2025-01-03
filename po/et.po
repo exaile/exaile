@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-02 23:02+0100\n"
-"PO-Revision-Date: 2024-12-03 17:00+0000\n"
+"PO-Revision-Date: 2025-01-03 08:44+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -2614,11 +2614,11 @@ msgstr "Loo lisamisel tühja esitusjärjekorda alustab kohe ka esitamist"
 #: ../plugins/quickbuttons/__init__.py:56
 #: ../plugins/quickbuttons/qb_prefs.ui:42
 msgid "Remove track from queue upon playback"
-msgstr "Peale esitamist eemalda lugu esitusloendist"
+msgstr "Esitamise alates eemalda lugu esitusloendist"
 
 #: ../data/ui/preferences/playback.ui:221
 msgid "Remove track from queue after playback"
-msgstr ""
+msgstr "Peale esitamist eemalda lugu esitusloendist"
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -3092,7 +3092,7 @@ msgstr "Sinu loodud muusikakogud"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:85
 msgid "Really delete this order?"
-msgstr ""
+msgstr "Kas kindlasti soovid selle järjestuse kustutada?"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:98
 msgid "Add or edit custom order"
@@ -3104,6 +3104,9 @@ msgid ""
 "it's not possible to use more than one tag per node.\n"
 "Every tag can be used."
 msgstr ""
+"Komadega eraldatud loend siltidest, mida kasutad sõlmedena puuvaates. Hetkel "
+"saad ühe sõlme kohta kasutada üht silti.\n"
+"Võid kasutada kõiki silte."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:114
 msgid ""
@@ -3111,7 +3114,7 @@ msgid ""
 "leaves in the tree. Tags are joined with a hyphen.\n"
 "Every tag can be used."
 msgstr ""
-"Komadega eraldatud loend siltidest, mis üksikute lugude kuvamiseks "
+"Komadega eraldatud loend siltidest, mida kasutad üksikute lugude kuvamiseks "
 "puulehtede rollis. Silte ühendavad sidekriipsud.\n"
 "Võid kasutada kõiki silte."
 
@@ -4128,7 +4131,7 @@ msgstr "Lihtne konsool"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:51
 msgid "Custom orders"
-msgstr ""
+msgstr "Sinu loodud järjestus"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:77
 msgid "Add _Order"

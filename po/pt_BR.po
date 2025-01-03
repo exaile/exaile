@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-02 23:02+0100\n"
-"PO-Revision-Date: 2024-12-02 17:00+0000\n"
+"PO-Revision-Date: 2025-01-03 07:04+0000\n"
 "Last-Translator: Wellington Terumi Uemura <wellingtonuemura@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "exaile/master/pt_BR/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -2621,7 +2621,7 @@ msgstr "Remover faixa da fila após reprodução"
 
 #: ../data/ui/preferences/playback.ui:221
 msgid "Remove track from queue after playback"
-msgstr ""
+msgstr "Remover a faixa da fila após a reprodução"
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -3097,7 +3097,7 @@ msgstr "Coleções personalizadas"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:85
 msgid "Really delete this order?"
-msgstr ""
+msgstr "Deseja realmente excluir essa ordem?"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:98
 msgid "Add or edit custom order"
@@ -3109,6 +3109,9 @@ msgid ""
 "it's not possible to use more than one tag per node.\n"
 "Every tag can be used."
 msgstr ""
+"Lista separada por vírgulas de tags a serem usadas como nós na exibição em "
+"árvore. No momento, não é possível usar mais de uma tag por nó.\n"
+"Cada tag pode ser usada."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:114
 msgid ""
@@ -4133,7 +4136,7 @@ msgstr "Console Simples"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:51
 msgid "Custom orders"
-msgstr ""
+msgstr "Pedidos personalizados"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:77
 msgid "Add _Order"

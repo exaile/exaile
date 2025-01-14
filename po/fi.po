@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-02 23:02+0100\n"
-"PO-Revision-Date: 2024-12-17 22:00+0000\n"
+"PO-Revision-Date: 2025-01-14 23:00+0000\n"
 "Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/exaile/master/fi/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.2-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -3249,8 +3249,8 @@ msgstr "Valitse hakemisto, josta haluat tuoda ryhmittelytunnisteet"
 #, python-brace-format
 msgid "{amount} track found"
 msgid_plural "{amount} tracks found"
-msgstr[0] "Löytyi [amount] raita"
-msgstr[1] "Löytyi [amount] raitaa"
+msgstr[0] "Löytyi {amount} raita"
+msgstr[1] "Löytyi {amount} raitaa"
 
 #: ../plugins/grouptagger/gt_mass.py:130
 #, python-brace-format
@@ -3667,10 +3667,9 @@ msgid "by {artist}"
 msgstr "{artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "from %(album)s"
+#, python-brace-format
 msgid "from {album}"
-msgstr "levyltä %(album)s"
+msgstr "{album}:sta"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"

@@ -278,7 +278,7 @@ class Marker(GObject.GObject):
         try:
             return self.__values[gproperty.name]
         except KeyError:
-            raise AttributeError('unknown property %s' % property.name)
+            raise AttributeError('unknown property %s' % gproperty.name)
 
     def do_set_property(self, gproperty, value):
         """

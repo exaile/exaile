@@ -284,10 +284,9 @@ class Marker(GObject.GObject):
         """
         Sets a GObject property
         """
-        try:
-            self.__values[gproperty.name] = value
-        except KeyError:
-            raise AttributeError('unknown property %s' % property.name)
+        if gproperty.name not in self.__values:
+            raise AttributeError('unknown property %s' % gproperty.name)
+        self.__values[gproperty.name] = value
 
 
 class MarkerManager(providers.ProviderHandler):

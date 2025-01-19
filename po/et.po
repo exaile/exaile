@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-02 23:02+0100\n"
-"PO-Revision-Date: 2025-01-03 08:44+0000\n"
+"PO-Revision-Date: 2025-01-20 02:00+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -2983,7 +2983,7 @@ msgstr "Korda lõppu"
 
 #: ../plugins/alarmclock/acprefs.py:21 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr "Alarmkell"
+msgstr "Äratuskell"
 
 #: ../plugins/amazoncovers/amazonprefs.py:21
 #: ../plugins/amazoncovers/PLUGININFO:3
@@ -3671,7 +3671,7 @@ msgstr "Meeleoluriba"
 #: ../plugins/multialarmclock/macprefs.py:22
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr "Äratuskell"
+msgstr "Äratuskell mitme äratusega"
 
 #: ../plugins/notify/__init__.py:48
 #, python-brace-format

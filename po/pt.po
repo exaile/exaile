@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-02 23:02+0100\n"
-"PO-Revision-Date: 2024-05-30 06:09+0000\n"
+"PO-Revision-Date: 2025-01-21 14:25+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -2621,7 +2621,7 @@ msgstr "Remover faixa da fila após a reprodução"
 
 #: ../data/ui/preferences/playback.ui:221
 msgid "Remove track from queue after playback"
-msgstr ""
+msgstr "Remover faixa da fila de espera após a reprodução"
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -3095,15 +3095,15 @@ msgstr "Número de reproduções"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:10
 msgid "Custom Collections"
-msgstr ""
+msgstr "Coleções personalizadas"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:85
 msgid "Really delete this order?"
-msgstr ""
+msgstr "Eliminar mesmo esta ordem?"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:98
 msgid "Add or edit custom order"
-msgstr ""
+msgstr "Adicionar ou editar uma ordem personalizada"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:110
 msgid ""
@@ -3111,6 +3111,10 @@ msgid ""
 "it's not possible to use more than one tag per node.\n"
 "Every tag can be used."
 msgstr ""
+"Lista separada por vírgulas de etiquetas a utilizar como \"nodes\" na vista "
+"de árvore. Atualmente, não é possível utilizar mais do que uma etiqueta por "
+"\"node\".\n"
+"Cada etiqueta pode ser utilizada."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:114
 msgid ""
@@ -3118,18 +3122,21 @@ msgid ""
 "leaves in the tree. Tags are joined with a hyphen.\n"
 "Every tag can be used."
 msgstr ""
+"Lista separada por vírgulas das etiquetas a utilizar para apresentar faixas "
+"individuais como folhas na árvore. As etiquetas são unidas por um hífen.\n"
+"Todas as etiquetas podem ser utilizadas."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:118
 msgid "Name of your order"
-msgstr ""
+msgstr "Nome da sua ordem"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:119
 msgid "Tree Levels:"
-msgstr ""
+msgstr "Níveis de árvore:"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:120
 msgid "Display:"
-msgstr ""
+msgstr "Mostrar:"
 
 #: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:199
 #: ../plugins/history/__init__.py:247
@@ -3859,7 +3866,7 @@ msgstr "Pausa ao ativar a proteção de ecrã"
 
 #: ../plugins/shutdown/__init__.py:47
 msgid "Close Exaile after Playback"
-msgstr ""
+msgstr "Fechar o Exaile após a reprodução"
 
 #: ../plugins/shutdown/__init__.py:60 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
@@ -3867,11 +3874,11 @@ msgstr "Desligar após a reprodução"
 
 #: ../plugins/shutdown/__init__.py:81
 msgid "Close scheduled"
-msgstr ""
+msgstr "Fechar agendado"
 
 #: ../plugins/shutdown/__init__.py:82
 msgid "Exaile will be closed at the end of playback."
-msgstr ""
+msgstr "O Exaile será encerrado no final da reprodução."
 
 #: ../plugins/shutdown/__init__.py:88
 msgid "Shutdown scheduled"
@@ -3883,7 +3890,7 @@ msgstr "O computador será desligado após o fim da reprodução."
 
 #: ../plugins/shutdown/__init__.py:121
 msgid "Imminent Closing"
-msgstr ""
+msgstr "Encerramento iminente"
 
 #: ../plugins/shutdown/__init__.py:123
 msgid "Imminent Shutdown"
@@ -3892,7 +3899,7 @@ msgstr "Desligamento eminente"
 #: ../plugins/shutdown/__init__.py:145
 #, python-format
 msgid "Exaile will be closed in %d seconds."
-msgstr ""
+msgstr "O Exaile será encerrado dentro de %d segundos."
 
 #: ../plugins/shutdown/__init__.py:147
 #, python-format
@@ -3909,7 +3916,7 @@ msgstr "O computador não pode ser desligado utilizando D-Bus."
 
 #: ../plugins/shutdown/shutdown_preferences.py:5
 msgid "Shutdown"
-msgstr ""
+msgstr "Encerrar"
 
 #: ../plugins/somafm/__init__.py:81 ../plugins/somafm/__init__.py:176
 msgid "Contacting SomaFM server..."
@@ -4131,11 +4138,11 @@ msgstr "Console simples"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:51
 msgid "Custom orders"
-msgstr ""
+msgstr "Ordens personalizadas"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:77
 msgid "Add _Order"
-msgstr ""
+msgstr "Adicionar _ordem"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
 msgid "Show IPv6 servers"
@@ -4663,19 +4670,19 @@ msgstr "Retomar quando sair do ecrã de descanso"
 
 #: ../plugins/shutdown/shutdown_preferences.ui:20
 msgid "Timeout (in s):"
-msgstr ""
+msgstr "Tempo limite (em s):"
 
 #: ../plugins/shutdown/shutdown_preferences.ui:48
 msgid "Activate \"Close Exaile after Playback\" automatically"
-msgstr ""
+msgstr "Ativar automaticamente “Fechar o Exaile após a reprodução"
 
 #: ../plugins/streamripper/streamripper.ui:15
 msgid "Save location:"
-msgstr "Local salvo:"
+msgstr "Local de guardar:"
 
 #: ../plugins/streamripper/streamripper.ui:39
 msgid "Relay port:"
-msgstr "Porta relé:"
+msgstr "Porta de retransmissão:"
 
 #: ../plugins/streamripper/streamripper.ui:60
 msgid "Rip to single file"
@@ -4683,7 +4690,7 @@ msgstr "Extrair para um único ficheiro"
 
 #: ../plugins/streamripper/streamripper.ui:74
 msgid "Delete incomplete files"
-msgstr "Deletar ficheiros incompletos"
+msgstr "Eliminar ficheiros incompletos"
 
 #: ../plugins/wikipedia/data/preferences.ui:15
 msgid "Language:"
@@ -4831,11 +4838,12 @@ msgstr ""
 
 #: ../plugins/customcollectionorders/PLUGININFO:3
 msgid "Custom Collection Orders"
-msgstr ""
+msgstr "Ordens de coleção personalizadas"
 
 #: ../plugins/customcollectionorders/PLUGININFO:4
 msgid "Users can add custom order to the collection panel"
 msgstr ""
+"Os utilizadores podem adicionar uma ordem personalizada ao painel de recolha"
 
 #: ../plugins/customcollectionorders/PLUGININFO:5
 #: ../plugins/desktopcover/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5

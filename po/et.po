@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-02 23:02+0100\n"
-"PO-Revision-Date: 2025-01-20 02:00+0000\n"
+"PO-Revision-Date: 2025-01-21 14:25+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -392,7 +392,7 @@ msgstr "Keela D-Bus tugi"
 
 #: ../xl/main.py:442
 msgid "Disable HAL support."
-msgstr "Keela HAL kasutamine."
+msgstr "Keela HALi kasutamine."
 
 #: ../xl/main.py:831
 msgid "Entire Library"
@@ -1399,7 +1399,7 @@ msgstr "Tõstame hinnangud andmebaasist meediafailide metaandmetesse"
 
 #: ../xlgui/preferences/collection.py:195
 msgid "Migrating metadata"
-msgstr "Metainfo ümbertõstmine"
+msgstr "Teisaldame metateavet"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -2098,7 +2098,7 @@ msgstr "Lisa nutikas esitusloend"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:350
 msgid "Edit Smart Playlist"
-msgstr "Nutika esitusloendi muutmine"
+msgstr "Muuda nutikat esitusloendit"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:421
 msgid "Sort by:"
@@ -2208,7 +2208,7 @@ msgstr "_Parim sobivus"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
-msgstr "Seadete haldamine"
+msgstr "Seademehaldus"
 
 #: ../data/ui/device_manager.ui:65
 msgid "Icon"
@@ -2897,7 +2897,7 @@ msgstr "Sega tulemused"
 
 #: ../data/ui/widgets/filter_dialog.ui:165
 msgid "Add"
-msgstr "Lisamine"
+msgstr "Lisa"
 
 #. This is a check box in the Add Smart Playlist dialog. If checked, a numeric text entry becomes active and it specifies a limit on the number of tracks the resulting playlist contains.
 #: ../data/ui/widgets/filter_dialog.ui:194
@@ -3854,7 +3854,7 @@ msgstr "Esitusvaljuse tundlikkus"
 #: ../plugins/screensaverpause/prefs.py:5
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr "Taasesituse peatamine ekraanisäästja käivitumisel"
+msgstr "Peata esitamine ekraanisäästja käivitumisel"
 
 #: ../plugins/shutdown/__init__.py:47
 msgid "Close Exaile after Playback"
@@ -3878,7 +3878,7 @@ msgstr "Arvuti väljalülitamise aeg on üles märgitud"
 
 #: ../plugins/shutdown/__init__.py:89
 msgid "Computer will be shutdown at the end of playback."
-msgstr "Arvuti väljalülitamine peale taasesituse lõppu."
+msgstr "Lülita arvuti välja peale esituse lõppu."
 
 #: ../plugins/shutdown/__init__.py:121
 msgid "Imminent Closing"
@@ -3912,7 +3912,7 @@ msgstr "Lülita välja"
 
 #: ../plugins/somafm/__init__.py:81 ../plugins/somafm/__init__.py:176
 msgid "Contacting SomaFM server..."
-msgstr "Ühenduse loomine SomaFM serveriga..."
+msgstr "Ühendame SomaFM serveriga..."
 
 #: ../plugins/somafm/__init__.py:93 ../plugins/somafm/__init__.py:96
 msgid "Error connecting to SomaFM server."

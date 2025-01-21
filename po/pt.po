@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-02 23:02+0100\n"
-"PO-Revision-Date: 2025-01-21 14:25+0000\n"
+"PO-Revision-Date: 2025-01-21 23:00+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
@@ -1237,7 +1237,7 @@ msgstr "_Nova estação"
 #: ../xlgui/panel/playlists.py:134
 #, python-format
 msgid "Delete the playlist \"%s\"?"
-msgstr "Apagar lista de reprodução \"%s\"?"
+msgstr "Eliminar lista de reprodução \"%s\"?"
 
 #: ../xlgui/panel/playlists.py:151
 msgid "Enter the new name you want for your playlist"
@@ -1431,7 +1431,7 @@ msgstr[1] "Plugins que falharam: %s"
 
 #: ../xlgui/preferences/plugin.py:238
 msgid "Do you really want to remove this plugin?"
-msgstr "Você realmente deseja remover este plug-in?"
+msgstr "Pretende remover este plugin?"
 
 #: ../xlgui/preferences/plugin.py:248
 msgid "Could not remove plugin!"
@@ -1778,7 +1778,7 @@ msgstr "Exportar _ficheiros"
 
 #: ../xlgui/widgets/menuitems.py:333
 msgid "_Delete Playlist"
-msgstr "Apagar lista de repro_dução"
+msgstr "Eliminar lista de repro_dução"
 
 #: ../xlgui/widgets/notebook.py:254
 msgid "Close Tab"
@@ -2436,11 +2436,11 @@ msgid ""
 "href=\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
 "extension</a> (or a similar one) installed."
 msgstr ""
-"Os ícones da bandeja não são suportados em algumas plataformas, mais "
-"notavelmente em Wayland. No GNOME Shell >=3.26 no Xorg, os ícones da bandeja "
-"funcionam somente se você tiver a <a href=\"https://extensions.gnome.org/"
-"extension/495/topicons/\">extensão \"TopIcons\"</a> (ou uma semelhante) "
-"instalada."
+"Os ícones da área de notificação não são suportados em algumas plataformas, "
+"mais notavelmente em Wayland. No GNOME Shell >=3.26 no Xorg, os ícones da "
+"área de notificação funcionam apenas se tiver a <a href="
+"\"https://extensions.gnome.org/extension/495/topicons/\">extensão "
+"\"TopIcons\"</a> (ou uma semelhante) instalada."
 
 #: ../data/ui/preferences/appearance.ui:343
 msgid "Note:"
@@ -2736,7 +2736,7 @@ msgid ""
 "When you double click or press enter to play a track in a playlist, queue "
 "the track instead of playing it"
 msgstr ""
-"Quando você der um clique duplo ou carregar em enter para reproduzir uma "
+"Quando der um clique duplo ou premir a tecla em Enter para reproduzir uma "
 "faixa da lista de reprodução, enfileire-a a faixa em vez de reproduzi-la"
 
 #: ../data/ui/preferences/plugin.ui:66
@@ -3029,7 +3029,7 @@ msgstr "Marcar esta faixa como favorita"
 
 #: ../plugins/bookmarks/__init__.py:215
 msgid "_Delete Bookmark"
-msgstr "Apagar Favorito"
+msgstr "Eliminar favorito"
 
 #: ../plugins/bookmarks/__init__.py:219
 msgid "_Clear Bookmarks"
@@ -3213,7 +3213,7 @@ msgstr "Importar etiquetas do diretório"
 
 #: ../plugins/grouptagger/__init__.py:113
 msgid "_Mass rename/delete tags"
-msgstr "Renomear/apagar etiquetas em _massa"
+msgstr "Renomear/eliminar etiquetas em _massa"
 
 #: ../plugins/grouptagger/__init__.py:122
 msgid "E_xport collection tags to JSON"
@@ -3290,15 +3290,15 @@ msgstr[1] "Substituir '{old_tag}' com '{new_tag}' em {amount} faixas?"
 #, python-brace-format
 msgid "Delete '{tag}' from {amount} track?"
 msgid_plural "Delete '{tag}' from {amount} tracks?"
-msgstr[0] "Apagar '{tag}' em {amount} faixa?"
-msgstr[1] "Apagar '{tag}' em {amount} faixas?"
+msgstr[0] "Eliminar '{tag}' em {amount} faixa?"
+msgstr[1] "Eliminar '{tag}' em {amount} faixas?"
 
 #: ../plugins/grouptagger/gt_mass.py:166
 msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
 msgstr ""
-"Você deve re-analisar a sua coleção antes de utilizar a função de renomear "
+"Deve re-analisar a sua coleção antes de utilizar a função de renomear "
 "etiquetas em massa para garantir que todas as etiquetas estão atualizadas. "
 "Re-analizar agora?"
 
@@ -3325,7 +3325,7 @@ msgstr "Adicionar etiqueta nova"
 
 #: ../plugins/grouptagger/gt_widgets.py:174
 msgid "Delete tag"
-msgstr "Apagar etiqueta"
+msgstr "Eliminar etiqueta"
 
 #: ../plugins/grouptagger/gt_widgets.py:185
 msgid "Add new category"
@@ -3402,7 +3402,7 @@ msgstr "Histórico de reprodução"
 
 #: ../plugins/history/__init__.py:122
 msgid "Erase stored history?"
-msgstr "Apagar o histórico armazenado?"
+msgstr "Eliminar o histórico armazenado?"
 
 #: ../plugins/history/__init__.py:229
 msgid "Save History"
@@ -3758,7 +3758,7 @@ msgstr "Atualizar podcast"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Delete"
-msgstr "Apagar"
+msgstr "Eliminar"
 
 #: ../plugins/podcasts/__init__.py:121
 msgid "Enter the URL of the podcast to add"
@@ -4322,7 +4322,7 @@ msgstr "Substituir"
 
 #: ../plugins/grouptagger/gt_mass.ui:35
 msgid "Mass Rename/Delete Tags"
-msgstr "Renomear/apagar etiquetas em massa"
+msgstr "Renomear/eliminar etiquetas em massa"
 
 #: ../plugins/grouptagger/gt_mass.ui:99
 msgid "If empty, matches all tracks"
@@ -4334,7 +4334,7 @@ msgstr "Pesquisar etiquetas"
 
 #: ../plugins/grouptagger/gt_mass.ui:112
 msgid "Use the empty string to delete the tag"
-msgstr "Use a cadeia de caracteres vazia para apagar a etiqueta"
+msgstr "Use a cadeia de caracteres vazia para eliminar a etiqueta"
 
 #: ../plugins/grouptagger/gt_mass.ui:114
 msgid "Replace Tag"
@@ -4571,7 +4571,7 @@ msgstr "Exibir barra de progresso"
 msgid ""
 "As long as this preferences page is open, you can move and resize the OSD."
 msgstr ""
-"Enquanto esta página de preferências estiver aberta, você pode mover e "
+"Enquanto esta página de preferências estiver aberta, pode mover e "
 "redimensionar o OSD."
 
 #: ../plugins/playlistanalyzer/analyzer.ui:73
@@ -5066,7 +5066,7 @@ msgid ""
 "GNOME Shell"
 msgstr ""
 "Suporte parcial para MPRIS (Media Player Remote Interface Specification) "
-"2.2, permitindo que você controle Exaile de clientes suportados, por "
+"2.2, permitindo que você controle o Exaile de clientes suportados, por "
 "exemplo, o GNOME Shell"
 
 #: ../plugins/multialarmclock/PLUGININFO:4

@@ -301,7 +301,7 @@ format:
 check_format:
 	$(BLACK) --check --diff -S *.py plugins/ xl/ xlgui/ tests/ tools/installer/exaile.spec
 
-desktop_files: builddir
+desktop_files: builddir pot
 	msgfmt --desktop --template=data/exaile.desktop.in -d po -o build/exaile.desktop
 	msgfmt --xml --template=data/exaile.appdata.xml.in -d po -o build/exaile.appdata.xml
 

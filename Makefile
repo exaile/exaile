@@ -181,10 +181,8 @@ install-target: make-install-dirs
 	install -p -m 644 data/ui/preferences/*.ui $(EXAILESHAREDIR)/data/ui/preferences
 	install -p -m 644 data/ui/preferences/widgets/*.ui $(EXAILESHAREDIR)/data/ui/preferences/widgets
 	install -p -m 644 data/ui/widgets/*.ui $(EXAILESHAREDIR)/data/ui/widgets
-	install -p -m 644 build/exaile.desktop \
-		$(DESTDIR)$(DATADIR)/applications/
-	install -p -m 644 build/exaile.appdata.xml \
-		$(DESTDIR)$(DATADIR)/metainfo/
+	-install -p -m 644 build/exaile.desktop $(DESTDIR)$(DATADIR)/applications/
+	-install -p -m 644 build/exaile.appdata.xml $(DESTDIR)$(DATADIR)/metainfo/
 	-install -p -m 644 build/exaile.1.gz $(EXAILEMANDIR)/man1/
 	-install -p -m 644 build/exaile.bash-completion $(DESTDIR)$(BASHCOMPDIR)/exaile
 	-install -p -m 644 build/exaile.fish-completion $(DESTDIR)$(FISHCOMPDIR)/exaile.fish
@@ -206,7 +204,7 @@ install-target: make-install-dirs
 	mkdir -p $(LOCALE_DIR)
 	-msgmerge -q -o - $< po/messages.pot | msgfmt -c -o $(LOCALE_DIR)/exaile.mo -
 
-locale: builddir $(LOCALE_OBJS) desktop_files
+locale: $(LOCALE_OBJS)
 
 install-locale:
 	for f in `find build/locale -name exaile.mo` ; do \
@@ -258,7 +256,6 @@ pot:
 	  xgettext -j -o messages.pot '../data/exaile.appdata.xml.in' )
 	find po -name '*.po' -exec \
 	  msgmerge --previous --no-fuzzy-matching --update {} po/messages.pot \;
-	echo $(LINGUAS) > po/LINGUAS
 
 potball: builddir
 	tar --bzip2 --format=posix -cf build/exaile-po.tar.bz2 po/ \
@@ -302,8 +299,10 @@ check_format:
 	$(BLACK) --check --diff -S *.py plugins/ xl/ xlgui/ tests/ tools/installer/exaile.spec
 
 desktop_files: builddir
+	echo $(LINGUAS) > po/LINGUAS
 	msgfmt --desktop --template=data/exaile.desktop.in -d po -o build/exaile.desktop
 	msgfmt --xml --template=data/exaile.appdata.xml.in -d po -o build/exaile.appdata.xml
+	rm po/LINGUAS
 
 desktop_files_no_locale: builddir
 	cp data/exaile.desktop.in build/exaile.desktop

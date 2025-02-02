@@ -31,26 +31,31 @@ USER_AGENT_HEADERS = None
 
 class BackendError(Exception):
     "Raised if the AS backend does something funny"
+
     pass
 
 
 class AuthError(Exception):
     "Raised on authencitation errors"
+
     pass
 
 
 class PostError(Exception):
     "Raised if something goes wrong when posting data to AS"
+
     pass
 
 
 class SessionError(Exception):
     "Raised when problems with the session exist"
+
     pass
 
 
 class ProtocolError(Exception):
     "Raised on general Protocol errors"
+
     pass
 
 

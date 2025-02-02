@@ -25,7 +25,7 @@
 # from your version.
 
 """
-    General functions and classes shared in the codebase
+General functions and classes shared in the codebase
 """
 
 from collections import deque

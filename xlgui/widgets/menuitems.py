@@ -25,7 +25,7 @@
 # from your version.
 
 """
-    Collection of useful stock MenuItems for use with xlgui.widgets.menu
+Collection of useful stock MenuItems for use with xlgui.widgets.menu
 """
 
 # TODO: how should we document standardization of context's

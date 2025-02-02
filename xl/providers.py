@@ -25,9 +25,9 @@
 # from your version.
 
 """
-    A generic framework for service providers, recommended to be used
-    whenever there are multiple ways of accomplishing a task or multiple
-    sources can offer the required data.
+A generic framework for service providers, recommended to be used
+whenever there are multiple ways of accomplishing a task or multiple
+sources can offer the required data.
 """
 
 from xl import event

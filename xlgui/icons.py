@@ -25,7 +25,7 @@
 # from your version.
 
 """
-    Provides methods for convenient icons and image handling
+Provides methods for convenient icons and image handling
 """
 
 import glob

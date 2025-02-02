@@ -1,8 +1,8 @@
 """
-    This plugin will make an IPC call to prevent the computer from suspending
-    during music playback
+This plugin will make an IPC call to prevent the computer from suspending
+during music playback
 
-    TODO: use Gtk.Application.inhibit() for less error prone inhibition.
+TODO: use Gtk.Application.inhibit() for less error prone inhibition.
 """
 
 try:

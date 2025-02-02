@@ -25,10 +25,10 @@
 # from your version.
 
 """
-    D-Bus interface for playback control, data query and others
+D-Bus interface for playback control, data query and others
 
-    Access through the ``/org/exaile/Exaile`` object which
-    implements the ``org.exaile.Exaile`` interface
+Access through the ``/org/exaile/Exaile`` object which
+implements the ``org.exaile.Exaile`` interface
 """
 
 from collections import namedtuple

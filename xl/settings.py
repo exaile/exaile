@@ -25,7 +25,7 @@
 # from your version.
 
 """
-    Central storage of application and user settings
+Central storage of application and user settings
 """
 
 import ast

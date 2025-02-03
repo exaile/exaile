@@ -8,6 +8,11 @@
 import sys
 
 
+# from python's unittest.mock, Python license
+def _is_magic(name):
+    return '__%s__' % name[2:-2] == name
+
+
 class MockGiModule:
     def __init__(self, *args, **kwargs):
         pass
@@ -17,10 +22,8 @@ class MockGiModule:
 
     @classmethod
     def __getattr__(cls, name):
-        if name in ('__file__', '__path__'):
-            return '/dev/null'
-        elif name in '__mro_entries__':
-            raise AttributeError("'MockGiModule' object has no attribute '%s'" % (name))
+        if _is_magic(name):
+            raise AttributeError(name)
         elif name in 'GObject':
             # This corresponds to GObject class in the GI (GObject)
             # module - we need to return type instead of an instance!
@@ -65,12 +68,8 @@ class Mock:
 
     @classmethod
     def __getattr__(cls, name):
-        if name in ('__file__', '__path__'):
-            return '/dev/null'
-        elif name in ('__qualname__',):
-            return ""
-        elif name in ('__mro_entries__',):
-            raise AttributeError("'Mock' object has no attribute '%s'" % (name))
+        if _is_magic(name):
+            raise AttributeError(name)
         elif name in ('Gio', 'GLib', 'GObject', 'Gst', 'Gtk', 'Gdk'):
             # These are reached via 'from gi.repository import x' and
             # correspond to GI sub-modules - need to return an instance

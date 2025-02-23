@@ -61,7 +61,7 @@ class SqliteDbm(MutableMapping[bytes, bytes]):
         self.autocommit = autocommit
         path_urlquoted = urllib.parse.quote(os.fsencode(path))
         uri = f"file:{path_urlquoted}?mode={mode}"
-        if sys.version_info >= (3, 13):
+        if sys.version_info >= (3, 12):
             self.conn = conn = sqlite3.connect(
                 uri, autocommit=autocommit, check_same_thread=False, uri=True
             )

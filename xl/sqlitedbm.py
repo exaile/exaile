@@ -140,7 +140,7 @@ class SqliteDbm(MutableMapping[bytes, bytes]):
         self.conn.execute("REPLACE INTO Dict VALUES (?, ?)", (key, value))
 
     @staticmethod
-    def __fix_type(obj: Any) -> bytes:
+    def __fix_type(obj: object) -> bytes:
         if isinstance(obj, bytes):
             return obj
         if isinstance(obj, str):

@@ -69,7 +69,7 @@ class SqliteDbm(MutableMapping[bytes, bytes]):
             self.conn = conn = sqlite3.connect(
                 uri,
                 check_same_thread=False,
-                isolation_level="IMMEDIATE" if autocommit else "DEFERRED",
+                isolation_level=None if autocommit else "DEFERRED",
                 uri=True,
             )
         # Our database is a Dict table with (key, value) columns.

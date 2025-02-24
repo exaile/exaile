@@ -1,13 +1,13 @@
 """
-    This module is a low-level reader and parser for audio CDs.
-    It heavily relies on ioctls to the linux kernel.
+This module is a low-level reader and parser for audio CDs.
+It heavily relies on ioctls to the linux kernel.
 
-    Original source for the code:
-    http://www.carey.geek.nz/code/python-cdrom/cdtoc.py
+Original source for the code:
+http://www.carey.geek.nz/code/python-cdrom/cdtoc.py
 
-    Source for all the magical constants and more infos on the ioctls:
-    linux/include/uapi/linux/cdrom.h
-    https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/linux/cdrom.h
+Source for all the magical constants and more infos on the ioctls:
+linux/include/uapi/linux/cdrom.h
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/linux/cdrom.h
 """
 
 from __future__ import division

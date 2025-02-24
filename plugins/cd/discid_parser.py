@@ -1,6 +1,6 @@
 """
-    This module is a parser for audio CDs based on discid.
-    It is compatible with both python-discid and python-libdiscid.
+This module is a parser for audio CDs based on discid.
+It is compatible with both python-discid and python-libdiscid.
 """
 
 try:  # allow both python-discid and python-libdiscid

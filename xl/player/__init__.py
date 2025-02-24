@@ -25,7 +25,7 @@
 # from your version.
 
 """
-    Allows for playback and queue control
+Allows for playback and queue control
 """
 
 __all__ = ['adapters', 'gst', 'queue', 'PLAYER', 'QUEUE']

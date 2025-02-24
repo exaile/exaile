@@ -1,6 +1,6 @@
-Version='4.1.3'
+Version='4.1.4'
 Authors=['JC Brand <jc@opkode.com>']
 Name=_('Wikipedia')
-Description=_('Provides Wikipedia information about the current artist.\nRequires: webkit2gtk and its typelib file')
+Description=_('Provides Wikipedia information about the current artist.\n\nRequires: webkit2gtk and its typelib file')
 Category=_('Information')
 RequiredModules=['gi:WebKit2']

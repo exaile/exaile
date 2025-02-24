@@ -1,24 +1,24 @@
 """
-    This module is a parser for audio CDs based on musicbrainzngs and discid.
+This module is a parser for audio CDs based on musicbrainzngs and discid.
 
-    It uses the online database provided by musicbrainzngs.
+It uses the online database provided by musicbrainzngs.
 
-    musicbrainz documentation:
-    * Wiki: https://wiki.musicbrainz.org/
-    * Web API: https://musicbrainz.org/doc/Development/XML%20Web%20Service/Version%202
-    * Web API format: https://github.com/metabrainz/mmd-schema/blob/master/schema/musicbrainz_mmd-2.0.rng
-    * Database schema: https://wiki.musicbrainz.org/MusicBrainz_Database/Schema
+musicbrainz documentation:
+* Wiki: https://wiki.musicbrainz.org/
+* Web API: https://musicbrainz.org/doc/Development/XML%20Web%20Service/Version%202
+* Web API format: https://github.com/metabrainz/mmd-schema/blob/master/schema/musicbrainz_mmd-2.0.rng
+* Database schema: https://wiki.musicbrainz.org/MusicBrainz_Database/Schema
 
-    musicbrainzngs documentation:
-    * https://python-musicbrainzngs.readthedocs.io/
+musicbrainzngs documentation:
+* https://python-musicbrainzngs.readthedocs.io/
 
-    Note: All the "priority" values are arbitrary/random choices and may need improvement
+Note: All the "priority" values are arbitrary/random choices and may need improvement
 
-    TODO: Room for improvement:
-    * fetch composers (especially interesting for classical music)
-    * test text-representation for non-latin languages
-    * get more data with secondary query, e.g. genre ("medium_tags")
-        see https://wiki.musicbrainz.org/Genre
+TODO: Room for improvement:
+* fetch composers (especially interesting for classical music)
+* test text-representation for non-latin languages
+* get more data with secondary query, e.g. genre ("medium_tags")
+    see https://wiki.musicbrainz.org/Genre
 """
 
 from __future__ import division

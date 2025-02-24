@@ -1,5 +1,5 @@
 '''
-    Routines useful for dealing with unicode data
+Routines useful for dealing with unicode data
 '''
 
 import locale

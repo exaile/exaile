@@ -25,7 +25,9 @@
 # from your version.
 
 
-import wave
+import wave, logging
+
+logger = logging.getLogger(__name__)
 
 from xl.metadata._base import BaseFormat, NotReadable
 
@@ -44,5 +46,7 @@ class WavFormat(BaseFormat):
                 f = wave.open(fp)
                 length = f.getnframes() // f.getframerate()
             self.mutagen = {'__bitrate': -1, '__length': length}
-        except (IOError, KeyError):
+        except (IOError, KeyError, wave.Error) as e:
+            logger.info("Error reading: %s. Error: %s.", self.loc, e)
             self.mutagen = {'__bitrate': -1, '__length': -1}
+            raise NotReadable

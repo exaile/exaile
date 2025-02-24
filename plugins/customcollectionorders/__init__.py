@@ -44,7 +44,7 @@ class CustomCollectionOrders:
     def disable(self, exaile):
         pass
 
-    def on_gui_loaded(self):
+    def on_exaile_loaded(self):
         """
         Called when the gui is loaded
         Before that there is no collection panel
@@ -67,8 +67,8 @@ class CustomCollectionOrders:
         orders = json.loads(setting)
 
         for order in orders:
-            levels = order['levels'].split(',')
-            display = order['display'].split(',')
+            levels = [s.strip() for s in order['levels'].split(',')]
+            display = [s.strip() for s in order['display'].split(',')]
 
             final_sorting = display
             final_display = '$' + ' - $'.join(display)
@@ -81,12 +81,6 @@ class CustomCollectionOrders:
             self.collection_panel.orders.append(new_order)
             self.custom_orders.append(new_order)
 
-        orders_count = len(self.collection_panel.orders) - 1
-        active = settings.get_option('cco/collection_active_view')
-        if orders_count < active:
-            # In case the last active order is deleted set to last existing order
-            active = orders_count
-        settings.set_option('gui/collection_active_view', active)
         self.collection_panel.repopulate_choices()
 
     def get_preferences_pane(self):

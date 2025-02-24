@@ -25,7 +25,7 @@
 # from your version.
 
 """
-    Shared GUI widgets
+Shared GUI widgets
 """
 
 from collections import namedtuple

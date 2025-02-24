@@ -26,8 +26,8 @@
 # from your version.
 
 """
-    This is the Native Language Support module.  It basically allows us to
-    code in a gettext fashion without a hard depend on gettext itself.
+This is the Native Language Support module.  It basically allows us to
+code in a gettext fashion without a hard depend on gettext itself.
 """
 
 import locale

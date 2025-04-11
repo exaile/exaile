@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
- <id type="desktop">exaile.desktop</id>
+ <id>org.exaile.exaile</id>
  <metadata_license>CC0-1.0</metadata_license>
  <project_license>GPL-2.0+</project_license>
  <name>Exaile</name>
@@ -22,16 +22,21 @@
   </p>
  </description>
  <screenshots>
-  <screenshot type="default" width="800" height="600">https://www.exaile.org/public/images/exaile-3.4.png</screenshot>
+  <screenshot type="default">
+   <caption>Logo</caption>
+   <image width="800" height="600">https://www.exaile.org/public/images/exaile-3.4.png</image>
+  </screenshot>
  </screenshots>
  <url type="homepage">https://www.exaile.org</url>
- <updatecontact>exaile-devel@googlegroups.com</updatecontact>
  <provides>
   <binary>exaile</binary>
   <dbus type="user">org.exaile.Exaile</dbus>
  </provides>
  <launchable type="desktop-id">exaile.desktop</launchable>
  <update_contact>exaile-devel@googlegroups.com</update_contact>
+ <developer id="org.exaile">
+  <name>The Exaile Team</name>
+ </developer>
  <url type="bugtracker">https://github.com/exaile/exaile/issues</url>
  <url type="translate">https://hosted.weblate.org/projects/exaile</url>
  <translation type="gettext">exaile</translation>

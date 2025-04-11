@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-02 23:02+0100\n"
-"PO-Revision-Date: 2025-01-21 14:25+0000\n"
+"PO-Revision-Date: 2025-03-20 08:41+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1793,7 +1793,7 @@ msgstr "Otsin: %s"
 
 #: ../xlgui/widgets/playback.py:1184
 msgid "Move"
-msgstr "Tõsta"
+msgstr "Teisalda"
 
 #: ../xlgui/widgets/playback.py:1329
 msgid "New Marker"
@@ -1823,7 +1823,7 @@ msgstr "Täisvaljus"
 
 #: ../xlgui/widgets/playback.py:1569
 msgid "_Pause"
-msgstr "_Paus"
+msgstr "_Peata"
 
 #: ../xlgui/widgets/playback.py:1572
 msgid "P_lay"
@@ -1840,7 +1840,7 @@ msgstr "_Eelmine lugu"
 #: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
-msgstr "_Peata"
+msgstr "_Lõpeta"
 
 #: ../xlgui/widgets/playlist.py:118
 msgid "S_huffle"

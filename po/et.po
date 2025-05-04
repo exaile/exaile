@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-02 23:02+0100\n"
-"PO-Revision-Date: 2025-03-20 08:41+0000\n"
+"PO-Revision-Date: 2025-05-04 23:01+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1764,7 +1764,7 @@ msgstr "_Viska prügikasti"
 
 #: ../xlgui/widgets/menuitems.py:287 ../xlgui/widgets/playlist.py:247
 msgid "_Rename"
-msgstr "Nimeta ümbe_r"
+msgstr "_Muuda nime"
 
 #: ../xlgui/widgets/menuitems.py:300 ../data/ui/main.ui:32
 msgid "_Edit"

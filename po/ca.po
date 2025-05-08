@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-02 23:02+0100\n"
-"PO-Revision-Date: 2023-10-25 22:02+0000\n"
-"Last-Translator: Ecron <ecron_89@hotmail.com>\n"
+"PO-Revision-Date: 2025-05-08 22:01+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
 ">\n"
 "Language: ca\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1.1\n"
+"X-Generator: Weblate 5.12-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -3105,7 +3105,7 @@ msgstr "Nombre de reproduccions"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:10
 msgid "Custom Collections"
-msgstr ""
+msgstr "Col·leccions personalitzades"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:85
 msgid "Really delete this order?"
@@ -3751,27 +3751,27 @@ msgstr "Desa l'anàlisi"
 
 #: ../plugins/podcasts/__init__.py:54 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
-msgstr "Podcasts"
+msgstr "Pòdcasts"
 
 #: ../plugins/podcasts/__init__.py:71
 msgid "Podcast"
-msgstr "Podcast"
+msgstr "Pòdcast"
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Refresh Podcast"
-msgstr "Refresca el podcast"
+msgstr "Actualitza el pòdcast"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Delete"
-msgstr "Elimina"
+msgstr "Suprimeix"
 
 #: ../plugins/podcasts/__init__.py:121
 msgid "Enter the URL of the podcast to add"
-msgstr "Introduïu l'URL del podcast a afegir"
+msgstr "Introduïu l'URL del pòdcast a afegir"
 
 #: ../plugins/podcasts/__init__.py:121
 msgid "Open Podcast"
-msgstr "Obre el podcast"
+msgstr "Obre el pòdcast"
 
 #: ../plugins/podcasts/__init__.py:157
 #, python-format
@@ -3780,11 +3780,11 @@ msgstr "S'està carregant %s..."
 
 #: ../plugins/podcasts/__init__.py:187
 msgid "Error loading podcast."
-msgstr "Error en la càrrega del podcast."
+msgstr "Error en la càrrega del pòdcast."
 
 #: ../plugins/podcasts/__init__.py:203
 msgid "Loading Podcasts..."
-msgstr "S'estan carregant els podcasts..."
+msgstr "S'estan carregant els pòdcasts..."
 
 #: ../plugins/podcasts/__init__.py:205
 msgid "No configuration present yet"
@@ -3792,7 +3792,7 @@ msgstr "Encara no hi ha cap configuració"
 
 #: ../plugins/podcasts/__init__.py:238
 msgid "Could not save podcast file"
-msgstr "No s'ha pogut desar el fitxer del podcast"
+msgstr "No s'ha pogut desar el fitxer del pòdcast"
 
 #: ../plugins/previewdevice/__init__.py:147
 msgid "Preview Player"
@@ -3871,7 +3871,7 @@ msgstr "Fes una pausa amb l'estalvi de pantalla"
 
 #: ../plugins/shutdown/__init__.py:47
 msgid "Close Exaile after Playback"
-msgstr ""
+msgstr "Tanca l'Exaile després de la reproducció"
 
 #: ../plugins/shutdown/__init__.py:60 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
@@ -3904,7 +3904,7 @@ msgstr "Apagada imminent"
 #: ../plugins/shutdown/__init__.py:145
 #, python-format
 msgid "Exaile will be closed in %d seconds."
-msgstr ""
+msgstr "L'Exaile es tancarà en %d segons."
 
 #: ../plugins/shutdown/__init__.py:147
 #, python-format
@@ -4616,7 +4616,7 @@ msgstr "Genera"
 
 #: ../plugins/podcasts/podcasts.ui:18
 msgid "_Add Podcast"
-msgstr "_Afegeix un podcast"
+msgstr "_Afegeix un pòdcast"
 
 #: ../plugins/previewdevice/previewprefs.ui:103
 msgid "Fade duration:"
@@ -4683,7 +4683,7 @@ msgstr ""
 
 #: ../plugins/shutdown/shutdown_preferences.ui:48
 msgid "Activate \"Close Exaile after Playback\" automatically"
-msgstr ""
+msgstr "Activa «Tanca l'Exaile després de la reproducció» automàticament"
 
 #: ../plugins/streamripper/streamripper.ui:15
 msgid "Save location:"
@@ -5146,7 +5146,7 @@ msgstr "Informació"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr "Afegeix compatibilitat senzilla per als podcasts"
+msgstr "Afegeix compatibilitat senzilla per als pòdcasts"
 
 #: ../plugins/previewdevice/PLUGININFO:4
 msgid ""

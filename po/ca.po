@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-02 23:02+0100\n"
-"PO-Revision-Date: 2025-05-08 22:01+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2025-05-16 16:01+0000\n"
+"Last-Translator: Ecron <ecron_89@hotmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
 ">\n"
 "Language: ca\n"
@@ -2623,11 +2623,11 @@ msgstr "En afegir un element a una cua buida inicia la reproducció"
 #: ../plugins/quickbuttons/__init__.py:56
 #: ../plugins/quickbuttons/qb_prefs.ui:42
 msgid "Remove track from queue upon playback"
-msgstr "Suprimeix la pista del capdamunt de la cua de reproducció"
+msgstr "Suprimeix la pista de la cua en reproduir-se"
 
 #: ../data/ui/preferences/playback.ui:221
 msgid "Remove track from queue after playback"
-msgstr ""
+msgstr "Suprimeix la pista de la cua després de reproduir-se"
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -3109,11 +3109,11 @@ msgstr "Col·leccions personalitzades"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:85
 msgid "Really delete this order?"
-msgstr ""
+msgstr "Segur que voleu suprimir aquesta ordre?"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:98
 msgid "Add or edit custom order"
-msgstr ""
+msgstr "Afegeix o edita una ordre personalitzada"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:110
 msgid ""
@@ -3121,6 +3121,9 @@ msgid ""
 "it's not possible to use more than one tag per node.\n"
 "Every tag can be used."
 msgstr ""
+"Llista d'etiquetes separades per comes utilitzada com a nodes en la vista "
+"d'arbre. Ara mateix no és possible utilitzar més d'una etiqueta per node.\n"
+"Es poden utilitzar totes les etiquetes."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:114
 msgid ""
@@ -3128,18 +3131,22 @@ msgid ""
 "leaves in the tree. Tags are joined with a hyphen.\n"
 "Every tag can be used."
 msgstr ""
+"Llista d'etiquetes separades per comes utilitzada per a mostrar pistes "
+"individuals com a fulles de l'arbre. Les etiquetes s'uneixen amb un guionet."
+"\n"
+"Es poden utilitzar totes les etiquetes."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:118
 msgid "Name of your order"
-msgstr ""
+msgstr "Nom de l'ordre"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:119
 msgid "Tree Levels:"
-msgstr ""
+msgstr "Nivells de l'arbre:"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:120
 msgid "Display:"
-msgstr ""
+msgstr "Mostra:"
 
 #: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:199
 #: ../plugins/history/__init__.py:247
@@ -3879,11 +3886,11 @@ msgstr "Apaga després de la reproducció"
 
 #: ../plugins/shutdown/__init__.py:81
 msgid "Close scheduled"
-msgstr ""
+msgstr "Programació del tancament"
 
 #: ../plugins/shutdown/__init__.py:82
 msgid "Exaile will be closed at the end of playback."
-msgstr ""
+msgstr "L'Exaile es tancarà en acabar la reproducció."
 
 #: ../plugins/shutdown/__init__.py:88
 msgid "Shutdown scheduled"
@@ -3891,11 +3898,11 @@ msgstr "Programació de l'apagament"
 
 #: ../plugins/shutdown/__init__.py:89
 msgid "Computer will be shutdown at the end of playback."
-msgstr "S'apagarà l'ordinador amb l'acabament de la reproducció."
+msgstr "L'ordinador s'apagarà en acabar la reproducció."
 
 #: ../plugins/shutdown/__init__.py:121
 msgid "Imminent Closing"
-msgstr ""
+msgstr "Tancament imminent"
 
 #: ../plugins/shutdown/__init__.py:123
 msgid "Imminent Shutdown"
@@ -3921,7 +3928,7 @@ msgstr "L'ordinador no es pot apagar mitjançant D-Bus."
 
 #: ../plugins/shutdown/shutdown_preferences.py:5
 msgid "Shutdown"
-msgstr ""
+msgstr "Apagada"
 
 #: ../plugins/somafm/__init__.py:81 ../plugins/somafm/__init__.py:176
 msgid "Contacting SomaFM server..."
@@ -4145,11 +4152,11 @@ msgstr "Consola senzilla"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:51
 msgid "Custom orders"
-msgstr ""
+msgstr "Ordres personalitzades"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:77
 msgid "Add _Order"
-msgstr ""
+msgstr "Afegeix una _ordre"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
 msgid "Show IPv6 servers"
@@ -4679,7 +4686,7 @@ msgstr "Treu la pausa quan s'acabi l'estalvi de pantalla"
 
 #: ../plugins/shutdown/shutdown_preferences.ui:20
 msgid "Timeout (in s):"
-msgstr ""
+msgstr "Temps límit (en s):"
 
 #: ../plugins/shutdown/shutdown_preferences.ui:48
 msgid "Activate \"Close Exaile after Playback\" automatically"
@@ -4848,11 +4855,12 @@ msgstr ""
 
 #: ../plugins/customcollectionorders/PLUGININFO:3
 msgid "Custom Collection Orders"
-msgstr ""
+msgstr "Col·lecció d'ordres personalitzades"
 
 #: ../plugins/customcollectionorders/PLUGININFO:4
 msgid "Users can add custom order to the collection panel"
 msgstr ""
+"Els usuaris poden afegir ordres personalitzades al panell de col·leccions"
 
 #: ../plugins/customcollectionorders/PLUGININFO:5
 #: ../plugins/desktopcover/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5

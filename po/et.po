@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-24 00:08+0200\n"
-"PO-Revision-Date: 2025-05-04 23:01+0000\n"
+"PO-Revision-Date: 2025-05-24 23:09+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -5260,11 +5260,11 @@ msgstr ""
 
 #: ../data/exaile.appdata.xml.in:26
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #: ../data/exaile.appdata.xml.in:38
 msgid "The Exaile Team"
-msgstr ""
+msgstr "Exaile'i tiim"
 
 #~ msgid "Remove after playback"
 #~ msgstr "Eemalda peale esitust"

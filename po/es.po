@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-24 00:08+0200\n"
-"PO-Revision-Date: 2024-12-04 20:00+0000\n"
-"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
+"PO-Revision-Date: 2025-05-26 18:01+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/exaile/master/es/"
 ">\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1792,7 +1792,7 @@ msgstr "Cerrar pestaña"
 #: ../xlgui/widgets/playback.py:833
 #, python-format
 msgid "Seeking: %s"
-msgstr "Buscando: %s"
+msgstr "Posicionando: %s"
 
 #: ../xlgui/widgets/playback.py:1183
 msgid "Move"
@@ -2631,7 +2631,7 @@ msgstr "Eliminar pista de la cola cuando se reproduzca"
 
 #: ../data/ui/preferences/playback.ui:221
 msgid "Remove track from queue after playback"
-msgstr ""
+msgstr "Quitar pista de la cola tras reproducirla"
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -3108,11 +3108,11 @@ msgstr "Colecciones personalizadas"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:85
 msgid "Really delete this order?"
-msgstr ""
+msgstr "¿Realmente quiere eliminar este orden?"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:98
 msgid "Add or edit custom order"
-msgstr "Agregar o editar un pedido personalizado"
+msgstr "Añadir o editar orden personalizado"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:110
 msgid ""
@@ -3120,6 +3120,9 @@ msgid ""
 "it's not possible to use more than one tag per node.\n"
 "Every tag can be used."
 msgstr ""
+"Lista separada por comas de etiquetas para usar como nodos en la vista de "
+"árbol. Por ahora no se puede usar más de una etiqueta por nodo.\n"
+"Se puede usar cualquier etiqueta."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:114
 msgid ""
@@ -3133,7 +3136,7 @@ msgstr ""
 
 #: ../plugins/customcollectionorders/cco_prefs.py:118
 msgid "Name of your order"
-msgstr "Nombre del pedido"
+msgstr "Nombre de su orden"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:119
 msgid "Tree Levels:"
@@ -3653,7 +3656,7 @@ msgstr "Barra de progreso"
 
 #: ../plugins/minimode/controls.py:1113
 msgid "Playback progress and seeking"
-msgstr "Reproducción en curso y búsqueda"
+msgstr "Reproducción en curso y posición"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:126
@@ -3921,7 +3924,7 @@ msgstr "El equipo no ha podido apagarse usando D-Bus."
 
 #: ../plugins/shutdown/shutdown_preferences.py:5
 msgid "Shutdown"
-msgstr "Cerrar"
+msgstr "Apagado"
 
 #: ../plugins/somafm/__init__.py:81 ../plugins/somafm/__init__.py:176
 msgid "Contacting SomaFM server..."
@@ -4145,7 +4148,7 @@ msgstr "Consola sencilla"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:51
 msgid "Custom orders"
-msgstr ""
+msgstr "Órdenes personalizados"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:77
 msgid "Add _Order"
@@ -4670,7 +4673,7 @@ msgstr "Amplificación adicional:"
 #. This is the fallback correction for files that don't contain ReplayGain information.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:90
 msgid "Fallback correction level:"
-msgstr "Nivel de corrección seguro:"
+msgstr "Nivel para alternativa de corrección:"
 
 #: ../plugins/screensaverpause/prefs.ui:12
 msgid "Unpause when screensaver ends"
@@ -4682,7 +4685,7 @@ msgstr "Tiempo límite (en s):"
 
 #: ../plugins/shutdown/shutdown_preferences.ui:48
 msgid "Activate \"Close Exaile after Playback\" automatically"
-msgstr "Activar \"Cerrar automáticamente Exaile después de la reproducción\""
+msgstr "Activar «Cerrar Exaile tras la reproducción» automáticamente"
 
 #: ../plugins/streamripper/streamripper.ui:15
 msgid "Save location:"
@@ -4846,7 +4849,7 @@ msgstr ""
 
 #: ../plugins/customcollectionorders/PLUGININFO:3
 msgid "Custom Collection Orders"
-msgstr "Pedidos de recogida a medida"
+msgstr "Órdenes de colección personalizados"
 
 #: ../plugins/customcollectionorders/PLUGININFO:4
 msgid "Users can add custom order to the collection panel"
@@ -4905,15 +4908,15 @@ msgstr "Un ecualizador de 10 bandas"
 
 #: ../plugins/grouptagger/PLUGININFO:3
 msgid "Group Tagger"
-msgstr "Organizador de grupos"
+msgstr "Etiquetador en grupo"
 
 #: ../plugins/grouptagger/PLUGININFO:4
 msgid ""
 "Facilitates categorizing your music by managing the grouping/category tag in "
 "audio files"
 msgstr ""
-"Facilita la clasificación de tu música mediante la gestión de etiquetas de "
-"agrupación/categoría en ficheros de audio"
+"Facilita la clasificación de su música al gestionar las etiquetas de "
+"agrupación/categoría en archivos de audio"
 
 #: ../plugins/grouptagger/PLUGININFO:5 ../plugins/lastfmlove/PLUGININFO:5
 msgid "Tagging"
@@ -5285,11 +5288,11 @@ msgstr ""
 
 #: ../data/exaile.appdata.xml.in:26
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #: ../data/exaile.appdata.xml.in:38
 msgid "The Exaile Team"
-msgstr ""
+msgstr "El equipo de Exaile"
 
 #~ msgid "Remove after playback"
 #~ msgstr "Eliminar después de la reproducción"

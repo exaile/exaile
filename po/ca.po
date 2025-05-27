@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-24 00:08+0200\n"
-"PO-Revision-Date: 2025-05-16 16:01+0000\n"
+"PO-Revision-Date: 2025-05-27 22:01+0000\n"
 "Last-Translator: Ecron <ecron_89@hotmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
 ">\n"
@@ -5297,11 +5297,11 @@ msgstr ""
 
 #: ../data/exaile.appdata.xml.in:26
 msgid "Logo"
-msgstr ""
+msgstr "Logotip"
 
 #: ../data/exaile.appdata.xml.in:38
 msgid "The Exaile Team"
-msgstr ""
+msgstr "L'equip d'Exaile"
 
 #~ msgid "Remove after playback"
 #~ msgstr "Suprimeix en acabar de reproduir"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-24 00:08+0200\n"
-"PO-Revision-Date: 2014-12-09 19:51+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2025-05-31 16:03+0000\n"
+"Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/exaile/master/"
 "ro/>\n"
 "Language: ro\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 2.1\n"
+"X-Generator: Weblate 5.12-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -758,8 +758,8 @@ msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
 msgstr ""
-"Vorbis este o decodare  Open Source, cu pierdere audio dar calitate mai "
-"bună, fişierul fiind mai compact decât formatul MP3."
+"Vorbis este un codec audio cu pierderi, de cod sursă deschis (open source), "
+"cu ieșire de înaltă calitate la o dimensiune a fișierului mai mică decât MP3."
 
 #: ../xl/transcoder.py:68
 msgid ""
@@ -796,7 +796,8 @@ msgstr ""
 #: ../xl/transcoder.py:113
 msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
-"Format de sunet  Free cu comprimare bună, rapid şi fără pierdere audio."
+"Un format audio liber foarte rapid, fără pierderi, cu o bună rată de "
+"compresie."
 
 #: ../xl/trax/track.py:71
 msgid "Various Artists"
@@ -849,7 +850,7 @@ msgstr "Adaugă un director"
 
 #: ../xlgui/collection.py:150
 msgid "Directory not added."
-msgstr "Directorul nu a fost adăugat"
+msgstr "Directorul nu a fost adăugat."
 
 #: ../xlgui/collection.py:152
 msgid ""
@@ -1253,7 +1254,7 @@ msgstr "Fișiere"
 #: ../xlgui/panel/files.py:122 ../xlgui/widgets/playlist_columns.py:447
 #: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:117
 msgid "Filename"
-msgstr "Nume"
+msgstr "Numele fișierului"
 
 #. TRANSLATORS: File size column in the file browser
 #: ../xlgui/panel/files.py:146
@@ -1296,10 +1297,9 @@ msgid "_New Station"
 msgstr "Stație nouă"
 
 #: ../xlgui/panel/playlists.py:134
-#, fuzzy, python-format
-#| msgid "Delete Playlist"
+#, python-format
 msgid "Delete the playlist \"%s\"?"
-msgstr "Șterge lista de redare"
+msgstr "Doriți să ștergeți lista de redare „%s”?"
 
 #: ../xlgui/panel/playlists.py:151
 msgid "Enter the new name you want for your playlist"
@@ -1315,9 +1315,9 @@ msgid "The playlist name you entered is already in use."
 msgstr ""
 
 #: ../xlgui/panel/playlists.py:214
-#, fuzzy, python-format
+#, python-format
 msgid "Error loading smart playlist: %s"
-msgstr "Editează Lista Inteligentă"
+msgstr "Eroare la încărcarea listei de redare inteligente: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -1494,18 +1494,17 @@ msgstr "Nu s-au putut încărca informațiile despre modulele de extensie!"
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Modul eșuat: %s"
+msgstr[1] "Module eșuate: %s"
+msgstr[2] "Module eșuate: %s"
 
 #: ../xlgui/preferences/plugin.py:238
 msgid "Do you really want to remove this plugin?"
 msgstr ""
 
 #: ../xlgui/preferences/plugin.py:248
-#, fuzzy
-#| msgid "Could not enable plugin!"
 msgid "Could not remove plugin!"
-msgstr "Nu s-a putut activa modulului de extensii!"
+msgstr "Nu s-a putut elimina modulul de extensie!"
 
 #: ../xlgui/preferences/plugin.py:264 ../xlgui/preferences/plugin.py:387
 msgid "Could not disable plugin!"
@@ -1546,7 +1545,7 @@ msgstr "Reporniți Exaile?"
 
 #: ../xlgui/preferences/widgets.py:77
 msgid "A restart is required for this change to take effect."
-msgstr "Pentru ca schimbările să ia efect este necesară o repornire"
+msgstr "Este necesară o repornire pentru ca această modificare să aibă efect."
 
 #: ../xlgui/preferences/widgets.py:80
 msgid "Restart"
@@ -1700,7 +1699,7 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:1088
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr "Listă de redare salvată ca <b>%s</b>"
+msgstr "Listă de redare salvată ca <b>%s</b>."
 
 #: ../xlgui/widgets/dialogs.py:1105
 #, python-format
@@ -1784,20 +1783,18 @@ msgid "%d in collection"
 msgstr "%d în colecție"
 
 #: ../xlgui/widgets/info.py:445 ../xlgui/widgets/info.py:454
-#, fuzzy, python-format
-#| msgid "%d showing"
+#, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
-msgstr[0] "%d arătate"
-msgstr[1] "%d arătate"
-msgstr[2] "%d arătate"
+msgstr[0] "%d afișată"
+msgstr[1] "%d afișate"
+msgstr[2] "%d afișate"
 
 #: ../xlgui/widgets/info.py:449 ../xlgui/widgets/info.py:459
-#, fuzzy, python-format
-#| msgid "%d selected"
+#, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
-msgstr[0] "%d selectate"
+msgstr[0] "%d selectată"
 msgstr[1] "%d selectate"
 msgstr[2] "%d selectate"
 
@@ -2016,10 +2013,8 @@ msgid "Dynamically add similar tracks to the playlist"
 msgstr "Adaugă dinamic piese similare în lista de redare"
 
 #: ../xlgui/widgets/playlist.py:804
-#, fuzzy
-#| msgid "Loading %s..."
 msgid "Loading"
-msgstr "Se încarcă %s..."
+msgstr "Se încarcă"
 
 #: ../xlgui/widgets/playlist_columns.py:271
 msgid "Track Number"
@@ -2256,10 +2251,8 @@ msgid "Collection Manager"
 msgstr "Administrator de colecții"
 
 #: ../data/ui/collection_manager.ui:54
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
-msgstr "Anulează"
+msgstr "_Anulează"
 
 #: ../data/ui/collection_manager.ui:71
 msgid "_Apply"
@@ -2278,10 +2271,8 @@ msgid "Add _Folder"
 msgstr ""
 
 #: ../data/ui/collection_manager.ui:191
-#, fuzzy
-#| msgid "Remove Cover"
 msgid "_Remove Folder"
-msgstr "Elimină coperta"
+msgstr "_Elimină dosarul"
 
 #: ../data/ui/collection_manager.ui:209
 #, fuzzy
@@ -2355,7 +2346,7 @@ msgstr "Dispozitiv"
 
 #: ../data/ui/device_manager.ui:88
 msgid "Driver"
-msgstr "Driver"
+msgstr "Controlor"
 
 #: ../data/ui/device_manager.ui:115
 msgid "_Connect"
@@ -2503,17 +2494,15 @@ msgstr "Arată bara de file întotdeauna"
 
 #: ../data/ui/preferences/appearance.ui:101
 msgid "Tab placement:"
-msgstr "Plasarea taburilor"
+msgstr "Plasarea filelor:"
 
 #: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
 msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:154
-#, fuzzy
-#| msgid "Never"
 msgid "_Revert"
-msgstr "Niciodată"
+msgstr "_Restabilire"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -2529,7 +2518,7 @@ msgstr "Afișează numărul de piese în colecție"
 #: ../data/ui/preferences/appearance.ui:210
 #: ../plugins/minimode/minimode_preferences.ui:237
 msgid "Use alpha transparency:"
-msgstr "Folosește transparența alfa"
+msgstr "Folosește transparența alfa:"
 
 #: ../data/ui/preferences/appearance.ui:214
 msgid ""
@@ -2712,10 +2701,8 @@ msgid "Audio Sink:  "
 msgstr "Chiuvetă audio:  "
 
 #: ../data/ui/preferences/playback.ui:98
-#, fuzzy
-#| msgid "Audio Sink:  "
 msgid "Audio Device: "
-msgstr "Chiuvetă audio:  "
+msgstr "Dispozitiv audio: "
 
 #: ../data/ui/preferences/playback.ui:134
 #: ../plugins/previewdevice/previewprefs.ui:254
@@ -2880,10 +2867,8 @@ msgid "Preferences"
 msgstr "Preferințe"
 
 #: ../data/ui/shortcuts_dialog.ui:90
-#, fuzzy
-#| msgid "Description:"
 msgid "Description"
-msgstr "Descriere:"
+msgstr "Descriere"
 
 #: ../data/ui/trackproperties_dialog.ui:37
 msgid "Track Properties"
@@ -3161,10 +3146,8 @@ msgid "Audio Disc"
 msgstr ""
 
 #: ../plugins/cd/_cdguipanel.py:97
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown disc"
-msgstr "Necunoscut"
+msgstr "Disc necunoscut"
 
 #: ../plugins/cd/_cdguipanel.py:113
 msgid "Importing CD..."
@@ -3354,9 +3337,8 @@ msgid "Export tags to JSON"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_import.py:58
-#, fuzzy
 msgid "Importing tracks"
-msgstr " piese"
+msgstr "Se importă piese"
 
 #: ../plugins/grouptagger/gt_import.py:86
 msgid "Importing groups"
@@ -3371,12 +3353,12 @@ msgid "Select directory to import grouping tags from"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.py:117
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "{amount} track found"
 msgid_plural "{amount} tracks found"
-msgstr[0] " piese"
-msgstr[1] " piese"
-msgstr[2] " piese"
+msgstr[0] "{amount} piesă găsită"
+msgstr[1] "{amount} piese găsite"
+msgstr[2] "{amount} de piese găsite"
 
 #: ../plugins/grouptagger/gt_mass.py:130
 #, python-brace-format
@@ -3533,10 +3515,8 @@ msgid "Parsing stations XML..."
 msgstr ""
 
 #: ../plugins/icecast/__init__.py:161
-#, fuzzy
-#| msgid "Retrieving song data..."
 msgid "Retrieving stations..."
-msgstr "Se obțin datele melodiei..."
+msgstr "Se preiau stațiile..."
 
 #: ../plugins/icecast/__init__.py:274
 msgid "Enter the search keywords"
@@ -3548,9 +3528,8 @@ msgid "Icecast Search"
 msgstr "Caută"
 
 #: ../plugins/icecast/__init__.py:298
-#, fuzzy
 msgid "No Stations Found"
-msgstr "Nu s-au găsit coperți."
+msgstr "Nu s-au găsit stații"
 
 #: ../plugins/icecast/__init__.py:301
 msgid "Icecast Search Results"
@@ -3562,9 +3541,8 @@ msgstr ""
 
 #: ../plugins/icecast/__init__.py:374
 #: ../plugins/developer/developer_window.ui:59
-#, fuzzy
 msgid "Name"
-msgstr "Nume:"
+msgstr "Nume"
 
 #: ../plugins/icecast/__init__.py:390
 msgid "Format"
@@ -3799,16 +3777,14 @@ msgid "from {album} by {artist}"
 msgstr ""
 
 #: ../plugins/notify/__init__.py:49
-#, fuzzy, python-brace-format
-#| msgid "by %(artist)s"
+#, python-brace-format
 msgid "by {artist}"
-msgstr "după %(artist)s"
+msgstr "după {artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "from %(album)s"
+#, python-brace-format
 msgid "from {album}"
-msgstr "din %(album)s"
+msgstr "din {album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3927,10 +3903,8 @@ msgid "Enqueue"
 msgstr "Adaugă în coadă"
 
 #: ../plugins/quickbuttons/__init__.py:46
-#, fuzzy
-#| msgid "Not playing."
 msgid "Keep playing"
-msgstr "Nu se redă."
+msgstr "Continuă redarea"
 
 #: ../plugins/quickbuttons/__init__.py:55
 #, fuzzy
@@ -4110,10 +4084,8 @@ msgid "Use Fading"
 msgstr "Atenuare"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:255
-#, fuzzy
-#| msgid "Preferences"
 msgid "<b>Audio Preferences</b>"
-msgstr "Preferințe"
+msgstr "<b>Preferințe audio</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:269
 msgid "Minimum volume:"
@@ -4228,16 +4200,12 @@ msgid "Disc metadata"
 msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui:101
-#, fuzzy
-#| msgid "Import format: "
 msgid "Format: "
-msgstr "Format import: "
+msgstr "Format: "
 
 #: ../plugins/cd/cdprefs_pane.ui:131
-#, fuzzy
-#| msgid "Import quality: "
 msgid "Quality: "
-msgstr "Calitate import: "
+msgstr "Calitate: "
 
 #: ../plugins/cd/cdprefs_pane.ui:160
 msgid "Path: "
@@ -4252,9 +4220,8 @@ msgid ""
 msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui:218
-#, fuzzy
 msgid "Import tracks to disk"
-msgstr " piese"
+msgstr "Importă piese pe disc"
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
@@ -4456,9 +4423,8 @@ msgid "If empty, matches all tracks"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui:101
-#, fuzzy
 msgid "Search Tag"
-msgstr "Caută: "
+msgstr "Caută eticheta"
 
 #: ../plugins/grouptagger/gt_mass.ui:112
 msgid "Use the empty string to delete the tag"
@@ -4469,9 +4435,8 @@ msgid "Replace Tag"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui:219
-#, fuzzy
 msgid "0 tracks found"
-msgstr " piese"
+msgstr "0 piese găsite"
 
 #: ../plugins/grouptagger/gt_prefs.ui:41
 msgid "Group/categories font:"
@@ -4709,9 +4674,8 @@ msgid "Select analysis"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui:438
-#, fuzzy
 msgid "Playlist(s) to analyze"
-msgstr "Exportarea listei de redare a eșuat!"
+msgstr "Listă(e) de redare de analizat"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:490
 msgid "Output Title"
@@ -4748,10 +4712,8 @@ msgid "Crossfade duration:"
 msgstr "Durata trecerii(ms):"
 
 #: ../plugins/previewdevice/previewprefs.ui:223
-#, fuzzy
-#| msgid "Device"
 msgid "Audio Device:"
-msgstr "Dispozitiv"
+msgstr "Dispozitiv audio:"
 
 #: ../plugins/quickbuttons/qb_prefs.ui:72
 msgid "Delay between tracks (in seconds)"
@@ -4861,24 +4823,16 @@ msgid "Effect"
 msgstr ""
 
 #: ../plugins/alarmclock/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plays music at a specific time.\n"
-#| "\n"
-#| "Note that when the specified time arrives, Exaile will just act like you "
-#| "pressed the play button, so be sure you have the music you want to hear "
-#| "in your playlist"
 msgid ""
 "Plays music at a specific time.\n"
 "\n"
 "Note that when the specified time arrives, Exaile will play the songs in the "
 "queue."
 msgstr ""
-"Redă muzica la un anumit moment.\n"
+"Redă muzică la o anumită oră.\n"
 "\n"
-"Reţineţi că atunci când timpul specificat ajunge, Exaile va acţiona ca și "
-"cum ați apăsat butonul de redare, astfel încât să fie sigur că aveţi muzica "
-"pe care doriţi să o auziți în lista dumneavoastră de redare"
+"Rețineți că atunci când sosește ora specificată, Exaile va reda melodiile "
+"din. lista de redare."
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5
@@ -4964,16 +4918,12 @@ msgid "Current Song in Pidgin"
 msgstr "Melodie curentă"
 
 #: ../plugins/currentsong/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
-#| "out the suppported services."
 msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the supported services."
 msgstr ""
-"Stabileşte statutul curent de redare în Pidgin. Verificaţi întrebările "
-"frecvente Pidgin pentru a afla serviciile suportate."
+"Stabilește starea curentă a redării în Pidgin. Verificați întrebările "
+"frecvente Pidgin pentru a afla serviciile acceptate."
 
 #: ../plugins/customcollectionorders/PLUGININFO:3
 msgid "Custom Collection Orders"
@@ -5316,14 +5266,10 @@ msgid ""
 msgstr ""
 
 #: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
-#, fuzzy
-#| msgid "About Exaile"
 msgid "Exaile"
-msgstr "Despre Exaile"
+msgstr "Exaile"
 
 #: ../data/exaile.desktop.in:6
-#, fuzzy
-#| msgid "Exaile Music Player"
 msgid "Music Player"
 msgstr "Program de ascultat muzică"
 

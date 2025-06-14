@@ -297,34 +297,25 @@ class FormatConverter:
         :param track_path: the path of the track
         :param options: options
         """
-        if options is not None and options.relative:
-            playlist_file = Gio.File.new_for_uri(playlist_path)
-            # Strip playlist filename from export path
-            export_path = playlist_file.get_parent().get_uri()
 
-            try:
-                export_path_components = urllib.parse.urlparse(export_path)
-                track_path_components = urllib.parse.urlparse(track_path)
-            except (AttributeError, ValueError):  # None, empty path
-                pass
-            else:
-                # Only try to retrieve relative paths for tracks with
-                # the same URI scheme and location as the playlist
-                if (
-                    export_path_components.scheme == track_path_components.scheme
-                    and export_path_components.netloc == track_path_components.netloc
-                ):
-                    # Gio.File.get_relative_path does not generate relative paths
-                    # for tracks located above the playlist in the path hierarchy,
-                    # thus process both paths as done here
-                    track_path = os.path.relpath(
-                        track_path_components.path, export_path_components.path
-                    )
+        track_path_components = urllib.parse.urlparse(track_path)
 
-        # if the file is local, other players like VLC will not
-        # accept the playlist if they have %20 in them, so we must convert
-        # it to something else
-        return urllib.request.url2pathname(track_path)
+        if not track_path_components.scheme == 'file':
+            # return remote files as is
+            return track_path
+
+        track_path = Gio.File.new_for_uri(track_path)
+        if options is None or not options.relative:
+            # return local files as is but as path instead of uri
+            return track_path.get_path()
+
+        # calculate relative path
+        playlist_file = Gio.File.new_for_uri(playlist_path)
+        export_path = playlist_file.get_parent().get_path()
+
+        track_path = os.path.relpath(track_path.get_path(), export_path)
+
+        return track_path
 
 
 class M3UConverter(FormatConverter):

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-02 23:02+0100\n"
+"POT-Creation-Date: 2025-05-24 00:08+0200\n"
 "PO-Revision-Date: 2024-12-25 16:00+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/exaile/master/ta/"
@@ -98,7 +98,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02 டி"
 
-#: ../xl/formatter.py:730 ../xl/main.py:810 ../xl/trax/track.py:72
+#: ../xl/formatter.py:730 ../xl/main.py:809 ../xl/trax/track.py:72
 #: ../plugins/icecast/__init__.py:171
 msgid "Unknown"
 msgstr "தெரியவில்லை"
@@ -120,11 +120,11 @@ msgstr "நேற்று"
 msgid "Local"
 msgstr "உள்ளக"
 
-#: ../xl/main.py:84
+#: ../xl/main.py:83
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "பயன்பாடு: எக்செயில் [விருப்பம் ...] [இடம் ...]"
 
-#: ../xl/main.py:86
+#: ../xl/main.py:85
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
@@ -134,279 +134,279 @@ msgstr ""
 "பிளேலிச்ட்டில் சேர்க்கவும். எக்செயில் ஏற்கனவே இயங்கினால், புதிய ஒன்றை உருவாக்குவதற்குப் "
 "பதிலாக இருக்கும் நிகழ்வைப் பயன்படுத்த இது முயற்சிக்கிறது."
 
-#: ../xl/main.py:97
+#: ../xl/main.py:96
 msgid "Playback Options"
 msgstr "பின்னணி விருப்பங்கள்"
 
-#: ../xl/main.py:104
+#: ../xl/main.py:103
 msgid "Play the next track"
 msgstr "அடுத்த தடத்தை இயக்கு"
 
-#: ../xl/main.py:112
+#: ../xl/main.py:111
 msgid "Play the previous track"
 msgstr "முந்தைய தடத்தை இயக்கு"
 
-#: ../xl/main.py:120 ../plugins/minimode/controls.py:351
+#: ../xl/main.py:119 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:368
 msgid "Stop playback"
 msgstr "இயக்கத்தை நிறுத்து"
 
-#: ../xl/main.py:123
+#: ../xl/main.py:122
 msgid "Play"
 msgstr "இயக்கு"
 
-#: ../xl/main.py:131 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:130 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "இடை நிறுத்தம்"
 
-#: ../xl/main.py:139
+#: ../xl/main.py:138
 msgid "Pause or resume playback"
 msgstr "இடைநிறுத்தம் அல்லது பின்னிணைப்பை மீண்டும் தொடங்கவும்"
 
-#: ../xl/main.py:146 ../plugins/minimode/controls.py:376
+#: ../xl/main.py:145 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
 msgstr "தற்போதைய தடத்திற்குப் பிறகு பிளேபேக்கை நிறுத்துங்கள்"
 
-#: ../xl/main.py:149
+#: ../xl/main.py:148
 msgid "Collection Options"
 msgstr "தொகுப்பு விருப்பத்தேர்வுகள்"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:154 ../xl/main.py:163
+#: ../xl/main.py:153 ../xl/main.py:162
 msgid "LOCATION"
 msgstr "இடம்"
 
-#: ../xl/main.py:155
+#: ../xl/main.py:154
 msgid "Add tracks from LOCATION to the collection"
 msgstr "இருப்பிடத்திலிருந்து சேகரிப்புக்கு தடங்களைச் சேர்க்கவும்"
 
-#: ../xl/main.py:158
+#: ../xl/main.py:157
 msgid "Playlist Options"
 msgstr "பிளேலிச்ட் விருப்பங்கள்"
 
-#: ../xl/main.py:164
+#: ../xl/main.py:163
 msgid "Export the current playlist to LOCATION"
 msgstr "தற்போதைய பிளேலிச்ட்டை இருப்பிடத்திற்கு ஏற்றுமதி செய்யுங்கள்"
 
-#: ../xl/main.py:167
+#: ../xl/main.py:166
 msgid "Track Options"
 msgstr "தட விருப்பத்தேர்வுகள்"
 
-#: ../xl/main.py:174
+#: ../xl/main.py:173
 msgid "Query player"
 msgstr "கேள்வி இயக்கி"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:180
+#: ../xl/main.py:179
 msgid "FORMAT"
 msgstr "வடிவம்"
 
-#: ../xl/main.py:181
+#: ../xl/main.py:180
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr "தற்போதைய பின்னணி நிலையை மீட்டெடுக்கவும், தகவல்களை வடிவமாக கண்காணிக்கவும்"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:187
+#: ../xl/main.py:186
 msgid "TAGS"
 msgstr "குறிச்சொற்கள்"
 
-#: ../xl/main.py:188
+#: ../xl/main.py:187
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr "தற்போதைய பாதையிலிருந்து மீட்டெடுக்க குறிச்சொற்கள்; -வடிவ-வினவலுடன் பயன்படுத்தவும்"
 
-#: ../xl/main.py:195
+#: ../xl/main.py:194
 msgid "Show a popup with data of the current track"
 msgstr "தற்போதைய பாதையின் தரவைக் கொண்ட பாப்அப்பைக் காட்டு"
 
-#: ../xl/main.py:202
+#: ../xl/main.py:201
 msgid "Print the title of current track"
 msgstr "தற்போதைய பாதையின் தலைப்பை அச்சிடுக"
 
-#: ../xl/main.py:209
+#: ../xl/main.py:208
 msgid "Print the album of current track"
 msgstr "நடப்பு தடத்தின் தொகுப்பை அச்சிடு"
 
-#: ../xl/main.py:216
+#: ../xl/main.py:215
 msgid "Print the artist of current track"
 msgstr "நடப்பு தடத்தின் கலைஞரை அச்சிடு"
 
-#: ../xl/main.py:223
+#: ../xl/main.py:222
 msgid "Print the length of current track"
 msgstr "நடப்பு தடத்தின் நீளத்தை அச்சிடு"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:230 ../xl/main.py:262 ../xl/main.py:271
+#: ../xl/main.py:229 ../xl/main.py:261 ../xl/main.py:270
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:231
+#: ../xl/main.py:230
 msgid "Set rating for current track to N%"
 msgstr "தற்போதைய தடத்திற்கான மதிப்பீட்டை n% ஆக அமைக்கவும்"
 
-#: ../xl/main.py:238
+#: ../xl/main.py:237
 msgid "Get rating for current track"
 msgstr "நடப்பு தடத்தின் தரவரிசையை பெறு"
 
-#: ../xl/main.py:245
+#: ../xl/main.py:244
 msgid "Print the current playback position as time"
 msgstr "தற்போதைய பின்னணி நிலையை நேரமாக அச்சிடுக"
 
-#: ../xl/main.py:252
+#: ../xl/main.py:251
 msgid "Print the current playback progress as percentage"
 msgstr "தற்போதைய பின்னணி முன்னேற்றத்தை சதவீதமாக அச்சிடுங்கள்"
 
-#: ../xl/main.py:255
+#: ../xl/main.py:254
 msgid "Volume Options"
 msgstr "ஒலி விருப்பத்தேர்வுகள்"
 
-#: ../xl/main.py:263
+#: ../xl/main.py:262
 msgid "Increase the volume by N%"
 msgstr "அளவை n% அதிகரிக்கவும்"
 
-#: ../xl/main.py:272
+#: ../xl/main.py:271
 msgid "Decrease the volume by N%"
 msgstr "அளவை n% குறைக்கவும்"
 
-#: ../xl/main.py:280
+#: ../xl/main.py:279
 msgid "Mute or unmute the volume"
 msgstr "முடக்கு அல்லது அளவை அசைக்கவும்"
 
-#: ../xl/main.py:287
+#: ../xl/main.py:286
 msgid "Print the current volume percentage"
 msgstr "நடப்பு ஒலிஅளவு சதவீதத்தை அச்சிடு"
 
-#: ../xl/main.py:290
+#: ../xl/main.py:289
 msgid "Other Options"
 msgstr "மற்ற விருப்பத்தேர்வுகள்"
 
-#: ../xl/main.py:296
+#: ../xl/main.py:295
 msgid "Start new instance"
 msgstr "புதிய நிகழ்வைத் தொடங்கவும்"
 
-#: ../xl/main.py:299
+#: ../xl/main.py:298
 msgid "Show this help message and exit"
 msgstr "இந்த உதவி செய்தியை காட்டிவிட்டு வெளியேறு"
 
-#: ../xl/main.py:305
+#: ../xl/main.py:304
 msgid "Show program's version number and exit."
 msgstr "நிரலின் பதிப்பு எண்ணை காட்டிவிட்டு வெளியேறு"
 
-#: ../xl/main.py:312
+#: ../xl/main.py:311
 msgid "Start minimized (to tray, if possible)"
 msgstr "குறைக்கத் தொடங்கு (தட்டில், முடிந்தால்)"
 
-#: ../xl/main.py:319
+#: ../xl/main.py:318
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "GUI இன் தெரிவுநிலையை மாற்றவும் (முடிந்தால்)"
 
-#: ../xl/main.py:327
+#: ../xl/main.py:326
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 "பாதுகாப்பான பயன்முறையில் தொடங்குங்கள் - நீங்கள் சிக்கல்களில் இயங்கும்போது சில நேரங்களில் "
 "பயனுள்ளதாக இருக்கும்"
 
-#: ../xl/main.py:336
+#: ../xl/main.py:335
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 "பதிப்பு 0.2.x இலிருந்து பழைய தரவை இறக்குமதி செய்யுங்கள் (தற்போதைய தரவை மேலெழுதும்)"
 
-#: ../xl/main.py:344
+#: ../xl/main.py:343
 msgid "Do not import old data from version 0.2.x"
 msgstr "பதிப்பு 0.2.x இலிருந்து பழைய தரவை இறக்குமதி செய்ய வேண்டாம்"
 
-#: ../xl/main.py:351
+#: ../xl/main.py:350
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 "கட்டுப்பாட்டு விருப்பங்களை உருவாக்கவும் -தொடக்க எக்செயல் இயங்கவில்லை என்றால் அதை உருவாக்கவும்"
 
-#: ../xl/main.py:357
+#: ../xl/main.py:356
 msgid "Locale to use for Exaile"
 msgstr "எக்செயிலுக்கு பயன்படுத்த இடம்"
 
-#: ../xl/main.py:360
+#: ../xl/main.py:359
 msgid "Development/Debug Options"
 msgstr "வளர்ச்சி/பிழைத்திருத்த விருப்பங்கள்"
 
-#: ../xl/main.py:364 ../xl/main.py:370
+#: ../xl/main.py:363 ../xl/main.py:369
 msgid "DIRECTORY"
 msgstr "அடைவு"
 
-#: ../xl/main.py:365
+#: ../xl/main.py:364
 msgid "Set data directory"
 msgstr "தரவு கோப்பகத்தை அமைக்கவும்"
 
-#: ../xl/main.py:371
+#: ../xl/main.py:370
 msgid "Set data and config directory"
 msgstr "தரவு மற்றும் கட்டமைப்பு கோப்பகத்தை அமைக்கவும்"
 
-#: ../xl/main.py:376
+#: ../xl/main.py:375
 msgid "MODULE"
 msgstr "தொகுதி"
 
-#: ../xl/main.py:377
+#: ../xl/main.py:376
 msgid "Limit log output to MODULE"
 msgstr "பதிவு வெளியீட்டை தொகுதிக்கு மட்டுப்படுத்தவும்"
 
-#: ../xl/main.py:382
+#: ../xl/main.py:381
 msgid "LEVEL"
 msgstr "மட்டம்"
 
-#: ../xl/main.py:383
+#: ../xl/main.py:382
 msgid "Limit log output to LEVEL"
 msgstr "பதிவு வெளியீட்டை நிலைக்கு மட்டுப்படுத்தவும்"
 
-#: ../xl/main.py:391
+#: ../xl/main.py:390
 msgid "Show debugging output"
 msgstr "பிழைத்திருத்த வெளியீட்டை காட்டு"
 
-#: ../xl/main.py:398
+#: ../xl/main.py:397
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "Xl.event இன் பிழைத்திருத்தத்தை இயக்கவும். நிறைய வெளியீட்டை உருவாக்குகிறது"
 
-#: ../xl/main.py:405
+#: ../xl/main.py:404
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr "XL.EVENT இன் முழு பிழைத்திருத்தத்தை இயக்கவும். நிறைய வெளியீட்டை உருவாக்குகிறது"
 
-#: ../xl/main.py:412
+#: ../xl/main.py:411
 msgid "Add thread name to logging messages."
 msgstr "பதிவு செய்திகளுக்கு நூல் பெயரைச் சேர்க்கவும்."
 
-#: ../xl/main.py:417
+#: ../xl/main.py:416
 msgid "TYPE"
 msgstr "வகை"
 
-#: ../xl/main.py:418
+#: ../xl/main.py:417
 msgid "Limit xl.event debug to output of TYPE"
 msgstr "எக்ச்எல்.வென்ட் பிழைத்திருத்தத்தை வகையின் வெளியீட்டிற்கு கட்டுப்படுத்துங்கள்"
 
-#: ../xl/main.py:425
+#: ../xl/main.py:424
 msgid "Reduce level of output"
 msgstr "வெளியீட்டின் அளவைக் குறைக்கவும்"
 
-#: ../xl/main.py:435
+#: ../xl/main.py:434
 msgid "Disable D-Bus support"
 msgstr "டி-பச் ஆதரவை முடக்கு"
 
-#: ../xl/main.py:442
+#: ../xl/main.py:441
 msgid "Disable HAL support."
 msgstr "HAL ஆதரவை முடக்கு."
 
-#: ../xl/main.py:831
+#: ../xl/main.py:830
 msgid "Entire Library"
 msgstr "முழு நூலகமும்"
 
-#: ../xl/main.py:838
+#: ../xl/main.py:837
 #, python-format
 msgid "Random %d"
 msgstr "சீரற்ற %d"
 
-#: ../xl/main.py:847
+#: ../xl/main.py:846
 #, python-format
 msgid "Rating > %d"
 msgstr "தரவரிசை > %d"
 
-#: ../xl/main.py:1015
+#: ../xl/main.py:1014
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -1780,58 +1780,58 @@ msgstr "_ பிளேலிச்ட்டை அனுப்புங்கள
 msgid "Close Tab"
 msgstr "தாவலை மூடு"
 
-#: ../xlgui/widgets/playback.py:834
+#: ../xlgui/widgets/playback.py:833
 #, python-format
 msgid "Seeking: %s"
 msgstr "தேடுவது: %s"
 
-#: ../xlgui/widgets/playback.py:1184
+#: ../xlgui/widgets/playback.py:1183
 msgid "Move"
 msgstr "நகர்த்தவும்"
 
-#: ../xlgui/widgets/playback.py:1329
+#: ../xlgui/widgets/playback.py:1328
 msgid "New Marker"
 msgstr "புதிய மார்க்கர்"
 
-#: ../xlgui/widgets/playback.py:1388
+#: ../xlgui/widgets/playback.py:1387
 msgid "_Jump to"
 msgstr "_ சம்ப்"
 
-#: ../xlgui/widgets/playback.py:1396
+#: ../xlgui/widgets/playback.py:1395
 msgid "_Remove Marker"
 msgstr "_ ரெமோவ் மார்க்கர்"
 
-#: ../xlgui/widgets/playback.py:1439
+#: ../xlgui/widgets/playback.py:1438
 msgid "Muted"
 msgstr "முடக்கிய"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1445
+#: ../xlgui/widgets/playback.py:1444
 #, python-format
 msgid "%d%%"
 msgstr "%d %%"
 
-#: ../xlgui/widgets/playback.py:1450
+#: ../xlgui/widgets/playback.py:1449
 msgid "Full Volume"
 msgstr "முழு அளவு"
 
-#: ../xlgui/widgets/playback.py:1569
+#: ../xlgui/widgets/playback.py:1568
 msgid "_Pause"
 msgstr "_PAUSS"
 
-#: ../xlgui/widgets/playback.py:1572
+#: ../xlgui/widgets/playback.py:1571
 msgid "P_lay"
 msgstr "பி_லே"
 
-#: ../xlgui/widgets/playback.py:1584
+#: ../xlgui/widgets/playback.py:1583
 msgid "_Next Track"
 msgstr "_ நெக்ச்ட் டிராக்"
 
-#: ../xlgui/widgets/playback.py:1594
+#: ../xlgui/widgets/playback.py:1593
 msgid "_Previous Track"
 msgstr "_ முன்னுரிமை பாடல்"
 
-#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../xlgui/widgets/playback.py:1603 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "_ச்டாப்"
@@ -5238,6 +5238,14 @@ msgstr ""
 "போர்ட்டபிள் மீடியா பிளேயர்களுக்கான உதவி, பாட்காச்ட்கள், ஐச்காச்ட் மற்றும் சோமா எஃப்எம், "
 "ரீப்ளேசெய்ன், இரண்டாம் நிலை வெளியீட்டு சாதனம் வழியாக வெளியீடு (டி.சேக்களுக்கு "
 "சிறந்தது! ), மேலும் பல."
+
+#: ../data/exaile.appdata.xml.in:26
+msgid "Logo"
+msgstr ""
+
+#: ../data/exaile.appdata.xml.in:38
+msgid "The Exaile Team"
+msgstr ""
 
 #~ msgid "Remove after playback"
 #~ msgstr "பிளேபேக்கிற்குப் பிறகு அகற்றவும்"

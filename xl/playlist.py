@@ -309,8 +309,6 @@ class FormatConverter:
             # return track path as is
             if track_path_components.scheme == 'file':
                 # as path if local file
-                a = Gio.File.new_for_uri(track_path)
-                b = a.get_path()
                 return Gio.File.new_for_uri(track_path).get_path()
             return track_path
 

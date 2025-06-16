@@ -299,21 +299,46 @@ class FormatConverter:
         """
 
         track_path_components = urllib.parse.urlparse(track_path)
+        export_path_components = urllib.parse.urlparse(playlist_path)
 
-        if not track_path_components.scheme == 'file':
-            # return remote files as is
+        if (
+            export_path_components.scheme != track_path_components.scheme
+            or export_path_components.netloc != track_path_components.netloc
+        ):
+            # save files to playlist on different location
+            # return track path as is
+            if track_path_components.scheme == 'file':
+                # as path if local file
+                a = Gio.File.new_for_uri(track_path)
+                b = a.get_path()
+                return Gio.File.new_for_uri(track_path).get_path()
             return track_path
 
-        track_path = Gio.File.new_for_uri(track_path)
         if options is None or not options.relative:
-            # return local files as is but as path instead of uri
-            return track_path.get_path()
+            # return absolute uri
+            if track_path_components.scheme == 'file':
+                # as path if local file
+                return Gio.File.new_for_uri(track_path).get_path()
+            return track_path
+
 
         # calculate relative path
-        playlist_file = Gio.File.new_for_uri(playlist_path)
-        export_path = playlist_file.get_parent().get_path()
+        track_path = Gio.File.new_for_uri(track_path)
+        playlist_file_folder = Gio.File.new_for_uri(playlist_path).get_parent()
 
-        track_path = os.path.relpath(track_path.get_path(), export_path)
+        if track_path_components.scheme == 'file':
+            # return path
+            # on Windows relpath raises a ValueError if track and playlist are not on same drive
+            try:
+                track_path = os.path.relpath(track_path.get_path(), playlist_file_folder.get_path())
+            except ValueError:
+                return track_path.get_path()
+            return track_path
+
+        try:
+            track_path = os.path.relpath(track_path.get_uri(), playlist_file_folder.get_uri())
+        except ValueError:
+            return track_path.get_uri()
 
         return track_path
 

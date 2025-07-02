@@ -876,7 +876,7 @@ msgstr "கோப்பை சேமி"
 #: ../xlgui/cover.py:1027
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
-msgstr "%(artist)s - %(album)sக்கான கவர் விருப்பங்கள்"
+msgstr "%(artist)s - %(album)sக்கான அட்டை விருப்பங்கள்"
 
 #: ../xlgui/cover.py:1131
 msgid "No covers found."

@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-24 00:08+0200\n"
-"PO-Revision-Date: 2024-12-25 16:00+0000\n"
+"PO-Revision-Date: 2025-07-02 10:01+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
-"Language-Team: Tamil <https://hosted.weblate.org/projects/exaile/master/ta/"
-">\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/exaile/master/ta/>"
+"\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -96,7 +96,7 @@ msgstr "%d:%02d:%02d"
 #: ../xl/formatter.py:633
 #, python-format
 msgid "%d:%02d"
-msgstr "%d:%02 டி"
+msgstr "%d:%02d"
 
 #: ../xl/formatter.py:730 ../xl/main.py:809 ../xl/trax/track.py:72
 #: ../plugins/icecast/__init__.py:171
@@ -290,7 +290,7 @@ msgstr "இந்த உதவி செய்தியை காட்டிவ
 
 #: ../xl/main.py:304
 msgid "Show program's version number and exit."
-msgstr "நிரலின் பதிப்பு எண்ணை காட்டிவிட்டு வெளியேறு"
+msgstr "நிரலின் பதிப்பு எண்ணைக் காட்டிவிட்டு வெளியேறு."
 
 #: ../xl/main.py:311
 msgid "Start minimized (to tray, if possible)"
@@ -575,7 +575,7 @@ msgstr "மாற்றப்பட்டது"
 
 #: ../xl/metadata/tags.py:85
 msgid "Play time"
-msgstr "நேரம் நேரம்"
+msgstr "விளையாடும் நேரம்"
 
 #: ../xl/metadata/tags.py:86
 msgid "Times played"
@@ -694,7 +694,7 @@ msgstr "மீண்டும் _ஆஃப்"
 
 #: ../xl/playlist.py:916
 msgid "Repeat _All"
-msgstr "மீண்டும் மீண்டும்"
+msgstr "அனைத்தையும் மீண்டும் செய்"
 
 #: ../xl/playlist.py:916
 msgid "Repeat O_ne"
@@ -876,7 +876,7 @@ msgstr "கோப்பை சேமி"
 #: ../xlgui/cover.py:1027
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
-msgstr "%க்கான கவர் விருப்பங்கள் (கலைஞர்கள் - %(ஆல்பங்கள்"
+msgstr "%(artist)s - %(album)sக்கான கவர் விருப்பங்கள்"
 
 #: ../xlgui/cover.py:1131
 msgid "No covers found."
@@ -1082,7 +1082,7 @@ msgstr "_Queeue"
 
 #: ../xlgui/menu.py:237
 msgid "C_overs"
-msgstr "C_overs"
+msgstr "அட்டைகள்"
 
 #: ../xlgui/menu.py:253
 msgid "_Preferences"
@@ -2608,7 +2608,7 @@ msgstr "பிளேபேக்கில் வரிசையில் இர�
 
 #: ../data/ui/preferences/playback.ui:221
 msgid "Remove track from queue after playback"
-msgstr ""
+msgstr "பிளேபேக்கிற்குப் பிறகு வரிசையில் இருந்து பாதையை அகற்று"
 
 #: ../data/ui/preferences/playback.ui:236
 #: ../plugins/quickbuttons/__init__.py:47
@@ -3083,7 +3083,7 @@ msgstr "தனிப்பயன் சேகரிப்புகள்"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:85
 msgid "Really delete this order?"
-msgstr ""
+msgstr "உண்மையில் இந்த ஆர்டரை நீக்கவா?"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:98
 msgid "Add or edit custom order"
@@ -3095,6 +3095,10 @@ msgid ""
 "it's not possible to use more than one tag per node.\n"
 "Every tag can be used."
 msgstr ""
+"மரக் காட்சியில் முனைகளாகப் பயன்படுத்த வேண்டிய குறிச்சொற்களின் பட்டியல் கமா "
+"பிரிக்கப்பட்டுள்ளது. இப்போது ஒரு முனைக்கு ஒன்றுக்கு மேற்பட்ட குறிச்சொல்லைப் பயன்படுத்த "
+"முடியாது. \n"
+"ஒவ்வொரு குறிச்சொல்லையும் பயன்படுத்தலாம்."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:114
 msgid ""
@@ -3915,7 +3919,7 @@ msgstr "ச்ட்ரீம்ரிப்பரை இயக்குவத�
 
 #: ../plugins/streamripper/srprefs.py:21 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr ""
+msgstr "ச்ட்ரீம்ரிப்பர்"
 
 #: ../plugins/wikipedia/__init__.py:154 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
@@ -4118,7 +4122,7 @@ msgstr "எளிய கன்சோல்"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:51
 msgid "Custom orders"
-msgstr ""
+msgstr "தனிப்பயன் ஆர்டர்கள்"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:77
 msgid "Add _Order"
@@ -5150,7 +5154,7 @@ msgstr "பிளேபேக்கின் முடிவில் கணி�
 
 #: ../plugins/somafm/PLUGININFO:3
 msgid "SomaFM Radio"
-msgstr ""
+msgstr "சோமாஃப் ரேடியோ"
 
 #: ../plugins/somafm/PLUGININFO:4
 #, python-format
@@ -5241,11 +5245,11 @@ msgstr ""
 
 #: ../data/exaile.appdata.xml.in:26
 msgid "Logo"
-msgstr ""
+msgstr "சின்னம்"
 
 #: ../data/exaile.appdata.xml.in:38
 msgid "The Exaile Team"
-msgstr ""
+msgstr "எக்செயில் குழு"
 
 #~ msgid "Remove after playback"
 #~ msgstr "பிளேபேக்கிற்குப் பிறகு அகற்றவும்"

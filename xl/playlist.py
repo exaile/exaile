@@ -287,58 +287,63 @@ class FormatConverter:
         return track_uri
 
     def get_track_export_path(
-        self, playlist_path: str, track_path: str, options: PlaylistExportOptions
+        self, playlist_uri: str, track_uri: str, options: PlaylistExportOptions
     ):
         """
         Retrieves the export path of a track,
         possibly influenced by options
 
-        :param playlist_path: the export path of the playlist
-        :param track_path: the path of the track
+        :param playlist_uri: the export path of the playlist
+        :param track_uri: the path of the track
         :param options: options
         """
 
-        track_path_components = urllib.parse.urlparse(track_path)
-        export_path_components = urllib.parse.urlparse(playlist_path)
+        track_uri_components = urllib.parse.urlparse(track_uri)
+        export_uri_components = urllib.parse.urlparse(playlist_uri)
 
         if (
-            export_path_components.scheme != track_path_components.scheme
-            or export_path_components.netloc != track_path_components.netloc
+            export_uri_components.scheme != track_uri_components.scheme
+            or export_uri_components.netloc != track_uri_components.netloc
         ):
             # save files to playlist on different location
             # return track path as is
-            if track_path_components.scheme == 'file':
+            if track_uri_components.scheme == 'file':
                 # as path if local file
-                return Gio.File.new_for_uri(track_path).get_path()
-            return track_path
+                gio = Gio.File.new_for_uri(track_uri)
+                path = gio.get_path()
+                return Gio.File.new_for_uri(track_uri).get_path()
+            return track_uri
 
         if options is None or not options.relative:
             # return absolute uri
-            if track_path_components.scheme == 'file':
+            if track_uri_components.scheme == 'file':
                 # as path if local file
-                return Gio.File.new_for_uri(track_path).get_path()
-            return track_path
-
+                return Gio.File.new_for_uri(track_uri).get_path()
+            return track_uri
 
         # calculate relative path
-        track_path = Gio.File.new_for_uri(track_path)
-        playlist_file_folder = Gio.File.new_for_uri(playlist_path).get_parent()
+        track_uri = Gio.File.new_for_uri(track_uri)
+        playlist_file_folder = Gio.File.new_for_uri(playlist_uri).get_parent()
 
-        if track_path_components.scheme == 'file':
+        if track_uri_components.scheme == 'file':
             # return path
             # on Windows relpath raises a ValueError if track and playlist are not on same drive
             try:
-                track_path = os.path.relpath(track_path.get_path(), playlist_file_folder.get_path())
+                track_uri = os.path.relpath(
+                    track_uri.get_path(), playlist_file_folder.get_path()
+                )
             except ValueError:
-                return track_path.get_path()
-            return track_path
+                return track_uri.get_path()
+            return track_uri
 
         try:
-            track_path = os.path.relpath(track_path.get_uri(), playlist_file_folder.get_uri())
+            track_uri = os.path.relpath(
+                track_uri.get_uri(), playlist_file_folder.get_uri()
+            )
         except ValueError:
-            return track_path.get_uri()
+            return track_uri.get_uri()
 
-        return track_path
+        return track_uri
 
 
 class M3UConverter(FormatConverter):

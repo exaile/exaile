@@ -26,6 +26,7 @@
 
 import logging
 import os.path
+import urllib.request
 from threading import Thread
 from typing import Iterable, Optional, Union
 
@@ -1082,6 +1083,9 @@ class PlaylistExportDialog(FileOperationDialog):
             except InvalidPlaylistTypeError as e:
                 self.emit('message', Gtk.MessageType.ERROR, str(e))
             else:
+                # path = urllib.request.url2pathname(path)
+                gio = Gio.File.new_for_uri(path)
+                path = gio.get_path()
                 self.emit(
                     'message',
                     Gtk.MessageType.INFO,

@@ -51,11 +51,6 @@ class Test_FormatConverter:
         )
         assert test == 'http://ec3.yesstreaming.net:3420/stream'
 
-        # test = fc.get_track_export_path(
-        #     'file://C:/tmp/playlist', 'file://D:/tmp/track1', peo
-        # )
-        # assert test == 'D:/tmp/track1'
-
     def test_track_export_path_stream(self):
         fc = FormatConverter('test')
 

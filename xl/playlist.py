@@ -39,6 +39,7 @@ import os
 import pickle
 import random
 import re
+import sys
 import time
 from typing import NamedTuple
 import urllib.parse
@@ -309,8 +310,6 @@ class FormatConverter:
             # return track path as is
             if track_uri_components.scheme == 'file':
                 # as path if local file
-                gio = Gio.File.new_for_uri(track_uri)
-                path = gio.get_path()
                 return Gio.File.new_for_uri(track_uri).get_path()
             return track_uri
 
@@ -332,6 +331,9 @@ class FormatConverter:
                 track_uri = os.path.relpath(
                     track_uri.get_path(), playlist_file_folder.get_path()
                 )
+                # Ensure '\' is always used as separator on Windows.
+                if sys.platform == 'win32' and os.sep == '/':
+                    track_uri = track_uri.replace(os.sep, '\\')
             except ValueError:
                 return track_uri.get_path()
             return track_uri

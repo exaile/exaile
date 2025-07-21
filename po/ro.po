@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-24 00:08+0200\n"
-"PO-Revision-Date: 2025-06-24 06:04+0000\n"
+"PO-Revision-Date: 2025-07-21 15:01+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/exaile/master/"
 "ro/>\n"
@@ -3959,7 +3959,7 @@ msgstr "Eroare la executarea «streamripper»"
 
 #: ../plugins/streamripper/srprefs.py:21 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr "Streamripper (extractor/înregistrator de fluxuri)"
+msgstr "Streamripper"
 
 #: ../plugins/wikipedia/__init__.py:154 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3

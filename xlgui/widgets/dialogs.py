@@ -1082,13 +1082,13 @@ class PlaylistExportDialog(FileOperationDialog):
             except InvalidPlaylistTypeError as e:
                 self.emit('message', Gtk.MessageType.ERROR, str(e))
             else:
+                gio = Gio.File.new_for_uri(path)
+                path = gio.get_path()
                 self.emit(
                     'message',
                     Gtk.MessageType.INFO,
                     _('Playlist saved as <b>%s</b>.') % path,
                 )
-
-        # self.destroy()
 
 
 class ConfirmCloseDialog(Gtk.MessageDialog):

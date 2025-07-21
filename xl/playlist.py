@@ -39,6 +39,7 @@ import os
 import pickle
 import random
 import re
+import sys
 import time
 from typing import NamedTuple
 import urllib.parse
@@ -287,44 +288,64 @@ class FormatConverter:
         return track_uri
 
     def get_track_export_path(
-        self, playlist_path: str, track_path: str, options: PlaylistExportOptions
+        self, playlist_uri: str, track_uri: str, options: PlaylistExportOptions
     ):
         """
         Retrieves the export path of a track,
         possibly influenced by options
 
-        :param playlist_path: the export path of the playlist
-        :param track_path: the path of the track
+        :param playlist_uri: the export path of the playlist
+        :param track_uri: the path of the track
         :param options: options
         """
-        if options is not None and options.relative:
-            playlist_file = Gio.File.new_for_uri(playlist_path)
-            # Strip playlist filename from export path
-            export_path = playlist_file.get_parent().get_uri()
 
+        track_uri_components = urllib.parse.urlparse(track_uri)
+        export_uri_components = urllib.parse.urlparse(playlist_uri)
+
+        if (
+            export_uri_components.scheme != track_uri_components.scheme
+            or export_uri_components.netloc != track_uri_components.netloc
+        ):
+            # save files to playlist on different location
+            # return track path as is
+            if track_uri_components.scheme == 'file':
+                # as path if local file
+                return Gio.File.new_for_uri(track_uri).get_path()
+            return track_uri
+
+        if options is None or not options.relative:
+            # return absolute uri
+            if track_uri_components.scheme == 'file':
+                # as path if local file
+                return Gio.File.new_for_uri(track_uri).get_path()
+            return track_uri
+
+        # calculate relative path
+        track_uri = Gio.File.new_for_uri(track_uri)
+        playlist_file_folder = Gio.File.new_for_uri(playlist_uri).get_parent()
+
+        if track_uri_components.scheme == 'file':
+            # return path
+            # on Windows relpath raises a ValueError if track and playlist are not on same drive
             try:
-                export_path_components = urllib.parse.urlparse(export_path)
-                track_path_components = urllib.parse.urlparse(track_path)
-            except (AttributeError, ValueError):  # None, empty path
-                pass
-            else:
-                # Only try to retrieve relative paths for tracks with
-                # the same URI scheme and location as the playlist
-                if (
-                    export_path_components.scheme == track_path_components.scheme
-                    and export_path_components.netloc == track_path_components.netloc
-                ):
-                    # Gio.File.get_relative_path does not generate relative paths
-                    # for tracks located above the playlist in the path hierarchy,
-                    # thus process both paths as done here
-                    track_path = os.path.relpath(
-                        track_path_components.path, export_path_components.path
-                    )
+                track_uri = os.path.relpath(
+                    track_uri.get_path(), playlist_file_folder.get_path()
+                )
+                # Ensure '\' is always used as separator on Windows.
+                if sys.platform == 'win32' and os.sep == '/':
+                    track_uri = track_uri.replace(os.sep, '\\')
+            except ValueError:
+                return track_uri.get_path()
+            return track_uri
 
-        # if the file is local, other players like VLC will not
-        # accept the playlist if they have %20 in them, so we must convert
-        # it to something else
-        return urllib.request.url2pathname(track_path)
+        try:
+            track_uri = os.path.relpath(
+                track_uri.get_uri(), playlist_file_folder.get_uri()
+            )
+        except ValueError:
+            return track_uri.get_uri()
+
+        return track_uri
 
 
 class M3UConverter(FormatConverter):

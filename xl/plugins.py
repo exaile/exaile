@@ -264,11 +264,19 @@ class PluginsManager:
         # https://github.com/exaile/exaile/issues/962
         try:
             gi.require_version('GIRepository', '3.0')
+            new_api = True
         except ValueError:
             gi.require_version('GIRepository', '2.0')
+            new_api = False
         from gi.repository import GIRepository
 
-        gir = GIRepository.Repository.get_default()
+        # The old API had `get_default` method to obtain global singleton
+        # object; it was removed in the new API, which requires creation
+        # of separate GIRepository instances.
+        if new_api:
+            gir = GIRepository.Repository()
+        else:
+            gir = GIRepository.Repository.get_default()
 
         modules = info.get('RequiredModules', [])
 

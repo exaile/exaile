@@ -61,7 +61,7 @@ def tracks(data):
 
 
 @click.group()
-@click.option('--db', default=exaile_db)
+@click.option('--db', default=exaile_db, help=f"Custom database path.")
 @click.pass_context
 def cli(ctx, db):
     '''
@@ -158,7 +158,7 @@ def info(ctx, data):
 
 @cli.command()
 @click.argument('search')
-@click.option('-t', '--tag', default='title')
+@click.option('-t', '--tag', default='title', help="Tag to search (default: title).")
 @click.pass_obj
 def search(data, tag, search):
     '''
@@ -202,7 +202,7 @@ def _print_tr(tr, raw):
 
 @cli.command('track-by-idx')
 @click.argument('idx')
-@click.option('--raw/--no-raw', default=False)
+@click.option('--raw/--no-raw', default=False, help="Show raw Unix timestamps.")
 @click.pass_obj
 def track_by_idx(data, idx, raw):
     '''

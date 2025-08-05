@@ -446,7 +446,7 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
             context.close_path()
 
             if marker.props.state in (Gtk.StateType.PRELIGHT, Gtk.StateType.ACTIVE):
-                c = style.get_color(Gtk.StateType.NORMAL)
+                c = style.get_color(Gtk.StateFlags.NORMAL)
                 context.set_source_rgba(c.red, c.green, c.blue, c.alpha)
             else:
                 if marker.props.color is not None:
@@ -463,7 +463,7 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
             context.fill_preserve()
 
             if marker.props.state in (Gtk.StateType.PRELIGHT, Gtk.StateType.ACTIVE):
-                c = style.get_color(Gtk.StateType.NORMAL)
+                c = style.get_color(Gtk.StateFlags.NORMAL)
                 context.set_source_rgba(c.red, c.green, c.blue, c.alpha)
             else:
                 foreground = style.get_color(marker.props.state)

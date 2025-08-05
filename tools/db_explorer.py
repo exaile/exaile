@@ -35,14 +35,18 @@ import bsddb3 as bsddb
 import click
 
 
-class Utf8Unpickler(pickle.Unpickler):
+class Unpickler(pickle.Unpickler):
     def __init__(self, *args, **kwargs):
+        # For compatibility with Python 2 shelves
         kwargs['encoding'] = 'utf-8'
         super().__init__(*args, **kwargs)
 
+    # https://docs.python.org/3/library/pickle.html#restricting-globals
+    def find_class(self, module: str, name: str):
+        raise pickle.UnpicklingError(f"Tried to import {module}.{name}")
 
-# For compatibility with Python 2 shelves
-shelve.Unpickler = Utf8Unpickler
+
+shelve.Unpickler = Unpickler
 
 exaile_db = os.path.join(os.path.expanduser('~'), '.local', 'share', 'exaile',
                          'music.db')

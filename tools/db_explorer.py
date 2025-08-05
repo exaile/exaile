@@ -106,9 +106,6 @@ def cvtdb(ctx, data, dbtype):
     elif dbtype == 'dbm':
         import dbm.ndbm
         new_d = dbm.ndbm.open(newdb, 'n')
-    elif dbtype == 'dbhash':
-        import dbm.bsd
-        new_d = dbm.bsd.open(newdb, 'n')
     elif dbtype == 'bsddb':
         new_d = bsddb.hashopen(newdb, 'n')
     elif dbtype == 'dumbdbm':

@@ -109,7 +109,6 @@ class TrackDB:
         self._saving = False
         self._key = 0
         self._dbversion = 2.0
-        self._dbminorversion = 0
         self._deleted_keys = []
         if location:
             self.load_from_location()

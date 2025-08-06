@@ -146,11 +146,18 @@ def info(ctx, data):
     '''
         Display summary information about the DB
     '''
-    print('DB Type:', whichdb(ctx.parent.params['db']))
-    print('Version:', data.get('_dbversion'))
-    print('Name   :', data.get('name'))
-    print('Key    :', data.get('_key'))
-    print("Count  :", len(data))
+    meta = sorted(k for k in data if not k.startswith('tracks-'))
+    info_kv = [
+        ('DB Type', whichdb(ctx.parent.params['db'])),
+        ('Meta', meta),
+        ('Version', data.get('_dbversion')),
+        ('Name', data.get('name')),
+        ('Tracks', len(data) - len(meta)),
+        ('Next Key', data.get('_key')),
+    ]
+    k_len = max(len(k) for k, _ in info_kv)
+    for k, v in info_kv:
+        print(f'{k:{k_len}}: {v!r}')
     print()
     print('Location(s):')
     pprint.pprint(data.get('_serial_libraries'))

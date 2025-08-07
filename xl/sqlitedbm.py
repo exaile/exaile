@@ -28,14 +28,11 @@
 __all__ = ['SqliteDbm']
 
 
-from collections.abc import Iterator, MutableMapping
 import operator
 import os
-from os import PathLike
-import shelve
 import sqlite3
 import sys
-from typing import Any, Literal
+from typing import Iterator, Literal, MutableMapping, Union
 import urllib.parse
 
 
@@ -53,11 +50,20 @@ class SqliteDbm(MutableMapping[bytes, bytes]):
 
     def __init__(
         self,
-        path: str | bytes | PathLike[str] | PathLike[bytes],
+        path: Union[str, bytes, os.PathLike],
         *,
         autocommit: bool = True,
         mode: Literal['ro', 'rw', 'rwc'] = 'rwc',
     ):
+        """
+        Open a database.
+
+        :param path: Database file path.
+        :param autocommit: Commit after every change instead of requiring sync.
+        :param mode: Database open mode: ro = read only, rw = read/write, rwc =
+            read/write/create.
+        """
+
         self.autocommit = autocommit
         path_urlquoted = urllib.parse.quote(os.fsencode(path))
         uri = f"file:{path_urlquoted}?mode={mode}"
@@ -98,7 +104,7 @@ class SqliteDbm(MutableMapping[bytes, bytes]):
         if not self.autocommit:
             self.conn.commit()
 
-    def __contains__(self, key: str | bytes) -> bool:
+    def __contains__(self, key: Union[str, bytes]) -> bool:
         key = self.__fix_type(key)
         return (
             self.conn.execute("SELECT NULL FROM Dict WHERE key = ?", (key,)).fetchone()
@@ -107,19 +113,18 @@ class SqliteDbm(MutableMapping[bytes, bytes]):
 
     __del__ = close
 
-    def __delitem__(self, key: str | bytes) -> None:
+    def __delitem__(self, key: Union[str, bytes]) -> None:
         key = self.__fix_type(key)
         if self.conn.execute("DELETE FROM Dict WHERE key = ?", (key,)).rowcount == 0:
             raise KeyError(key)
 
-    # TODO: Can use ->Self in Python>=3.11
     def __enter__(self) -> 'SqliteDbm':
         return self
 
     def __exit__(self, *_) -> None:
         self.close()
 
-    def __getitem__(self, key: str | bytes) -> bytes:
+    def __getitem__(self, key: Union[str, bytes]) -> bytes:
         key = self.__fix_type(key)
         result = self.conn.execute(
             "SELECT value FROM Dict where key = ?", (key,)
@@ -134,7 +139,7 @@ class SqliteDbm(MutableMapping[bytes, bytes]):
     def __len__(self) -> int:
         return self.conn.execute("SELECT COUNT(*) FROM Dict").fetchone()[0]
 
-    def __setitem__(self, key: str | bytes, value: str | bytes) -> None:
+    def __setitem__(self, key: Union[str, bytes], value: Union[str, bytes]) -> None:
         key = self.__fix_type(key)
         value = self.__fix_type(value)
         self.conn.execute("REPLACE INTO Dict VALUES (?, ?)", (key, value))

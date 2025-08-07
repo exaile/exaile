@@ -30,6 +30,7 @@ import os
 import os.path
 import pickle
 import shelve
+from typing import List
 
 try:
     import berkeleydb
@@ -99,7 +100,7 @@ def migrate(old_path: str, new_path: str):
     return True
 
 
-def _get_file_group(path: str) -> list[str]:
+def _get_file_group(path: str) -> List[str]:
     """
     Get `path` (if exists) and `path.*` files.
 

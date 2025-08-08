@@ -395,7 +395,7 @@ def open_shelf(path):
     from xl import sqlitedbm
 
     try:
-        db = sqlitedbm.SqliteDbm(path, mode='rw')
+        db = sqlitedbm.SqliteDbm(path)
     except sqlite3.Error:
         try:
             from xl.migrations.database import to_sqlite
@@ -404,12 +404,14 @@ def open_shelf(path):
         else:
             migrated = to_sqlite.migrate(path, path)
         if migrated:
-            logger.warning(
-                "%s was created with an old backend and has been migrated", path
+            logger.info(
+                f"{path!r} was created with an old backend and has been migrated"
             )
         else:
-            logger.info("No existing valid database at %s, creating new", path)
-        db = sqlitedbm.SqliteDbm(path, mode='rwc')
+            raise Exception(
+                f"Failed migrating {path!r}, make sure you have the Python berkeleydb or bsddb3 package installed"
+            )
+        db = sqlitedbm.SqliteDbm(path)
     return shelve.Shelf(db, protocol=PICKLE_PROTOCOL)
 
 

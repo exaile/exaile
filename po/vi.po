@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-02 23:02+0100\n"
+"POT-Creation-Date: 2025-05-24 00:08+0200\n"
 "PO-Revision-Date: 2020-06-11 23:41+0000\n"
 "Last-Translator: darkcloudcat <leducthn@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/exaile/master/"
@@ -94,7 +94,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:730 ../xl/main.py:810 ../xl/trax/track.py:72
+#: ../xl/formatter.py:730 ../xl/main.py:809 ../xl/trax/track.py:72
 #: ../plugins/icecast/__init__.py:171
 msgid "Unknown"
 msgstr "Chưa xác định"
@@ -116,302 +116,302 @@ msgstr "Hôm qua"
 msgid "Local"
 msgstr "Trên máy"
 
-#: ../xl/main.py:84
+#: ../xl/main.py:83
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "Cách dùng: exaile [TUỲ CHỌN...] [VỊ TRÍ...]"
 
-#: ../xl/main.py:86
+#: ../xl/main.py:85
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
 
-#: ../xl/main.py:97
+#: ../xl/main.py:96
 msgid "Playback Options"
 msgstr "Tùy chỉnh phát nhạc"
 
-#: ../xl/main.py:104
+#: ../xl/main.py:103
 msgid "Play the next track"
 msgstr "Phát bài tiếp theo"
 
-#: ../xl/main.py:112
+#: ../xl/main.py:111
 msgid "Play the previous track"
 msgstr "Phát bài trước"
 
-#: ../xl/main.py:120 ../plugins/minimode/controls.py:351
+#: ../xl/main.py:119 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:368
 msgid "Stop playback"
 msgstr "Ngừng phát"
 
-#: ../xl/main.py:123
+#: ../xl/main.py:122
 msgid "Play"
 msgstr "Phát"
 
-#: ../xl/main.py:131 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:130 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "Tạm dừng"
 
-#: ../xl/main.py:139
+#: ../xl/main.py:138
 msgid "Pause or resume playback"
 msgstr "Tạm dừng hoặc tiếp tục phát"
 
-#: ../xl/main.py:146 ../plugins/minimode/controls.py:376
+#: ../xl/main.py:145 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
 msgstr "Dừng phát sau bài này"
 
-#: ../xl/main.py:149
+#: ../xl/main.py:148
 msgid "Collection Options"
 msgstr "Tùy chọn bộ sưu tập"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:154 ../xl/main.py:163
+#: ../xl/main.py:153 ../xl/main.py:162
 msgid "LOCATION"
 msgstr "LOCATION"
 
-#: ../xl/main.py:155
+#: ../xl/main.py:154
 msgid "Add tracks from LOCATION to the collection"
 msgstr "Thêm các track từ LOCATION đến bộ sưu tập"
 
-#: ../xl/main.py:158
+#: ../xl/main.py:157
 msgid "Playlist Options"
 msgstr "Tùy chọn danh sách"
 
-#: ../xl/main.py:164
+#: ../xl/main.py:163
 msgid "Export the current playlist to LOCATION"
 msgstr "Xuất danh sách hiện tại vào LOCATION"
 
-#: ../xl/main.py:167
+#: ../xl/main.py:166
 msgid "Track Options"
 msgstr "Tùy chỉnh bài hát"
 
-#: ../xl/main.py:174
+#: ../xl/main.py:173
 msgid "Query player"
 msgstr "Query player"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:180
+#: ../xl/main.py:179
 msgid "FORMAT"
 msgstr "FORMAT"
 
-#: ../xl/main.py:181
+#: ../xl/main.py:180
 #, fuzzy
 #| msgid "Print the current playback position as time"
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr "Hiện thời gian hiện đang phát"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:187
+#: ../xl/main.py:186
 #, fuzzy
 msgid "TAGS"
 msgstr "TAGS"
 
-#: ../xl/main.py:188
+#: ../xl/main.py:187
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr ""
 
-#: ../xl/main.py:195
+#: ../xl/main.py:194
 msgid "Show a popup with data of the current track"
 msgstr "Hiện một popup với thông tin của bài hiện tại"
 
-#: ../xl/main.py:202
+#: ../xl/main.py:201
 msgid "Print the title of current track"
 msgstr "Hiện tựa đề của bài hiện tại"
 
-#: ../xl/main.py:209
+#: ../xl/main.py:208
 msgid "Print the album of current track"
 msgstr "Hiện album của bài hiện tại"
 
-#: ../xl/main.py:216
+#: ../xl/main.py:215
 msgid "Print the artist of current track"
 msgstr "Hiện nghệ sĩ của bài hiện tại"
 
-#: ../xl/main.py:223
+#: ../xl/main.py:222
 msgid "Print the length of current track"
 msgstr "Hiện độ dài của bài hiện tại"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:230 ../xl/main.py:262 ../xl/main.py:271
+#: ../xl/main.py:229 ../xl/main.py:261 ../xl/main.py:270
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:231
+#: ../xl/main.py:230
 msgid "Set rating for current track to N%"
 msgstr "Thiết lập đánh giá cho bài hiện tại đến N%"
 
-#: ../xl/main.py:238
+#: ../xl/main.py:237
 msgid "Get rating for current track"
 msgstr "Lấy đánh giá cho bài hiện tại"
 
-#: ../xl/main.py:245
+#: ../xl/main.py:244
 msgid "Print the current playback position as time"
 msgstr "Hiện thời gian hiện đang phát"
 
-#: ../xl/main.py:252
+#: ../xl/main.py:251
 msgid "Print the current playback progress as percentage"
 msgstr "Hiện tiến trình phát hiện tại dưới dạng phần trăm"
 
-#: ../xl/main.py:255
+#: ../xl/main.py:254
 msgid "Volume Options"
 msgstr "Tùy chọn âm lượng"
 
-#: ../xl/main.py:263
+#: ../xl/main.py:262
 #, fuzzy
 #| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
 msgstr "Tăng âm lượng lên N%"
 
-#: ../xl/main.py:272
+#: ../xl/main.py:271
 #, fuzzy
 #| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
 msgstr "Giảm âm lượng xuống N%"
 
-#: ../xl/main.py:280
+#: ../xl/main.py:279
 #, fuzzy
 #| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
 msgstr "Tắt hay bật âm thanh"
 
-#: ../xl/main.py:287
+#: ../xl/main.py:286
 msgid "Print the current volume percentage"
 msgstr "Hiển thị mức phần trăm của âm lượng hiện tại"
 
-#: ../xl/main.py:290
+#: ../xl/main.py:289
 msgid "Other Options"
 msgstr "Tùy chọn khác"
 
-#: ../xl/main.py:296
+#: ../xl/main.py:295
 msgid "Start new instance"
 msgstr "Tiến trình mới"
 
-#: ../xl/main.py:299
+#: ../xl/main.py:298
 msgid "Show this help message and exit"
 msgstr "Hiện trợ giúp này và thoát"
 
-#: ../xl/main.py:305
+#: ../xl/main.py:304
 msgid "Show program's version number and exit."
 msgstr "Hiện phiên bản của chương trình và thoát."
 
-#: ../xl/main.py:312
+#: ../xl/main.py:311
 msgid "Start minimized (to tray, if possible)"
 msgstr "Bắt đầu thu nhỏ (vào khay hệ thống, nếu có thể)"
 
-#: ../xl/main.py:319
+#: ../xl/main.py:318
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Chuyển sang hiển thị giao diện đồ họa (nếu có thể)"
 
-#: ../xl/main.py:327
+#: ../xl/main.py:326
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 "Khởi động trong chế độ an toàn, điều này sẽ hữu ích nếu bạn gặp vấn đề gì đó "
 "trong khi chạy"
 
-#: ../xl/main.py:336
+#: ../xl/main.py:335
 #, fuzzy
 #| msgid ""
 #| "Force import of old data from version 0.2.x (Overwrites current data)"
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr "Nhập dữ liệu cũ từ phiên bản 0.2.x (Ghi đè dữ liệu hiện tại)"
 
-#: ../xl/main.py:344
+#: ../xl/main.py:343
 msgid "Do not import old data from version 0.2.x"
 msgstr "Không nhập dữ liệu cũ từ phiên bản 0.2.x"
 
-#: ../xl/main.py:351
+#: ../xl/main.py:350
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 "Tạo tuỳ chỉnh điều khiển như --play khởi động Exaile nếu nó không chạyTạo "
 "tuỳ chọn điều khiển như --play khởi động Exaile nếu nó không chạy"
 
-#: ../xl/main.py:357
+#: ../xl/main.py:356
 msgid "Locale to use for Exaile"
 msgstr ""
 
-#: ../xl/main.py:360
+#: ../xl/main.py:359
 msgid "Development/Debug Options"
 msgstr "Tùy chọn Phát triển/Gỡ lỗi"
 
-#: ../xl/main.py:364 ../xl/main.py:370
+#: ../xl/main.py:363 ../xl/main.py:369
 msgid "DIRECTORY"
 msgstr "DIRECTORY"
 
-#: ../xl/main.py:365
+#: ../xl/main.py:364
 msgid "Set data directory"
 msgstr "Thiết lập thư mục dữ liệu"
 
-#: ../xl/main.py:371
+#: ../xl/main.py:370
 msgid "Set data and config directory"
 msgstr "Thiết lập thư mục dữ liệu và cấu hình"
 
-#: ../xl/main.py:376
+#: ../xl/main.py:375
 msgid "MODULE"
 msgstr "MODULE"
 
-#: ../xl/main.py:377
+#: ../xl/main.py:376
 msgid "Limit log output to MODULE"
 msgstr "Giới hạn nhật kí xuất vào MODULE"
 
-#: ../xl/main.py:382
+#: ../xl/main.py:381
 msgid "LEVEL"
 msgstr "LEVEL"
 
-#: ../xl/main.py:383
+#: ../xl/main.py:382
 msgid "Limit log output to LEVEL"
 msgstr "Giới hạn nhật kí xuất vào LEVEL"
 
-#: ../xl/main.py:391
+#: ../xl/main.py:390
 msgid "Show debugging output"
 msgstr "Hiện thông tin gỡ lỗi"
 
-#: ../xl/main.py:398
+#: ../xl/main.py:397
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr ""
 
-#: ../xl/main.py:405
+#: ../xl/main.py:404
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr ""
 
-#: ../xl/main.py:412
+#: ../xl/main.py:411
 msgid "Add thread name to logging messages."
 msgstr "Thêm tên luồng vào nhật kí."
 
-#: ../xl/main.py:417
+#: ../xl/main.py:416
 msgid "TYPE"
 msgstr "TYPE"
 
-#: ../xl/main.py:418
+#: ../xl/main.py:417
 msgid "Limit xl.event debug to output of TYPE"
 msgstr ""
 
-#: ../xl/main.py:425
+#: ../xl/main.py:424
 msgid "Reduce level of output"
 msgstr "Giảm mức độ xuất"
 
-#: ../xl/main.py:435
+#: ../xl/main.py:434
 msgid "Disable D-Bus support"
 msgstr "Tắt hỗ trợ D-Bus"
 
-#: ../xl/main.py:442
+#: ../xl/main.py:441
 msgid "Disable HAL support."
 msgstr "Tắt hỗ trợ HAL."
 
-#: ../xl/main.py:831
+#: ../xl/main.py:830
 msgid "Entire Library"
 msgstr "Toàn bộ Thư viện"
 
-#: ../xl/main.py:838
+#: ../xl/main.py:837
 #, python-format
 msgid "Random %d"
 msgstr "Ngẫu nhiên %d"
 
-#: ../xl/main.py:847
+#: ../xl/main.py:846
 #, python-format
 msgid "Rating > %d"
 msgstr "Đánh giá > %d"
 
-#: ../xl/main.py:1015
+#: ../xl/main.py:1014
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -1871,66 +1871,66 @@ msgstr "Xoá danh sách"
 msgid "Close Tab"
 msgstr "Đóng thẻ"
 
-#: ../xlgui/widgets/playback.py:834
+#: ../xlgui/widgets/playback.py:833
 #, python-format
 msgid "Seeking: %s"
 msgstr "Tìm kiếm: %s"
 
-#: ../xlgui/widgets/playback.py:1184
+#: ../xlgui/widgets/playback.py:1183
 msgid "Move"
 msgstr "Di chuyển"
 
-#: ../xlgui/widgets/playback.py:1329
+#: ../xlgui/widgets/playback.py:1328
 msgid "New Marker"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1388
+#: ../xlgui/widgets/playback.py:1387
 msgid "_Jump to"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1396
+#: ../xlgui/widgets/playback.py:1395
 #, fuzzy
 #| msgid "_Remove tag"
 msgid "_Remove Marker"
 msgstr "_Gỡ bỏ thẻ"
 
-#: ../xlgui/widgets/playback.py:1439
+#: ../xlgui/widgets/playback.py:1438
 msgid "Muted"
 msgstr "Đã tắt âm"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1445
+#: ../xlgui/widgets/playback.py:1444
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/widgets/playback.py:1450
+#: ../xlgui/widgets/playback.py:1449
 msgid "Full Volume"
 msgstr "Âm lượng tối đa"
 
-#: ../xlgui/widgets/playback.py:1569
+#: ../xlgui/widgets/playback.py:1568
 #, fuzzy
 #| msgid "Pause"
 msgid "_Pause"
 msgstr "Tạm dừng"
 
-#: ../xlgui/widgets/playback.py:1572
+#: ../xlgui/widgets/playback.py:1571
 msgid "P_lay"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1584
+#: ../xlgui/widgets/playback.py:1583
 #, fuzzy
 #| msgid "Next Track"
 msgid "_Next Track"
 msgstr "Track tiếp theo"
 
-#: ../xlgui/widgets/playback.py:1594
+#: ../xlgui/widgets/playback.py:1593
 #, fuzzy
 #| msgid "Previous Track"
 msgid "_Previous Track"
 msgstr "Track trước"
 
-#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../xlgui/widgets/playback.py:1603 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
 #, fuzzy
 #| msgid "Stop"
@@ -5389,6 +5389,14 @@ msgid ""
 "advanced track tagging, last.fm scrobbling, support for portable media "
 "players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
 "output via a secondary output device (great for DJs!), and much more."
+msgstr ""
+
+#: ../data/exaile.appdata.xml.in:26
+msgid "Logo"
+msgstr ""
+
+#: ../data/exaile.appdata.xml.in:38
+msgid "The Exaile Team"
 msgstr ""
 
 #, fuzzy

@@ -182,7 +182,7 @@ install-target: make-install-dirs
 	install -p -m 644 data/ui/preferences/widgets/*.ui $(EXAILESHAREDIR)/data/ui/preferences/widgets
 	install -p -m 644 data/ui/widgets/*.ui $(EXAILESHAREDIR)/data/ui/widgets
 	-install -p -m 644 build/exaile.desktop $(DESTDIR)$(DATADIR)/applications/
-	-install -p -m 644 build/exaile.appdata.xml $(DESTDIR)$(DATADIR)/metainfo/
+	-install -p -m 644 build/org.exaile.exaile.appdata.xml $(DESTDIR)$(DATADIR)/metainfo/
 	-install -p -m 644 build/exaile.1.gz $(EXAILEMANDIR)/man1/
 	-install -p -m 644 build/exaile.bash-completion $(DESTDIR)$(BASHCOMPDIR)/exaile
 	-install -p -m 644 build/exaile.fish-completion $(DESTDIR)$(FISHCOMPDIR)/exaile.fish
@@ -301,9 +301,9 @@ check_format:
 desktop_files: builddir
 	echo $(LINGUAS) > po/LINGUAS
 	msgfmt --desktop --template=data/exaile.desktop.in -d po -o build/exaile.desktop
-	msgfmt --xml --template=data/exaile.appdata.xml.in -d po -o build/exaile.appdata.xml
+	msgfmt --xml --template=data/exaile.appdata.xml.in -d po -o build/org.exaile.exaile.appdata.xml
 	rm po/LINGUAS
 
 desktop_files_no_locale: builddir
 	cp data/exaile.desktop.in build/exaile.desktop
-	cp data/exaile.appdata.xml.in build/exaile.appdata.xml
+	cp data/exaile.appdata.xml.in build/org.exaile.exaile.appdata.xml

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-02 23:02+0100\n"
+"POT-Creation-Date: 2025-05-24 00:08+0200\n"
 "PO-Revision-Date: 2024-01-01 11:07+0000\n"
 "Last-Translator: Eric <zxmegaxqug@hldrive.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -95,7 +95,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:730 ../xl/main.py:810 ../xl/trax/track.py:72
+#: ../xl/formatter.py:730 ../xl/main.py:809 ../xl/trax/track.py:72
 #: ../plugins/icecast/__init__.py:171
 msgid "Unknown"
 msgstr "未知"
@@ -117,11 +117,11 @@ msgstr "昨天"
 msgid "Local"
 msgstr "本地"
 
-#: ../xl/main.py:84
+#: ../xl/main.py:83
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "使用:exaile [OPTION...] [LOCATION...]"
 
-#: ../xl/main.py:86
+#: ../xl/main.py:85
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
@@ -130,275 +130,275 @@ msgstr ""
 "启动 Exaile，可选地添加 LOCATION 指定的音乐到活动播放列表。如果 Exaile 已经在"
 "运行，这将尝试使用现有的实例，而不是创建一个新的实例。"
 
-#: ../xl/main.py:97
+#: ../xl/main.py:96
 msgid "Playback Options"
 msgstr "播放选项"
 
-#: ../xl/main.py:104
+#: ../xl/main.py:103
 msgid "Play the next track"
 msgstr "播放下一歌曲"
 
-#: ../xl/main.py:112
+#: ../xl/main.py:111
 msgid "Play the previous track"
 msgstr "播放上一歌曲"
 
-#: ../xl/main.py:120 ../plugins/minimode/controls.py:351
+#: ../xl/main.py:119 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:368
 msgid "Stop playback"
 msgstr "停止播放"
 
-#: ../xl/main.py:123
+#: ../xl/main.py:122
 msgid "Play"
 msgstr "播放"
 
-#: ../xl/main.py:131 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:130 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "暂停"
 
-#: ../xl/main.py:139
+#: ../xl/main.py:138
 msgid "Pause or resume playback"
 msgstr "暂停或重播"
 
-#: ../xl/main.py:146 ../plugins/minimode/controls.py:376
+#: ../xl/main.py:145 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
 msgstr "播放完当前曲目后停止播放"
 
-#: ../xl/main.py:149
+#: ../xl/main.py:148
 msgid "Collection Options"
 msgstr "可选项"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:154 ../xl/main.py:163
+#: ../xl/main.py:153 ../xl/main.py:162
 msgid "LOCATION"
 msgstr "「位置」"
 
-#: ../xl/main.py:155
+#: ../xl/main.py:154
 msgid "Add tracks from LOCATION to the collection"
 msgstr "从「位置」添加乐曲到音乐库中"
 
-#: ../xl/main.py:158
+#: ../xl/main.py:157
 msgid "Playlist Options"
 msgstr "播放列表选项"
 
-#: ../xl/main.py:164
+#: ../xl/main.py:163
 msgid "Export the current playlist to LOCATION"
 msgstr "导出当前播放列表到「位置」"
 
-#: ../xl/main.py:167
+#: ../xl/main.py:166
 msgid "Track Options"
 msgstr "歌曲选项"
 
-#: ../xl/main.py:174
+#: ../xl/main.py:173
 msgid "Query player"
 msgstr "询问播放器"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:180
+#: ../xl/main.py:179
 msgid "FORMAT"
 msgstr "「格式」"
 
-#: ../xl/main.py:181
+#: ../xl/main.py:180
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr "撷取当前播放状态和歌曲信息并转存为「格式」"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:187
+#: ../xl/main.py:186
 msgid "TAGS"
 msgstr "「标签」"
 
-#: ../xl/main.py:188
+#: ../xl/main.py:187
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr "要从当前歌曲撷取的标签；用于 --format-query"
 
-#: ../xl/main.py:195
+#: ../xl/main.py:194
 msgid "Show a popup with data of the current track"
 msgstr "在弹出窗中显示当前播放歌曲的数据"
 
-#: ../xl/main.py:202
+#: ../xl/main.py:201
 msgid "Print the title of current track"
 msgstr "打印当前歌曲的标题"
 
-#: ../xl/main.py:209
+#: ../xl/main.py:208
 msgid "Print the album of current track"
 msgstr "打印当前歌曲的专辑名称"
 
-#: ../xl/main.py:216
+#: ../xl/main.py:215
 msgid "Print the artist of current track"
 msgstr "打印当前歌曲的艺人"
 
-#: ../xl/main.py:223
+#: ../xl/main.py:222
 msgid "Print the length of current track"
 msgstr "打印当前歌曲的时长"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:230 ../xl/main.py:262 ../xl/main.py:271
+#: ../xl/main.py:229 ../xl/main.py:261 ../xl/main.py:270
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:231
+#: ../xl/main.py:230
 msgid "Set rating for current track to N%"
 msgstr "为当前曲目评级至N%"
 
-#: ../xl/main.py:238
+#: ../xl/main.py:237
 msgid "Get rating for current track"
 msgstr "获取当前曲目评级情况"
 
-#: ../xl/main.py:245
+#: ../xl/main.py:244
 msgid "Print the current playback position as time"
 msgstr "打印时间轴上当前播放的位置"
 
-#: ../xl/main.py:252
+#: ../xl/main.py:251
 msgid "Print the current playback progress as percentage"
 msgstr "打印当前播放的百分比进度"
 
-#: ../xl/main.py:255
+#: ../xl/main.py:254
 msgid "Volume Options"
 msgstr "音量选项"
 
-#: ../xl/main.py:263
+#: ../xl/main.py:262
 msgid "Increase the volume by N%"
 msgstr "增大音量至 N%"
 
-#: ../xl/main.py:272
+#: ../xl/main.py:271
 msgid "Decrease the volume by N%"
 msgstr "减小音量至 N%"
 
-#: ../xl/main.py:280
+#: ../xl/main.py:279
 msgid "Mute or unmute the volume"
 msgstr "静音或解除静音"
 
-#: ../xl/main.py:287
+#: ../xl/main.py:286
 msgid "Print the current volume percentage"
 msgstr "打印当前音量百分比"
 
-#: ../xl/main.py:290
+#: ../xl/main.py:289
 msgid "Other Options"
 msgstr "其它选项"
 
-#: ../xl/main.py:296
+#: ../xl/main.py:295
 msgid "Start new instance"
 msgstr "启动新的实例"
 
-#: ../xl/main.py:299
+#: ../xl/main.py:298
 msgid "Show this help message and exit"
 msgstr "显示该帮助信息然后退出"
 
-#: ../xl/main.py:305
+#: ../xl/main.py:304
 msgid "Show program's version number and exit."
 msgstr "显示程序版本号然后退出。"
 
-#: ../xl/main.py:312
+#: ../xl/main.py:311
 msgid "Start minimized (to tray, if possible)"
 msgstr "启动时最小化（可能的话将最小化至托盘）"
 
-#: ../xl/main.py:319
+#: ../xl/main.py:318
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "切换 GUI 的可见性（可以的话）"
 
-#: ../xl/main.py:327
+#: ../xl/main.py:326
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr "安全模式启动 - 当有运行问题时非常有用"
 
-#: ../xl/main.py:336
+#: ../xl/main.py:335
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr "强制导入 0.2.x 版本的旧数据（会覆盖当前数据）"
 
-#: ../xl/main.py:344
+#: ../xl/main.py:343
 msgid "Do not import old data from version 0.2.x"
 msgstr "不要导入 0.2.x 版本的旧数据"
 
-#: ../xl/main.py:351
+#: ../xl/main.py:350
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr "让诸如 --play 的控制选项启动 Exaile 若其未在运行"
 
-#: ../xl/main.py:357
+#: ../xl/main.py:356
 msgid "Locale to use for Exaile"
 msgstr "用于Exaile的语言环境"
 
-#: ../xl/main.py:360
+#: ../xl/main.py:359
 msgid "Development/Debug Options"
 msgstr "开发/调试选项"
 
-#: ../xl/main.py:364 ../xl/main.py:370
+#: ../xl/main.py:363 ../xl/main.py:369
 msgid "DIRECTORY"
 msgstr "「目录」"
 
-#: ../xl/main.py:365
+#: ../xl/main.py:364
 msgid "Set data directory"
 msgstr "设置数据目录"
 
-#: ../xl/main.py:371
+#: ../xl/main.py:370
 msgid "Set data and config directory"
 msgstr "设置数据与配置目录"
 
-#: ../xl/main.py:376
+#: ../xl/main.py:375
 msgid "MODULE"
 msgstr "「模块」"
 
-#: ../xl/main.py:377
+#: ../xl/main.py:376
 msgid "Limit log output to MODULE"
 msgstr "将日志输出限于「模块」"
 
-#: ../xl/main.py:382
+#: ../xl/main.py:381
 msgid "LEVEL"
 msgstr "「级别」"
 
-#: ../xl/main.py:383
+#: ../xl/main.py:382
 msgid "Limit log output to LEVEL"
 msgstr "将日志输出限于「级别」"
 
-#: ../xl/main.py:391
+#: ../xl/main.py:390
 msgid "Show debugging output"
 msgstr "显示调试输出"
 
-#: ../xl/main.py:398
+#: ../xl/main.py:397
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "启用 xl.event 的调试。会产生大量输出"
 
-#: ../xl/main.py:405
+#: ../xl/main.py:404
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr "启用 xl.event 的完整调试。会产生大量的输出"
 
-#: ../xl/main.py:412
+#: ../xl/main.py:411
 msgid "Add thread name to logging messages."
 msgstr "在日志消息中增加线程名。"
 
-#: ../xl/main.py:417
+#: ../xl/main.py:416
 msgid "TYPE"
 msgstr "「类别」"
 
-#: ../xl/main.py:418
+#: ../xl/main.py:417
 msgid "Limit xl.event debug to output of TYPE"
 msgstr "将 xl.event 调试限定于某些「类别」输出"
 
-#: ../xl/main.py:425
+#: ../xl/main.py:424
 msgid "Reduce level of output"
 msgstr "降低输出水平"
 
-#: ../xl/main.py:435
+#: ../xl/main.py:434
 msgid "Disable D-Bus support"
 msgstr "禁用 D-Bus 支持"
 
-#: ../xl/main.py:442
+#: ../xl/main.py:441
 msgid "Disable HAL support."
 msgstr "禁用 HAL 支持。"
 
-#: ../xl/main.py:831
+#: ../xl/main.py:830
 msgid "Entire Library"
 msgstr "整个音乐库"
 
-#: ../xl/main.py:838
+#: ../xl/main.py:837
 #, python-format
 msgid "Random %d"
 msgstr "随机 %d"
 
-#: ../xl/main.py:847
+#: ../xl/main.py:846
 #, python-format
 msgid "Rating > %d"
 msgstr "评级 > %d"
 
-#: ../xl/main.py:1015
+#: ../xl/main.py:1014
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -1757,58 +1757,58 @@ msgstr "_删除 播放列表"
 msgid "Close Tab"
 msgstr "关闭标签页"
 
-#: ../xlgui/widgets/playback.py:834
+#: ../xlgui/widgets/playback.py:833
 #, python-format
 msgid "Seeking: %s"
 msgstr "正在寻道：%s"
 
-#: ../xlgui/widgets/playback.py:1184
+#: ../xlgui/widgets/playback.py:1183
 msgid "Move"
 msgstr "移动"
 
-#: ../xlgui/widgets/playback.py:1329
+#: ../xlgui/widgets/playback.py:1328
 msgid "New Marker"
 msgstr "新增标记"
 
-#: ../xlgui/widgets/playback.py:1388
+#: ../xlgui/widgets/playback.py:1387
 msgid "_Jump to"
 msgstr "_跳转到"
 
-#: ../xlgui/widgets/playback.py:1396
+#: ../xlgui/widgets/playback.py:1395
 msgid "_Remove Marker"
 msgstr "_移除标记"
 
-#: ../xlgui/widgets/playback.py:1439
+#: ../xlgui/widgets/playback.py:1438
 msgid "Muted"
 msgstr "静音了"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1445
+#: ../xlgui/widgets/playback.py:1444
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/widgets/playback.py:1450
+#: ../xlgui/widgets/playback.py:1449
 msgid "Full Volume"
 msgstr "最大音量"
 
-#: ../xlgui/widgets/playback.py:1569
+#: ../xlgui/widgets/playback.py:1568
 msgid "_Pause"
 msgstr "_暂停"
 
-#: ../xlgui/widgets/playback.py:1572
+#: ../xlgui/widgets/playback.py:1571
 msgid "P_lay"
 msgstr "播_放"
 
-#: ../xlgui/widgets/playback.py:1584
+#: ../xlgui/widgets/playback.py:1583
 msgid "_Next Track"
 msgstr "_下一歌曲"
 
-#: ../xlgui/widgets/playback.py:1594
+#: ../xlgui/widgets/playback.py:1593
 msgid "_Previous Track"
 msgstr "_上一歌曲"
 
-#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../xlgui/widgets/playback.py:1603 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "_停止"
@@ -5045,6 +5045,14 @@ msgid ""
 "advanced track tagging, last.fm scrobbling, support for portable media "
 "players, podcasts, internet radio such as icecast and Soma.FM, ReplayGain, "
 "output via a secondary output device (great for DJs!), and much more."
+msgstr ""
+
+#: ../data/exaile.appdata.xml.in:26
+msgid "Logo"
+msgstr ""
+
+#: ../data/exaile.appdata.xml.in:38
+msgid "The Exaile Team"
 msgstr ""
 
 #~ msgid "Remove after playback"

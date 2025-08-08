@@ -259,6 +259,13 @@ class PluginsManager:
         :param info: The data returned from get_plugin_info()
         """
         import pkgutil
+        import gi
+
+        # https://github.com/exaile/exaile/issues/962
+        try:
+            gi.require_version('GIRepository', '3.0')
+        except ValueError:
+            gi.require_version('GIRepository', '2.0')
         from gi.repository import GIRepository
 
         gir = GIRepository.Repository.get_default()

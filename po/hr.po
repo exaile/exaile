@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-02 23:02+0100\n"
+"POT-Creation-Date: 2025-05-24 00:08+0200\n"
 "PO-Revision-Date: 2023-07-30 05:07+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/exaile/master/"
@@ -103,7 +103,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:730 ../xl/main.py:810 ../xl/trax/track.py:72
+#: ../xl/formatter.py:730 ../xl/main.py:809 ../xl/trax/track.py:72
 #: ../plugins/icecast/__init__.py:171
 msgid "Unknown"
 msgstr "Nepoznato"
@@ -125,11 +125,11 @@ msgstr "Jučer"
 msgid "Local"
 msgstr "Lokalno"
 
-#: ../xl/main.py:84
+#: ../xl/main.py:83
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "Upotreba: exaile [OPCIJA …] [LOKACIJA …]"
 
-#: ../xl/main.py:86
+#: ../xl/main.py:85
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
@@ -139,281 +139,281 @@ msgstr ""
 "aktivnu playlistu. Ako se Exaile već pokreće, ovime se pokušava koristiti "
 "postojeća instanca, umjesto stvaranja nove."
 
-#: ../xl/main.py:97
+#: ../xl/main.py:96
 msgid "Playback Options"
 msgstr "Opcije za sviranje"
 
-#: ../xl/main.py:104
+#: ../xl/main.py:103
 msgid "Play the next track"
 msgstr "Sviraj sljedeću pjesmu"
 
-#: ../xl/main.py:112
+#: ../xl/main.py:111
 msgid "Play the previous track"
 msgstr "Sviraj prethodnu pjesmu"
 
-#: ../xl/main.py:120 ../plugins/minimode/controls.py:351
+#: ../xl/main.py:119 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:368
 msgid "Stop playback"
 msgstr "Prekini sviranje"
 
-#: ../xl/main.py:123
+#: ../xl/main.py:122
 msgid "Play"
 msgstr "Sviraj"
 
-#: ../xl/main.py:131 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:130 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "Zaustavi"
 
-#: ../xl/main.py:139
+#: ../xl/main.py:138
 msgid "Pause or resume playback"
 msgstr "Zaustavi ili nastavi sviranje"
 
-#: ../xl/main.py:146 ../plugins/minimode/controls.py:376
+#: ../xl/main.py:145 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
 msgstr "Prekini sviranje nakon trenutačne pjesme"
 
-#: ../xl/main.py:149
+#: ../xl/main.py:148
 msgid "Collection Options"
 msgstr "Opcije za zbirke"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:154 ../xl/main.py:163
+#: ../xl/main.py:153 ../xl/main.py:162
 msgid "LOCATION"
 msgstr "LOKACIJA"
 
-#: ../xl/main.py:155
+#: ../xl/main.py:154
 msgid "Add tracks from LOCATION to the collection"
 msgstr "Dodaj pjesme iz LOKACIJE u zbirku"
 
-#: ../xl/main.py:158
+#: ../xl/main.py:157
 msgid "Playlist Options"
 msgstr "Opcije za playlistu"
 
-#: ../xl/main.py:164
+#: ../xl/main.py:163
 msgid "Export the current playlist to LOCATION"
 msgstr "Izvezi trenutačnu playlistu na LOKACIJU"
 
-#: ../xl/main.py:167
+#: ../xl/main.py:166
 msgid "Track Options"
 msgstr "Opcije za pjesme"
 
-#: ../xl/main.py:174
+#: ../xl/main.py:173
 msgid "Query player"
 msgstr "Ispitaj player"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:180
+#: ../xl/main.py:179
 msgid "FORMAT"
 msgstr "FORMAT"
 
-#: ../xl/main.py:181
+#: ../xl/main.py:180
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr "Preuzmi stanje trenutačne playliste i podatke pjesme kao FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:187
+#: ../xl/main.py:186
 msgid "TAGS"
 msgstr "OZNAKE"
 
-#: ../xl/main.py:188
+#: ../xl/main.py:187
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr ""
 "Oznake koje se preuzimaju iz trenutačne pjesme; koristi zajedno s --format-"
 "query"
 
-#: ../xl/main.py:195
+#: ../xl/main.py:194
 msgid "Show a popup with data of the current track"
 msgstr "Prikaži skočni prozor s podacima trenutačne pjesme"
 
-#: ../xl/main.py:202
+#: ../xl/main.py:201
 msgid "Print the title of current track"
 msgstr "Ispiši naslov trenutačne pjesme"
 
-#: ../xl/main.py:209
+#: ../xl/main.py:208
 msgid "Print the album of current track"
 msgstr "Ispiši album trenutačne pjesme"
 
-#: ../xl/main.py:216
+#: ../xl/main.py:215
 msgid "Print the artist of current track"
 msgstr "Ispiši izvođača trenutačne pjesme"
 
-#: ../xl/main.py:223
+#: ../xl/main.py:222
 msgid "Print the length of current track"
 msgstr "Ispiši dužinu trenutačne pjesme"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:230 ../xl/main.py:262 ../xl/main.py:271
+#: ../xl/main.py:229 ../xl/main.py:261 ../xl/main.py:270
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:231
+#: ../xl/main.py:230
 msgid "Set rating for current track to N%"
 msgstr "Postavi ocjenu za trenutačnu pjesmu na N%"
 
-#: ../xl/main.py:238
+#: ../xl/main.py:237
 msgid "Get rating for current track"
 msgstr "Nabavi ocjenu za trenutačnu pjesmu"
 
-#: ../xl/main.py:245
+#: ../xl/main.py:244
 msgid "Print the current playback position as time"
 msgstr "Ispis trenutne pozicije reprodukcije, kao vrijeme"
 
-#: ../xl/main.py:252
+#: ../xl/main.py:251
 msgid "Print the current playback progress as percentage"
 msgstr "Ispis trenutne pozicije reprodukcije, u obliku postotka"
 
-#: ../xl/main.py:255
+#: ../xl/main.py:254
 msgid "Volume Options"
 msgstr "Postavke glasnoće"
 
-#: ../xl/main.py:263
+#: ../xl/main.py:262
 msgid "Increase the volume by N%"
 msgstr "Povećaj glasnoću za N%"
 
-#: ../xl/main.py:272
+#: ../xl/main.py:271
 msgid "Decrease the volume by N%"
 msgstr "Smanji glasnoću za N%"
 
-#: ../xl/main.py:280
+#: ../xl/main.py:279
 msgid "Mute or unmute the volume"
 msgstr "Isključi ili uključi glasnoću"
 
-#: ../xl/main.py:287
+#: ../xl/main.py:286
 msgid "Print the current volume percentage"
 msgstr "Ispiši postotak trenutne glasnoće"
 
-#: ../xl/main.py:290
+#: ../xl/main.py:289
 msgid "Other Options"
 msgstr "Ostale postavke"
 
-#: ../xl/main.py:296
+#: ../xl/main.py:295
 msgid "Start new instance"
 msgstr "Pokreni novu instancu"
 
-#: ../xl/main.py:299
+#: ../xl/main.py:298
 msgid "Show this help message and exit"
 msgstr "Prikaži ovu poruku pomoći i izađi"
 
-#: ../xl/main.py:305
+#: ../xl/main.py:304
 msgid "Show program's version number and exit."
 msgstr "Prikaži verziju programa i izađi."
 
-#: ../xl/main.py:312
+#: ../xl/main.py:311
 msgid "Start minimized (to tray, if possible)"
 msgstr "Pokreni smanjeno (u programskoj traci, ako je moguće)"
 
-#: ../xl/main.py:319
+#: ../xl/main.py:318
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Preklopi vidljivost GUI-a (ako je moguće)"
 
-#: ../xl/main.py:327
+#: ../xl/main.py:326
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 "Pokreni u sigurnom načinu rada - ponekad korisno ako naiđete na probleme"
 
-#: ../xl/main.py:336
+#: ../xl/main.py:335
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 "Prisilno uvezi stare podatke iz verzije 0.2.x (prepisat će trenutačne "
 "podatke)"
 
-#: ../xl/main.py:344
+#: ../xl/main.py:343
 msgid "Do not import old data from version 0.2.x"
 msgstr "Ne uvodi stare podatke iz inačice 0.2.x"
 
-#: ../xl/main.py:351
+#: ../xl/main.py:350
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr "Učini da opcije kao --sviraj pokrenu Exaile ukoliko nije pokrenut"
 
-#: ../xl/main.py:357
+#: ../xl/main.py:356
 msgid "Locale to use for Exaile"
 msgstr "Korišteni jezik za Exaile"
 
-#: ../xl/main.py:360
+#: ../xl/main.py:359
 msgid "Development/Debug Options"
 msgstr "Opcije za razvoj/pronalaženje grešaka"
 
-#: ../xl/main.py:364 ../xl/main.py:370
+#: ../xl/main.py:363 ../xl/main.py:369
 msgid "DIRECTORY"
 msgstr "DIREKTORIJ"
 
-#: ../xl/main.py:365
+#: ../xl/main.py:364
 msgid "Set data directory"
 msgstr "Postavi direktorij podataka"
 
-#: ../xl/main.py:371
+#: ../xl/main.py:370
 msgid "Set data and config directory"
 msgstr "Postavlja podatke i konfiguracijski direktorij"
 
-#: ../xl/main.py:376
+#: ../xl/main.py:375
 msgid "MODULE"
 msgstr "MODUL"
 
-#: ../xl/main.py:377
+#: ../xl/main.py:376
 msgid "Limit log output to MODULE"
 msgstr "Ograniči izlaz informacija na MODUL"
 
-#: ../xl/main.py:382
+#: ../xl/main.py:381
 msgid "LEVEL"
 msgstr "RAZINA"
 
-#: ../xl/main.py:383
+#: ../xl/main.py:382
 msgid "Limit log output to LEVEL"
 msgstr "Ograniči izlaz informacija na RAZINA"
 
-#: ../xl/main.py:391
+#: ../xl/main.py:390
 msgid "Show debugging output"
 msgstr "Prikaži izlaz otklanjanja grešaka"
 
-#: ../xl/main.py:398
+#: ../xl/main.py:397
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "Uključi ispravljanje grešaka za xl.event. Generira puno rezultata"
 
-#: ../xl/main.py:405
+#: ../xl/main.py:404
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr ""
 "Uključi potpuno ispravljanje grešaka za xl.event. Generira PUNO rezultata"
 
-#: ../xl/main.py:412
+#: ../xl/main.py:411
 msgid "Add thread name to logging messages."
 msgstr "Dodaj ime razgovora u poruke log zapisa."
 
-#: ../xl/main.py:417
+#: ../xl/main.py:416
 msgid "TYPE"
 msgstr "VRSTA"
 
-#: ../xl/main.py:418
+#: ../xl/main.py:417
 msgid "Limit xl.event debug to output of TYPE"
 msgstr "Ograniči xl.event otklanjanje grešaka na izlaz informacija za VRSTA"
 
-#: ../xl/main.py:425
+#: ../xl/main.py:424
 msgid "Reduce level of output"
 msgstr "Smanji razinu izlaza"
 
-#: ../xl/main.py:435
+#: ../xl/main.py:434
 msgid "Disable D-Bus support"
 msgstr "Isključi D-Bus podršku"
 
-#: ../xl/main.py:442
+#: ../xl/main.py:441
 msgid "Disable HAL support."
 msgstr "Isključi HAL podršku."
 
-#: ../xl/main.py:831
+#: ../xl/main.py:830
 msgid "Entire Library"
 msgstr "Cijela biblioteka"
 
-#: ../xl/main.py:838
+#: ../xl/main.py:837
 #, python-format
 msgid "Random %d"
 msgstr "Slučajno %d"
 
-#: ../xl/main.py:847
+#: ../xl/main.py:846
 #, python-format
 msgid "Rating > %d"
 msgstr "Ocjena > %d"
 
-#: ../xl/main.py:1015
+#: ../xl/main.py:1014
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -1797,58 +1797,58 @@ msgstr "Iz_briši playlistu"
 msgid "Close Tab"
 msgstr "Zatvori karticu"
 
-#: ../xlgui/widgets/playback.py:834
+#: ../xlgui/widgets/playback.py:833
 #, python-format
 msgid "Seeking: %s"
 msgstr "Traženje: %s"
 
-#: ../xlgui/widgets/playback.py:1184
+#: ../xlgui/widgets/playback.py:1183
 msgid "Move"
 msgstr "Premjesti"
 
-#: ../xlgui/widgets/playback.py:1329
+#: ../xlgui/widgets/playback.py:1328
 msgid "New Marker"
 msgstr "Nova oznaka"
 
-#: ../xlgui/widgets/playback.py:1388
+#: ../xlgui/widgets/playback.py:1387
 msgid "_Jump to"
 msgstr "_Skoči na"
 
-#: ../xlgui/widgets/playback.py:1396
+#: ../xlgui/widgets/playback.py:1395
 msgid "_Remove Marker"
 msgstr "_Ukloni oznaku"
 
-#: ../xlgui/widgets/playback.py:1439
+#: ../xlgui/widgets/playback.py:1438
 msgid "Muted"
 msgstr "Isključen zvuk"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1445
+#: ../xlgui/widgets/playback.py:1444
 #, python-format
 msgid "%d%%"
 msgstr "%d %%"
 
-#: ../xlgui/widgets/playback.py:1450
+#: ../xlgui/widgets/playback.py:1449
 msgid "Full Volume"
 msgstr "Puna glasnoća"
 
-#: ../xlgui/widgets/playback.py:1569
+#: ../xlgui/widgets/playback.py:1568
 msgid "_Pause"
 msgstr "_Zaustavi"
 
-#: ../xlgui/widgets/playback.py:1572
+#: ../xlgui/widgets/playback.py:1571
 msgid "P_lay"
 msgstr "S_viraj"
 
-#: ../xlgui/widgets/playback.py:1584
+#: ../xlgui/widgets/playback.py:1583
 msgid "_Next Track"
 msgstr "_Sljedeća pjesma"
 
-#: ../xlgui/widgets/playback.py:1594
+#: ../xlgui/widgets/playback.py:1593
 msgid "_Previous Track"
 msgstr "_Prethodna pjesma"
 
-#: ../xlgui/widgets/playback.py:1604 ../data/ui/covermanager.ui:132
+#: ../xlgui/widgets/playback.py:1603 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "Pre_kini"
@@ -5229,6 +5229,14 @@ msgstr ""
 "last.fm, podršku za prijenosne media playere, podcaste, internetski radio "
 "kao što su icecast i Soma.FM, ReplayGain, slušanje putem sekundarnog "
 "izlaznog uređaja (odlično za DJ-e! ) i još puno više."
+
+#: ../data/exaile.appdata.xml.in:26
+msgid "Logo"
+msgstr ""
+
+#: ../data/exaile.appdata.xml.in:38
+msgid "The Exaile Team"
+msgstr ""
 
 #~ msgid "Remove after playback"
 #~ msgstr "Ukloni nakon sviranja"

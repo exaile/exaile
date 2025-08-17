@@ -8,7 +8,7 @@
     <property name="column_spacing">6</property>
     <child>
       <object class="GtkCheckButton" id="plugin/moodbar/use_waveform">
-        <property name="label" translatable="yes">Waveform view (experimental)</property>
+        <property name="label" translatable="yes">Waveform view</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
@@ -22,7 +22,7 @@
     </child>
     <child>
       <object class="GtkCheckButton" id="plugin/moodbar/use_tint">
-        <property name="label" translatable="yes">Color tint (experimental)</property>
+        <property name="label" translatable="yes">Color tint</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>

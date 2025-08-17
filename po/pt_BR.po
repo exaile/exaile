@@ -4455,12 +4455,12 @@ msgid "Options"
 msgstr "Opções"
 
 #: ../plugins/moodbar/prefs.ui:11
-msgid "Waveform view (experimental)"
-msgstr "Visão Waveform (Experimental)"
+msgid "Waveform view"
+msgstr "Visão Waveform"
 
 #: ../plugins/moodbar/prefs.ui:25
-msgid "Color tint (experimental)"
-msgstr "Tonalidade da cor (Experimental)"
+msgid "Color tint"
+msgstr "Tonalidade da cor"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

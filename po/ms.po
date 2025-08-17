@@ -4679,13 +4679,11 @@ msgid "Options"
 msgstr "Pilihan"
 
 #: ../plugins/moodbar/prefs.ui:11
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
-msgid "Waveform view (experimental)"
-msgstr "Papar pelayan ipv6 (Percubaan)"
+msgid "Waveform view"
+msgstr ""
 
 #: ../plugins/moodbar/prefs.ui:25
-msgid "Color tint (experimental)"
+msgid "Color tint"
 msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui:59

@@ -4475,12 +4475,12 @@ msgid "Options"
 msgstr "Možnosti"
 
 #: ../plugins/moodbar/prefs.ui:11
-msgid "Waveform view (experimental)"
-msgstr "Pogled Waveform (Poskusno)"
+msgid "Waveform view"
+msgstr "Pogled Waveform"
 
 #: ../plugins/moodbar/prefs.ui:25
-msgid "Color tint (experimental)"
-msgstr "Barva tinte (poskusno)"
+msgid "Color tint"
+msgstr "Barva tinte"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

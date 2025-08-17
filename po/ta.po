@@ -4441,12 +4441,12 @@ msgid "Options"
 msgstr "விருப்பத்தேர்வுகள்"
 
 #: ../plugins/moodbar/prefs.ui:11
-msgid "Waveform view (experimental)"
-msgstr "அலைவடிவ பார்வை (சோதனை)"
+msgid "Waveform view"
+msgstr "அலைவடிவ பார்வை"
 
 #: ../plugins/moodbar/prefs.ui:25
-msgid "Color tint (experimental)"
-msgstr "வண்ண நிறம் (சோதனை)"
+msgid "Color tint"
+msgstr "வண்ண நிறம்"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

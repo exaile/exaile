@@ -4483,12 +4483,12 @@ msgid "Options"
 msgstr "Opțiuni"
 
 #: ../plugins/moodbar/prefs.ui:11
-msgid "Waveform view (experimental)"
-msgstr "Vizualizare formă de undă (experimental)"
+msgid "Waveform view"
+msgstr "Vizualizare formă de undă"
 
 #: ../plugins/moodbar/prefs.ui:25
-msgid "Color tint (experimental)"
-msgstr "Nuanță de culoare (experimental)"
+msgid "Color tint"
+msgstr "Nuanță de culoare"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

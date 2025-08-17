@@ -4330,12 +4330,12 @@ msgid "Options"
 msgstr "설정"
 
 #: ../plugins/moodbar/prefs.ui:11
-msgid "Waveform view (experimental)"
-msgstr "파형 보기 (실험용)"
+msgid "Waveform view"
+msgstr "파형 보기"
 
 #: ../plugins/moodbar/prefs.ui:25
-msgid "Color tint (experimental)"
-msgstr "색조 (실험용)"
+msgid "Color tint"
+msgstr "색조"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

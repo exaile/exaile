@@ -4449,12 +4449,12 @@ msgid "Options"
 msgstr "Valikud"
 
 #: ../plugins/moodbar/prefs.ui:11
-msgid "Waveform view (experimental)"
-msgstr "Lainekuju vaade (katseline)"
+msgid "Waveform view"
+msgstr "Lainekuju vaade"
 
 #: ../plugins/moodbar/prefs.ui:25
-msgid "Color tint (experimental)"
-msgstr "Värvitoon (eksperimentaalne)"
+msgid "Color tint"
+msgstr "Värvitoon"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

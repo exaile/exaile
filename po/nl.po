@@ -4615,13 +4615,11 @@ msgid "Options"
 msgstr "Voorkeuren"
 
 #: ../plugins/moodbar/prefs.ui:11
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
-msgid "Waveform view (experimental)"
-msgstr "ipv6-servers tonen (experimenteel)"
+msgid "Waveform view"
+msgstr ""
 
 #: ../plugins/moodbar/prefs.ui:25
-msgid "Color tint (experimental)"
+msgid "Color tint"
 msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui:59

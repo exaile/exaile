@@ -4454,12 +4454,12 @@ msgid "Options"
 msgstr "Параметри"
 
 #: ../plugins/moodbar/prefs.ui:11
-msgid "Waveform view (experimental)"
-msgstr "Вигляд хвильової форми (експериментальний)"
+msgid "Waveform view"
+msgstr "Вигляд хвильової форми"
 
 #: ../plugins/moodbar/prefs.ui:25
-msgid "Color tint (experimental)"
-msgstr "Відтінок кольору (експериментальний)"
+msgid "Color tint"
+msgstr "Відтінок кольору"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

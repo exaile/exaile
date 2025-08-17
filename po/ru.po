@@ -4452,12 +4452,12 @@ msgid "Options"
 msgstr "Настройки"
 
 #: ../plugins/moodbar/prefs.ui:11
-msgid "Waveform view (experimental)"
-msgstr "Отображение звуковой волны (экспериментально)"
+msgid "Waveform view"
+msgstr "Отображение звуковой волны"
 
 #: ../plugins/moodbar/prefs.ui:25
-msgid "Color tint (experimental)"
-msgstr "Цветовой оттенок (экспериментально)"
+msgid "Color tint"
+msgstr "Цветовой оттенок"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

@@ -4486,13 +4486,12 @@ msgid "Options"
 msgstr "Innstillinger"
 
 #: ../plugins/moodbar/prefs.ui:11
-#, fuzzy
-msgid "Waveform view (experimental)"
-msgstr "Vis IPv6-tjenere (eksperimentelt)"
+msgid "Waveform view"
+msgstr ""
 
 #: ../plugins/moodbar/prefs.ui:25
 #, fuzzy
-msgid "Color tint (experimental)"
+msgid "Color tint"
 msgstr "Fargesjattering (eksperimentelt)"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59

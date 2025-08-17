@@ -4427,12 +4427,12 @@ msgid "Options"
 msgstr "Opcije"
 
 #: ../plugins/moodbar/prefs.ui:11
-msgid "Waveform view (experimental)"
-msgstr "Prikaz valova (eksperimentalno)"
+msgid "Waveform view"
+msgstr "Prikaz valova"
 
 #: ../plugins/moodbar/prefs.ui:25
-msgid "Color tint (experimental)"
-msgstr "Nijansa boje (eksperimentalno)"
+msgid "Color tint"
+msgstr "Nijansa boje"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

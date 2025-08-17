@@ -4461,12 +4461,12 @@ msgid "Options"
 msgstr "Volby"
 
 #: ../plugins/moodbar/prefs.ui:11
-msgid "Waveform view (experimental)"
-msgstr "Zobrazení Waveform (experimentální)"
+msgid "Waveform view"
+msgstr "Zobrazení Waveform"
 
 #: ../plugins/moodbar/prefs.ui:25
-msgid "Color tint (experimental)"
-msgstr "Barevný odstín (experimentální)"
+msgid "Color tint"
+msgstr "Barevný odstín"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

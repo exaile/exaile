@@ -4483,13 +4483,11 @@ msgid "Options"
 msgstr "Impostaduras"
 
 #: ../plugins/moodbar/prefs.ui:11
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
-msgid "Waveform view (experimental)"
-msgstr "Ammustra servers ipv6 (Isperimentale)"
+msgid "Waveform view"
+msgstr ""
 
 #: ../plugins/moodbar/prefs.ui:25
-msgid "Color tint (experimental)"
+msgid "Color tint"
 msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui:59

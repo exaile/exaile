@@ -4676,14 +4676,12 @@ msgid "Options"
 msgstr "Options"
 
 #: ../plugins/moodbar/prefs.ui:11
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
-msgid "Waveform view (experimental)"
-msgstr "Show ipv6 servers (Experimental)"
+msgid "Waveform view"
+msgstr "Waveform view"
 
 #: ../plugins/moodbar/prefs.ui:25
-msgid "Color tint (experimental)"
-msgstr "Colour tint (experimental)"
+msgid "Color tint"
+msgstr "Colour tint"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

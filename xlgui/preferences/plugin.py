@@ -131,6 +131,7 @@ class PluginManager:
                 user_installed = self.plugins.is_user_installed(plugin_name)
 
             except Exception:
+                logger.exception("Error loading plugin info for %r", plugin_name)
                 failed_list += [plugin_name]
                 continue
 

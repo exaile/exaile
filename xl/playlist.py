@@ -534,7 +534,7 @@ class PLSConverter(FormatConverter):
 
         try:
             with GioFileInputStream(gfile) as stream:
-                pls_playlist.readfp(stream)
+                pls_playlist.read_file(stream)
         except MissingSectionHeaderError:
             # Most likely version 1, thus only a list of URIs
             playlist = Playlist(self.name_from_path(path))

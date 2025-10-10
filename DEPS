@@ -12,7 +12,7 @@ Core dependencies
 Essential:
 
 * python3 >= 3.8
-* python3-bsddb3
+* python3-bsddb3 (required to migrate data from Exaile 4.1.4 and earlier)
 * gtk+ >= 3.24
 * gstreamer (>= 1.16)
 * gstreamer-plugins-base (>= 1.16)

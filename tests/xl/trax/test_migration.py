@@ -1,85 +1,50 @@
-db_names = {
-    'dbm': 'dbm.ndbm',
-    'gdbm': 'dbm.gnu',
-    'dumbdbm': 'dbm.dumb',
-}  # Map of old db names to new module names
-available_dbs = set()  # Set of available db's (old names)
+# Copyright (C) 2025  Johannes Sasongko <johannes sasongko org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
+# from your version.
+
+
+import os.path
+import shelve
+import tempfile
 
 try:
-    import dbm.ndbm
-
-    available_dbs.add('dbm')
+    import berkeleydb
 except ImportError:
-    pass
+    import bsddb3 as berkeleydb
 
-try:
-    import dbm.gnu
-
-    available_dbs.add('gdbm')
-except ImportError:
-    pass
-
-try:
-    import dbm.dumb
-
-    available_dbs.add('dumbdbm')
-except ImportError:
-    pass
-
-import glob
-import os
-from os.path import basename, dirname, join
-import pickle
-import shutil
-
-import pytest
-
-from xl.common import open_shelf
+from xl import common
 
 
-@pytest.fixture(params=['dbm', 'gdbm', 'dumbdbm'])
-def data(request, tmpdir):
-    dbtype = request.param
-    base = join(dirname(__file__), '..', '..', 'data', 'db')
-    truth = {}
+def test_migration_to_sqlite():
+    with tempfile.TemporaryDirectory(prefix="exaile-") as tmpdir:
+        dbpath = os.path.join(tmpdir, "music.db")
 
-    # uses pickle instead of JSON because of unicode issues...
-    with open(join(base, 'music.db.pickle'), 'rb') as fp:
-        truth = pickle.load(fp)
+        with shelve.BsdDbShelf(
+            berkeleydb.hashopen(dbpath, 'c'), protocol=common.PICKLE_PROTOCOL
+        ) as db:
+            db['key'] = ({'tag': 'value'}, 2, {})
 
-    if dbtype not in available_dbs:
-        pytest.skip('Module %s (%s) does not exist' % (dbtype, db_names[dbtype]))
-    else:
-        # copy the test data to a tempdir
-        loc = str(tmpdir.mkdir(dbtype))
-
-        for f in glob.glob(join(base, dbtype, 'music.*')):
-            shutil.copyfile(f, join(loc, basename(f)))
-
-        return truth, loc, dbtype
-
-
-def test_migration(data):
-    truth, loc, dbtype = data
-
-    print(os.listdir(loc))
-
-    try:
-        db = open_shelf(join(loc, 'music.db'))
-    except Exception as e:
-        if dbtype == 'dbm' and getattr(e, 'args', (None,))[0] == 2:
-            # on fedora it seems like dbm is linked to gdbm, and on debian based
-            # systems that dbm uses a bsd implementation. Ignore these errors,
-            # as (presumably) users will only try to migrate databases on systems
-            # that were previously able to read the database.
-            pytest.skip("Invalid dbm module")
-            return
-        raise
-
-    for k, v in truth.items():
-        assert k in db
-        assert v == db[k]
-
-    assert os.listdir(loc) == ['music.db']
-
-    db.close()
+        with common.open_shelf(dbpath) as db:
+            assert list(db.items()) == [('key', ({'tag': 'value'}, 2, {}))]

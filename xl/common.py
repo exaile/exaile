@@ -44,15 +44,7 @@ import urllib.parse
 import urllib.request
 import weakref
 
-# TODO: Flip these around once we've done more testing with berkeleydb
-try:
-    import bsddb3 as bsddb
-except ImportError:
-    import berkeleydb as bsddb
-
 from gi.repository import Gio, GLib, GObject
-
-from xl import shelve_compat
 
 
 logger = logging.getLogger(__name__)
@@ -398,43 +390,29 @@ def open_shelf(path):
     """
     Opens a python shelf file, used to store various types of metadata
     """
-    shelve_compat.ensure_shelve_compat()
 
-    # As of Exaile 4, DBs are created as Berkeley DB Hash databases using
-    # either berkeleydb or bsddb3.
-    # Existing DBs created with other backends will be migrated to Berkeley DB.
-    # We do this because BDB is generally considered more performant,
-    # and because gdbm currently doesn't work at all in MSYS2.
+    import sqlite3
+    from xl import sqlitedbm
 
-    # Some DBM modules don't use the path we give them, but rather they have
-    # multiple filenames. If the specified path doesn't exist, double check
-    # to see if whichdb returns a result before trying to open it with bsddb
-    force_migrate = False
-    if not os.path.exists(path):
-        from dbm import whichdb
-
-        if whichdb(path) is not None:
-            force_migrate = True
-
-    if not force_migrate:
+    try:
+        db = sqlitedbm.SqliteDbm(path)
+    except sqlite3.Error:
         try:
-            db = bsddb.hashopen(path, 'c')
-            return shelve.BsdDbShelf(db, protocol=PICKLE_PROTOCOL)
-        except bsddb.db.DBInvalidArgError:
-            logger.warning("%s was created with an old backend, migrating it", path)
-        except Exception:
-            raise
-
-    # special case: zero-length file
-    if not force_migrate and os.path.getsize(path) == 0:
-        os.unlink(path)
-    else:
-        from xl.migrations.database.to_bsddb import migrate
-
-        migrate(path)
-
-    db = bsddb.hashopen(path, 'c')
-    return shelve.BsdDbShelf(db, protocol=PICKLE_PROTOCOL)
+            from xl.migrations.database import to_sqlite
+        except ImportError:
+            migrated = False
+        else:
+            migrated = to_sqlite.migrate(path, path)
+        if migrated:
+            logger.info(
+                f"{path!r} was created with an old backend and has been migrated"
+            )
+        else:
+            raise Exception(
+                f"Failed migrating {path!r}, make sure you have the Python berkeleydb or bsddb3 package installed"
+            )
+        db = sqlitedbm.SqliteDbm(path)
+    return shelve.Shelf(db, protocol=PICKLE_PROTOCOL)
 
 
 class LimitedCache(collections.abc.MutableMapping):

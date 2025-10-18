@@ -93,7 +93,7 @@ Commit the changes and re-tag the release:
 
 .. code-block:: sh
 
-    $ git add plugins/*/PLUGININFO
+    $ git add -u plugins/*/PLUGININFO
     $ git commit
     $ git tag -d RELEASE_VERSION
     $ git tag -a RELEASE_VERSION

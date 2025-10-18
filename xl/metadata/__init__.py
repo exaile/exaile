@@ -152,7 +152,7 @@ def get_format(loc: str) -> Optional[BaseFormat]:
     try:
         return formatclass(loc)
     except NotReadable:
-        logger.info("Unable to read file: %s", loc)
+        logger.info("Unable to read file: %r", loc)
         return None
 
 

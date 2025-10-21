@@ -1,4 +1,5 @@
 # Copyright (C) 2008-2010 Adam Olsen
+# Copyright (C) 2025 Johannes Sasongko <johannes sasongko org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,11 +43,11 @@ class WavFormat(BaseFormat):
             raise NotReadable
 
         try:
-            with fp:
-                f = wave.open(fp)
-                length = f.getnframes() // f.getframerate()
-            self.mutagen = {'__bitrate': -1, '__length': length}
-        except (IOError, KeyError, wave.Error) as e:
+            with wave.open(fp) as f:
+                nchannels, sampwidth, framerate, nframes = f.getparams()[:4]
+        except Exception as e:
             logger.info("Error reading: %s. Error: %s.", self.loc, e)
-            self.mutagen = {'__bitrate': -1, '__length': -1}
-            raise NotReadable
+        else:
+            bitrate = framerate * nchannels * sampwidth * 8
+            length = nframes / framerate
+            self.mutagen = {'__bitrate': bitrate, '__length': length}

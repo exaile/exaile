@@ -258,7 +258,6 @@ class PluginsManager:
 
         :param info: The data returned from get_plugin_info()
         """
-        import pkgutil
         import gi
 
         # https://github.com/exaile/exaile/issues/962
@@ -288,7 +287,7 @@ class PluginsManager:
                     if not gir.enumerate_versions(module):
                         return True
             else:
-                if not pkgutil.find_loader(module):
+                if not importlib.util.find_spec(module):
                     return True
 
         return False

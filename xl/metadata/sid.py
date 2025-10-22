@@ -1,4 +1,5 @@
 # Copyright (C) 2008-2010 Adam Olsen
+# Copyright (C) 2025 Johannes Sasongko <johannes sasongko org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,17 +33,13 @@ class SidFormat(BaseFormat):
     writable = False
 
     def load(self):
-        f = open(self.loc, "rb")
-        f.seek(22)
-        data = {}
-        data['title'] = f.read(32).replace(chr(0), "")
-        data['artist'] = f.read(32).replace(chr(0), "")
-        data['copyright'] = f.read(32).replace(chr(0), "")
-        f.close()
-        self.mutagen = data
-
-    def get_length(self):
-        return -1
-
-    def get_bitrate(self):
-        return -1
+        with open(self.loc, 'rb') as f:
+            # Search for "+16" in
+            # https://www.hvsc.c64.org/download/C64Music/DOCUMENTS/SID_file_format.txt
+            f.seek(0x16)
+            read = lambda: f.read(32).split(b'\0', 1)[0].decode('cp1252', 'replace')
+            self.mutagen = {
+                'title': read(),
+                'artist': read(),
+                'copyright': read(),
+            }

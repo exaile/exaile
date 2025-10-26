@@ -85,7 +85,7 @@ tag_data = {
     '__playtime':       _TD(N_('Play time'),    'time', editable=False),
     '__playcount':      _TD(N_('Times played'), 'int', editable=False),
     '__rating':         None,  # currently special.
-    '__startoffset':    _TD(N_('Start offset'), 'time', min=0, max=3600),  # TODO: calculate these parameters
+    '__startoffset':    _TD(N_('Start offset'), 'time', min=-60, max=3600),  # TODO: calculate these parameters
     '__stopoffset':     _TD(N_('Stop offset'),  'time', min=0, max=3600),
     # fmt: on
 }

@@ -356,6 +356,27 @@ class AudioStream:
         self.current_track = None
         self.buffered_track = None
 
+        self._playback_start_delayed_until = 0
+        """timestamp at which the playback should start"""
+
+        self._playback_start_delayed_until_pause = 0
+        """seconds remaining of start delay (in case of pause)"""
+
+        self._playback_start_delay_timeout = None
+        """Pointer to start delay timeout"""
+
+        self._playback_stop_delayed_start = 0
+        """timestamp at which the delayed stop began"""
+
+        self._playback_stop_delayed_until = 0
+        """timestamp at which the stop should occur"""
+
+        self._playback_stop_delayed_until_pause = 0
+        """Seconds remaining of stop delay (in case of pause)"""
+
+        self._playback_stop_delayed_timeout = None
+        """Pointer to stop delay timeout"""
+
         # This exists because if there is a sink error, it doesn't
         # really make sense to recreate the sink -- it'll just fail
         # again. Instead, wait for the user to try to play a track,
@@ -431,10 +452,42 @@ class AudioStream:
             )
 
     def get_gst_state(self):
-        return self.playbin.get_state(timeout=50 * Gst.MSECOND)[1]
+
+        state = self.playbin.get_state(timeout=50 * Gst.MSECOND)[1]
+        if state == Gst.State.PAUSED and (
+            self._playback_start_delayed_until or self._playback_stop_delayed_until
+        ):
+            # in case of delayed start and stop the engine pretends to be playing
+            return Gst.State.PLAYING
+
+        return state
 
     def get_position(self):
+        pos = None
+        curr_time = time.time()
+        if self._playback_start_delayed_until_pause:
+            # engine is paused before real start
+            pos = self._playback_start_delayed_until_pause
+
+        elif self._playback_stop_delayed_until_pause:
+            # engine is paused after real end before offset stop
+            track_len = self.current_track.get_tag_raw('__stopoffset') or 0
+            pos = track_len - self._playback_stop_delayed_until_pause
+
+        elif self._playback_start_delayed_until > curr_time:
+            # engine plays before real start
+            pos = curr_time - self._playback_start_delayed_until
+
+        elif self._playback_stop_delayed_until > curr_time:
+            # engine plays after real stop before offset stop
+            track_len = self.current_track.get_tag_raw('__stopoffset') or 0
+            pos = curr_time - self._playback_stop_delayed_until + track_len
+
+        if pos:
+            return pos * 1e9
+
         # TODO: This only works when pipeline is prerolled/ready?
+
         if not self.get_gst_state() == Gst.State.PAUSED:
             res, self.last_position = self.playbin.query_position(Gst.Format.TIME)
 
@@ -451,9 +504,23 @@ class AudioStream:
 
     def pause(self):
         # This caches the current last position before pausing
-        self.get_position()
-        self.playbin.set_state(Gst.State.PAUSED)
-        self.fader.pause()
+
+        if self._playback_start_delayed_until > 0:
+            # pausing before real start
+            diff = self._playback_start_delayed_until - time.time()
+            self._cancel_all_delays()
+            self._playback_start_delayed_until_pause = diff
+
+        elif self._playback_stop_delayed_until > 0:
+            # pausing after real end before offset stop
+            diff = self._playback_stop_delayed_until - time.time()
+            self._cancel_all_delays()
+            self._playback_stop_delayed_until_pause = diff
+
+        else:
+            self.get_position()
+            self.playbin.set_state(Gst.State.PAUSED)
+            self.fader.pause()
 
     def play(
         self,
@@ -466,6 +533,8 @@ class AudioStream:
         fade_out_duration=None,
     ):
         '''fade duration is in seconds'''
+
+        self._cancel_all_delays()
 
         if not already_queued:
             self.stop(emit_eos=False)
@@ -506,18 +575,60 @@ class AudioStream:
         elif not already_queued:
             self.playbin.set_state(Gst.State.PLAYING)
 
+        if start_at < 0:
+            self._playback_start_delayed_until = (-1 * start_at) + time.time()
+            self._playback_start_delay_timeout = GLib.timeout_add_seconds(
+                -1 * start_at,
+                self.play_instant,
+                track,
+                None,
+                paused,
+                already_queued,
+                fade_in_duration,
+                fade_out_duration,
+            )
+
+        else:
+            self.play_instant(
+                track,
+                start_at,
+                paused,
+                already_queued,
+                fade_in_duration,
+                fade_out_duration,
+            )
+
+    def play_instant(
+        self,
+        track,
+        start_at: int,
+        paused: bool,
+        already_queued: bool,
+        fade_in_duration: int = None,
+        fade_out_duration: int = None,
+    ):
+        """
+        @see play
+        """
+        self._cancel_all_delays()
         self.fader.setup_track(track, fade_in_duration, fade_out_duration, now=0)
 
         if start_at is not None:
             self.seek(start_at)
-            if not paused:
-                self.playbin.set_state(Gst.State.PLAYING)
+
+        if not paused:
+            self.playbin.set_state(Gst.State.PLAYING)
 
         if paused:
             self.fader.pause()
 
     def seek(self, value):
         '''value is in seconds'''
+
+        if self._playback_start_delayed_until > 0:
+            # seeking before real start, first start playback
+            self._cancel_all_delays()
+            self.unpause()
 
         # TODO: Make sure that we're in a valid seekable state before seeking?
 
@@ -565,11 +676,33 @@ class AudioStream:
         self.fader.stop()
 
         if emit_eos:
-            self.engine._eos_func(self)
+            self.on_end_of_stream()
 
         return prior_track
 
     def unpause(self):
+
+        if self._playback_start_delayed_until_pause > 0:
+            # resume before real start
+            pause = self._playback_start_delayed_until_pause
+            self._cancel_all_delays()
+            self._playback_start_delayed_until = time.time() + pause
+            self._playback_start_delay_timeout = GLib.timeout_add_seconds(
+                pause, self.unpause
+            )
+            return
+
+        if self._playback_stop_delayed_until_pause > 0:
+            # resume after real end
+            pause = self._playback_stop_delayed_until_pause
+            self._cancel_all_delays()
+            self._playback_stop_delayed_until = time.time() + pause
+            self._playback_stop_delayed_start = time.time()
+            self._playback_stop_delayed_timeout = GLib.timeout_add_seconds(
+                pause, self._wait_for_end
+            )
+            return
+
         # gstreamer does not buffer paused network streams, so if the user
         # is unpausing a stream, just restart playback
         current = self.current_track
@@ -651,7 +784,7 @@ class AudioStream:
             message.type == Gst.MessageType.EOS
             and not self.get_gst_state() == Gst.State.PAUSED
         ):
-            self.engine._eos_func(self)
+            self.on_end_of_stream()
 
         elif (
             message.type == Gst.MessageType.STREAM_START
@@ -746,3 +879,44 @@ class AudioStream:
         vol, is_same = self.fader.calculate_user_volume(real)
         if not is_same:
             GLib.idle_add(self.engine.player.engine_notify_user_volume_change, vol)
+
+    def on_end_of_stream(self) -> None:
+        """
+        Handles the end of stream
+        Especially it delays the real stop if there is a stopoffset larger then track length
+        """
+        track = self.current_track
+        stop_at = track.get_tag_raw('__stopoffset') or 0
+        track_len = track.get_tag_raw('__length') or 0
+
+        if stop_at > track_len:
+            logger.debug('entering delayed stop')
+            diff = stop_at - track_len
+            self.pause()
+            self._playback_stop_delayed_start = time.time()
+            self._playback_stop_delayed_until = diff + self._playback_stop_delayed_start
+            self._playback_stop_delayed_timeout = GLib.timeout_add_seconds(
+                diff, self._wait_for_end
+            )
+            return None
+
+        self._wait_for_end()
+
+    def _wait_for_end(self) -> None:
+        self.engine._eos_func(self)
+
+    def _cancel_all_delays(self) -> None:
+        if self._playback_start_delay_timeout is not None:
+            GLib.source_remove(self._playback_start_delay_timeout)
+            self._playback_start_delay_timeout = None
+
+        if self._playback_stop_delayed_timeout is not None:
+            GLib.source_remove(self._playback_stop_delayed_timeout)
+            self._playback_stop_delayed_timeout = None
+
+        self._playback_stop_delayed_until = 0
+        self._playback_stop_delayed_start = 0
+        self._playback_stop_delayed_until_pause = 0
+
+        self._playback_start_delayed_until = 0
+        self._playback_start_delayed_until_pause = 0

@@ -107,6 +107,7 @@ class TrackDB:
         self.pickle_attrs = pickle_attrs
         self.pickle_attrs += ['tracks', 'name', '_key']
         self._saving = False
+        #: Number to use for the next `tracks-*` database key
         self._key = 0
         self._dbversion = 2.0
         self._deleted_keys = []

@@ -543,17 +543,16 @@ class IconManager:
         # nobody actually sets the rating option, so don't handle it for now
         # event.add_ui_callback(self.on_option_set, 'rating_option_set')
 
-    def add_icon_name_from_directory(self, icon_name, directory):
+    def add_icon_name_from_directory(
+        self, icon_name: str, directory: str
+    ) -> Optional[str]:
         """
         Registers an icon name from files found in a directory
 
         :param icon_name: the name for the icon
-        :type icon_name: string
         :param directory: the location to search for icons
-        :type directory: string
         :return: filesystem location of the highest-quality icon of this
             name, or None if not found
-        :rtype: Optional[str]
         """
         path = None
         for size in self._sizes:
@@ -582,7 +581,9 @@ class IconManager:
                     pass
         return path
 
-    def add_icon_name_from_file(self, icon_name, filename, size=None):
+    def add_icon_name_from_file(
+        self, icon_name: str, filename: str, size: Optional[int] = None
+    ) -> None:
         """
         Registers an icon name from a filename
 
@@ -604,18 +605,16 @@ class IconManager:
                     icon_name=icon_name, filename=filename, error=e.message
                 )
             )
-            pass
 
-    def add_icon_name_from_pixbuf(self, icon_name, pixbuf, size=None):
+    def add_icon_name_from_pixbuf(
+        self, icon_name: str, pixbuf: GdkPixbuf.Pixbuf, size: Optional[int] = None
+    ) -> None:
         """
         Registers an icon name from a pixbuf
 
         :param icon_name: the name for the icon
-        :type icon_name: string
         :param pixbuf: the pixbuf of an image
-        :type pixbuf: :class:`GdkPixbuf.Pixbuf`
         :param size: the size the icon shall be registered for
-        :type size: int
         """
         if size is None:
             size = pixbuf.get_width()
@@ -659,15 +658,14 @@ class IconManager:
         return None
 
     @common.cached(limit=settings.get_option('rating/maximum', 5) * 3)
-    def pixbuf_from_rating(self, rating, size_ratio=1):
+    def pixbuf_from_rating(
+        self, rating: int, size_ratio: float = 1
+    ) -> GdkPixbuf.Pixbuf:
         """
         Returns a pixbuf representing a rating
 
         :param rating: the rating
-        :type rating: int
-
         :returns: the rating pixbuf
-        :rtype: :class:`GdkPixbuf.Pixbuf`
         """
         maximum = settings.get_option('rating/maximum', 5)
         width = self.rating_active_pixbuf.get_width()

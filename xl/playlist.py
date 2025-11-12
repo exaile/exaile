@@ -89,14 +89,13 @@ def encode_filename(filename: str) -> str:
     return filename
 
 
-def is_valid_playlist(path):
+def is_valid_playlist(path: str) -> bool:
     """
     Returns whether the file at a given path is a valid
     playlist. Checks for content type and falls back to
     file extension if unknown.
 
     :param path: the source path
-    :type path: string
     """
     content_type = Gio.content_type_guess(path)[0]
 

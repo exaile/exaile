@@ -198,11 +198,12 @@ class MenuItem:
         self.name = name
         self.after = after
         self._factory = factory
-        self._pos = 'normal'  # Don't change this unless you have a REALLY good
+        # Don't change this unless you have a REALLY good
         # reason to. after= is the 'supported'
         # method of ordering, this property is not
         # considered public api and may change
         # without warning.
+        self._pos = 'normal'
 
     def factory(self, menu, parent, context) -> Optional[Gtk.MenuItem]:
         """
@@ -368,7 +369,7 @@ class Menu(Gtk.Menu):
             else:
                 Gtk.Menu.popup(self, *args)
 
-    def popup_at_widget(self, widget: Gtk.Widget, event: Gdk.EventButton) -> None:
+    def popup_at_widget(self, widget: Gtk.Widget, event: Gdk.Event) -> None:
         Gtk.Menu.popup_at_widget(
             self, widget, Gdk.Gravity.EAST, Gdk.Gravity.EAST, event
         )

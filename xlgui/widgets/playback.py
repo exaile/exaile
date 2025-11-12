@@ -235,7 +235,7 @@ class Marker(GObject.Object):
     }
     __gsignals__ = {'reached': (GObject.SignalFlags.RUN_LAST, None, ())}
 
-    def __init__(self, position=0):
+    def __init__(self, position: float = 0):
         GObject.Object.__init__(self)
 
         self.__values = {
@@ -318,14 +318,12 @@ class MarkerManager(providers.ProviderHandler):
         for e in self.__events:
             event.remove_callback(getattr(self, 'on_%s' % e), e)
 
-    def add_marker(self, position):
+    def add_marker(self, position: float) -> Marker:
         """
         Creates a new marker for a playback position
 
         :param position: the playback position [0..1]
-        :type position: float
         :returns: the new marker
-        :rtype: :class:`Marker`
         """
         marker = Marker(position)
         # Provider compatibility
@@ -334,12 +332,11 @@ class MarkerManager(providers.ProviderHandler):
 
         return marker
 
-    def remove_marker(self, marker):
+    def remove_marker(self, marker: Marker) -> None:
         """
         Removes a playback marker
 
         :param marker: the marker
-        :type marker: :class:`Marker`
         """
         providers.unregister('playback-markers', marker)
 

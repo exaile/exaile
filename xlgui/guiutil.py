@@ -28,7 +28,7 @@ import contextlib
 import logging
 import os.path
 import sys
-from typing import Union
+from typing import Optional, Tuple, Union
 
 from gi.repository import Gio
 from gi.repository import Gdk
@@ -151,24 +151,24 @@ def gtk_widget_replace(widget, replacement):
     return replacement
 
 
-def pixbuf_from_data(data, size=None, keep_ratio=True, upscale=False):
+def pixbuf_from_data(
+    data: bytes,
+    size: Optional[Tuple[int, int]] = None,
+    keep_ratio: bool = True,
+    upscale: bool = False,
+) -> Optional[GdkPixbuf.Pixbuf]:
     """
     Generates a pixbuf from arbitrary image data
 
     :param data: The raw image data
-    :type data: byte
     :param size: Size to scale to; if not specified,
         the image will render to its native size
-    :type size: tuple of int
     :param keep_ratio: Whether to keep the original
         image ratio on resizing operations
-    :type keep_ratio: bool
     :param upscale: Whether to upscale if the requested
         size exceeds the native size
-    :type upscale: bool
 
     :returns: the generated pixbuf
-    :rtype: :class:`GdkPixbuf.Pixbuf` or None
     """
     if not data:
         return None
@@ -232,42 +232,36 @@ class ScalableImageWidget(Gtk.Image):
         self.size = (width, height)
         self.set_size_request(width, height)
 
-    def set_image(self, location, fill=False):
+    def set_image(self, location: str, fill: bool = False):
         """
         Sets the image from a location
 
         :param location: the location to load the image from
-        :type location: string
         :param fill: True to expand the image, False to keep its ratio
-        :type fill: boolean
         """
         pixbuf = GdkPixbuf.Pixbuf.new_from_file(
             Gio.File.new_for_uri(location).get_path()
         )
         self.set_image_pixbuf(pixbuf, fill)
 
-    def set_image_data(self, data, fill=False):
+    def set_image_data(self, data: bytes, fill: bool = False):
         """
         Sets the image from binary data
 
         :param data: the binary data
-        :type data: string
         :param fill: True to expand the image, False to keep its ratio
-        :type fill: boolean
         """
         if not data:
             return
         pixbuf = pixbuf_from_data(data)
         self.set_image_pixbuf(pixbuf, fill)
 
-    def set_image_pixbuf(self, pixbuf, fill=False):
+    def set_image_pixbuf(self, pixbuf: GdkPixbuf.Pixbuf, fill: bool = False):
         """
         Sets the image from a pixbuf
 
         :param data: the pixbuf
-        :type data: :class:`GdkPixbuf.Pixbuf`
         :param fill: True to expand the image, False to keep its ratio
-        :type fill: boolean
         """
         width, height = self.size
         if not fill:
@@ -281,8 +275,6 @@ class ScalableImageWidget(Gtk.Image):
         scaled = pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
         self.set_from_pixbuf(scaled)
 
-        scaled = pixbuf = None
-
 
 class SearchEntry:
     """
@@ -290,16 +282,18 @@ class SearchEntry:
     changed after the specified timeout
     """
 
-    def __init__(self, entry=None, timeout=500):
+    def __init__(self, entry: Optional[Gtk.Entry] = None, timeout: int = 500):
         """
         Initializes the entry
+
+        :param timeout: Timeout in ms
         """
-        self.entry = entry
         self.timeout = timeout
         self.change_id = None
 
         if entry is None:
-            self.entry = entry = Gtk.Entry()
+            entry = Gtk.Entry.new()
+        self.entry = entry
 
         self._last_text = entry.get_text()
 
@@ -318,7 +312,7 @@ class SearchEntry:
             lambda w, e: xlgui.get_controller().main.accel_manager.enable_accelerators(),
         )
 
-    def on_entry_changed(self, entry):
+    def on_entry_changed(self, entry: Gtk.Entry):
         """
         Called when the entry changes
         """

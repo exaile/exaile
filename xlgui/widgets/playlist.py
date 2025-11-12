@@ -1211,7 +1211,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
     def on_header_key_press_event(
         self,
         widget: Gtk.Widget,
-        event: Gdk.EventButton,
+        event: Gdk.EventKey,
         header_column: playlist_columns.Column,
     ):
         if event.keyval == Gdk.KEY_Menu:
@@ -1945,7 +1945,7 @@ class PlaylistModel(Gtk.ListStore):
         if font is not None:
             # get default font
             default = float(Gtk.Widget.get_default_style().font_desc.get_size())
-            new_font = Pango.FontDescription(font).get_size()
+            new_font = Pango.FontDescription.from_string(font).get_size()
 
             # scale pixbuf accordingly
             t = GdkPixbuf.InterpType.BILINEAR

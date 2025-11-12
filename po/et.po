@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-13 01:14+1100\n"
-"PO-Revision-Date: 2025-05-24 23:09+0000\n"
-"Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
+"PO-Revision-Date: 2025-11-13 05:51+0000\n"
+"Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
 "Language: et\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -2600,7 +2600,7 @@ msgstr "Kohandatud neel:"
 
 #: ../data/ui/preferences/playback.ui:160
 msgid "Show hidden devices"
-msgstr ""
+msgstr "Näita peidetud seadmeid"
 
 #: ../data/ui/preferences/playback.ui:176
 msgid "Resume playback on start"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-24 00:08+0200\n"
+"POT-Creation-Date: 2025-11-13 01:14+1100\n"
 "PO-Revision-Date: 2020-01-29 16:50+0000\n"
 "Last-Translator: Robert Hrovat <robi74@gmail.com>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/exaile/master/"
@@ -614,34 +614,34 @@ msgstr ""
 "mogel predvajati trenutne datoteke. Prosimo namestite zahtevano programsko "
 "podporo na računalnik. Poglejte %s za podrobnosti."
 
-#: ../xl/player/gst/sink.py:48 ../xl/player/gst/sink.py:144
+#: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:153
 msgid "Automatic"
 msgstr "Samodejno"
 
-#: ../xl/player/gst/sink.py:76
+#: ../xl/player/gst/sink.py:77
 msgid "Custom"
 msgstr "Po meri"
 
-#: ../xl/player/gst/sink.py:183
+#: ../xl/player/gst/sink.py:192
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
 msgstr "Ne morem ustvariti ponora (naprava: %s, vrsta: %s)"
 
-#: ../xl/player/gst/sink.py:189
+#: ../xl/player/gst/sink.py:198
 msgid "No custom pipeline specified!"
 msgstr "Ni določenih cevovodov!"
 
-#: ../xl/player/gst/sink.py:194
+#: ../xl/player/gst/sink.py:203
 #, python-format
 msgid "Error creating custom audiosink '%s'"
 msgstr "Napaka pri ustvarjanju prilagojenega zvočnega ponora '%s'"
 
-#: ../xl/player/gst/sink.py:200
+#: ../xl/player/gst/sink.py:209
 #, python-format
 msgid "Invalid sink type '%s' specified"
 msgstr "Določena je neveljavna vrsta ponora '%s'"
 
-#: ../xl/player/gst/sink.py:204
+#: ../xl/player/gst/sink.py:213
 #, python-format
 msgid "Could not create sink type '%s'"
 msgstr "Ne morem ustvariti vrste ponora '%s'"
@@ -656,65 +656,65 @@ msgstr "Neveljavna vrsta seznama predvajanja."
 msgid "Playlist"
 msgstr "Seznam predvajanja"
 
-#: ../xl/playlist.py:335
+#: ../xl/playlist.py:355
 msgid "M3U Playlist"
 msgstr "M3U seznam predvajanja"
 
-#: ../xl/playlist.py:450
+#: ../xl/playlist.py:470
 msgid "PLS Playlist"
 msgstr "PLS seznam predvajanja"
 
-#: ../xl/playlist.py:540 ../xl/playlist.py:555
+#: ../xl/playlist.py:560 ../xl/playlist.py:575
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Neveljavna vrsta za %s."
 
-#: ../xl/playlist.py:550
+#: ../xl/playlist.py:570
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "Nepodprta različica %(version)s za %(type)s"
 
-#: ../xl/playlist.py:610
+#: ../xl/playlist.py:630
 msgid "ASX Playlist"
 msgstr "ASX seznam predvajanja"
 
-#: ../xl/playlist.py:789
+#: ../xl/playlist.py:809
 msgid "XSPF Playlist"
 msgstr "XSPF seznam predvajanja"
 
-#: ../xl/playlist.py:908
+#: ../xl/playlist.py:928
 msgid "Shuffle _Off"
 msgstr "Brez _mešanja"
 
-#: ../xl/playlist.py:909
+#: ../xl/playlist.py:929
 msgid "Shuffle _Tracks"
 msgstr "Mešanje _skladb"
 
-#: ../xl/playlist.py:910
+#: ../xl/playlist.py:930
 msgid "Shuffle _Albums"
 msgstr "Mešanje _albumov"
 
-#: ../xl/playlist.py:911
+#: ../xl/playlist.py:931
 msgid "_Random"
 msgstr "_Naključno"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:936
 msgid "Repeat _Off"
 msgstr "_Brez ponavljanja"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:936
 msgid "Repeat _All"
 msgstr "Ponovi _vse"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:936
 msgid "Repeat O_ne"
 msgstr "Ponovi e_no"
 
-#: ../xl/playlist.py:920
+#: ../xl/playlist.py:940
 msgid "Dynamic _Off"
 msgstr "Dinamično _izključeno"
 
-#: ../xl/playlist.py:920
+#: ../xl/playlist.py:940
 msgid "Dynamic by Similar _Artists"
 msgstr "Dinamično s podobnimi i_zvajalci"
 
@@ -1426,11 +1426,11 @@ msgstr "Predvajanje"
 msgid "Uncategorized"
 msgstr "Nekategorizirano"
 
-#: ../xlgui/preferences/plugin.py:199
+#: ../xlgui/preferences/plugin.py:200
 msgid "Could not load plugin info!"
 msgstr "Ni mogoče naložiti podrobnosti vtičnika!"
 
-#: ../xlgui/preferences/plugin.py:200
+#: ../xlgui/preferences/plugin.py:201
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
@@ -1439,46 +1439,46 @@ msgstr[1] "Spodletela vtičnika: %s"
 msgstr[2] "Spodleteli vtičniki: %s"
 msgstr[3] "Spodletelih vtičnikov: %s"
 
-#: ../xlgui/preferences/plugin.py:238
+#: ../xlgui/preferences/plugin.py:239
 msgid "Do you really want to remove this plugin?"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:248
+#: ../xlgui/preferences/plugin.py:249
 #, fuzzy
 #| msgid "Could not enable plugin!"
 msgid "Could not remove plugin!"
 msgstr "Ni mogoče omogočiti vtičnika!"
 
-#: ../xlgui/preferences/plugin.py:264 ../xlgui/preferences/plugin.py:387
+#: ../xlgui/preferences/plugin.py:265 ../xlgui/preferences/plugin.py:388
 msgid "Could not disable plugin!"
 msgstr "Ni mogoče onemogočiti vtičnika!"
 
-#: ../xlgui/preferences/plugin.py:274 ../xlgui/preferences/plugin.py:381
+#: ../xlgui/preferences/plugin.py:275 ../xlgui/preferences/plugin.py:382
 msgid "Could not enable plugin!"
 msgstr "Ni mogoče omogočiti vtičnika!"
 
-#: ../xlgui/preferences/plugin.py:283
+#: ../xlgui/preferences/plugin.py:284
 msgid "Choose a Plugin"
 msgstr "Izbor vtičnika"
 
-#: ../xlgui/preferences/plugin.py:294
+#: ../xlgui/preferences/plugin.py:295
 msgid "Plugin Archives"
 msgstr "Arhivi vtičnikov"
 
-#: ../xlgui/preferences/plugin.py:301 ../xlgui/widgets/dialogs.py:737
+#: ../xlgui/preferences/plugin.py:302 ../xlgui/widgets/dialogs.py:737
 #: ../xlgui/widgets/dialogs.py:913
 msgid "All Files"
 msgstr "Vse datoteke"
 
-#: ../xlgui/preferences/plugin.py:320
+#: ../xlgui/preferences/plugin.py:321
 msgid "Plugin already exists!"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:321
+#: ../xlgui/preferences/plugin.py:322
 msgid "Do you want to override it?"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:329
+#: ../xlgui/preferences/plugin.py:330
 msgid "Plugin file installation failed!"
 msgstr "Namestitev vtičnika je spodletelo!"
 
@@ -1592,7 +1592,7 @@ msgstr "Uporabi trenutno vrednost za vse skladbe"
 msgid "Saved %(count)s of %(total)s."
 msgstr "Shranjenih %(count)s od skupaj %(total)s."
 
-#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:7
+#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:6
 msgid "Exaile Music Player"
 msgstr "Predvajalnik glasbe Exaile"
 
@@ -1640,7 +1640,7 @@ msgstr "Izvozi trenutni seznama predvajanja"
 msgid "Use relative paths to tracks"
 msgstr "Uporabi relativne poti posnetkov"
 
-#: ../xlgui/widgets/dialogs.py:1088
+#: ../xlgui/widgets/dialogs.py:1090
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Seznam predvajanja je bil shranjen kot <b>%s</b>."
@@ -1802,58 +1802,58 @@ msgstr "Izbriši seznam pred_vajanja"
 msgid "Close Tab"
 msgstr "Zapri zavihek"
 
-#: ../xlgui/widgets/playback.py:833
+#: ../xlgui/widgets/playback.py:830
 #, python-format
 msgid "Seeking: %s"
 msgstr "Iskanje: %s"
 
-#: ../xlgui/widgets/playback.py:1183
+#: ../xlgui/widgets/playback.py:1180
 msgid "Move"
 msgstr "Premakni"
 
-#: ../xlgui/widgets/playback.py:1328
+#: ../xlgui/widgets/playback.py:1325
 msgid "New Marker"
 msgstr "Nov označevalnik"
 
-#: ../xlgui/widgets/playback.py:1387
+#: ../xlgui/widgets/playback.py:1384
 msgid "_Jump to"
 msgstr "_Skoči na"
 
-#: ../xlgui/widgets/playback.py:1395
+#: ../xlgui/widgets/playback.py:1392
 msgid "_Remove Marker"
 msgstr "Odst_rani oznako"
 
-#: ../xlgui/widgets/playback.py:1438
+#: ../xlgui/widgets/playback.py:1435
 msgid "Muted"
 msgstr "Nemo"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1444
+#: ../xlgui/widgets/playback.py:1441
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/widgets/playback.py:1449
+#: ../xlgui/widgets/playback.py:1446
 msgid "Full Volume"
 msgstr "Polna glasnost"
 
-#: ../xlgui/widgets/playback.py:1568
+#: ../xlgui/widgets/playback.py:1565
 msgid "_Pause"
 msgstr "_Premor"
 
-#: ../xlgui/widgets/playback.py:1571
+#: ../xlgui/widgets/playback.py:1568
 msgid "P_lay"
 msgstr "P_redvajaj"
 
-#: ../xlgui/widgets/playback.py:1583
+#: ../xlgui/widgets/playback.py:1580
 msgid "_Next Track"
 msgstr "_Naslednja skladba"
 
-#: ../xlgui/widgets/playback.py:1593
+#: ../xlgui/widgets/playback.py:1590
 msgid "_Previous Track"
 msgstr "_Predhodna skladba"
 
-#: ../xlgui/widgets/playback.py:1603 ../data/ui/covermanager.ui:132
+#: ../xlgui/widgets/playback.py:1600 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "Zau_stavi"
@@ -2619,34 +2619,38 @@ msgid "Custom sink pipeline:"
 msgstr "Cevovod ponora po meri:"
 
 #: ../data/ui/preferences/playback.ui:160
+msgid "Show hidden devices"
+msgstr ""
+
+#: ../data/ui/preferences/playback.ui:176
 msgid "Resume playback on start"
 msgstr "Samodejno predvajaj ob zgonu"
 
-#: ../data/ui/preferences/playback.ui:176
+#: ../data/ui/preferences/playback.ui:192
 msgid "Resume playback in paused state"
 msgstr "Ob premoru nadaljuj s predvajanjem"
 
-#: ../data/ui/preferences/playback.ui:191
+#: ../data/ui/preferences/playback.ui:207
 msgid "Adding an item to an empty queue begins playback"
 msgstr "Dodajanje skladbe v prazno vrsto začne predvajanje"
 
-#: ../data/ui/preferences/playback.ui:206
+#: ../data/ui/preferences/playback.ui:222
 #: ../plugins/quickbuttons/__init__.py:56
 #: ../plugins/quickbuttons/qb_prefs.ui:42
 msgid "Remove track from queue upon playback"
 msgstr "Po predvajanju odstrani skladbo iz vrste"
 
-#: ../data/ui/preferences/playback.ui:221
+#: ../data/ui/preferences/playback.ui:237
 msgid "Remove track from queue after playback"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:236
+#: ../data/ui/preferences/playback.ui:252
 #: ../plugins/quickbuttons/__init__.py:47
 #: ../plugins/quickbuttons/qb_prefs.ui:27
 msgid "Disallow playing new tracks when another track is playing"
 msgstr "Ne dovoli predvajanja nove skladbe dokler se predvaja druga"
 
-#: ../data/ui/preferences/playback.ui:240
+#: ../data/ui/preferences/playback.ui:256
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
@@ -2654,52 +2658,52 @@ msgstr ""
 "Če se že predvaja kakšna skladba, ne dovoli predvajanja novih skladb razen s "
 "klikom na upravljalnik predvajanja"
 
-#: ../data/ui/preferences/playback.ui:252
+#: ../data/ui/preferences/playback.ui:268
 #: ../plugins/quickbuttons/__init__.py:65
 #: ../plugins/quickbuttons/qb_prefs.ui:57
 msgid "Automatically advance to the next track"
 msgstr "Samodejno napreduj na naslednjo skladbo"
 
-#: ../data/ui/preferences/playback.ui:269
+#: ../data/ui/preferences/playback.ui:285
 msgid "Delay between tracks (ms):"
 msgstr "Zakasnitev med skladbami (ms):"
 
-#: ../data/ui/preferences/playback.ui:283
+#: ../data/ui/preferences/playback.ui:299
 msgid "Only works when crossfading not enabled"
 msgstr "Deluje le, ko prehajanje ni omogočeno"
 
-#: ../data/ui/preferences/playback.ui:315
+#: ../data/ui/preferences/playback.ui:331
 msgid "Crossfade duration (ms):"
 msgstr "Trajanje postopnega prehoda (ms):"
 
-#: ../data/ui/preferences/playback.ui:327
+#: ../data/ui/preferences/playback.ui:343
 #: ../plugins/previewdevice/previewprefs.ui:125
 msgid "Use crossfading (EXPERIMENTAL)"
 msgstr "Uporabi postopni prehod (POSKUSNO)"
 
-#: ../data/ui/preferences/playback.ui:331
+#: ../data/ui/preferences/playback.ui:347
 msgid "Forces automatically advancing to the next track"
 msgstr "Vsili samodejni skok na naslednjo skladbo"
 
-#: ../data/ui/preferences/playback.ui:361
+#: ../data/ui/preferences/playback.ui:377
 msgid "Fade duration (ms):"
 msgstr "Trajanje pojemanja (ms):"
 
-#: ../data/ui/preferences/playback.ui:373
+#: ../data/ui/preferences/playback.ui:389
 #: ../plugins/previewdevice/previewprefs.ui:85
 msgid "Use fade transitions on user actions"
 msgstr "Uporaba prehodov pojemanja ob dejanjih uporabnika"
 
-#: ../data/ui/preferences/playback.ui:391
+#: ../data/ui/preferences/playback.ui:407
 #: ../plugins/previewdevice/previewprefs.ui:57
 msgid "Playback engine: "
 msgstr "Programnik predvanjanja "
 
-#: ../data/ui/preferences/playback.ui:424
+#: ../data/ui/preferences/playback.ui:440
 msgid "Enable gapless playback"
 msgstr "Omogoči predvajanje brez premorov"
 
-#: ../data/ui/preferences/playback.ui:428
+#: ../data/ui/preferences/playback.ui:444
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
 msgstr "Gapless določa predvajanje skladb brez vstavljanja tišine med njimi."
@@ -4076,7 +4080,6 @@ msgid "Set BPM?"
 msgstr "Nastavim BPM?"
 
 #: ../plugins/bpm/msg.ui:63
-#, python-format
 msgid "Set autodetected BPM on %s?"
 msgstr "Nastavim samodejni BPM na %s?"
 
@@ -4134,7 +4137,6 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
-#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
@@ -4553,18 +4555,17 @@ msgid "When main window is focused"
 msgstr "Ob postavitvi glavnega okna v žarišče"
 
 #: ../plugins/osd/osd_preferences.ui:69
-#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
-"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat."
-"html\">Pango Text Attribute Markup</a> is supported."
+"<a href=\"https://developer.gnome.org/pango/stable/"
+"PangoMarkupFormat.html\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 "Vsaka značka je lahko uporabljena z <b>$tag</b> ali <b>${tag}</b>. Interne "
 "značke, kot je <b>$__length</b>, morajo biti določene z dvema začetnima "
 "podčrtajema. \n"
-"<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat."
-"html\">Pango Text Attribute Markup</a> je podprt."
+"<a href=\"http://developer.gnome.org/pango/stable/"
+"PangoMarkupFormat.html\">Pango Text Attribute Markup</a> je podprt."
 
 #: ../plugins/osd/osd_preferences.ui:87
 msgid "Display Format"
@@ -5132,8 +5133,8 @@ msgid ""
 "Tool to help generate HTML5 visualizations of your playlists using d3.js. "
 "Optimized for Chrome."
 msgstr ""
-"Orodje za generiranje HTML5 vizualizacij predvajalnega seznama z uporabo d3."
-"js. Optimizirano za brskalnik Chrome."
+"Orodje za generiranje HTML5 vizualizacij predvajalnega seznama z uporabo "
+"d3.js. Optimizirano za brskalnik Chrome."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:5 ../plugins/wikipedia/PLUGININFO:5
 msgid "Information"
@@ -5234,23 +5235,23 @@ msgid ""
 "as a keylogger."
 msgstr ""
 
-#: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
+#: ../data/exaile.desktop.in:4 ../data/exaile.appdata.xml.in:6
 #, fuzzy
 #| msgid "_Quit Exaile"
 msgid "Exaile"
 msgstr "_Zapri Exaile"
 
-#: ../data/exaile.desktop.in:6
+#: ../data/exaile.desktop.in:5
 #, fuzzy
 #| msgid "Exaile Music Player"
 msgid "Music Player"
 msgstr "Predvajalnik glasbe Exaile"
 
-#: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
+#: ../data/exaile.desktop.in:7 ../data/exaile.appdata.xml.in:7
 msgid "Listen to, explore, or manage your audio collection"
 msgstr ""
 
-#: ../data/exaile.desktop.in:14
+#: ../data/exaile.desktop.in:13
 msgid "Music;Player;Library;Collection;MP3;OGG;FLAC;MP4"
 msgstr ""
 
@@ -5719,8 +5720,8 @@ msgstr ""
 #~ "replaced by their respective values. If the tag is not known, \"Unknown\" "
 #~ "will be filled in its place.</i>"
 #~ msgstr ""
-#~ "<i>Sporočilo za prikaz v telesu obvestila. V vsakem primeru bodo "
-#~ "\"%(title)s\", \"%(artist)s\" in \"%(album)s\" zamenjani z ustreznimi "
+#~ "<i>Sporočilo za prikaz v telesu obvestila. V vsakem primeru bodo \"%"
+#~ "(title)s\", \"%(artist)s\" in \"%(album)s\" zamenjani z ustreznimi "
 #~ "vrednostmi. V kolikor značka ni znana, bo na njenem mestu izpisana beseda "
 #~ "\"Neznano\".</i>"
 
@@ -5857,8 +5858,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "Show various informations about the track currently playing.\n"
-#~ "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k."
-#~ "a. PIL)"
+#~ "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging "
+#~ "(a.k.a. PIL)"
 #~ msgstr ""
 #~ "Prikaz različnih podrobnosti predvajane skladbe.\n"
 #~ "Program zahteva namestitev paketov: libwebkit >= 1.0.1, python-webkit >= "

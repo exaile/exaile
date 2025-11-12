@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-24 00:08+0200\n"
+"POT-Creation-Date: 2025-11-13 01:14+1100\n"
 "PO-Revision-Date: 2025-05-26 18:01+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/exaile/master/es/"
@@ -607,34 +607,34 @@ msgstr ""
 "no podrá reproducir el archivo actual. Instale el componente requerido en el "
 "equipo. Consulte %s para obtener detalles."
 
-#: ../xl/player/gst/sink.py:48 ../xl/player/gst/sink.py:144
+#: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:153
 msgid "Automatic"
 msgstr "Automático"
 
-#: ../xl/player/gst/sink.py:76
+#: ../xl/player/gst/sink.py:77
 msgid "Custom"
 msgstr "Personalizado"
 
-#: ../xl/player/gst/sink.py:183
+#: ../xl/player/gst/sink.py:192
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
 msgstr "No se pudo crear el receptor de audio (dispositivo: %s; tipo: %s)"
 
-#: ../xl/player/gst/sink.py:189
+#: ../xl/player/gst/sink.py:198
 msgid "No custom pipeline specified!"
 msgstr "¡No se especificó ninguna pipeline personalizada!"
 
-#: ../xl/player/gst/sink.py:194
+#: ../xl/player/gst/sink.py:203
 #, python-format
 msgid "Error creating custom audiosink '%s'"
 msgstr "Error al crear el receptor de audio personalizado «%s»"
 
-#: ../xl/player/gst/sink.py:200
+#: ../xl/player/gst/sink.py:209
 #, python-format
 msgid "Invalid sink type '%s' specified"
 msgstr "Se especificó el tipo de receptor «%s», que no es válido"
 
-#: ../xl/player/gst/sink.py:204
+#: ../xl/player/gst/sink.py:213
 #, python-format
 msgid "Could not create sink type '%s'"
 msgstr "No se pudo crear el receptor de tipo «%s»"
@@ -649,65 +649,65 @@ msgstr "Tipo de lista de reproducción no válido."
 msgid "Playlist"
 msgstr "Lista de reproducción"
 
-#: ../xl/playlist.py:335
+#: ../xl/playlist.py:355
 msgid "M3U Playlist"
 msgstr "Lista de reproducción M3U"
 
-#: ../xl/playlist.py:450
+#: ../xl/playlist.py:470
 msgid "PLS Playlist"
 msgstr "Lista de reproducción PLS"
 
-#: ../xl/playlist.py:540 ../xl/playlist.py:555
+#: ../xl/playlist.py:560 ../xl/playlist.py:575
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Formato no válido para %s."
 
-#: ../xl/playlist.py:550
+#: ../xl/playlist.py:570
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "Versión no compatible %(version)s para %(type)s"
 
-#: ../xl/playlist.py:610
+#: ../xl/playlist.py:630
 msgid "ASX Playlist"
 msgstr "Lista de reproducción ASX"
 
-#: ../xl/playlist.py:789
+#: ../xl/playlist.py:809
 msgid "XSPF Playlist"
 msgstr "Lista de reproducción XSPF"
 
-#: ../xl/playlist.py:908
+#: ../xl/playlist.py:928
 msgid "Shuffle _Off"
 msgstr "Detener alea_torio"
 
-#: ../xl/playlist.py:909
+#: ../xl/playlist.py:929
 msgid "Shuffle _Tracks"
 msgstr "Pis_tas aleatorias"
 
-#: ../xl/playlist.py:910
+#: ../xl/playlist.py:930
 msgid "Shuffle _Albums"
 msgstr "Álbumes al _azar"
 
-#: ../xl/playlist.py:911
+#: ../xl/playlist.py:931
 msgid "_Random"
 msgstr "Al a_zar"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:936
 msgid "Repeat _Off"
 msgstr "Repetir_apagado"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:936
 msgid "Repeat _All"
 msgstr "Repetir _todo"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:936
 msgid "Repeat O_ne"
 msgstr "Repetir u_na"
 
-#: ../xl/playlist.py:920
+#: ../xl/playlist.py:940
 msgid "Dynamic _Off"
 msgstr "Dinámica _apagada"
 
-#: ../xl/playlist.py:920
+#: ../xl/playlist.py:940
 msgid "Dynamic by Similar _Artists"
 msgstr "Dinámica por _artistas similares"
 
@@ -1423,55 +1423,55 @@ msgstr "Reproducción"
 msgid "Uncategorized"
 msgstr "Sin categorizar"
 
-#: ../xlgui/preferences/plugin.py:199
+#: ../xlgui/preferences/plugin.py:200
 msgid "Could not load plugin info!"
 msgstr "¡No se pudo cargar la información del complemento!"
 
-#: ../xlgui/preferences/plugin.py:200
+#: ../xlgui/preferences/plugin.py:201
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
 msgstr[0] "Complemento fallido: %s"
 msgstr[1] "Complementos fallidos: %s"
 
-#: ../xlgui/preferences/plugin.py:238
+#: ../xlgui/preferences/plugin.py:239
 msgid "Do you really want to remove this plugin?"
 msgstr "¿Realmente desea eliminar este plugin?"
 
-#: ../xlgui/preferences/plugin.py:248
+#: ../xlgui/preferences/plugin.py:249
 msgid "Could not remove plugin!"
 msgstr "¡No se pudo eliminar el complemento!"
 
-#: ../xlgui/preferences/plugin.py:264 ../xlgui/preferences/plugin.py:387
+#: ../xlgui/preferences/plugin.py:265 ../xlgui/preferences/plugin.py:388
 msgid "Could not disable plugin!"
 msgstr "¡No se pudo desactivar el complemento!"
 
-#: ../xlgui/preferences/plugin.py:274 ../xlgui/preferences/plugin.py:381
+#: ../xlgui/preferences/plugin.py:275 ../xlgui/preferences/plugin.py:382
 msgid "Could not enable plugin!"
 msgstr "¡No se pudo activar el complemento!"
 
-#: ../xlgui/preferences/plugin.py:283
+#: ../xlgui/preferences/plugin.py:284
 msgid "Choose a Plugin"
 msgstr "Seleccione un complemento"
 
-#: ../xlgui/preferences/plugin.py:294
+#: ../xlgui/preferences/plugin.py:295
 msgid "Plugin Archives"
 msgstr "Archivos de extensiones"
 
-#: ../xlgui/preferences/plugin.py:301 ../xlgui/widgets/dialogs.py:737
+#: ../xlgui/preferences/plugin.py:302 ../xlgui/widgets/dialogs.py:737
 #: ../xlgui/widgets/dialogs.py:913
 msgid "All Files"
 msgstr "Todos los Archivos"
 
-#: ../xlgui/preferences/plugin.py:320
+#: ../xlgui/preferences/plugin.py:321
 msgid "Plugin already exists!"
 msgstr "¡El complemento ya existe!"
 
-#: ../xlgui/preferences/plugin.py:321
+#: ../xlgui/preferences/plugin.py:322
 msgid "Do you want to override it?"
 msgstr "¿Quieres anularlo?"
 
-#: ../xlgui/preferences/plugin.py:329
+#: ../xlgui/preferences/plugin.py:330
 msgid "Plugin file installation failed!"
 msgstr "¡La instalación del archivo de complemento falló!"
 
@@ -1585,7 +1585,7 @@ msgstr "Aplicar el valor actual a todas las pistas"
 msgid "Saved %(count)s of %(total)s."
 msgstr "Guardados %(count)s de %(total)s."
 
-#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:7
+#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:6
 msgid "Exaile Music Player"
 msgstr "Reproductor de música Exaile"
 
@@ -1633,7 +1633,7 @@ msgstr "Exportar lista de reproducción actual"
 msgid "Use relative paths to tracks"
 msgstr "Usar rutas relativas a las pistas"
 
-#: ../xlgui/widgets/dialogs.py:1088
+#: ../xlgui/widgets/dialogs.py:1090
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Lista de reproducción guardada como <b>%s</b>."
@@ -1789,58 +1789,58 @@ msgstr "_Eliminar lista de reproducción"
 msgid "Close Tab"
 msgstr "Cerrar pestaña"
 
-#: ../xlgui/widgets/playback.py:833
+#: ../xlgui/widgets/playback.py:830
 #, python-format
 msgid "Seeking: %s"
 msgstr "Posicionando: %s"
 
-#: ../xlgui/widgets/playback.py:1183
+#: ../xlgui/widgets/playback.py:1180
 msgid "Move"
 msgstr "Mover"
 
-#: ../xlgui/widgets/playback.py:1328
+#: ../xlgui/widgets/playback.py:1325
 msgid "New Marker"
 msgstr "Nuevo marcador"
 
-#: ../xlgui/widgets/playback.py:1387
+#: ../xlgui/widgets/playback.py:1384
 msgid "_Jump to"
 msgstr "_Saltar a"
 
-#: ../xlgui/widgets/playback.py:1395
+#: ../xlgui/widgets/playback.py:1392
 msgid "_Remove Marker"
 msgstr "_Quitar marca"
 
-#: ../xlgui/widgets/playback.py:1438
+#: ../xlgui/widgets/playback.py:1435
 msgid "Muted"
 msgstr "Silenciado"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1444
+#: ../xlgui/widgets/playback.py:1441
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/widgets/playback.py:1449
+#: ../xlgui/widgets/playback.py:1446
 msgid "Full Volume"
 msgstr "Volumen total"
 
-#: ../xlgui/widgets/playback.py:1568
+#: ../xlgui/widgets/playback.py:1565
 msgid "_Pause"
 msgstr "_Pausar"
 
-#: ../xlgui/widgets/playback.py:1571
+#: ../xlgui/widgets/playback.py:1568
 msgid "P_lay"
 msgstr "_Reproducir"
 
-#: ../xlgui/widgets/playback.py:1583
+#: ../xlgui/widgets/playback.py:1580
 msgid "_Next Track"
 msgstr "Pista _siguiente"
 
-#: ../xlgui/widgets/playback.py:1593
+#: ../xlgui/widgets/playback.py:1590
 msgid "_Previous Track"
 msgstr "Pista a_nterior"
 
-#: ../xlgui/widgets/playback.py:1603 ../data/ui/covermanager.ui:132
+#: ../xlgui/widgets/playback.py:1600 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "_Detener"
@@ -2447,8 +2447,8 @@ msgid ""
 msgstr ""
 "Algunas plataformas no admiten los iconos del área de notificación, sobre "
 "todo en Wayland. En GNOME Shell 3.26+ con Xorg, el área de notificación "
-"funciona solo si instala una extensión como <a href=\"https://extensions."
-"gnome.org/extension/495/topicons/\">«TopIcons»</a>."
+"funciona solo si instala una extensión como <a href=\"https://"
+"extensions.gnome.org/extension/495/topicons/\">«TopIcons»</a>."
 
 #: ../data/ui/preferences/appearance.ui:343
 msgid "Note:"
@@ -2612,34 +2612,38 @@ msgid "Custom sink pipeline:"
 msgstr "Tubería del receptor personalizado:"
 
 #: ../data/ui/preferences/playback.ui:160
+msgid "Show hidden devices"
+msgstr ""
+
+#: ../data/ui/preferences/playback.ui:176
 msgid "Resume playback on start"
 msgstr "Continuar lista de reproducción al iniciar"
 
-#: ../data/ui/preferences/playback.ui:176
+#: ../data/ui/preferences/playback.ui:192
 msgid "Resume playback in paused state"
 msgstr "Continuar reproducción pausada"
 
-#: ../data/ui/preferences/playback.ui:191
+#: ../data/ui/preferences/playback.ui:207
 msgid "Adding an item to an empty queue begins playback"
 msgstr "Añadir un elemento a una cola vacía comienza la reproducción"
 
-#: ../data/ui/preferences/playback.ui:206
+#: ../data/ui/preferences/playback.ui:222
 #: ../plugins/quickbuttons/__init__.py:56
 #: ../plugins/quickbuttons/qb_prefs.ui:42
 msgid "Remove track from queue upon playback"
 msgstr "Eliminar pista de la cola cuando se reproduzca"
 
-#: ../data/ui/preferences/playback.ui:221
+#: ../data/ui/preferences/playback.ui:237
 msgid "Remove track from queue after playback"
 msgstr "Quitar pista de la cola tras reproducirla"
 
-#: ../data/ui/preferences/playback.ui:236
+#: ../data/ui/preferences/playback.ui:252
 #: ../plugins/quickbuttons/__init__.py:47
 #: ../plugins/quickbuttons/qb_prefs.ui:27
 msgid "Disallow playing new tracks when another track is playing"
 msgstr "No permitir reproducir nuevas pistas cuando otra pista esté sonando"
 
-#: ../data/ui/preferences/playback.ui:240
+#: ../data/ui/preferences/playback.ui:256
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
@@ -2647,52 +2651,52 @@ msgstr ""
 "Si una pista está sonando, no permitir iniciar nuevas pistas, excepto cuando "
 "se pulse en los controles de repoducción"
 
-#: ../data/ui/preferences/playback.ui:252
+#: ../data/ui/preferences/playback.ui:268
 #: ../plugins/quickbuttons/__init__.py:65
 #: ../plugins/quickbuttons/qb_prefs.ui:57
 msgid "Automatically advance to the next track"
 msgstr "Avanzar automáticamente a la pista siguiente"
 
-#: ../data/ui/preferences/playback.ui:269
+#: ../data/ui/preferences/playback.ui:285
 msgid "Delay between tracks (ms):"
 msgstr "Retardo entre pistas (ms):"
 
-#: ../data/ui/preferences/playback.ui:283
+#: ../data/ui/preferences/playback.ui:299
 msgid "Only works when crossfading not enabled"
 msgstr "Funciona solo cuando la transición está desactivada"
 
-#: ../data/ui/preferences/playback.ui:315
+#: ../data/ui/preferences/playback.ui:331
 msgid "Crossfade duration (ms):"
 msgstr "Duración de la transición (ms):"
 
-#: ../data/ui/preferences/playback.ui:327
+#: ../data/ui/preferences/playback.ui:343
 #: ../plugins/previewdevice/previewprefs.ui:125
 msgid "Use crossfading (EXPERIMENTAL)"
 msgstr "Usar transición (EXPERIMENTAL)"
 
-#: ../data/ui/preferences/playback.ui:331
+#: ../data/ui/preferences/playback.ui:347
 msgid "Forces automatically advancing to the next track"
 msgstr "Fuerza el avance automático a la pista siguiente"
 
-#: ../data/ui/preferences/playback.ui:361
+#: ../data/ui/preferences/playback.ui:377
 msgid "Fade duration (ms):"
 msgstr "Duración del difuminado (ms):"
 
-#: ../data/ui/preferences/playback.ui:373
+#: ../data/ui/preferences/playback.ui:389
 #: ../plugins/previewdevice/previewprefs.ui:85
 msgid "Use fade transitions on user actions"
 msgstr "Usar transiciones de desvanecimiento en acciones de usuario"
 
-#: ../data/ui/preferences/playback.ui:391
+#: ../data/ui/preferences/playback.ui:407
 #: ../plugins/previewdevice/previewprefs.ui:57
 msgid "Playback engine: "
 msgstr "Motor de reproducción: "
 
-#: ../data/ui/preferences/playback.ui:424
+#: ../data/ui/preferences/playback.ui:440
 msgid "Enable gapless playback"
 msgstr "Activar reproducción continua"
 
-#: ../data/ui/preferences/playback.ui:428
+#: ../data/ui/preferences/playback.ui:444
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
 msgstr "La reproducción continua elimina las pausas entre cada pista."
@@ -4030,12 +4034,12 @@ msgid ""
 "advertising/api/sign-in.html\">activate the Product Advertising API</a></i>."
 msgstr ""
 "<i>Para registrar una cuenta de Amazon AWS y obtener \n"
-"esta información visite <a href=\"http://aws.amazon.com/\">http://aws.amazon."
-"com/</a>.\n"
+"esta información visite <a href=\"http://aws.amazon.com/\">http://"
+"aws.amazon.com/</a>.\n"
 "\n"
-"Es posible que también tenga que <a href=\"https://affiliate-program.amazon."
-"com/gp/flex/advertising/api/sign-in.html\">activar el API de publicidad de "
-"producto</a></i>."
+"Es posible que también tenga que <a href=\"https://affiliate-"
+"program.amazon.com/gp/flex/advertising/api/sign-in.html\">activar el API de "
+"publicidad de producto</a></i>."
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:17
 msgid "Submit tracks using Audioscrobbler"
@@ -4075,7 +4079,6 @@ msgid "Set BPM?"
 msgstr "¿Quiere establecer las PPM?"
 
 #: ../plugins/bpm/msg.ui:63
-#, python-format
 msgid "Set autodetected BPM on %s?"
 msgstr "¿Quiere establecer las PPM detectadas automáticamente en %s?"
 
@@ -4129,7 +4132,6 @@ msgstr "Ruta: "
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
-#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
@@ -4544,12 +4546,11 @@ msgid "When main window is focused"
 msgstr "Cuando la ventana principal está activa"
 
 #: ../plugins/osd/osd_preferences.ui:69
-#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
-"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat."
-"html\">Pango Text Attribute Markup</a> is supported."
+"<a href=\"https://developer.gnome.org/pango/stable/"
+"PangoMarkupFormat.html\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 "Puede utilizar cualquier etiqueta con <b>$tag</b> o <b>${tag}</b>. Las "
 "etiquetas internas como <b>$__length</b> deben tener dos guiones bajos al "
@@ -5241,19 +5242,19 @@ msgstr ""
 "evento de tecla en la sesión de Windows, lo que puede hacer que algunos "
 "programas de seguridad detecten a Exaile como un keylogger."
 
-#: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
+#: ../data/exaile.desktop.in:4 ../data/exaile.appdata.xml.in:6
 msgid "Exaile"
 msgstr "Exaile"
 
-#: ../data/exaile.desktop.in:6
+#: ../data/exaile.desktop.in:5
 msgid "Music Player"
 msgstr "Reproductor de música"
 
-#: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
+#: ../data/exaile.desktop.in:7 ../data/exaile.appdata.xml.in:7
 msgid "Listen to, explore, or manage your audio collection"
 msgstr "Escucha, explora o gestiona tu colección de audio"
 
-#: ../data/exaile.desktop.in:14
+#: ../data/exaile.desktop.in:13
 msgid "Music;Player;Library;Collection;MP3;OGG;FLAC;MP4"
 msgstr "Música;Reproductor;Biblioteca;Colección;MP3;OGG;FLAC;MP4"
 
@@ -5751,8 +5752,8 @@ msgstr "El equipo de Exaile"
 #~ "replaced by their respective values. If the tag is not known, \"Unknown\" "
 #~ "will be filled in its place.</i>"
 #~ msgstr ""
-#~ "<i>Mensaje que se muestra en el cuerpo de la notificación. En cada caso "
-#~ "«%(title)s», «%(artist)s», y «%(album)s» se reemplazarán por sus "
+#~ "<i>Mensaje que se muestra en el cuerpo de la notificación. En cada caso «%"
+#~ "(title)s», «%(artist)s», y «%(album)s» se reemplazarán por sus "
 #~ "respectivos valores. Si no se conoce la etiqueta se mostrará "
 #~ "«Desconocido».</i>"
 
@@ -5890,8 +5891,8 @@ msgstr "El equipo de Exaile"
 
 #~ msgid ""
 #~ "Show various informations about the track currently playing.\n"
-#~ "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k."
-#~ "a. PIL)"
+#~ "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging "
+#~ "(a.k.a. PIL)"
 #~ msgstr ""
 #~ "Muestra información variada acerca de la pista en reproducción.\n"
 #~ "Dependencias: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging "

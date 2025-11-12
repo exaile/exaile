@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-24 00:08+0200\n"
+"POT-Creation-Date: 2025-11-13 01:14+1100\n"
 "PO-Revision-Date: 2022-10-29 23:02+0000\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/exaile/master/ko/"
@@ -589,34 +589,34 @@ msgid ""
 "required software on your computer. See %s for details."
 msgstr ""
 
-#: ../xl/player/gst/sink.py:48 ../xl/player/gst/sink.py:144
+#: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:153
 msgid "Automatic"
 msgstr "자동"
 
-#: ../xl/player/gst/sink.py:76
+#: ../xl/player/gst/sink.py:77
 msgid "Custom"
 msgstr "사용자 지정"
 
-#: ../xl/player/gst/sink.py:183
+#: ../xl/player/gst/sink.py:192
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:189
+#: ../xl/player/gst/sink.py:198
 msgid "No custom pipeline specified!"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:194
+#: ../xl/player/gst/sink.py:203
 #, python-format
 msgid "Error creating custom audiosink '%s'"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:200
+#: ../xl/player/gst/sink.py:209
 #, python-format
 msgid "Invalid sink type '%s' specified"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:204
+#: ../xl/player/gst/sink.py:213
 #, python-format
 msgid "Could not create sink type '%s'"
 msgstr ""
@@ -631,65 +631,65 @@ msgstr "잘못된 재생목록 유형입니다."
 msgid "Playlist"
 msgstr "재생 목록"
 
-#: ../xl/playlist.py:335
+#: ../xl/playlist.py:355
 msgid "M3U Playlist"
 msgstr "M3U 재생목록"
 
-#: ../xl/playlist.py:450
+#: ../xl/playlist.py:470
 msgid "PLS Playlist"
 msgstr "PLS 재생목록"
 
-#: ../xl/playlist.py:540 ../xl/playlist.py:555
+#: ../xl/playlist.py:560 ../xl/playlist.py:575
 #, python-format
 msgid "Invalid format for %s."
 msgstr "%s에 대한 형식이 잘못되었습니다."
 
-#: ../xl/playlist.py:550
+#: ../xl/playlist.py:570
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr ""
 
-#: ../xl/playlist.py:610
+#: ../xl/playlist.py:630
 msgid "ASX Playlist"
 msgstr "ASX 재생목록"
 
-#: ../xl/playlist.py:789
+#: ../xl/playlist.py:809
 msgid "XSPF Playlist"
 msgstr "XSPF 재생목록"
 
-#: ../xl/playlist.py:908
+#: ../xl/playlist.py:928
 msgid "Shuffle _Off"
 msgstr "순서 섞기 끄기"
 
-#: ../xl/playlist.py:909
+#: ../xl/playlist.py:929
 msgid "Shuffle _Tracks"
 msgstr "트랙 순서를 섞기"
 
-#: ../xl/playlist.py:910
+#: ../xl/playlist.py:930
 msgid "Shuffle _Albums"
 msgstr "앨범 안에서 순서 섞기"
 
-#: ../xl/playlist.py:911
+#: ../xl/playlist.py:931
 msgid "_Random"
 msgstr "무작위(_R)"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:936
 msgid "Repeat _Off"
 msgstr "반복 해제"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:936
 msgid "Repeat _All"
 msgstr "모두 반복"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:936
 msgid "Repeat O_ne"
 msgstr "한곡 반복"
 
-#: ../xl/playlist.py:920
+#: ../xl/playlist.py:940
 msgid "Dynamic _Off"
 msgstr ""
 
-#: ../xl/playlist.py:920
+#: ../xl/playlist.py:940
 msgid "Dynamic by Similar _Artists"
 msgstr ""
 
@@ -1394,56 +1394,56 @@ msgstr "재생"
 msgid "Uncategorized"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:199
+#: ../xlgui/preferences/plugin.py:200
 msgid "Could not load plugin info!"
 msgstr "플러그인 정보를 불러올 수 없습니다!"
 
-#: ../xlgui/preferences/plugin.py:200
+#: ../xlgui/preferences/plugin.py:201
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
 msgstr[0] "다음 플러그인에서 오류 발생: %s"
 
-#: ../xlgui/preferences/plugin.py:238
+#: ../xlgui/preferences/plugin.py:239
 msgid "Do you really want to remove this plugin?"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:248
+#: ../xlgui/preferences/plugin.py:249
 #, fuzzy
 #| msgid "Could not enable plugin!"
 msgid "Could not remove plugin!"
 msgstr "플러그인을 작동시킬 수 없습니다!"
 
-#: ../xlgui/preferences/plugin.py:264 ../xlgui/preferences/plugin.py:387
+#: ../xlgui/preferences/plugin.py:265 ../xlgui/preferences/plugin.py:388
 msgid "Could not disable plugin!"
 msgstr "플러그인을 중단시킬 수 없습니다!"
 
-#: ../xlgui/preferences/plugin.py:274 ../xlgui/preferences/plugin.py:381
+#: ../xlgui/preferences/plugin.py:275 ../xlgui/preferences/plugin.py:382
 msgid "Could not enable plugin!"
 msgstr "플러그인을 작동시킬 수 없습니다!"
 
-#: ../xlgui/preferences/plugin.py:283
+#: ../xlgui/preferences/plugin.py:284
 msgid "Choose a Plugin"
 msgstr "플러그인을 선택하세요"
 
-#: ../xlgui/preferences/plugin.py:294
+#: ../xlgui/preferences/plugin.py:295
 msgid "Plugin Archives"
 msgstr "플러그인 저장소"
 
-#: ../xlgui/preferences/plugin.py:301 ../xlgui/widgets/dialogs.py:737
+#: ../xlgui/preferences/plugin.py:302 ../xlgui/widgets/dialogs.py:737
 #: ../xlgui/widgets/dialogs.py:913
 msgid "All Files"
 msgstr "모든 파일"
 
-#: ../xlgui/preferences/plugin.py:320
+#: ../xlgui/preferences/plugin.py:321
 msgid "Plugin already exists!"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:321
+#: ../xlgui/preferences/plugin.py:322
 msgid "Do you want to override it?"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:329
+#: ../xlgui/preferences/plugin.py:330
 msgid "Plugin file installation failed!"
 msgstr "플러그인 설치가 실패하였습니다!"
 
@@ -1555,7 +1555,7 @@ msgstr "모든 트랙에 현재 값을 적용"
 msgid "Saved %(count)s of %(total)s."
 msgstr "저장된 %(count)s of %(total)s."
 
-#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:7
+#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:6
 msgid "Exaile Music Player"
 msgstr "Exaile 음악 연주기"
 
@@ -1603,7 +1603,7 @@ msgstr "현재 재생목록 내보내기"
 msgid "Use relative paths to tracks"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1088
+#: ../xlgui/widgets/dialogs.py:1090
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "재생목록이 <b>%s</b>(으)로 저장되었습니다."
@@ -1753,58 +1753,58 @@ msgstr "재생목록 삭제하기(_D)"
 msgid "Close Tab"
 msgstr "탭 닫기"
 
-#: ../xlgui/widgets/playback.py:833
+#: ../xlgui/widgets/playback.py:830
 #, python-format
 msgid "Seeking: %s"
 msgstr "%s를 찾는 중"
 
-#: ../xlgui/widgets/playback.py:1183
+#: ../xlgui/widgets/playback.py:1180
 msgid "Move"
 msgstr "이동"
 
-#: ../xlgui/widgets/playback.py:1328
+#: ../xlgui/widgets/playback.py:1325
 msgid "New Marker"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1387
+#: ../xlgui/widgets/playback.py:1384
 msgid "_Jump to"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1395
+#: ../xlgui/widgets/playback.py:1392
 msgid "_Remove Marker"
 msgstr "마커 제거하기(_R)"
 
-#: ../xlgui/widgets/playback.py:1438
+#: ../xlgui/widgets/playback.py:1435
 msgid "Muted"
 msgstr "소리 끔"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1444
+#: ../xlgui/widgets/playback.py:1441
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/widgets/playback.py:1449
+#: ../xlgui/widgets/playback.py:1446
 msgid "Full Volume"
 msgstr "최대 볼륨"
 
-#: ../xlgui/widgets/playback.py:1568
+#: ../xlgui/widgets/playback.py:1565
 msgid "_Pause"
 msgstr "일시정지(_P)"
 
-#: ../xlgui/widgets/playback.py:1571
+#: ../xlgui/widgets/playback.py:1568
 msgid "P_lay"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1583
+#: ../xlgui/widgets/playback.py:1580
 msgid "_Next Track"
 msgstr "다음 트랙(_N)"
 
-#: ../xlgui/widgets/playback.py:1593
+#: ../xlgui/widgets/playback.py:1590
 msgid "_Previous Track"
 msgstr "이전 트랙(_P)"
 
-#: ../xlgui/widgets/playback.py:1603 ../data/ui/covermanager.ui:132
+#: ../xlgui/widgets/playback.py:1600 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "중지(_S)"
@@ -2540,85 +2540,89 @@ msgid "Custom sink pipeline:"
 msgstr "사용자 정의 싱크 파이프라인:"
 
 #: ../data/ui/preferences/playback.ui:160
+msgid "Show hidden devices"
+msgstr ""
+
+#: ../data/ui/preferences/playback.ui:176
 msgid "Resume playback on start"
 msgstr "시작할 때 다시 재생"
 
-#: ../data/ui/preferences/playback.ui:176
+#: ../data/ui/preferences/playback.ui:192
 msgid "Resume playback in paused state"
 msgstr "일시정지 상태에서 다시 재생"
 
-#: ../data/ui/preferences/playback.ui:191
+#: ../data/ui/preferences/playback.ui:207
 msgid "Adding an item to an empty queue begins playback"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:206
+#: ../data/ui/preferences/playback.ui:222
 #: ../plugins/quickbuttons/__init__.py:56
 #: ../plugins/quickbuttons/qb_prefs.ui:42
 msgid "Remove track from queue upon playback"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:221
+#: ../data/ui/preferences/playback.ui:237
 msgid "Remove track from queue after playback"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:236
+#: ../data/ui/preferences/playback.ui:252
 #: ../plugins/quickbuttons/__init__.py:47
 #: ../plugins/quickbuttons/qb_prefs.ui:27
 msgid "Disallow playing new tracks when another track is playing"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:240
+#: ../data/ui/preferences/playback.ui:256
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:252
+#: ../data/ui/preferences/playback.ui:268
 #: ../plugins/quickbuttons/__init__.py:65
 #: ../plugins/quickbuttons/qb_prefs.ui:57
 msgid "Automatically advance to the next track"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:269
+#: ../data/ui/preferences/playback.ui:285
 msgid "Delay between tracks (ms):"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:283
+#: ../data/ui/preferences/playback.ui:299
 msgid "Only works when crossfading not enabled"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:315
+#: ../data/ui/preferences/playback.ui:331
 msgid "Crossfade duration (ms):"
 msgstr "크로스페이드 길이 (ms):"
 
-#: ../data/ui/preferences/playback.ui:327
+#: ../data/ui/preferences/playback.ui:343
 #: ../plugins/previewdevice/previewprefs.ui:125
 msgid "Use crossfading (EXPERIMENTAL)"
 msgstr "크로스페이딩 사용 (실험용)"
 
-#: ../data/ui/preferences/playback.ui:331
+#: ../data/ui/preferences/playback.ui:347
 msgid "Forces automatically advancing to the next track"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:361
+#: ../data/ui/preferences/playback.ui:377
 msgid "Fade duration (ms):"
 msgstr "페이드 길이 (ms):"
 
-#: ../data/ui/preferences/playback.ui:373
+#: ../data/ui/preferences/playback.ui:389
 #: ../plugins/previewdevice/previewprefs.ui:85
 msgid "Use fade transitions on user actions"
 msgstr "사용자의 작업에 대한 페이드 전환 사용"
 
-#: ../data/ui/preferences/playback.ui:391
+#: ../data/ui/preferences/playback.ui:407
 #: ../plugins/previewdevice/previewprefs.ui:57
 msgid "Playback engine: "
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:424
+#: ../data/ui/preferences/playback.ui:440
 msgid "Enable gapless playback"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:428
+#: ../data/ui/preferences/playback.ui:444
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
 msgstr ""
@@ -3943,7 +3947,6 @@ msgid "Set BPM?"
 msgstr ""
 
 #: ../plugins/bpm/msg.ui:63
-#, python-format
 msgid "Set autodetected BPM on %s?"
 msgstr ""
 
@@ -4001,7 +4004,6 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
-#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
@@ -4407,12 +4409,11 @@ msgid "When main window is focused"
 msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui:69
-#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
-"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat."
-"html\">Pango Text Attribute Markup</a> is supported."
+"<a href=\"https://developer.gnome.org/pango/stable/"
+"PangoMarkupFormat.html\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui:87
@@ -5006,23 +5007,23 @@ msgid ""
 "as a keylogger."
 msgstr ""
 
-#: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
+#: ../data/exaile.desktop.in:4 ../data/exaile.appdata.xml.in:6
 #, fuzzy
 #| msgid "_Quit Exaile"
 msgid "Exaile"
 msgstr "Exaile 종료(_Q)"
 
-#: ../data/exaile.desktop.in:6
+#: ../data/exaile.desktop.in:5
 #, fuzzy
 #| msgid "Exaile Music Player"
 msgid "Music Player"
 msgstr "Exaile 음악 연주기"
 
-#: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
+#: ../data/exaile.desktop.in:7 ../data/exaile.appdata.xml.in:7
 msgid "Listen to, explore, or manage your audio collection"
 msgstr ""
 
-#: ../data/exaile.desktop.in:14
+#: ../data/exaile.desktop.in:13
 msgid "Music;Player;Library;Collection;MP3;OGG;FLAC;MP4"
 msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-24 00:08+0200\n"
+"POT-Creation-Date: 2025-11-13 01:14+1100\n"
 "PO-Revision-Date: 2024-01-01 11:07+0000\n"
 "Last-Translator: Eric <zxmegaxqug@hldrive.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -594,34 +594,34 @@ msgstr ""
 "缺少一个 %s 所需的 GStreamer 1.x 插件。不安装该软件，Exaile 将无法播放当前文"
 "件。请在你的计算机上安装所需软件。详细说明见 %s 。"
 
-#: ../xl/player/gst/sink.py:48 ../xl/player/gst/sink.py:144
+#: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:153
 msgid "Automatic"
 msgstr "自动"
 
-#: ../xl/player/gst/sink.py:76
+#: ../xl/player/gst/sink.py:77
 msgid "Custom"
 msgstr "自定义"
 
-#: ../xl/player/gst/sink.py:183
+#: ../xl/player/gst/sink.py:192
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
 msgstr "无法创建音濖（设备： %s ，类型： %s ）"
 
-#: ../xl/player/gst/sink.py:189
+#: ../xl/player/gst/sink.py:198
 msgid "No custom pipeline specified!"
 msgstr "没有已指定的自定义管道！"
 
-#: ../xl/player/gst/sink.py:194
+#: ../xl/player/gst/sink.py:203
 #, python-format
 msgid "Error creating custom audiosink '%s'"
 msgstr "创建自定义音濖 '%s' 时出现错误"
 
-#: ../xl/player/gst/sink.py:200
+#: ../xl/player/gst/sink.py:209
 #, python-format
 msgid "Invalid sink type '%s' specified"
 msgstr "指定的濖渠类别 '%s' 无效"
 
-#: ../xl/player/gst/sink.py:204
+#: ../xl/player/gst/sink.py:213
 #, python-format
 msgid "Could not create sink type '%s'"
 msgstr "无法创建濖渠类型 '%s'"
@@ -636,65 +636,65 @@ msgstr "播放列表的类型无效。"
 msgid "Playlist"
 msgstr "播放列表"
 
-#: ../xl/playlist.py:335
+#: ../xl/playlist.py:355
 msgid "M3U Playlist"
 msgstr "M3U 播放列表"
 
-#: ../xl/playlist.py:450
+#: ../xl/playlist.py:470
 msgid "PLS Playlist"
 msgstr "PLS 播放列表"
 
-#: ../xl/playlist.py:540 ../xl/playlist.py:555
+#: ../xl/playlist.py:560 ../xl/playlist.py:575
 #, python-format
 msgid "Invalid format for %s."
 msgstr "%s 的格式无效。"
 
-#: ../xl/playlist.py:550
+#: ../xl/playlist.py:570
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "%(type)s 的版本 %(version)s 不支持"
 
-#: ../xl/playlist.py:610
+#: ../xl/playlist.py:630
 msgid "ASX Playlist"
 msgstr "ASX 播放列表"
 
-#: ../xl/playlist.py:789
+#: ../xl/playlist.py:809
 msgid "XSPF Playlist"
 msgstr "XSPF 播放列表"
 
-#: ../xl/playlist.py:908
+#: ../xl/playlist.py:928
 msgid "Shuffle _Off"
 msgstr "乱序模式_关闭"
 
-#: ../xl/playlist.py:909
+#: ../xl/playlist.py:929
 msgid "Shuffle _Tracks"
 msgstr "乱序模式（_歌曲）"
 
-#: ../xl/playlist.py:910
+#: ../xl/playlist.py:930
 msgid "Shuffle _Albums"
 msgstr "乱序模式（_专辑）"
 
-#: ../xl/playlist.py:911
+#: ../xl/playlist.py:931
 msgid "_Random"
 msgstr "_随机"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:936
 msgid "Repeat _Off"
 msgstr "循环模式（_关闭）"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:936
 msgid "Repeat _All"
 msgstr "循环模式（_所有）"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:936
 msgid "Repeat O_ne"
 msgstr "循环模式（_单曲）"
 
-#: ../xl/playlist.py:920
+#: ../xl/playlist.py:940
 msgid "Dynamic _Off"
 msgstr "动态播放（_关闭）"
 
-#: ../xl/playlist.py:920
+#: ../xl/playlist.py:940
 msgid "Dynamic by Similar _Artists"
 msgstr "依据相似 _艺术家 动态播放"
 
@@ -1396,54 +1396,54 @@ msgstr "播放"
 msgid "Uncategorized"
 msgstr "未分类"
 
-#: ../xlgui/preferences/plugin.py:199
+#: ../xlgui/preferences/plugin.py:200
 msgid "Could not load plugin info!"
 msgstr "无法加载插件信息！"
 
-#: ../xlgui/preferences/plugin.py:200
+#: ../xlgui/preferences/plugin.py:201
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
 msgstr[0] "加载失败： %s"
 
-#: ../xlgui/preferences/plugin.py:238
+#: ../xlgui/preferences/plugin.py:239
 msgid "Do you really want to remove this plugin?"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:248
+#: ../xlgui/preferences/plugin.py:249
 msgid "Could not remove plugin!"
 msgstr "无法删除插件！"
 
-#: ../xlgui/preferences/plugin.py:264 ../xlgui/preferences/plugin.py:387
+#: ../xlgui/preferences/plugin.py:265 ../xlgui/preferences/plugin.py:388
 msgid "Could not disable plugin!"
 msgstr "无法禁用插件！"
 
-#: ../xlgui/preferences/plugin.py:274 ../xlgui/preferences/plugin.py:381
+#: ../xlgui/preferences/plugin.py:275 ../xlgui/preferences/plugin.py:382
 msgid "Could not enable plugin!"
 msgstr "无法启用插件！"
 
-#: ../xlgui/preferences/plugin.py:283
+#: ../xlgui/preferences/plugin.py:284
 msgid "Choose a Plugin"
 msgstr "选择插件"
 
-#: ../xlgui/preferences/plugin.py:294
+#: ../xlgui/preferences/plugin.py:295
 msgid "Plugin Archives"
 msgstr "插件包"
 
-#: ../xlgui/preferences/plugin.py:301 ../xlgui/widgets/dialogs.py:737
+#: ../xlgui/preferences/plugin.py:302 ../xlgui/widgets/dialogs.py:737
 #: ../xlgui/widgets/dialogs.py:913
 msgid "All Files"
 msgstr "所有文件"
 
-#: ../xlgui/preferences/plugin.py:320
+#: ../xlgui/preferences/plugin.py:321
 msgid "Plugin already exists!"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:321
+#: ../xlgui/preferences/plugin.py:322
 msgid "Do you want to override it?"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:329
+#: ../xlgui/preferences/plugin.py:330
 msgid "Plugin file installation failed!"
 msgstr "插件文件安装失败！"
 
@@ -1557,7 +1557,7 @@ msgstr "将当前值应用到所有歌曲"
 msgid "Saved %(count)s of %(total)s."
 msgstr "已保存 %(count)s / %(total)s 。"
 
-#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:7
+#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:6
 msgid "Exaile Music Player"
 msgstr "Exaile 音乐播放器"
 
@@ -1605,7 +1605,7 @@ msgstr "导出当前播放列表"
 msgid "Use relative paths to tracks"
 msgstr "使用相对路径指向歌曲"
 
-#: ../xlgui/widgets/dialogs.py:1088
+#: ../xlgui/widgets/dialogs.py:1090
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "播放列表已保存为 <b>%s</b>。"
@@ -1757,58 +1757,58 @@ msgstr "_删除 播放列表"
 msgid "Close Tab"
 msgstr "关闭标签页"
 
-#: ../xlgui/widgets/playback.py:833
+#: ../xlgui/widgets/playback.py:830
 #, python-format
 msgid "Seeking: %s"
 msgstr "正在寻道：%s"
 
-#: ../xlgui/widgets/playback.py:1183
+#: ../xlgui/widgets/playback.py:1180
 msgid "Move"
 msgstr "移动"
 
-#: ../xlgui/widgets/playback.py:1328
+#: ../xlgui/widgets/playback.py:1325
 msgid "New Marker"
 msgstr "新增标记"
 
-#: ../xlgui/widgets/playback.py:1387
+#: ../xlgui/widgets/playback.py:1384
 msgid "_Jump to"
 msgstr "_跳转到"
 
-#: ../xlgui/widgets/playback.py:1395
+#: ../xlgui/widgets/playback.py:1392
 msgid "_Remove Marker"
 msgstr "_移除标记"
 
-#: ../xlgui/widgets/playback.py:1438
+#: ../xlgui/widgets/playback.py:1435
 msgid "Muted"
 msgstr "静音了"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1444
+#: ../xlgui/widgets/playback.py:1441
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/widgets/playback.py:1449
+#: ../xlgui/widgets/playback.py:1446
 msgid "Full Volume"
 msgstr "最大音量"
 
-#: ../xlgui/widgets/playback.py:1568
+#: ../xlgui/widgets/playback.py:1565
 msgid "_Pause"
 msgstr "_暂停"
 
-#: ../xlgui/widgets/playback.py:1571
+#: ../xlgui/widgets/playback.py:1568
 msgid "P_lay"
 msgstr "播_放"
 
-#: ../xlgui/widgets/playback.py:1583
+#: ../xlgui/widgets/playback.py:1580
 msgid "_Next Track"
 msgstr "_下一歌曲"
 
-#: ../xlgui/widgets/playback.py:1593
+#: ../xlgui/widgets/playback.py:1590
 msgid "_Previous Track"
 msgstr "_上一歌曲"
 
-#: ../xlgui/widgets/playback.py:1603 ../data/ui/covermanager.ui:132
+#: ../xlgui/widgets/playback.py:1600 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "_停止"
@@ -2551,86 +2551,90 @@ msgid "Custom sink pipeline:"
 msgstr "自定义濖渠："
 
 #: ../data/ui/preferences/playback.ui:160
+msgid "Show hidden devices"
+msgstr ""
+
+#: ../data/ui/preferences/playback.ui:176
 msgid "Resume playback on start"
 msgstr "启动时继续上次播放"
 
-#: ../data/ui/preferences/playback.ui:176
+#: ../data/ui/preferences/playback.ui:192
 msgid "Resume playback in paused state"
 msgstr "继续已暂停的播放"
 
-#: ../data/ui/preferences/playback.ui:191
+#: ../data/ui/preferences/playback.ui:207
 msgid "Adding an item to an empty queue begins playback"
 msgstr "在空队列中添加一项后即开始播放"
 
-#: ../data/ui/preferences/playback.ui:206
+#: ../data/ui/preferences/playback.ui:222
 #: ../plugins/quickbuttons/__init__.py:56
 #: ../plugins/quickbuttons/qb_prefs.ui:42
 msgid "Remove track from queue upon playback"
 msgstr "移除队列中开始播放的歌曲"
 
-#: ../data/ui/preferences/playback.ui:221
+#: ../data/ui/preferences/playback.ui:237
 msgid "Remove track from queue after playback"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:236
+#: ../data/ui/preferences/playback.ui:252
 #: ../plugins/quickbuttons/__init__.py:47
 #: ../plugins/quickbuttons/qb_prefs.ui:27
 msgid "Disallow playing new tracks when another track is playing"
 msgstr "不允许在有另一歌曲播放时又播放新的歌曲"
 
-#: ../data/ui/preferences/playback.ui:240
+#: ../data/ui/preferences/playback.ui:256
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
 "如果当前正有一个歌曲播放中，则不让新的歌曲开始播放，除非是在点击播放控制器"
 
-#: ../data/ui/preferences/playback.ui:252
+#: ../data/ui/preferences/playback.ui:268
 #: ../plugins/quickbuttons/__init__.py:65
 #: ../plugins/quickbuttons/qb_prefs.ui:57
 msgid "Automatically advance to the next track"
 msgstr "自动前进到下一歌曲"
 
-#: ../data/ui/preferences/playback.ui:269
+#: ../data/ui/preferences/playback.ui:285
 msgid "Delay between tracks (ms):"
 msgstr "歌曲间延时（ms, 毫秒）："
 
-#: ../data/ui/preferences/playback.ui:283
+#: ../data/ui/preferences/playback.ui:299
 msgid "Only works when crossfading not enabled"
 msgstr "仅在交叉淡入淡出未启用时生效"
 
-#: ../data/ui/preferences/playback.ui:315
+#: ../data/ui/preferences/playback.ui:331
 msgid "Crossfade duration (ms):"
 msgstr "匀滑转换持续时间(毫秒)："
 
-#: ../data/ui/preferences/playback.ui:327
+#: ../data/ui/preferences/playback.ui:343
 #: ../plugins/previewdevice/previewprefs.ui:125
 msgid "Use crossfading (EXPERIMENTAL)"
 msgstr "使用匀滑转换(实验性)"
 
-#: ../data/ui/preferences/playback.ui:331
+#: ../data/ui/preferences/playback.ui:347
 msgid "Forces automatically advancing to the next track"
 msgstr "会强制地自动前进到下一歌曲"
 
-#: ../data/ui/preferences/playback.ui:361
+#: ../data/ui/preferences/playback.ui:377
 msgid "Fade duration (ms):"
 msgstr "淡入淡出持续时间(毫秒)："
 
-#: ../data/ui/preferences/playback.ui:373
+#: ../data/ui/preferences/playback.ui:389
 #: ../plugins/previewdevice/previewprefs.ui:85
 msgid "Use fade transitions on user actions"
 msgstr "用户操作时使用匀滑转换"
 
-#: ../data/ui/preferences/playback.ui:391
+#: ../data/ui/preferences/playback.ui:407
 #: ../plugins/previewdevice/previewprefs.ui:57
 msgid "Playback engine: "
 msgstr "播放引擎： "
 
-#: ../data/ui/preferences/playback.ui:424
+#: ../data/ui/preferences/playback.ui:440
 msgid "Enable gapless playback"
 msgstr "启用无缝播放"
 
-#: ../data/ui/preferences/playback.ui:428
+#: ../data/ui/preferences/playback.ui:444
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
 msgstr "无缝播放的意思是：播放歌曲时歌曲间不会有无声间隔插入。"
@@ -3958,7 +3962,6 @@ msgid "Set BPM?"
 msgstr ""
 
 #: ../plugins/bpm/msg.ui:63
-#, python-format
 msgid "Set autodetected BPM on %s?"
 msgstr ""
 
@@ -4012,7 +4015,6 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
-#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
@@ -4416,12 +4418,11 @@ msgid "When main window is focused"
 msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui:69
-#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
-"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat."
-"html\">Pango Text Attribute Markup</a> is supported."
+"<a href=\"https://developer.gnome.org/pango/stable/"
+"PangoMarkupFormat.html\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui:87
@@ -5014,19 +5015,19 @@ msgid ""
 "as a keylogger."
 msgstr ""
 
-#: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
+#: ../data/exaile.desktop.in:4 ../data/exaile.appdata.xml.in:6
 msgid "Exaile"
 msgstr "Exaile"
 
-#: ../data/exaile.desktop.in:6
+#: ../data/exaile.desktop.in:5
 msgid "Music Player"
 msgstr "音乐播放器"
 
-#: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
+#: ../data/exaile.desktop.in:7 ../data/exaile.appdata.xml.in:7
 msgid "Listen to, explore, or manage your audio collection"
 msgstr ""
 
-#: ../data/exaile.desktop.in:14
+#: ../data/exaile.desktop.in:13
 msgid "Music;Player;Library;Collection;MP3;OGG;FLAC;MP4"
 msgstr ""
 

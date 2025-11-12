@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-24 00:08+0200\n"
+"POT-Creation-Date: 2025-11-13 01:14+1100\n"
 "PO-Revision-Date: 2025-07-02 10:01+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
-"Language-Team: Tamil <https://hosted.weblate.org/projects/exaile/master/ta/>"
-"\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/exaile/master/ta/"
+">\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -604,34 +604,34 @@ msgstr ""
 "கோப்பை இயக்க முடியாது. தேவையான மென்பொருளை உங்கள் கணினியில் நிறுவவும். விவரங்களுக்கு "
 "%s ஐப் பார்க்கவும்."
 
-#: ../xl/player/gst/sink.py:48 ../xl/player/gst/sink.py:144
+#: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:153
 msgid "Automatic"
 msgstr "தானியங்கி"
 
-#: ../xl/player/gst/sink.py:76
+#: ../xl/player/gst/sink.py:77
 msgid "Custom"
 msgstr "தனிப்பயன்"
 
-#: ../xl/player/gst/sink.py:183
+#: ../xl/player/gst/sink.py:192
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
 msgstr "ஆடியோசிங்கை உருவாக்க முடியவில்லை (சாதனம்: %s, வகை: %s)"
 
-#: ../xl/player/gst/sink.py:189
+#: ../xl/player/gst/sink.py:198
 msgid "No custom pipeline specified!"
 msgstr "தனிப்பயன் குழாய் எதுவும் குறிப்பிடப்படவில்லை!"
 
-#: ../xl/player/gst/sink.py:194
+#: ../xl/player/gst/sink.py:203
 #, python-format
 msgid "Error creating custom audiosink '%s'"
 msgstr "தனிப்பயன் ஆடியோசிங்க் '%s' ஐ உருவாக்குவது பிழை"
 
-#: ../xl/player/gst/sink.py:200
+#: ../xl/player/gst/sink.py:209
 #, python-format
 msgid "Invalid sink type '%s' specified"
 msgstr "தவறான மடு வகை '%s' குறிப்பிடப்பட்டுள்ளது"
 
-#: ../xl/player/gst/sink.py:204
+#: ../xl/player/gst/sink.py:213
 #, python-format
 msgid "Could not create sink type '%s'"
 msgstr "மடு வகை '%s' ஐ உருவாக்க முடியவில்லை"
@@ -646,65 +646,65 @@ msgstr "தவறான பிளேலிச்ட் வகை."
 msgid "Playlist"
 msgstr "பிளேலிச்ட்"
 
-#: ../xl/playlist.py:335
+#: ../xl/playlist.py:355
 msgid "M3U Playlist"
 msgstr "M3U பிளேலிச்ட்"
 
-#: ../xl/playlist.py:450
+#: ../xl/playlist.py:470
 msgid "PLS Playlist"
 msgstr "Pls பிளேலிச்ட்"
 
-#: ../xl/playlist.py:540 ../xl/playlist.py:555
+#: ../xl/playlist.py:560 ../xl/playlist.py:575
 #, python-format
 msgid "Invalid format for %s."
 msgstr "%s க்கு தவறான வடிவம்."
 
-#: ../xl/playlist.py:550
+#: ../xl/playlist.py:570
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "ஆதரிக்கப்படாத பதிப்பு %(version)s %(type)s"
 
-#: ../xl/playlist.py:610
+#: ../xl/playlist.py:630
 msgid "ASX Playlist"
 msgstr "ASX பிளேலிச்ட்"
 
-#: ../xl/playlist.py:789
+#: ../xl/playlist.py:809
 msgid "XSPF Playlist"
 msgstr "எக்ச்எச்பிஎஃப் பிளேலிச்ட்"
 
-#: ../xl/playlist.py:908
+#: ../xl/playlist.py:928
 msgid "Shuffle _Off"
 msgstr "கலக்கு _ஆஃப்"
 
-#: ../xl/playlist.py:909
+#: ../xl/playlist.py:929
 msgid "Shuffle _Tracks"
 msgstr "கலக்கு _ டிராக்ச்"
 
-#: ../xl/playlist.py:910
+#: ../xl/playlist.py:930
 msgid "Shuffle _Albums"
 msgstr "கலக்கு _ ஆல்பம்"
 
-#: ../xl/playlist.py:911
+#: ../xl/playlist.py:931
 msgid "_Random"
 msgstr "_ ராண்டம்"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:936
 msgid "Repeat _Off"
 msgstr "மீண்டும் _ஆஃப்"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:936
 msgid "Repeat _All"
 msgstr "அனைத்தையும் மீண்டும் செய்"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:936
 msgid "Repeat O_ne"
 msgstr "O_NE ஐ மீண்டும் செய்யவும்"
 
-#: ../xl/playlist.py:920
+#: ../xl/playlist.py:940
 msgid "Dynamic _Off"
 msgstr "மாறும் _ஆஃப்"
 
-#: ../xl/playlist.py:920
+#: ../xl/playlist.py:940
 msgid "Dynamic by Similar _Artists"
 msgstr "ஒத்த கலைஞர்களால் மாறும்"
 
@@ -1416,55 +1416,55 @@ msgstr "பின்னணி"
 msgid "Uncategorized"
 msgstr "வகைப்படுத்தப்படாதது"
 
-#: ../xlgui/preferences/plugin.py:199
+#: ../xlgui/preferences/plugin.py:200
 msgid "Could not load plugin info!"
 msgstr "சொருகி தகவலை ஏற்ற முடியவில்லை!"
 
-#: ../xlgui/preferences/plugin.py:200
+#: ../xlgui/preferences/plugin.py:201
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
 msgstr[0] "தோல்வியுற்ற சொருகி: %s"
 msgstr[1] "தோல்வியுற்ற செருகுநிரல்கள்: %s"
 
-#: ../xlgui/preferences/plugin.py:238
+#: ../xlgui/preferences/plugin.py:239
 msgid "Do you really want to remove this plugin?"
 msgstr "இந்த சொருகி நீக்க விரும்புகிறீர்களா?"
 
-#: ../xlgui/preferences/plugin.py:248
+#: ../xlgui/preferences/plugin.py:249
 msgid "Could not remove plugin!"
 msgstr "சொருகி அகற்ற முடியவில்லை!"
 
-#: ../xlgui/preferences/plugin.py:264 ../xlgui/preferences/plugin.py:387
+#: ../xlgui/preferences/plugin.py:265 ../xlgui/preferences/plugin.py:388
 msgid "Could not disable plugin!"
 msgstr "சொருகி முடக்க முடியவில்லை!"
 
-#: ../xlgui/preferences/plugin.py:274 ../xlgui/preferences/plugin.py:381
+#: ../xlgui/preferences/plugin.py:275 ../xlgui/preferences/plugin.py:382
 msgid "Could not enable plugin!"
 msgstr "சொருகி இயக்க முடியவில்லை!"
 
-#: ../xlgui/preferences/plugin.py:283
+#: ../xlgui/preferences/plugin.py:284
 msgid "Choose a Plugin"
 msgstr "சொருகி தேர்வு செய்யவும்"
 
-#: ../xlgui/preferences/plugin.py:294
+#: ../xlgui/preferences/plugin.py:295
 msgid "Plugin Archives"
 msgstr "சொருகி காப்பகங்கள்"
 
-#: ../xlgui/preferences/plugin.py:301 ../xlgui/widgets/dialogs.py:737
+#: ../xlgui/preferences/plugin.py:302 ../xlgui/widgets/dialogs.py:737
 #: ../xlgui/widgets/dialogs.py:913
 msgid "All Files"
 msgstr "அனைத்து கோப்புகள்"
 
-#: ../xlgui/preferences/plugin.py:320
+#: ../xlgui/preferences/plugin.py:321
 msgid "Plugin already exists!"
 msgstr "சொருகி ஏற்கனவே உள்ளது!"
 
-#: ../xlgui/preferences/plugin.py:321
+#: ../xlgui/preferences/plugin.py:322
 msgid "Do you want to override it?"
 msgstr "நீங்கள் அதை மேலெழுத விரும்புகிறீர்களா?"
 
-#: ../xlgui/preferences/plugin.py:329
+#: ../xlgui/preferences/plugin.py:330
 msgid "Plugin file installation failed!"
 msgstr "சொருகி கோப்பு நிறுவல் தோல்வியடைந்தது!"
 
@@ -1578,7 +1578,7 @@ msgstr "எல்லா தடங்களுக்கும் தற்போ�
 msgid "Saved %(count)s of %(total)s."
 msgstr "%(count)s சேமிக்கப்பட்ட %(total)s."
 
-#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:7
+#: ../xlgui/tray.py:203 ../data/exaile.desktop.in:6
 msgid "Exaile Music Player"
 msgstr "எக்சைல் மியூசிக் பிளேயர்"
 
@@ -1626,7 +1626,7 @@ msgstr "தற்போதைய பிளேலிச்ட்டை ஏற்�
 msgid "Use relative paths to tracks"
 msgstr "தடங்களுக்கு தொடர்புடைய பாதைகளைப் பயன்படுத்தவும்"
 
-#: ../xlgui/widgets/dialogs.py:1088
+#: ../xlgui/widgets/dialogs.py:1090
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "பிளேலிச்ட் <b>%s </b> என சேமிக்கப்பட்டது."
@@ -1780,58 +1780,58 @@ msgstr "_ பிளேலிச்ட்டை அனுப்புங்கள
 msgid "Close Tab"
 msgstr "தாவலை மூடு"
 
-#: ../xlgui/widgets/playback.py:833
+#: ../xlgui/widgets/playback.py:830
 #, python-format
 msgid "Seeking: %s"
 msgstr "தேடுவது: %s"
 
-#: ../xlgui/widgets/playback.py:1183
+#: ../xlgui/widgets/playback.py:1180
 msgid "Move"
 msgstr "நகர்த்தவும்"
 
-#: ../xlgui/widgets/playback.py:1328
+#: ../xlgui/widgets/playback.py:1325
 msgid "New Marker"
 msgstr "புதிய மார்க்கர்"
 
-#: ../xlgui/widgets/playback.py:1387
+#: ../xlgui/widgets/playback.py:1384
 msgid "_Jump to"
 msgstr "_ சம்ப்"
 
-#: ../xlgui/widgets/playback.py:1395
+#: ../xlgui/widgets/playback.py:1392
 msgid "_Remove Marker"
 msgstr "_ ரெமோவ் மார்க்கர்"
 
-#: ../xlgui/widgets/playback.py:1438
+#: ../xlgui/widgets/playback.py:1435
 msgid "Muted"
 msgstr "முடக்கிய"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1444
+#: ../xlgui/widgets/playback.py:1441
 #, python-format
 msgid "%d%%"
 msgstr "%d %%"
 
-#: ../xlgui/widgets/playback.py:1449
+#: ../xlgui/widgets/playback.py:1446
 msgid "Full Volume"
 msgstr "முழு அளவு"
 
-#: ../xlgui/widgets/playback.py:1568
+#: ../xlgui/widgets/playback.py:1565
 msgid "_Pause"
 msgstr "_PAUSS"
 
-#: ../xlgui/widgets/playback.py:1571
+#: ../xlgui/widgets/playback.py:1568
 msgid "P_lay"
 msgstr "பி_லே"
 
-#: ../xlgui/widgets/playback.py:1583
+#: ../xlgui/widgets/playback.py:1580
 msgid "_Next Track"
 msgstr "_ நெக்ச்ட் டிராக்"
 
-#: ../xlgui/widgets/playback.py:1593
+#: ../xlgui/widgets/playback.py:1590
 msgid "_Previous Track"
 msgstr "_ முன்னுரிமை பாடல்"
 
-#: ../xlgui/widgets/playback.py:1603 ../data/ui/covermanager.ui:132
+#: ../xlgui/widgets/playback.py:1600 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "_ச்டாப்"
@@ -2432,9 +2432,9 @@ msgid ""
 "extension</a> (or a similar one) installed."
 msgstr ""
 "தட்டுச் சின்னங்கள் சில தளங்களில் ஆதரிக்கப்படவில்லை, குறிப்பாக வேலண்டில். Xorg இல் க்னோம் செல் "
-"3.26+ இல், தட்டுச் சின்னங்கள் உங்களிடம் <a href="
-"\"https://extensions.gnome.org/extension/495/topicons/\">சிறந்தசின்னங்கள் "
-"நீட்டிப்புகள்</a>(அல்லது ஒத்த ஒன்று) நிறுவப்பட்டது."
+"3.26+ இல், தட்டுச் சின்னங்கள் உங்களிடம் <a href=\"https://extensions.gnome.org/"
+"extension/495/topicons/\">சிறந்தசின்னங்கள் நீட்டிப்புகள்</a>(அல்லது ஒத்த ஒன்று) "
+"நிறுவப்பட்டது."
 
 #: ../data/ui/preferences/appearance.ui:343
 msgid "Note:"
@@ -2590,34 +2590,38 @@ msgid "Custom sink pipeline:"
 msgstr "தனிப்பயன் மடு குழாய்:"
 
 #: ../data/ui/preferences/playback.ui:160
+msgid "Show hidden devices"
+msgstr ""
+
+#: ../data/ui/preferences/playback.ui:176
 msgid "Resume playback on start"
 msgstr "தொடக்கத்தில் பிளேபேக்கை மீண்டும் தொடங்குங்கள்"
 
-#: ../data/ui/preferences/playback.ui:176
+#: ../data/ui/preferences/playback.ui:192
 msgid "Resume playback in paused state"
 msgstr "இடைநிறுத்தப்பட்ட நிலையில் பிளேபேக்கை மீண்டும் தொடங்குங்கள்"
 
-#: ../data/ui/preferences/playback.ui:191
+#: ../data/ui/preferences/playback.ui:207
 msgid "Adding an item to an empty queue begins playback"
 msgstr "வெற்று வரிசையில் ஒரு பொருளைச் சேர்ப்பது பின்னணியைத் தொடங்குகிறது"
 
-#: ../data/ui/preferences/playback.ui:206
+#: ../data/ui/preferences/playback.ui:222
 #: ../plugins/quickbuttons/__init__.py:56
 #: ../plugins/quickbuttons/qb_prefs.ui:42
 msgid "Remove track from queue upon playback"
 msgstr "பிளேபேக்கில் வரிசையில் இருந்து பாதையை அகற்று"
 
-#: ../data/ui/preferences/playback.ui:221
+#: ../data/ui/preferences/playback.ui:237
 msgid "Remove track from queue after playback"
 msgstr "பிளேபேக்கிற்குப் பிறகு வரிசையில் இருந்து பாதையை அகற்று"
 
-#: ../data/ui/preferences/playback.ui:236
+#: ../data/ui/preferences/playback.ui:252
 #: ../plugins/quickbuttons/__init__.py:47
 #: ../plugins/quickbuttons/qb_prefs.ui:27
 msgid "Disallow playing new tracks when another track is playing"
 msgstr "மற்றொரு பாடல் விளையாடும்போது புதிய தடங்களை விளையாடுவதை அனுமதிக்காதீர்கள்"
 
-#: ../data/ui/preferences/playback.ui:240
+#: ../data/ui/preferences/playback.ui:256
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
@@ -2625,52 +2629,52 @@ msgstr ""
 "ஒரு பாடல் தற்போது இயங்குகிறது என்றால், பிளேபேக் கட்டுப்பாடுகளைக் சொடுக்கு செய்யும் போது "
 "தவிர, புதிய தடங்களைத் தொடங்க அனுமதிக்காதீர்கள்"
 
-#: ../data/ui/preferences/playback.ui:252
+#: ../data/ui/preferences/playback.ui:268
 #: ../plugins/quickbuttons/__init__.py:65
 #: ../plugins/quickbuttons/qb_prefs.ui:57
 msgid "Automatically advance to the next track"
 msgstr "அடுத்த பாதையில் தானாக முன்னேறும்"
 
-#: ../data/ui/preferences/playback.ui:269
+#: ../data/ui/preferences/playback.ui:285
 msgid "Delay between tracks (ms):"
 msgstr "தடங்களுக்கு இடையில் நேரந்தவறுகை (எம்.எச்):"
 
-#: ../data/ui/preferences/playback.ui:283
+#: ../data/ui/preferences/playback.ui:299
 msgid "Only works when crossfading not enabled"
 msgstr "கிராச்ஃபேடிங் இயக்கப்படாதபோது மட்டுமே செயல்படும்"
 
-#: ../data/ui/preferences/playback.ui:315
+#: ../data/ui/preferences/playback.ui:331
 msgid "Crossfade duration (ms):"
 msgstr "கிராச்ஃபேட் காலம் (எம்.எச்):"
 
-#: ../data/ui/preferences/playback.ui:327
+#: ../data/ui/preferences/playback.ui:343
 #: ../plugins/previewdevice/previewprefs.ui:125
 msgid "Use crossfading (EXPERIMENTAL)"
 msgstr "கிராச்ஃபேடிங்கைப் பயன்படுத்தவும் (சோதனை)"
 
-#: ../data/ui/preferences/playback.ui:331
+#: ../data/ui/preferences/playback.ui:347
 msgid "Forces automatically advancing to the next track"
 msgstr "சக்திகள் தானாக அடுத்த பாதையில் முன்னேறும்"
 
-#: ../data/ui/preferences/playback.ui:361
+#: ../data/ui/preferences/playback.ui:377
 msgid "Fade duration (ms):"
 msgstr "மங்கலான காலம் (எம்.எச்):"
 
-#: ../data/ui/preferences/playback.ui:373
+#: ../data/ui/preferences/playback.ui:389
 #: ../plugins/previewdevice/previewprefs.ui:85
 msgid "Use fade transitions on user actions"
 msgstr "பயனர் செயல்களில் மங்கலான மாற்றங்களைப் பயன்படுத்தவும்"
 
-#: ../data/ui/preferences/playback.ui:391
+#: ../data/ui/preferences/playback.ui:407
 #: ../plugins/previewdevice/previewprefs.ui:57
 msgid "Playback engine: "
 msgstr "பிளேபேக் இயந்திரம்: "
 
-#: ../data/ui/preferences/playback.ui:424
+#: ../data/ui/preferences/playback.ui:440
 msgid "Enable gapless playback"
 msgstr "இடைவெளி இல்லாத பின்னணியை இயக்கவும்"
 
-#: ../data/ui/preferences/playback.ui:428
+#: ../data/ui/preferences/playback.ui:444
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
 msgstr ""
@@ -2925,8 +2929,8 @@ msgid ""
 "There is also a tool to migrate legacy tags to the modern one. \n"
 "\n"
 msgstr ""
-"<span font-size=\"x-large\" font-weight=\"bold\">XAILE க்கு வருக 4.1.3 </span>"
-"\n"
+"<span font-size=\"x-large\" font-weight=\"bold\">XAILE க்கு வருக 4.1.3 </"
+"span>\n"
 "\n"
 " இந்தப் பதிப்பில் மீடியா கோப்புகளின் குறிச்சொற்களைக் கையாள்வதில் இரண்டு முக்கியமான மாற்றங்கள் "
 "உள்ளன.\n"
@@ -2934,8 +2938,8 @@ msgstr ""
 " <b> மீடியா கோப்புகளில் டிராக் மதிப்பீடுகளைச் சேமிக்கவும் </b>\n"
 " இந்தச் சோதனை அம்சத்துடன் இப்போது நட்சத்திர மதிப்பீடுகளை மீடியா கோப்புகளில் சேமிக்க "
 "முடியும்!\n"
-" நீங்கள் சோதிக்க விரும்பினால், தயவுசெய்து அமைப்புகள்> நூலகத்திற்குச் சென்று "
-"\"ஆடியோ கோப்பு மெட்டாடேட்டாவில் கூடுதலாக மதிப்பீடுகளைப் படித்து எழுதுங்கள்\".\n"
+" நீங்கள் சோதிக்க விரும்பினால், தயவுசெய்து அமைப்புகள்> நூலகத்திற்குச் சென்று \"ஆடியோ கோப்பு "
+"மெட்டாடேட்டாவில் கூடுதலாக மதிப்பீடுகளைப் படித்து எழுதுங்கள்\".\n"
 " அனைத்து விதமான சேமிக்கப்பட்ட மதிப்பீடுகளையும் மீடியா கோப்புகளுக்கு நகர்த்துவதற்கான ஒரு "
 "கருவியும் உள்ளது.\n"
 "\n"
@@ -2943,8 +2947,8 @@ msgstr ""
 " இந்தப் பதிப்பின் மூலம் எக்செயல் பிபிஎம் எண்ணங்களுக்கான குறிச்சொற்களை பிபிஎம் பயன்படுத்தலாம் "
 "மற்றும் மியூசிக் பிரைன்ச் உடன் இணக்கமாக இருக்க FLAC மற்றும் OGG மீடியா கோப்புகள்பற்றிய "
 "கருத்துகளுக்குக் கருத்து தெரிவிக்கலாம்.\n"
-" நீங்கள் பயன்படுத்த விரும்பினால், தயவுசெய்து அமைப்புகள்> நூலகத்திற்குச் சென்று "
-"\"மரபுக் குறிச்சொல் மேப்பிங் பயன்படுத்தவும்\" என்பதை தேர்வு செய்யவும். நீங்கள் முதல் முறையாக "
+" நீங்கள் பயன்படுத்த விரும்பினால், தயவுசெய்து அமைப்புகள்> நூலகத்திற்குச் சென்று \"மரபுக் "
+"குறிச்சொல் மேப்பிங் பயன்படுத்தவும்\" என்பதை தேர்வு செய்யவும். நீங்கள் முதல் முறையாக "
 "எக்செயிலைப் பயன்படுத்தினால், இந்த விருப்பம் தேர்வு செய்யப்படாமல் உள்ளது.\n"
 " மரபுக் குறிச்சொற்களை நவீனத்திற்கு மாற்றுவதற்கான ஒரு கருவியும் உள்ளது. \n"
 "\n"
@@ -4049,7 +4053,6 @@ msgid "Set BPM?"
 msgstr "பிபிஎம் அமைக்கவா?"
 
 #: ../plugins/bpm/msg.ui:63
-#, python-format
 msgid "Set autodetected BPM on %s?"
 msgstr "%s இல் தன்னியக்க பிபிஎம் அமைக்கவா?"
 
@@ -4103,7 +4106,6 @@ msgstr "பாதை: "
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
-#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
@@ -4518,18 +4520,17 @@ msgid "When main window is focused"
 msgstr "முதன்மையான சாளரம் கவனம் செலுத்தும்போது"
 
 #: ../plugins/osd/osd_preferences.ui:69
-#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
-"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat."
-"html\">Pango Text Attribute Markup</a> is supported."
+"<a href=\"https://developer.gnome.org/pango/stable/"
+"PangoMarkupFormat.html\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 "ஒவ்வொரு குறிச்சொல்லையும் <b> $ குறிச்சொல் </b> அல்லது <b> $ {tag} </b> உடன் "
 "பயன்படுத்தலாம். <b> $ __ நீளம் </b> போன்ற உள் குறிச்சொற்கள் இரண்டு முன்னணி அடிக்கோடிட்டுக் "
 "கொண்டு குறிப்பிடப்பட வேண்டும்.\n"
-" <a href = \"https://developer.gnome.org/pango/stable/pangomarkupformat."
-"html\"> பாங்கோ உரை பண்புக்கூறு மார்க்அப் </a> ஆதரிக்கப்படுகிறது."
+" <a href = \"https://developer.gnome.org/pango/stable/"
+"pangomarkupformat.html\"> பாங்கோ உரை பண்புக்கூறு மார்க்அப் </a> ஆதரிக்கப்படுகிறது."
 
 #: ../plugins/osd/osd_preferences.ui:87
 msgid "Display Format"
@@ -5202,19 +5203,19 @@ msgstr ""
 " எச்சரிக்கை: இந்த சொருகி இயக்கப்பட்டால், சாளரங்கள் அமர்வில் உள்ள ஒவ்வொரு முக்கிய நிகழ்வையும் "
 "எக்செயல் செயலாக்கும், இது சில பாதுகாப்பு மென்பொருள்களை எக்லோசராகக் கண்டறியக்கூடும்."
 
-#: ../data/exaile.desktop.in:5 ../data/exaile.appdata.xml.in:6
+#: ../data/exaile.desktop.in:4 ../data/exaile.appdata.xml.in:6
 msgid "Exaile"
 msgstr "Exaile"
 
-#: ../data/exaile.desktop.in:6
+#: ../data/exaile.desktop.in:5
 msgid "Music Player"
 msgstr "மியூசிக் பிளேயர்"
 
-#: ../data/exaile.desktop.in:8 ../data/exaile.appdata.xml.in:7
+#: ../data/exaile.desktop.in:7 ../data/exaile.appdata.xml.in:7
 msgid "Listen to, explore, or manage your audio collection"
 msgstr "உங்கள் ஆடியோ சேகரிப்பைக் கேளுங்கள், ஆராயுங்கள் அல்லது நிர்வகிக்கவும்"
 
-#: ../data/exaile.desktop.in:14
+#: ../data/exaile.desktop.in:13
 msgid "Music;Player;Library;Collection;MP3;OGG;FLAC;MP4"
 msgstr "இசை; பிளேயர்; நூலகம்; சேகரிப்பு; எம்பி 3; ஓக்; பிளாக்; எம்பி 4"
 

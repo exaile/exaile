@@ -1,4 +1,4 @@
-Version='4.2.0'
+Version='4.2.1'
 Authors=['luzip665@github']
 Name=_('Custom Collection Orders')
 Description=_('Users can add custom order to the collection panel')

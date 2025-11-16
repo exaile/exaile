@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-13 01:14+1100\n"
-"PO-Revision-Date: 2023-07-30 05:07+0000\n"
+"PO-Revision-Date: 2025-11-17 06:51+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/exaile/master/"
 "hr/>\n"
@@ -16,9 +16,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"Plural-Forms: nplurals=3; plural="
+"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
+"X-Generator: Weblate 5.15-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -2509,7 +2510,7 @@ msgstr "Koristi otkrivanje kompilacija na temelju datoteka"
 
 #: ../data/ui/preferences/collection.ui:72
 msgid "Read and write ratings additionally in audio file metadata"
-msgstr "Dodatno čitaj i piši ocjene u metapodatke audio datoteke"
+msgstr "Dodatno čitaj i zapiši ocjene u metapodatke audio datoteke"
 
 #: ../data/ui/preferences/collection.ui:87
 msgid ""
@@ -2539,6 +2540,10 @@ msgid ""
 "tags. From Exaile 4.1.3 the mapping is equivalent to MusicBrainz.\n"
 "Your can start migration here. After migration this feature will be disabled."
 msgstr ""
+"Koristi staro mapiranje oznaka za Ogg Vorbis i FLAC datoteke za komentare i "
+"bpm oznake. Od Exaile 4.1.3 mapiranje je jednako MusicBrainzu.\n"
+"Migraciju možeš započeti ovdje. Nakon migracije ova će se funkcija "
+"isključiti."
 
 #: ../data/ui/preferences/collection.ui:186
 msgid "Migrate existing tempo and comment tags now"
@@ -2605,7 +2610,7 @@ msgstr "Prilagođeni proces odredišta:"
 
 #: ../data/ui/preferences/playback.ui:160
 msgid "Show hidden devices"
-msgstr ""
+msgstr "Prikaži skrivene uređaje"
 
 #: ../data/ui/preferences/playback.ui:176
 msgid "Resume playback on start"
@@ -2617,17 +2622,17 @@ msgstr "Nastavi reprodukciju u pauziranom stanju"
 
 #: ../data/ui/preferences/playback.ui:207
 msgid "Adding an item to an empty queue begins playback"
-msgstr "Dodavanjem pjesme u prazni red za sviranje, započinje sviranje"
+msgstr "Dodavanjem pjesme u prazni red sviranja započinje reprodukciju"
 
 #: ../data/ui/preferences/playback.ui:222
 #: ../plugins/quickbuttons/__init__.py:56
 #: ../plugins/quickbuttons/qb_prefs.ui:42
 msgid "Remove track from queue upon playback"
-msgstr "Ukloni pjesmu iz reda za sviranje nakon sviranja"
+msgstr "Ukloni pjesmu iz reda sviranje pri reprodukciji"
 
 #: ../data/ui/preferences/playback.ui:237
 msgid "Remove track from queue after playback"
-msgstr ""
+msgstr "Ukloni pjesmu iz reda sviranja nakon reprodukcije"
 
 #: ../data/ui/preferences/playback.ui:252
 #: ../plugins/quickbuttons/__init__.py:47
@@ -2943,6 +2948,29 @@ msgid ""
 "There is also a tool to migrate legacy tags to the modern one. \n"
 "\n"
 msgstr ""
+"<span font-size=\"x-large\" font-weight=\"bold\">Dobro došli u Exaile "
+"4.1.3</span>\n"
+"\n"
+"U ovoj verziji postoje dvije važne promjene u rukovanju oznakama medijskih "
+"datoteka.\n"
+"\n"
+"<b>Spremi ocjene pjesama u medijske datoteke</b>\n"
+"S ovom eksperimentalnom funkcijom je sada moguće spremiti označiti ocjene u "
+"same medijske datoteke!\n"
+"Ako želiš testirati, idi u Postavke > Biblioteka i aktiviraj „Dodatno čitaj "
+"i zapiši ocjene u metapodatke audio datoteke”.\n"
+"Također postoji alat za migraciju svih već spremljenih ocjena u medijske "
+"datoteke.\n"
+"\n"
+"<b>Aktualizirano označavanje za flac i ogg datoteke</b>\n"
+"S ovom verzijom Exaile može koristiti oznake bpm za brojanje bpm-a i comment "
+"za komentare na flac i ogg medijskim datotekama kako bi bio kompatibilan s "
+"MusicBrainzom.\n"
+"Ako to želiš koristiti, idi u Postavke > Biblioteka i odznači opcije „"
+"Koristi zastarjelo mapiranje oznaka”. Ako koristiš Exaile po prvi put, ova "
+"je opcija već odznačena.\n"
+"Također postoji alat za migriranje starih oznaka u moderne. \n"
+"\n"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -3075,15 +3103,15 @@ msgstr "Broj sviranja"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:10
 msgid "Custom Collections"
-msgstr ""
+msgstr "Prilagođen zbirke"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:85
 msgid "Really delete this order?"
-msgstr ""
+msgstr "Stvarno izbrisati ovaj redoslijed?"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:98
 msgid "Add or edit custom order"
-msgstr ""
+msgstr "Dodaj ili uredi prilagođeni redoslijed"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:110
 msgid ""
@@ -3091,6 +3119,9 @@ msgid ""
 "it's not possible to use more than one tag per node.\n"
 "Every tag can be used."
 msgstr ""
+"Popis oznaka odvojenih zarezima koje će se koristiti kao čvorovi u prikazu "
+"stabla. Trenutačno nije moguće koristiti više od jedne oznake po čvoru.\n"
+"Svaka oznaka se može koristiti."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:114
 msgid ""
@@ -3098,18 +3129,21 @@ msgid ""
 "leaves in the tree. Tags are joined with a hyphen.\n"
 "Every tag can be used."
 msgstr ""
+"Popis oznaka odvojenih zarezima koje će se koristiti za prikaz pojedinačnih "
+"pjesama kao listova u stablu. Oznake su spojene crticom.\n"
+"Svaka oznaka se može koristiti."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:118
 msgid "Name of your order"
-msgstr ""
+msgstr "Ime tvog redoslijeda"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:119
 msgid "Tree Levels:"
-msgstr ""
+msgstr "Razine stabla:"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:120
 msgid "Display:"
-msgstr ""
+msgstr "Prikaz:"
 
 #: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:199
 #: ../plugins/history/__init__.py:247
@@ -3842,7 +3876,7 @@ msgstr "Zaustavi pri aktiviranju čuvara ekrana"
 
 #: ../plugins/shutdown/__init__.py:47
 msgid "Close Exaile after Playback"
-msgstr ""
+msgstr "Zatvori Exaile nakon reprodukcije"
 
 #: ../plugins/shutdown/__init__.py:60 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
@@ -3850,11 +3884,11 @@ msgstr "Ugasi nakon sviranja"
 
 #: ../plugins/shutdown/__init__.py:81
 msgid "Close scheduled"
-msgstr ""
+msgstr "Planirano zatvaranje"
 
 #: ../plugins/shutdown/__init__.py:82
 msgid "Exaile will be closed at the end of playback."
-msgstr ""
+msgstr "Exaile će se zatvoriti nakon reprodukcije."
 
 #: ../plugins/shutdown/__init__.py:88
 msgid "Shutdown scheduled"
@@ -3862,20 +3896,20 @@ msgstr "Planirano gašenje"
 
 #: ../plugins/shutdown/__init__.py:89
 msgid "Computer will be shutdown at the end of playback."
-msgstr "Računalo će se ugasiti nakon sviranja."
+msgstr "Računalo će se ugasiti nakon reprodukcije."
 
 #: ../plugins/shutdown/__init__.py:121
 msgid "Imminent Closing"
-msgstr ""
+msgstr "Neposredno zatvaranje"
 
 #: ../plugins/shutdown/__init__.py:123
 msgid "Imminent Shutdown"
-msgstr "Skorašnje gašenje"
+msgstr "Neposredno gašenje"
 
 #: ../plugins/shutdown/__init__.py:145
 #, python-format
 msgid "Exaile will be closed in %d seconds."
-msgstr ""
+msgstr "Exaile će se zatvoriti za %d s."
 
 #: ../plugins/shutdown/__init__.py:147
 #, python-format
@@ -3892,7 +3926,7 @@ msgstr "Računalo se ne može isključiti upotrebom D-busa."
 
 #: ../plugins/shutdown/shutdown_preferences.py:5
 msgid "Shutdown"
-msgstr ""
+msgstr "Gašenje"
 
 #: ../plugins/somafm/__init__.py:81 ../plugins/somafm/__init__.py:176
 msgid "Contacting SomaFM server..."
@@ -4111,11 +4145,11 @@ msgstr "Jednostavna konzola"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:51
 msgid "Custom orders"
-msgstr ""
+msgstr "Prilagođeni redoslijedi"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:77
 msgid "Add _Order"
-msgstr ""
+msgstr "Dodaj _redoslijed"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
 msgid "Show IPv6 servers"
@@ -4639,11 +4673,11 @@ msgstr "Nastavi svirati kad čuvar ekrana prekine"
 
 #: ../plugins/shutdown/shutdown_preferences.ui:20
 msgid "Timeout (in s):"
-msgstr ""
+msgstr "Timeout (u s):"
 
 #: ../plugins/shutdown/shutdown_preferences.ui:48
 msgid "Activate \"Close Exaile after Playback\" automatically"
-msgstr ""
+msgstr "Automatski aktiviraj „Zatvori Exaile nakon reprodukcije”"
 
 #: ../plugins/streamripper/streamripper.ui:15
 msgid "Save location:"
@@ -4805,11 +4839,11 @@ msgstr ""
 
 #: ../plugins/customcollectionorders/PLUGININFO:3
 msgid "Custom Collection Orders"
-msgstr ""
+msgstr "Redoslijedi prilagođenih zbirki"
 
 #: ../plugins/customcollectionorders/PLUGININFO:4
 msgid "Users can add custom order to the collection panel"
-msgstr ""
+msgstr "Korisnici mogu dodati prilagođeni redoslijed u ploču zbirke"
 
 #: ../plugins/customcollectionorders/PLUGININFO:5
 #: ../plugins/desktopcover/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5
@@ -5233,11 +5267,11 @@ msgstr ""
 
 #: ../data/exaile.appdata.xml.in:26
 msgid "Logo"
-msgstr ""
+msgstr "Logotip"
 
 #: ../data/exaile.appdata.xml.in:38
 msgid "The Exaile Team"
-msgstr ""
+msgstr "Exaile tim"
 
 #~ msgid "Remove after playback"
 #~ msgstr "Ukloni nakon sviranja"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-13 01:14+1100\n"
-"PO-Revision-Date: 2020-01-29 16:50+0000\n"
+"PO-Revision-Date: 2025-12-08 18:00+0000\n"
 "Last-Translator: Robert Hrovat <robi74@gmail.com>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/exaile/master/"
 "sl/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
 "n%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 "X-Launchpad-Export-Date: 2014-09-09 07:47+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -331,7 +331,7 @@ msgstr ""
 
 #: ../xl/main.py:356
 msgid "Locale to use for Exaile"
-msgstr ""
+msgstr "Lokalizacija, ki jo uporablja Exaile"
 
 #: ../xl/main.py:359
 msgid "Development/Debug Options"
@@ -437,11 +437,11 @@ msgstr "Urejevalnik"
 #: ../xlgui/widgets/playlist_columns.py:291 ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:107
 msgid "Artist"
-msgstr "Izvajalec"
+msgstr "Glasbenik"
 
 #: ../xl/metadata/tags.py:48 ../xlgui/widgets/playlist_columns.py:301
 msgid "Album artist"
-msgstr "Izvajalec"
+msgstr "Glasbenik albuma"
 
 #: ../xl/metadata/tags.py:49
 msgid "Author"
@@ -523,7 +523,7 @@ msgstr "Izvirni album"
 
 #: ../xl/metadata/tags.py:67
 msgid "Original artist"
-msgstr "Izvirni izvajalec"
+msgstr "Izvirni glasbenik"
 
 #: ../xl/metadata/tags.py:68
 msgid "Original date"
@@ -720,7 +720,7 @@ msgstr "Dinamično s podobnimi i_zvajalci"
 
 #: ../xl/plugins.py:85
 msgid "Plugin is already loaded or has a conflicting name."
-msgstr ""
+msgstr "Vtičnik je že naložen ali pa ima napačno ime."
 
 #: ../xl/plugins.py:100
 msgid "Plugin archive is not in the correct format."
@@ -816,8 +816,8 @@ msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
-"stanje: %(status)s, naslov: %(title)s, izvajalec: %(artist)s, album: "
-"%(album)s, dolžina: %(length)s, položaj: %(progress)s%% [%(position)s]"
+"stanje: %(status)s, naslov: %(title)s, glasbenik: %(artist)s, album: %(album)"
+"s, dolžina: %(length)s, položaj: %(progress)s%% [%(position)s]"
 
 #: ../xlgui/__init__.py:316
 msgid "Scanning collection..."
@@ -875,10 +875,9 @@ msgid "Cover for %s"
 msgstr "Ovitek za %s"
 
 #: ../xlgui/cover.py:878
-#, fuzzy, python-brace-format
-#| msgid "{width}x{height} pixels"
+#, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
-msgstr "{width}x{height} točk"
+msgstr "{width}x{height} točk ({zoom}%)"
 
 #: ../xlgui/cover.py:929
 msgid "Save File"
@@ -1148,15 +1147,15 @@ msgstr "_O"
 
 #: ../xlgui/panel/collection.py:127
 msgid "Album Artist"
-msgstr "Izvajalec"
+msgstr "Glasbenik albuma"
 
 #: ../xlgui/panel/collection.py:133
 msgid "Genre - Artist"
-msgstr "Zvrst - Izvajalec"
+msgstr "Zvrst - Glasbenik"
 
 #: ../xlgui/panel/collection.py:136
 msgid "Genre - Album Artist"
-msgstr "Zvrst - Izvajalec"
+msgstr "Zvrst - Glasbenik albuma"
 
 #: ../xlgui/panel/collection.py:139
 msgid "Genre - Album"
@@ -1164,11 +1163,11 @@ msgstr "Zvrst - Album"
 
 #: ../xlgui/panel/collection.py:142
 msgid "Date - Artist"
-msgstr "Datum - Izvajalec"
+msgstr "Datum - Glasbenik"
 
 #: ../xlgui/panel/collection.py:145
 msgid "Date - Album Artist"
-msgstr "Datum - Izvajalec"
+msgstr "Datum - Glasbenik albuma"
 
 #: ../xlgui/panel/collection.py:148
 msgid "Date - Album"
@@ -1176,11 +1175,11 @@ msgstr "Datum - Album"
 
 #: ../xlgui/panel/collection.py:151
 msgid "Artist - (Date - Album)"
-msgstr "Izvajalec - (Datum - Album)"
+msgstr "Glasbenik - (Datum - Album)"
 
 #: ../xlgui/panel/collection.py:155
 msgid "Album Artist - (Date - Album)"
-msgstr "Izvajalec - (Datum - Album)"
+msgstr "Glasbenik albuma - (Datum - Album)"
 
 #: ../xlgui/panel/collection.py:183 ../xlgui/preferences/collection.py:23
 msgid "Collection"
@@ -1230,7 +1229,7 @@ msgstr "Vir: "
 
 #: ../xlgui/panel/lyrics.py:225
 msgid "Any source"
-msgstr ""
+msgstr "Katerikoli vir"
 
 #: ../xlgui/panel/menus.py:217
 msgid "New _Smart Playlist"
@@ -1401,11 +1400,11 @@ msgstr "Ponastavi na pri_vzeto"
 
 #: ../xlgui/preferences/collection.py:130
 msgid "Migrating ratings to audio file metadata"
-msgstr ""
+msgstr "Migracija ocen v metapodatke zvočne datoteke"
 
 #: ../xlgui/preferences/collection.py:195
 msgid "Migrating metadata"
-msgstr ""
+msgstr "Migracija metapodatkov"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -1441,13 +1440,11 @@ msgstr[3] "Spodletelih vtičnikov: %s"
 
 #: ../xlgui/preferences/plugin.py:239
 msgid "Do you really want to remove this plugin?"
-msgstr ""
+msgstr "Ali res želite odstraniti vtičnik?"
 
 #: ../xlgui/preferences/plugin.py:249
-#, fuzzy
-#| msgid "Could not enable plugin!"
 msgid "Could not remove plugin!"
-msgstr "Ni mogoče omogočiti vtičnika!"
+msgstr "Ne morem odstraniti vtičnika!"
 
 #: ../xlgui/preferences/plugin.py:265 ../xlgui/preferences/plugin.py:388
 msgid "Could not disable plugin!"
@@ -1472,11 +1469,11 @@ msgstr "Vse datoteke"
 
 #: ../xlgui/preferences/plugin.py:321
 msgid "Plugin already exists!"
-msgstr ""
+msgstr "Vtičnik že obstaja!"
 
 #: ../xlgui/preferences/plugin.py:322
 msgid "Do you want to override it?"
-msgstr ""
+msgstr "Ali želite to preglasiti?"
 
 #: ../xlgui/preferences/plugin.py:330
 msgid "Plugin file installation failed!"
@@ -2147,16 +2144,12 @@ msgid "Collection Manager"
 msgstr "Upravljalnik zbirke"
 
 #: ../data/ui/collection_manager.ui:54
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
-msgstr "Prekliči"
+msgstr "_Prekliči"
 
 #: ../data/ui/collection_manager.ui:71
-#, fuzzy
-#| msgid "Apply BPM"
 msgid "_Apply"
-msgstr "Nastavi BPM"
+msgstr "_Nastavi BPM"
 
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
@@ -2168,13 +2161,11 @@ msgstr "Preišči ob zagonu"
 
 #: ../data/ui/collection_manager.ui:174
 msgid "Add _Folder"
-msgstr ""
+msgstr "Dodaj_mapo"
 
 #: ../data/ui/collection_manager.ui:191
-#, fuzzy
-#| msgid "Remove Cover"
 msgid "_Remove Folder"
-msgstr "Odstrani ovitek"
+msgstr "_Odstrani mapo"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2189,10 +2180,8 @@ msgid "The origin of this cover"
 msgstr "Izvor ovitka"
 
 #: ../data/ui/coverchooser.ui:159
-#, fuzzy
-#| msgid "_About"
 msgid "_Abort"
-msgstr "_O"
+msgstr "_Prekliči"
 
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
@@ -2248,13 +2237,11 @@ msgstr "Gonilnik"
 
 #: ../data/ui/device_manager.ui:115
 msgid "_Connect"
-msgstr ""
+msgstr "_Priključi"
 
 #: ../data/ui/device_manager.ui:133
-#, fuzzy
-#| msgid "Disconnect from Server"
 msgid "_Disconnect"
-msgstr "Prekinitev povezave s strežnikom"
+msgstr "_Odklopi"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
@@ -2404,10 +2391,8 @@ msgid "Playlist font:"
 msgstr "Pisava predvajalnega seznama:"
 
 #: ../data/ui/preferences/appearance.ui:154
-#, fuzzy
-#| msgid "Never"
 msgid "_Revert"
-msgstr "Nikoli"
+msgstr "_Povrni"
 
 #: ../data/ui/preferences/appearance.ui:158 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -2434,10 +2419,8 @@ msgstr ""
 "uporabljena z upravljalnikom oken brez podpore skladanja."
 
 #: ../data/ui/preferences/appearance.ui:230
-#, fuzzy
-#| msgid "Use alpha transparency:"
 msgid "Alpha transparency"
-msgstr "Uporabi alfa prozornost:"
+msgstr "Alfa prozornost"
 
 #: ../data/ui/preferences/appearance.ui:241
 msgid "Show tray icon"
@@ -2489,25 +2472,23 @@ msgstr "Če ni označeno, ne bo izbire po GTK. Ne deluje na vseh platformah."
 
 #: ../data/ui/preferences/appearance.ui:370
 msgid "Show Status Bar"
-msgstr ""
+msgstr "Prikaz statusne vrstice"
 
 #: ../data/ui/preferences/appearance.ui:374
 msgid ""
 "Show or hide the status bar. The status bar will always be shown if a plugin "
 "requests it."
 msgstr ""
+"Prikaz ali skrivanje statusne vrstice. Statusna vrstica bo vedno prikazana, "
+"če to zahteva vtičnik."
 
 #: ../data/ui/preferences/appearance.ui:399
-#, fuzzy
-#| msgid "_Show Playing Track"
 msgid "Show playlist track count"
-msgstr "Prikaž_i predvajajočo skladbo"
+msgstr "Prikaz števila skladb na predvajanem seznamu"
 
 #: ../data/ui/preferences/appearance.ui:413
-#, fuzzy
-#| msgid "Display duration:"
 msgid "Show playlist duration"
-msgstr "Prikaz trajanja:"
+msgstr "Prikaz trajanja predvajanega seznama:"
 
 #: ../data/ui/preferences/collection.ui:14
 msgid ""
@@ -2527,7 +2508,7 @@ msgstr "Uporaba zaznave prevajanja osnovanega na datoteki"
 
 #: ../data/ui/preferences/collection.ui:72
 msgid "Read and write ratings additionally in audio file metadata"
-msgstr ""
+msgstr "Branje in pisanje ocen v metapodatke zvočne datoteke"
 
 #: ../data/ui/preferences/collection.ui:87
 msgid ""
@@ -2535,10 +2516,13 @@ msgid ""
 "metadata additionally to database, if possible.\n"
 "This feature should work for MP3, MP4, FLAC and OGG. "
 msgstr ""
+"Uporabi preizkusno delovanje branja in pisanja ocen v metapodatke zvočne "
+"datoteke, če je to mogoče.\n"
+"Naj bi delovalo v MP3, MP4, FLAC in OGG datotekah. "
 
 #: ../data/ui/preferences/collection.ui:105
 msgid "Use e-mail for Popularimeter (MP3 only):"
-msgstr ""
+msgstr "Uporabi e-pošto za Popularimeter (samo MP3):"
 
 #: ../data/ui/preferences/collection.ui:131
 msgid "Write existing ratings to track files now"
@@ -2852,11 +2836,11 @@ msgstr "Medij (npr. stranica CD plošče)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:48
 msgid "Lead artist/lead performer/soloist"
-msgstr "Glavni avtor/izvajalec/pevec"
+msgstr "Glavni glasbenik/izvajalec/pevec"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:52
 msgid "Artist/performer"
-msgstr "Izvajalec"
+msgstr "Glasbenik/Izvajalec"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:60
 msgid "Band/Orchestra"
@@ -3450,7 +3434,7 @@ msgstr "Rezultati Icecast iskanja"
 
 #: ../plugins/icecast/__init__.py:353
 msgid "Parsing genre list..."
-msgstr ""
+msgstr "Razčlenjevanje seznama žanrov..."
 
 #: ../plugins/icecast/__init__.py:374
 #: ../plugins/developer/developer_window.ui:59
@@ -3694,10 +3678,9 @@ msgid "by {artist}"
 msgstr "izvajalca {artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "from %(album)s"
+#, python-brace-format
 msgid "from {album}"
-msgstr "album: %(album)s"
+msgstr "z {album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3811,39 +3794,29 @@ msgid "Preview Device"
 msgstr "Naprava za predogled"
 
 #: ../plugins/quickbuttons/__init__.py:37
-#, fuzzy
-#| msgid "En_queue"
 msgid "Enqueue"
-msgstr "_Dodaj v vrsto"
+msgstr "V vrsto"
 
 #: ../plugins/quickbuttons/__init__.py:46
-#, fuzzy
-#| msgid "Not playing."
 msgid "Keep playing"
-msgstr "Ni predvajanja."
+msgstr "Nadaljuj predvajanje"
 
 #: ../plugins/quickbuttons/__init__.py:55
-#, fuzzy
-#| msgid "_Remove"
 msgid "Auto-Remove"
-msgstr "Odst_rani"
+msgstr "Samodejno odstrani"
 
 #: ../plugins/quickbuttons/__init__.py:64
-#, fuzzy
-#| msgid "Advanced"
 msgid "Auto-Advance"
-msgstr "Napredno"
+msgstr "Samodejno napreduj"
 
 #: ../plugins/quickbuttons/__init__.py:73
 #: ../plugins/quickbuttons/__init__.py:74
-#, fuzzy
-#| msgid "Delay between tracks (ms):"
 msgid "Delay between tracks (in seconds):"
-msgstr "Zakasnitev med skladbami (ms):"
+msgstr "Zakasnitev med skladbami (v sekundah):"
 
 #: ../plugins/quickbuttons/__init__.py:82
 msgid "EQ"
-msgstr ""
+msgstr "EQ"
 
 #: ../plugins/quickbuttons/__init__.py:83 ../plugins/equalizer/equalizer.ui:109
 #: ../plugins/equalizer/PLUGININFO:3
@@ -3851,23 +3824,21 @@ msgid "Equalizer"
 msgstr "Uravnalnik zvoka"
 
 #: ../plugins/quickbuttons/__init__.py:92
-#, fuzzy
-#| msgid "Device"
 msgid "Main Device"
-msgstr "Naprava"
+msgstr "Glavna naprava"
 
 #: ../plugins/quickbuttons/__init__.py:93
 #: ../plugins/quickbuttons/qb_prefs.ui:101
 msgid "Select main audio device"
-msgstr ""
+msgstr "Izberite glavno zvočno napravo"
 
 #: ../plugins/quickbuttons/__init__.py:102
 msgid "Select preview audio device"
-msgstr ""
+msgstr "Izberite zvočno napravo za predogled"
 
 #: ../plugins/quickbuttons/qb_prefs.py:5
 msgid "Quickbuttons"
-msgstr ""
+msgstr "Hitri gumbi"
 
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
@@ -3881,7 +3852,7 @@ msgstr "Naredi premor ob zagonu ohranjevalnika zaslona"
 
 #: ../plugins/shutdown/__init__.py:47
 msgid "Close Exaile after Playback"
-msgstr ""
+msgstr "Zapri Exaile po koncu predvajanja"
 
 #: ../plugins/shutdown/__init__.py:60 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
@@ -3889,11 +3860,11 @@ msgstr "Izklopi računalnik po predvajanju"
 
 #: ../plugins/shutdown/__init__.py:81
 msgid "Close scheduled"
-msgstr ""
+msgstr "Zapri načrtovane"
 
 #: ../plugins/shutdown/__init__.py:82
 msgid "Exaile will be closed at the end of playback."
-msgstr ""
+msgstr "Exaile se bo zaprl po koncu predvajanja."
 
 #: ../plugins/shutdown/__init__.py:88
 msgid "Shutdown scheduled"
@@ -3914,7 +3885,7 @@ msgstr "Takojšnji izklop"
 #: ../plugins/shutdown/__init__.py:145
 #, python-format
 msgid "Exaile will be closed in %d seconds."
-msgstr ""
+msgstr "Exaile se bo zaprl čez %d sekund."
 
 #: ../plugins/shutdown/__init__.py:147
 #, python-format
@@ -3931,7 +3902,7 @@ msgstr "Računalnika z vodilom D-Bus ni mogoče izklopiti."
 
 #: ../plugins/shutdown/shutdown_preferences.py:5
 msgid "Shutdown"
-msgstr ""
+msgstr "Izklop"
 
 #: ../plugins/somafm/__init__.py:81 ../plugins/somafm/__init__.py:176
 msgid "Contacting SomaFM server..."
@@ -3950,6 +3921,7 @@ msgid "Error executing streamripper"
 msgstr "Napaka med izvajanje streamripper-ja"
 
 #: ../plugins/streamripper/srprefs.py:21 ../plugins/streamripper/PLUGININFO:3
+#, fuzzy
 msgid "Streamripper"
 msgstr "Streamripper"
 
@@ -4133,7 +4105,7 @@ msgstr "Uvozi kakovost: "
 
 #: ../plugins/cd/cdprefs_pane.ui:160
 msgid "Path: "
-msgstr ""
+msgstr "Pot: "
 
 #: ../plugins/cd/cdprefs_pane.ui:201
 #: ../plugins/minimode/minimode_preferences.ui:131
@@ -4145,10 +4117,8 @@ msgstr ""
 "oznake kot je <b>$__length</b> morajo biti določene z dvema podčrtajema."
 
 #: ../plugins/cd/cdprefs_pane.ui:218
-#, fuzzy
-#| msgid "Importing tracks"
 msgid "Import tracks to disk"
-msgstr "Uvoz skladb"
+msgstr "Uvoz skladb na disk"
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
@@ -5193,8 +5163,9 @@ msgid "Allows for shutdown of the computer at the end of playback."
 msgstr "Dovoli izklop računalnika po koncu predvajanja."
 
 #: ../plugins/somafm/PLUGININFO:3
+#, fuzzy
 msgid "SomaFM Radio"
-msgstr "SomaFM radio"
+msgstr "SomaFM Radio"
 
 #: ../plugins/somafm/PLUGININFO:4
 #, python-format

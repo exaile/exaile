@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-13 01:14+1100\n"
-"PO-Revision-Date: 2025-12-02 13:00+0000\n"
+"PO-Revision-Date: 2025-12-17 05:00+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/"
 "ru/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -127,7 +127,7 @@ msgstr "Локальный"
 
 #: ../xl/main.py:83
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Применение: exaile [ПАРАМЕТР…] [РАСПОЛОЖЕНИЕ…]"
+msgstr "Применение: exaile [ОПЦИЯ…] [РАСПОЛОЖЕНИЕ…]"
 
 #: ../xl/main.py:85
 msgid ""
@@ -141,7 +141,7 @@ msgstr ""
 
 #: ../xl/main.py:96
 msgid "Playback Options"
-msgstr "Параметры воспроизведения"
+msgstr "Опции воспроизведения"
 
 #: ../xl/main.py:103
 msgid "Play the next track"
@@ -174,7 +174,7 @@ msgstr "Остановить проигрывание после текущег�
 
 #: ../xl/main.py:148
 msgid "Collection Options"
-msgstr "Параметры фонотеки"
+msgstr "Опции фонотеки"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:153 ../xl/main.py:162
@@ -187,7 +187,7 @@ msgstr "Добавить треки из РАСПОЛОЖЕНИЯ в фонот�
 
 #: ../xl/main.py:157
 msgid "Playlist Options"
-msgstr "Параметры плейлиста"
+msgstr "Опции плейлиста"
 
 #: ../xl/main.py:163
 msgid "Export the current playlist to LOCATION"
@@ -247,7 +247,7 @@ msgstr "N"
 
 #: ../xl/main.py:230
 msgid "Set rating for current track to N%"
-msgstr "Оценить текущий трек на N%"
+msgstr "Поставить рейтинг текущему треку N%"
 
 #: ../xl/main.py:237
 msgid "Get rating for current track"
@@ -255,15 +255,15 @@ msgstr "Получить рейтинг для текущего трека"
 
 #: ../xl/main.py:244
 msgid "Print the current playback position as time"
-msgstr "Показать текущую позицию воспроизведения как время"
+msgstr "Показать текущий ход воспроизведения в виде времени"
 
 #: ../xl/main.py:251
 msgid "Print the current playback progress as percentage"
-msgstr "Показать текущую позицию воспроизведения в процентах"
+msgstr "Показать текущий ход воспроизведения в процентах"
 
 #: ../xl/main.py:254
 msgid "Volume Options"
-msgstr "Параметры звука"
+msgstr "Опции звука"
 
 #: ../xl/main.py:262
 msgid "Increase the volume by N%"
@@ -283,7 +283,7 @@ msgstr "Показать текущий уровень громкости"
 
 #: ../xl/main.py:289
 msgid "Other Options"
-msgstr "Прочие параметры"
+msgstr "Прочие опции"
 
 #: ../xl/main.py:295
 msgid "Start new instance"
@@ -331,7 +331,7 @@ msgstr "Локаль для использования в Exaile"
 
 #: ../xl/main.py:359
 msgid "Development/Debug Options"
-msgstr "Параметры разработки/отладки"
+msgstr "Опции разработки/отладки"
 
 #: ../xl/main.py:363 ../xl/main.py:369
 msgid "DIRECTORY"
@@ -636,7 +636,7 @@ msgstr "Ошибка при создании пользовательского 
 #: ../xl/player/gst/sink.py:209
 #, python-format
 msgid "Invalid sink type '%s' specified"
-msgstr "Указан неверный тип канала приёмника '%s'"
+msgstr "Указан неправильный тип канала приёмника '%s'"
 
 #: ../xl/player/gst/sink.py:213
 #, python-format
@@ -801,7 +801,7 @@ msgstr "%dк"
 
 #: ../xl/trax/trackdb.py:181
 msgid "You did not specify a location to load the db from"
-msgstr "Вы не указали расположение базы данных для загрузки"
+msgstr "Вы не указали расположение откуда следует загрузить базу данных"
 
 #: ../xl/trax/trackdb.py:249
 msgid "You did not specify a location to save the db"
@@ -809,7 +809,7 @@ msgstr "Вы не указали место для сохранения базы
 
 #: ../xl/xldbus.py:131 ../xl/xldbus.py:523 ../xlgui/panel/lyrics.py:148
 msgid "Not playing."
-msgstr "Не воспроизводится."
+msgstr "Ничего не воспроизводится."
 
 #: ../xl/xldbus.py:526
 #, python-format
@@ -1413,7 +1413,7 @@ msgstr "Обложки"
 
 #: ../xlgui/preferences/lyrics.py:20
 msgid "Lyrics Viewer"
-msgstr "Обозреватель текстов песен"
+msgstr "Тексты песен"
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
@@ -1483,7 +1483,7 @@ msgstr "Перезапустить Exaile?"
 
 #: ../xlgui/preferences/widgets.py:77
 msgid "A restart is required for this change to take effect."
-msgstr "Необходим перезапуск для того чтобы изменения вступили в силу."
+msgstr "Чтобы изменения вступили в силу необходим перезапуск."
 
 #: ../xlgui/preferences/widgets.py:80
 msgid "Restart"
@@ -1709,12 +1709,12 @@ msgid ""
 "from $album"
 msgstr ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
-"в исполнении: $artist\n"
+"исполнитель: $artist\n"
 "из альбома: $album"
 
 #: ../xlgui/widgets/info.py:69 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
-msgstr "Не воспроизводится"
+msgstr "Ничего не воспроизводится"
 
 #: ../xlgui/widgets/info.py:418
 #, python-format
@@ -1761,7 +1761,8 @@ msgstr "_Открыть каталог"
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
-msgstr "Файл невозможно переместить в корзину. Удалить его с диска навсегда?"
+msgstr ""
+"Файл невозможно переместить в корзину. Удалить его с диска безвозвратно?"
 
 #: ../xlgui/widgets/menuitems.py:268
 msgid "_Move to Trash"
@@ -1990,7 +1991,7 @@ msgstr "час(ов)"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "weeks"
-msgstr "неделя(ль, ли)"
+msgstr "неделя(ли, ль)"
 
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xlgui/widgets/smart_playlist_editor.py:206
@@ -2377,7 +2378,7 @@ msgstr "Всегда показывать полосу вкладок"
 
 #: ../data/ui/preferences/appearance.ui:101
 msgid "Tab placement:"
-msgstr "Размещение вкладки:"
+msgstr "Размещение вкладок:"
 
 #: ../data/ui/preferences/appearance.ui:141
 msgid "Playlist font:"
@@ -2395,7 +2396,7 @@ msgstr "Вернуть к системному шрифту"
 #: ../data/ui/preferences/appearance.ui:196
 #: ../data/ui/preferences/appearance.ui:385
 msgid "Display track counts in collection"
-msgstr "Показывать число треков в фонотеке"
+msgstr "Показывать количество треков в фонотеке"
 
 #. TRANSLATORS: Remark at the alpha transparency option
 #: ../data/ui/preferences/appearance.ui:210
@@ -2430,7 +2431,7 @@ msgstr "Свернуть в трей"
 #. TRANSLATORS: Keep the current track visible in playlist
 #: ../data/ui/preferences/appearance.ui:287
 msgid "Jump to current song on track change"
-msgstr "Переводить указание на проигрываемый трек в списке"
+msgstr "Переводить указание на проигрываемый трек в плейлисте"
 
 #: ../data/ui/preferences/appearance.ui:303
 msgid "Show splash screen on startup"
@@ -2474,7 +2475,7 @@ msgid ""
 "Show or hide the status bar. The status bar will always be shown if a plugin "
 "requests it."
 msgstr ""
-"Показать или скрыть строку состояния. Строка состояния всегда будет "
+"Показать/скрыть строку состояния. Строка состояния всегда будет "
 "отображаться, если плагин запрашивает её."
 
 #: ../data/ui/preferences/appearance.ui:399
@@ -2499,11 +2500,11 @@ msgstr "(Щёлкните правой кнопкой мыши для сброс
 
 #: ../data/ui/preferences/collection.ui:58
 msgid "Use file-based compilation detection"
-msgstr "Определять сборники по файлам"
+msgstr "Отображать сортировку по данным из файла"
 
 #: ../data/ui/preferences/collection.ui:72
 msgid "Read and write ratings additionally in audio file metadata"
-msgstr "Читать и записывать рейтинг дополнительно в метаданные аудиофайлов"
+msgstr "Дополнительно читать и записывать «Рейтинг» в метаданные аудиофайлов"
 
 #: ../data/ui/preferences/collection.ui:87
 msgid ""
@@ -2511,9 +2512,9 @@ msgid ""
 "metadata additionally to database, if possible.\n"
 "This feature should work for MP3, MP4, FLAC and OGG. "
 msgstr ""
-"Используйте эту пробную функцию для чтения и записи оценок в метаданных "
-"аудиофайлов дополнительно в базу данных, если это возможно.\n"
-"Эта возможность должна работать с MP3, MP4, FLAC и OGG. "
+"Используйте эту экспериментальную функцию для чтения и записи рейтинга в "
+"метаданные аудиофайлов в дополнение к базе данных, если это возможно.\n"
+"Эта функция должна работать с MP3, MP4, FLAC и OGG. "
 
 #: ../data/ui/preferences/collection.ui:105
 msgid "Use e-mail for Popularimeter (MP3 only):"
@@ -2533,15 +2534,15 @@ msgid ""
 "tags. From Exaile 4.1.3 the mapping is equivalent to MusicBrainz.\n"
 "Your can start migration here. After migration this feature will be disabled."
 msgstr ""
-"Использовать устаревшую разметку тегов комментариев и ударов в минуту для "
-"файлов Ogg Vorbis и FLAC. Начиная с Exaile 4.1.3, разметка аналогична "
-"MusicBrainz.\n"
-"Вы можете начать перенос здесь. После переноса эта возможность будет "
+"Использовать устаревшую разметку тегов \"comment\" для комментариев и "
+"\"bpm\" для ударов в минуту в файлах Ogg Vorbis и FLAC. Начиная с Exaile "
+"4.1.3, разметка аналогична MusicBrainz.\n"
+"Вы можете начать перенос сейчас. После переноса эта возможность будет "
 "отключена."
 
 #: ../data/ui/preferences/collection.ui:186
 msgid "Migrate existing tempo and comment tags now"
-msgstr "Перенести существующие теги темпа и комментариев сейчас"
+msgstr "Перенести сейчас существующие теги темпа и комментариев"
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"
@@ -2561,7 +2562,7 @@ msgstr "Предпочитаемые имена файлов:"
 
 #: ../data/ui/preferences/cover.ui:46
 msgid "A comma-separated list of file names without file extensions"
-msgstr "Разделённый запятыми список имён файлов без расширений"
+msgstr "Список имён файлов без расширений, разделённый запятыми"
 
 #: ../data/ui/preferences/cover.ui:58
 msgid "Fetch covers automatically on playback start"
@@ -2632,8 +2633,7 @@ msgstr "Удалить трек из «Очереди» после воспро�
 #: ../plugins/quickbuttons/__init__.py:47
 #: ../plugins/quickbuttons/qb_prefs.ui:27
 msgid "Disallow playing new tracks when another track is playing"
-msgstr ""
-"Запретить запуск других треков кнопкой мыши, при начатом воспроизведении"
+msgstr "Запретить/продолжить запуск других треков при начатом воспроизведении"
 
 #: ../data/ui/preferences/playback.ui:256
 msgid ""
@@ -2733,7 +2733,7 @@ msgstr ""
 #: ../plugins/quickbuttons/__init__.py:38
 #: ../plugins/quickbuttons/qb_prefs.ui:12
 msgid "Queue tracks by default instead of playing them"
-msgstr "Ставить трек в очередь, но не воспроизводить"
+msgstr "Ставить треки в очередь, но не воспроизводить"
 
 #: ../data/ui/preferences/playlists.ui:70
 msgid ""
@@ -2795,7 +2795,7 @@ msgstr "аб → А_б"
 
 #: ../data/ui/trackproperties_dialog.ui:131
 msgid "Uppercase first letter of all tags"
-msgstr "Преобразовать первые буквы в тегах в ЗАГЛАВНЫЕ"
+msgstr "Преобразовать первые буквы в тегах в Заглавные"
 
 #: ../data/ui/trackproperties_dialog.ui:228
 msgid "File Properties"
@@ -2952,7 +2952,7 @@ msgstr ""
 "Благодаря этой экспериментальной функции теперь можно хранить звёзды "
 "рейтинга в самих медиафайлах!\n"
 "Если вы хотите протестировать, пожалуйста, перейдите в Настройки > Фонотека "
-"и включите «Читать и записывать рейтинг дополнительно в метаданные "
+"и включите пункт «Дополнительно читать и записывать «Рейтинг» в метаданные "
 "аудиофайлов».\n"
 "Существует также инструмент для переноса всех уже сохранённых рейтингов в "
 "медиафайлы.\n"
@@ -2962,8 +2962,8 @@ msgstr ""
 "минуту и «comment» для комментариев в файлах FLAC и OGG с целью "
 "совместимости с MusicBrainz.\n"
 "Если вы хотите использовать их, пожалуйста, перейдите в Настройки > Фонотека "
-"и выключите «Использовать устаревшую разметку тегов». Если вы используете "
-"Exaile в первый раз, этот параметр будет уже отключён.\n"
+"и выключите пункт «Использовать устаревшую разметку тегов». Если вы "
+"используете Exaile в первый раз, этот параметр будет уже отключён.\n"
 "Существует также инструмент для переноса устаревших тегов в актуальные. \n"
 "\n"
 
@@ -3062,7 +3062,7 @@ msgstr "Обновить"
 
 #: ../plugins/cd/__init__.py:164 ../plugins/cd/__init__.py:268
 msgid "Audio Disc"
-msgstr "Аудио Диск"
+msgstr "Диск Аудио"
 
 #: ../plugins/cd/_cdguipanel.py:97
 msgid "Unknown disc"
@@ -3098,15 +3098,15 @@ msgstr "Прослушиваний"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:10
 msgid "Custom Collections"
-msgstr ""
+msgstr "Сортировка пользователя"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:85
 msgid "Really delete this order?"
-msgstr ""
+msgstr "Действительно удалить этот объект?"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:98
 msgid "Add or edit custom order"
-msgstr ""
+msgstr "Добавить или редактировать сортировку"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:110
 msgid ""
@@ -3114,6 +3114,10 @@ msgid ""
 "it's not possible to use more than one tag per node.\n"
 "Every tag can be used."
 msgstr ""
+"Список тегов, разделённых запятыми, для использования в виде древовидной "
+"структуры. В настоящее время невозможно использовать более одного тега на "
+"узел.\n"
+"Можно использовать один любой тег, например: album, artist, title и др."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:114
 msgid ""
@@ -3121,18 +3125,22 @@ msgid ""
 "leaves in the tree. Tags are joined with a hyphen.\n"
 "Every tag can be used."
 msgstr ""
+"Список тегов, разделённых запятыми, для отображения треков в древовидной "
+"структуре.\n"
+"Можно использовать любой тег, например: artist, album, tracknumber, title и "
+"др."
 
 #: ../plugins/customcollectionorders/cco_prefs.py:118
 msgid "Name of your order"
-msgstr ""
+msgstr "Название Вашей сортировки"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:119
 msgid "Tree Levels:"
-msgstr ""
+msgstr "Заголовок:"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:120
 msgid "Display:"
-msgstr ""
+msgstr "Подпункт:"
 
 #: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:199
 #: ../plugins/history/__init__.py:247
@@ -3189,7 +3197,7 @@ msgstr "Сервер DAAP"
 #: ../plugins/desktopcover/desktopcover_preferences.py:21
 #: ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr "Обложку трека на рабочий стол"
+msgstr "Обложку альбома на рабочий стол"
 
 #: ../plugins/developer/__init__.py:62
 msgid "Developer Tools"
@@ -3446,7 +3454,7 @@ msgstr "Результаты поиска в Icecast"
 
 #: ../plugins/icecast/__init__.py:353
 msgid "Parsing genre list..."
-msgstr "Разбор списка жанров…"
+msgstr "Анализ списка жанров…"
 
 #: ../plugins/icecast/__init__.py:374
 #: ../plugins/developer/developer_window.ui:59
@@ -3536,7 +3544,7 @@ msgstr "Компактный режим"
 
 #: ../plugins/minimode/controls.py:224
 msgid "Previous"
-msgstr "Предыдущая"
+msgstr "Предыдущий"
 
 #: ../plugins/minimode/controls.py:225
 msgid "Go to the previous track"
@@ -3604,7 +3612,7 @@ msgstr "Восстановить главное окно"
 
 #: ../plugins/minimode/controls.py:556
 msgid "Select rating of the current track"
-msgstr "Выбрать оценку текущему треку"
+msgstr "Выставить рейтинг текущему треку"
 
 #: ../plugins/minimode/controls.py:574
 msgid "Track selector"
@@ -3652,7 +3660,7 @@ msgstr "Прогресс воспроизведения и перемотки"
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:126
 msgid "$title by $artist"
-msgstr "$title - $artist"
+msgstr "$title исполнитель $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:128
@@ -3683,12 +3691,12 @@ msgstr "Мультибудильник"
 #: ../plugins/notify/__init__.py:48
 #, python-brace-format
 msgid "from {album} by {artist}"
-msgstr "из альбома {album} в исполнении {artist}"
+msgstr "из альбома {album} исполнитель {artist}"
 
 #: ../plugins/notify/__init__.py:49
 #, python-brace-format
 msgid "by {artist}"
-msgstr "в исполнении {artist}"
+msgstr "исполнитель {artist}"
 
 #: ../plugins/notify/__init__.py:50
 #, python-brace-format
@@ -3701,7 +3709,7 @@ msgstr "Уведомление"
 
 #: ../plugins/osd/__init__.py:357
 msgid "No track played yet"
-msgstr "Не воспроизводится ни одного трека"
+msgstr "Ни один трек не воспроизводится"
 
 #: ../plugins/osd/__init__.py:397
 msgid "Move or resize OSD"
@@ -3718,8 +3726,8 @@ msgid ""
 "from $album"
 msgstr ""
 "<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
-"исполнитель $artist\n"
-"альбом $album"
+"исполнитель: $artist\n"
+"из альбома: $album"
 
 #: ../plugins/playlistanalyzer/__init__.py:54
 msgid "Analyze playlists"
@@ -3808,11 +3816,11 @@ msgstr "Предварительный просмотр устройства"
 
 #: ../plugins/quickbuttons/__init__.py:37
 msgid "Enqueue"
-msgstr "Поставить в очередь"
+msgstr "Ставить в очередь"
 
 #: ../plugins/quickbuttons/__init__.py:46
 msgid "Keep playing"
-msgstr "Продолжить проигрывание"
+msgstr "Запретить/Продолжить"
 
 #: ../plugins/quickbuttons/__init__.py:55
 msgid "Auto-Remove"
@@ -3861,27 +3869,27 @@ msgstr "Нормализация громкости"
 #: ../plugins/screensaverpause/prefs.py:5
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr "Пауза при активации хранителя экрана"
+msgstr "Пауза при экранной заставке"
 
 #: ../plugins/shutdown/__init__.py:47
 msgid "Close Exaile after Playback"
-msgstr ""
+msgstr "Закрыть Exaile после воспроизведения"
 
 #: ../plugins/shutdown/__init__.py:60 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
-msgstr "Выключение после воспроизведения"
+msgstr "Выключить после воспроизведения"
 
 #: ../plugins/shutdown/__init__.py:81
 msgid "Close scheduled"
-msgstr ""
+msgstr "Закрыть по расписанию"
 
 #: ../plugins/shutdown/__init__.py:82
 msgid "Exaile will be closed at the end of playback."
-msgstr ""
+msgstr "Exaile будет закрыт по окончании воспроизведения."
 
 #: ../plugins/shutdown/__init__.py:88
 msgid "Shutdown scheduled"
-msgstr "Выключение по расписанию"
+msgstr "Выключить по расписанию"
 
 #: ../plugins/shutdown/__init__.py:89
 msgid "Computer will be shutdown at the end of playback."
@@ -3889,25 +3897,25 @@ msgstr "Компьютер выключится по завершении вос
 
 #: ../plugins/shutdown/__init__.py:121
 msgid "Imminent Closing"
-msgstr ""
+msgstr "Закрыть сейчас"
 
 #: ../plugins/shutdown/__init__.py:123
 msgid "Imminent Shutdown"
-msgstr "Предстоящее завершение работы"
+msgstr "Выключить сейчас"
 
 #: ../plugins/shutdown/__init__.py:145
 #, python-format
 msgid "Exaile will be closed in %d seconds."
-msgstr ""
+msgstr "Exaile закроется через %d сек."
 
 #: ../plugins/shutdown/__init__.py:147
 #, python-format
 msgid "The computer will be shut down in %d seconds."
-msgstr "Компьютер будет выключен через %d секунд."
+msgstr "Компьютер будет выключен через %d сек."
 
 #: ../plugins/shutdown/__init__.py:192
 msgid "Shutdown failed"
-msgstr "Выключение не удалось"
+msgstr "Выключить не удалось"
 
 #: ../plugins/shutdown/__init__.py:193
 msgid "Computer could not be shutdown using D-Bus."
@@ -3915,7 +3923,7 @@ msgstr "Компьютер нельзя выключить через D-Bus."
 
 #: ../plugins/shutdown/shutdown_preferences.py:5
 msgid "Shutdown"
-msgstr ""
+msgstr "Завершение работы"
 
 #: ../plugins/somafm/__init__.py:81 ../plugins/somafm/__init__.py:176
 msgid "Contacting SomaFM server..."
@@ -3980,7 +3988,7 @@ msgstr "Воскресенье"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:237
 msgid "Use Fading"
-msgstr "Использовать Затухание"
+msgstr "Регулировка громкости"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:255
 msgid "<b>Audio Preferences</b>"
@@ -3988,15 +3996,15 @@ msgstr "<b>Настройки звука</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:269
 msgid "Minimum volume:"
-msgstr "Минимальная громкость:"
+msgstr "Громкость в начале:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:294
 msgid "Maximum volume:"
-msgstr "Максимальная громкость:"
+msgstr "Громкость в конце:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:319
 msgid "Increment:"
-msgstr "Увеличение:"
+msgstr "Шаг громкости:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:344
 msgid "Time step:"
@@ -4097,7 +4105,7 @@ msgstr "WavPack"
 
 #: ../plugins/cd/cdprefs_pane.ui:56
 msgid "Fetch metadata from internet servers"
-msgstr "Получить метаданные с интернет-серверов"
+msgstr "Получать метаданные с интернет-серверов"
 
 #: ../plugins/cd/cdprefs_pane.ui:69
 msgid "Disc metadata"
@@ -4127,7 +4135,7 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui:218
 msgid "Import tracks to disk"
-msgstr "Импорт дорожек на диск"
+msgstr "Импорт треков на диск"
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
@@ -4136,11 +4144,11 @@ msgstr "Простая консоль"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:51
 msgid "Custom orders"
-msgstr ""
+msgstr "Сортировка пользователя"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:77
 msgid "Add _Order"
-msgstr ""
+msgstr "Добавить сортировку"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
 msgid "Show IPv6 servers"
@@ -4364,7 +4372,7 @@ msgstr "Сохранять историю после выхода"
 
 #: ../plugins/history/history_preferences.ui:36
 msgid "History length:"
-msgstr "Продолжительность ведения журнала:"
+msgstr "Число строк журнала:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:23
 msgid "Terminal opacity:"
@@ -4475,7 +4483,7 @@ msgstr "Перезапустить плейлист"
 
 #: ../plugins/multialarmclock/malrmclk.ui:161
 msgid "Enable volume fade-in"
-msgstr "Включить нарастание громкости"
+msgstr "Регулировка громкости"
 
 #. Audio settings for alarm
 #: ../plugins/multialarmclock/malrmclk.ui:178
@@ -4484,19 +4492,19 @@ msgstr "<b>Настройки звука</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:192
 msgid "Fade start volume:"
-msgstr "Громкость в начале затухания:"
+msgstr "Громкость в начале:"
 
 #: ../plugins/multialarmclock/malrmclk.ui:233
 msgid "Fade stop volume:"
-msgstr "Громкость в конце затухания:"
+msgstr "Громкость в конце:"
 
 #: ../plugins/multialarmclock/malrmclk.ui:272
 msgid "Fade Increment:"
-msgstr "Увеличение затухания:"
+msgstr "Шаг громкости:"
 
 #: ../plugins/multialarmclock/malrmclk.ui:297
 msgid "Fade Time:"
-msgstr "Время затухания:"
+msgstr "Шаг времени:"
 
 #: ../plugins/notify/notifyprefs_pane.ui:12
 msgid "Resize displayed covers"
@@ -4661,15 +4669,16 @@ msgstr "Уровень корректировки по умолчанию:"
 
 #: ../plugins/screensaverpause/prefs.ui:12
 msgid "Unpause when screensaver ends"
-msgstr "Возобновить после окончания заставки"
+msgstr "Возобновить проигрывание после окончания заставки"
 
 #: ../plugins/shutdown/shutdown_preferences.ui:20
 msgid "Timeout (in s):"
-msgstr ""
+msgstr "Время ожидания (в секундах):"
 
 #: ../plugins/shutdown/shutdown_preferences.ui:48
 msgid "Activate \"Close Exaile after Playback\" automatically"
 msgstr ""
+"Активировать автоматическую опцию \"Закрыть Exaile после воспроизведения\""
 
 #: ../plugins/streamripper/streamripper.ui:15
 msgid "Save location:"
@@ -4685,7 +4694,7 @@ msgstr "Извлечь в единый файл"
 
 #: ../plugins/streamripper/streamripper.ui:74
 msgid "Delete incomplete files"
-msgstr "Удалить неполные файлы"
+msgstr "Удалять неполные файлы"
 
 #: ../plugins/wikipedia/data/preferences.ui:15
 msgid "Language:"
@@ -4693,7 +4702,7 @@ msgstr "Язык:"
 
 #: ../plugins/wikipedia/data/preferences.ui:30
 msgid "Shortcode of the Wikipedia language version (en, de, fr, ...)"
-msgstr "Краткий код языка Википедии (en, ru, fr, ...)"
+msgstr "Краткий код языка Википедии (en, fr, ru, ...)"
 
 #: ../plugins/wikipedia/data/wikipanel.ui:24
 #: ../plugins/wikipedia/data/wikipanel.ui:25
@@ -4729,9 +4738,9 @@ msgid ""
 "Note that when the specified time arrives, Exaile will play the songs in the "
 "queue."
 msgstr ""
-"Проигрывает музыку в определённое время.\n"
+"Воспроизводит музыку в определённое время.\n"
 "\n"
-"Когда наступит указанное время, Exaile воспроизведёт очередную композицию."
+"В указанное время Exaile воспроизведёт трек стоящий на паузе."
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5
@@ -4825,16 +4834,18 @@ msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the supported services."
 msgstr ""
-"Устанавливает имя текущей композиции в статус Pidgin. Смотрите ЧаВо по "
-"Pidgin, чтобы узнать о поддерживаемых службах."
+"Устанавливает текущий статус воспроизведения в Pidgin. Ознакомьтесь с ЧаВо "
+"(FAQ) по Pidgin, чтобы узнать о поддерживаемых сервисах."
 
 #: ../plugins/customcollectionorders/PLUGININFO:3
 msgid "Custom Collection Orders"
-msgstr ""
+msgstr "Пользовательская сортировка фонотеки"
 
 #: ../plugins/customcollectionorders/PLUGININFO:4
 msgid "Users can add custom order to the collection panel"
 msgstr ""
+"Пользователи могут добавлять собственные способы сортировки фонотеки на "
+"панель"
 
 #: ../plugins/customcollectionorders/PLUGININFO:5
 #: ../plugins/desktopcover/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5
@@ -4884,7 +4895,7 @@ msgstr "Предоставляет отладочную информацию д�
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
-msgstr "10-ти полосный эквалайзер"
+msgstr "Предоставляет 10-ти полосный эквалайзер"
 
 #: ../plugins/grouptagger/PLUGININFO:3
 msgid "Group Tagger"
@@ -4932,7 +4943,7 @@ msgstr "Караоке"
 
 #: ../plugins/karaoke/PLUGININFO:4
 msgid "Removes voice from audio"
-msgstr "Приглушает голос в аудиопотоке"
+msgstr "Приглушает голос исполнителя в аудиопотоке"
 
 #: ../plugins/keybinder/PLUGININFO:2
 msgid "Keybinder-based multimedia keys"
@@ -5010,7 +5021,7 @@ msgstr "Кнопка Главного меню"
 
 #: ../plugins/mainmenubutton/PLUGININFO:4
 msgid "Moves the main menu into a button on top of the panels."
-msgstr "Помещает меню в кнопку слева вверху."
+msgstr "Помещает главное меню в кнопку вверх влево."
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
@@ -5067,11 +5078,10 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Проигрывает музыку в определённые дни и время.\n"
+"Воспроизводит музыку в определённые дни и время.\n"
 "\n"
-"Внимание: Exaile всего лишь активирует кнопку воспроизведения когда наступит "
-"указанное время, поэтому позаботьтесь о том, чтобы музыка которую вы хотите "
-"услышать, находилась в вашем плейлисте"
+"В указанное время Exaile активирует воспроизведение, позаботьтесь чтобы "
+"музыка которую Вы хотите услышать, находилась в Вашем плейлисте"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3
 msgid "MusicBrainz Covers"
@@ -5241,10 +5251,10 @@ msgid ""
 "with extensive filtering/search capabilities, and much more."
 msgstr ""
 "Exaile — это музыкальный проигрыватель с простым интерфейсом и большими "
-"возможностями управления фонотекой. Среди функций представлены "
-"автоматическая загрузка обложек альбомов, получение текстов песен, потоковое "
-"интернет-радио, плейлисты с вкладками, «умные» плейлисты с расширенными "
-"возможностями фильтрации/поиска и многое другое."
+"возможностями управления фонотекой. Среди функций — автоматическая загрузка "
+"обложек альбомов, получение текстов песен, потоковое интернет-радио, "
+"плейлисты с вкладками, «умные» плейлисты с расширенными возможностями "
+"фильтрации/поиска и многое другое."
 
 #: ../data/exaile.appdata.xml.in:15
 msgid ""
@@ -5263,11 +5273,11 @@ msgstr ""
 
 #: ../data/exaile.appdata.xml.in:26
 msgid "Logo"
-msgstr ""
+msgstr "Логотип"
 
 #: ../data/exaile.appdata.xml.in:38
 msgid "The Exaile Team"
-msgstr ""
+msgstr "Команда Exaile"
 
 #~ msgid "Remove after playback"
 #~ msgstr "Удалить по остановке воспроизведения"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-13 01:14+1100\n"
-"PO-Revision-Date: 2025-12-18 14:00+0000\n"
+"PO-Revision-Date: 2025-12-18 23:00+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/"
 "ru/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15.1-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -705,7 +705,7 @@ msgstr "Повторить _все"
 
 #: ../xl/playlist.py:936
 msgid "Repeat O_ne"
-msgstr "Повтор _один раз"
+msgstr "Повторять _один трек"
 
 #: ../xl/playlist.py:940
 msgid "Dynamic _Off"
@@ -2578,7 +2578,7 @@ msgstr "(переместите для изменения порядка)"
 
 #: ../data/ui/preferences/cover.ui:130
 msgid "Use covers embedded in tags"
-msgstr "Использовать обложки, указанные в теге"
+msgstr "Использовать обложки указанные в теге"
 
 #: ../data/ui/preferences/lyrics.ui:15
 msgid "Lyrics font:"

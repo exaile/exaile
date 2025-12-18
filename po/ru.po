@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-13 01:14+1100\n"
-"PO-Revision-Date: 2025-12-17 05:00+0000\n"
+"PO-Revision-Date: 2025-12-18 14:00+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/"
 "ru/>\n"
@@ -2480,7 +2480,7 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:399
 msgid "Show playlist track count"
-msgstr "Показывать число треков в плейлисте"
+msgstr "Показывать количество треков в плейлисте"
 
 #: ../data/ui/preferences/appearance.ui:413
 msgid "Show playlist duration"
@@ -2500,7 +2500,7 @@ msgstr "(Щёлкните правой кнопкой мыши для сброс
 
 #: ../data/ui/preferences/collection.ui:58
 msgid "Use file-based compilation detection"
-msgstr "Отображать сортировку по данным из файла"
+msgstr "Отображать сортировку по данным о файле"
 
 #: ../data/ui/preferences/collection.ui:72
 msgid "Read and write ratings additionally in audio file metadata"
@@ -2513,7 +2513,7 @@ msgid ""
 "This feature should work for MP3, MP4, FLAC and OGG. "
 msgstr ""
 "Используйте эту экспериментальную функцию для чтения и записи рейтинга в "
-"метаданные аудиофайлов в дополнение к базе данных, если это возможно.\n"
+"метаданные аудиофайлов дополнительно к базе данных, если это возможно.\n"
 "Эта функция должна работать с MP3, MP4, FLAC и OGG. "
 
 #: ../data/ui/preferences/collection.ui:105

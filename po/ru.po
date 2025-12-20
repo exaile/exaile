@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-13 01:14+1100\n"
-"PO-Revision-Date: 2025-12-18 23:00+0000\n"
+"PO-Revision-Date: 2025-12-20 22:00+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/"
 "ru/>\n"
@@ -1052,7 +1052,7 @@ msgstr "_Новый плейлист"
 
 #: ../xlgui/menu.py:75
 msgid "_Open"
-msgstr "_Открыть файлы"
+msgstr "_Открыть файл(ы)"
 
 #: ../xlgui/menu.py:92
 msgid "Open _URL"
@@ -1361,12 +1361,12 @@ msgstr "Плейлист %d"
 #: ../xlgui/playlist_container.py:386
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
-msgstr "{playlist_name} ({track_count} треков, закрыто {minutes} мин назад)"
+msgstr "{playlist_name} (треков: {track_count}, закрыто {minutes} мин назад)"
 
 #: ../xlgui/playlist_container.py:394
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
-msgstr "{playlist_name} ({track_count} треков, закрыто {seconds} сек назад)"
+msgstr "{playlist_name} (треков: {track_count}, закрыто {seconds} сек назад)"
 
 #: ../xlgui/playlist_container.py:546
 msgid "_Move to Other View"
@@ -3140,7 +3140,7 @@ msgstr "Заголовок:"
 
 #: ../plugins/customcollectionorders/cco_prefs.py:120
 msgid "Display:"
-msgstr "Подпункт:"
+msgstr "Подпункт(ы):"
 
 #: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:199
 #: ../plugins/history/__init__.py:247
@@ -3660,7 +3660,7 @@ msgstr "Прогресс воспроизведения и перемотки"
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:126
 msgid "$title by $artist"
-msgstr "$title исполнитель $artist"
+msgstr "$title - $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:128
@@ -4028,12 +4028,12 @@ msgid ""
 "You may also need to <a href=\"https://affiliate-program.amazon.com/gp/flex/"
 "advertising/api/sign-in.html\">activate the Product Advertising API</a></i>."
 msgstr ""
-"<i>Чтобы завести учетную запись Amazon AWS и получить эту информацию, \n"
+"<i>Чтобы завести учетную запись Amazon AWS и получить информацию о ней, \n"
 "посетите <a href=\"https://aws.amazon.com/\">https://aws.amazon.com/</a>.\n"
 "\n"
-"Вам может также понадобиться <a href=\"https://affiliate-program.amazon.com/"
-"gp/flex/advertising/api/sign-in.html\">активировать Product Advertising API</"
-"a></i>."
+"А также Вам может понадобиться <a href=\"https://affiliate-"
+"program.amazon.com/gp/flex/advertising/api/sign-in.html\">активировать "
+"Product Advertising API</a></i>."
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:17
 msgid "Submit tracks using Audioscrobbler"
@@ -4451,7 +4451,7 @@ msgstr "Показывать на всех рабочих столах"
 
 #: ../plugins/minimode/minimode_preferences.ui:207
 msgid "Display window decorations:"
-msgstr "Показать оформления окна:"
+msgstr "Формат окна:"
 
 #: ../plugins/minimode/minimode_preferences.ui:263
 msgid "Show button in main window"

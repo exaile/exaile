@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-13 01:14+1100\n"
-"PO-Revision-Date: 2025-12-20 22:00+0000\n"
+"PO-Revision-Date: 2025-12-22 13:00+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/"
 "ru/>\n"
@@ -1725,9 +1725,9 @@ msgstr "%d в фонотеке"
 #, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
-msgstr[0] "%d отображается"
-msgstr[1] "%d отображается"
-msgstr[2] "%d отображается"
+msgstr[0] "%d в плейлисте"
+msgstr[1] "%d в плейлисте"
+msgstr[2] "%d в плейлисте"
 
 #: ../xlgui/widgets/info.py:449 ../xlgui/widgets/info.py:459
 #, python-format
@@ -4443,7 +4443,7 @@ msgstr "Поверх всех окон"
 
 #: ../plugins/minimode/minimode_preferences.ui:179
 msgid "Show in tasklist"
-msgstr "Показать в плейлисте"
+msgstr "Отображать в списке задач"
 
 #: ../plugins/minimode/minimode_preferences.ui:193
 msgid "Show on all desktops"

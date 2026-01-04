@@ -31,8 +31,8 @@ source code directory to install:
 
 The "make" step is optional and only compiles the modules and translations.
 
-There is also an install_no_locale target if you wish to install without
-translations.
+You can run `make all_no_locale` and `make install_no_locale` instead if you
+wish to build and install without translations.
 
 To uninstall exaile please run:
 

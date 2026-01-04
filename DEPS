@@ -42,6 +42,8 @@ Translation:
 
 * gettext
 
+(To build and install without translations, use the `all_no_locale` and `install_no_locale` Make targets.)
+
 Documentation:
 
 * sphinx

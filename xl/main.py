@@ -1010,11 +1010,8 @@ class Exaile:
 def exaile():
     if not Exaile._exaile:
         raise AttributeError(
-            _(
-                "Exaile is not yet finished loading"
-                ". Perhaps you should listen for the exaile_loaded"
-                " signal?"
-            )
+            "Exaile is not yet finished loading. "
+            "Perhaps you should listen for the exaile_loaded signal?"
         )
 
     return Exaile._exaile

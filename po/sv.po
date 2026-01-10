@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-13 01:14+1100\n"
-"PO-Revision-Date: 2020-08-18 21:32+0000\n"
-"Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/exaile/master/sv/"
-">\n"
+"PO-Revision-Date: 2026-01-11 05:01+0000\n"
+"Last-Translator: Daniel Wiik <d.wiik@outlook.com>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/exaile/master/"
+"sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -262,14 +262,10 @@ msgid "Volume Options"
 msgstr "Volymalternativ"
 
 #: ../xl/main.py:262
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
 msgstr "Öka volymen med N%"
 
 #: ../xl/main.py:271
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
 msgstr "Sänk volymen med N%"
 
@@ -310,9 +306,6 @@ msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr "Starta i säkert läge - ibland nyttigt om du stöter på problem"
 
 #: ../xl/main.py:335
-#, fuzzy
-#| msgid ""
-#| "Force import of old data from version 0.2.x (Overwrites current data)"
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 "Tvinga importering av gammal information från version 0.2.x (skriver över "
@@ -329,7 +322,7 @@ msgstr ""
 
 #: ../xl/main.py:356
 msgid "Locale to use for Exaile"
-msgstr ""
+msgstr "Platsinformation för Exaile"
 
 #: ../xl/main.py:359
 msgid "Development/Debug Options"
@@ -590,18 +583,16 @@ msgid "Times played"
 msgstr "Antal uppspelningar"
 
 #: ../xl/metadata/tags.py:88
-#, fuzzy
 msgid "Start offset"
-msgstr "X-offset:"
+msgstr "Starta offset"
 
 #: ../xl/metadata/tags.py:89
-#, fuzzy
 msgid "Stop offset"
-msgstr "X-offset:"
+msgstr "Stoppa offset"
 
 #: ../xl/player/gst/engine.py:717
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ""
+msgstr ": Möjligt ljudenhetsfel, är den inkopplad?"
 
 #: ../xl/player/gst/missing_plugin.py:88
 #, python-format
@@ -610,6 +601,9 @@ msgid ""
 "Exaile will not be able to play the current file. Please install the "
 "required software on your computer. See %s for details."
 msgstr ""
+"En GStreamer 1.x plugin till %s saknas. Utan denna mjukvara kommer Exaile "
+"inte kunna spela den aktuella filen. Vänligen installera nödvändig mjukvara "
+"på din dator. Se %s för detaljer."
 
 #: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:153
 msgid "Automatic"
@@ -622,26 +616,26 @@ msgstr "Anpassad"
 #: ../xl/player/gst/sink.py:192
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
-msgstr ""
+msgstr "Kunde inte skapa audiosink (enhet: %s, typ: %s)"
 
 #: ../xl/player/gst/sink.py:198
 msgid "No custom pipeline specified!"
-msgstr ""
+msgstr "Ingen anpassad pipeline specificerad!"
 
 #: ../xl/player/gst/sink.py:203
 #, python-format
 msgid "Error creating custom audiosink '%s'"
-msgstr ""
+msgstr "Ett fel uppstod vid skapandet av en anpassad audiosink '%s'"
 
 #: ../xl/player/gst/sink.py:209
 #, python-format
 msgid "Invalid sink type '%s' specified"
-msgstr ""
+msgstr "Felaktig sinktyp '%s' angiven"
 
 #: ../xl/player/gst/sink.py:213
 #, python-format
 msgid "Could not create sink type '%s'"
-msgstr ""
+msgstr "Kunde inte skapa sinktyp '%s'"
 
 #: ../xl/playlist.py:151 ../xl/playlist.py:173
 msgid "Invalid playlist type."
@@ -717,7 +711,7 @@ msgstr "Dynamik av liknande _artister"
 
 #: ../xl/plugins.py:85
 msgid "Plugin is already loaded or has a conflicting name."
-msgstr ""
+msgstr "Pluginen är redan laddad eller har en namnkonflikt."
 
 #: ../xl/plugins.py:100
 msgid "Plugin archive is not in the correct format."
@@ -845,15 +839,15 @@ msgstr ""
 #: ../xlgui/cover.py:97
 #, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr ""
+msgstr "{outstanding} omslag kvar att hämta"
 
 #: ../xlgui/cover.py:98
 msgid "All covers fetched"
-msgstr ""
+msgstr "Alla omslag hämtade"
 
 #: ../xlgui/cover.py:123
 msgid "Collecting albums and covers..."
-msgstr ""
+msgstr "Samlar in album och omslag..."
 
 #: ../xlgui/cover.py:501
 msgid "Show Cover"
@@ -895,6 +889,8 @@ msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
+"Ingen av de aktiverade källorna har ett omslag för den här låten, försök att "
+"aktivera fler källor."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
 #: ../xlgui/cover.py:1176 ../xlgui/properties.py:1106
@@ -907,28 +903,24 @@ msgid "$title (by $artist)"
 msgstr "$title (av $artist)"
 
 #: ../xlgui/main.py:148
-#, fuzzy
-#| msgid "Access the current playlist"
 msgid "Save currently selected playlist"
-msgstr "Kom åt nuvarande spellista"
+msgstr "Spara den nu valda spellistan"
 
 #: ../xlgui/main.py:153
 msgid "Save currently selected playlist under a custom name"
-msgstr ""
+msgstr "Spara den nu valda spellistan under ett anpassat namn"
 
 #: ../xlgui/main.py:158
 msgid "Focus filter in currently focused panel"
-msgstr ""
+msgstr "Fokusera filter i nuvarande panel"
 
 #: ../xlgui/main.py:163
 msgid "Focus playlist search"
-msgstr ""
+msgstr "Fokusera spellistesökning"
 
 #: ../xlgui/main.py:168
-#, fuzzy
-#| msgid "Toggle Queue"
 msgid "Clear queue"
-msgstr "Växla kö"
+msgstr "Rensa kö"
 
 #: ../xlgui/main.py:173 ../plugins/minimode/controls.py:270
 msgid "Start, pause or resume the playback"
@@ -936,11 +928,11 @@ msgstr "Starta, pausa eller återuppta uppspelningen"
 
 #: ../xlgui/main.py:178
 msgid "Seek to the right"
-msgstr ""
+msgstr "Sök åt höger"
 
 #: ../xlgui/main.py:183
 msgid "Seek to the left"
-msgstr ""
+msgstr "Sök åt vänster"
 
 #: ../xlgui/main.py:188 ../xlgui/main.py:193
 msgid "Increase the volume"
@@ -960,59 +952,59 @@ msgstr "Byt till nästa flik"
 
 #: ../xlgui/main.py:205
 msgid "Focus the playlist container"
-msgstr ""
+msgstr "Fokusera spellistecontainern"
 
 #: ../xlgui/main.py:212
 msgid "Focus the files panel"
-msgstr ""
+msgstr "Fokusera filpanelen"
 
 #: ../xlgui/main.py:219
 msgid "Focus the radio panel"
-msgstr ""
+msgstr "Fokusera radiopanelen"
 
 #: ../xlgui/main.py:224
 msgid "Focus the playlists panel"
-msgstr ""
+msgstr "Fokusera spellistepanelen"
 
 #: ../xlgui/main.py:227
 msgid "Focus the first tab"
-msgstr ""
+msgstr "Fokusera den första fliken"
 
 #: ../xlgui/main.py:228
 msgid "Focus the second tab"
-msgstr ""
+msgstr "Fokusera den andra fliken"
 
 #: ../xlgui/main.py:229
 msgid "Focus the third tab"
-msgstr ""
+msgstr "Fokusera den tredje fliken"
 
 #: ../xlgui/main.py:230
 msgid "Focus the fourth tab"
-msgstr ""
+msgstr "Fokusera den fjärde fliken"
 
 #: ../xlgui/main.py:231
 msgid "Focus the fifth tab"
-msgstr ""
+msgstr "Fokusera den femte fliken"
 
 #: ../xlgui/main.py:232
 msgid "Focus the sixth tab"
-msgstr ""
+msgstr "Fokusera den sjätte fliken"
 
 #: ../xlgui/main.py:233
 msgid "Focus the seventh tab"
-msgstr ""
+msgstr "Fokusera den sjunde fliken"
 
 #: ../xlgui/main.py:234
 msgid "Focus the eighth tab"
-msgstr ""
+msgstr "Fokusera den åttonde fliken"
 
 #: ../xlgui/main.py:235
 msgid "Focus the ninth tab"
-msgstr ""
+msgstr "Fokusera den nionde fliken"
 
 #: ../xlgui/main.py:236
 msgid "Focus the tenth tab"
-msgstr ""
+msgstr "Fokusera den tionde fliken"
 
 #: ../xlgui/main.py:596
 msgid "Toggle: Stop after Selected Track"
@@ -1128,7 +1120,7 @@ msgstr "Sök igenom samlingen igen (_långsamt)"
 
 #: ../xlgui/menu.py:405
 msgid "User's Guide (website)"
-msgstr ""
+msgstr "Användarguide (Webbsida)"
 
 #: ../xlgui/menu.py:408 ../data/ui/shortcuts_dialog.ui:21
 msgid "Shortcuts"
@@ -1140,7 +1132,7 @@ msgstr "Rapportera ett fel (Github)"
 
 #: ../xlgui/menu.py:421
 msgid "Open error logs"
-msgstr ""
+msgstr "Öppna fellogg"
 
 #: ../xlgui/menu.py:425
 msgid "_About"
@@ -1230,7 +1222,7 @@ msgstr "Källa: "
 
 #: ../xlgui/panel/lyrics.py:225
 msgid "Any source"
-msgstr ""
+msgstr "Alla källor"
 
 #: ../xlgui/panel/menus.py:217
 msgid "New _Smart Playlist"
@@ -1335,27 +1327,23 @@ msgstr "Ny spellista"
 
 #: ../xlgui/panels.py:98
 msgid "P_anels"
-msgstr ""
+msgstr "Paneler"
 
 #: ../xlgui/playlist_container.py:71
 msgid "Drop here to create a new playlist"
-msgstr ""
+msgstr "Släpp här för att skapa en ny spellista"
 
 #: ../xlgui/playlist_container.py:131
-#, fuzzy
-#| msgid "C_lear playlist"
 msgid "_Clear Tab History"
-msgstr "_Rensa spellista"
+msgstr "Rensa flikhistorik"
 
 #: ../xlgui/playlist_container.py:143
-#, fuzzy
-#| msgid "Close Tab"
 msgid "Recently Closed _Tabs"
-msgstr "Stäng flik"
+msgstr "Nyligen stängda flikar"
 
 #: ../xlgui/playlist_container.py:163
 msgid "Restore closed tab"
-msgstr ""
+msgstr "Återställ stängd flik"
 
 #: ../xlgui/playlist_container.py:202
 #, python-format
@@ -1366,15 +1354,17 @@ msgstr "Spellista %d"
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 msgstr ""
+"{playlist_name} ({track_count} spår, stängde för {minutes} minuter sedan)"
 
 #: ../xlgui/playlist_container.py:394
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr ""
+"{playlist_name} ({track_count} spår, stängde för {seconds} sekunder sedan)"
 
 #: ../xlgui/playlist_container.py:546
 msgid "_Move to Other View"
-msgstr ""
+msgstr "Flytta till en annan vy"
 
 #: ../xlgui/preferences/__init__.py:113 ../xlgui/preferences/plugin.py:40
 msgid "Plugins"
@@ -1386,7 +1376,7 @@ msgstr "Utseende"
 
 #: ../xlgui/preferences/appearance.py:118
 msgid "Tray icons are not supported on your platform"
-msgstr ""
+msgstr "Meddelandefältsikoner stödjs inte på din plattform"
 
 #. TRANSLATORS: Grammatical articles that are ignored while sorting the
 #. collection panel. For example, in French locales this could be
@@ -1395,7 +1385,7 @@ msgstr ""
 #. translate this to string with single space.
 #: ../xlgui/preferences/collection.py:38
 msgid "the"
-msgstr ""
+msgstr " "
 
 #: ../xlgui/preferences/collection.py:62
 msgid "Reset to _Defaults"
@@ -1403,11 +1393,11 @@ msgstr "Återställ till _standardvärden"
 
 #: ../xlgui/preferences/collection.py:130
 msgid "Migrating ratings to audio file metadata"
-msgstr ""
+msgstr "Migrera betyg till metadata för ljudfiler"
 
 #: ../xlgui/preferences/collection.py:195
 msgid "Migrating metadata"
-msgstr ""
+msgstr "Migrera metadata"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -1426,7 +1416,7 @@ msgstr "Uppspelning"
 #: ../xlgui/preferences/plugin.py:119 ../plugins/grouptagger/gt_common.py:59
 #: ../plugins/grouptagger/gt_widgets.py:60
 msgid "Uncategorized"
-msgstr ""
+msgstr "Okategoriserade"
 
 #: ../xlgui/preferences/plugin.py:200
 msgid "Could not load plugin info!"
@@ -1441,13 +1431,11 @@ msgstr[1] "Misslyckade insticksmoduler: %s"
 
 #: ../xlgui/preferences/plugin.py:239
 msgid "Do you really want to remove this plugin?"
-msgstr ""
+msgstr "Vill du verkligen ta bort denna plugin?"
 
 #: ../xlgui/preferences/plugin.py:249
-#, fuzzy
-#| msgid "Could not enable plugin!"
 msgid "Could not remove plugin!"
-msgstr "Det gick inte att aktivera insticksmodul!"
+msgstr "Kunde inte ta bort plugin!"
 
 #: ../xlgui/preferences/plugin.py:265 ../xlgui/preferences/plugin.py:388
 msgid "Could not disable plugin!"
@@ -1472,11 +1460,11 @@ msgstr "Alla filer"
 
 #: ../xlgui/preferences/plugin.py:321
 msgid "Plugin already exists!"
-msgstr ""
+msgstr "Pluginen finns redan!"
 
 #: ../xlgui/preferences/plugin.py:322
 msgid "Do you want to override it?"
-msgstr ""
+msgstr "Vill du åsidosätta det?"
 
 #: ../xlgui/preferences/plugin.py:330
 msgid "Plugin file installation failed!"
@@ -1512,6 +1500,8 @@ msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
+"Taggar kunde inte skrivas till följande filer:\n"
+"{files}"
 
 #: ../xlgui/properties.py:280
 #, python-format
@@ -1519,17 +1509,16 @@ msgid "Editing track %(current)d of %(total)d"
 msgstr "Redigerar spår %(current)d av %(total)d"
 
 #: ../xlgui/properties.py:400
-#, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr "Är du säker på att du vill permanent ta bort den markerade spellistan?"
+msgstr "Är du säker på att du vill tillämpa ändringarna på alla spår?"
 
 #: ../xlgui/properties.py:443
 msgid "Apply changes before closing?"
-msgstr ""
+msgstr "Applicera ändringar innan du stänger?"
 
 #: ../xlgui/properties.py:444
 msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
+msgstr "Dina ändringar går förlorade om du inte tillämpar dem nu."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
 #: ../xlgui/properties.py:626
@@ -1540,7 +1529,7 @@ msgstr "%s:"
 #. TRANSLATORS: Remove tag value
 #: ../xlgui/properties.py:633 ../plugins/developer/developer_window.ui:131
 msgid "Clear"
-msgstr ""
+msgstr "Klart"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
@@ -1572,11 +1561,11 @@ msgstr "{format} ({width}x{height} pixlar)"
 
 #: ../xlgui/properties.py:1123
 msgid "Select image to set as cover"
-msgstr ""
+msgstr "Välj omslagsbild"
 
 #: ../xlgui/properties.py:1136
 msgid "Supported image formats"
-msgstr ""
+msgstr "Stödda bildformat"
 
 #: ../xlgui/properties.py:1219
 msgid "Open Directory"
@@ -1682,7 +1671,7 @@ msgstr "Filen existerar, skriva över %s ?"
 
 #: ../xlgui/widgets/dialogs.py:1764
 msgid "Playlist name:"
-msgstr ""
+msgstr "Spellistans namn:"
 
 #: ../xlgui/widgets/dialogs.py:1765
 msgid "Add new playlist..."
@@ -1704,7 +1693,7 @@ msgstr "Exporterar %s"
 
 #: ../xlgui/widgets/dialogs.py:1861
 msgid "Choose directory to export files to"
-msgstr ""
+msgstr "Välj katalog för att exportera filer till"
 
 #: ../xlgui/widgets/info.py:62
 msgid ""
@@ -1726,20 +1715,18 @@ msgid "%d in collection"
 msgstr "%d i samlingen"
 
 #: ../xlgui/widgets/info.py:445 ../xlgui/widgets/info.py:454
-#, fuzzy, python-format
-#| msgid "%d showing"
+#, python-format
 msgid "%d showing"
 msgid_plural "%d showing"
 msgstr[0] "%d visar"
 msgstr[1] "%d visar"
 
 #: ../xlgui/widgets/info.py:449 ../xlgui/widgets/info.py:459
-#, fuzzy, python-format
-#| msgid "%d selected"
+#, python-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "%d markerad"
-msgstr[1] "%d markerad"
+msgstr[1] "%d markerade"
 
 #: ../xlgui/widgets/menuitems.py:117
 msgid "En_queue"
@@ -1815,8 +1802,6 @@ msgid "_Jump to"
 msgstr "_Hoppa till"
 
 #: ../xlgui/widgets/playback.py:1392
-#, fuzzy
-#| msgid "_Remove tag"
 msgid "_Remove Marker"
 msgstr "_Ta bort tagg"
 
@@ -1889,7 +1874,7 @@ msgstr "Spara _som"
 
 #: ../xlgui/widgets/playlist.py:257
 msgid "_Clear"
-msgstr ""
+msgstr "Rensa"
 
 #: ../xlgui/widgets/playlist.py:325
 msgid "_Stop Playback After This Track"
@@ -1944,12 +1929,11 @@ msgstr "Schema"
 
 #: ../xlgui/widgets/playlist_columns.py:675
 msgid "Start Offset"
-msgstr ""
+msgstr "Starta offset"
 
 #: ../xlgui/widgets/playlist_columns.py:686
-#, fuzzy
 msgid "Stop Offset"
-msgstr "X-offset:"
+msgstr "Stoppa offset"
 
 #: ../xlgui/widgets/playlist_columns.py:847
 msgid "_Resizable"
@@ -2015,13 +1999,13 @@ msgstr "är inte"
 #. to compare to __null__)
 #: ../xlgui/widgets/smart_playlist_editor.py:211
 msgid "is set"
-msgstr ""
+msgstr "är inställd"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/widgets/smart_playlist_editor.py:214
 msgid "is not set"
-msgstr ""
+msgstr "är inte inställd"
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/widgets/smart_playlist_editor.py:216
@@ -2046,7 +2030,7 @@ msgstr "innehåller inte ord"
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:224
 msgid "regex"
-msgstr ""
+msgstr "regex"
 
 #. TRANSLATORS: True if haystack does not match regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:226
@@ -5152,7 +5136,7 @@ msgstr "Möjliggör att stänga av datorn när uppspelningen är färdig."
 
 #: ../plugins/somafm/PLUGININFO:3
 msgid "SomaFM Radio"
-msgstr "SomaFM-radio"
+msgstr "SomaFM Radio"
 
 #: ../plugins/somafm/PLUGININFO:4
 #, python-format

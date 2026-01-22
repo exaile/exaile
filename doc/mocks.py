@@ -1,9 +1,9 @@
-'''
-    Provided so that we can build docs without needing to have any
-    dependencies installed (such as for RTFD).
+"""
+Provided so that we can build docs without needing to have any
+dependencies installed (such as for RTFD).
 
-    Derived from https://read-the-docs.readthedocs.org/en/latest/faq.html
-'''
+Derived from https://read-the-docs.readthedocs.org/en/latest/faq.html
+"""
 
 import sys
 
@@ -57,6 +57,7 @@ class MockGiModule:
     def accelerator_parse(cls, *args):
         return [0, 0]
 
+
 class Mock:
     __all__ = []
 
@@ -106,13 +107,12 @@ def import_fake_modules():
 
 def fake_xl_settings():
     # player hack
-    import xl.settings
+    import xl.settings  # pylint: disable=import-outside-toplevel
 
     def option_hack(name, default):
         if name == 'player/engine':
             return 'rtfd_hack'
-        else:
-            return orig_get_option(name, default)
+        return orig_get_option(name, default)
 
     orig_get_option = xl.settings.get_option
     xl.settings.get_option = option_hack

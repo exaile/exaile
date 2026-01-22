@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # Exaile documentation build configuration file, created by
 # sphinx-quickstart on Mon Jul 31 17:15:07 2017.
 #
@@ -12,10 +10,9 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys
 import os
-
-from os.path import abspath, join, dirname
+import sys
+from os.path import abspath, dirname, join
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -41,7 +38,7 @@ EXAILE_AUTHORS = [
 #
 
 sys.path.append(abspath(dirname(__file__)))
-import mocks
+import mocks  # noqa: E402  # pylint: disable=wrong-import-position
 mocks.import_fake_modules()
 mocks.fake_xl_settings()
 sys.path.pop()
@@ -71,7 +68,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Exaile'
-copyright = '2009-2025 Exaile Development Team'
+copyright = '2009-2025 Exaile Development Team'  # noqa  # pylint: disable=redefined-builtin
 author = ''.join(EXAILE_AUTHORS)
 
 # The version info for the project you're documenting, acts as replacement for
@@ -79,7 +76,7 @@ author = ''.join(EXAILE_AUTHORS)
 # built documents.
 #
 
-import xl.version
+import xl.version  # noqa: E402  # pylint: disable=wrong-import-position
 version = xl.version.__version__
 release = xl.version.__version__
 

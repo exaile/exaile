@@ -35,7 +35,6 @@ from xl.nls import gettext as _
 from xlgui.panel import device
 import xlgui
 
-
 logger = logging.getLogger(__name__)
 
 

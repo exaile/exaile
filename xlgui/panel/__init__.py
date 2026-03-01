@@ -34,7 +34,6 @@ from xlgui.widgets.notebook import NotebookPage
 from xlgui import guiutil
 import logging
 
-
 LOGGER = logging.getLogger(__name__)
 
 

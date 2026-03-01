@@ -212,7 +212,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         dialog.hide()
 
         if result == Gtk.ResponseType.OK:
-            (name, uri) = dialog.get_values()
+            name, uri = dialog.get_values()
             self._do_add_playlist(name, uri)
 
     @common.threaded
@@ -313,7 +313,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         Called when a key is released in the tree
         """
         if event.keyval == Gdk.KEY_Menu:
-            (mods, paths) = self.tree.get_selection().get_selected_rows()
+            mods, paths = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 iter = self.model.get_iter(paths[0])
                 item = self.model.get_value(iter, 2)
@@ -340,13 +340,13 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             return True
 
         if event.keyval == Gdk.KEY_Left:
-            (mods, paths) = self.tree.get_selection().get_selected_rows()
+            mods, paths = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 self.tree.collapse_row(paths[0])
             return True
 
         if event.keyval == Gdk.KEY_Right:
-            (mods, paths) = self.tree.get_selection().get_selected_rows()
+            mods, paths = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 self.tree.expand_row(paths[0], False)
             return True
@@ -385,7 +385,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             elif not isinstance(current_playlist, xl.playlist.Playlist):
                 self._add_new_station(locs)
                 return
-            (tracks, playlists) = self.tree.get_drag_data(locs)
+            tracks, playlists = self.tree.get_drag_data(locs)
             current_playlist.extend(tracks)
             # Do we save in the case when a user drags a file onto a playlist in the playlist panel?
             # note that the playlist does not have to be open for this to happen
@@ -403,7 +403,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
         # We don't want the tracks in the playlists to be added to the
         # master tracks list so we pass in False
-        (tracks, playlists) = self.tree.get_drag_data(locs, False)
+        tracks, playlists = self.tree.get_drag_data(locs, False)
         # First see if they dragged any playlist files
         for new_playlist in playlists:
             self.model.append(
@@ -463,7 +463,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         info = selection.get_selected_rows()
         if not info:
             return
-        (model, paths) = info
+        model, paths = info
         iter = self.model.get_iter(paths[0])
         object = self.model.get_value(iter, 2)
 

@@ -175,7 +175,7 @@ class LyricsManager(providers.ProviderHandler):
 
         for method in self.get_providers():
             try:
-                (lyrics, source, url) = self._find_cached_lyrics(method, track, refresh)
+                lyrics, source, url = self._find_cached_lyrics(method, track, refresh)
             except LyricsNotFoundException:
                 continue
             break
@@ -211,7 +211,7 @@ class LyricsManager(providers.ProviderHandler):
             source = None
             url = None
             try:
-                (lyrics, source, url) = self._find_cached_lyrics(method, track, refresh)
+                lyrics, source, url = self._find_cached_lyrics(method, track, refresh)
             except LyricsNotFoundException:
                 continue
             lyrics = lyrics.strip()
@@ -250,7 +250,7 @@ class LyricsManager(providers.ProviderHandler):
 
         # check cache for lyrics
         if key in self.cache:
-            (lyrics, source, url, time) = self.cache[key]
+            lyrics, source, url, time = self.cache[key]
             # return if they are not expired
             now = datetime.now()
             if now - time < timedelta(hours=cache_time) and not refresh:
@@ -260,7 +260,7 @@ class LyricsManager(providers.ProviderHandler):
                     raise LyricsNotFoundException(e)
                 return (lyrics.decode('utf-8', errors='replace'), source, url)
 
-        (lyrics, source, url) = method.find_lyrics(track)
+        lyrics, source, url = method.find_lyrics(track)
         assert isinstance(lyrics, str), (method, track)
 
         # update cache

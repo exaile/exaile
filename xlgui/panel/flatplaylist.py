@@ -159,7 +159,7 @@ class FlatPlaylistDragTreeView(DragTreeView):
         """
         Returns the currently selected tracks
         """
-        (model, paths) = self.get_selection().get_selected_rows()
+        model, paths = self.get_selection().get_selected_rows()
         tracks = []
 
         for path in paths:

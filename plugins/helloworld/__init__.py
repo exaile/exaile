@@ -71,7 +71,6 @@ Note that the old style of writing plugins is not going away, so you
 can continue to write plugins that way if its simpler.
 '''
 
-
 from . import testlib
 
 

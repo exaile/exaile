@@ -30,7 +30,6 @@ from xl.metadata._base import BaseFormat
 import logging
 import os
 
-
 logger = logging.getLogger(__name__)
 
 

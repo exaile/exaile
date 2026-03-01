@@ -36,7 +36,6 @@ except:
     gi.require_version('WebKit2', '4.0')
 from gi.repository import WebKit2
 
-
 log = logging.getLogger(__name__)
 
 # fmt: off
@@ -136,12 +135,9 @@ class BrowserPage(WebKit2.WebView):
                 "Error occurred when trying to retrieve Wikipedia page "
                 "for %s." % artist
             )
-            html = (
-                """
+            html = """
                 <p style="color: red">No Wikipedia page found for <strong>%s</strong></p>
-                """
-                % artist
-            )
+                """ % artist
 
         GLib.idle_add(self.load_html, html, url)
 

@@ -99,13 +99,13 @@ class PodcastPanel(panel.Panel):
             self.menu.popup(event)
 
     def _on_refresh(self, *e):
-        (url, title) = self.get_selected_podcast()
+        url, title = self.get_selected_podcast()
         self._parse_podcast(url)
 
     def _on_delete(self, *e):
-        (url, title) = self.get_selected_podcast()
+        url, title = self.get_selected_podcast()
         for item in self.podcasts:
-            (title, _url) = item
+            title, _url = item
             if _url == url:
                 self.podcasts.remove(item)
                 self.podcast_playlists.remove_playlist(
@@ -132,14 +132,14 @@ class PodcastPanel(panel.Panel):
 
     def get_selected_podcast(self):
         selection = self.tree.get_selection()
-        (model, iter) = selection.get_selected()
+        model, iter = selection.get_selected()
 
         url = self.model.get_value(iter, 1)
         title = self.model.get_value(iter, 0)
         return (url, title)
 
     def _on_row_activated(self, *e):
-        (url, title) = self.get_selected_podcast()
+        url, title = self.get_selected_podcast()
 
         try:
             pl = self.podcast_playlists.get_playlist(
@@ -211,7 +211,7 @@ class PodcastPanel(panel.Panel):
             self.podcasts = []
 
             for line in lines:
-                (url, title) = line.split('\t')
+                url, title = line.split('\t')
                 self.podcasts.append((title, url))
         except (IOError, OSError):
             logger.warning('Could not open podcast file')

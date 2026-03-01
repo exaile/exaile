@@ -1020,16 +1020,14 @@ class ProgressButtonFormatter(Formatter):
             GLib.idle_add(self.set_property, 'format', self.get_option_value())
 
 
-Gtk.rc_parse_string(
-    '''
+Gtk.rc_parse_string('''
     style "progress-button" {
         GtkToggleButton::default-border = {0, 0, 0, 0}
         GtkToggleButton::default-outside-border = {0, 0, 0, 0}
         GtkToggleButton::inner-border = {0, 0, 0, 0}
     }
     widget "*.progressbutton" style "progress-button"
-'''
-)
+''')
 
 
 class ProgressButtonControl(PlaylistButtonControl):

@@ -44,7 +44,6 @@ from xlgui.widgets import dialogs
 
 from . import gt_widgets
 
-
 group_categories_option = 'plugin/grouptagger/group_categories'
 migrated_option = 'plugin/grouptagger/0.2_migration'
 tagname_option = 'plugin/grouptagger/tagname'

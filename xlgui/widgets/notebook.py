@@ -41,8 +41,7 @@ from xlgui.widgets import menu
 
 # Custom tab style; fixes some Adwaita ugliness
 TAB_CSS = Gtk.CssProvider()
-TAB_CSS.load_from_data(
-    b'''
+TAB_CSS.load_from_data(b'''
     /* Most themes don't handle vertical notebooks well,
         so we override everything. */
     notebook.vertical tab {
@@ -64,8 +63,7 @@ TAB_CSS.load_from_data(
         margin-top: -1px;
         margin-bottom: -1px;
     }
-    '''
-)
+    ''')
 
 
 def apply_css(widget):

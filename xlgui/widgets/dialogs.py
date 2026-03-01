@@ -503,7 +503,7 @@ class ListDialog(Gtk.Dialog):
         check = self.selection.get_selected_rows()
         if not check:
             return None
-        (model, paths) = check
+        model, paths = check
 
         for path in paths:
             iter = self.model.get_iter(path)
@@ -603,7 +603,7 @@ class ListBox:
         Returns the selection
         """
         selection = self.list.get_selection()
-        (model, iter) = selection.get_selected()
+        model, iter = selection.get_selected()
         if not iter:
             return None
         return model.get_value(iter, 0)

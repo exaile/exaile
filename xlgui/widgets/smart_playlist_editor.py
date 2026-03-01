@@ -325,7 +325,7 @@ class SmartPlaylistEditor:
         state = []
 
         for param in params:
-            (field, op, value) = param
+            field, op, value = param
             rev_field = _REV_NMAP[field]
 
             # because there are duplicates in _TRANS, cannot create a reverse
@@ -403,7 +403,7 @@ class SmartPlaylistEditor:
             pl.set_sort_tags(*sort_tags)
 
             for item in state:
-                (field, op) = item[0]
+                field, op = item[0]
                 value = item[1]
                 pl.add_param(_NMAP[field], _TRANS[op], value)
 

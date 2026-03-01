@@ -46,7 +46,6 @@ import weakref
 
 from gi.repository import Gio, GLib, GObject
 
-
 logger = logging.getLogger(__name__)
 
 _T = TypeVar("_T")

@@ -84,11 +84,8 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'), post_url=None):
         next_allowed_hs = LAST_HS + timedelta(seconds=HS_DELAY)
         if datetime.now() < next_allowed_hs:
             delta = next_allowed_hs - datetime.now()
-            raise ProtocolError(
-                """Please wait another %d seconds until next handshake
-(login) attempt."""
-                % delta.seconds
-            )
+            raise ProtocolError("""Please wait another %d seconds until next handshake
+(login) attempt.""" % delta.seconds)
 
     LAST_HS = datetime.now()
 
@@ -124,16 +121,12 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'), post_url=None):
         raise AuthError('Bad username/password')
 
     elif lines[0] == 'BANNED':
-        raise Exception(
-            '''This client-version was banned by Audioscrobbler. Please
-contact the author of this module!'''
-        )
+        raise Exception('''This client-version was banned by Audioscrobbler. Please
+contact the author of this module!''')
 
     elif lines[0] == 'BADTIME':
-        raise ValueError(
-            '''Your system time is out of sync with Audioscrobbler.
-Consider using an NTP-client to keep you system time in sync.'''
-        )
+        raise ValueError('''Your system time is out of sync with Audioscrobbler.
+Consider using an NTP-client to keep you system time in sync.''')
 
     elif lines[0].startswith('FAILED'):
         handle_hard_error()
@@ -309,23 +302,16 @@ def submit(
     rating = rating.upper()
 
     if source == 'L' and (rating == 'B' or rating == 'S'):
-        raise ProtocolError(
-            """You can only use rating 'B' or 'S' on source 'L'.
-    See the docs!"""
-        )
+        raise ProtocolError("""You can only use rating 'B' or 'S' on source 'L'.
+    See the docs!""")
 
     if source == 'P' and length == '':
-        raise ProtocolError(
-            """Song length must be specified when using 'P' as
-    source!"""
-        )
+        raise ProtocolError("""Song length must be specified when using 'P' as
+    source!""")
 
     if not isinstance(time, type(1)):
-        raise ValueError(
-            """The time parameter must be of type int (unix
-    timestamp). Instead it was %s"""
-            % time
-        )
+        raise ValueError("""The time parameter must be of type int (unix
+    timestamp). Instead it was %s""" % time)
 
     album = album or ''
 
@@ -356,10 +342,8 @@ def flush(inner_call=False):
     global SUBMIT_CACHE, __LOGIN, MAX_SUBMIT, POST_URL, INITIAL_URL
 
     if POST_URL is None:
-        raise ProtocolError(
-            '''Cannot submit without having a valid post-URL. Did
-you login?'''
-        )
+        raise ProtocolError('''Cannot submit without having a valid post-URL. Did
+you login?''')
 
     values = {}
 

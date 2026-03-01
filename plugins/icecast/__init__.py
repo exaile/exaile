@@ -15,7 +15,6 @@ from xl.radio import RadioStation, RadioList, RadioItem
 from xl.nls import gettext as _
 from xlgui.widgets import dialogs
 
-
 logger = logging.getLogger(__name__)
 STATION = None
 

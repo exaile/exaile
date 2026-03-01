@@ -1588,7 +1588,7 @@ class Playlist:
         """
         Get (start, end, step) tuple from slice object.
         """
-        (start, end, step) = i.indices(len(self))
+        start, end, step = i.indices(len(self))
         if i.step is None:
             step = 1
         return (start, end, step)
@@ -1617,7 +1617,7 @@ class Playlist:
                 if not isinstance(x, trax.Track):
                     raise ValueError("Need trax.Track object, got %r" % type(x))
 
-            (start, end, step) = self.__tuple_from_slice(i)
+            start, end, step = self.__tuple_from_slice(i)
 
             if isinstance(value, MetadataList):
                 metadata = value.metadata
@@ -1654,7 +1654,7 @@ class Playlist:
 
     def __delitem__(self, i):
         if isinstance(i, slice):
-            (start, end, step) = self.__tuple_from_slice(i)
+            start, end, step = self.__tuple_from_slice(i)
         oldtracks = self.__getitem__(i)
         oldpos = self.current_position
         self.__tracks.__delitem__(i)
@@ -1960,7 +1960,7 @@ class SmartPlaylist:
             if isinstance(param, str):
                 params += [param]
                 continue
-            (field, op, value) = param
+            field, op, value = param
             fieldtype = tag_data.get(field)
             if fieldtype is not None:
                 fieldtype = fieldtype.type

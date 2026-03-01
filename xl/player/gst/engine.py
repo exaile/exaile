@@ -47,7 +47,6 @@ from xl.player.engine import ExaileEngine
 from xl.player.track_fader import TrackFader
 from xl.player.gst import missing_plugin
 
-
 logger = logging.getLogger(__name__)
 
 

@@ -6,7 +6,6 @@ from xl import player, event
 from xl import settings as xl_settings
 from . import acprefs
 
-
 LOGGER = logging.getLogger(__name__)
 
 

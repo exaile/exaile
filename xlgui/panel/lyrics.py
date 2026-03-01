@@ -185,7 +185,7 @@ class LyricsPanel(panel.Panel):
         source = ""
         url = ""
         if self.__lyrics_found:
-            (index, selected_method) = self.__lyrics_methods_combo.get_active_item()
+            index, selected_method = self.__lyrics_methods_combo.get_active_item()
             for name, i_lyrics, i_source, i_url in self.__lyrics_found:
                 if name == selected_method or index == 0:
                     lyrics, source, url = i_lyrics, i_source, i_url

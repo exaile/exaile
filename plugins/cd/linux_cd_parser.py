@@ -20,7 +20,6 @@ import struct
 
 from xl.trax import Track
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -36,7 +35,7 @@ def read_cd_index(device):
     toc_entries = []
     fd = os.open(device, os.O_RDONLY)
     try:
-        (start, end) = __read_toc_header(fd)
+        start, end = __read_toc_header(fd)
         mcn = __read_disc_mcn(fd)
 
         # index of the end, i.e. the last toc entry which is an empty dummy
@@ -151,7 +150,7 @@ def parse_tracks(toc_entries, mcn, device):
     real_track_count = len(toc_entries) - 1  # ignore the empty dummy track at the end
     tracks = []
     for toc_entry_index in range(0, real_track_count):
-        (track_index, is_data_track, _, _, _) = toc_entries[toc_entry_index]
+        track_index, is_data_track, _, _, _ = toc_entries[toc_entry_index]
         if is_data_track:
             continue
         if track_index is not toc_entry_index + 1:
@@ -182,8 +181,8 @@ def parse_tracks(toc_entries, mcn, device):
 
 def __calculate_track_length(current_track, next_track):
     """Calculate length of a single track from its data and the data of the following track"""
-    (_, _, begin_minute, begin_second, begin_frame) = current_track
-    (_, _, end_minute, end_second, end_frame) = next_track
+    _, _, begin_minute, begin_second, begin_frame = current_track
+    _, _, end_minute, end_second, end_frame = next_track
 
     length_minutes = end_minute - begin_minute
     length_seconds = end_second - begin_second

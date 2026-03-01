@@ -65,7 +65,7 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
         """
         # TODO: handle multi-valued fields better
         try:
-            (artist, album, title) = (
+            artist, album, title = (
                 track.get_tag_raw('artist')[0],
                 track.get_tag_raw('album')[0],
                 track.get_tag_raw('title')[0],

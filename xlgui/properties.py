@@ -362,14 +362,14 @@ class TrackPropertiesDialog(GObject.Object):
                 grid.remove_row(i)
 
     def _save_position(self):
-        (width, height) = self.dialog.get_size()
+        width, height = self.dialog.get_size()
         if [width, height] != [
             settings.get_option('gui/trackprop_' + key, -1)
             for key in ['width', 'height']
         ]:
             settings.set_option('gui/trackprop_height', height, save=False)
             settings.set_option('gui/trackprop_width', width, save=False)
-        (x, y) = self.dialog.get_position()
+        x, y = self.dialog.get_position()
         if [x, y] != [
             settings.get_option('gui/trackprop_' + key, -1) for key in ['x', 'y']
         ]:

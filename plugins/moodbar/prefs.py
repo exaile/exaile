@@ -20,7 +20,6 @@ import os
 from xl.nls import gettext as _
 from xlgui.preferences import widgets
 
-
 PLUGINDIR = os.path.dirname(os.path.realpath(__file__))
 
 name = _('Moodbar')

@@ -61,7 +61,7 @@ class LVPanel:
 
     @common.threaded
     def run_search(self, widget):
-        (c_id, msg_id) = self.statusbar.set_status('Searching...')
+        c_id, msg_id = self.statusbar.set_status('Searching...')
         self.keyword = self.entry.get_text()
         self.books = LS.find_books(self.keyword, self._user_agent)
         self.generate_treestore(self.books)
@@ -269,7 +269,7 @@ class LVPanel:
 
                 current_playlist_tv = current_playlist.list
 
-                (x, y) = current_playlist_tv.get_pointer()
+                x, y = current_playlist_tv.get_pointer()
                 rect = current_playlist_tv.get_allocation()
                 if x < 0 or x > rect.width or y < 0 or y > rect.height:
                     # dropping not in main playlist
@@ -354,7 +354,7 @@ class LVPanel:
             self.aboutwindow.win.present()
 
     def get_all(self, row):
-        (c_id, msg_id) = self.statusbar.set_status('Loading...')
+        c_id, msg_id = self.statusbar.set_status('Loading...')
         self.books[row].is_loading = True
         self.books[row].get_all()
         self.done_getting_chapters(row)

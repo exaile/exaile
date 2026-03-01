@@ -25,7 +25,6 @@ from gi.repository import Gtk, Pango, PangoCairo
 
 from . import painter
 
-
 Extents = collections.namedtuple(
     'Extents', 'x_bearing y_bearing width height x_advance y_advance'
 )

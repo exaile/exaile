@@ -26,7 +26,6 @@ from xl import event, providers
 from xlgui import main
 from xlgui.widgets import notebook
 
-
 EXAILE = None
 
 

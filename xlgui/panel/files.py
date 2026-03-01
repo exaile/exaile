@@ -38,7 +38,6 @@ from xlgui import guiutil, icons, panel, xdg
 from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
 
-
 logger = logging.getLogger(__name__)
 
 

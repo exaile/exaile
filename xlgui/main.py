@@ -1123,13 +1123,13 @@ class MainWindow(GObject.Object):
         if settings.get_option('gui/mainw_maximized', False) or self._fullscreen:
             return False
 
-        (width, height) = self.window.get_size()
+        width, height = self.window.get_size()
         if [width, height] != [
             settings.get_option("gui/mainw_" + key, -1) for key in ["width", "height"]
         ]:
             settings.set_option('gui/mainw_height', height, save=False)
             settings.set_option('gui/mainw_width', width, save=False)
-        (x, y) = self.window.get_position()
+        x, y = self.window.get_position()
         if [x, y] != [
             settings.get_option("gui/mainw_" + key, -1) for key in ["x", "y"]
         ]:

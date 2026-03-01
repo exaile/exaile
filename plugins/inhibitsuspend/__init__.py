@@ -82,10 +82,8 @@ class SuspendInhibit:
             self.adapter = SwayAdapter()
         # TODO implement for LXDE, X-Cinnamon, Unity; systemd-inhibit
         elif session == '' and xdg_session == '':
-            logger.warning(
-                'Could not detect Desktop Session, will try default \
-                    Power Manager then Gnome'
-            )
+            logger.warning('Could not detect Desktop Session, will try default \
+                    Power Manager then Gnome')
             try:
                 self.adapter = PowerManagerAdapter()
             except EnvironmentError:

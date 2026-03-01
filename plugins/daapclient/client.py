@@ -4,7 +4,6 @@ from io import BytesIO
 
 from spydaap.daap import DAAPError, DAAPObject, DAAPParseCodeTypes
 
-
 log = logging.getLogger('daapclient')
 
 

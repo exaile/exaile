@@ -320,13 +320,13 @@ class CollectionPanel(panel.Panel):
             return True
 
         if event.keyval == Gdk.KEY_Left:
-            (mods, paths) = self.tree.get_selection().get_selected_rows()
+            mods, paths = self.tree.get_selection().get_selected_rows()
             for path in paths:
                 self.tree.collapse_row(path)
             return True
 
         if event.keyval == Gdk.KEY_Right:
-            (mods, paths) = self.tree.get_selection().get_selected_rows()
+            mods, paths = self.tree.get_selection().get_selected_rows()
             for path in paths:
                 self.tree.expand_row(path, False)
             return True
@@ -456,7 +456,7 @@ class CollectionPanel(panel.Panel):
         Called when the user clicks on the tree
         """
         # selection = self.tree.get_selection()
-        (x, y) = [int(v) for v in event.get_coords()]
+        x, y = [int(v) for v in event.get_coords()]
         # path = self.tree.get_path_at_pos(x, y)
         if event.type == Gdk.EventType._2BUTTON_PRESS:
             replace = settings.get_option('playlist/replace_content', False)

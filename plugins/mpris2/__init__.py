@@ -30,7 +30,6 @@ from gi.repository import Gio
 from . import dbushelper
 from . import mprisobject
 
-
 # MPRIS 2.2 partial introspection data.
 # This contains some Exaile-specific optimizations, e.g. Rate is marked as
 # const because Exaile cannot change playback rate.

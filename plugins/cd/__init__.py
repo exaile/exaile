@@ -42,7 +42,6 @@ from xl.trax import Track
 from . import cdprefs, _cdguipanel
 from sys import exc_info
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -191,7 +190,7 @@ class CDPlaylist(playlist.Playlist):
 
         if sys.platform.startswith('linux'):
             try:
-                (toc_entries, mcn) = linux_cd_parser.read_cd_index(device)
+                toc_entries, mcn = linux_cd_parser.read_cd_index(device)
                 GLib.idle_add(self.__apply_disc_index, None, toc_entries, mcn)
                 return
             except Exception:
@@ -250,7 +249,7 @@ class CDPlaylist(playlist.Playlist):
         )
         # TODO: progress: finished
         if metadata is not None:
-            (tracks, title) = metadata
+            tracks, title = metadata
             logger.info('Finished getting disc metadata. Disc title: %s', title)
             event.log_event('cd_info_retrieved', self, title)
             self.name = title

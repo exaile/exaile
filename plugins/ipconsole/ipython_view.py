@@ -59,7 +59,6 @@ from gi.repository import Pango
 
 import IPython
 
-
 IPYTHON_VERSION = int(IPython.__version__.split('.', 1)[0])
 
 
@@ -221,7 +220,7 @@ class IterableIPShell:
         else:
             if self.no_input_splitter:
                 self.lines.append(line)
-                (status, self.indent_spaces) = self.IP.check_complete(
+                status, self.indent_spaces = self.IP.check_complete(
                     '\n'.join(self.lines)
                 )
                 self.iter_more = status == 'incomplete'

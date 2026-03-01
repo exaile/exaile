@@ -32,7 +32,6 @@ import xlgui
 from xlgui.guiutil import pixbuf_from_data
 from xlgui.widgets import dialogs, menu
 
-
 LOGGER = logging.getLogger(__name__)
 
 

@@ -31,7 +31,6 @@ from xl import main
 
 from xl.covers import MANAGER as CoverManager
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -164,7 +163,7 @@ def __parse_musicbrainz_disc_data(disc_data, disc_id, tracks):
     if len(suitable_releases) < 1:
         return None
 
-    (release, medium) = __choose_release_and_medium(suitable_releases)
+    release, medium = __choose_release_and_medium(suitable_releases)
     return __parse_medium_from_disc_data(release, medium, tracks)
 
 

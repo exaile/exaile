@@ -32,7 +32,6 @@ from xl import providers, settings
 from xlgui.widgets import menu, notebook
 from xlgui.panel import lyrics
 
-
 logger = logging.getLogger(__name__)
 
 

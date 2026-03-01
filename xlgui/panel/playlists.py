@@ -123,7 +123,7 @@ class BasePlaylistPanelMixin(GObject.Object):
                     del self.playlist_nodes[selected_playlist]
                 # Remove from UI.
                 selection = self.tree.get_selection()
-                (model, iter) = selection.get_selected()
+                model, iter = selection.get_selected()
                 self.model.remove(iter)
             del self.deletion_dialogs[selected_playlist]
             dialog.destroy()
@@ -170,7 +170,7 @@ class BasePlaylistPanelMixin(GObject.Object):
             return
 
         selection = self.tree.get_selection()
-        (model, iter) = selection.get_selected()
+        model, iter = selection.get_selected()
         model.set_value(iter, 1, name)
 
         # Update the manager as well
@@ -178,7 +178,7 @@ class BasePlaylistPanelMixin(GObject.Object):
 
     def open_selected_playlist(self):
         selection = self.tree.get_selection()
-        (model, iter) = selection.get_selected()
+        model, iter = selection.get_selected()
         self.open_item(self.tree, model.get_path(iter), None)
 
     def on_rating_changed(self, widget, rating):
@@ -361,7 +361,7 @@ class BasePlaylistPanelMixin(GObject.Object):
         and saves the playlist
         """
         selection = self.tree.get_selection()
-        (model, iter) = selection.get_selected()
+        model, iter = selection.get_selected()
         track = model.get_value(iter, 2)
         if isinstance(track, TrackWrapper):
             del track.playlist[track.playlist.index(track.track)]
@@ -696,7 +696,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
             # Add the tracks we found to the internal playlist
             # TODO: have it pass in existing tracks?
-            (tracks, playlists) = self.tree.get_drag_data(locs)
+            tracks, playlists = self.tree.get_drag_data(locs)
 
             if insert_index is not None:
                 current_playlist[insert_index:insert_index] = tracks
@@ -715,7 +715,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
             # We don't want the tracks in the playlists to be added to the
             # master tracks list so we pass in False
-            (tracks, playlists) = self.tree.get_drag_data(locs, False)
+            tracks, playlists = self.tree.get_drag_data(locs, False)
             # First see if they dragged any playlist files
             for new_playlist in playlists:
                 # We are adding a completely new playlist with tracks so
@@ -835,7 +835,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         Called when a key is released in the tree
         """
         if event.keyval == Gdk.KEY_Menu:
-            (mods, paths) = self.tree.get_selection().get_selected_rows()
+            mods, paths = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 iter = self.model.get_iter(paths[0])
                 pl = self.model.get_value(iter, 2)
@@ -860,19 +860,19 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             return True
 
         if event.keyval == Gdk.KEY_Left:
-            (mods, paths) = self.tree.get_selection().get_selected_rows()
+            mods, paths = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 self.tree.collapse_row(paths[0])
             return True
 
         if event.keyval == Gdk.KEY_Right:
-            (mods, paths) = self.tree.get_selection().get_selected_rows()
+            mods, paths = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 self.tree.expand_row(paths[0], False)
             return True
 
         if event.keyval == Gdk.KEY_Delete:
-            (mods, paths) = self.tree.get_selection().get_selected_rows()
+            mods, paths = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 iter = self.model.get_iter(paths[0])
                 pl = self.model.get_value(iter, 2)
@@ -958,7 +958,7 @@ class PlaylistDragTreeView(DragTreeView):
             return None
 
     def get_selected_item(self, raw=False):
-        (model, iter) = self.get_selection().get_selected()
+        model, iter = self.get_selection().get_selected()
 
         if not iter:
             return None

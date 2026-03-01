@@ -66,7 +66,7 @@ class ManagerDialog(Gtk.Window):
 
     def _get_selected_devices(self):
         sel = self.tree_devices.get_selection()
-        (model, paths) = sel.get_selected_rows()
+        model, paths = sel.get_selected_rows()
         devices = []
         for path in paths:
             iter = self.model.get_iter(path)

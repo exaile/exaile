@@ -35,7 +35,6 @@ from xlgui import main
 from .client import DAAPClient
 from . import daapclientprefs
 
-
 logger = logging.getLogger(__name__)
 
 _smi = menu.simple_menu_item
@@ -544,10 +543,8 @@ class DaapConnection:
                         buttons=Gtk.ButtonsType.OK,
                         message_type=Gtk.MessageType.INFO,
                         modal=True,
-                        text=_(
-                            """This server does not support multiple connections.
-You must stop playback before downloading songs."""
-                        ),
+                        text=_("""This server does not support multiple connections.
+You must stop playback before downloading songs."""),
                         transient_for=main.mainwindow().window,
                     )
                     return

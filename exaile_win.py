@@ -2,13 +2,11 @@
 
 """Launcher for Exaile on Windows"""
 
-
 import builtins
 import msvcrt
 import sys
 import os
 from ctypes import windll
-
 
 # Provide dummy sys.stdout and sys.stderr, which are None in noconsole/windowed
 # mode (launched using pythonw.exe, or PyInstaller build).

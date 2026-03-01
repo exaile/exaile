@@ -48,7 +48,7 @@ class LyricsMania(LyricSearchMethod):
 
     def find_lyrics(self, track):
         try:
-            (artist, title) = (
+            artist, title = (
                 track.get_tag_raw('artist')[0],
                 track.get_tag_raw('title')[0],
             )

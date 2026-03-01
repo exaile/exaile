@@ -125,7 +125,7 @@ class eco_prefs:
         if result != Gtk.ResponseType.OK:
             return
 
-        (name, levels, display) = dialog.get_values()
+        name, levels, display = dialog.get_values()
 
         order['name'] = name
         order['levels'] = levels

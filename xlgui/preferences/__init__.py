@@ -183,7 +183,7 @@ class PreferencesDialog:
         """
         Switches a pane
         """
-        (model, iter) = selection.get_selected()
+        model, iter = selection.get_selected()
         if not iter:
             return
         page = self.model.get_value(iter, 0)

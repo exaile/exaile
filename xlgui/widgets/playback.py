@@ -489,15 +489,13 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
     """
 
     CSS = Gtk.CssProvider()
-    CSS.load_from_data(
-        b'''
+    CSS.load_from_data(b'''
         /* Make the text easier to read on Adwaita */
         progressbar {
             color: unset;
             font-size: unset;
         }
-        '''
-    )
+        ''')
 
     __gproperties__ = {
         'marker-scale': (
@@ -1412,7 +1410,7 @@ class VolumeControl(Gtk.Box):
 
     __gtype_name__ = 'VolumeControl'
 
-    (button, slider, button_image, slider_adjustment) = GtkTemplate.Child.widgets(4)
+    button, slider, button_image, slider_adjustment = GtkTemplate.Child.widgets(4)
 
     def __init__(self, player):
         Gtk.Box.__init__(self)

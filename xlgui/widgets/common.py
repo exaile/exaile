@@ -493,7 +493,7 @@ class DragTreeView(AutoScrollTreeView):
         trs = []
         playlists = []
         for loc in locs:
-            (found_tracks, found_playlist) = self._handle_unknown_drag_data(loc)
+            found_tracks, found_playlist = self._handle_unknown_drag_data(loc)
             trs.extend(found_tracks)
             playlists.extend(found_playlist)
 

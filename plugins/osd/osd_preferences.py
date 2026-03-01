@@ -20,7 +20,6 @@ import sys
 from xl.nls import gettext as _
 from xlgui.preferences import widgets
 
-
 name = _('On Screen Display')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "osd_preferences.ui")

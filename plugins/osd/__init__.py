@@ -30,7 +30,6 @@ from xlgui import guiutil
 
 from . import osd_preferences
 
-
 LOGGER = logging.getLogger(__name__)
 
 

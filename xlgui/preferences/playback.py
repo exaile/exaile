@@ -118,7 +118,7 @@ class SelectDeviceForSinkPreference(widgets.ComboPreference, widgets.MultiCondit
         self.set_widget_sensitive(True)
 
     def on_condition_failed(self):
-        if self.get_condition_value() == 'custom':
+        if self.get_condition_value('player/audiosink') == 'custom':
             self.hide_widget()
         else:
             self.show_widget()

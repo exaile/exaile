@@ -71,9 +71,8 @@ class DesktopCoverPlugin:
 
             settings.set_option('plugin/desktopcover/anchor', gravity)
 
-
-def get_preferences_pane():
-    return desktopcover_preferences
+    def get_preferences_pane(self):
+        return desktopcover_preferences
 
 
 plugin_class = DesktopCoverPlugin

@@ -81,10 +81,22 @@ SINK_PRESETS = {
 
 
 def __filter_presets():
+    """Remove items in SINK_PRESETS that cannot be created."""
     for name, preset in list(SINK_PRESETS.items()):
         pipe = preset.get('pipe')
-        if pipe and not Gst.ElementFactory.make(pipe):
-            del SINK_PRESETS[name]
+        if not pipe:
+            continue  # No 'pipe' means this is auto or custom
+        # In GStreamer < 1.28, Gst.ElementFactory.make always returns None when
+        # the element can't be created.
+        # In GStreamer >= 1.28, it can either return None or raise a custom
+        # exception depending on whether the Gst Python override is installed.
+        # See <https://gitlab.freedesktop.org/gstreamer/gstreamer/-/issues/4914>.
+        try:
+            if Gst.ElementFactory.make(pipe):
+                continue
+        except Exception:
+            pass
+        del SINK_PRESETS[name]
 
 
 __filter_presets()

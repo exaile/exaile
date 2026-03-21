@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-13 01:14+1100\n"
+"POT-Creation-Date: 2026-03-21 14:03+1100\n"
 "PO-Revision-Date: 2015-03-04 14:40+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/exaile/master/sk/"
@@ -103,7 +103,7 @@ msgid "%d:%02d"
 msgstr "%d:%02d"
 
 #: ../xl/formatter.py:730 ../xl/main.py:809 ../xl/trax/track.py:72
-#: ../plugins/icecast/__init__.py:171
+#: ../plugins/icecast/__init__.py:170
 msgid "Unknown"
 msgstr "Neznámy"
 
@@ -423,14 +423,6 @@ msgstr "Náhodné %d"
 msgid "Rating > %d"
 msgstr "Hodnotenie > %d"
 
-#: ../xl/main.py:1014
-msgid ""
-"Exaile is not yet finished loading. Perhaps you should listen for the "
-"exaile_loaded signal?"
-msgstr ""
-"Exaile ešte nedokončil nahrávanie. Chceli by ste si vypočuť exaile_loaded "
-"signál?"
-
 #: ../xl/metadata/tags.py:45 ../xlgui/panel/collection.py:130
 #: ../xlgui/widgets/playlist_columns.py:321 ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/minimode_preferences.py:109
@@ -564,7 +556,7 @@ msgid "Website"
 msgstr "Webstránka"
 
 #: ../xl/metadata/tags.py:78 ../xlgui/widgets/playlist_columns.py:427
-#: ../plugins/cd/cdprefs.py:122 ../plugins/icecast/__init__.py:380
+#: ../plugins/cd/cdprefs.py:122 ../plugins/icecast/__init__.py:379
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "Bitrate"
 msgstr "Dátový tok"
@@ -612,7 +604,7 @@ msgstr "Posun X:"
 msgid "Stop offset"
 msgstr "Posun X:"
 
-#: ../xl/player/gst/engine.py:717
+#: ../xl/player/gst/engine.py:716
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ""
 
@@ -624,7 +616,7 @@ msgid ""
 "required software on your computer. See %s for details."
 msgstr ""
 
-#: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:153
+#: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:165
 msgid "Automatic"
 msgstr "Automaticky"
 
@@ -632,26 +624,26 @@ msgstr "Automaticky"
 msgid "Custom"
 msgstr "Voliteľné"
 
-#: ../xl/player/gst/sink.py:192
+#: ../xl/player/gst/sink.py:204
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:198
+#: ../xl/player/gst/sink.py:210
 msgid "No custom pipeline specified!"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:203
+#: ../xl/player/gst/sink.py:215
 #, python-format
 msgid "Error creating custom audiosink '%s'"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:209
+#: ../xl/player/gst/sink.py:221
 #, python-format
 msgid "Invalid sink type '%s' specified"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:213
+#: ../xl/player/gst/sink.py:225
 #, python-format
 msgid "Could not create sink type '%s'"
 msgstr ""
@@ -1246,22 +1238,22 @@ msgstr "Preskenovať kolekciu"
 msgid "Transferring to %s..."
 msgstr "Prenos do %s..."
 
-#: ../xlgui/panel/files.py:82
+#: ../xlgui/panel/files.py:81
 msgid "Files"
 msgstr "Súbory"
 
-#: ../xlgui/panel/files.py:122 ../xlgui/widgets/playlist_columns.py:447
+#: ../xlgui/panel/files.py:121 ../xlgui/widgets/playlist_columns.py:447
 #: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:117
 msgid "Filename"
 msgstr "Názov súboru"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:146
+#: ../xlgui/panel/files.py:145
 msgid "Size"
 msgstr "Veľkosť"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:459
+#: ../xlgui/panel/files.py:458
 #, python-format
 msgid "%s kB"
 msgstr ""
@@ -1389,7 +1381,7 @@ msgstr "Zadajte názov pre váš nový zoznam skladieb"
 msgid "New Playlist"
 msgstr "Nový zoznam skladieb"
 
-#: ../xlgui/panels.py:98
+#: ../xlgui/panels.py:97
 msgid "P_anels"
 msgstr ""
 
@@ -1481,7 +1473,7 @@ msgstr "Prezerač textov skladieb"
 msgid "Playback"
 msgstr "Prehrávanie"
 
-#: ../xlgui/preferences/plugin.py:119 ../plugins/grouptagger/gt_common.py:59
+#: ../xlgui/preferences/plugin.py:119 ../plugins/grouptagger/gt_common.py:58
 #: ../plugins/grouptagger/gt_widgets.py:60
 msgid "Uncategorized"
 msgstr ""
@@ -1872,70 +1864,70 @@ msgstr "Podporované súbory"
 msgid "_Delete Playlist"
 msgstr "Odstrániť zoznam skladieb"
 
-#: ../xlgui/widgets/notebook.py:254
+#: ../xlgui/widgets/notebook.py:252
 msgid "Close Tab"
 msgstr "Zavrieť kartu"
 
-#: ../xlgui/widgets/playback.py:830
+#: ../xlgui/widgets/playback.py:828
 #, python-format
 msgid "Seeking: %s"
 msgstr "Hľadanie: %s"
 
-#: ../xlgui/widgets/playback.py:1180
+#: ../xlgui/widgets/playback.py:1178
 msgid "Move"
 msgstr "Presunúť"
 
-#: ../xlgui/widgets/playback.py:1325
+#: ../xlgui/widgets/playback.py:1323
 msgid "New Marker"
 msgstr "Nový popisovač"
 
-#: ../xlgui/widgets/playback.py:1384
+#: ../xlgui/widgets/playback.py:1382
 msgid "_Jump to"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1392
+#: ../xlgui/widgets/playback.py:1390
 #, fuzzy
 #| msgid "_Remove tag"
 msgid "_Remove Marker"
 msgstr "_Odstrániť tag"
 
-#: ../xlgui/widgets/playback.py:1435
+#: ../xlgui/widgets/playback.py:1433
 msgid "Muted"
 msgstr "Stlmený"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1441
+#: ../xlgui/widgets/playback.py:1439
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/widgets/playback.py:1446
+#: ../xlgui/widgets/playback.py:1444
 msgid "Full Volume"
 msgstr "Hlasitosť naplno"
 
-#: ../xlgui/widgets/playback.py:1565
+#: ../xlgui/widgets/playback.py:1563
 #, fuzzy
 #| msgid "Pause"
 msgid "_Pause"
 msgstr "Pauza"
 
-#: ../xlgui/widgets/playback.py:1568
+#: ../xlgui/widgets/playback.py:1566
 msgid "P_lay"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1580
+#: ../xlgui/widgets/playback.py:1578
 #, fuzzy
 #| msgid "Next Track"
 msgid "_Next Track"
 msgstr "Ďalšia skladba"
 
-#: ../xlgui/widgets/playback.py:1590
+#: ../xlgui/widgets/playback.py:1588
 #, fuzzy
 #| msgid "Previous Track"
 msgid "_Previous Track"
 msgstr "Predchádzajúca skladba"
 
-#: ../xlgui/widgets/playback.py:1600 ../data/ui/covermanager.ui:132
+#: ../xlgui/widgets/playback.py:1598 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
 #, fuzzy
 #| msgid "Stop"
@@ -2431,7 +2423,7 @@ msgid "Clear search field"
 msgstr "Vyčistiť políčko vyhľadávania"
 
 #: ../data/ui/panel/collection.ui:131 ../data/ui/panel/files.ui:171
-#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:334
+#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:333
 msgid "Search"
 msgstr "Hľadať"
 
@@ -3139,25 +3131,25 @@ msgstr ""
 msgid "Please make sure the entered data is correct."
 msgstr ""
 
-#: ../plugins/bookmarks/__init__.py:209
+#: ../plugins/bookmarks/__init__.py:208
 #, fuzzy
 #| msgid "Bookmark This Track"
 msgid "_Bookmark This Track"
 msgstr "Vytvoriť záložku na tejto skladbe"
 
-#: ../plugins/bookmarks/__init__.py:215
+#: ../plugins/bookmarks/__init__.py:214
 #, fuzzy
 #| msgid "Delete Bookmark"
 msgid "_Delete Bookmark"
 msgstr "Odstrániť záložku"
 
-#: ../plugins/bookmarks/__init__.py:219
+#: ../plugins/bookmarks/__init__.py:218
 #, fuzzy
 #| msgid "Clear Bookmarks"
 msgid "_Clear Bookmarks"
 msgstr "Vyčistiť záložky"
 
-#: ../plugins/bookmarks/__init__.py:333
+#: ../plugins/bookmarks/__init__.py:332
 #, fuzzy
 #| msgid "Bookmarks"
 msgid "_Bookmarks"
@@ -3182,25 +3174,25 @@ msgstr ""
 msgid "Update"
 msgstr "Aktualizácie"
 
-#: ../plugins/cd/__init__.py:164 ../plugins/cd/__init__.py:268
+#: ../plugins/cd/__init__.py:163 ../plugins/cd/__init__.py:267
 msgid "Audio Disc"
 msgstr "Zvukové CD"
 
-#: ../plugins/cd/_cdguipanel.py:97
+#: ../plugins/cd/_cdguipanel.py:96
 #, fuzzy
 #| msgid "Unknown"
 msgid "Unknown disc"
 msgstr "Neznámy"
 
-#: ../plugins/cd/_cdguipanel.py:113
+#: ../plugins/cd/_cdguipanel.py:112
 msgid "Importing CD..."
 msgstr "Importovanie CD..."
 
-#: ../plugins/cd/_cdguipanel.py:187
+#: ../plugins/cd/_cdguipanel.py:186
 msgid "Finished transcoding files"
 msgstr ""
 
-#: ../plugins/cd/_cdguipanel.py:192
+#: ../plugins/cd/_cdguipanel.py:191
 msgid "Error transcoding files from CD."
 msgstr ""
 
@@ -3258,25 +3250,25 @@ msgstr ""
 msgid "Display:"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:199
+#: ../plugins/daapclient/__init__.py:264 ../plugins/history/__init__.py:199
 #: ../plugins/history/__init__.py:247
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:272
+#: ../plugins/daapclient/__init__.py:271
 msgid "Manually..."
 msgstr "Manuálne..."
 
-#: ../plugins/daapclient/__init__.py:327
+#: ../plugins/daapclient/__init__.py:326
 msgid "Enter IP address and port for share"
 msgstr "Zadajte IP adresu a port pre zdieľanie"
 
-#: ../plugins/daapclient/__init__.py:327
+#: ../plugins/daapclient/__init__.py:326
 msgid "Enter IP address and port."
 msgstr "Zadajte IP adresu a port."
 
-#: ../plugins/daapclient/__init__.py:548
+#: ../plugins/daapclient/__init__.py:546
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -3284,19 +3276,19 @@ msgstr ""
 "Tento server nepodporuje viacero pripojení.\n"
 "Pred sťahovaním skladieb zastavte prehrávanie."
 
-#: ../plugins/daapclient/__init__.py:659
+#: ../plugins/daapclient/__init__.py:656
 msgid "Refresh Server List"
 msgstr "Obnoviť zoznam serverov"
 
-#: ../plugins/daapclient/__init__.py:667
+#: ../plugins/daapclient/__init__.py:664
 msgid "Disconnect from Server"
 msgstr "Odpojiť zo servera"
 
-#: ../plugins/daapclient/__init__.py:688
+#: ../plugins/daapclient/__init__.py:685
 msgid "Select a Location for Saving"
 msgstr "Vyberte umiestnenie pre uloženie"
 
-#: ../plugins/daapclient/__init__.py:741
+#: ../plugins/daapclient/__init__.py:738
 msgid "Connect to DAAP..."
 msgstr "Pripojiť k DAAP..."
 
@@ -3549,58 +3541,58 @@ msgstr ""
 msgid "_Clear History"
 msgstr "V_yčisti zoznam skladieb"
 
-#: ../plugins/icecast/__init__.py:135 ../plugins/icecast/__init__.py:231
-#: ../plugins/icecast/__init__.py:340
+#: ../plugins/icecast/__init__.py:134 ../plugins/icecast/__init__.py:230
+#: ../plugins/icecast/__init__.py:339
 #, fuzzy
 msgid "Contacting Icecast server..."
 msgstr "Kontaktovanie shoutcast servera..."
 
-#: ../plugins/icecast/__init__.py:144 ../plugins/icecast/__init__.py:147
-#: ../plugins/icecast/__init__.py:348 ../plugins/icecast/__init__.py:351
+#: ../plugins/icecast/__init__.py:143 ../plugins/icecast/__init__.py:146
+#: ../plugins/icecast/__init__.py:347 ../plugins/icecast/__init__.py:350
 #, fuzzy
 msgid "Error connecting to Icecast server."
 msgstr "Chyba pri kontaktovaní shoutcast servera."
 
-#: ../plugins/icecast/__init__.py:149
+#: ../plugins/icecast/__init__.py:148
 msgid "Parsing stations XML..."
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:161
+#: ../plugins/icecast/__init__.py:160
 #, fuzzy
 #| msgid "Retrieving song data..."
 msgid "Retrieving stations..."
 msgstr "Získavam údaje o piesni..."
 
-#: ../plugins/icecast/__init__.py:274
+#: ../plugins/icecast/__init__.py:273
 msgid "Enter the search keywords"
 msgstr "Vlož kľúčové slová vyhľadávania"
 
-#: ../plugins/icecast/__init__.py:274
+#: ../plugins/icecast/__init__.py:273
 #, fuzzy
 msgid "Icecast Search"
 msgstr "Vyhľadávanie shoutcastu"
 
-#: ../plugins/icecast/__init__.py:298
+#: ../plugins/icecast/__init__.py:297
 #, fuzzy
 msgid "No Stations Found"
 msgstr "Nová stanica"
 
-#: ../plugins/icecast/__init__.py:301
+#: ../plugins/icecast/__init__.py:300
 #, fuzzy
 msgid "Icecast Search Results"
 msgstr "Výsledky hľadania"
 
-#: ../plugins/icecast/__init__.py:353
+#: ../plugins/icecast/__init__.py:352
 msgid "Parsing genre list..."
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:374
+#: ../plugins/icecast/__init__.py:373
 #: ../plugins/developer/developer_window.ui:59
 #, fuzzy
 msgid "Name"
 msgstr "Názov:"
 
-#: ../plugins/icecast/__init__.py:390
+#: ../plugins/icecast/__init__.py:389
 #, fuzzy
 msgid "Format"
 msgstr "Bežný"
@@ -3623,7 +3615,7 @@ msgstr "IPython konzola"
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
 msgstr ""
 
-#: ../plugins/keybinder/__init__.py:50
+#: ../plugins/keybinder/__init__.py:49
 msgid ""
 "Keybinder is not supported on this platform! It is only supported on X "
 "servers."
@@ -3667,12 +3659,12 @@ msgid ""
 "<b><a href=\"{url}\">{url}</a></b>"
 msgstr ""
 
-#: ../plugins/mainmenubutton/__init__.py:60
+#: ../plugins/mainmenubutton/__init__.py:59
 msgid "This plugin needs at least one visible panel"
 msgstr ""
 
-#: ../plugins/mainmenubutton/__init__.py:80
-#: ../plugins/mainmenubutton/__init__.py:86
+#: ../plugins/mainmenubutton/__init__.py:79
+#: ../plugins/mainmenubutton/__init__.py:85
 msgid "Main Menu"
 msgstr ""
 
@@ -3781,19 +3773,19 @@ msgstr "Prístup k aktuálnemu zoznamu skladieb"
 msgid "$title ($current_time / $total_time)"
 msgstr "$title ($current_time / $total_time)"
 
-#: ../plugins/minimode/controls.py:1037
+#: ../plugins/minimode/controls.py:1035
 msgid "Progress button"
 msgstr "Tlačidlo priebehu"
 
-#: ../plugins/minimode/controls.py:1038
+#: ../plugins/minimode/controls.py:1036
 msgid "Playback progress and access to the current playlist"
 msgstr "Priebeh prehrávania a prístup k aktuálnemu zoznamu skladieb"
 
-#: ../plugins/minimode/controls.py:1112
+#: ../plugins/minimode/controls.py:1110
 msgid "Progress bar"
 msgstr "Ukazateľ priebehu"
 
-#: ../plugins/minimode/controls.py:1113
+#: ../plugins/minimode/controls.py:1111
 msgid "Playback progress and seeking"
 msgstr "Priebežne prehrávať a vyhľadávať"
 
@@ -3819,7 +3811,7 @@ msgstr ""
 msgid "{current} / {remaining}"
 msgstr ""
 
-#: ../plugins/moodbar/prefs.py:26 ../plugins/moodbar/PLUGININFO:3
+#: ../plugins/moodbar/prefs.py:25 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
 msgstr "Ukazovateľ nálady"
 
@@ -3828,18 +3820,18 @@ msgstr "Ukazovateľ nálady"
 msgid "Multi-Alarm Clock"
 msgstr "Multibudík"
 
-#: ../plugins/notify/__init__.py:48
+#: ../plugins/notify/__init__.py:46
 #, python-brace-format
 msgid "from {album} by {artist}"
 msgstr ""
 
-#: ../plugins/notify/__init__.py:49
+#: ../plugins/notify/__init__.py:47
 #, fuzzy, python-brace-format
 #| msgid "by %(artist)s"
 msgid "by {artist}"
 msgstr "od %(artist)s"
 
-#: ../plugins/notify/__init__.py:50
+#: ../plugins/notify/__init__.py:48
 #, fuzzy, python-brace-format
 #| msgid "from %(album)s"
 msgid "from {album}"
@@ -3849,19 +3841,19 @@ msgstr "z %(album)s"
 msgid "Notify"
 msgstr "Oznámiť"
 
-#: ../plugins/osd/__init__.py:357
+#: ../plugins/osd/__init__.py:356
 msgid "No track played yet"
 msgstr ""
 
-#: ../plugins/osd/__init__.py:397
+#: ../plugins/osd/__init__.py:396
 msgid "Move or resize OSD"
 msgstr ""
 
-#: ../plugins/osd/osd_preferences.py:24 ../plugins/osd/PLUGININFO:3
+#: ../plugins/osd/osd_preferences.py:23 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
 msgstr "OSD"
 
-#: ../plugins/osd/osd_preferences.py:72
+#: ../plugins/osd/osd_preferences.py:71
 msgid ""
 "<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
 "by $artist\n"
@@ -4100,7 +4092,7 @@ msgstr "Chyba pri spúšťaní Streamripper"
 msgid "Streamripper"
 msgstr "Streamripper"
 
-#: ../plugins/wikipedia/__init__.py:154 ../plugins/wikipedia/preferences.py:21
+#: ../plugins/wikipedia/__init__.py:150 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
 msgstr ""
@@ -4350,40 +4342,44 @@ msgid "Bottom right"
 msgstr "Vpravo dolu"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:61
+msgid "Note: Desktop Cover positioning is not supported on Wayland."
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui:74
 msgid "Anchor:"
 msgstr "Kotva:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:93
+#: ../plugins/desktopcover/desktopcover_preferences.ui:106
 msgid "X offset:"
 msgstr "Posun X:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:122
-#: ../plugins/desktopcover/desktopcover_preferences.ui:162
-#: ../plugins/desktopcover/desktopcover_preferences.ui:217
+#: ../plugins/desktopcover/desktopcover_preferences.ui:134
+#: ../plugins/desktopcover/desktopcover_preferences.ui:173
+#: ../plugins/desktopcover/desktopcover_preferences.ui:227
 msgid "pixels"
 msgstr "pixelov"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:135
+#: ../plugins/desktopcover/desktopcover_preferences.ui:147
 msgid "Y offset:"
 msgstr "Posun Y:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:172
+#: ../plugins/desktopcover/desktopcover_preferences.ui:183
 msgid "Override cover size"
 msgstr "Potlačiť veľkosť obalu"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:190
+#: ../plugins/desktopcover/desktopcover_preferences.ui:201
 msgid "Size:"
 msgstr "Veľkosť:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:227
+#: ../plugins/desktopcover/desktopcover_preferences.ui:237
 msgid "Use fading"
 msgstr "Použiť stíšenie"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:245
+#: ../plugins/desktopcover/desktopcover_preferences.ui:255
 msgid "Fading duration:"
 msgstr "Trvanie slabnutia:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:271
+#: ../plugins/desktopcover/desktopcover_preferences.ui:280
 msgid "ms"
 msgstr "ms"
 
@@ -5406,6 +5402,13 @@ msgstr ""
 #: ../data/exaile.appdata.xml.in:38
 msgid "The Exaile Team"
 msgstr ""
+
+#~ msgid ""
+#~ "Exaile is not yet finished loading. Perhaps you should listen for the "
+#~ "exaile_loaded signal?"
+#~ msgstr ""
+#~ "Exaile ešte nedokončil nahrávanie. Chceli by ste si vypočuť exaile_loaded "
+#~ "signál?"
 
 #, fuzzy
 #~| msgid "Repeat playback"

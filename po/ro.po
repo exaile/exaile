@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-13 01:14+1100\n"
+"POT-Creation-Date: 2026-03-21 14:03+1100\n"
 "PO-Revision-Date: 2025-11-13 18:51+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/exaile/master/"
@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : "
-"(n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
 "X-Generator: Weblate 5.15-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
@@ -104,7 +104,7 @@ msgid "%d:%02d"
 msgstr "%d:%02d"
 
 #: ../xl/formatter.py:730 ../xl/main.py:809 ../xl/trax/track.py:72
-#: ../plugins/icecast/__init__.py:171
+#: ../plugins/icecast/__init__.py:170
 msgid "Unknown"
 msgstr "Necunoscut"
 
@@ -416,14 +416,6 @@ msgstr "%d aleator"
 msgid "Rating > %d"
 msgstr "Apreciere > %d"
 
-#: ../xl/main.py:1014
-msgid ""
-"Exaile is not yet finished loading. Perhaps you should listen for the "
-"exaile_loaded signal?"
-msgstr ""
-"Exaile nu a terminat încă de încărcat. Poate ar trebui să ascultați semnalul "
-"exaile_loaded?"
-
 #: ../xl/metadata/tags.py:45 ../xlgui/panel/collection.py:130
 #: ../xlgui/widgets/playlist_columns.py:321 ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/minimode_preferences.py:109
@@ -555,7 +547,7 @@ msgid "Website"
 msgstr "Pagină web"
 
 #: ../xl/metadata/tags.py:78 ../xlgui/widgets/playlist_columns.py:427
-#: ../plugins/cd/cdprefs.py:122 ../plugins/icecast/__init__.py:380
+#: ../plugins/cd/cdprefs.py:122 ../plugins/icecast/__init__.py:379
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "Bitrate"
 msgstr "Rata de biți"
@@ -600,7 +592,7 @@ msgstr "Poziția de start"
 msgid "Stop offset"
 msgstr "Poziția de oprire"
 
-#: ../xl/player/gst/engine.py:717
+#: ../xl/player/gst/engine.py:716
 msgid ": Possible audio device error, is it plugged in?"
 msgstr "Posibilă eroare a dispozitivului audio, este conectat?"
 
@@ -615,7 +607,7 @@ msgstr ""
 "Exaile nu va putea reda fișierul curent. Vă rugăm să instalați software-ul "
 "necesar pe calculatorul dumneavoastră. Consultați %s pentru detalii."
 
-#: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:153
+#: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:165
 msgid "Automatic"
 msgstr "Automat"
 
@@ -623,26 +615,26 @@ msgstr "Automat"
 msgid "Custom"
 msgstr "Personalizat"
 
-#: ../xl/player/gst/sink.py:192
+#: ../xl/player/gst/sink.py:204
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
 msgstr "Nu s-a putut crea receptorul audio (dispozitiv: %s, tip: %s)"
 
-#: ../xl/player/gst/sink.py:198
+#: ../xl/player/gst/sink.py:210
 msgid "No custom pipeline specified!"
 msgstr "Nu s-a specificat nicio conductă „pipeline” personalizată!"
 
-#: ../xl/player/gst/sink.py:203
+#: ../xl/player/gst/sink.py:215
 #, python-format
 msgid "Error creating custom audiosink '%s'"
 msgstr "Eroare la crearea receptorului audio personalizat „%s”"
 
-#: ../xl/player/gst/sink.py:209
+#: ../xl/player/gst/sink.py:221
 #, python-format
 msgid "Invalid sink type '%s' specified"
 msgstr "Tip de receptor nevalid specificat, „%s”"
 
-#: ../xl/player/gst/sink.py:213
+#: ../xl/player/gst/sink.py:225
 #, python-format
 msgid "Could not create sink type '%s'"
 msgstr "Nu s-a putut crea tipul de receptor „%s”"
@@ -1200,22 +1192,22 @@ msgstr "Reexaminează colecția"
 msgid "Transferring to %s..."
 msgstr "Se transferă la %s..."
 
-#: ../xlgui/panel/files.py:82
+#: ../xlgui/panel/files.py:81
 msgid "Files"
 msgstr "Fișiere"
 
-#: ../xlgui/panel/files.py:122 ../xlgui/widgets/playlist_columns.py:447
+#: ../xlgui/panel/files.py:121 ../xlgui/widgets/playlist_columns.py:447
 #: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:117
 msgid "Filename"
 msgstr "Numele fișierului"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:146
+#: ../xlgui/panel/files.py:145
 msgid "Size"
 msgstr "Dimensiune"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:459
+#: ../xlgui/panel/files.py:458
 #, python-format
 msgid "%s kB"
 msgstr "%s ko"
@@ -1338,7 +1330,7 @@ msgstr "Introduceți numele ce-l doriți pentru noua listă de redare"
 msgid "New Playlist"
 msgstr "Listă de redare nouă"
 
-#: ../xlgui/panels.py:98
+#: ../xlgui/panels.py:97
 msgid "P_anels"
 msgstr "P_anouri"
 
@@ -1425,7 +1417,7 @@ msgstr "Vizor versuri"
 msgid "Playback"
 msgstr "Redare"
 
-#: ../xlgui/preferences/plugin.py:119 ../plugins/grouptagger/gt_common.py:59
+#: ../xlgui/preferences/plugin.py:119 ../plugins/grouptagger/gt_common.py:58
 #: ../plugins/grouptagger/gt_widgets.py:60
 msgid "Uncategorized"
 msgstr "Necategorisită"
@@ -1795,62 +1787,62 @@ msgstr "Exportă _fișiere"
 msgid "_Delete Playlist"
 msgstr "Ș_terge lista de redare"
 
-#: ../xlgui/widgets/notebook.py:254
+#: ../xlgui/widgets/notebook.py:252
 msgid "Close Tab"
 msgstr "Închide fila"
 
-#: ../xlgui/widgets/playback.py:830
+#: ../xlgui/widgets/playback.py:828
 #, python-format
 msgid "Seeking: %s"
 msgstr "Se parcurge: %s"
 
-#: ../xlgui/widgets/playback.py:1180
+#: ../xlgui/widgets/playback.py:1178
 msgid "Move"
 msgstr "Mută"
 
-#: ../xlgui/widgets/playback.py:1325
+#: ../xlgui/widgets/playback.py:1323
 msgid "New Marker"
 msgstr "Marcaj nou"
 
-#: ../xlgui/widgets/playback.py:1384
+#: ../xlgui/widgets/playback.py:1382
 msgid "_Jump to"
 msgstr "_Salt la"
 
-#: ../xlgui/widgets/playback.py:1392
+#: ../xlgui/widgets/playback.py:1390
 msgid "_Remove Marker"
 msgstr "_Elimină marcajul"
 
-#: ../xlgui/widgets/playback.py:1435
+#: ../xlgui/widgets/playback.py:1433
 msgid "Muted"
 msgstr "Sunet dezactivat"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1441
+#: ../xlgui/widgets/playback.py:1439
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/widgets/playback.py:1446
+#: ../xlgui/widgets/playback.py:1444
 msgid "Full Volume"
 msgstr "Volum maxim"
 
-#: ../xlgui/widgets/playback.py:1565
+#: ../xlgui/widgets/playback.py:1563
 msgid "_Pause"
 msgstr "_Pauză"
 
-#: ../xlgui/widgets/playback.py:1568
+#: ../xlgui/widgets/playback.py:1566
 msgid "P_lay"
 msgstr "_Redare"
 
-#: ../xlgui/widgets/playback.py:1580
+#: ../xlgui/widgets/playback.py:1578
 msgid "_Next Track"
 msgstr "Piesa ur_mătoare"
 
-#: ../xlgui/widgets/playback.py:1590
+#: ../xlgui/widgets/playback.py:1588
 msgid "_Previous Track"
 msgstr "_Piesa anterioară"
 
-#: ../xlgui/widgets/playback.py:1600 ../data/ui/covermanager.ui:132
+#: ../xlgui/widgets/playback.py:1598 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "_Stop"
@@ -2303,7 +2295,7 @@ msgid "Clear search field"
 msgstr "Curăță câmpul de căutare"
 
 #: ../data/ui/panel/collection.ui:131 ../data/ui/panel/files.ui:171
-#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:334
+#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:333
 msgid "Search"
 msgstr "Caută"
 
@@ -3046,19 +3038,19 @@ msgstr "Verificare eșuată"
 msgid "Please make sure the entered data is correct."
 msgstr "Verificați dacă datele introduse sunt corecte."
 
-#: ../plugins/bookmarks/__init__.py:209
+#: ../plugins/bookmarks/__init__.py:208
 msgid "_Bookmark This Track"
 msgstr "Marchează această piesă ca favorită"
 
-#: ../plugins/bookmarks/__init__.py:215
+#: ../plugins/bookmarks/__init__.py:214
 msgid "_Delete Bookmark"
 msgstr "Șt_erge marcajul de favorită al piesei"
 
-#: ../plugins/bookmarks/__init__.py:219
+#: ../plugins/bookmarks/__init__.py:218
 msgid "_Clear Bookmarks"
 msgstr "Elimină marcajele de favorite ale pieselor"
 
-#: ../plugins/bookmarks/__init__.py:333
+#: ../plugins/bookmarks/__init__.py:332
 msgid "_Bookmarks"
 msgstr "_Favorie"
 
@@ -3080,23 +3072,23 @@ msgstr "Numărător BPM"
 msgid "Update"
 msgstr "Actualizare"
 
-#: ../plugins/cd/__init__.py:164 ../plugins/cd/__init__.py:268
+#: ../plugins/cd/__init__.py:163 ../plugins/cd/__init__.py:267
 msgid "Audio Disc"
 msgstr "Disc audio"
 
-#: ../plugins/cd/_cdguipanel.py:97
+#: ../plugins/cd/_cdguipanel.py:96
 msgid "Unknown disc"
 msgstr "Disc necunoscut"
 
-#: ../plugins/cd/_cdguipanel.py:113
+#: ../plugins/cd/_cdguipanel.py:112
 msgid "Importing CD..."
 msgstr "Se importă CD-ul..."
 
-#: ../plugins/cd/_cdguipanel.py:187
+#: ../plugins/cd/_cdguipanel.py:186
 msgid "Finished transcoding files"
 msgstr "Transcodificarea fișierelor s-a încheiat"
 
-#: ../plugins/cd/_cdguipanel.py:192
+#: ../plugins/cd/_cdguipanel.py:191
 msgid "Error transcoding files from CD."
 msgstr "Eroare la transcodificarea fișierelor de pe CD."
 
@@ -3162,25 +3154,25 @@ msgstr "Nivelurile arborelui:"
 msgid "Display:"
 msgstr "Afișare:"
 
-#: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:199
+#: ../plugins/daapclient/__init__.py:264 ../plugins/history/__init__.py:199
 #: ../plugins/history/__init__.py:247
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
 msgstr "Istoric"
 
-#: ../plugins/daapclient/__init__.py:272
+#: ../plugins/daapclient/__init__.py:271
 msgid "Manually..."
 msgstr "Manual..."
 
-#: ../plugins/daapclient/__init__.py:327
+#: ../plugins/daapclient/__init__.py:326
 msgid "Enter IP address and port for share"
 msgstr "Introduceți adresa IP și portul pentru partajare"
 
-#: ../plugins/daapclient/__init__.py:327
+#: ../plugins/daapclient/__init__.py:326
 msgid "Enter IP address and port."
 msgstr "Introduceți adresa IP și portul."
 
-#: ../plugins/daapclient/__init__.py:548
+#: ../plugins/daapclient/__init__.py:546
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -3188,19 +3180,19 @@ msgstr ""
 "Acest server nu acceptă conexiuni multiple.\n"
 "Trebuie să opriți redarea înainte de a descărca cântecele."
 
-#: ../plugins/daapclient/__init__.py:659
+#: ../plugins/daapclient/__init__.py:656
 msgid "Refresh Server List"
 msgstr "Actualizați lista de servere"
 
-#: ../plugins/daapclient/__init__.py:667
+#: ../plugins/daapclient/__init__.py:664
 msgid "Disconnect from Server"
 msgstr "Deconectare de la server"
 
-#: ../plugins/daapclient/__init__.py:688
+#: ../plugins/daapclient/__init__.py:685
 msgid "Select a Location for Saving"
 msgstr "Selectați o locație pentru salvare"
 
-#: ../plugins/daapclient/__init__.py:741
+#: ../plugins/daapclient/__init__.py:738
 msgid "Connect to DAAP..."
 msgstr "Conectare la DAAP..."
 
@@ -3439,50 +3431,50 @@ msgstr "Salvează istoricul"
 msgid "_Clear History"
 msgstr "Șterge istori_cul"
 
-#: ../plugins/icecast/__init__.py:135 ../plugins/icecast/__init__.py:231
-#: ../plugins/icecast/__init__.py:340
+#: ../plugins/icecast/__init__.py:134 ../plugins/icecast/__init__.py:230
+#: ../plugins/icecast/__init__.py:339
 msgid "Contacting Icecast server..."
 msgstr "Se contactează serverul Icecast..."
 
-#: ../plugins/icecast/__init__.py:144 ../plugins/icecast/__init__.py:147
-#: ../plugins/icecast/__init__.py:348 ../plugins/icecast/__init__.py:351
+#: ../plugins/icecast/__init__.py:143 ../plugins/icecast/__init__.py:146
+#: ../plugins/icecast/__init__.py:347 ../plugins/icecast/__init__.py:350
 msgid "Error connecting to Icecast server."
 msgstr "Eroare la conectarea la serverul Icecast."
 
-#: ../plugins/icecast/__init__.py:149
+#: ../plugins/icecast/__init__.py:148
 msgid "Parsing stations XML..."
 msgstr "Se analizează fișierele XML ale posturilor de radio..."
 
-#: ../plugins/icecast/__init__.py:161
+#: ../plugins/icecast/__init__.py:160
 msgid "Retrieving stations..."
 msgstr "Se preiau posturilor de radio..."
 
-#: ../plugins/icecast/__init__.py:274
+#: ../plugins/icecast/__init__.py:273
 msgid "Enter the search keywords"
 msgstr "Introduceți cuvintele cheie de căutare"
 
-#: ../plugins/icecast/__init__.py:274
+#: ../plugins/icecast/__init__.py:273
 msgid "Icecast Search"
 msgstr "Căutare Icecast"
 
-#: ../plugins/icecast/__init__.py:298
+#: ../plugins/icecast/__init__.py:297
 msgid "No Stations Found"
 msgstr "Nu s-au găsit posturi de radio"
 
-#: ../plugins/icecast/__init__.py:301
+#: ../plugins/icecast/__init__.py:300
 msgid "Icecast Search Results"
 msgstr "Rezultatele căutării Icecast"
 
-#: ../plugins/icecast/__init__.py:353
+#: ../plugins/icecast/__init__.py:352
 msgid "Parsing genre list..."
 msgstr "Se analizează lista de genuri muzicale..."
 
-#: ../plugins/icecast/__init__.py:374
+#: ../plugins/icecast/__init__.py:373
 #: ../plugins/developer/developer_window.ui:59
 msgid "Name"
 msgstr "Nume"
 
-#: ../plugins/icecast/__init__.py:390
+#: ../plugins/icecast/__init__.py:389
 msgid "Format"
 msgstr "Format"
 
@@ -3503,7 +3495,7 @@ msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
 msgstr ""
 "Din cauza unei erori în Gtk+, opacitatea nu poate fi definită în Windows"
 
-#: ../plugins/keybinder/__init__.py:50
+#: ../plugins/keybinder/__init__.py:49
 msgid ""
 "Keybinder is not supported on this platform! It is only supported on X "
 "servers."
@@ -3549,12 +3541,12 @@ msgstr ""
 "Copiați următoarea adresă URL și deschideți-o cu navigatorul dvs. web:\n"
 "<b><a href=\"{url}\">{url}</a></b>"
 
-#: ../plugins/mainmenubutton/__init__.py:60
+#: ../plugins/mainmenubutton/__init__.py:59
 msgid "This plugin needs at least one visible panel"
 msgstr "Acest modul de extensie are nevoie de cel puțin un panou vizibil"
 
-#: ../plugins/mainmenubutton/__init__.py:80
-#: ../plugins/mainmenubutton/__init__.py:86
+#: ../plugins/mainmenubutton/__init__.py:79
+#: ../plugins/mainmenubutton/__init__.py:85
 msgid "Main Menu"
 msgstr "Meniul principal"
 
@@ -3663,19 +3655,19 @@ msgstr "Accesează lista de redare curentă"
 msgid "$title ($current_time / $total_time)"
 msgstr "$title ($current_time / $total_time)"
 
-#: ../plugins/minimode/controls.py:1037
+#: ../plugins/minimode/controls.py:1035
 msgid "Progress button"
 msgstr "Butonul de progres"
 
-#: ../plugins/minimode/controls.py:1038
+#: ../plugins/minimode/controls.py:1036
 msgid "Playback progress and access to the current playlist"
 msgstr "Progresul redării și accesul la lista de redare curentă"
 
-#: ../plugins/minimode/controls.py:1112
+#: ../plugins/minimode/controls.py:1110
 msgid "Progress bar"
 msgstr "Bară de progres"
 
-#: ../plugins/minimode/controls.py:1113
+#: ../plugins/minimode/controls.py:1111
 msgid "Playback progress and seeking"
 msgstr "Progresul redării și explorarea acesteia"
 
@@ -3701,7 +3693,7 @@ msgstr "{minutes}:{seconds:02}"
 msgid "{current} / {remaining}"
 msgstr "{current} / {remaining}"
 
-#: ../plugins/moodbar/prefs.py:26 ../plugins/moodbar/PLUGININFO:3
+#: ../plugins/moodbar/prefs.py:25 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
 msgstr "Bară de stare de spirit"
 
@@ -3710,17 +3702,17 @@ msgstr "Bară de stare de spirit"
 msgid "Multi-Alarm Clock"
 msgstr "Ceas multi-alarmă"
 
-#: ../plugins/notify/__init__.py:48
+#: ../plugins/notify/__init__.py:46
 #, python-brace-format
 msgid "from {album} by {artist}"
 msgstr "din {album} de {artist}"
 
-#: ../plugins/notify/__init__.py:49
+#: ../plugins/notify/__init__.py:47
 #, python-brace-format
 msgid "by {artist}"
 msgstr "de {artist}"
 
-#: ../plugins/notify/__init__.py:50
+#: ../plugins/notify/__init__.py:48
 #, python-brace-format
 msgid "from {album}"
 msgstr "din {album}"
@@ -3729,19 +3721,19 @@ msgstr "din {album}"
 msgid "Notify"
 msgstr "Notifică"
 
-#: ../plugins/osd/__init__.py:357
+#: ../plugins/osd/__init__.py:356
 msgid "No track played yet"
 msgstr "Nicio piesă nu a fost redată încă"
 
-#: ../plugins/osd/__init__.py:397
+#: ../plugins/osd/__init__.py:396
 msgid "Move or resize OSD"
 msgstr "Mută sau redimensionează OSD-ul"
 
-#: ../plugins/osd/osd_preferences.py:24 ../plugins/osd/PLUGININFO:3
+#: ../plugins/osd/osd_preferences.py:23 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
 msgstr "Afișare pe ecran (OSD)"
 
-#: ../plugins/osd/osd_preferences.py:72
+#: ../plugins/osd/osd_preferences.py:71
 msgid ""
 "<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
 "by $artist\n"
@@ -3967,7 +3959,7 @@ msgstr "Eroare la executarea «streamripper»"
 msgid "Streamripper"
 msgstr "Streamripper"
 
-#: ../plugins/wikipedia/__init__.py:154 ../plugins/wikipedia/preferences.py:21
+#: ../plugins/wikipedia/__init__.py:150 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
 msgstr "Wikipedia"
@@ -4216,40 +4208,44 @@ msgid "Bottom right"
 msgstr "Jos, în dreapta"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:61
+msgid "Note: Desktop Cover positioning is not supported on Wayland."
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui:74
 msgid "Anchor:"
 msgstr "Ancoră:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:93
+#: ../plugins/desktopcover/desktopcover_preferences.ui:106
 msgid "X offset:"
 msgstr "Distanța pe X:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:122
-#: ../plugins/desktopcover/desktopcover_preferences.ui:162
-#: ../plugins/desktopcover/desktopcover_preferences.ui:217
+#: ../plugins/desktopcover/desktopcover_preferences.ui:134
+#: ../plugins/desktopcover/desktopcover_preferences.ui:173
+#: ../plugins/desktopcover/desktopcover_preferences.ui:227
 msgid "pixels"
 msgstr "pixeli"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:135
+#: ../plugins/desktopcover/desktopcover_preferences.ui:147
 msgid "Y offset:"
 msgstr "Distanța pe Y:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:172
+#: ../plugins/desktopcover/desktopcover_preferences.ui:183
 msgid "Override cover size"
 msgstr "Suprascriere dimensiunea coperții"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:190
+#: ../plugins/desktopcover/desktopcover_preferences.ui:201
 msgid "Size:"
 msgstr "Dimensiune:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:227
+#: ../plugins/desktopcover/desktopcover_preferences.ui:237
 msgid "Use fading"
 msgstr "Utilizează efectul de tranziție"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:245
+#: ../plugins/desktopcover/desktopcover_preferences.ui:255
 msgid "Fading duration:"
 msgstr "Durata efectului de tranziție:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:271
+#: ../plugins/desktopcover/desktopcover_preferences.ui:280
 msgid "ms"
 msgstr "ms"
 
@@ -5307,6 +5303,13 @@ msgstr "Logo"
 #: ../data/exaile.appdata.xml.in:38
 msgid "The Exaile Team"
 msgstr "Echipa Exaile"
+
+#~ msgid ""
+#~ "Exaile is not yet finished loading. Perhaps you should listen for the "
+#~ "exaile_loaded signal?"
+#~ msgstr ""
+#~ "Exaile nu a terminat încă de încărcat. Poate ar trebui să ascultați "
+#~ "semnalul exaile_loaded?"
 
 #, fuzzy
 #~| msgid "Stop the playback"

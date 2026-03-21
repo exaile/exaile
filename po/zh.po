@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-13 01:14+1100\n"
+"POT-Creation-Date: 2026-03-21 14:03+1100\n"
 "PO-Revision-Date: 2024-01-01 11:07+0000\n"
 "Last-Translator: Eric <zxmegaxqug@hldrive.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -96,7 +96,7 @@ msgid "%d:%02d"
 msgstr "%d:%02d"
 
 #: ../xl/formatter.py:730 ../xl/main.py:809 ../xl/trax/track.py:72
-#: ../plugins/icecast/__init__.py:171
+#: ../plugins/icecast/__init__.py:170
 msgid "Unknown"
 msgstr "未知"
 
@@ -398,12 +398,6 @@ msgstr "随机 %d"
 msgid "Rating > %d"
 msgstr "评级 > %d"
 
-#: ../xl/main.py:1014
-msgid ""
-"Exaile is not yet finished loading. Perhaps you should listen for the "
-"exaile_loaded signal?"
-msgstr "Exaile 仍未完成加载。或许你该听一下 exaile_loaded 信号？"
-
 #: ../xl/metadata/tags.py:45 ../xlgui/panel/collection.py:130
 #: ../xlgui/widgets/playlist_columns.py:321 ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/minimode_preferences.py:109
@@ -535,7 +529,7 @@ msgid "Website"
 msgstr "网站"
 
 #: ../xl/metadata/tags.py:78 ../xlgui/widgets/playlist_columns.py:427
-#: ../plugins/cd/cdprefs.py:122 ../plugins/icecast/__init__.py:380
+#: ../plugins/cd/cdprefs.py:122 ../plugins/icecast/__init__.py:379
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "Bitrate"
 msgstr "比特率"
@@ -580,7 +574,7 @@ msgstr "起始偏移"
 msgid "Stop offset"
 msgstr "终止偏移"
 
-#: ../xl/player/gst/engine.py:717
+#: ../xl/player/gst/engine.py:716
 msgid ": Possible audio device error, is it plugged in?"
 msgstr "：可能是音频设备错误，插上了吗？"
 
@@ -594,7 +588,7 @@ msgstr ""
 "缺少一个 %s 所需的 GStreamer 1.x 插件。不安装该软件，Exaile 将无法播放当前文"
 "件。请在你的计算机上安装所需软件。详细说明见 %s 。"
 
-#: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:153
+#: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:165
 msgid "Automatic"
 msgstr "自动"
 
@@ -602,26 +596,26 @@ msgstr "自动"
 msgid "Custom"
 msgstr "自定义"
 
-#: ../xl/player/gst/sink.py:192
+#: ../xl/player/gst/sink.py:204
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
 msgstr "无法创建音濖（设备： %s ，类型： %s ）"
 
-#: ../xl/player/gst/sink.py:198
+#: ../xl/player/gst/sink.py:210
 msgid "No custom pipeline specified!"
 msgstr "没有已指定的自定义管道！"
 
-#: ../xl/player/gst/sink.py:203
+#: ../xl/player/gst/sink.py:215
 #, python-format
 msgid "Error creating custom audiosink '%s'"
 msgstr "创建自定义音濖 '%s' 时出现错误"
 
-#: ../xl/player/gst/sink.py:209
+#: ../xl/player/gst/sink.py:221
 #, python-format
 msgid "Invalid sink type '%s' specified"
 msgstr "指定的濖渠类别 '%s' 无效"
 
-#: ../xl/player/gst/sink.py:213
+#: ../xl/player/gst/sink.py:225
 #, python-format
 msgid "Could not create sink type '%s'"
 msgstr "无法创建濖渠类型 '%s'"
@@ -1167,22 +1161,22 @@ msgstr "重新扫描音乐库"
 msgid "Transferring to %s..."
 msgstr "正在切换到 %s…"
 
-#: ../xlgui/panel/files.py:82
+#: ../xlgui/panel/files.py:81
 msgid "Files"
 msgstr "文件"
 
-#: ../xlgui/panel/files.py:122 ../xlgui/widgets/playlist_columns.py:447
+#: ../xlgui/panel/files.py:121 ../xlgui/widgets/playlist_columns.py:447
 #: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:117
 msgid "Filename"
 msgstr "文件名"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:146
+#: ../xlgui/panel/files.py:145
 msgid "Size"
 msgstr "大小"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:459
+#: ../xlgui/panel/files.py:458
 #, python-format
 msgid "%s kB"
 msgstr ""
@@ -1305,7 +1299,7 @@ msgstr "输入新建播放列表的名称"
 msgid "New Playlist"
 msgstr "新建播放列表"
 
-#: ../xlgui/panels.py:98
+#: ../xlgui/panels.py:97
 msgid "P_anels"
 msgstr ""
 
@@ -1391,7 +1385,7 @@ msgstr "歌词视窗"
 msgid "Playback"
 msgstr "播放"
 
-#: ../xlgui/preferences/plugin.py:119 ../plugins/grouptagger/gt_common.py:59
+#: ../xlgui/preferences/plugin.py:119 ../plugins/grouptagger/gt_common.py:58
 #: ../plugins/grouptagger/gt_widgets.py:60
 msgid "Uncategorized"
 msgstr "未分类"
@@ -1753,62 +1747,62 @@ msgstr "导出 _文件"
 msgid "_Delete Playlist"
 msgstr "_删除 播放列表"
 
-#: ../xlgui/widgets/notebook.py:254
+#: ../xlgui/widgets/notebook.py:252
 msgid "Close Tab"
 msgstr "关闭标签页"
 
-#: ../xlgui/widgets/playback.py:830
+#: ../xlgui/widgets/playback.py:828
 #, python-format
 msgid "Seeking: %s"
 msgstr "正在寻道：%s"
 
-#: ../xlgui/widgets/playback.py:1180
+#: ../xlgui/widgets/playback.py:1178
 msgid "Move"
 msgstr "移动"
 
-#: ../xlgui/widgets/playback.py:1325
+#: ../xlgui/widgets/playback.py:1323
 msgid "New Marker"
 msgstr "新增标记"
 
-#: ../xlgui/widgets/playback.py:1384
+#: ../xlgui/widgets/playback.py:1382
 msgid "_Jump to"
 msgstr "_跳转到"
 
-#: ../xlgui/widgets/playback.py:1392
+#: ../xlgui/widgets/playback.py:1390
 msgid "_Remove Marker"
 msgstr "_移除标记"
 
-#: ../xlgui/widgets/playback.py:1435
+#: ../xlgui/widgets/playback.py:1433
 msgid "Muted"
 msgstr "静音了"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1441
+#: ../xlgui/widgets/playback.py:1439
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/widgets/playback.py:1446
+#: ../xlgui/widgets/playback.py:1444
 msgid "Full Volume"
 msgstr "最大音量"
 
-#: ../xlgui/widgets/playback.py:1565
+#: ../xlgui/widgets/playback.py:1563
 msgid "_Pause"
 msgstr "_暂停"
 
-#: ../xlgui/widgets/playback.py:1568
+#: ../xlgui/widgets/playback.py:1566
 msgid "P_lay"
 msgstr "播_放"
 
-#: ../xlgui/widgets/playback.py:1580
+#: ../xlgui/widgets/playback.py:1578
 msgid "_Next Track"
 msgstr "_下一歌曲"
 
-#: ../xlgui/widgets/playback.py:1590
+#: ../xlgui/widgets/playback.py:1588
 msgid "_Previous Track"
 msgstr "_上一歌曲"
 
-#: ../xlgui/widgets/playback.py:1600 ../data/ui/covermanager.ui:132
+#: ../xlgui/widgets/playback.py:1598 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "_停止"
@@ -2260,7 +2254,7 @@ msgid "Clear search field"
 msgstr "清空搜索框"
 
 #: ../data/ui/panel/collection.ui:131 ../data/ui/panel/files.ui:171
-#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:334
+#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:333
 msgid "Search"
 msgstr "搜索"
 
@@ -2943,19 +2937,19 @@ msgstr "验证失败"
 msgid "Please make sure the entered data is correct."
 msgstr "请确认你输入的数据是否正确。"
 
-#: ../plugins/bookmarks/__init__.py:209
+#: ../plugins/bookmarks/__init__.py:208
 msgid "_Bookmark This Track"
 msgstr "_收藏该曲"
 
-#: ../plugins/bookmarks/__init__.py:215
+#: ../plugins/bookmarks/__init__.py:214
 msgid "_Delete Bookmark"
 msgstr "_删除书签"
 
-#: ../plugins/bookmarks/__init__.py:219
+#: ../plugins/bookmarks/__init__.py:218
 msgid "_Clear Bookmarks"
 msgstr "_清空书签"
 
-#: ../plugins/bookmarks/__init__.py:333
+#: ../plugins/bookmarks/__init__.py:332
 msgid "_Bookmarks"
 msgstr "_书签"
 
@@ -2977,23 +2971,23 @@ msgstr "BPM 计数"
 msgid "Update"
 msgstr "更新"
 
-#: ../plugins/cd/__init__.py:164 ../plugins/cd/__init__.py:268
+#: ../plugins/cd/__init__.py:163 ../plugins/cd/__init__.py:267
 msgid "Audio Disc"
 msgstr "唱片"
 
-#: ../plugins/cd/_cdguipanel.py:97
+#: ../plugins/cd/_cdguipanel.py:96
 msgid "Unknown disc"
 msgstr "未知光盘"
 
-#: ../plugins/cd/_cdguipanel.py:113
+#: ../plugins/cd/_cdguipanel.py:112
 msgid "Importing CD..."
 msgstr "导入 CD…"
 
-#: ../plugins/cd/_cdguipanel.py:187
+#: ../plugins/cd/_cdguipanel.py:186
 msgid "Finished transcoding files"
 msgstr ""
 
-#: ../plugins/cd/_cdguipanel.py:192
+#: ../plugins/cd/_cdguipanel.py:191
 msgid "Error transcoding files from CD."
 msgstr "从 CD 编码文件时发生错误。"
 
@@ -3051,25 +3045,25 @@ msgstr ""
 msgid "Display:"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:199
+#: ../plugins/daapclient/__init__.py:264 ../plugins/history/__init__.py:199
 #: ../plugins/history/__init__.py:247
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
 msgstr "历史"
 
-#: ../plugins/daapclient/__init__.py:272
+#: ../plugins/daapclient/__init__.py:271
 msgid "Manually..."
 msgstr "手动…"
 
-#: ../plugins/daapclient/__init__.py:327
+#: ../plugins/daapclient/__init__.py:326
 msgid "Enter IP address and port for share"
 msgstr "输入用于共享的 IP 地址和端口"
 
-#: ../plugins/daapclient/__init__.py:327
+#: ../plugins/daapclient/__init__.py:326
 msgid "Enter IP address and port."
 msgstr "输入 IP 地址和端口。"
 
-#: ../plugins/daapclient/__init__.py:548
+#: ../plugins/daapclient/__init__.py:546
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -3077,19 +3071,19 @@ msgstr ""
 "该服务器不支持多重连接。\n"
 "在下载歌曲前你必须先停止播放。"
 
-#: ../plugins/daapclient/__init__.py:659
+#: ../plugins/daapclient/__init__.py:656
 msgid "Refresh Server List"
 msgstr "刷新服务器列表"
 
-#: ../plugins/daapclient/__init__.py:667
+#: ../plugins/daapclient/__init__.py:664
 msgid "Disconnect from Server"
 msgstr "离开服务器"
 
-#: ../plugins/daapclient/__init__.py:688
+#: ../plugins/daapclient/__init__.py:685
 msgid "Select a Location for Saving"
 msgstr "选择要保存到的位置"
 
-#: ../plugins/daapclient/__init__.py:741
+#: ../plugins/daapclient/__init__.py:738
 msgid "Connect to DAAP..."
 msgstr "连接 DAAP…"
 
@@ -3321,50 +3315,50 @@ msgstr ""
 msgid "_Clear History"
 msgstr "清除历史(_C)"
 
-#: ../plugins/icecast/__init__.py:135 ../plugins/icecast/__init__.py:231
-#: ../plugins/icecast/__init__.py:340
+#: ../plugins/icecast/__init__.py:134 ../plugins/icecast/__init__.py:230
+#: ../plugins/icecast/__init__.py:339
 msgid "Contacting Icecast server..."
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:144 ../plugins/icecast/__init__.py:147
-#: ../plugins/icecast/__init__.py:348 ../plugins/icecast/__init__.py:351
+#: ../plugins/icecast/__init__.py:143 ../plugins/icecast/__init__.py:146
+#: ../plugins/icecast/__init__.py:347 ../plugins/icecast/__init__.py:350
 msgid "Error connecting to Icecast server."
 msgstr "连接到 Icecast 服务器出错。"
 
-#: ../plugins/icecast/__init__.py:149
+#: ../plugins/icecast/__init__.py:148
 msgid "Parsing stations XML..."
 msgstr "正在解析电台 XML…"
 
-#: ../plugins/icecast/__init__.py:161
+#: ../plugins/icecast/__init__.py:160
 msgid "Retrieving stations..."
 msgstr "正在获取电台…"
 
-#: ../plugins/icecast/__init__.py:274
+#: ../plugins/icecast/__init__.py:273
 msgid "Enter the search keywords"
 msgstr "输入要搜索的关键字"
 
-#: ../plugins/icecast/__init__.py:274
+#: ../plugins/icecast/__init__.py:273
 msgid "Icecast Search"
 msgstr "Icecast 搜索"
 
-#: ../plugins/icecast/__init__.py:298
+#: ../plugins/icecast/__init__.py:297
 msgid "No Stations Found"
 msgstr "没找到电台"
 
-#: ../plugins/icecast/__init__.py:301
+#: ../plugins/icecast/__init__.py:300
 msgid "Icecast Search Results"
 msgstr "Icecast 搜索结果"
 
-#: ../plugins/icecast/__init__.py:353
+#: ../plugins/icecast/__init__.py:352
 msgid "Parsing genre list..."
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:374
+#: ../plugins/icecast/__init__.py:373
 #: ../plugins/developer/developer_window.ui:59
 msgid "Name"
 msgstr "名称"
 
-#: ../plugins/icecast/__init__.py:390
+#: ../plugins/icecast/__init__.py:389
 msgid "Format"
 msgstr "格式"
 
@@ -3384,7 +3378,7 @@ msgstr "IPython 控制台"
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
 msgstr ""
 
-#: ../plugins/keybinder/__init__.py:50
+#: ../plugins/keybinder/__init__.py:49
 msgid ""
 "Keybinder is not supported on this platform! It is only supported on X "
 "servers."
@@ -3426,12 +3420,12 @@ msgid ""
 "<b><a href=\"{url}\">{url}</a></b>"
 msgstr ""
 
-#: ../plugins/mainmenubutton/__init__.py:60
+#: ../plugins/mainmenubutton/__init__.py:59
 msgid "This plugin needs at least one visible panel"
 msgstr ""
 
-#: ../plugins/mainmenubutton/__init__.py:80
-#: ../plugins/mainmenubutton/__init__.py:86
+#: ../plugins/mainmenubutton/__init__.py:79
+#: ../plugins/mainmenubutton/__init__.py:85
 msgid "Main Menu"
 msgstr ""
 
@@ -3540,19 +3534,19 @@ msgstr "访问当前播放列表"
 msgid "$title ($current_time / $total_time)"
 msgstr ""
 
-#: ../plugins/minimode/controls.py:1037
+#: ../plugins/minimode/controls.py:1035
 msgid "Progress button"
 msgstr "进度按钮"
 
-#: ../plugins/minimode/controls.py:1038
+#: ../plugins/minimode/controls.py:1036
 msgid "Playback progress and access to the current playlist"
 msgstr "播放进度和访问当前播放列表"
 
-#: ../plugins/minimode/controls.py:1112
+#: ../plugins/minimode/controls.py:1110
 msgid "Progress bar"
 msgstr "进度条"
 
-#: ../plugins/minimode/controls.py:1113
+#: ../plugins/minimode/controls.py:1111
 msgid "Playback progress and seeking"
 msgstr ""
 
@@ -3578,7 +3572,7 @@ msgstr "{minutes}:{seconds:02}"
 msgid "{current} / {remaining}"
 msgstr "{current} / {remaining}"
 
-#: ../plugins/moodbar/prefs.py:26 ../plugins/moodbar/PLUGININFO:3
+#: ../plugins/moodbar/prefs.py:25 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
 msgstr ""
 
@@ -3587,17 +3581,17 @@ msgstr ""
 msgid "Multi-Alarm Clock"
 msgstr "多点闹钟"
 
-#: ../plugins/notify/__init__.py:48
+#: ../plugins/notify/__init__.py:46
 #, python-brace-format
 msgid "from {album} by {artist}"
 msgstr ""
 
-#: ../plugins/notify/__init__.py:49
+#: ../plugins/notify/__init__.py:47
 #, python-brace-format
 msgid "by {artist}"
 msgstr "艺人 {artist}"
 
-#: ../plugins/notify/__init__.py:50
+#: ../plugins/notify/__init__.py:48
 #, python-brace-format
 msgid "from {album}"
 msgstr "来自专辑 {album}"
@@ -3606,19 +3600,19 @@ msgstr "来自专辑 {album}"
 msgid "Notify"
 msgstr ""
 
-#: ../plugins/osd/__init__.py:357
+#: ../plugins/osd/__init__.py:356
 msgid "No track played yet"
 msgstr ""
 
-#: ../plugins/osd/__init__.py:397
+#: ../plugins/osd/__init__.py:396
 msgid "Move or resize OSD"
 msgstr ""
 
-#: ../plugins/osd/osd_preferences.py:24 ../plugins/osd/PLUGININFO:3
+#: ../plugins/osd/osd_preferences.py:23 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
 msgstr ""
 
-#: ../plugins/osd/osd_preferences.py:72
+#: ../plugins/osd/osd_preferences.py:71
 msgid ""
 "<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
 "by $artist\n"
@@ -3841,7 +3835,7 @@ msgstr "提取流媒体时出错"
 msgid "Streamripper"
 msgstr ""
 
-#: ../plugins/wikipedia/__init__.py:154 ../plugins/wikipedia/preferences.py:21
+#: ../plugins/wikipedia/__init__.py:150 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
 msgstr "维基百科"
@@ -4078,40 +4072,44 @@ msgid "Bottom right"
 msgstr ""
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:61
+msgid "Note: Desktop Cover positioning is not supported on Wayland."
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui:74
 msgid "Anchor:"
 msgstr ""
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:93
+#: ../plugins/desktopcover/desktopcover_preferences.ui:106
 msgid "X offset:"
 msgstr ""
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:122
-#: ../plugins/desktopcover/desktopcover_preferences.ui:162
-#: ../plugins/desktopcover/desktopcover_preferences.ui:217
+#: ../plugins/desktopcover/desktopcover_preferences.ui:134
+#: ../plugins/desktopcover/desktopcover_preferences.ui:173
+#: ../plugins/desktopcover/desktopcover_preferences.ui:227
 msgid "pixels"
 msgstr ""
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:135
+#: ../plugins/desktopcover/desktopcover_preferences.ui:147
 msgid "Y offset:"
 msgstr ""
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:172
+#: ../plugins/desktopcover/desktopcover_preferences.ui:183
 msgid "Override cover size"
 msgstr ""
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:190
+#: ../plugins/desktopcover/desktopcover_preferences.ui:201
 msgid "Size:"
 msgstr "大小："
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:227
+#: ../plugins/desktopcover/desktopcover_preferences.ui:237
 msgid "Use fading"
 msgstr "使用淡入淡出"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:245
+#: ../plugins/desktopcover/desktopcover_preferences.ui:255
 msgid "Fading duration:"
 msgstr "淡入淡出持续时间："
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:271
+#: ../plugins/desktopcover/desktopcover_preferences.ui:280
 msgid "ms"
 msgstr ""
 
@@ -5055,6 +5053,11 @@ msgstr ""
 #: ../data/exaile.appdata.xml.in:38
 msgid "The Exaile Team"
 msgstr ""
+
+#~ msgid ""
+#~ "Exaile is not yet finished loading. Perhaps you should listen for the "
+#~ "exaile_loaded signal?"
+#~ msgstr "Exaile 仍未完成加载。或许你该听一下 exaile_loaded 信号？"
 
 #~ msgid "Remove after playback"
 #~ msgstr "播放后删除"

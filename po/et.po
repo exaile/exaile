@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-13 01:14+1100\n"
+"POT-Creation-Date: 2026-03-21 14:03+1100\n"
 "PO-Revision-Date: 2026-02-17 00:09+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
@@ -99,7 +99,7 @@ msgid "%d:%02d"
 msgstr "%d:%02d"
 
 #: ../xl/formatter.py:730 ../xl/main.py:809 ../xl/trax/track.py:72
-#: ../plugins/icecast/__init__.py:171
+#: ../plugins/icecast/__init__.py:170
 msgid "Unknown"
 msgstr "Teadmata"
 
@@ -408,14 +408,6 @@ msgstr "Juhuslik %d"
 msgid "Rating > %d"
 msgstr "Hinnang > %d"
 
-#: ../xl/main.py:1014
-msgid ""
-"Exaile is not yet finished loading. Perhaps you should listen for the "
-"exaile_loaded signal?"
-msgstr ""
-"Exaile käivitamine pole veel lõppenud. Kas sa sooviksid kuulata "
-"exaile_loaded märguannet?"
-
 #: ../xl/metadata/tags.py:45 ../xlgui/panel/collection.py:130
 #: ../xlgui/widgets/playlist_columns.py:321 ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/minimode_preferences.py:109
@@ -547,7 +539,7 @@ msgid "Website"
 msgstr "Veebisait"
 
 #: ../xl/metadata/tags.py:78 ../xlgui/widgets/playlist_columns.py:427
-#: ../plugins/cd/cdprefs.py:122 ../plugins/icecast/__init__.py:380
+#: ../plugins/cd/cdprefs.py:122 ../plugins/icecast/__init__.py:379
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "Bitrate"
 msgstr "Bitikiirus"
@@ -592,7 +584,7 @@ msgstr "Alguse nihe"
 msgid "Stop offset"
 msgstr "Lõpu nihe"
 
-#: ../xl/player/gst/engine.py:717
+#: ../xl/player/gst/engine.py:716
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ": Võimalik heliseadme viga. Kas ta ikka on ühendatud?"
 
@@ -607,7 +599,7 @@ msgstr ""
 "saa Exaile antud faili esitada. Palun paigalda vajalik GStreamer'i versioon "
 "oma arvutisse. Lisateave - %s."
 
-#: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:153
+#: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:165
 msgid "Automatic"
 msgstr "Automaatne"
 
@@ -615,26 +607,26 @@ msgstr "Automaatne"
 msgid "Custom"
 msgstr "Kohandatud"
 
-#: ../xl/player/gst/sink.py:192
+#: ../xl/player/gst/sink.py:204
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
 msgstr "Helineelu loomine ei õnnestunud (seade: %s, tüüp: %s)"
 
-#: ../xl/player/gst/sink.py:198
+#: ../xl/player/gst/sink.py:210
 msgid "No custom pipeline specified!"
 msgstr "Kohandatud konveier on määratlemata!"
 
-#: ../xl/player/gst/sink.py:203
+#: ../xl/player/gst/sink.py:215
 #, python-format
 msgid "Error creating custom audiosink '%s'"
 msgstr "Kohandatud „%s“ helineelu loomisel tekkis viga"
 
-#: ../xl/player/gst/sink.py:209
+#: ../xl/player/gst/sink.py:221
 #, python-format
 msgid "Invalid sink type '%s' specified"
 msgstr "Vigane helineelu tüüp „%s“"
 
-#: ../xl/player/gst/sink.py:213
+#: ../xl/player/gst/sink.py:225
 #, python-format
 msgid "Could not create sink type '%s'"
 msgstr "Helineelu tüüpi „%s“ ei õnnestu luua"
@@ -1188,22 +1180,22 @@ msgstr "Analüüsi muusikakogu uuesti"
 msgid "Transferring to %s..."
 msgstr "Teisaldame asukohta %s..."
 
-#: ../xlgui/panel/files.py:82
+#: ../xlgui/panel/files.py:81
 msgid "Files"
 msgstr "Failid"
 
-#: ../xlgui/panel/files.py:122 ../xlgui/widgets/playlist_columns.py:447
+#: ../xlgui/panel/files.py:121 ../xlgui/widgets/playlist_columns.py:447
 #: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:117
 msgid "Filename"
 msgstr "Failinimi"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:146
+#: ../xlgui/panel/files.py:145
 msgid "Size"
 msgstr "Suurus"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:459
+#: ../xlgui/panel/files.py:458
 #, python-format
 msgid "%s kB"
 msgstr "%s kB"
@@ -1326,7 +1318,7 @@ msgstr "Sisesta uue esitusloendi nimi"
 msgid "New Playlist"
 msgstr "Uus esitusloend"
 
-#: ../xlgui/panels.py:98
+#: ../xlgui/panels.py:97
 msgid "P_anels"
 msgstr "P_aanid"
 
@@ -1415,7 +1407,7 @@ msgstr "Laulusõnad"
 msgid "Playback"
 msgstr "Taasesitus"
 
-#: ../xlgui/preferences/plugin.py:119 ../plugins/grouptagger/gt_common.py:59
+#: ../xlgui/preferences/plugin.py:119 ../plugins/grouptagger/gt_common.py:58
 #: ../plugins/grouptagger/gt_widgets.py:60
 msgid "Uncategorized"
 msgstr "Liigitamata"
@@ -1782,62 +1774,62 @@ msgstr "Ekspordi _failid"
 msgid "_Delete Playlist"
 msgstr "_Kustuta esitusloend"
 
-#: ../xlgui/widgets/notebook.py:254
+#: ../xlgui/widgets/notebook.py:252
 msgid "Close Tab"
 msgstr "Sulge kaart"
 
-#: ../xlgui/widgets/playback.py:830
+#: ../xlgui/widgets/playback.py:828
 #, python-format
 msgid "Seeking: %s"
 msgstr "Otsin: %s"
 
-#: ../xlgui/widgets/playback.py:1180
+#: ../xlgui/widgets/playback.py:1178
 msgid "Move"
 msgstr "Teisalda"
 
-#: ../xlgui/widgets/playback.py:1325
+#: ../xlgui/widgets/playback.py:1323
 msgid "New Marker"
 msgstr "Uus märge"
 
-#: ../xlgui/widgets/playback.py:1384
+#: ../xlgui/widgets/playback.py:1382
 msgid "_Jump to"
 msgstr "_Hüppa asukohta"
 
-#: ../xlgui/widgets/playback.py:1392
+#: ../xlgui/widgets/playback.py:1390
 msgid "_Remove Marker"
 msgstr "Eemalda märge"
 
-#: ../xlgui/widgets/playback.py:1435
+#: ../xlgui/widgets/playback.py:1433
 msgid "Muted"
 msgstr "Summutatud"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1441
+#: ../xlgui/widgets/playback.py:1439
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/widgets/playback.py:1446
+#: ../xlgui/widgets/playback.py:1444
 msgid "Full Volume"
 msgstr "Täisvaljus"
 
-#: ../xlgui/widgets/playback.py:1565
+#: ../xlgui/widgets/playback.py:1563
 msgid "_Pause"
 msgstr "_Peata"
 
-#: ../xlgui/widgets/playback.py:1568
+#: ../xlgui/widgets/playback.py:1566
 msgid "P_lay"
 msgstr "_Esita"
 
-#: ../xlgui/widgets/playback.py:1580
+#: ../xlgui/widgets/playback.py:1578
 msgid "_Next Track"
 msgstr "_Järgmine lugu"
 
-#: ../xlgui/widgets/playback.py:1590
+#: ../xlgui/widgets/playback.py:1588
 msgid "_Previous Track"
 msgstr "_Eelmine lugu"
 
-#: ../xlgui/widgets/playback.py:1600 ../data/ui/covermanager.ui:132
+#: ../xlgui/widgets/playback.py:1598 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "_Lõpeta"
@@ -2289,7 +2281,7 @@ msgid "Clear search field"
 msgstr "Tühjenda otsingiväli"
 
 #: ../data/ui/panel/collection.ui:131 ../data/ui/panel/files.ui:171
-#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:334
+#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:333
 msgid "Search"
 msgstr "Otsi"
 
@@ -2943,10 +2935,10 @@ msgstr ""
 "Selles versioonis on kaks olulist muudatust meediafailide lugemisel.\n"
 "\n"
 "<b>Hinnangute salvestamine meediafailidesse</b>\n"
-"Selle katselise funktsionaalsusega saad nüüd salvestade hinnanguid ehk „tärne"
-"“ salvestada otse meediafailidesse!\n"
-"Kui sa soovid seda proovida, siis ava Eelistused > Muusikakogu ning vali „"
-"Salvesta hinnangud ka meediafailide metaandmetesse ning loe neid sealt“.\n"
+"Selle katselise funktsionaalsusega saad nüüd salvestade hinnanguid ehk "
+"„tärne“ salvestada otse meediafailidesse!\n"
+"Kui sa soovid seda proovida, siis ava Eelistused > Muusikakogu ning vali "
+"„Salvesta hinnangud ka meediafailide metaandmetesse ning loe neid sealt“.\n"
 "Lisaks on olemas tarvik, mis võimaldab Exaile'i andmebaasi salvestatud "
 "metainfo failidesse kirjutada.\n"
 "\n"
@@ -3020,19 +3012,19 @@ msgstr "Tuvastamine ei õnnestunud"
 msgid "Please make sure the entered data is correct."
 msgstr "Palun kontrolli, et sisestatud andmes oleks õiged."
 
-#: ../plugins/bookmarks/__init__.py:209
+#: ../plugins/bookmarks/__init__.py:208
 msgid "_Bookmark This Track"
 msgstr "Lisa see lugu _järjehoidjaks"
 
-#: ../plugins/bookmarks/__init__.py:215
+#: ../plugins/bookmarks/__init__.py:214
 msgid "_Delete Bookmark"
 msgstr "_Kustuta järjehoidja"
 
-#: ../plugins/bookmarks/__init__.py:219
+#: ../plugins/bookmarks/__init__.py:218
 msgid "_Clear Bookmarks"
 msgstr "_Eemalda järjehoidjad"
 
-#: ../plugins/bookmarks/__init__.py:333
+#: ../plugins/bookmarks/__init__.py:332
 msgid "_Bookmarks"
 msgstr "_Järjehoidjad"
 
@@ -3054,23 +3046,23 @@ msgstr "Tempoloendur"
 msgid "Update"
 msgstr "Uuenda"
 
-#: ../plugins/cd/__init__.py:164 ../plugins/cd/__init__.py:268
+#: ../plugins/cd/__init__.py:163 ../plugins/cd/__init__.py:267
 msgid "Audio Disc"
 msgstr "Heliplaat"
 
-#: ../plugins/cd/_cdguipanel.py:97
+#: ../plugins/cd/_cdguipanel.py:96
 msgid "Unknown disc"
 msgstr "Tundmatu plaat"
 
-#: ../plugins/cd/_cdguipanel.py:113
+#: ../plugins/cd/_cdguipanel.py:112
 msgid "Importing CD..."
 msgstr "Impordin lugusid heliplaadilt..."
 
-#: ../plugins/cd/_cdguipanel.py:187
+#: ../plugins/cd/_cdguipanel.py:186
 msgid "Finished transcoding files"
 msgstr "Failide kodeeringu muutmine on lõppenud"
 
-#: ../plugins/cd/_cdguipanel.py:192
+#: ../plugins/cd/_cdguipanel.py:191
 msgid "Error transcoding files from CD."
 msgstr "CD-plaadi failide konverteerimisel tekkis viga."
 
@@ -3134,25 +3126,25 @@ msgstr "Puutasemed:"
 msgid "Display:"
 msgstr "Kuva:"
 
-#: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:199
+#: ../plugins/daapclient/__init__.py:264 ../plugins/history/__init__.py:199
 #: ../plugins/history/__init__.py:247
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
 msgstr "Ajalugu"
 
-#: ../plugins/daapclient/__init__.py:272
+#: ../plugins/daapclient/__init__.py:271
 msgid "Manually..."
 msgstr "Käsitsi..."
 
-#: ../plugins/daapclient/__init__.py:327
+#: ../plugins/daapclient/__init__.py:326
 msgid "Enter IP address and port for share"
 msgstr "Sisesta DAAP-teenuse IP-aadress ja pordi number"
 
-#: ../plugins/daapclient/__init__.py:327
+#: ../plugins/daapclient/__init__.py:326
 msgid "Enter IP address and port."
 msgstr "Sisesta IP-aadress ja pordi number."
 
-#: ../plugins/daapclient/__init__.py:548
+#: ../plugins/daapclient/__init__.py:546
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -3160,19 +3152,19 @@ msgstr ""
 "See server ei toeta mitut samaaegset ühendust.\n"
 "Enne lugude allalaadimist peata nende esitamine."
 
-#: ../plugins/daapclient/__init__.py:659
+#: ../plugins/daapclient/__init__.py:656
 msgid "Refresh Server List"
 msgstr "Värskenda serverite loend"
 
-#: ../plugins/daapclient/__init__.py:667
+#: ../plugins/daapclient/__init__.py:664
 msgid "Disconnect from Server"
 msgstr "katkesta ühendus serveriga"
 
-#: ../plugins/daapclient/__init__.py:688
+#: ../plugins/daapclient/__init__.py:685
 msgid "Select a Location for Saving"
 msgstr "Vali kaust failide salvestamiseks"
 
-#: ../plugins/daapclient/__init__.py:741
+#: ../plugins/daapclient/__init__.py:738
 msgid "Connect to DAAP..."
 msgstr "Ühenda DAAP-teenusega..."
 
@@ -3407,50 +3399,50 @@ msgstr "Salvesta ajalugu"
 msgid "_Clear History"
 msgstr "_Kustuta ajalugu"
 
-#: ../plugins/icecast/__init__.py:135 ../plugins/icecast/__init__.py:231
-#: ../plugins/icecast/__init__.py:340
+#: ../plugins/icecast/__init__.py:134 ../plugins/icecast/__init__.py:230
+#: ../plugins/icecast/__init__.py:339
 msgid "Contacting Icecast server..."
 msgstr "Ühendan Icecast'i serveriga..."
 
-#: ../plugins/icecast/__init__.py:144 ../plugins/icecast/__init__.py:147
-#: ../plugins/icecast/__init__.py:348 ../plugins/icecast/__init__.py:351
+#: ../plugins/icecast/__init__.py:143 ../plugins/icecast/__init__.py:146
+#: ../plugins/icecast/__init__.py:347 ../plugins/icecast/__init__.py:350
 msgid "Error connecting to Icecast server."
 msgstr "Viga ühendamisel Icecasti serveriga."
 
-#: ../plugins/icecast/__init__.py:149
+#: ../plugins/icecast/__init__.py:148
 msgid "Parsing stations XML..."
 msgstr "Raadiojaamade XML-fail on töötlemisel..."
 
-#: ../plugins/icecast/__init__.py:161
+#: ../plugins/icecast/__init__.py:160
 msgid "Retrieving stations..."
 msgstr "Raadiojaamade andmete laadimine..."
 
-#: ../plugins/icecast/__init__.py:274
+#: ../plugins/icecast/__init__.py:273
 msgid "Enter the search keywords"
 msgstr "Sisesta otsingusõnad"
 
-#: ../plugins/icecast/__init__.py:274
+#: ../plugins/icecast/__init__.py:273
 msgid "Icecast Search"
 msgstr "Otsing Icecast-serveritest"
 
-#: ../plugins/icecast/__init__.py:298
+#: ../plugins/icecast/__init__.py:297
 msgid "No Stations Found"
 msgstr "Jaamu ei leitud"
 
-#: ../plugins/icecast/__init__.py:301
+#: ../plugins/icecast/__init__.py:300
 msgid "Icecast Search Results"
 msgstr "Icecast otsingu tulemused"
 
-#: ../plugins/icecast/__init__.py:353
+#: ../plugins/icecast/__init__.py:352
 msgid "Parsing genre list..."
 msgstr "Žanrite loend on töötlemisel..."
 
-#: ../plugins/icecast/__init__.py:374
+#: ../plugins/icecast/__init__.py:373
 #: ../plugins/developer/developer_window.ui:59
 msgid "Name"
 msgstr "Nimi"
 
-#: ../plugins/icecast/__init__.py:390
+#: ../plugins/icecast/__init__.py:389
 msgid "Format"
 msgstr "Vorming"
 
@@ -3470,7 +3462,7 @@ msgstr "IPython konsool"
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
 msgstr "Läbipaistmatust ei saa Windowsis seadistada Gtk+ vea tõttu"
 
-#: ../plugins/keybinder/__init__.py:50
+#: ../plugins/keybinder/__init__.py:49
 msgid ""
 "Keybinder is not supported on this platform! It is only supported on X "
 "servers."
@@ -3516,12 +3508,12 @@ msgstr ""
 "Palun kopeeri järgnev aadress ning ava see oma veebibrauseris:\n"
 "<b><a href=\"{url}\">{url}</a></b>"
 
-#: ../plugins/mainmenubutton/__init__.py:60
+#: ../plugins/mainmenubutton/__init__.py:59
 msgid "This plugin needs at least one visible panel"
 msgstr "See pistikprogramm eeldab, et vähemalt üks riba on nähtav"
 
-#: ../plugins/mainmenubutton/__init__.py:80
-#: ../plugins/mainmenubutton/__init__.py:86
+#: ../plugins/mainmenubutton/__init__.py:79
+#: ../plugins/mainmenubutton/__init__.py:85
 msgid "Main Menu"
 msgstr "Põhimenüü"
 
@@ -3630,19 +3622,19 @@ msgstr "Vaata praegust esitusloendit"
 msgid "$title ($current_time / $total_time)"
 msgstr "$title ($current_time / $total_time)"
 
-#: ../plugins/minimode/controls.py:1037
+#: ../plugins/minimode/controls.py:1035
 msgid "Progress button"
 msgstr "Edenemisnupp"
 
-#: ../plugins/minimode/controls.py:1038
+#: ../plugins/minimode/controls.py:1036
 msgid "Playback progress and access to the current playlist"
 msgstr "Taasesituse kulg ja ligipääs kasutatavale esitusloendile"
 
-#: ../plugins/minimode/controls.py:1112
+#: ../plugins/minimode/controls.py:1110
 msgid "Progress bar"
 msgstr "Edenemisriba"
 
-#: ../plugins/minimode/controls.py:1113
+#: ../plugins/minimode/controls.py:1111
 msgid "Playback progress and seeking"
 msgstr "Taasesituse kulg ja otsing"
 
@@ -3668,7 +3660,7 @@ msgstr "{minutes}:{seconds:02}"
 msgid "{current} / {remaining}"
 msgstr "{current} / {remaining}"
 
-#: ../plugins/moodbar/prefs.py:26 ../plugins/moodbar/PLUGININFO:3
+#: ../plugins/moodbar/prefs.py:25 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
 msgstr "Meeleoluriba"
 
@@ -3677,17 +3669,17 @@ msgstr "Meeleoluriba"
 msgid "Multi-Alarm Clock"
 msgstr "Äratuskell mitme äratusega"
 
-#: ../plugins/notify/__init__.py:48
+#: ../plugins/notify/__init__.py:46
 #, python-brace-format
 msgid "from {album} by {artist}"
 msgstr "albumilt {album} esitaja {artist}"
 
-#: ../plugins/notify/__init__.py:49
+#: ../plugins/notify/__init__.py:47
 #, python-brace-format
 msgid "by {artist}"
 msgstr "{artist}"
 
-#: ../plugins/notify/__init__.py:50
+#: ../plugins/notify/__init__.py:48
 #, python-brace-format
 msgid "from {album}"
 msgstr "albumilt {album}"
@@ -3696,19 +3688,19 @@ msgstr "albumilt {album}"
 msgid "Notify"
 msgstr "Teavita"
 
-#: ../plugins/osd/__init__.py:357
+#: ../plugins/osd/__init__.py:356
 msgid "No track played yet"
 msgstr "Ühtegi lugu pole veel esitatud"
 
-#: ../plugins/osd/__init__.py:397
+#: ../plugins/osd/__init__.py:396
 msgid "Move or resize OSD"
 msgstr "Kohanda ja muuda ekraaniesituse vaadet (OSD)"
 
-#: ../plugins/osd/osd_preferences.py:24 ../plugins/osd/PLUGININFO:3
+#: ../plugins/osd/osd_preferences.py:23 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
 msgstr "Ekraaniesitus (OSD)"
 
-#: ../plugins/osd/osd_preferences.py:72
+#: ../plugins/osd/osd_preferences.py:71
 msgid ""
 "<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
 "by $artist\n"
@@ -3934,7 +3926,7 @@ msgstr "Viga Streamripper'i käivitamisel"
 msgid "Streamripper"
 msgstr "Streamripper"
 
-#: ../plugins/wikipedia/__init__.py:154 ../plugins/wikipedia/preferences.py:21
+#: ../plugins/wikipedia/__init__.py:150 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
 msgstr "Wikipedia"
@@ -4180,40 +4172,44 @@ msgid "Bottom right"
 msgstr "All paremal"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:61
+msgid "Note: Desktop Cover positioning is not supported on Wayland."
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui:74
 msgid "Anchor:"
 msgstr "Ankur:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:93
+#: ../plugins/desktopcover/desktopcover_preferences.ui:106
 msgid "X offset:"
 msgstr "X-nihe:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:122
-#: ../plugins/desktopcover/desktopcover_preferences.ui:162
-#: ../plugins/desktopcover/desktopcover_preferences.ui:217
+#: ../plugins/desktopcover/desktopcover_preferences.ui:134
+#: ../plugins/desktopcover/desktopcover_preferences.ui:173
+#: ../plugins/desktopcover/desktopcover_preferences.ui:227
 msgid "pixels"
 msgstr "pikslit"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:135
+#: ../plugins/desktopcover/desktopcover_preferences.ui:147
 msgid "Y offset:"
 msgstr "Y-nihe:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:172
+#: ../plugins/desktopcover/desktopcover_preferences.ui:183
 msgid "Override cover size"
 msgstr "Ära arvesta kaanepildi suurust"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:190
+#: ../plugins/desktopcover/desktopcover_preferences.ui:201
 msgid "Size:"
 msgstr "Suurus:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:227
+#: ../plugins/desktopcover/desktopcover_preferences.ui:237
 msgid "Use fading"
 msgstr "Kasuta hajumist"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:245
+#: ../plugins/desktopcover/desktopcover_preferences.ui:255
 msgid "Fading duration:"
 msgstr "Hajumise kestus:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:271
+#: ../plugins/desktopcover/desktopcover_preferences.ui:280
 msgid "ms"
 msgstr "ms"
 
@@ -5266,6 +5262,13 @@ msgstr "Logo"
 #: ../data/exaile.appdata.xml.in:38
 msgid "The Exaile Team"
 msgstr "Exaile'i tiim"
+
+#~ msgid ""
+#~ "Exaile is not yet finished loading. Perhaps you should listen for the "
+#~ "exaile_loaded signal?"
+#~ msgstr ""
+#~ "Exaile käivitamine pole veel lõppenud. Kas sa sooviksid kuulata "
+#~ "exaile_loaded märguannet?"
 
 #~ msgid "Remove after playback"
 #~ msgstr "Eemalda peale esitust"

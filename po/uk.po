@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-13 01:14+1100\n"
+"POT-Creation-Date: 2026-03-21 14:03+1100\n"
 "PO-Revision-Date: 2025-11-14 07:51+0000\n"
 "Last-Translator: Максим Горпиніч <gorpinicmaksim0@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/exaile/master/"
@@ -18,9 +18,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural="
-"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
-"1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Weblate 5.15-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
 
@@ -107,7 +106,7 @@ msgid "%d:%02d"
 msgstr "%d:%02d"
 
 #: ../xl/formatter.py:730 ../xl/main.py:809 ../xl/trax/track.py:72
-#: ../plugins/icecast/__init__.py:171
+#: ../plugins/icecast/__init__.py:170
 msgid "Unknown"
 msgstr "Невідомо"
 
@@ -414,14 +413,6 @@ msgstr "Випадковий %d"
 msgid "Rating > %d"
 msgstr "Рейтинг > %d"
 
-#: ../xl/main.py:1014
-msgid ""
-"Exaile is not yet finished loading. Perhaps you should listen for the "
-"exaile_loaded signal?"
-msgstr ""
-"Завантаження Exaile ще не завершилося. Можливо, варто дочекатись сигналу "
-"exaile_loaded?"
-
 #: ../xl/metadata/tags.py:45 ../xlgui/panel/collection.py:130
 #: ../xlgui/widgets/playlist_columns.py:321 ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/minimode_preferences.py:109
@@ -553,7 +544,7 @@ msgid "Website"
 msgstr "Веб-сайт"
 
 #: ../xl/metadata/tags.py:78 ../xlgui/widgets/playlist_columns.py:427
-#: ../plugins/cd/cdprefs.py:122 ../plugins/icecast/__init__.py:380
+#: ../plugins/cd/cdprefs.py:122 ../plugins/icecast/__init__.py:379
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "Bitrate"
 msgstr "Бітова швидкість"
@@ -598,7 +589,7 @@ msgstr "Початок зсуву"
 msgid "Stop offset"
 msgstr "Кінець зсуву"
 
-#: ../xl/player/gst/engine.py:717
+#: ../xl/player/gst/engine.py:716
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ": Можлива помилка аудіопристрою, він підключений?"
 
@@ -614,7 +605,7 @@ msgstr ""
 "встановіть необхідне програмне забезпечення на свій комп’ютер. Див. %s для "
 "отримання детальної інформації."
 
-#: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:153
+#: ../xl/player/gst/sink.py:49 ../xl/player/gst/sink.py:165
 msgid "Automatic"
 msgstr "Автоматично"
 
@@ -622,26 +613,26 @@ msgstr "Автоматично"
 msgid "Custom"
 msgstr "Довільно"
 
-#: ../xl/player/gst/sink.py:192
+#: ../xl/player/gst/sink.py:204
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
 msgstr "Не вдалося створити аудіоприймач (пристрій: %s, тип: %s)"
 
-#: ../xl/player/gst/sink.py:198
+#: ../xl/player/gst/sink.py:210
 msgid "No custom pipeline specified!"
 msgstr "Не вказано користувацький конвеєр!"
 
-#: ../xl/player/gst/sink.py:203
+#: ../xl/player/gst/sink.py:215
 #, python-format
 msgid "Error creating custom audiosink '%s'"
 msgstr "Помилка створення власного аудіоприймача '%s'"
 
-#: ../xl/player/gst/sink.py:209
+#: ../xl/player/gst/sink.py:221
 #, python-format
 msgid "Invalid sink type '%s' specified"
 msgstr "Вказано недійсний тип приймача '%s'"
 
-#: ../xl/player/gst/sink.py:213
+#: ../xl/player/gst/sink.py:225
 #, python-format
 msgid "Could not create sink type '%s'"
 msgstr "Не вдалося створити тип приймача '%s'"
@@ -1191,22 +1182,22 @@ msgstr "Пересканувати збірку"
 msgid "Transferring to %s..."
 msgstr "Передача до %s..."
 
-#: ../xlgui/panel/files.py:82
+#: ../xlgui/panel/files.py:81
 msgid "Files"
 msgstr "Файли"
 
-#: ../xlgui/panel/files.py:122 ../xlgui/widgets/playlist_columns.py:447
+#: ../xlgui/panel/files.py:121 ../xlgui/widgets/playlist_columns.py:447
 #: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:117
 msgid "Filename"
 msgstr "Назва файла"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:146
+#: ../xlgui/panel/files.py:145
 msgid "Size"
 msgstr "Розмір"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:459
+#: ../xlgui/panel/files.py:458
 #, python-format
 msgid "%s kB"
 msgstr "%s КБ"
@@ -1329,7 +1320,7 @@ msgstr "Введіть назву нового списку відтворенн
 msgid "New Playlist"
 msgstr "Новий список відтворення"
 
-#: ../xlgui/panels.py:98
+#: ../xlgui/panels.py:97
 msgid "P_anels"
 msgstr "_Панель"
 
@@ -1415,7 +1406,7 @@ msgstr "Оглядач текстів пісень"
 msgid "Playback"
 msgstr "Відтворення"
 
-#: ../xlgui/preferences/plugin.py:119 ../plugins/grouptagger/gt_common.py:59
+#: ../xlgui/preferences/plugin.py:119 ../plugins/grouptagger/gt_common.py:58
 #: ../plugins/grouptagger/gt_widgets.py:60
 msgid "Uncategorized"
 msgstr "Не класифіковані"
@@ -1783,62 +1774,62 @@ msgstr "Експорт _файлів"
 msgid "_Delete Playlist"
 msgstr "_Видалити список відтворення"
 
-#: ../xlgui/widgets/notebook.py:254
+#: ../xlgui/widgets/notebook.py:252
 msgid "Close Tab"
 msgstr "Закрити вкладку"
 
-#: ../xlgui/widgets/playback.py:830
+#: ../xlgui/widgets/playback.py:828
 #, python-format
 msgid "Seeking: %s"
 msgstr "Пошук: %s"
 
-#: ../xlgui/widgets/playback.py:1180
+#: ../xlgui/widgets/playback.py:1178
 msgid "Move"
 msgstr "Перемістити"
 
-#: ../xlgui/widgets/playback.py:1325
+#: ../xlgui/widgets/playback.py:1323
 msgid "New Marker"
 msgstr "Нова мітка"
 
-#: ../xlgui/widgets/playback.py:1384
+#: ../xlgui/widgets/playback.py:1382
 msgid "_Jump to"
 msgstr "_Перейти до"
 
-#: ../xlgui/widgets/playback.py:1392
+#: ../xlgui/widgets/playback.py:1390
 msgid "_Remove Marker"
 msgstr "_Вилучити маркер"
 
-#: ../xlgui/widgets/playback.py:1435
+#: ../xlgui/widgets/playback.py:1433
 msgid "Muted"
 msgstr "Приглушено"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1441
+#: ../xlgui/widgets/playback.py:1439
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/widgets/playback.py:1446
+#: ../xlgui/widgets/playback.py:1444
 msgid "Full Volume"
 msgstr "Повна гучність"
 
-#: ../xlgui/widgets/playback.py:1565
+#: ../xlgui/widgets/playback.py:1563
 msgid "_Pause"
 msgstr "_Пауза"
 
-#: ../xlgui/widgets/playback.py:1568
+#: ../xlgui/widgets/playback.py:1566
 msgid "P_lay"
 msgstr "_Відтворити"
 
-#: ../xlgui/widgets/playback.py:1580
+#: ../xlgui/widgets/playback.py:1578
 msgid "_Next Track"
 msgstr "_Наступний трек"
 
-#: ../xlgui/widgets/playback.py:1590
+#: ../xlgui/widgets/playback.py:1588
 msgid "_Previous Track"
 msgstr "_Попередній трек"
 
-#: ../xlgui/widgets/playback.py:1600 ../data/ui/covermanager.ui:132
+#: ../xlgui/widgets/playback.py:1598 ../data/ui/covermanager.ui:132
 #: ../data/ui/widgets/progress.ui:16
 msgid "_Stop"
 msgstr "_Зупинити"
@@ -2291,7 +2282,7 @@ msgid "Clear search field"
 msgstr "Очистити поле пошуку"
 
 #: ../data/ui/panel/collection.ui:131 ../data/ui/panel/files.ui:171
-#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:334
+#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:333
 msgid "Search"
 msgstr "Пошук"
 
@@ -3019,19 +3010,19 @@ msgstr "Не вдалося здійснити перевірку"
 msgid "Please make sure the entered data is correct."
 msgstr "Будь-ласка, переконайтеся, що введені дані є вірними."
 
-#: ../plugins/bookmarks/__init__.py:209
+#: ../plugins/bookmarks/__init__.py:208
 msgid "_Bookmark This Track"
 msgstr "_Додати цей трек до закладок"
 
-#: ../plugins/bookmarks/__init__.py:215
+#: ../plugins/bookmarks/__init__.py:214
 msgid "_Delete Bookmark"
 msgstr "_Видалити закладку"
 
-#: ../plugins/bookmarks/__init__.py:219
+#: ../plugins/bookmarks/__init__.py:218
 msgid "_Clear Bookmarks"
 msgstr "_Очистити закладки"
 
-#: ../plugins/bookmarks/__init__.py:333
+#: ../plugins/bookmarks/__init__.py:332
 msgid "_Bookmarks"
 msgstr "_Закладки"
 
@@ -3053,23 +3044,23 @@ msgstr "BPM лічильник"
 msgid "Update"
 msgstr "Оновлення"
 
-#: ../plugins/cd/__init__.py:164 ../plugins/cd/__init__.py:268
+#: ../plugins/cd/__init__.py:163 ../plugins/cd/__init__.py:267
 msgid "Audio Disc"
 msgstr "Звуковий диск"
 
-#: ../plugins/cd/_cdguipanel.py:97
+#: ../plugins/cd/_cdguipanel.py:96
 msgid "Unknown disc"
 msgstr "Невідомий диск"
 
-#: ../plugins/cd/_cdguipanel.py:113
+#: ../plugins/cd/_cdguipanel.py:112
 msgid "Importing CD..."
 msgstr "Імпортування CD..."
 
-#: ../plugins/cd/_cdguipanel.py:187
+#: ../plugins/cd/_cdguipanel.py:186
 msgid "Finished transcoding files"
 msgstr "Завершено перекодування файлів"
 
-#: ../plugins/cd/_cdguipanel.py:192
+#: ../plugins/cd/_cdguipanel.py:191
 msgid "Error transcoding files from CD."
 msgstr "Помилка перекодування файлів з компакт-диска."
 
@@ -3134,25 +3125,25 @@ msgstr "Рівні дерев:"
 msgid "Display:"
 msgstr "Дисплей:"
 
-#: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:199
+#: ../plugins/daapclient/__init__.py:264 ../plugins/history/__init__.py:199
 #: ../plugins/history/__init__.py:247
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
 msgstr "Історія"
 
-#: ../plugins/daapclient/__init__.py:272
+#: ../plugins/daapclient/__init__.py:271
 msgid "Manually..."
 msgstr "Вручну..."
 
-#: ../plugins/daapclient/__init__.py:327
+#: ../plugins/daapclient/__init__.py:326
 msgid "Enter IP address and port for share"
 msgstr "Введіть IP адресу та порт для спільних файлів"
 
-#: ../plugins/daapclient/__init__.py:327
+#: ../plugins/daapclient/__init__.py:326
 msgid "Enter IP address and port."
 msgstr "Введіть IP адресу та порт."
 
-#: ../plugins/daapclient/__init__.py:548
+#: ../plugins/daapclient/__init__.py:546
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -3160,19 +3151,19 @@ msgstr ""
 "Цей сервер не підтримує численні з'єднання.\n"
 "Зупиніть відтворення перед завантаженням пісень."
 
-#: ../plugins/daapclient/__init__.py:659
+#: ../plugins/daapclient/__init__.py:656
 msgid "Refresh Server List"
 msgstr "Оновити список серверів"
 
-#: ../plugins/daapclient/__init__.py:667
+#: ../plugins/daapclient/__init__.py:664
 msgid "Disconnect from Server"
 msgstr "Від’єднатись від сервера"
 
-#: ../plugins/daapclient/__init__.py:688
+#: ../plugins/daapclient/__init__.py:685
 msgid "Select a Location for Saving"
 msgstr "Виберіть місце для збереження"
 
-#: ../plugins/daapclient/__init__.py:741
+#: ../plugins/daapclient/__init__.py:738
 msgid "Connect to DAAP..."
 msgstr "Під’єднатись до DAAP..."
 
@@ -3410,50 +3401,50 @@ msgstr "Зберегти історію"
 msgid "_Clear History"
 msgstr "_Очистити історію"
 
-#: ../plugins/icecast/__init__.py:135 ../plugins/icecast/__init__.py:231
-#: ../plugins/icecast/__init__.py:340
+#: ../plugins/icecast/__init__.py:134 ../plugins/icecast/__init__.py:230
+#: ../plugins/icecast/__init__.py:339
 msgid "Contacting Icecast server..."
 msgstr "Під’єднання до сервера Icecast…"
 
-#: ../plugins/icecast/__init__.py:144 ../plugins/icecast/__init__.py:147
-#: ../plugins/icecast/__init__.py:348 ../plugins/icecast/__init__.py:351
+#: ../plugins/icecast/__init__.py:143 ../plugins/icecast/__init__.py:146
+#: ../plugins/icecast/__init__.py:347 ../plugins/icecast/__init__.py:350
 msgid "Error connecting to Icecast server."
 msgstr "Помилка під’єднання до сервера Icecast."
 
-#: ../plugins/icecast/__init__.py:149
+#: ../plugins/icecast/__init__.py:148
 msgid "Parsing stations XML..."
 msgstr "Розбір XML-файлів станцій..."
 
-#: ../plugins/icecast/__init__.py:161
+#: ../plugins/icecast/__init__.py:160
 msgid "Retrieving stations..."
 msgstr "Отримання станцій..."
 
-#: ../plugins/icecast/__init__.py:274
+#: ../plugins/icecast/__init__.py:273
 msgid "Enter the search keywords"
 msgstr "Введіть ключове слово для пошуку"
 
-#: ../plugins/icecast/__init__.py:274
+#: ../plugins/icecast/__init__.py:273
 msgid "Icecast Search"
 msgstr "Пошук радіостанцій Icecast"
 
-#: ../plugins/icecast/__init__.py:298
+#: ../plugins/icecast/__init__.py:297
 msgid "No Stations Found"
 msgstr "Станцій не знайдено"
 
-#: ../plugins/icecast/__init__.py:301
+#: ../plugins/icecast/__init__.py:300
 msgid "Icecast Search Results"
 msgstr "Результати пошуку Icecast"
 
-#: ../plugins/icecast/__init__.py:353
+#: ../plugins/icecast/__init__.py:352
 msgid "Parsing genre list..."
 msgstr "Розбір списку жанрів..."
 
-#: ../plugins/icecast/__init__.py:374
+#: ../plugins/icecast/__init__.py:373
 #: ../plugins/developer/developer_window.ui:59
 msgid "Name"
 msgstr "Назва"
 
-#: ../plugins/icecast/__init__.py:390
+#: ../plugins/icecast/__init__.py:389
 msgid "Format"
 msgstr "Формат"
 
@@ -3473,7 +3464,7 @@ msgstr "Консоль IPython"
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
 msgstr "Неможливо встановити непрозорість у Windows через помилку в Gtk+"
 
-#: ../plugins/keybinder/__init__.py:50
+#: ../plugins/keybinder/__init__.py:49
 msgid ""
 "Keybinder is not supported on this platform! It is only supported on X "
 "servers."
@@ -3519,12 +3510,12 @@ msgstr ""
 "Будь-ласка, зкопіюйте дану URL та відкрийте її у веб=браузері:\n"
 "<b><a href=\"{url}\">{url}</a></b>"
 
-#: ../plugins/mainmenubutton/__init__.py:60
+#: ../plugins/mainmenubutton/__init__.py:59
 msgid "This plugin needs at least one visible panel"
 msgstr "Цьому плагіну потрібна хоча б одна видима панель"
 
-#: ../plugins/mainmenubutton/__init__.py:80
-#: ../plugins/mainmenubutton/__init__.py:86
+#: ../plugins/mainmenubutton/__init__.py:79
+#: ../plugins/mainmenubutton/__init__.py:85
 msgid "Main Menu"
 msgstr "Головне меню"
 
@@ -3633,19 +3624,19 @@ msgstr "Доступ до поточного списку відтворення
 msgid "$title ($current_time / $total_time)"
 msgstr "$title ($current_time / $total_time)"
 
-#: ../plugins/minimode/controls.py:1037
+#: ../plugins/minimode/controls.py:1035
 msgid "Progress button"
 msgstr "Кнопка поступу"
 
-#: ../plugins/minimode/controls.py:1038
+#: ../plugins/minimode/controls.py:1036
 msgid "Playback progress and access to the current playlist"
 msgstr "Поступ відтворення та доступ до чинного списку відтворення"
 
-#: ../plugins/minimode/controls.py:1112
+#: ../plugins/minimode/controls.py:1110
 msgid "Progress bar"
 msgstr "Смужка поступу"
 
-#: ../plugins/minimode/controls.py:1113
+#: ../plugins/minimode/controls.py:1111
 msgid "Playback progress and seeking"
 msgstr "Поступ відтворення та пошук"
 
@@ -3671,7 +3662,7 @@ msgstr "{minutes}:{seconds:02}"
 msgid "{current} / {remaining}"
 msgstr "{current} / {remaining}"
 
-#: ../plugins/moodbar/prefs.py:26 ../plugins/moodbar/PLUGININFO:3
+#: ../plugins/moodbar/prefs.py:25 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
 msgstr "Смужка настрою"
 
@@ -3680,17 +3671,17 @@ msgstr "Смужка настрою"
 msgid "Multi-Alarm Clock"
 msgstr "Багатофункціональний будильник"
 
-#: ../plugins/notify/__init__.py:48
+#: ../plugins/notify/__init__.py:46
 #, python-brace-format
 msgid "from {album} by {artist}"
 msgstr "від {album} до {artist}"
 
-#: ../plugins/notify/__init__.py:49
+#: ../plugins/notify/__init__.py:47
 #, python-brace-format
 msgid "by {artist}"
 msgstr "від {artist}"
 
-#: ../plugins/notify/__init__.py:50
+#: ../plugins/notify/__init__.py:48
 #, python-brace-format
 msgid "from {album}"
 msgstr "з {album}"
@@ -3699,19 +3690,19 @@ msgstr "з {album}"
 msgid "Notify"
 msgstr "Повідомлення"
 
-#: ../plugins/osd/__init__.py:357
+#: ../plugins/osd/__init__.py:356
 msgid "No track played yet"
 msgstr "Ще не відтворено жодного треку"
 
-#: ../plugins/osd/__init__.py:397
+#: ../plugins/osd/__init__.py:396
 msgid "Move or resize OSD"
 msgstr "Переміщення або зміна розміру екранного меню"
 
-#: ../plugins/osd/osd_preferences.py:24 ../plugins/osd/PLUGININFO:3
+#: ../plugins/osd/osd_preferences.py:23 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
 msgstr "Повідомлення на екрані"
 
-#: ../plugins/osd/osd_preferences.py:72
+#: ../plugins/osd/osd_preferences.py:71
 msgid ""
 "<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
 "by $artist\n"
@@ -3937,7 +3928,7 @@ msgstr "Помилка виконання запису аудіопотоку"
 msgid "Streamripper"
 msgstr "Запис аудіопотоку"
 
-#: ../plugins/wikipedia/__init__.py:154 ../plugins/wikipedia/preferences.py:21
+#: ../plugins/wikipedia/__init__.py:150 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
 msgstr "Вікіпедія"
@@ -4186,40 +4177,44 @@ msgid "Bottom right"
 msgstr "Внизу праворуч"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:61
+msgid "Note: Desktop Cover positioning is not supported on Wayland."
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui:74
 msgid "Anchor:"
 msgstr "Прив’язка:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:93
+#: ../plugins/desktopcover/desktopcover_preferences.ui:106
 msgid "X offset:"
 msgstr "Зміщення по осі X:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:122
-#: ../plugins/desktopcover/desktopcover_preferences.ui:162
-#: ../plugins/desktopcover/desktopcover_preferences.ui:217
+#: ../plugins/desktopcover/desktopcover_preferences.ui:134
+#: ../plugins/desktopcover/desktopcover_preferences.ui:173
+#: ../plugins/desktopcover/desktopcover_preferences.ui:227
 msgid "pixels"
 msgstr "пікселів"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:135
+#: ../plugins/desktopcover/desktopcover_preferences.ui:147
 msgid "Y offset:"
 msgstr "Зміщення по осі Y:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:172
+#: ../plugins/desktopcover/desktopcover_preferences.ui:183
 msgid "Override cover size"
 msgstr "Розмір обкладинки для заміни"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:190
+#: ../plugins/desktopcover/desktopcover_preferences.ui:201
 msgid "Size:"
 msgstr "Розмір:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:227
+#: ../plugins/desktopcover/desktopcover_preferences.ui:237
 msgid "Use fading"
 msgstr "Використовувати затухання"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:245
+#: ../plugins/desktopcover/desktopcover_preferences.ui:255
 msgid "Fading duration:"
 msgstr "Тривалість затухання:"
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui:271
+#: ../plugins/desktopcover/desktopcover_preferences.ui:280
 msgid "ms"
 msgstr "мс"
 
@@ -5274,6 +5269,13 @@ msgstr "Логотип"
 #: ../data/exaile.appdata.xml.in:38
 msgid "The Exaile Team"
 msgstr "Команда Exaile"
+
+#~ msgid ""
+#~ "Exaile is not yet finished loading. Perhaps you should listen for the "
+#~ "exaile_loaded signal?"
+#~ msgstr ""
+#~ "Завантаження Exaile ще не завершилося. Можливо, варто дочекатись сигналу "
+#~ "exaile_loaded?"
 
 #, fuzzy
 #~| msgid "Repeat playback"

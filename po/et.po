@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-21 14:03+1100\n"
-"PO-Revision-Date: 2026-02-17 00:09+0000\n"
+"PO-Revision-Date: 2026-03-22 03:09+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16\n"
+"X-Generator: Weblate 5.17-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -4173,7 +4173,7 @@ msgstr "All paremal"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:61
 msgid "Note: Desktop Cover positioning is not supported on Wayland."
-msgstr ""
+msgstr "Märkus: kaanepildi kuvamine töölaual pole Waylandis toetatud."
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:74
 msgid "Anchor:"

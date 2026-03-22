@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-21 14:03+1100\n"
-"PO-Revision-Date: 2025-11-13 18:51+0000\n"
+"PO-Revision-Date: 2026-03-22 16:09+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/exaile/master/"
 "ro/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -2129,7 +2129,7 @@ msgstr "© 2009-2020 diverși contribuitori"
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr "Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2025."
+msgstr "Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2025, 2026."
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -4209,7 +4209,7 @@ msgstr "Jos, în dreapta"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:61
 msgid "Note: Desktop Cover positioning is not supported on Wayland."
-msgstr ""
+msgstr "Notă: Poziționarea „Coperții pe birou” nu este acceptată în Wayland."
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:74
 msgid "Anchor:"

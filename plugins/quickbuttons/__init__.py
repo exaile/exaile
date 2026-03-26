@@ -118,6 +118,8 @@ class QuickButtons:
         event.remove_callback(self._on_option_set, "playlist_option_set")
         event.remove_callback(self._on_option_set, "queue_option_set")
         event.remove_callback(self._on_option_set, "player_option_set")
+        event.remove_callback(self._on_plugin_enabled, "plugin_enabled")
+        event.remove_callback(self._on_plugin_disabled, "plugin_disabled")
 
     def _on_button_activate(self, event_name, event_source, option: str) -> None:
         for k in self.options:
@@ -147,12 +149,33 @@ class QuickButtons:
                 self.options[option]["value"]
             )
 
+    def _on_plugin_enabled(self, event_name, plugin_manager, plugin_name: str) -> None:
+        option = f'plugin/{plugin_name}'
+        if option not in self.options:
+            return
+        self.options[option]["value"] = True
+        widget = self.options[option]["widget"]
+        assert isinstance(widget, qb_plugin)
+        widget.set_active(True)
+
+    def _on_plugin_disabled(self, event_name, plugin_manager, plugin_name: str) -> None:
+        option = f'plugin/{plugin_name}'
+        if option not in self.options:
+            return
+        self.options[option]["value"] = False
+        widget = self.options[option]["widget"]
+        assert isinstance(widget, qb_plugin)
+        widget.set_active(False)
+
     def _add_button(self, setting: str) -> None:
         if self.options[setting]["type"] == "toggle":
             tbs = qb_toggle(setting, self)
 
         elif self.options[setting]["type"] == "spin":
             tbs = qb_spinner(setting, self)
+
+        elif self.options[setting]["type"] == "plugin":
+            tbs = qb_plugin(setting, self)
 
         elif self.options[setting]["type"] == "equalizer":
             tbs = qb_equalizer(setting, self)
@@ -196,6 +219,8 @@ class QuickButtons:
         event.add_callback(self._on_option_set, "playlist_option_set")
         event.add_callback(self._on_option_set, "queue_option_set")
         event.add_callback(self._on_option_set, "player_option_set")
+        event.add_callback(self._on_plugin_enabled, "plugin_enabled")
+        event.add_callback(self._on_plugin_disabled, "plugin_disabled")
         event.add_callback(self._on_button_activate, "quickbuttons_option_set")
 
     def get_preferences_pane(self):
@@ -389,3 +414,24 @@ class qb_toggle(Gtk.ToggleButton):
         """
         self._qb.self_triggered = True
         settings.set_option(setting, widget.get_active())
+
+
+class qb_plugin(qb_toggle):
+    def __init__(self, setting: str, qb_instance: QuickButtons):
+        assert setting.startswith("plugin/")
+        super().__init__(setting, qb_instance)
+        self._plugin_name = setting[len("plugin/") :]
+        self.set_active(self._plugin_name in qb_instance.exaile.plugins.enabled_plugins)
+
+    # @override
+    def _on_toggle(self, widget: Gtk.ToggleButton, setting: str):
+        # NOTE: Don't call the parent method; we want completely new behavior.
+        plugins = self._qb.exaile.plugins
+        active_old = self._plugin_name in plugins.enabled_plugins
+        active_new = widget.get_active()
+        if active_new == active_old:
+            return
+        if active_new:
+            plugins.enable_plugin(self._plugin_name)
+        else:
+            plugins.disable_plugin(self._plugin_name)

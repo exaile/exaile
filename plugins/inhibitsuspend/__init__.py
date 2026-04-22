@@ -11,6 +11,7 @@ except ImportError:
     import _dummy_thread as _thread
 import logging
 import os
+import shutil
 
 import dbus
 import subprocess
@@ -78,9 +79,12 @@ class SuspendInhibit:
                 self.adapter = KdeAdapter()
         elif 'xfce' in session or 'xfce' in xdg_session:
             self.adapter = XfceAdapter()
+        elif shutil.which(SystemdAdapter.cmd) is not None:
+            self.adapter = SystemdAdapter()
+        elif shutil.which(ElogindAdapter.cmd) is not None:
+            self.adapter = ElogindAdapter()
         elif 'sway' in session or 'sway' in xdg_session:
             self.adapter = SwayAdapter()
-        # TODO implement for LXDE, X-Cinnamon, Unity; systemd-inhibit
         elif session == '' and xdg_session == '':
             logger.warning('Could not detect Desktop Session, will try default \
                     Power Manager then Gnome')
@@ -91,6 +95,7 @@ class SuspendInhibit:
                 self.adapter = GnomeAdapter()
         else:
             raise NotImplementedError(xdg_session)
+        logger.debug(f"Inhibiting suspend with {self.adapter.__qualname__}")
 
     def destroy(self):
         self.adapter.destroy()
@@ -303,6 +308,36 @@ class XfceAdapter(PowerManagerAdapter):
         except EnvironmentError:
             # Fall back to other bus name
             super().__init__(bus_name='org.xfce.PowerManager')
+
+
+class InhibitorProcessAdapter(SuspendAdapter):
+    """
+    Adapter for running an inhibition locking process.
+    """
+
+    cmd = ''
+
+    def _inhibit_call(self):
+        self.inhibitor = subprocess.Popen([self.cmd, 'sleep', 'infinity'])
+
+    def _uninhibit_call(self):
+        self.inhibitor.kill()
+
+
+class SystemdAdapter(InhibitorProcessAdapter):
+    """
+    Adapter for systems using systemd.
+    """
+
+    cmd = 'systemd-inhibit'
+
+
+class ElogindAdapter(InhibitorProcessAdapter):
+    """
+    Adapter for systems using elogind.
+    """
+
+    cmd = 'elogind-inhibit'
 
 
 class SwayAdapter(SuspendAdapter):

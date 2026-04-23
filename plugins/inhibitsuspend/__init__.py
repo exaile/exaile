@@ -68,6 +68,13 @@ class SuspendInhibit:
         # see https://askubuntu.com/questions/72549/how-to-determine-which-window-manager-is-running
         xdg_session = os.getenv('XDG_CURRENT_DESKTOP', '').lower()
 
+        # Attempt to get logind bus
+        try:
+            bus = dbus.SystemBus()
+            logind = bus.get_object('org.freedesktop.login1', '/org/freedesktop/login1')
+        except dbus.exceptions.DBusException:
+            logind = None
+
         # Attempt to find an adaptor that works
         if 'gnome' in session or 'gnome' in xdg_session:
             self.adapter = GnomeAdapter()
@@ -79,6 +86,8 @@ class SuspendInhibit:
                 self.adapter = KdeAdapter()
         elif 'xfce' in session or 'xfce' in xdg_session:
             self.adapter = XfceAdapter()
+        elif logind:
+            self.adapter = LogindAdapter(logind)
         elif shutil.which(SystemdAdapter.cmd) is not None:
             self.adapter = SystemdAdapter()
         elif shutil.which(ElogindAdapter.cmd) is not None:
@@ -95,7 +104,7 @@ class SuspendInhibit:
                 self.adapter = GnomeAdapter()
         else:
             raise NotImplementedError(xdg_session)
-        logger.debug(f"Inhibiting suspend with {self.adapter.__qualname__}")
+        logger.debug(f"Inhibiting suspend with {self.adapter.__class__.__name__}")
 
     def destroy(self):
         self.adapter.destroy()
@@ -193,6 +202,31 @@ class SuspendAdapter(adapters.PlaybackAdapter):
         Must not block
         """
         raise NotImplementedError('Method not Overridden')
+
+
+class LogindAdapter(SuspendAdapter):
+    """
+    Adapter for logind interface.
+
+    See https://systemd.io/INHIBITOR_LOCKS/
+    """
+
+    def __init__(self, logind_obj):
+        interface = 'org.freedesktop.login1.Manager'
+        self.iface = dbus.Interface(logind_obj, interface)
+        super().__init__()
+
+    def _inhibit_call(self):
+        lock = self.iface.Inhibit(
+            'shutdown:sleep:idle',  # what
+            'Exaile',  # who
+            'Playing Music',  # why
+            'block',  # mode
+        )
+        self.lock_file_descriptor = lock.take()
+
+    def _uninhibit_call(self):
+        os.close(self.lock_file_descriptor)
 
 
 class DbusSuspendAdapter(SuspendAdapter):

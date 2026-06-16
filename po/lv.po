@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-21 14:03+1100\n"
-"PO-Revision-Date: 2015-11-17 16:57+0000\n"
-"Last-Translator: Ronalds <birgermeister@tvnet.lv>\n"
-"Language-Team: Latvian <https://hosted.weblate.org/projects/exaile/master/lv/"
-">\n"
+"PO-Revision-Date: 2026-06-17 07:01+0000\n"
+"Last-Translator: \"Mārtiņš B(...)\" <user-"
+"154873@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Latvian <https://hosted.weblate.org/projects/exaile/master/"
+"lv/>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
-"X-Generator: Weblate 2.5-dev\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:27+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1246,10 +1247,9 @@ msgid "_New Station"
 msgstr "Jauna stacija"
 
 #: ../xlgui/panel/playlists.py:134
-#, fuzzy, python-format
-#| msgid "Delete Playlist"
+#, python-format
 msgid "Delete the playlist \"%s\"?"
-msgstr "Dzēst dziesmu sarakstu"
+msgstr "Dzēst dziesmu sarakstu \"%s\"?"
 
 #: ../xlgui/panel/playlists.py:151
 msgid "Enter the new name you want for your playlist"

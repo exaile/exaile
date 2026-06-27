@@ -1,0 +1,5 @@
+Version='4.2.2'
+Authors=['Exaile contributors']
+Name=_("Queue Track Predictor")
+Description=_("Suggests next queue tracks from playlist ordering, GroupTagger groups, and BPM.")
+Category=_('Utility')

@@ -52,15 +52,28 @@ def migrate(old_path: str, new_path: str):
     :return: Whether a migration is performed
     """
 
-    class Utf8Unpickler(pickle.Unpickler):
-        def __init__(self, *args, **kwargs):
-            kwargs['encoding'] = 'utf-8'
-            super().__init__(*args, **kwargs)
+    class Python2CompatibleUnpickler:
+        def __init__(self, file, *args, **kwargs):
+            self.file = file
+            self.args = args
+            self.kwargs = kwargs
+
+        def load(self):
+            try:
+                self.file.seek(0)
+                return pickle.Unpickler(
+                    self.file, *self.args, encoding='utf-8', **self.kwargs
+                ).load()
+            except UnicodeDecodeError:
+                self.file.seek(0)
+                return pickle.Unpickler(
+                    self.file, *self.args, encoding='bytes', **self.kwargs
+                ).load()
 
     # Change shelve's unpickler to use UTF-8, for compatibility with shelves
     # created by Python 2.
     # This is safe to remove if we don't want the compatibility anymore.
-    shelve.Unpickler = Utf8Unpickler
+    shelve.Unpickler = Python2CompatibleUnpickler
 
     # Read data from old db
     try:

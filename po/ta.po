@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-21 14:03+1100\n"
-"PO-Revision-Date: 2026-07-14 16:01+0000\n"
+"PO-Revision-Date: 2026-07-23 12:01+0000\n"
 "Last-Translator: தமிழ்நேரம் <tamilneram247@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/exaile/master/ta/>"
 "\n"
@@ -1055,7 +1055,7 @@ msgstr "E_xport தற்போதைய பிளேலிச்ட்"
 
 #: ../xlgui/menu.py:166 ../xlgui/widgets/playlist.py:278
 msgid "Close _Tab"
-msgstr "_TAB ஐ மூடு"
+msgstr "தவலை_மூடு"
 
 #: ../xlgui/menu.py:183
 msgid "_Restart"
@@ -1196,7 +1196,7 @@ msgstr "அளவு"
 #: ../xlgui/panel/files.py:458
 #, python-format
 msgid "%s kB"
-msgstr "%s KB"
+msgstr "%s கிபை"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:270
@@ -1463,7 +1463,7 @@ msgstr "சொருகி கோப்பு நிறுவல் தோல்
 
 #: ../xlgui/preferences/widgets.py:74
 msgid "Restart Exaile?"
-msgstr "EXAILE ஐ மறுதொடக்கம் செய்யவா?"
+msgstr "எக்சைல் ஐ மறுதொடக்கம் செய்யவா?"
 
 #: ../xlgui/preferences/widgets.py:77
 msgid "A restart is required for this change to take effect."
@@ -1622,7 +1622,7 @@ msgstr "தடங்களுக்கு தொடர்புடைய பா�
 #: ../xlgui/widgets/dialogs.py:1090
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr "பிளேலிச்ட் <b>%s </b> என சேமிக்கப்பட்டது."
+msgstr "இயக்குபட்டியல் <b>%s</b> என சேமிக்கப்பட்டது."
 
 #: ../xlgui/widgets/dialogs.py:1105
 #, python-format

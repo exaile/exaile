@@ -380,6 +380,7 @@ class TrackToolTip(TrackInfoPane, ToolTip):
 
         self.set_border_width(6)
         self.info_label.set_ellipsize(Pango.EllipsizeMode.NONE)
+        self.info_label.set_selectable(False)
         self.cover.set_no_show_all(False)
         self.cover.show_all()
 

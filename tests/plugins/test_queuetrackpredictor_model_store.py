@@ -31,6 +31,18 @@ def test_catalog_operations_update_selection():
     assert catalog['selected'] == 'Quiet'
 
 
+def test_replace_model_preserves_selection():
+    catalog = store.empty_catalog()
+    store.add_model(catalog, 'Selected', {'track_count': 10})
+    store.add_model(catalog, 'Other', {'track_count': 20})
+    store.select_model(catalog, 'Selected')
+
+    store.replace_model(catalog, 'Other', {'track_count': 30})
+
+    assert catalog['models']['Other']['track_count'] == 30
+    assert catalog['selected'] == 'Selected'
+
+
 def test_catalog_rejects_empty_and_duplicate_names():
     catalog = store.empty_catalog()
     store.add_model(catalog, 'Party', {})

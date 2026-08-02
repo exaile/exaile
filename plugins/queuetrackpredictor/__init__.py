@@ -145,10 +145,16 @@ class QueueTrackPredictorPlugin:
     def save_model_catalog(self, catalog):
         model_store.save_catalog(self.get_model_path(), catalog)
 
-    def create_model_from_playlists(self, name, playlists):
+    def create_model_from_playlists(
+        self, name, playlists, playlist_names, replace=False
+    ):
         model = predictor_model.build_model(playlists, self.get_track_groups)
+        model['playlist_names'] = sorted(playlist_names)
         catalog = self.load_model_catalog()
-        model_store.add_model(catalog, name, model)
+        if replace:
+            model_store.replace_model(catalog, name, model)
+        else:
+            model_store.add_model(catalog, name, model)
         self.save_model_catalog(catalog)
         return model
 
@@ -253,10 +259,21 @@ class ModelManagerDialog(Gtk.Dialog):
         self.tree.get_selection().set_mode(Gtk.SelectionMode.SINGLE)
         self.tree.get_selection().connect('changed', self.on_selection_changed)
         self.tree.connect('row-activated', self.on_row_activated)
+        self.tree.connect('button-press-event', self.on_tree_button_press)
         self._add_text_column('', 0, False)
         self._add_text_column(_('Name'), 1, True)
         self._add_text_column(_('Playlists'), 2, False)
         self._add_text_column(_('Tracks'), 3, False)
+
+        self.context_menu = Gtk.Menu()
+        rebuild_menu_item = Gtk.MenuItem(label=_('Rebuild'))
+        rebuild_menu_item.connect('activate', self.on_rebuild_clicked)
+        self.context_menu.append(rebuild_menu_item)
+        self.context_menu.append(Gtk.SeparatorMenuItem())
+        remove_menu_item = Gtk.MenuItem(label=_('Remove'))
+        remove_menu_item.connect('activate', self.on_remove_clicked)
+        self.context_menu.append(remove_menu_item)
+        self.context_menu.show_all()
 
         scroller = Gtk.ScrolledWindow()
         scroller.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
@@ -267,6 +284,9 @@ class ModelManagerDialog(Gtk.Dialog):
         self.add_button_widget = Gtk.Button(label=_('Add'))
         self.add_button_widget.connect('clicked', self.on_add_clicked)
         buttons.pack_start(self.add_button_widget, False, False, 0)
+        self.rebuild_button = Gtk.Button(label=_('Rebuild'))
+        self.rebuild_button.connect('clicked', self.on_rebuild_clicked)
+        buttons.pack_start(self.rebuild_button, False, False, 0)
         self.rename_button = Gtk.Button(label=_('Rename'))
         self.rename_button.connect('clicked', self.on_rename_clicked)
         buttons.pack_start(self.rename_button, False, False, 0)
@@ -317,6 +337,7 @@ class ModelManagerDialog(Gtk.Dialog):
 
     def on_selection_changed(self, selection):
         enabled = self.get_selected_name() is not None
+        self.rebuild_button.set_sensitive(enabled)
         self.rename_button.set_sensitive(enabled)
         self.remove_button.set_sensitive(enabled)
         self.select_button.set_sensitive(enabled)
@@ -330,6 +351,21 @@ class ModelManagerDialog(Gtk.Dialog):
             dialogs.error(self, _('A model with that name already exists.'))
             return
         self.plugin.train_dialog = TrainingDialog(self.plugin, self, name)
+        self.plugin.train_dialog.present()
+
+    def on_rebuild_clicked(self, button):
+        name = self.get_selected_name()
+        if name is None:
+            return
+        catalog = self.plugin.load_model_catalog()
+        playlist_names = catalog['models'][name].get('playlist_names', [])
+        self.plugin.train_dialog = TrainingDialog(
+            self.plugin,
+            self,
+            name,
+            replace=True,
+            selected_playlist_names=playlist_names,
+        )
         self.plugin.train_dialog.present()
 
     def on_rename_clicked(self, button):
@@ -375,6 +411,16 @@ class ModelManagerDialog(Gtk.Dialog):
         self.tree.get_selection().select_path(path)
         self.on_select_clicked(None)
 
+    def on_tree_button_press(self, tree, event):
+        if event.button != 3:
+            return False
+        row = tree.get_path_at_pos(int(event.x), int(event.y))
+        if row is None:
+            return False
+        tree.get_selection().select_path(row[0])
+        self.context_menu.popup_at_pointer(event)
+        return True
+
     def on_delete_event(self, widget, event):
         self.plugin.model_manager_dialog = None
 
@@ -410,20 +456,31 @@ def prompt_for_model_name(parent, title, initial=''):
 
 
 class TrainingDialog(Gtk.Dialog):
-    def __init__(self, plugin, parent, model_name):
+    def __init__(
+        self,
+        plugin,
+        parent,
+        model_name,
+        replace=False,
+        selected_playlist_names=None,
+    ):
+        action = _('Rebuild') if replace else _('Create')
         Gtk.Dialog.__init__(
             self,
-            title=_('Create Prediction Model “%s”') % model_name,
+            title=_('%(action)s Prediction Model “%(name)s”')
+            % {'action': action, 'name': model_name},
             transient_for=parent,
             modal=True,
         )
         self.plugin = plugin
         self.model_name = model_name
+        self.replace = replace
+        self.selected_playlist_names = set(selected_playlist_names or [])
         self.set_default_size(420, 360)
         self.add_buttons(
             Gtk.STOCK_CANCEL,
             Gtk.ResponseType.CANCEL,
-            _('Create'),
+            action,
             Gtk.ResponseType.OK,
         )
         self.connect('response', self.on_response)
@@ -472,7 +529,13 @@ class TrainingDialog(Gtk.Dialog):
     def populate_playlists(self):
         manager = self.plugin.exaile.playlists
         for name in sorted(manager.list_playlists()):
-            self.store.append((False, name, manager.get_playlist(name)))
+            self.store.append(
+                (
+                    name in self.selected_playlist_names,
+                    name,
+                    manager.get_playlist(name),
+                )
+            )
 
     def on_playlist_toggled(self, renderer, path):
         self.store[path][0] = not self.store[path][0]
@@ -484,6 +547,9 @@ class TrainingDialog(Gtk.Dialog):
     def get_selected_playlists(self):
         return [row[2] for row in self.store if row[0]]
 
+    def get_selected_playlist_names(self):
+        return [row[1] for row in self.store if row[0]]
+
     def on_response(self, dialog, response):
         if response == Gtk.ResponseType.OK:
             playlists = self.get_selected_playlists()
@@ -493,7 +559,10 @@ class TrainingDialog(Gtk.Dialog):
 
             try:
                 trained_model = self.plugin.create_model_from_playlists(
-                    self.model_name, playlists
+                    self.model_name,
+                    playlists,
+                    self.get_selected_playlist_names(),
+                    replace=self.replace,
                 )
             except Exception as exc:
                 dialogs.error(self, _("Could not create suggestions model: %s") % exc)
@@ -501,8 +570,12 @@ class TrainingDialog(Gtk.Dialog):
 
             dialogs.info(
                 self,
-                _("Created model from %(playlists)d playlist(s) and %(tracks)d track(s).")
+                _(
+                    "%(action)s model from %(playlists)d playlist(s) and "
+                    "%(tracks)d track(s)."
+                )
                 % {
+                    'action': _('Rebuilt') if self.replace else _('Created'),
                     'playlists': trained_model.get('playlist_count', 0),
                     'tracks': trained_model.get('track_count', 0),
                 },

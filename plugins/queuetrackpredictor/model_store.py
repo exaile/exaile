@@ -58,6 +58,12 @@ def add_model(catalog, name, model):
     catalog['selected'] = name
 
 
+def replace_model(catalog, name, model):
+    if name not in catalog['models']:
+        raise KeyError(name)
+    catalog['models'][name] = model
+
+
 def remove_model(catalog, name):
     if name not in catalog['models']:
         raise KeyError(name)

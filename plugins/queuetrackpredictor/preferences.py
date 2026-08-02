@@ -17,8 +17,15 @@ ui = os.path.join(basedir, 'preferences.ui')
 
 MAX_SUGGESTIONS_OPTION = 'plugin/queuetrackpredictor/max_suggestions'
 DEFAULT_MAX_SUGGESTIONS = 10
+DIVERSITY_OPTION = 'plugin/queuetrackpredictor/diversity'
+DEFAULT_DIVERSITY = 50
 
 
 class MaxSuggestionsPreference(widgets.SpinPreference):
     default = DEFAULT_MAX_SUGGESTIONS
     name = MAX_SUGGESTIONS_OPTION
+
+
+class DiversityPreference(widgets.SpinPreference):
+    default = DEFAULT_DIVERSITY
+    name = DIVERSITY_OPTION

@@ -7,6 +7,12 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkAdjustment" id="diversity_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">100</property>
+    <property name="step_increment">5</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkGrid" id="preferences_pane">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -37,6 +43,34 @@
       <packing>
         <property name="left_attach">1</property>
         <property name="top_attach">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="diversity_label">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="label" translatable="yes">Diversity:</property>
+        <property name="tooltip_text" translatable="yes">Higher values favor suggestions that differ from recent tracks and from each other.</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSpinButton" id="plugin/queuetrackpredictor/diversity">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="halign">start</property>
+        <property name="adjustment">diversity_adjustment</property>
+        <property name="numeric">True</property>
+        <property name="xalign">1</property>
+        <property name="tooltip_text" translatable="yes">0 keeps prediction order; 100 maximizes novelty among plausible candidates.</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">1</property>
       </packing>
     </child>
   </object>

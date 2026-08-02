@@ -12,6 +12,7 @@ MODEL_VERSION = 1
 DEFAULT_BPM_BAND_SIZE = 5
 MAX_CONTEXT_LENGTH = 3
 DEFAULT_MAX_SUGGESTIONS = 10
+DEFAULT_DIVERSITY = 50
 
 
 def _get_track_location(track):
@@ -219,6 +220,108 @@ def _candidate_similarity_score(last_feature, candidate_features):
 
 def _rank_counts(counts):
     return sorted(counts.items(), key=lambda item: (-item[1], item[0]))
+
+
+def rerank_suggestions_for_diversity(
+    model,
+    scored_locations,
+    previous_tracks,
+    get_track_groups,
+    max_suggestions=DEFAULT_MAX_SUGGESTIONS,
+    diversity=DEFAULT_DIVERSITY,
+):
+    candidates = list(scored_locations)
+    if diversity <= 0:
+        return candidates[:max_suggestions]
+    if not candidates:
+        return []
+
+    strength = min(float(diversity), 100.0) / 100.0
+    candidate_features = model.get('candidate_features', {})
+    bpm_band_size = model.get('bpm_band_size', DEFAULT_BPM_BAND_SIZE)
+    recent_features = [
+        make_track_summary(track, get_track_groups, bpm_band_size)
+        for track in previous_tracks
+    ]
+    highest_score = max(score for location, score in candidates) or 1
+    selected = []
+
+    while candidates and len(selected) < max_suggestions:
+        best = max(
+            candidates,
+            key=lambda candidate: _diverse_candidate_score(
+                candidate,
+                candidate_features,
+                recent_features,
+                selected,
+                highest_score,
+                strength,
+            ),
+        )
+        candidates.remove(best)
+        selected.append(best)
+
+    return selected
+
+
+def _diverse_candidate_score(
+    candidate,
+    candidate_features,
+    recent_features,
+    selected,
+    highest_score,
+    strength,
+):
+    location, prediction_score = candidate
+    features = candidate_features.get(location, {})
+    relevance = float(prediction_score) / highest_score
+
+    if recent_features:
+        weights = list(range(1, len(recent_features) + 1))
+        recent_similarity = sum(
+            _summary_similarity(features, recent) * weight
+            for recent, weight in zip(recent_features, weights)
+        ) / sum(weights)
+    else:
+        recent_similarity = 0.0
+
+    selected_similarity = max(
+        (
+            _summary_similarity(features, candidate_features.get(selected_loc, {}))
+            for selected_loc, score in selected
+        ),
+        default=0.0,
+    )
+    novelty = 1.0 - ((recent_similarity * 0.65) + (selected_similarity * 0.35))
+    return ((1.0 - strength) * relevance) + (strength * novelty)
+
+
+def _summary_similarity(first, second):
+    first_groups = set(first.get('groups') or ())
+    second_groups = set(second.get('groups') or ())
+    all_groups = first_groups | second_groups
+    group_similarity = (
+        float(len(first_groups & second_groups)) / len(all_groups)
+        if all_groups
+        else 0.0
+    )
+
+    first_artist = first.get('artist') or ''
+    second_artist = second.get('artist') or ''
+    artist_similarity = float(bool(first_artist and first_artist == second_artist))
+
+    first_bpm = first.get('bpm_band')
+    second_bpm = second.get('bpm_band')
+    if first_bpm is None or second_bpm is None:
+        bpm_similarity = 0.0
+    else:
+        bpm_similarity = max(0.0, 1.0 - (abs(first_bpm - second_bpm) / 30.0))
+
+    return (
+        (group_similarity * 0.55)
+        + (artist_similarity * 0.25)
+        + (bpm_similarity * 0.20)
+    )
 
 
 def resolve_suggestion_tracks(

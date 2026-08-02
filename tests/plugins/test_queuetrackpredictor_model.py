@@ -174,6 +174,55 @@ def test_get_suggestion_locations_can_exclude_known_next_track():
     ) == ['f']
 
 
+def test_diversity_reranking_can_promote_novel_candidates():
+    recent = FakeTrack('recent', groups={'house'}, bpm=125, artist='Repeated')
+    trained = {
+        'bpm_band_size': 5,
+        'candidate_features': {
+            'same': {
+                'groups': ('house',),
+                'bpm_band': 125,
+                'artist': 'Repeated',
+            },
+            'similar': {
+                'groups': ('house',),
+                'bpm_band': 125,
+                'artist': 'Other',
+            },
+            'novel': {
+                'groups': ('disco',),
+                'bpm_band': 115,
+                'artist': 'New',
+            },
+        },
+    }
+    candidates = [('same', 100), ('similar', 95), ('novel', 80)]
+
+    assert model.rerank_suggestions_for_diversity(
+        trained, candidates, [recent], get_groups, max_suggestions=3, diversity=0
+    ) == candidates
+    assert model.rerank_suggestions_for_diversity(
+        trained, candidates, [recent], get_groups, max_suggestions=3, diversity=100
+    )[0][0] == 'novel'
+
+
+def test_diversity_reranking_varies_the_result_list():
+    trained = {
+        'candidate_features': {
+            'house-1': {'groups': ('house',), 'bpm_band': 125, 'artist': 'One'},
+            'house-2': {'groups': ('house',), 'bpm_band': 125, 'artist': 'Two'},
+            'disco': {'groups': ('disco',), 'bpm_band': 115, 'artist': 'Three'},
+        }
+    }
+    candidates = [('house-1', 100), ('house-2', 99), ('disco', 90)]
+
+    reranked = model.rerank_suggestions_for_diversity(
+        trained, candidates, [], get_groups, max_suggestions=2, diversity=60
+    )
+
+    assert [location for location, score in reranked] == ['house-1', 'disco']
+
+
 def test_invalid_bpm_is_bucketed_as_none():
     track = FakeTrack('a', groups={'warm'}, bpm='not-a-number')
 

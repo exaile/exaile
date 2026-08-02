@@ -6,7 +6,8 @@
 # (at your option) any later version.
 
 import os
-from gi.repository import Gtk
+from concurrent.futures import ThreadPoolExecutor
+from gi.repository import GLib, Gtk
 
 from xl import player, providers, settings, xdg
 from xl.playlist import Playlist
@@ -21,6 +22,9 @@ from . import preferences as predictor_preferences
 
 MODEL_DIR = 'queuetrackpredictor'
 MODEL_FILE = 'models.pickle'
+RECENT_TRACK_COUNT = 15
+CANDIDATE_POOL_MULTIPLIER = 5
+DIVERSITY_REBUILD_DELAY_MS = 200
 
 
 class QueueTrackPredictorPlugin:
@@ -33,10 +37,17 @@ class QueueTrackPredictorPlugin:
         self.suggestions_playlist = None
         self.suggestions_page = None
         self.suggestions_tab = None
+        self.suggestion_request = None
+        self.suggestion_generation = 0
+        self.suggestion_executor = None
+        self.suggestion_future = None
         self.button_registered = False
 
     def enable(self, exaile):
         self.exaile = exaile
+        self.suggestion_executor = ThreadPoolExecutor(
+            max_workers=1, thread_name_prefix='track-predictor'
+        )
 
     def get_preferences_pane(self):
         return predictor_preferences
@@ -65,6 +76,13 @@ class QueueTrackPredictorPlugin:
         self.button_registered = True
 
     def disable(self, exaile):
+        self.suggestion_generation += 1
+        if self.suggestion_future is not None:
+            self.suggestion_future.cancel()
+            self.suggestion_future = None
+        if self.suggestion_executor is not None:
+            self.suggestion_executor.shutdown(wait=False)
+            self.suggestion_executor = None
         if self.train_dialog is not None:
             self.train_dialog.destroy()
             self.train_dialog = None
@@ -137,7 +155,7 @@ class QueueTrackPredictorPlugin:
 
         position, track = selected_items[0]
         playlist = context['playlist']
-        start = max(0, position - 2)
+        start = max(0, position - (RECENT_TRACK_COUNT - 1))
         previous_tracks = [playlist[idx] for idx in range(start, position + 1)]
         excluded_locations = set()
         if position + 1 < len(playlist):
@@ -180,62 +198,149 @@ class QueueTrackPredictorPlugin:
         if len(queue_tracks) < 1:
             dialogs.info(parent_window, _("At least one track must be in the queue."))
             return
-        self.suggest_from_tracks(queue_tracks[-3:], parent_window)
+        self.suggest_from_tracks(queue_tracks[-RECENT_TRACK_COUNT:], parent_window)
 
     def suggest_from_tracks(
         self, previous_tracks, parent_window=None, excluded_locations=None
     ):
         parent_window = parent_window or self._get_parent_window()
-        try:
-            trained_model = self.load_model()
-        except IOError:
-            dialogs.info(parent_window, _("Create a track suggestions model first."))
-            return
-        except Exception as exc:
-            dialogs.error(parent_window, _("Could not load suggestions model: %s") % exc)
-            return
-
+        previous_tracks = list(previous_tracks)
+        excluded_locations = set(excluded_locations or [])
         if len(previous_tracks) < 1:
             dialogs.info(parent_window, _("At least one track is required for suggestions."))
             return
 
-        try:
-            max_suggestions = int(
-                settings.get_option(
-                    predictor_preferences.MAX_SUGGESTIONS_OPTION,
-                    predictor_preferences.DEFAULT_MAX_SUGGESTIONS,
-                )
+        self.suggestion_request = (
+            previous_tracks,
+            parent_window,
+            excluded_locations,
+        )
+        max_suggestions = int(
+            settings.get_option(
+                predictor_preferences.MAX_SUGGESTIONS_OPTION,
+                predictor_preferences.DEFAULT_MAX_SUGGESTIONS,
             )
-            scored_locations = predictor_model.get_scored_suggestion_locations(
-                trained_model,
-                previous_tracks[-3:],
-                self.get_track_groups,
-                max_suggestions=max_suggestions,
-                excluded_locations=excluded_locations,
+        )
+        diversity = int(
+            settings.get_option(
+                predictor_preferences.DIVERSITY_OPTION,
+                predictor_preferences.DEFAULT_DIVERSITY,
             )
-        except Exception as exc:
-            dialogs.error(parent_window, _("Could not create suggestions: %s") % exc)
-            return
-
-        scored_tracks = predictor_model.resolve_scored_suggestion_tracks(
-            self.exaile.collection,
-            scored_locations,
-            max_suggestions=max_suggestions,
+        )
+        self.suggestion_generation += 1
+        generation = self.suggestion_generation
+        if self.suggestion_future is not None:
+            self.suggestion_future.cancel()
+        self.suggestion_future = self.suggestion_executor.submit(
+            self._compute_suggestions,
+            generation,
+            previous_tracks,
+            excluded_locations,
+            max_suggestions,
+            diversity,
+            parent_window,
         )
 
-        if not scored_tracks:
-            dialogs.info(parent_window, _("No suggestions found for the queue tail."))
+    def _compute_suggestions(
+        self,
+        generation,
+        previous_tracks,
+        excluded_locations,
+        max_suggestions,
+        diversity,
+        parent_window,
+    ):
+        try:
+            trained_model = self.load_model()
+        except IOError:
+            GLib.idle_add(
+                self._show_suggestion_message,
+                generation,
+                parent_window,
+                False,
+                _("Create a track suggestions model first."),
+            )
+            return
+        except Exception as exc:
+            GLib.idle_add(
+                self._show_suggestion_message,
+                generation,
+                parent_window,
+                True,
+                _("Could not load suggestions model: %s") % exc,
+            )
             return
 
-        self.show_suggestions_playlist(scored_tracks)
+        try:
+            candidate_limit = max_suggestions * CANDIDATE_POOL_MULTIPLIER
+            scored_locations = predictor_model.get_scored_suggestion_locations(
+                trained_model,
+                previous_tracks,
+                self.get_track_groups,
+                max_suggestions=candidate_limit,
+                excluded_locations=excluded_locations,
+            )
+            scored_locations = predictor_model.rerank_suggestions_for_diversity(
+                trained_model,
+                scored_locations,
+                previous_tracks[-RECENT_TRACK_COUNT:],
+                self.get_track_groups,
+                max_suggestions=max_suggestions,
+                diversity=diversity,
+            )
+            scored_tracks = predictor_model.resolve_scored_suggestion_tracks(
+                self.exaile.collection,
+                scored_locations,
+                max_suggestions=max_suggestions,
+            )
+        except Exception as exc:
+            GLib.idle_add(
+                self._show_suggestion_message,
+                generation,
+                parent_window,
+                True,
+                _("Could not create suggestions: %s") % exc,
+            )
+            return
 
-    def show_suggestions_playlist(self, scored_tracks):
+        GLib.idle_add(
+            self._apply_suggestion_result,
+            generation,
+            parent_window,
+            scored_tracks,
+            diversity,
+        )
+
+    def _show_suggestion_message(
+        self, generation, parent_window, is_error, message
+    ):
+        if generation != self.suggestion_generation:
+            return False
+        if is_error:
+            dialogs.error(parent_window, message)
+        else:
+            dialogs.info(parent_window, message)
+        return False
+
+    def _apply_suggestion_result(
+        self, generation, parent_window, scored_tracks, diversity
+    ):
+        if generation != self.suggestion_generation:
+            return False
+        self.suggestion_future = None
+        if not scored_tracks:
+            dialogs.info(parent_window, _("No suggestions found for the queue tail."))
+            return False
+        self.show_suggestions_playlist(scored_tracks, diversity)
+        return False
+
+    def show_suggestions_playlist(self, scored_tracks, diversity):
         playlist_notebook = self._get_suggestions_notebook()
         if playlist_notebook is None:
             playlist_notebook = main.get_playlist_notebook()
             self.suggestions_playlist = SuggestionsPlaylist(scored_tracks)
             self.suggestions_page = SuggestionsPlaylistPage(
-                self.suggestions_playlist, player.PLAYER
+                self, self.suggestions_playlist, player.PLAYER, diversity
             )
             self.suggestions_page.connect(
                 'destroy', self.on_suggestions_page_destroyed
@@ -248,10 +353,18 @@ class QueueTrackPredictorPlugin:
             )
         else:
             self.suggestions_playlist.replace_tracks(scored_tracks)
+            self.suggestions_page.set_diversity(diversity)
             playlist_notebook.set_current_page(
                 playlist_notebook.page_num(self.suggestions_page)
             )
             self.suggestions_page.focus()
+
+    def set_suggestion_diversity(self, diversity):
+        settings.set_option(
+            predictor_preferences.DIVERSITY_OPTION, int(round(diversity))
+        )
+        if self.suggestion_request is not None:
+            self.suggest_from_tracks(*self.suggestion_request)
 
     def _get_suggestions_notebook(self):
         if self.suggestions_tab is None or self.suggestions_page is None:
@@ -382,10 +495,12 @@ class SuggestionsPlaylistView(playlist_widget.PlaylistView):
 class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
     reorderable = False
 
-    def __init__(self, suggestions_playlist, playlist_player):
+    def __init__(self, plugin, suggestions_playlist, playlist_player, diversity):
         playlist_widget.PlaylistPageBase.__init__(
             self, suggestions_playlist, playlist_player
         )
+        self.plugin = plugin
+        self.diversity_rebuild_source = None
         self.swindow = Gtk.ScrolledWindow()
         self.swindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.view = SuggestionsPlaylistView(
@@ -394,6 +509,22 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         self.view.drag_dest_unset()
         self.swindow.add(self.view)
         self.pack_start(self.swindow, True, True, 0)
+
+        diversity_box = Gtk.Box(spacing=8)
+        diversity_box.set_border_width(6)
+        diversity_label = Gtk.Label(label=_('Diversity:'))
+        diversity_box.pack_start(diversity_label, False, False, 0)
+        self.diversity_scale = Gtk.Scale.new_with_range(
+            Gtk.Orientation.HORIZONTAL, 0, 100, 5
+        )
+        self.diversity_scale.set_hexpand(True)
+        self.diversity_scale.set_digits(0)
+        self.diversity_scale.add_mark(0, Gtk.PositionType.BOTTOM, _('Prediction'))
+        self.diversity_scale.add_mark(100, Gtk.PositionType.BOTTOM, _('Diverse'))
+        self.diversity_scale.set_value(diversity)
+        self.diversity_scale.connect('value-changed', self.on_diversity_changed)
+        diversity_box.pack_start(self.diversity_scale, True, True, 0)
+        self.pack_start(diversity_box, False, False, 0)
         self.show_all()
 
     def focus(self):
@@ -401,6 +532,28 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
 
     def get_page_name(self):
         return _('Track Suggestions')
+
+    def set_diversity(self, diversity):
+        if int(round(self.diversity_scale.get_value())) != int(round(diversity)):
+            self.diversity_scale.set_value(diversity)
+
+    def on_diversity_changed(self, scale):
+        if self.diversity_rebuild_source is not None:
+            GLib.source_remove(self.diversity_rebuild_source)
+        self.diversity_rebuild_source = GLib.timeout_add(
+            DIVERSITY_REBUILD_DELAY_MS, self.regenerate_suggestions
+        )
+
+    def regenerate_suggestions(self):
+        self.diversity_rebuild_source = None
+        self.plugin.set_suggestion_diversity(self.diversity_scale.get_value())
+        return False
+
+    def do_destroy(self):
+        if self.diversity_rebuild_source is not None:
+            GLib.source_remove(self.diversity_rebuild_source)
+            self.diversity_rebuild_source = None
+        playlist_widget.PlaylistPageBase.do_destroy(self)
 
 
 class ModelManagerDialog(Gtk.Dialog):

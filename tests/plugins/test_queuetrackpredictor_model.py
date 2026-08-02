@@ -49,6 +49,33 @@ def test_track_features_sort_groups_and_bucket_bpm():
     assert model.track_features(track, get_groups) == (('blues', 'swing'), 120)
 
 
+def test_get_playlist_tags_collects_unique_tags():
+    a = FakeTrack('a', groups={'warm', 'swing'})
+    b = FakeTrack('b', groups={'warm', 'blues'})
+
+    assert model.get_playlist_tags([[a], [b]], get_groups) == {
+        'blues',
+        'swing',
+        'warm',
+    }
+
+
+def test_build_model_filters_and_remembers_included_tags():
+    a = FakeTrack('a', groups={'keep', 'ignore'}, bpm=120)
+    b = FakeTrack('b', groups={'ignore'}, bpm=125)
+
+    trained = model.build_model(
+        [[a, b]], get_groups, included_tags={'keep'}
+    )
+
+    assert trained['included_tags'] == ['keep']
+    assert trained['candidate_features']['a']['groups'] == ('keep',)
+    assert trained['candidate_features']['b']['groups'] == ()
+    assert model.track_features(
+        a, get_groups, included_tags=trained['included_tags']
+    ) == (('keep',), 120)
+
+
 def test_build_model_counts_feature_transitions():
     a = FakeTrack('a', groups={'warm'}, bpm=120)
     b = FakeTrack('b', groups={'cool'}, bpm=122)

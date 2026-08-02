@@ -195,9 +195,11 @@ class QueueTrackPredictorPlugin:
         model_store.save_catalog(self.get_model_path(), catalog)
 
     def create_model_from_playlists(
-        self, name, playlists, playlist_names, replace=False
+        self, name, playlists, playlist_names, included_tags, replace=False
     ):
-        model = predictor_model.build_model(playlists, self.get_track_groups)
+        model = predictor_model.build_model(
+            playlists, self.get_track_groups, included_tags=included_tags
+        )
         model['playlist_names'] = sorted(playlist_names)
         catalog = self.load_model_catalog()
         if replace:
@@ -821,11 +823,11 @@ class TrainingDialog(Gtk.Dialog):
         replace=False,
         selected_playlist_names=None,
     ):
-        action = _('Rebuild') if replace else _('Create')
+        self.action = _('Rebuild') if replace else _('Create')
         Gtk.Dialog.__init__(
             self,
             title=_('%(action)s Prediction Model “%(name)s”')
-            % {'action': action, 'name': model_name},
+            % {'action': self.action, 'name': model_name},
             transient_for=parent,
             modal=True,
         )
@@ -833,48 +835,98 @@ class TrainingDialog(Gtk.Dialog):
         self.model_name = model_name
         self.replace = replace
         self.selected_playlist_names = set(selected_playlist_names or [])
+        self.page = 'playlists'
         self.set_default_size(420, 360)
         self.add_buttons(
             Gtk.STOCK_CANCEL,
             Gtk.ResponseType.CANCEL,
-            action,
+            Gtk.STOCK_GO_BACK,
+            Gtk.ResponseType.APPLY,
+            _('Next'),
             Gtk.ResponseType.OK,
         )
+        self.back_button = self.get_widget_for_response(Gtk.ResponseType.APPLY)
+        self.primary_button = self.get_widget_for_response(Gtk.ResponseType.OK)
+        self.set_default_response(Gtk.ResponseType.OK)
         self.connect('response', self.on_response)
         self.connect('delete-event', self.on_delete_event)
 
         content = self.get_content_area()
         content.set_border_width(6)
+        self.playlist_page = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.tag_page = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        content.pack_start(self.playlist_page, True, True, 0)
+        content.pack_start(self.tag_page, True, True, 0)
 
         label = Gtk.Label(label=_('Select saved playlists to analyze.'))
         label.set_xalign(0)
-        content.pack_start(label, False, False, 0)
+        self.playlist_page.pack_start(label, False, False, 0)
 
         select_box = Gtk.Box(spacing=6)
         self.select_all_button = Gtk.Button(label=_('Select All'))
         self.select_all_button.connect('clicked', self.on_select_all_clicked)
         select_box.pack_start(self.select_all_button, False, False, 0)
-        content.pack_start(select_box, False, False, 4)
+        self.playlist_page.pack_start(select_box, False, False, 4)
 
-        self.store = Gtk.ListStore(bool, str, object)
-        self.tree = Gtk.TreeView(model=self.store)
-        self.tree.set_headers_visible(True)
+        self.playlist_store = Gtk.ListStore(bool, str, object)
+        self.playlist_tree = Gtk.TreeView(model=self.playlist_store)
+        self.playlist_tree.set_headers_visible(True)
 
         toggle = Gtk.CellRendererToggle()
         toggle.connect('toggled', self.on_playlist_toggled)
         toggle_column = Gtk.TreeViewColumn('', toggle, active=0)
-        self.tree.append_column(toggle_column)
+        self.playlist_tree.append_column(toggle_column)
 
         text = Gtk.CellRendererText()
         name_column = Gtk.TreeViewColumn(_('Playlist'), text, text=1)
         name_column.set_expand(True)
-        self.tree.append_column(name_column)
+        self.playlist_tree.append_column(name_column)
 
         scroller = Gtk.ScrolledWindow()
         scroller.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         scroller.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
-        scroller.add(self.tree)
-        content.pack_start(scroller, True, True, 6)
+        scroller.add(self.playlist_tree)
+        self.playlist_page.pack_start(scroller, True, True, 6)
+
+        tag_label = Gtk.Label(
+            label=_('Select GroupTagger tags to include in the prediction model.')
+        )
+        tag_label.set_xalign(0)
+        self.tag_page.pack_start(tag_label, False, False, 0)
+
+        tag_buttons = Gtk.Box(spacing=6)
+        select_all_tags = Gtk.Button(label=_('Select All'))
+        select_all_tags.connect(
+            'clicked', lambda button: self.set_all_tags_selected(True)
+        )
+        tag_buttons.pack_start(select_all_tags, False, False, 0)
+        deselect_all_tags = Gtk.Button(label=_('Deselect All'))
+        deselect_all_tags.connect(
+            'clicked', lambda button: self.set_all_tags_selected(False)
+        )
+        tag_buttons.pack_start(deselect_all_tags, False, False, 0)
+        self.tag_page.pack_start(tag_buttons, False, False, 4)
+
+        self.tag_store = Gtk.ListStore(bool, str)
+        self.tag_tree = Gtk.TreeView(model=self.tag_store)
+        self.tag_tree.set_headers_visible(True)
+        tag_toggle = Gtk.CellRendererToggle()
+        tag_toggle.connect('toggled', self.on_tag_toggled)
+        self.tag_tree.append_column(
+            Gtk.TreeViewColumn('', tag_toggle, active=0)
+        )
+        tag_text = Gtk.CellRendererText()
+        tag_column = Gtk.TreeViewColumn(_('Tag'), tag_text, text=1)
+        tag_column.set_expand(True)
+        self.tag_tree.append_column(tag_column)
+
+        tag_scroller = Gtk.ScrolledWindow()
+        tag_scroller.set_policy(
+            Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC
+        )
+        tag_scroller.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
+        tag_scroller.add(self.tag_tree)
+        self.tag_page.pack_start(tag_scroller, True, True, 6)
 
         self.status = Gtk.Label()
         self.status.set_xalign(0)
@@ -882,11 +934,12 @@ class TrainingDialog(Gtk.Dialog):
 
         self.populate_playlists()
         self.show_all()
+        self.show_playlist_page()
 
     def populate_playlists(self):
         manager = self.plugin.exaile.playlists
         for name in sorted(manager.list_playlists()):
-            self.store.append(
+            self.playlist_store.append(
                 (
                     name in self.selected_playlist_names,
                     name,
@@ -895,50 +948,130 @@ class TrainingDialog(Gtk.Dialog):
             )
 
     def on_playlist_toggled(self, renderer, path):
-        self.store[path][0] = not self.store[path][0]
+        self.playlist_store[path][0] = not self.playlist_store[path][0]
 
     def on_select_all_clicked(self, button):
-        for row in self.store:
+        for row in self.playlist_store:
             row[0] = True
 
     def get_selected_playlists(self):
-        return [row[2] for row in self.store if row[0]]
+        return [row[2] for row in self.playlist_store if row[0]]
 
     def get_selected_playlist_names(self):
-        return [row[1] for row in self.store if row[0]]
+        return [row[1] for row in self.playlist_store if row[0]]
+
+    def show_playlist_page(self):
+        self.page = 'playlists'
+        self.status.set_text('')
+        self.tag_page.hide()
+        self.playlist_page.show_all()
+        self.back_button.hide()
+        self.primary_button.set_label(_('Next'))
+
+    def show_tag_page(self):
+        playlists = self.get_selected_playlists()
+        if not playlists:
+            self.status.set_text(_('Select at least one playlist.'))
+            return False
+
+        try:
+            tags = predictor_model.get_playlist_tags(
+                playlists, self.plugin.get_track_groups
+            )
+        except Exception as exc:
+            dialogs.error(self, _('Could not read playlist tags: %s') % exc)
+            return False
+
+        excluded_tags = set(
+            settings.get_option(predictor_preferences.EXCLUDED_TAGS_OPTION, [])
+        )
+        self.tag_store.clear()
+        for tag in sorted(tags, key=str.casefold):
+            self.tag_store.append((tag not in excluded_tags, tag))
+
+        self.page = 'tags'
+        self.status.set_text(
+            ''
+            if tags
+            else _('No GroupTagger tags found; the model will use BPM only.')
+        )
+        self.playlist_page.hide()
+        self.tag_page.show_all()
+        self.back_button.show()
+        self.primary_button.set_label(self.action)
+        return True
+
+    def on_tag_toggled(self, renderer, path):
+        row = self.tag_store[path]
+        row[0] = not row[0]
+        self.remember_tag_selection(row[1], row[0])
+
+    def set_all_tags_selected(self, selected):
+        excluded_tags = set(
+            settings.get_option(predictor_preferences.EXCLUDED_TAGS_OPTION, [])
+        )
+        for row in self.tag_store:
+            row[0] = selected
+            if selected:
+                excluded_tags.discard(row[1])
+            else:
+                excluded_tags.add(row[1])
+        settings.set_option(
+            predictor_preferences.EXCLUDED_TAGS_OPTION, sorted(excluded_tags)
+        )
+
+    def remember_tag_selection(self, tag, selected):
+        excluded_tags = set(
+            settings.get_option(predictor_preferences.EXCLUDED_TAGS_OPTION, [])
+        )
+        if selected:
+            excluded_tags.discard(tag)
+        else:
+            excluded_tags.add(tag)
+        settings.set_option(
+            predictor_preferences.EXCLUDED_TAGS_OPTION, sorted(excluded_tags)
+        )
+
+    def get_selected_tags(self):
+        return [row[1] for row in self.tag_store if row[0]]
 
     def on_response(self, dialog, response):
-        if response == Gtk.ResponseType.OK:
-            playlists = self.get_selected_playlists()
-            if not playlists:
-                self.status.set_text(_('Select at least one playlist.'))
-                return
+        if response == Gtk.ResponseType.APPLY and self.page == 'tags':
+            self.show_playlist_page()
+            return
+        if response != Gtk.ResponseType.OK:
+            self.destroy()
+            return
+        if self.page == 'playlists':
+            self.show_tag_page()
+            return
 
-            try:
-                trained_model = self.plugin.create_model_from_playlists(
-                    self.model_name,
-                    playlists,
-                    self.get_selected_playlist_names(),
-                    replace=self.replace,
-                )
-            except Exception as exc:
-                dialogs.error(self, _("Could not create suggestions model: %s") % exc)
-                return
-
-            dialogs.info(
-                self,
-                _(
-                    "%(action)s model from %(playlists)d playlist(s) and "
-                    "%(tracks)d track(s)."
-                )
-                % {
-                    'action': _('Rebuilt') if self.replace else _('Created'),
-                    'playlists': trained_model.get('playlist_count', 0),
-                    'tracks': trained_model.get('track_count', 0),
-                },
+        try:
+            trained_model = self.plugin.create_model_from_playlists(
+                self.model_name,
+                self.get_selected_playlists(),
+                self.get_selected_playlist_names(),
+                self.get_selected_tags(),
+                replace=self.replace,
             )
-            if self.plugin.model_manager_dialog is not None:
-                self.plugin.model_manager_dialog.refresh(self.model_name)
+        except Exception as exc:
+            dialogs.error(self, _("Could not create suggestions model: %s") % exc)
+            return
+
+        dialogs.info(
+            self,
+            _(
+                "%(action)s model from %(playlists)d playlist(s) and "
+                "%(tracks)d track(s)."
+            )
+            % {
+                'action': _('Rebuilt') if self.replace else _('Created'),
+                'playlists': trained_model.get('playlist_count', 0),
+                'tracks': trained_model.get('track_count', 0),
+            },
+        )
+        if self.plugin.model_manager_dialog is not None:
+            self.plugin.model_manager_dialog.refresh(self.model_name)
 
         self.destroy()
 

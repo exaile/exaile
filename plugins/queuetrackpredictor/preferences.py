@@ -19,6 +19,7 @@ MAX_SUGGESTIONS_OPTION = 'plugin/queuetrackpredictor/max_suggestions'
 DEFAULT_MAX_SUGGESTIONS = 10
 DIVERSITY_OPTION = 'plugin/queuetrackpredictor/diversity'
 DEFAULT_DIVERSITY = 50
+EXCLUDED_TAGS_OPTION = 'plugin/queuetrackpredictor/excluded_tags'
 
 
 class MaxSuggestionsPreference(widgets.SpinPreference):

@@ -45,18 +45,33 @@ def bucket_bpm(bpm, band_size=DEFAULT_BPM_BAND_SIZE):
     return bpm - (bpm % band_size)
 
 
-def track_features(track, get_track_groups, bpm_band_size=DEFAULT_BPM_BAND_SIZE):
+def track_features(
+    track,
+    get_track_groups,
+    bpm_band_size=DEFAULT_BPM_BAND_SIZE,
+    included_tags=None,
+):
     groups = get_track_groups(track) or []
+    if included_tags is not None:
+        groups = set(groups) & set(included_tags)
     return (
         tuple(sorted(groups)),
         bucket_bpm(_get_track_bpm(track), bpm_band_size),
     )
 
 
-def make_track_summary(track, get_track_groups, bpm_band_size=DEFAULT_BPM_BAND_SIZE):
+def make_track_summary(
+    track,
+    get_track_groups,
+    bpm_band_size=DEFAULT_BPM_BAND_SIZE,
+    included_tags=None,
+):
+    features = track_features(
+        track, get_track_groups, bpm_band_size, included_tags
+    )
     return {
-        'groups': track_features(track, get_track_groups, bpm_band_size)[0],
-        'bpm_band': track_features(track, get_track_groups, bpm_band_size)[1],
+        'groups': features[0],
+        'bpm_band': features[1],
         'title': _get_track_display(track, 'title'),
         'artist': _get_track_display(track, 'artist'),
     }
@@ -69,7 +84,21 @@ def _get_track_display(track, tag):
         return ''
 
 
-def build_model(playlists, get_track_groups, bpm_band_size=DEFAULT_BPM_BAND_SIZE):
+def get_playlist_tags(playlists, get_track_groups):
+    tags = set()
+    for playlist in playlists:
+        for track in playlist:
+            tags.update(get_track_groups(track) or [])
+    return tags
+
+
+def build_model(
+    playlists,
+    get_track_groups,
+    bpm_band_size=DEFAULT_BPM_BAND_SIZE,
+    included_tags=None,
+):
+    included_tags = None if included_tags is None else set(included_tags)
     transition_counts = defaultdict(Counter)
     candidate_features = {}
     playlist_count = 0
@@ -81,14 +110,17 @@ def build_model(playlists, get_track_groups, bpm_band_size=DEFAULT_BPM_BAND_SIZE
         track_count += len(tracks)
 
         feature_cache = [
-            track_features(track, get_track_groups, bpm_band_size) for track in tracks
+            track_features(
+                track, get_track_groups, bpm_band_size, included_tags
+            )
+            for track in tracks
         ]
 
         for track in tracks:
             loc = _get_track_location(track)
             if loc is not None and loc not in candidate_features:
                 candidate_features[loc] = make_track_summary(
-                    track, get_track_groups, bpm_band_size
+                    track, get_track_groups, bpm_band_size, included_tags
                 )
 
         for idx in range(1, len(tracks)):
@@ -103,6 +135,9 @@ def build_model(playlists, get_track_groups, bpm_band_size=DEFAULT_BPM_BAND_SIZE
         'version': MODEL_VERSION,
         'created_at': datetime.now(timezone.utc).isoformat(),
         'bpm_band_size': bpm_band_size,
+        'included_tags': (
+            None if included_tags is None else sorted(included_tags)
+        ),
         'playlist_count': playlist_count,
         'track_count': track_count,
         'transition_counts': {
@@ -145,8 +180,9 @@ def get_scored_suggestion_locations(
         return []
 
     bpm_band_size = model.get('bpm_band_size', DEFAULT_BPM_BAND_SIZE)
+    included_tags = model.get('included_tags')
     context = tuple(
-        track_features(track, get_track_groups, bpm_band_size)
+        track_features(track, get_track_groups, bpm_band_size, included_tags)
         for track in previous_tracks[-MAX_CONTEXT_LENGTH:]
     )
 
@@ -239,8 +275,11 @@ def rerank_suggestions_for_diversity(
     strength = min(float(diversity), 100.0) / 100.0
     candidate_features = model.get('candidate_features', {})
     bpm_band_size = model.get('bpm_band_size', DEFAULT_BPM_BAND_SIZE)
+    included_tags = model.get('included_tags')
     recent_features = [
-        make_track_summary(track, get_track_groups, bpm_band_size)
+        make_track_summary(
+            track, get_track_groups, bpm_band_size, included_tags
+        )
         for track in previous_tracks
     ]
     highest_score = max(score for location, score in candidates) or 1

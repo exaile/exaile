@@ -16,6 +16,7 @@ from xlgui.widgets import dialogs, menu, notebook, playlist as playlist_widget
 
 from . import model as predictor_model
 from . import model_store
+from . import preferences as predictor_preferences
 
 
 MODEL_DIR = 'queuetrackpredictor'
@@ -36,6 +37,9 @@ class QueueTrackPredictorPlugin:
 
     def enable(self, exaile):
         self.exaile = exaile
+
+    def get_preferences_pane(self):
+        return predictor_preferences
 
     def on_gui_loaded(self):
         self.menu_item = menu.simple_menu_item(
@@ -196,10 +200,17 @@ class QueueTrackPredictorPlugin:
             return
 
         try:
+            max_suggestions = int(
+                settings.get_option(
+                    predictor_preferences.MAX_SUGGESTIONS_OPTION,
+                    predictor_preferences.DEFAULT_MAX_SUGGESTIONS,
+                )
+            )
             scored_locations = predictor_model.get_scored_suggestion_locations(
                 trained_model,
                 previous_tracks[-3:],
                 self.get_track_groups,
+                max_suggestions=max_suggestions,
                 excluded_locations=excluded_locations,
             )
         except Exception as exc:
@@ -207,7 +218,9 @@ class QueueTrackPredictorPlugin:
             return
 
         scored_tracks = predictor_model.resolve_scored_suggestion_tracks(
-            self.exaile.collection, scored_locations
+            self.exaile.collection,
+            scored_locations,
+            max_suggestions=max_suggestions,
         )
 
         if not scored_tracks:

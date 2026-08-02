@@ -1,0 +1,24 @@
+# Copyright (C) 2026 Exaile contributors
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+
+import os
+
+from xl.nls import gettext as _
+from xlgui.preferences import widgets
+
+
+name = _('Queue Track Predictor')
+basedir = os.path.dirname(os.path.realpath(__file__))
+ui = os.path.join(basedir, 'preferences.ui')
+
+MAX_SUGGESTIONS_OPTION = 'plugin/queuetrackpredictor/max_suggestions'
+DEFAULT_MAX_SUGGESTIONS = 10
+
+
+class MaxSuggestionsPreference(widgets.SpinPreference):
+    default = DEFAULT_MAX_SUGGESTIONS
+    name = MAX_SUGGESTIONS_OPTION

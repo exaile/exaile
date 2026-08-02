@@ -9,9 +9,10 @@ import os
 from gi.repository import Gtk
 
 from xl import player, providers, settings, xdg
+from xl.playlist import Playlist
 from xl.nls import gettext as _
 from xlgui import main
-from xlgui.widgets import dialogs, menu, notebook
+from xlgui.widgets import dialogs, menu, notebook, playlist as playlist_widget
 
 from . import model as predictor_model
 from . import model_store
@@ -28,7 +29,9 @@ class QueueTrackPredictorPlugin:
         self.playlist_menu_item = None
         self.train_dialog = None
         self.model_manager_dialog = None
-        self.suggestion_dialog = None
+        self.suggestions_playlist = None
+        self.suggestions_page = None
+        self.suggestions_tab = None
         self.button_registered = False
 
     def enable(self, exaile):
@@ -64,9 +67,11 @@ class QueueTrackPredictorPlugin:
         if self.model_manager_dialog is not None:
             self.model_manager_dialog.destroy()
             self.model_manager_dialog = None
-        if self.suggestion_dialog is not None:
-            self.suggestion_dialog.destroy()
-            self.suggestion_dialog = None
+        if self.suggestions_page is not None:
+            playlist_notebook = self._get_suggestions_notebook()
+            if playlist_notebook is not None:
+                playlist_notebook.remove_tab(self.suggestions_tab)
+            self._clear_suggestions_tab_references()
 
         if self.menu_item is not None:
             self.menu_item.unregister()
@@ -209,14 +214,51 @@ class QueueTrackPredictorPlugin:
             dialogs.info(parent_window, _("No suggestions found for the queue tail."))
             return
 
-        if self.suggestion_dialog is not None:
-            self.suggestion_dialog.destroy()
+        self.show_suggestions_playlist(tracks)
 
-        self.suggestion_dialog = SuggestionsDialog(self, parent_window, tracks)
-        self.suggestion_dialog.present()
+    def show_suggestions_playlist(self, tracks):
+        playlist_notebook = self._get_suggestions_notebook()
+        if playlist_notebook is None:
+            playlist_notebook = main.get_playlist_notebook()
+            self.suggestions_playlist = SuggestionsPlaylist(tracks)
+            self.suggestions_page = SuggestionsPlaylistPage(
+                self.suggestions_playlist, player.PLAYER
+            )
+            self.suggestions_page.connect(
+                'destroy', self.on_suggestions_page_destroyed
+            )
+            self.suggestions_tab = notebook.NotebookTab(
+                playlist_notebook, self.suggestions_page
+            )
+            playlist_notebook.add_tab(
+                self.suggestions_tab, self.suggestions_page
+            )
+        else:
+            self.suggestions_playlist.replace_tracks(tracks)
+            playlist_notebook.set_current_page(
+                playlist_notebook.page_num(self.suggestions_page)
+            )
+            self.suggestions_page.focus()
 
-    def append_to_queue(self, track):
-        player.QUEUE.append(track)
+    def _get_suggestions_notebook(self):
+        if self.suggestions_tab is None or self.suggestions_page is None:
+            return None
+        playlist_notebook = self.suggestions_tab.notebook
+        if (
+            playlist_notebook is None
+            or playlist_notebook.page_num(self.suggestions_page) == -1
+        ):
+            return None
+        return playlist_notebook
+
+    def on_suggestions_page_destroyed(self, page):
+        if page is self.suggestions_page:
+            self._clear_suggestions_tab_references()
+
+    def _clear_suggestions_tab_references(self):
+        self.suggestions_playlist = None
+        self.suggestions_page = None
+        self.suggestions_tab = None
 
 
 class SuggestNextTrackButton(Gtk.Button, notebook.NotebookAction):
@@ -238,6 +280,70 @@ class SuggestNextTrackButton(Gtk.Button, notebook.NotebookAction):
     def on_clicked(self, button):
         if self.plugin is not None:
             self.plugin.suggest_next_track()
+
+
+class SuggestionsPlaylist(Playlist):
+    def __init__(self, tracks):
+        Playlist.__init__(self, _('Track Suggestions'), list(tracks))
+
+    def replace_tracks(self, tracks):
+        Playlist.__setitem__(self, slice(None, None, None), list(tracks))
+
+    # The plugin can replace the result set, but user-facing playlist
+    # operations must not mutate it.
+    def set_shuffle_mode(self, mode):
+        pass
+
+    def set_repeat_mode(self, mode):
+        pass
+
+    def set_dynamic_mode(self, mode):
+        pass
+
+    def randomize(self, positions=None):
+        pass
+
+    def sort(self, tags, reverse=False):
+        pass
+
+    def clear(self):
+        pass
+
+    def __setitem__(self, index, value):
+        pass
+
+    def __delitem__(self, index):
+        pass
+
+    def append(self, track):
+        pass
+
+    def extend(self, tracks):
+        pass
+
+
+class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
+    reorderable = False
+
+    def __init__(self, suggestions_playlist, playlist_player):
+        playlist_widget.PlaylistPageBase.__init__(
+            self, suggestions_playlist, playlist_player
+        )
+        self.swindow = Gtk.ScrolledWindow()
+        self.swindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        self.view = playlist_widget.PlaylistView(
+            suggestions_playlist, playlist_player
+        )
+        self.view.drag_dest_unset()
+        self.swindow.add(self.view)
+        self.pack_start(self.swindow, True, True, 0)
+        self.show_all()
+
+    def focus(self):
+        self.view.grab_focus()
+
+    def get_page_name(self):
+        return _('Track Suggestions')
 
 
 class ModelManagerDialog(Gtk.Dialog):
@@ -591,102 +697,6 @@ class TrainingDialog(Gtk.Dialog):
     def destroy(self):
         self.plugin.train_dialog = None
         Gtk.Dialog.destroy(self)
-
-
-class SuggestionsDialog(Gtk.Dialog):
-    def __init__(self, plugin, parent, tracks):
-        Gtk.Dialog.__init__(
-            self,
-            title=_('Suggested Next Tracks'),
-            transient_for=parent,
-            modal=True,
-        )
-        self.plugin = plugin
-        self.set_default_size(720, 420)
-        self.add_buttons(
-            Gtk.STOCK_CANCEL,
-            Gtk.ResponseType.CANCEL,
-            _('Add to Queue'),
-            Gtk.ResponseType.OK,
-        )
-        self.connect('response', self.on_response)
-        self.connect('delete-event', self.on_delete_event)
-
-        self.store = Gtk.ListStore(str, str, str, str, object)
-        for track in tracks:
-            self.store.append(
-                (
-                    track.get_tag_display('title'),
-                    track.get_tag_display('artist'),
-                    _display_bpm(track),
-                    _display_groups(plugin, track),
-                    track,
-                )
-            )
-
-        self.tree = Gtk.TreeView(model=self.store)
-        self.tree.get_selection().set_mode(Gtk.SelectionMode.SINGLE)
-        self.tree.get_selection().select_path(0)
-        self.tree.connect('row-activated', self.on_row_activated)
-        self._add_text_column(_('Title'), 0, True)
-        self._add_text_column(_('Artist'), 1, True)
-        self._add_text_column(_('BPM'), 2, False)
-        self._add_text_column(_('Groups'), 3, True)
-
-        scroller = Gtk.ScrolledWindow()
-        scroller.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-        scroller.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
-        scroller.add(self.tree)
-
-        content = self.get_content_area()
-        content.set_border_width(6)
-        content.pack_start(scroller, True, True, 0)
-        self.show_all()
-
-    def _add_text_column(self, title, column_id, expand):
-        renderer = Gtk.CellRendererText()
-        renderer.set_property('ellipsize', 3)
-        column = Gtk.TreeViewColumn(title, renderer, text=column_id)
-        column.set_expand(expand)
-        self.tree.append_column(column)
-
-    def get_selected_track(self):
-        model, tree_iter = self.tree.get_selection().get_selected()
-        if tree_iter is None:
-            return None
-        return model[tree_iter][4]
-
-    def on_response(self, dialog, response):
-        if response == Gtk.ResponseType.OK:
-            self.add_selected_track()
-        self.destroy()
-
-    def on_row_activated(self, tree, path, column):
-        self.tree.get_selection().select_path(path)
-        self.add_selected_track()
-        self.destroy()
-
-    def add_selected_track(self):
-        track = self.get_selected_track()
-        if track is not None:
-            self.plugin.append_to_queue(track)
-
-    def on_delete_event(self, widget, event):
-        self.plugin.suggestion_dialog = None
-
-    def destroy(self):
-        self.plugin.suggestion_dialog = None
-        Gtk.Dialog.destroy(self)
-
-
-def _display_bpm(track):
-    bpm = track.get_tag_raw('bpm', True)
-    return '' if bpm is None else str(bpm)
-
-
-def _display_groups(plugin, track):
-    groups = plugin.get_track_groups(track)
-    return ', '.join(sorted(groups))
 
 
 plugin_class = QueueTrackPredictorPlugin

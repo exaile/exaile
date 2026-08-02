@@ -66,8 +66,11 @@ class GTShowTracksMenuItem(menu.MenuItem):
 
     def factory(self, menu, parent, context):
         groups = context['groups']
+        categories = context['category-groups']
 
-        if len(groups) == 0:
+        if len(categories) == 1 and not groups:
+            display_name = _('Show tracks tagged in "%s"') % categories[0][0]
+        elif len(groups) == 0:
             display_name = _('Show tracks with selected')
         elif len(groups) == 1:
             display_name = _('Show tracks tagged with "%s"') % groups[0]
@@ -77,8 +80,8 @@ class GTShowTracksMenuItem(menu.MenuItem):
         menuitem = Gtk.MenuItem.new_with_mnemonic(display_name)
         menuitem.connect(
             'activate',
-            lambda *e: gt_common.create_all_search_playlist(
-                context['groups'], parent.exaile
+            lambda *e: gt_common.create_category_search_playlist(
+                context['groups'], context['category-groups'], parent.exaile
             ),
         )
         return menuitem
@@ -241,6 +244,11 @@ class GroupTaggerView(Gtk.TreeView):
         context['categories'] = lambda name, parent: parent.get_selected_categories(
             context['selected-rows']
         )
+        context['category-groups'] = (
+            lambda name, parent: parent.get_selected_category_groups(
+                context['selected-rows']
+            )
+        )
         return context
 
     def show_click_column(self):
@@ -363,6 +371,10 @@ class GroupTaggerView(Gtk.TreeView):
         model, rows = selected_rows
         return model.get_selected_categories(rows)
 
+    def get_selected_category_groups(self, selected_rows):
+        model, rows = selected_rows
+        return model.get_selected_category_groups(rows)
+
     def on_button_press(self, widget, event):
         widget.do_button_press_event(widget, event)
         if event.triggers_context_menu():
@@ -479,6 +491,14 @@ class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
     def get_selected_categories(self, paths):
         '''rows is obtained from get_selection().get_rows()'''
         return [self[path][1] for path in paths if self[path].parent is None]
+
+    def get_selected_category_groups(self, paths):
+        '''Return selected category names together with their groups.'''
+        return [
+            (self[path][1], self.get_category_groups(self[path][1]))
+            for path in paths
+            if self[path].parent is None
+        ]
 
     def is_category(self, path):
         return len(path) == 1

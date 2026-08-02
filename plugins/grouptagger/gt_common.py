@@ -170,6 +170,31 @@ def create_all_search_playlist(groups, exaile):
     _create_search_playlist(name, search_string, exaile)
 
 
+def create_category_search_playlist(groups, categories, exaile):
+    '''Create a playlist matching groups and any group in each category.'''
+
+    tagname = get_tagname()
+    name_parts = list(groups) + [category for category, _groups in categories]
+    name = '%s: %s' % (tagname.title(), ' and '.join(name_parts))
+
+    conditions = [
+        '%s~"\\b%s\\b"' % (tagname, re.escape(group.replace(' ', '_')))
+        for group in groups
+    ]
+    for _category, category_groups in categories:
+        if category_groups:
+            alternatives = '|'.join(
+                '\\b%s\\b' % re.escape(group.replace(' ', '_'))
+                for group in category_groups
+            )
+            conditions.append('%s~"%s"' % (tagname, alternatives))
+        else:
+            # An empty category cannot match any track.
+            conditions.append('%s~"(?!)"' % tagname)
+
+    _create_search_playlist(name, ' '.join(conditions), exaile)
+
+
 def create_custom_search_playlist(groups, exaile):
     '''Create a playlist based on groups, and user input in a shiny dialog'''
 

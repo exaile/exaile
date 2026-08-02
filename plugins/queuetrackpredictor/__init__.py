@@ -6,8 +6,6 @@
 # (at your option) any later version.
 
 import os
-import pickle
-
 from gi.repository import Gtk
 
 from xl import player, providers, settings, xdg
@@ -16,10 +14,11 @@ from xlgui import main
 from xlgui.widgets import dialogs, menu, notebook
 
 from . import model as predictor_model
+from . import model_store
 
 
 MODEL_DIR = 'queuetrackpredictor'
-MODEL_FILE = 'model.pickle'
+MODEL_FILE = 'models.pickle'
 
 
 class QueueTrackPredictorPlugin:
@@ -28,6 +27,7 @@ class QueueTrackPredictorPlugin:
         self.menu_item = None
         self.playlist_menu_item = None
         self.train_dialog = None
+        self.model_manager_dialog = None
         self.suggestion_dialog = None
         self.button_registered = False
 
@@ -36,10 +36,10 @@ class QueueTrackPredictorPlugin:
 
     def on_gui_loaded(self):
         self.menu_item = menu.simple_menu_item(
-            'queue-track-predictor-create',
+            'queue-track-predictor-manage',
             ['plugin-sep'],
-            _('Create Track Suggestions Model'),
-            callback=self.on_create_model,
+            _('Manage Track Prediction Models'),
+            callback=self.on_manage_models,
         )
         self.menu_item.register('menubar-tools-menu')
 
@@ -61,6 +61,9 @@ class QueueTrackPredictorPlugin:
         if self.train_dialog is not None:
             self.train_dialog.destroy()
             self.train_dialog = None
+        if self.model_manager_dialog is not None:
+            self.model_manager_dialog.destroy()
+            self.model_manager_dialog = None
         if self.suggestion_dialog is not None:
             self.suggestion_dialog.destroy()
             self.suggestion_dialog = None
@@ -103,10 +106,12 @@ class QueueTrackPredictorPlugin:
         except Exception:
             return None
 
-    def on_create_model(self, widget, name, parent, context):
-        if self.train_dialog is None:
-            self.train_dialog = TrainingDialog(self, self._get_parent_window(parent))
-        self.train_dialog.present()
+    def on_manage_models(self, widget, name, parent, context):
+        if self.model_manager_dialog is None:
+            self.model_manager_dialog = ModelManagerDialog(
+                self, self._get_parent_window(parent)
+            )
+        self.model_manager_dialog.present()
 
     def can_suggest_from_playlist_context(self, name, parent, context):
         if context['selection-count'] != 1:
@@ -134,15 +139,25 @@ class QueueTrackPredictorPlugin:
             excluded_locations=excluded_locations,
         )
 
-    def create_model_from_playlists(self, playlists):
+    def load_model_catalog(self):
+        return model_store.load_catalog(self.get_model_path())
+
+    def save_model_catalog(self, catalog):
+        model_store.save_catalog(self.get_model_path(), catalog)
+
+    def create_model_from_playlists(self, name, playlists):
         model = predictor_model.build_model(playlists, self.get_track_groups)
-        with open(self.get_model_path(), 'wb') as model_file:
-            pickle.dump(model, model_file, protocol=2)
+        catalog = self.load_model_catalog()
+        model_store.add_model(catalog, name, model)
+        self.save_model_catalog(catalog)
         return model
 
     def load_model(self):
-        with open(self.get_model_path(), 'rb') as model_file:
-            return pickle.load(model_file)
+        catalog = self.load_model_catalog()
+        selected = catalog.get('selected')
+        if selected is None:
+            raise IOError('No prediction model is selected')
+        return catalog['models'][selected]
 
     def suggest_next_track(self, parent_window=None):
         parent_window = parent_window or self._get_parent_window()
@@ -219,15 +234,191 @@ class SuggestNextTrackButton(Gtk.Button, notebook.NotebookAction):
             self.plugin.suggest_next_track()
 
 
-class TrainingDialog(Gtk.Dialog):
+class ModelManagerDialog(Gtk.Dialog):
     def __init__(self, plugin, parent):
         Gtk.Dialog.__init__(
             self,
-            title=_('Create Track Suggestions Model'),
+            title=_('Track Prediction Models'),
             transient_for=parent,
             modal=True,
         )
         self.plugin = plugin
+        self.set_default_size(560, 360)
+        self.add_button(Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE)
+        self.connect('response', lambda dialog, response: self.destroy())
+        self.connect('delete-event', self.on_delete_event)
+
+        self.store = Gtk.ListStore(str, str, str, str)
+        self.tree = Gtk.TreeView(model=self.store)
+        self.tree.get_selection().set_mode(Gtk.SelectionMode.SINGLE)
+        self.tree.get_selection().connect('changed', self.on_selection_changed)
+        self.tree.connect('row-activated', self.on_row_activated)
+        self._add_text_column('', 0, False)
+        self._add_text_column(_('Name'), 1, True)
+        self._add_text_column(_('Playlists'), 2, False)
+        self._add_text_column(_('Tracks'), 3, False)
+
+        scroller = Gtk.ScrolledWindow()
+        scroller.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        scroller.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
+        scroller.add(self.tree)
+
+        buttons = Gtk.Box(spacing=6)
+        self.add_button_widget = Gtk.Button(label=_('Add'))
+        self.add_button_widget.connect('clicked', self.on_add_clicked)
+        buttons.pack_start(self.add_button_widget, False, False, 0)
+        self.rename_button = Gtk.Button(label=_('Rename'))
+        self.rename_button.connect('clicked', self.on_rename_clicked)
+        buttons.pack_start(self.rename_button, False, False, 0)
+        self.remove_button = Gtk.Button(label=_('Remove'))
+        self.remove_button.connect('clicked', self.on_remove_clicked)
+        buttons.pack_start(self.remove_button, False, False, 0)
+        self.select_button = Gtk.Button(label=_('Select'))
+        self.select_button.connect('clicked', self.on_select_clicked)
+        buttons.pack_end(self.select_button, False, False, 0)
+
+        content = self.get_content_area()
+        content.set_border_width(6)
+        content.pack_start(scroller, True, True, 0)
+        content.pack_start(buttons, False, False, 6)
+        self.refresh()
+        self.show_all()
+
+    def _add_text_column(self, title, column_id, expand):
+        renderer = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn(title, renderer, text=column_id)
+        column.set_expand(expand)
+        self.tree.append_column(column)
+
+    def refresh(self, select_name=None):
+        catalog = self.plugin.load_model_catalog()
+        selected_name = catalog.get('selected')
+        self.store.clear()
+        path_to_select = None
+        for name in sorted(catalog['models']):
+            model = catalog['models'][name]
+            tree_iter = self.store.append(
+                (
+                    '\N{BLACK CIRCLE}' if name == selected_name else '',
+                    name,
+                    str(model.get('playlist_count', 0)),
+                    str(model.get('track_count', 0)),
+                )
+            )
+            if name == (select_name or selected_name):
+                path_to_select = self.store.get_path(tree_iter)
+        if path_to_select is not None:
+            self.tree.get_selection().select_path(path_to_select)
+        self.on_selection_changed(self.tree.get_selection())
+
+    def get_selected_name(self):
+        model, tree_iter = self.tree.get_selection().get_selected()
+        return None if tree_iter is None else model[tree_iter][1]
+
+    def on_selection_changed(self, selection):
+        enabled = self.get_selected_name() is not None
+        self.rename_button.set_sensitive(enabled)
+        self.remove_button.set_sensitive(enabled)
+        self.select_button.set_sensitive(enabled)
+
+    def on_add_clicked(self, button):
+        name = prompt_for_model_name(self, _('Add Prediction Model'))
+        if name is None:
+            return
+        catalog = self.plugin.load_model_catalog()
+        if name in catalog['models']:
+            dialogs.error(self, _('A model with that name already exists.'))
+            return
+        self.plugin.train_dialog = TrainingDialog(self.plugin, self, name)
+        self.plugin.train_dialog.present()
+
+    def on_rename_clicked(self, button):
+        old_name = self.get_selected_name()
+        if old_name is None:
+            return
+        new_name = prompt_for_model_name(self, _('Rename Prediction Model'), old_name)
+        if new_name is None:
+            return
+        catalog = self.plugin.load_model_catalog()
+        try:
+            model_store.rename_model(catalog, old_name, new_name)
+        except ValueError as exc:
+            dialogs.error(self, str(exc))
+            return
+        self.plugin.save_model_catalog(catalog)
+        self.refresh(new_name)
+
+    def on_remove_clicked(self, button):
+        name = self.get_selected_name()
+        if name is None:
+            return
+        response = dialogs.yesno(
+            self, _('Remove the prediction model “%s”?') % name
+        )
+        if response != Gtk.ResponseType.YES:
+            return
+        catalog = self.plugin.load_model_catalog()
+        model_store.remove_model(catalog, name)
+        self.plugin.save_model_catalog(catalog)
+        self.refresh()
+
+    def on_select_clicked(self, button):
+        name = self.get_selected_name()
+        if name is None:
+            return
+        catalog = self.plugin.load_model_catalog()
+        model_store.select_model(catalog, name)
+        self.plugin.save_model_catalog(catalog)
+        self.refresh(name)
+
+    def on_row_activated(self, tree, path, column):
+        self.tree.get_selection().select_path(path)
+        self.on_select_clicked(None)
+
+    def on_delete_event(self, widget, event):
+        self.plugin.model_manager_dialog = None
+
+    def destroy(self):
+        self.plugin.model_manager_dialog = None
+        Gtk.Dialog.destroy(self)
+
+
+def prompt_for_model_name(parent, title, initial=''):
+    dialog = Gtk.Dialog(title=title, transient_for=parent, modal=True)
+    dialog.add_buttons(
+        Gtk.STOCK_CANCEL,
+        Gtk.ResponseType.CANCEL,
+        Gtk.STOCK_OK,
+        Gtk.ResponseType.OK,
+    )
+    entry = Gtk.Entry()
+    entry.set_text(initial)
+    entry.set_activates_default(True)
+    dialog.set_default_response(Gtk.ResponseType.OK)
+    content = dialog.get_content_area()
+    content.set_border_width(12)
+    content.pack_start(Gtk.Label(label=_('Model name:')), False, False, 0)
+    content.pack_start(entry, False, False, 6)
+    dialog.show_all()
+    response = dialog.run()
+    name = entry.get_text().strip() if response == Gtk.ResponseType.OK else None
+    dialog.destroy()
+    if response == Gtk.ResponseType.OK and not name:
+        dialogs.error(parent, _('Model name cannot be empty.'))
+        return None
+    return name
+
+
+class TrainingDialog(Gtk.Dialog):
+    def __init__(self, plugin, parent, model_name):
+        Gtk.Dialog.__init__(
+            self,
+            title=_('Create Prediction Model “%s”') % model_name,
+            transient_for=parent,
+            modal=True,
+        )
+        self.plugin = plugin
+        self.model_name = model_name
         self.set_default_size(420, 360)
         self.add_buttons(
             Gtk.STOCK_CANCEL,
@@ -301,7 +492,9 @@ class TrainingDialog(Gtk.Dialog):
                 return
 
             try:
-                trained_model = self.plugin.create_model_from_playlists(playlists)
+                trained_model = self.plugin.create_model_from_playlists(
+                    self.model_name, playlists
+                )
             except Exception as exc:
                 dialogs.error(self, _("Could not create suggestions model: %s") % exc)
                 return
@@ -314,6 +507,8 @@ class TrainingDialog(Gtk.Dialog):
                     'tracks': trained_model.get('track_count', 0),
                 },
             )
+            if self.plugin.model_manager_dialog is not None:
+                self.plugin.model_manager_dialog.refresh(self.model_name)
 
         self.destroy()
 

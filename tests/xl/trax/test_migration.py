@@ -48,3 +48,17 @@ def test_migration_to_sqlite():
 
         with common.open_shelf(dbpath) as db:
             assert list(db.items()) == [('key', ({'tag': 'value'}, 2, {}))]
+
+
+def test_migration_preserves_python2_byte_strings():
+    with tempfile.TemporaryDirectory(prefix="exaile-") as tmpdir:
+        dbpath = os.path.join(tmpdir, "lyrics.cache")
+
+        db = berkeleydb.hashopen(dbpath, 'c')
+        try:
+            db[b'key'] = b'\x80\x02U\x01\x9c.'
+        finally:
+            db.close()
+
+        with common.open_shelf(dbpath) as db:
+            assert db['key'] == b'\x9c'

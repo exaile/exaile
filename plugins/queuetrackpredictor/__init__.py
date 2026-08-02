@@ -12,7 +12,7 @@ from gi.repository import GLib, Gtk
 from xl import player, providers, settings, xdg
 from xl.playlist import Playlist
 from xl.nls import gettext as _
-from xlgui import main
+from xlgui import guiutil, main
 from xlgui.widgets import dialogs, menu, notebook, playlist as playlist_widget
 
 from . import model as predictor_model
@@ -506,6 +506,28 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         self.view = SuggestionsPlaylistView(
             suggestions_playlist, playlist_player
         )
+        self.search_entry = guiutil.SearchEntry()
+        self.search_entry.entry.set_size_request(300, -1)
+        self.search_entry.entry.set_valign(Gtk.Align.CENTER)
+        self.search_entry.entry.set_icon_from_icon_name(
+            Gtk.EntryIconPosition.PRIMARY, 'edit-find'
+        )
+        self.search_entry.entry.set_icon_from_icon_name(
+            Gtk.EntryIconPosition.SECONDARY, 'edit-clear'
+        )
+        self.search_entry.entry.set_icon_sensitive(
+            Gtk.EntryIconPosition.PRIMARY, False
+        )
+        self.search_entry.entry.set_icon_sensitive(
+            Gtk.EntryIconPosition.SECONDARY, False
+        )
+        self.search_entry.entry.set_placeholder_text(_('Search'))
+        self.search_entry.entry.connect('activate', self.on_search_entry_activate)
+        self.view.set_search_entry(self.search_entry.entry)
+        self.view.connect(
+            'start-interactive-search',
+            lambda *args: self.search_entry.entry.grab_focus(),
+        )
         self.view.drag_dest_unset()
         self.swindow.add(self.view)
         self.pack_start(self.swindow, True, True, 0)
@@ -524,6 +546,7 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         self.diversity_scale.set_value(diversity)
         self.diversity_scale.connect('value-changed', self.on_diversity_changed)
         diversity_box.pack_start(self.diversity_scale, True, True, 0)
+        diversity_box.pack_end(self.search_entry.entry, False, True, 0)
         self.pack_start(diversity_box, False, False, 0)
         self.show_all()
 
@@ -536,6 +559,9 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
     def set_diversity(self, diversity):
         if int(round(self.diversity_scale.get_value())) != int(round(diversity)):
             self.diversity_scale.set_value(diversity)
+
+    def on_search_entry_activate(self, entry):
+        self.view.filter_tracks(entry.get_text() or None)
 
     def on_diversity_changed(self, scale):
         if self.diversity_rebuild_source is not None:

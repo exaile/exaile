@@ -87,6 +87,29 @@ class GTShowTracksMenuItem(menu.MenuItem):
         return menuitem
 
 
+class GTRemoveTracksMenuItem(menu.MenuItem):
+    def __init__(self, name, after):
+        menu.MenuItem.__init__(self, name, None, after)
+
+    def factory(self, menu, parent, context):
+        if not context['groups'] and not context['category-groups']:
+            return None
+
+        playlist = gt_common.get_active_playlist()
+        if playlist is None:
+            return None
+
+        display_name = _('Remove matching tracks from "%s"') % playlist.name
+        menuitem = Gtk.MenuItem.new_with_label(display_name)
+        menuitem.connect(
+            'activate',
+            lambda *e: gt_common.remove_category_matches_from_playlist(
+                playlist, context['groups'], context['category-groups']
+            ),
+        )
+        return menuitem
+
+
 class GroupTaggerContextMenu(menu.Menu):
     def __init__(self, tagger):
         menu.Menu.__init__(self, tagger)
@@ -215,6 +238,10 @@ class GroupTaggerView(Gtk.TreeView):
             condition_fn=lambda n, p, c: True if len(c['groups']) > 1 else False,
         )
         self.menu.add_item(item)
+
+        self.menu.add_item(sep('sep3', ['selcust']))
+
+        self.menu.add_item(GTRemoveTracksMenuItem('remove-matches', ['sep3']))
 
         # TODO:
         # - Create smart playlist from selected

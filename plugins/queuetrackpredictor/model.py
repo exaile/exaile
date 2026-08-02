@@ -118,6 +118,25 @@ def get_suggestion_locations(
     max_suggestions=DEFAULT_MAX_SUGGESTIONS,
     excluded_locations=None,
 ):
+    return [
+        location
+        for location, _score in get_scored_suggestion_locations(
+            model,
+            previous_tracks,
+            get_track_groups,
+            max_suggestions,
+            excluded_locations,
+        )
+    ]
+
+
+def get_scored_suggestion_locations(
+    model,
+    previous_tracks,
+    get_track_groups,
+    max_suggestions=DEFAULT_MAX_SUGGESTIONS,
+    excluded_locations=None,
+):
     if model.get('version') != MODEL_VERSION:
         raise ValueError("Unsupported queue predictor model version")
 
@@ -151,7 +170,7 @@ def get_suggestion_locations(
         excluded_locations.update(transition_counts.get(context, {}).keys())
     suggestions = []
 
-    for loc, _count in _rank_counts(counts):
+    for loc, score in _rank_counts(counts):
         if loc in excluded_locations:
             continue
         if loc in previous_locations:
@@ -159,7 +178,7 @@ def get_suggestion_locations(
         if loc in seen:
             continue
         seen.add(loc)
-        suggestions.append(loc)
+        suggestions.append((loc, score))
         if len(suggestions) >= max_suggestions:
             break
 
@@ -210,6 +229,19 @@ def resolve_suggestion_tracks(
         track = collection.get_track_by_loc(loc)
         if track is not None:
             tracks.append(track)
+        if len(tracks) >= max_suggestions:
+            break
+    return tracks
+
+
+def resolve_scored_suggestion_tracks(
+    collection, scored_locations, max_suggestions=DEFAULT_MAX_SUGGESTIONS
+):
+    tracks = []
+    for loc, score in scored_locations:
+        track = collection.get_track_by_loc(loc)
+        if track is not None:
+            tracks.append((track, score))
         if len(tracks) >= max_suggestions:
             break
     return tracks

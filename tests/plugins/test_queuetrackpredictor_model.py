@@ -92,6 +92,10 @@ def test_get_suggestion_locations_uses_broad_feature_matches_and_limits():
         trained, [x, y], get_groups, max_suggestions=2
     ) == ['c', 'd']
 
+    assert model.get_scored_suggestion_locations(
+        trained, [x, y], get_groups, max_suggestions=2
+    ) == [('c', 5004), ('d', 5002)]
+
 
 def test_get_suggestion_locations_returns_empty_without_context_match():
     a = FakeTrack('a', groups={'warm'}, bpm=120)
@@ -185,3 +189,6 @@ def test_resolve_suggestion_tracks_skips_missing_locations():
             return {'a': a, 'c': c}.get(loc)
 
     assert model.resolve_suggestion_tracks(Collection(), ['a', 'b', 'c']) == [a, c]
+    assert model.resolve_scored_suggestion_tracks(
+        Collection(), [('a', 10), ('b', 9), ('c', 8)]
+    ) == [(a, 10), (c, 8)]

@@ -196,7 +196,7 @@ class QueueTrackPredictorPlugin:
             return
 
         try:
-            locations = predictor_model.get_suggestion_locations(
+            scored_locations = predictor_model.get_scored_suggestion_locations(
                 trained_model,
                 previous_tracks[-3:],
                 self.get_track_groups,
@@ -206,21 +206,21 @@ class QueueTrackPredictorPlugin:
             dialogs.error(parent_window, _("Could not create suggestions: %s") % exc)
             return
 
-        tracks = predictor_model.resolve_suggestion_tracks(
-            self.exaile.collection, locations
+        scored_tracks = predictor_model.resolve_scored_suggestion_tracks(
+            self.exaile.collection, scored_locations
         )
 
-        if not tracks:
+        if not scored_tracks:
             dialogs.info(parent_window, _("No suggestions found for the queue tail."))
             return
 
-        self.show_suggestions_playlist(tracks)
+        self.show_suggestions_playlist(scored_tracks)
 
-    def show_suggestions_playlist(self, tracks):
+    def show_suggestions_playlist(self, scored_tracks):
         playlist_notebook = self._get_suggestions_notebook()
         if playlist_notebook is None:
             playlist_notebook = main.get_playlist_notebook()
-            self.suggestions_playlist = SuggestionsPlaylist(tracks)
+            self.suggestions_playlist = SuggestionsPlaylist(scored_tracks)
             self.suggestions_page = SuggestionsPlaylistPage(
                 self.suggestions_playlist, player.PLAYER
             )
@@ -234,7 +234,7 @@ class QueueTrackPredictorPlugin:
                 self.suggestions_tab, self.suggestions_page
             )
         else:
-            self.suggestions_playlist.replace_tracks(tracks)
+            self.suggestions_playlist.replace_tracks(scored_tracks)
             playlist_notebook.set_current_page(
                 playlist_notebook.page_num(self.suggestions_page)
             )
@@ -283,11 +283,24 @@ class SuggestNextTrackButton(Gtk.Button, notebook.NotebookAction):
 
 
 class SuggestionsPlaylist(Playlist):
-    def __init__(self, tracks):
-        Playlist.__init__(self, _('Track Suggestions'), list(tracks))
+    def __init__(self, scored_tracks):
+        self.scores = {}
+        tracks = self._set_scores(scored_tracks)
+        Playlist.__init__(self, _('Track Suggestions'), tracks)
 
-    def replace_tracks(self, tracks):
-        Playlist.__setitem__(self, slice(None, None, None), list(tracks))
+    def replace_tracks(self, scored_tracks):
+        tracks = self._set_scores(scored_tracks)
+        Playlist.__setitem__(self, slice(None, None, None), tracks)
+
+    def _set_scores(self, scored_tracks):
+        scored_tracks = list(scored_tracks)
+        self.scores = {
+            track.get_loc_for_io(): score for track, score in scored_tracks
+        }
+        return [track for track, score in scored_tracks]
+
+    def get_score(self, track):
+        return self.scores.get(track.get_loc_for_io())
 
     # The plugin can replace the result set, but user-facing playlist
     # operations must not mutate it.
@@ -322,6 +335,37 @@ class SuggestionsPlaylist(Playlist):
         pass
 
 
+class SuggestionsPlaylistView(playlist_widget.PlaylistView):
+    def _setup_columns(self):
+        playlist_widget.PlaylistView._setup_columns(self)
+        score_renderer = Gtk.CellRendererText()
+        score_renderer.set_property('xalign', 1.0)
+        score_column = Gtk.TreeViewColumn(_('Score'), score_renderer)
+        score_column.name = '__queue_predictor_score'
+        score_column.set_cell_data_func(score_renderer, self.render_score)
+        score_column.set_clickable(False)
+        score_column.set_resizable(True)
+        score_column.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
+        score_column.set_fixed_width(70)
+        score_column.set_alignment(1.0)
+        self.score_column = score_column
+        self.insert_column(score_column, 1)
+
+    def on_columns_changed(self, widget):
+        columns = [
+            column.name
+            for column in self.get_columns()[1:]
+            if column is not self.score_column
+        ]
+        if columns != settings.get_option('gui/columns', []):
+            settings.set_option('gui/columns', columns)
+
+    def render_score(self, column, renderer, tree_model, tree_iter, data=None):
+        track = tree_model.get_value(tree_iter, 0)
+        score = self.playlist.get_score(track)
+        renderer.set_property('text', '' if score is None else str(score))
+
+
 class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
     reorderable = False
 
@@ -331,7 +375,7 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         )
         self.swindow = Gtk.ScrolledWindow()
         self.swindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-        self.view = playlist_widget.PlaylistView(
+        self.view = SuggestionsPlaylistView(
             suggestions_playlist, playlist_player
         )
         self.view.drag_dest_unset()

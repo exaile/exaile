@@ -373,5 +373,6 @@ class TrackDB:
 
         self._dirty = True
 
+    @common.synchronized
     def get_tracks(self) -> List[Track]:
         return list(self)

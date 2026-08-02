@@ -77,6 +77,23 @@ def make_track_summary(
     }
 
 
+def make_candidate_features(
+    tracks,
+    get_track_groups,
+    bpm_band_size=DEFAULT_BPM_BAND_SIZE,
+    included_tags=None,
+):
+    """Build the runtime feature lookup used to score candidate tracks."""
+    candidates = {}
+    for track in tracks:
+        loc = _get_track_location(track)
+        if loc is not None and loc not in candidates:
+            candidates[loc] = make_track_summary(
+                track, get_track_groups, bpm_band_size, included_tags
+            )
+    return candidates
+
+
 def _get_track_display(track, tag):
     try:
         return track.get_tag_display(tag)
@@ -153,6 +170,7 @@ def get_suggestion_locations(
     get_track_groups,
     max_suggestions=DEFAULT_MAX_SUGGESTIONS,
     excluded_locations=None,
+    candidate_features=None,
 ):
     return [
         location
@@ -162,6 +180,7 @@ def get_suggestion_locations(
             get_track_groups,
             max_suggestions,
             excluded_locations,
+            candidate_features,
         )
     ]
 
@@ -172,6 +191,7 @@ def get_scored_suggestion_locations(
     get_track_groups,
     max_suggestions=DEFAULT_MAX_SUGGESTIONS,
     excluded_locations=None,
+    candidate_features=None,
 ):
     if model.get('version') != MODEL_VERSION:
         raise ValueError("Unsupported queue predictor model version")
@@ -197,7 +217,9 @@ def get_scored_suggestion_locations(
                 for loc, count in transition_counts.get(suffix, {}).items()
             }
         )
-    counts.update(_get_similar_candidate_counts(model, context[-1]))
+    counts.update(
+        _get_similar_candidate_counts(model, context[-1], candidate_features)
+    )
 
     seen = set()
     previous_locations = {_get_track_location(track) for track in previous_tracks}
@@ -208,6 +230,8 @@ def get_scored_suggestion_locations(
     suggestions = []
 
     for loc, score in _rank_counts(counts):
+        if candidate_features is not None and loc not in candidate_features:
+            continue
         if loc in excluded_locations:
             continue
         if loc in previous_locations:
@@ -222,20 +246,27 @@ def get_scored_suggestion_locations(
     return suggestions
 
 
-def _get_similar_candidate_counts(model, last_feature):
-    candidate_features = model.get('candidate_features', {})
+def _get_similar_candidate_counts(
+    model, last_feature, candidate_features=None
+):
+    use_all_candidates = candidate_features is not None
+    if candidate_features is None:
+        candidate_features = model.get('candidate_features', {})
     global_counts = Counter()
     for candidates in model.get('transition_counts', {}).values():
         global_counts.update(candidates)
 
     counts = Counter()
-    for loc, count in global_counts.items():
+    candidate_locations = (
+        candidate_features if use_all_candidates else global_counts
+    )
+    for loc in candidate_locations:
         features = candidate_features.get(loc)
         if features is None:
             continue
         score = _candidate_similarity_score(last_feature, features)
         if score > 0:
-            counts[loc] = (score * 1000) + count
+            counts[loc] = (score * 1000) + global_counts.get(loc, 0)
     return counts
 
 
@@ -265,6 +296,7 @@ def rerank_suggestions_for_diversity(
     get_track_groups,
     max_suggestions=DEFAULT_MAX_SUGGESTIONS,
     diversity=DEFAULT_DIVERSITY,
+    candidate_features=None,
 ):
     candidates = list(scored_locations)
     if diversity <= 0:
@@ -273,7 +305,8 @@ def rerank_suggestions_for_diversity(
         return []
 
     strength = min(float(diversity), 100.0) / 100.0
-    candidate_features = model.get('candidate_features', {})
+    if candidate_features is None:
+        candidate_features = model.get('candidate_features', {})
     bpm_band_size = model.get('bpm_band_size', DEFAULT_BPM_BAND_SIZE)
     included_tags = model.get('included_tags')
     recent_features = [

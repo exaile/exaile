@@ -305,6 +305,15 @@ class QueueTrackPredictorPlugin:
             return
 
         try:
+            candidate_tracks = self.exaile.collection.get_tracks()
+            candidate_features = predictor_model.make_candidate_features(
+                candidate_tracks,
+                self.get_track_groups,
+                trained_model.get(
+                    'bpm_band_size', predictor_model.DEFAULT_BPM_BAND_SIZE
+                ),
+                trained_model.get('included_tags'),
+            )
             candidate_limit = max_suggestions * CANDIDATE_POOL_MULTIPLIER
             scored_locations = predictor_model.get_scored_suggestion_locations(
                 trained_model,
@@ -312,6 +321,7 @@ class QueueTrackPredictorPlugin:
                 self.get_track_groups,
                 max_suggestions=candidate_limit,
                 excluded_locations=excluded_locations,
+                candidate_features=candidate_features,
             )
             scored_locations = predictor_model.rerank_suggestions_for_diversity(
                 trained_model,
@@ -320,6 +330,7 @@ class QueueTrackPredictorPlugin:
                 self.get_track_groups,
                 max_suggestions=max_suggestions,
                 diversity=diversity,
+                candidate_features=candidate_features,
             )
             scored_tracks = predictor_model.resolve_scored_suggestion_tracks(
                 self.exaile.collection,

@@ -160,6 +160,71 @@ def test_get_suggestion_locations_falls_back_to_similar_candidates():
     assert model.get_suggestion_locations(trained, [x, y], get_groups) == ['c']
 
 
+def test_get_suggestion_locations_can_score_untrained_collection_track():
+    a = FakeTrack('a', groups={'warm'}, bpm=120)
+    b = FakeTrack('b', groups={'cool'}, bpm=122)
+    c = FakeTrack('c', groups={'blue'}, bpm=100)
+    recent = FakeTrack('recent', groups={'hot'}, bpm=136)
+    collection_track = FakeTrack(
+        'collection-only', groups={'hot'}, bpm=134, artist='New Artist'
+    )
+    trained = model.build_model([[a, b, c]], get_groups)
+    candidate_features = model.make_candidate_features(
+        [collection_track], get_groups
+    )
+
+    assert 'collection-only' not in trained['candidate_features']
+    assert model.get_suggestion_locations(
+        trained,
+        [recent],
+        get_groups,
+        candidate_features=candidate_features,
+    ) == ['collection-only']
+
+
+def test_make_candidate_features_uses_model_feature_settings():
+    track = FakeTrack(
+        'collection-only',
+        groups={'keep', 'ignore'},
+        bpm=127,
+        title='Collection track',
+        artist='Artist',
+    )
+
+    candidates = model.make_candidate_features(
+        [track], get_groups, bpm_band_size=10, included_tags=['keep']
+    )
+
+    assert candidates['collection-only'] == {
+        'groups': ('keep',),
+        'bpm_band': 120,
+        'title': 'Collection track',
+        'artist': 'Artist',
+    }
+
+
+def test_collection_candidates_exclude_trained_track_missing_from_collection():
+    a = FakeTrack('a', groups={'warm'}, bpm=120)
+    b = FakeTrack('b', groups={'cool'}, bpm=122)
+    trained_only = FakeTrack('trained-only', groups={'hot'}, bpm=130)
+    collection_only = FakeTrack('collection-only', groups={'hot'}, bpm=132)
+    context_start = FakeTrack('context-start', groups={'other'}, bpm=90)
+    trained = model.build_model([[a, b, trained_only]], get_groups)
+    candidate_features = model.make_candidate_features(
+        [a, b, collection_only], get_groups
+    )
+
+    suggestions = model.get_suggestion_locations(
+        trained,
+        [context_start, b],
+        get_groups,
+        candidate_features=candidate_features,
+    )
+
+    assert 'collection-only' in suggestions
+    assert 'trained-only' not in suggestions
+
+
 def test_get_suggestion_locations_does_not_use_exact_pair_match():
     a = FakeTrack('a', groups={'warm'}, bpm=120)
     b = FakeTrack('b', groups={'cool'}, bpm=122)
@@ -248,6 +313,28 @@ def test_diversity_reranking_varies_the_result_list():
     )
 
     assert [location for location, score in reranked] == ['house-1', 'disco']
+
+
+def test_diversity_reranking_uses_collection_candidate_features():
+    trained = {'candidate_features': {}}
+    candidates = [('similar', 100), ('novel', 90)]
+    recent = FakeTrack('recent', groups={'house'}, bpm=125, artist='One')
+    candidate_features = {
+        'similar': {'groups': ('house',), 'bpm_band': 125, 'artist': 'One'},
+        'novel': {'groups': ('disco',), 'bpm_band': 100, 'artist': 'Two'},
+    }
+
+    reranked = model.rerank_suggestions_for_diversity(
+        trained,
+        candidates,
+        [recent],
+        get_groups,
+        max_suggestions=2,
+        diversity=100,
+        candidate_features=candidate_features,
+    )
+
+    assert reranked[0][0] == 'novel'
 
 
 def test_invalid_bpm_is_bucketed_as_none():

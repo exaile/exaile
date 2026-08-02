@@ -131,6 +131,7 @@ class CoverManager(GObject.Object):
 
         self.window.show_all()
 
+        self.emit('prefetch-started')
         self.stopper = threading.Event()
         thread = threading.Thread(
             target=self.prefetch, name='CoverPrefetch', args=(collection,)
@@ -173,8 +174,6 @@ class CoverManager(GObject.Object):
         get_cover = COVER_MANAGER.get_cover
         default_cover_pixbuf = self.default_cover_pixbuf
         cover_size = self.cover_size
-
-        self.emit('prefetch-started')
 
         for i, album in enumerate(albums):
             if self.stopper.is_set():
@@ -284,7 +283,6 @@ class CoverManager(GObject.Object):
             COVER_MANAGER.remove_cover(track)
             self.model[path][1] = self.default_cover_pixbuf
 
-    @common.idle_add()
     def do_prefetch_started(self):
         """
         Sets the widget states to prefetching

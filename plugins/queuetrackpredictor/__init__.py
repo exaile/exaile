@@ -34,6 +34,7 @@ class QueueTrackPredictorPlugin:
         self.playlist_menu_item = None
         self.train_dialog = None
         self.model_manager_dialog = None
+        self.model_manager_open_source = None
         self.suggestions_playlist = None
         self.suggestions_page = None
         self.suggestions_tab = None
@@ -77,6 +78,9 @@ class QueueTrackPredictorPlugin:
 
     def disable(self, exaile):
         self.suggestion_generation += 1
+        if self.model_manager_open_source is not None:
+            GLib.source_remove(self.model_manager_open_source)
+            self.model_manager_open_source = None
         if self.suggestion_future is not None:
             self.suggestion_future.cancel()
             self.suggestion_future = None
@@ -134,11 +138,29 @@ class QueueTrackPredictorPlugin:
             return None
 
     def on_manage_models(self, widget, name, parent, context):
+        # Opening a modal window from inside a Gtk.MenuItem activation can cause
+        # the provider menu to tear down its children while GTK is still
+        # dispatching the event. In particular, this is unsafe on Wayland.
+        # Wait until the menu event has completely unwound before changing the
+        # active toplevel window.
+        if self.model_manager_open_source is not None:
+            return
+        self.model_manager_open_source = GLib.idle_add(
+            self._open_model_manager, self._get_parent_window(parent)
+        )
+
+    def _open_model_manager(self, parent_window):
+        self.model_manager_open_source = None
         if self.model_manager_dialog is None:
             self.model_manager_dialog = ModelManagerDialog(
-                self, self._get_parent_window(parent)
+                self, parent_window
             )
         self.model_manager_dialog.present()
+        return False
+
+    def on_model_manager_destroyed(self, dialog):
+        if dialog is self.model_manager_dialog:
+            self.model_manager_dialog = None
 
     def can_suggest_from_playlist_context(self, name, parent, context):
         if context['selection-count'] != 1:
@@ -594,7 +616,7 @@ class ModelManagerDialog(Gtk.Dialog):
         self.set_default_size(560, 360)
         self.add_button(Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE)
         self.connect('response', lambda dialog, response: self.destroy())
-        self.connect('delete-event', self.on_delete_event)
+        self.connect('destroy', self.plugin.on_model_manager_destroyed)
 
         self.store = Gtk.ListStore(str, str, str, str)
         self.tree = Gtk.TreeView(model=self.store)
@@ -608,6 +630,7 @@ class ModelManagerDialog(Gtk.Dialog):
         self._add_text_column(_('Tracks'), 3, False)
 
         self.context_menu = Gtk.Menu()
+        self.context_menu.attach_to_widget(self.tree, None)
         rebuild_menu_item = Gtk.MenuItem(label=_('Rebuild'))
         rebuild_menu_item.connect('activate', self.on_rebuild_clicked)
         self.context_menu.append(rebuild_menu_item)
@@ -762,14 +785,6 @@ class ModelManagerDialog(Gtk.Dialog):
         tree.get_selection().select_path(row[0])
         self.context_menu.popup_at_pointer(event)
         return True
-
-    def on_delete_event(self, widget, event):
-        self.plugin.model_manager_dialog = None
-
-    def destroy(self):
-        self.plugin.model_manager_dialog = None
-        Gtk.Dialog.destroy(self)
-
 
 def prompt_for_model_name(parent, title, initial=''):
     dialog = Gtk.Dialog(title=title, transient_for=parent, modal=True)

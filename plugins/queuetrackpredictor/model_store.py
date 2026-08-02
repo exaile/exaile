@@ -17,6 +17,10 @@ def empty_catalog():
     return {'version': CATALOG_VERSION, 'selected': None, 'models': {}}
 
 
+def model_names(catalog):
+    return sorted(catalog['models'], key=lambda name: (name.casefold(), name))
+
+
 def load_catalog(path):
     try:
         with open(path, 'rb') as catalog_file:
@@ -29,7 +33,7 @@ def load_catalog(path):
     if not isinstance(catalog.get('models'), dict):
         raise ValueError('Invalid queue predictor catalog')
     if catalog.get('selected') not in catalog['models']:
-        catalog['selected'] = next(iter(sorted(catalog['models'])), None)
+        catalog['selected'] = next(iter(model_names(catalog)), None)
     return catalog
 
 
@@ -69,7 +73,7 @@ def remove_model(catalog, name):
         raise KeyError(name)
     del catalog['models'][name]
     if catalog.get('selected') == name:
-        catalog['selected'] = next(iter(sorted(catalog['models'])), None)
+        catalog['selected'] = next(iter(model_names(catalog)), None)
 
 
 def rename_model(catalog, old_name, new_name):

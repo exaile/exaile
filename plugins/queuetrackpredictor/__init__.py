@@ -62,14 +62,7 @@ class QueueTrackPredictorPlugin:
         )
         self.menu_item.register('menubar-tools-menu')
 
-        self.playlist_menu_item = menu.simple_menu_item(
-            'queue-track-predictor-playlist-suggest',
-            ['enqueue'],
-            _('Suggest Next Track'),
-            'list-add',
-            callback=self.on_playlist_suggest_next_track,
-            condition_fn=self.can_suggest_from_playlist_context,
-        )
+        self.playlist_menu_item = PredictionModelsMenuItem(self)
         self.playlist_menu_item.register('playlist-context-menu')
 
         SuggestNextTrackButton.plugin = self
@@ -170,7 +163,9 @@ class QueueTrackPredictorPlugin:
             return False
         return True
 
-    def on_playlist_suggest_next_track(self, widget, name, parent, context):
+    def on_playlist_suggest_next_track(
+        self, widget, model_name, parent, context
+    ):
         selected_items = context['selected-items']
         if not selected_items:
             return
@@ -186,6 +181,7 @@ class QueueTrackPredictorPlugin:
             previous_tracks,
             self._get_parent_window(parent),
             excluded_locations=excluded_locations,
+            model_name=model_name,
         )
 
     def load_model_catalog(self):
@@ -209,12 +205,18 @@ class QueueTrackPredictorPlugin:
         self.save_model_catalog(catalog)
         return model
 
-    def load_model(self):
+    def load_model(self, model_name=None):
+        return self.load_model_entry(model_name)[1]
+
+    def load_model_entry(self, model_name=None):
         catalog = self.load_model_catalog()
-        selected = catalog.get('selected')
-        if selected is None:
+        model_name = model_name or catalog.get('selected')
+        if model_name is None:
             raise IOError('No prediction model is selected')
-        return catalog['models'][selected]
+        try:
+            return model_name, catalog['models'][model_name]
+        except KeyError:
+            raise ValueError('Prediction model “%s” does not exist' % model_name)
 
     def suggest_next_track(self, parent_window=None):
         parent_window = parent_window or self._get_parent_window()
@@ -225,7 +227,11 @@ class QueueTrackPredictorPlugin:
         self.suggest_from_tracks(queue_tracks[-RECENT_TRACK_COUNT:], parent_window)
 
     def suggest_from_tracks(
-        self, previous_tracks, parent_window=None, excluded_locations=None
+        self,
+        previous_tracks,
+        parent_window=None,
+        excluded_locations=None,
+        model_name=None,
     ):
         parent_window = parent_window or self._get_parent_window()
         previous_tracks = list(previous_tracks)
@@ -238,6 +244,7 @@ class QueueTrackPredictorPlugin:
             previous_tracks,
             parent_window,
             excluded_locations,
+            model_name,
         )
         max_suggestions = int(
             settings.get_option(
@@ -263,6 +270,7 @@ class QueueTrackPredictorPlugin:
             max_suggestions,
             diversity,
             parent_window,
+            model_name,
         )
 
     def _compute_suggestions(
@@ -273,9 +281,10 @@ class QueueTrackPredictorPlugin:
         max_suggestions,
         diversity,
         parent_window,
+        model_name,
     ):
         try:
-            trained_model = self.load_model()
+            model_name, trained_model = self.load_model_entry(model_name)
         except IOError:
             GLib.idle_add(
                 self._show_suggestion_message,
@@ -333,6 +342,7 @@ class QueueTrackPredictorPlugin:
             parent_window,
             scored_tracks,
             diversity,
+            model_name,
         )
 
     def _show_suggestion_message(
@@ -347,7 +357,7 @@ class QueueTrackPredictorPlugin:
         return False
 
     def _apply_suggestion_result(
-        self, generation, parent_window, scored_tracks, diversity
+        self, generation, parent_window, scored_tracks, diversity, model_name
     ):
         if generation != self.suggestion_generation:
             return False
@@ -355,16 +365,20 @@ class QueueTrackPredictorPlugin:
         if not scored_tracks:
             dialogs.info(parent_window, _("No suggestions found for the queue tail."))
             return False
-        self.show_suggestions_playlist(scored_tracks, diversity)
+        self.show_suggestions_playlist(scored_tracks, diversity, model_name)
         return False
 
-    def show_suggestions_playlist(self, scored_tracks, diversity):
+    def show_suggestions_playlist(self, scored_tracks, diversity, model_name):
         playlist_notebook = self._get_suggestions_notebook()
         if playlist_notebook is None:
             playlist_notebook = main.get_playlist_notebook()
             self.suggestions_playlist = SuggestionsPlaylist(scored_tracks)
             self.suggestions_page = SuggestionsPlaylistPage(
-                self, self.suggestions_playlist, player.PLAYER, diversity
+                self,
+                self.suggestions_playlist,
+                player.PLAYER,
+                diversity,
+                model_name,
             )
             self.suggestions_page.connect(
                 'destroy', self.on_suggestions_page_destroyed
@@ -378,6 +392,7 @@ class QueueTrackPredictorPlugin:
         else:
             self.suggestions_playlist.replace_tracks(scored_tracks)
             self.suggestions_page.set_diversity(diversity)
+            self.suggestions_page.set_model_name(model_name)
             playlist_notebook.set_current_page(
                 playlist_notebook.page_num(self.suggestions_page)
             )
@@ -409,6 +424,50 @@ class QueueTrackPredictorPlugin:
         self.suggestions_playlist = None
         self.suggestions_page = None
         self.suggestions_tab = None
+
+
+class PredictionModelsMenuItem(menu.MenuItem):
+    def __init__(self, plugin):
+        menu.MenuItem.__init__(
+            self, 'queue-track-predictor-playlist-suggest', None, ['enqueue']
+        )
+        self.plugin = plugin
+
+    def factory(self, menu_widget, parent, context):
+        if not self.plugin.can_suggest_from_playlist_context(
+            self.name, parent, context
+        ):
+            return None
+
+        item = Gtk.ImageMenuItem.new_with_mnemonic(_('Suggest Next Track'))
+        item.set_image(
+            Gtk.Image.new_from_icon_name('list-add', Gtk.IconSize.MENU)
+        )
+
+        try:
+            catalog = self.plugin.load_model_catalog()
+            names = model_store.model_names(catalog)
+        except Exception:
+            names = []
+
+        if not names:
+            item.set_sensitive(False)
+            return item
+
+        submenu = Gtk.Menu()
+        for model_name in names:
+            model_item = Gtk.MenuItem.new_with_label(model_name)
+            model_item.connect(
+                'activate',
+                self.plugin.on_playlist_suggest_next_track,
+                model_name,
+                parent,
+                context,
+            )
+            submenu.append(model_item)
+        submenu.show_all()
+        item.set_submenu(submenu)
+        return item
 
 
 class SuggestNextTrackButton(Gtk.Button, notebook.NotebookAction):
@@ -519,7 +578,14 @@ class SuggestionsPlaylistView(playlist_widget.PlaylistView):
 class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
     reorderable = False
 
-    def __init__(self, plugin, suggestions_playlist, playlist_player, diversity):
+    def __init__(
+        self,
+        plugin,
+        suggestions_playlist,
+        playlist_player,
+        diversity,
+        model_name,
+    ):
         playlist_widget.PlaylistPageBase.__init__(
             self, suggestions_playlist, playlist_player
         )
@@ -558,6 +624,12 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
 
         diversity_box = Gtk.Box(spacing=8)
         diversity_box.set_border_width(6)
+        self.model_label = Gtk.Label()
+        self.model_label.set_xalign(0)
+        self.set_model_name(model_name)
+        diversity_box.pack_start(self.model_label, False, False, 0)
+        separator = Gtk.Separator(orientation=Gtk.Orientation.VERTICAL)
+        diversity_box.pack_start(separator, False, False, 0)
         diversity_label = Gtk.Label(label=_('Diversity:'))
         diversity_box.pack_start(diversity_label, False, False, 0)
         self.diversity_scale = Gtk.Scale.new_with_range(
@@ -583,6 +655,9 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
     def set_diversity(self, diversity):
         if int(round(self.diversity_scale.get_value())) != int(round(diversity)):
             self.diversity_scale.set_value(diversity)
+
+    def set_model_name(self, model_name):
+        self.model_label.set_text(_('Model: %s') % model_name)
 
     def on_search_entry_activate(self, entry):
         self.view.filter_tracks(entry.get_text() or None)
@@ -682,7 +757,7 @@ class ModelManagerDialog(Gtk.Dialog):
         selected_name = catalog.get('selected')
         self.store.clear()
         path_to_select = None
-        for name in sorted(catalog['models']):
+        for name in model_store.model_names(catalog):
             model = catalog['models'][name]
             tree_iter = self.store.append(
                 (

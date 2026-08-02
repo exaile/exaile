@@ -43,6 +43,18 @@ def test_replace_model_preserves_selection():
     assert catalog['selected'] == 'Selected'
 
 
+def test_model_names_are_sorted_case_insensitively():
+    catalog = store.empty_catalog()
+    catalog['models'] = {
+        'zebra': {},
+        'Beta': {},
+        'alpha': {},
+        'Alpha': {},
+    }
+
+    assert store.model_names(catalog) == ['Alpha', 'alpha', 'Beta', 'zebra']
+
+
 def test_catalog_rejects_empty_and_duplicate_names():
     catalog = store.empty_catalog()
     store.add_model(catalog, 'Party', {})

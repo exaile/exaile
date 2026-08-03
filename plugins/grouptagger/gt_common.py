@@ -170,6 +170,57 @@ def create_all_search_playlist(groups, exaile):
     _create_search_playlist(name, search_string, exaile)
 
 
+def create_category_search_playlist(groups, categories, exaile):
+    '''Create a playlist matching groups and any group in each category.'''
+
+    name, search_string = _get_category_search_params(groups, categories)
+    _create_search_playlist(name, search_string, exaile)
+
+
+def _get_category_search_params(groups, categories):
+    '''Build the name and query shared by category-based actions.'''
+
+    tagname = get_tagname()
+    name_parts = list(groups) + [category for category, _groups in categories]
+    name = '%s: %s' % (tagname.title(), ' and '.join(name_parts))
+    conditions = [
+        '%s~"\\b%s\\b"' % (tagname, re.escape(group.replace(' ', '_')))
+        for group in groups
+    ]
+    for _category, category_groups in categories:
+        if category_groups:
+            alternatives = '|'.join(
+                '\\b%s\\b' % re.escape(group.replace(' ', '_'))
+                for group in category_groups
+            )
+            conditions.append('%s~"%s"' % (tagname, alternatives))
+        else:
+            # An empty category cannot match any track.
+            conditions.append('%s~"(?!)"' % tagname)
+
+    return name, ' '.join(conditions)
+
+
+def get_active_playlist():
+    '''Return the playlist in the last focused playlist view, if any.'''
+
+    page = main.get_selected_playlist()
+    return page.playlist if page is not None else None
+
+
+def remove_category_matches_from_playlist(playlist, groups, categories):
+    '''Remove tracks matching groups and categories from a playlist.'''
+
+    _name, search_string = _get_category_search_params(groups, categories)
+    positions = [
+        position
+        for position, track in enumerate(playlist)
+        if search.match_track_from_string(track, search_string)
+    ]
+    for position in reversed(positions):
+        del playlist[position]
+
+
 def create_custom_search_playlist(groups, exaile):
     '''Create a playlist based on groups, and user input in a shiny dialog'''
 

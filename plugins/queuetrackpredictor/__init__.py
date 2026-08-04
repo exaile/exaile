@@ -13,6 +13,7 @@ from xl import player, providers, settings, xdg
 from xl.playlist import Playlist
 from xl.nls import gettext as _, ngettext
 from xlgui import guiutil, main
+from xlgui.accelerators import Accelerator
 from xlgui.widgets import dialogs, menu, notebook, playlist as playlist_widget
 
 from . import model as predictor_model
@@ -51,6 +52,7 @@ class QueueTrackPredictorPlugin:
         self.suggestion_generation = 0
         self.suggestion_executor = None
         self.suggestion_future = None
+        self.suggest_accelerator = None
         self.button_registered = False
 
     def enable(self, exaile):
@@ -75,8 +77,14 @@ class QueueTrackPredictorPlugin:
         self.playlist_menu_item.register('playlist-context-menu')
 
         SuggestNextTrackButton.plugin = self
-        providers.register('main-panel-actions', SuggestNextTrackButton)
+        providers.register('playlist-notebook-actions', SuggestNextTrackButton)
         self.button_registered = True
+        self.suggest_accelerator = Accelerator(
+            '<Primary><Shift>g',
+            _('Suggest Next Track'),
+            self.on_suggest_accelerator,
+        )
+        providers.register('mainwindow-accelerators', self.suggest_accelerator)
 
     def disable(self, exaile):
         self.suggestion_generation += 1
@@ -110,9 +118,16 @@ class QueueTrackPredictorPlugin:
             self.playlist_menu_item = None
 
         if self.button_registered:
-            providers.unregister('main-panel-actions', SuggestNextTrackButton)
+            providers.unregister(
+                'playlist-notebook-actions', SuggestNextTrackButton
+            )
             self.button_registered = False
             SuggestNextTrackButton.plugin = None
+        if self.suggest_accelerator is not None:
+            providers.unregister(
+                'mainwindow-accelerators', self.suggest_accelerator
+            )
+            self.suggest_accelerator = None
 
     def get_model_path(self):
         directory = os.path.join(xdg.get_plugin_data_dir(), MODEL_DIR)
@@ -179,8 +194,17 @@ class QueueTrackPredictorPlugin:
         if not selected_items:
             return
 
-        position, track = selected_items[0]
-        playlist = context['playlist']
+        position = selected_items[-1][0]
+        self.suggest_after_playlist_position(
+            context['playlist'],
+            position,
+            self._get_parent_window(parent),
+            model_name,
+        )
+
+    def suggest_after_playlist_position(
+        self, playlist, position, parent_window=None, model_name=None
+    ):
         start = max(0, position - (RECENT_TRACK_COUNT - 1))
         previous_tracks = [playlist[idx] for idx in range(start, position + 1)]
         excluded_locations = set()
@@ -188,10 +212,25 @@ class QueueTrackPredictorPlugin:
             excluded_locations.add(playlist[position + 1].get_loc_for_io())
         self.suggest_from_tracks(
             previous_tracks,
-            self._get_parent_window(parent),
+            parent_window or self._get_parent_window(),
             excluded_locations=excluded_locations,
             model_name=model_name,
         )
+
+    def suggest_from_current_page(self, page=None):
+        page = page or main.get_selected_page()
+        view = getattr(page, 'view', None)
+        playlist = getattr(page, 'playlist', None)
+        selected_items = view.get_selected_items() if view is not None else []
+        if playlist is not None and selected_items:
+            position = selected_items[-1][0]
+            self.suggest_after_playlist_position(playlist, position)
+            return
+        self.suggest_next_track()
+
+    def on_suggest_accelerator(self, *args):
+        self.suggest_from_current_page()
+        return True
 
     def load_model_catalog(self):
         return model_store.load_catalog(self.get_model_path())
@@ -267,6 +306,13 @@ class QueueTrackPredictorPlugin:
             return model_name, catalog['models'][model_name]
         except KeyError:
             raise ValueError('Prediction model “%s” does not exist' % model_name)
+
+    def remember_used_model(self, model_name):
+        catalog = self.load_model_catalog()
+        if catalog.get('selected') == model_name:
+            return
+        model_store.select_model(catalog, model_name)
+        self.save_model_catalog(catalog)
 
     def suggest_next_track(self, parent_window=None):
         parent_window = parent_window or self._get_parent_window()
@@ -423,6 +469,13 @@ class QueueTrackPredictorPlugin:
         if generation != self.suggestion_generation:
             return False
         self.suggestion_future = None
+        try:
+            self.remember_used_model(model_name)
+        except Exception as exc:
+            dialogs.error(
+                parent_window,
+                _('Could not remember the last suggestion model: %s') % exc,
+            )
         if not scored_tracks:
             dialogs.info(parent_window, _("No suggestions found for the queue tail."))
             return False
@@ -546,20 +599,38 @@ class SuggestNextTrackButton(Gtk.Button, notebook.NotebookAction):
     name = 'queue-track-predictor'
     position = Gtk.PackType.END
 
-    def __init__(self, panel_notebook):
+    def __init__(self, playlist_notebook):
         Gtk.Button.__init__(self)
-        notebook.NotebookAction.__init__(self, panel_notebook)
+        notebook.NotebookAction.__init__(self, playlist_notebook)
 
         self.set_image(Gtk.Image.new_from_icon_name('list-add', Gtk.IconSize.BUTTON))
-        self.set_tooltip_text(_('Suggest Next Track'))
+        self.set_has_tooltip(True)
         self.set_focus_on_click(False)
         self.set_relief(Gtk.ReliefStyle.NONE)
         self.connect('clicked', self.on_clicked)
+        self.connect('query-tooltip', self.on_query_tooltip)
         self.show_all()
 
     def on_clicked(self, button):
         if self.plugin is not None:
-            self.plugin.suggest_next_track()
+            self.plugin.suggest_from_current_page(self.notebook.get_current_tab())
+
+    def on_query_tooltip(self, widget, x, y, keyboard_mode, tooltip):
+        page = self.notebook.get_current_tab()
+        view = getattr(page, 'view', None)
+        count = view.get_selection_count() if view is not None else 0
+        shortcut = Gtk.accelerator_get_label(
+            self.plugin.suggest_accelerator.key,
+            self.plugin.suggest_accelerator.mods,
+        )
+        if count == 1:
+            text = _('Suggest after selected track (%s)') % shortcut
+        elif count > 1:
+            text = _('Suggest after last selected track (%s)') % shortcut
+        else:
+            text = _('Suggest from queue (%s)') % shortcut
+        tooltip.set_text(text)
+        return True
 
 
 class SuggestionsPlaylist(Playlist):

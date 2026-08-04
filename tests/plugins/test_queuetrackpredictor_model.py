@@ -182,6 +182,49 @@ def test_get_suggestion_locations_can_score_untrained_collection_track():
     ) == ['collection-only']
 
 
+def test_tag_biases_rerank_candidates_before_selection():
+    recent = FakeTrack('recent', groups={'context'}, bpm=120)
+    plain = FakeTrack('a-plain', groups={'context'}, bpm=120)
+    preferred = FakeTrack(
+        'z-preferred', groups={'context', 'favorite'}, bpm=120
+    )
+    candidates = model.make_candidate_features(
+        [plain, preferred], get_groups
+    )
+    trained = {
+        'version': model.MODEL_VERSION,
+        'included_tags': ['context', 'favorite'],
+        'transition_counts': {},
+        'candidate_features': candidates,
+        'tag_biases': {'favorite': 2},
+    }
+
+    assert model.get_scored_suggestion_locations(
+        trained,
+        [recent],
+        get_groups,
+        max_suggestions=2,
+        candidate_features=candidates,
+    ) == [('z-preferred', 10000.0), ('a-plain', 5000)]
+
+
+def test_tag_biases_use_geometric_mean_for_tracks_with_multiple_tags():
+    counts = {'balanced': 100, 'preferred': 100, 'neutral': 100}
+    candidates = {
+        'balanced': {'groups': ('toward', 'away')},
+        'preferred': {'groups': ('toward',)},
+        'neutral': {'groups': ('other',)},
+    }
+
+    adjusted = model.apply_tag_biases(
+        counts, candidates, {'toward': 2, 'away': -2}
+    )
+
+    assert adjusted['balanced'] == 100
+    assert adjusted['preferred'] == 200
+    assert adjusted['neutral'] == 100
+
+
 def test_make_candidate_features_uses_model_feature_settings():
     track = FakeTrack(
         'collection-only',

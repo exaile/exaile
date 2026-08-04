@@ -5,6 +5,7 @@
 # the Free Software Foundation, either version 2 of the License, or
 # (at your option) any later version.
 
+import math
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 
@@ -13,6 +14,13 @@ DEFAULT_BPM_BAND_SIZE = 5
 MAX_CONTEXT_LENGTH = 3
 DEFAULT_MAX_SUGGESTIONS = 10
 DEFAULT_DIVERSITY = 50
+TAG_BIAS_FACTORS = {
+    -2: 0.5,
+    -1: 0.75,
+    0: 1.0,
+    1: 4.0 / 3.0,
+    2: 2.0,
+}
 
 
 def _get_track_location(track):
@@ -220,6 +228,11 @@ def get_scored_suggestion_locations(
     counts.update(
         _get_similar_candidate_counts(model, context[-1], candidate_features)
     )
+    counts = apply_tag_biases(
+        counts,
+        candidate_features or model.get('candidate_features', {}),
+        model.get('tag_biases', {}),
+    )
 
     seen = set()
     previous_locations = {_get_track_location(track) for track in previous_tracks}
@@ -244,6 +257,29 @@ def get_scored_suggestion_locations(
             break
 
     return suggestions
+
+
+def apply_tag_biases(counts, candidate_features, tag_biases):
+    """Apply bounded, non-stacking tag preferences to candidate scores."""
+    if not tag_biases:
+        return counts
+
+    adjusted = Counter()
+    for location, score in counts.items():
+        groups = candidate_features.get(location, {}).get('groups') or ()
+        factors = [
+            TAG_BIAS_FACTORS.get(tag_biases.get(tag), 1.0)
+            for tag in groups
+            if tag_biases.get(tag) in TAG_BIAS_FACTORS
+            and tag_biases.get(tag) != 0
+        ]
+        if factors:
+            # A geometric mean lets opposing preferences balance each other and
+            # prevents tracks with many tags from receiving an accidental boost.
+            factor = math.prod(factors) ** (1.0 / len(factors))
+            score *= factor
+        adjusted[location] = score
+    return adjusted
 
 
 def _get_similar_candidate_counts(

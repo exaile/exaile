@@ -11,7 +11,7 @@ from gi.repository import GLib, Gtk
 
 from xl import player, providers, settings, xdg
 from xl.playlist import Playlist
-from xl.nls import gettext as _
+from xl.nls import gettext as _, ngettext
 from xlgui import guiutil, main
 from xlgui.widgets import dialogs, menu, notebook, playlist as playlist_widget
 
@@ -25,6 +25,14 @@ MODEL_FILE = 'models.pickle'
 RECENT_TRACK_COUNT = 15
 CANDIDATE_POOL_MULTIPLIER = 5
 DIVERSITY_REBUILD_DELAY_MS = 200
+TAG_BIAS_REBUILD_DELAY_MS = 250
+TAG_BIAS_LABELS = {
+    -2: _('Strongly away'),
+    -1: _('Away'),
+    0: _('Neutral'),
+    1: _('Toward'),
+    2: _('Strongly toward'),
+}
 
 
 class QueueTrackPredictorPlugin:
@@ -193,10 +201,25 @@ class QueueTrackPredictorPlugin:
     def create_model_from_playlists(
         self, name, playlists, playlist_names, included_tags, replace=False
     ):
+        existing_biases = {}
+        if replace:
+            try:
+                existing_biases = self.load_model(name).get('tag_biases', {})
+            except (IOError, KeyError, ValueError):
+                pass
         model = predictor_model.build_model(
             playlists, self.get_track_groups, included_tags=included_tags
         )
         model['playlist_names'] = sorted(playlist_names)
+        included_tag_set = (
+            None if included_tags is None else set(included_tags)
+        )
+        model['tag_biases'] = {
+            tag: bias
+            for tag, bias in existing_biases.items()
+            if (included_tag_set is None or tag in included_tag_set)
+            and bias in predictor_model.TAG_BIAS_FACTORS
+        }
         catalog = self.load_model_catalog()
         if replace:
             model_store.replace_model(catalog, name, model)
@@ -204,6 +227,19 @@ class QueueTrackPredictorPlugin:
             model_store.add_model(catalog, name, model)
         self.save_model_catalog(catalog)
         return model
+
+    def set_model_tag_biases(self, model_name, tag_biases):
+        catalog = self.load_model_catalog()
+        model = catalog['models'][model_name]
+        included_tags = model.get('included_tags')
+        model['tag_biases'] = {
+            tag: int(bias)
+            for tag, bias in tag_biases.items()
+            if bias in predictor_model.TAG_BIAS_FACTORS
+            and bias != 0
+            and (included_tags is None or tag in included_tags)
+        }
+        self.save_model_catalog(catalog)
 
     def load_model(self, model_name=None):
         return self.load_model_entry(model_name)[1]
@@ -376,6 +412,16 @@ class QueueTrackPredictorPlugin:
         if not scored_tracks:
             dialogs.info(parent_window, _("No suggestions found for the queue tail."))
             return False
+        if self.suggestion_request is not None:
+            previous_tracks, request_parent, excluded_locations, _ = (
+                self.suggestion_request
+            )
+            self.suggestion_request = (
+                previous_tracks,
+                request_parent,
+                excluded_locations,
+                model_name,
+            )
         self.show_suggestions_playlist(scored_tracks, diversity, model_name)
         return False
 
@@ -583,7 +629,13 @@ class SuggestionsPlaylistView(playlist_widget.PlaylistView):
     def render_score(self, column, renderer, tree_model, tree_iter, data=None):
         track = tree_model.get_value(tree_iter, 0)
         score = self.playlist.get_score(track)
-        renderer.set_property('text', '' if score is None else str(score))
+        if score is None:
+            text = ''
+        elif float(score).is_integer():
+            text = str(int(score))
+        else:
+            text = '%.1f' % score
+        renderer.set_property('text', text)
 
 
 class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
@@ -602,6 +654,8 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         )
         self.plugin = plugin
         self.diversity_rebuild_source = None
+        self.tag_rebuild_source = None
+        self.model_name = None
         self.swindow = Gtk.ScrolledWindow()
         self.swindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.view = SuggestionsPlaylistView(
@@ -631,14 +685,26 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         )
         self.view.drag_dest_unset()
         self.swindow.add(self.view)
-        self.pack_start(self.swindow, True, True, 0)
+
+        self.content_stack = Gtk.Stack()
+        self.content_stack.set_transition_type(
+            Gtk.StackTransitionType.CROSSFADE
+        )
+        self.content_stack.add_named(self.swindow, 'suggestions')
+        self._build_tag_tuning_panel()
+        self.pack_start(self.content_stack, True, True, 0)
 
         diversity_box = Gtk.Box(spacing=8)
         diversity_box.set_border_width(6)
         self.model_label = Gtk.Label()
         self.model_label.set_xalign(0)
-        self.set_model_name(model_name)
         diversity_box.pack_start(self.model_label, False, False, 0)
+        self.tuning_toggle = Gtk.ToggleButton(label=_('Tune Tags'))
+        self.tuning_toggle.set_tooltip_text(
+            _('Tune tag preferences for this prediction model')
+        )
+        self.tuning_toggle.connect('toggled', self.on_tuning_toggled)
+        diversity_box.pack_start(self.tuning_toggle, False, False, 0)
         separator = Gtk.Separator(orientation=Gtk.Orientation.VERTICAL)
         diversity_box.pack_start(separator, False, False, 0)
         diversity_label = Gtk.Label(label=_('Diversity:'))
@@ -655,10 +721,303 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         diversity_box.pack_start(self.diversity_scale, True, True, 0)
         diversity_box.pack_end(self.search_entry.entry, False, True, 0)
         self.pack_start(diversity_box, False, False, 0)
+        self.set_model_name(model_name)
+        self.content_stack.set_visible_child_name('suggestions')
         self.show_all()
 
+    def _build_tag_tuning_panel(self):
+        panel = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        panel.set_border_width(8)
+
+        tools = Gtk.Box(spacing=6)
+        self.tag_search = Gtk.SearchEntry()
+        self.tag_search.set_placeholder_text(_('Search tags'))
+        self.tag_search.set_hexpand(True)
+        self.tag_search.connect('search-changed', self.on_tag_filter_changed)
+        tools.pack_start(self.tag_search, True, True, 0)
+
+        self.tag_filter_choice = Gtk.ComboBoxText()
+        self.tag_filter_choice.append('all', _('All'))
+        self.tag_filter_choice.append('adjusted', _('Adjusted'))
+        self.tag_filter_choice.append('neutral', _('Neutral'))
+        self.tag_filter_choice.set_active_id('all')
+        self.tag_filter_choice.connect('changed', self.on_tag_filter_changed)
+        tools.pack_start(self.tag_filter_choice, False, False, 0)
+
+        self.tag_sort_choice = Gtk.ComboBoxText()
+        self.tag_sort_choice.append('adjusted', _('Adjusted First'))
+        self.tag_sort_choice.append('name', _('Name'))
+        self.tag_sort_choice.append('bias', _('Bias'))
+        self.tag_sort_choice.set_active_id('adjusted')
+        self.tag_sort_choice.set_tooltip_text(_('Sort tags'))
+        self.tag_sort_choice.connect('changed', self.on_tag_sort_changed)
+        tools.pack_start(self.tag_sort_choice, False, False, 0)
+
+        self.reset_all_tags_button = Gtk.Button(label=_('Reset All'))
+        self.reset_all_tags_button.connect('clicked', self.on_reset_all_tags)
+        tools.pack_start(self.reset_all_tags_button, False, False, 0)
+        panel.pack_start(tools, False, False, 0)
+
+        self.tag_biases = {}
+        self.tag_children = {}
+        self.tag_bias_labels = {}
+        self.tag_tuning_flow = Gtk.FlowBox()
+        self.tag_tuning_flow.set_selection_mode(Gtk.SelectionMode.MULTIPLE)
+        self.tag_tuning_flow.set_activate_on_single_click(False)
+        self.tag_tuning_flow.set_column_spacing(6)
+        self.tag_tuning_flow.set_row_spacing(6)
+        self.tag_tuning_flow.set_homogeneous(False)
+        self.tag_tuning_flow.set_min_children_per_line(1)
+        self.tag_tuning_flow.set_max_children_per_line(20)
+        self.tag_tuning_flow.set_valign(Gtk.Align.START)
+        self.tag_tuning_flow.set_filter_func(self.is_tag_child_visible)
+        self.tag_tuning_flow.set_sort_func(self.compare_tag_children)
+        self.tag_tuning_flow.connect(
+            'selected-children-changed', self.on_tag_selection_changed
+        )
+        self.tag_tuning_flow.connect(
+            'child-activated', self.on_tag_child_activated
+        )
+        self.tag_tuning_flow.connect('key-press-event', self.on_tag_key_pressed)
+
+        tag_scroller = Gtk.ScrolledWindow()
+        tag_scroller.set_policy(
+            Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC
+        )
+        tag_scroller.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
+        tag_scroller.add(self.tag_tuning_flow)
+        panel.pack_start(tag_scroller, True, True, 0)
+
+        self.tag_selection_label = Gtk.Label(label=_('Select one or more tags.'))
+        self.tag_selection_label.set_xalign(0)
+        panel.pack_start(self.tag_selection_label, False, False, 0)
+
+        self.bias_buttons = Gtk.Box(spacing=4)
+        for shortcut, bias in enumerate((-2, -1, 0, 1, 2), 1):
+            button = Gtk.Button(label=TAG_BIAS_LABELS[bias])
+            button.set_tooltip_text(
+                _('Apply to selected tags (keyboard shortcut: %d)') % shortcut
+            )
+            button.connect(
+                'clicked',
+                lambda widget, value=bias: self.set_selected_tag_bias(value),
+            )
+            self.bias_buttons.pack_start(button, True, True, 0)
+        self.bias_buttons.set_sensitive(False)
+        panel.pack_start(self.bias_buttons, False, False, 0)
+
+        self.content_stack.add_named(panel, 'tuning')
+
     def focus(self):
-        self.view.grab_focus()
+        if not self.tuning_toggle.get_active():
+            self.view.grab_focus()
+
+    def on_tuning_toggled(self, button):
+        tuning = button.get_active()
+        self.content_stack.set_visible_child_name(
+            'tuning' if tuning else 'suggestions'
+        )
+        self.search_entry.entry.set_visible(not tuning)
+        if tuning:
+            button.set_label(_('Show Suggestions'))
+            self.tag_search.grab_focus()
+        else:
+            self._update_tuning_button_label()
+            self.view.grab_focus()
+
+    def _populate_tag_tuning(self, model):
+        included_tags = model.get('included_tags')
+        if included_tags is None:
+            included_tags = {
+                tag
+                for summary in model.get('candidate_features', {}).values()
+                for tag in summary.get('groups', ())
+            }
+        else:
+            included_tags = set(included_tags)
+        self.tag_biases = {
+            tag: int(bias)
+            for tag, bias in model.get('tag_biases', {}).items()
+            if tag in included_tags
+            and bias in predictor_model.TAG_BIAS_FACTORS
+            and bias != 0
+        }
+        for child in self.tag_tuning_flow.get_children():
+            self.tag_tuning_flow.remove(child)
+        self.tag_children.clear()
+        self.tag_bias_labels.clear()
+        for tag in included_tags:
+            child = Gtk.FlowBoxChild()
+            tile = Gtk.Box(spacing=8)
+            tile.set_border_width(8)
+            tile.set_size_request(180, -1)
+            tag_label = Gtk.Label(label=tag)
+            tag_label.set_xalign(0)
+            tag_label.set_hexpand(True)
+            bias_label = Gtk.Label(
+                label=TAG_BIAS_LABELS[self.tag_biases.get(tag, 0)]
+            )
+            bias_label.set_xalign(1)
+            self._set_tag_bias_label(bias_label, self.tag_biases.get(tag, 0))
+            tile.pack_start(tag_label, True, True, 0)
+            tile.pack_end(bias_label, False, False, 0)
+            child.add(tile)
+            self.tag_children[child] = tag
+            self.tag_bias_labels[tag] = bias_label
+            self.tag_tuning_flow.insert(child, -1)
+            child.show_all()
+        self.tag_tuning_flow.invalidate_filter()
+        self.tag_tuning_flow.invalidate_sort()
+        has_tags = bool(self.tag_children)
+        if not has_tags and self.tuning_toggle.get_active():
+            self.tuning_toggle.set_active(False)
+        self.tuning_toggle.set_sensitive(has_tags)
+        self.reset_all_tags_button.set_sensitive(bool(self.tag_biases))
+        self.tag_selection_label.set_text(
+            _('Select one or more tags.')
+            if has_tags
+            else _('This model does not include any tags.')
+        )
+        self._update_tuning_button_label()
+
+    def is_tag_child_visible(self, child, data=None):
+        tag = self.tag_children[child]
+        bias = self.tag_biases.get(tag, 0)
+        query = self.tag_search.get_text().strip().casefold()
+        if query and query not in tag.casefold():
+            return False
+        mode = self.tag_filter_choice.get_active_id() or 'all'
+        if mode == 'adjusted':
+            return bias != 0
+        if mode == 'neutral':
+            return bias == 0
+        return True
+
+    def on_tag_filter_changed(self, widget):
+        self.tag_tuning_flow.unselect_all()
+        self.tag_tuning_flow.invalidate_filter()
+
+    def compare_tag_children(self, first, second, data=None):
+        first_tag = self.tag_children[first]
+        second_tag = self.tag_children[second]
+        first_bias = self.tag_biases.get(first_tag, 0)
+        second_bias = self.tag_biases.get(second_tag, 0)
+        mode = self.tag_sort_choice.get_active_id() or 'adjusted'
+        if mode == 'name':
+            first_key = (first_tag.casefold(), first_tag)
+            second_key = (second_tag.casefold(), second_tag)
+        elif mode == 'bias':
+            first_key = (-first_bias, first_tag.casefold(), first_tag)
+            second_key = (-second_bias, second_tag.casefold(), second_tag)
+        else:
+            first_key = (
+                first_bias == 0,
+                first_tag.casefold(),
+                first_tag,
+            )
+            second_key = (
+                second_bias == 0,
+                second_tag.casefold(),
+                second_tag,
+            )
+        return (first_key > second_key) - (first_key < second_key)
+
+    def on_tag_sort_changed(self, widget):
+        self.tag_tuning_flow.invalidate_sort()
+
+    def on_tag_selection_changed(self, flowbox):
+        count = len(flowbox.get_selected_children())
+        self.bias_buttons.set_sensitive(count > 0)
+        self.tag_selection_label.set_text(
+            ngettext('%d tag selected.', '%d tags selected.', count) % count
+            if count
+            else _('Select one or more tags.')
+        )
+
+    def _selected_tag_names(self):
+        return [
+            self.tag_children[child]
+            for child in self.tag_tuning_flow.get_selected_children()
+        ]
+
+    def _set_tag_bias_label(self, label, bias):
+        label.set_text(TAG_BIAS_LABELS[bias])
+        context = label.get_style_context()
+        if bias == 0:
+            context.add_class('dim-label')
+        else:
+            context.remove_class('dim-label')
+
+    def set_selected_tag_bias(self, bias):
+        selected = set(self._selected_tag_names())
+        if not selected:
+            return
+        for tag in selected:
+            if bias == 0:
+                self.tag_biases.pop(tag, None)
+            else:
+                self.tag_biases[tag] = bias
+            self._set_tag_bias_label(self.tag_bias_labels[tag], bias)
+        self._tag_biases_changed()
+
+    def on_tag_child_activated(self, flowbox, child):
+        tag = self.tag_children[child]
+        bias = self.tag_biases.get(tag, 0)
+        levels = (-2, -1, 0, 1, 2)
+        next_bias = levels[(levels.index(bias) + 1) % len(levels)]
+        self.set_selected_tag_bias(next_bias)
+
+    def on_tag_key_pressed(self, flowbox, event):
+        bias_for_key = {'1': -2, '2': -1, '3': 0, '4': 1, '5': 2, '0': 0}
+        bias = bias_for_key.get(event.string)
+        if bias is None:
+            return False
+        self.set_selected_tag_bias(bias)
+        return True
+
+    def on_reset_all_tags(self, button):
+        if self.tag_biases:
+            self.tag_biases.clear()
+            for label in self.tag_bias_labels.values():
+                self._set_tag_bias_label(label, 0)
+            self._tag_biases_changed()
+
+    def _tag_biases_changed(self):
+        try:
+            self.plugin.set_model_tag_biases(self.model_name, self.tag_biases)
+        except Exception as exc:
+            dialogs.error(
+                self.plugin._get_parent_window(),
+                _('Could not save tag tuning: %s') % exc,
+            )
+            self._populate_tag_tuning(self.plugin.load_model(self.model_name))
+            return
+        self.tag_tuning_flow.invalidate_filter()
+        self.tag_tuning_flow.invalidate_sort()
+        self.reset_all_tags_button.set_sensitive(bool(self.tag_biases))
+        self._update_tuning_button_label()
+        if self.tag_rebuild_source is not None:
+            GLib.source_remove(self.tag_rebuild_source)
+        self.tag_rebuild_source = GLib.timeout_add(
+            TAG_BIAS_REBUILD_DELAY_MS, self.regenerate_tag_suggestions
+        )
+
+    def _update_tuning_button_label(self):
+        if not hasattr(self, 'tuning_toggle'):
+            return
+        if self.tuning_toggle.get_active():
+            self.tuning_toggle.set_label(_('Show Suggestions'))
+            return
+        adjusted = len(self.tag_biases)
+        self.tuning_toggle.set_label(
+            _('Tune Tags (%d)') % adjusted if adjusted else _('Tune Tags')
+        )
+
+    def regenerate_tag_suggestions(self):
+        self.tag_rebuild_source = None
+        if self.plugin.suggestion_request is not None:
+            self.plugin.suggest_from_tracks(*self.plugin.suggestion_request)
+        return False
 
     def get_page_name(self):
         return _('Track Suggestions')
@@ -669,6 +1028,22 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
 
     def set_model_name(self, model_name):
         self.model_label.set_text(_('Model: %s') % model_name)
+        if model_name == self.model_name:
+            return
+        self.model_name = model_name
+        try:
+            model = self.plugin.load_model(model_name)
+        except Exception:
+            self.tag_biases.clear()
+            for child in self.tag_tuning_flow.get_children():
+                self.tag_tuning_flow.remove(child)
+            self.tag_children.clear()
+            self.tag_bias_labels.clear()
+            self.tuning_toggle.set_sensitive(False)
+            self.reset_all_tags_button.set_sensitive(False)
+            self._update_tuning_button_label()
+            return
+        self._populate_tag_tuning(model)
 
     def on_search_entry_activate(self, entry):
         self.view.filter_tracks(entry.get_text() or None)
@@ -689,6 +1064,9 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         if self.diversity_rebuild_source is not None:
             GLib.source_remove(self.diversity_rebuild_source)
             self.diversity_rebuild_source = None
+        if self.tag_rebuild_source is not None:
+            GLib.source_remove(self.tag_rebuild_source)
+            self.tag_rebuild_source = None
         playlist_widget.PlaylistPageBase.do_destroy(self)
 
 

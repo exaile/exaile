@@ -14,6 +14,8 @@ DEFAULT_BPM_BAND_SIZE = 5
 MAX_CONTEXT_LENGTH = 3
 DEFAULT_MAX_SUGGESTIONS = 10
 DEFAULT_DIVERSITY = 50
+DEFAULT_BPM_BIAS = 0
+BPM_BIAS_FULL_EFFECT_DELTA = 30
 TAG_BIAS_FACTORS = {
     -2: 0.5,
     -1: 0.75,
@@ -41,7 +43,7 @@ def _get_track_bpm(track):
 
     try:
         return int(round(float(bpm)))
-    except (TypeError, ValueError):
+    except (OverflowError, TypeError, ValueError):
         return None
 
 
@@ -233,6 +235,12 @@ def get_scored_suggestion_locations(
         candidate_features or model.get('candidate_features', {}),
         model.get('tag_biases', {}),
     )
+    counts = apply_bpm_bias(
+        counts,
+        candidate_features or model.get('candidate_features', {}),
+        context[-1][1],
+        model.get('bpm_bias', DEFAULT_BPM_BIAS),
+    )
 
     seen = set()
     previous_locations = {_get_track_location(track) for track in previous_tracks}
@@ -278,6 +286,43 @@ def apply_tag_biases(counts, candidate_features, tag_biases):
             # prevents tracks with many tags from receiving an accidental boost.
             factor = math.prod(factors) ** (1.0 / len(factors))
             score *= factor
+        adjusted[location] = score
+    return adjusted
+
+
+def clamp_bpm_bias(bias):
+    try:
+        bias = int(round(float(bias)))
+    except (OverflowError, TypeError, ValueError):
+        return DEFAULT_BPM_BIAS
+    return max(
+        -BPM_BIAS_FULL_EFFECT_DELTA,
+        min(BPM_BIAS_FULL_EFFECT_DELTA, bias),
+    )
+
+
+def apply_bpm_bias(counts, candidate_features, reference_bpm, bpm_bias):
+    """Favor bounded tempo movement relative to the latest track."""
+    bpm_bias = clamp_bpm_bias(bpm_bias)
+    if bpm_bias == 0 or reference_bpm is None:
+        return counts
+
+    adjusted = Counter()
+    requested_delta = abs(float(bpm_bias))
+    requested_direction = 1.0 if bpm_bias > 0 else -1.0
+    for location, score in counts.items():
+        candidate_bpm = candidate_features.get(location, {}).get('bpm_band')
+        if candidate_bpm is not None:
+            directional_delta = (
+                float(candidate_bpm - reference_bpm) * requested_direction
+            )
+            effect_delta = max(
+                -requested_delta,
+                min(requested_delta, directional_delta),
+            )
+            # The selected BPM amount caps the directional effect. At the
+            # 30 BPM endpoint this ranges from 0.5x to 2x.
+            score *= 2.0 ** (effect_delta / BPM_BIAS_FULL_EFFECT_DELTA)
         adjusted[location] = score
     return adjusted
 

@@ -26,6 +26,7 @@ RECENT_TRACK_COUNT = 15
 CANDIDATE_POOL_MULTIPLIER = 5
 DIVERSITY_REBUILD_DELAY_MS = 200
 TAG_BIAS_REBUILD_DELAY_MS = 250
+BPM_BIAS_REBUILD_DELAY_MS = 250
 TAG_BIAS_LABELS = {
     -2: _('Strongly away'),
     -1: _('Away'),
@@ -202,9 +203,14 @@ class QueueTrackPredictorPlugin:
         self, name, playlists, playlist_names, included_tags, replace=False
     ):
         existing_biases = {}
+        existing_bpm_bias = predictor_model.DEFAULT_BPM_BIAS
         if replace:
             try:
-                existing_biases = self.load_model(name).get('tag_biases', {})
+                existing_model = self.load_model(name)
+                existing_biases = existing_model.get('tag_biases', {})
+                existing_bpm_bias = existing_model.get(
+                    'bpm_bias', predictor_model.DEFAULT_BPM_BIAS
+                )
             except (IOError, KeyError, ValueError):
                 pass
         model = predictor_model.build_model(
@@ -220,6 +226,7 @@ class QueueTrackPredictorPlugin:
             if (included_tag_set is None or tag in included_tag_set)
             and bias in predictor_model.TAG_BIAS_FACTORS
         }
+        model['bpm_bias'] = predictor_model.clamp_bpm_bias(existing_bpm_bias)
         catalog = self.load_model_catalog()
         if replace:
             model_store.replace_model(catalog, name, model)
@@ -239,6 +246,13 @@ class QueueTrackPredictorPlugin:
             and bias != 0
             and (included_tags is None or tag in included_tags)
         }
+        self.save_model_catalog(catalog)
+
+    def set_model_bpm_bias(self, model_name, bpm_bias):
+        catalog = self.load_model_catalog()
+        catalog['models'][model_name]['bpm_bias'] = (
+            predictor_model.clamp_bpm_bias(bpm_bias)
+        )
         self.save_model_catalog(catalog)
 
     def load_model(self, model_name=None):
@@ -655,6 +669,7 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         self.plugin = plugin
         self.diversity_rebuild_source = None
         self.tag_rebuild_source = None
+        self.bpm_rebuild_source = None
         self.model_name = None
         self.swindow = Gtk.ScrolledWindow()
         self.swindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
@@ -719,6 +734,38 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         self.diversity_scale.set_value(diversity)
         self.diversity_scale.connect('value-changed', self.on_diversity_changed)
         diversity_box.pack_start(self.diversity_scale, True, True, 0)
+        bpm_separator = Gtk.Separator(orientation=Gtk.Orientation.VERTICAL)
+        diversity_box.pack_start(bpm_separator, False, False, 0)
+        bpm_label = Gtk.Label(label=_('BPM bias:'))
+        diversity_box.pack_start(bpm_label, False, False, 0)
+        self.bpm_bias_scale = Gtk.Scale.new_with_range(
+            Gtk.Orientation.HORIZONTAL,
+            -predictor_model.BPM_BIAS_FULL_EFFECT_DELTA,
+            predictor_model.BPM_BIAS_FULL_EFFECT_DELTA,
+            5,
+        )
+        self.bpm_bias_scale.set_hexpand(True)
+        self.bpm_bias_scale.set_digits(0)
+        self.bpm_bias_scale.set_draw_value(True)
+        self.bpm_bias_scale.add_mark(
+            -predictor_model.BPM_BIAS_FULL_EFFECT_DELTA,
+            Gtk.PositionType.BOTTOM,
+            _('Slower'),
+        )
+        self.bpm_bias_scale.add_mark(0, Gtk.PositionType.BOTTOM, _('Neutral'))
+        self.bpm_bias_scale.add_mark(
+            predictor_model.BPM_BIAS_FULL_EFFECT_DELTA,
+            Gtk.PositionType.BOTTOM,
+            _('Faster'),
+        )
+        self.bpm_bias_scale.set_tooltip_text(
+            _('Favor tracks slower or faster than the latest track')
+        )
+        self.bpm_bias_changed_id = self.bpm_bias_scale.connect(
+            'value-changed', self.on_bpm_bias_changed
+        )
+        self.bpm_bias_scale.connect('format-value', self.format_bpm_bias_value)
+        diversity_box.pack_start(self.bpm_bias_scale, True, True, 0)
         diversity_box.pack_end(self.search_entry.entry, False, True, 0)
         self.pack_start(diversity_box, False, False, 0)
         self.set_model_name(model_name)
@@ -753,7 +800,7 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         self.tag_sort_choice.connect('changed', self.on_tag_sort_changed)
         tools.pack_start(self.tag_sort_choice, False, False, 0)
 
-        self.reset_all_tags_button = Gtk.Button(label=_('Reset All'))
+        self.reset_all_tags_button = Gtk.Button(label=_('Reset Tags'))
         self.reset_all_tags_button.connect('clicked', self.on_reset_all_tags)
         tools.pack_start(self.reset_all_tags_button, False, False, 0)
         panel.pack_start(tools, False, False, 0)
@@ -826,6 +873,12 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
             self.view.grab_focus()
 
     def _populate_tag_tuning(self, model):
+        bpm_bias = predictor_model.clamp_bpm_bias(
+            model.get('bpm_bias', predictor_model.DEFAULT_BPM_BIAS)
+        )
+        self.bpm_bias_scale.handler_block(self.bpm_bias_changed_id)
+        self.bpm_bias_scale.set_value(bpm_bias)
+        self.bpm_bias_scale.handler_unblock(self.bpm_bias_changed_id)
         included_tags = model.get('included_tags')
         if included_tags is None:
             included_tags = {
@@ -869,9 +922,7 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         self.tag_tuning_flow.invalidate_filter()
         self.tag_tuning_flow.invalidate_sort()
         has_tags = bool(self.tag_children)
-        if not has_tags and self.tuning_toggle.get_active():
-            self.tuning_toggle.set_active(False)
-        self.tuning_toggle.set_sensitive(has_tags)
+        self.tuning_toggle.set_sensitive(True)
         self.reset_all_tags_button.set_sensitive(bool(self.tag_biases))
         self.tag_selection_label.set_text(
             _('Select one or more tags.')
@@ -1013,6 +1064,38 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
             _('Tune Tags (%d)') % adjusted if adjusted else _('Tune Tags')
         )
 
+    def on_bpm_bias_changed(self, scale):
+        if self.bpm_rebuild_source is not None:
+            GLib.source_remove(self.bpm_rebuild_source)
+        self.bpm_rebuild_source = GLib.timeout_add(
+            BPM_BIAS_REBUILD_DELAY_MS, self.regenerate_bpm_suggestions
+        )
+
+    def format_bpm_bias_value(self, scale, value):
+        value = int(round(value))
+        if value < 0:
+            return _('%d BPM slower') % abs(value)
+        if value > 0:
+            return _('%d BPM faster') % value
+        return _('Neutral')
+
+    def regenerate_bpm_suggestions(self):
+        self.bpm_rebuild_source = None
+        try:
+            self.plugin.set_model_bpm_bias(
+                self.model_name, self.bpm_bias_scale.get_value()
+            )
+        except Exception as exc:
+            dialogs.error(
+                self.plugin._get_parent_window(),
+                _('Could not save BPM tuning: %s') % exc,
+            )
+            self._populate_tag_tuning(self.plugin.load_model(self.model_name))
+            return False
+        if self.plugin.suggestion_request is not None:
+            self.plugin.suggest_from_tracks(*self.plugin.suggestion_request)
+        return False
+
     def regenerate_tag_suggestions(self):
         self.tag_rebuild_source = None
         if self.plugin.suggestion_request is not None:
@@ -1067,6 +1150,9 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         if self.tag_rebuild_source is not None:
             GLib.source_remove(self.tag_rebuild_source)
             self.tag_rebuild_source = None
+        if self.bpm_rebuild_source is not None:
+            GLib.source_remove(self.bpm_rebuild_source)
+            self.bpm_rebuild_source = None
         playlist_widget.PlaylistPageBase.do_destroy(self)
 
 

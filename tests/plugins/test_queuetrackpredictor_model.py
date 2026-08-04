@@ -225,6 +225,65 @@ def test_tag_biases_use_geometric_mean_for_tracks_with_multiple_tags():
     assert adjusted['neutral'] == 100
 
 
+def test_bpm_bias_favors_bounded_directional_movement():
+    counts = {'slower': 100, 'same': 100, 'faster': 100, 'unknown': 100}
+    candidates = {
+        'slower': {'bpm_band': 90},
+        'same': {'bpm_band': 120},
+        'faster': {'bpm_band': 150},
+        'unknown': {'bpm_band': None},
+    }
+
+    faster = model.apply_bpm_bias(counts, candidates, 120, 30)
+    slower = model.apply_bpm_bias(counts, candidates, 120, -30)
+    ten_faster = model.apply_bpm_bias(counts, candidates, 120, 10)
+
+    assert faster == {
+        'slower': 50,
+        'same': 100,
+        'faster': 200,
+        'unknown': 100,
+    }
+    assert slower == {
+        'slower': 200,
+        'same': 100,
+        'faster': 50,
+        'unknown': 100,
+    }
+    assert round(ten_faster['faster'], 6) == round(100 * (2 ** (10 / 30)), 6)
+    assert round(ten_faster['slower'], 6) == round(100 * (2 ** (-10 / 30)), 6)
+
+
+def test_bpm_bias_reranks_candidates_before_selection():
+    recent = FakeTrack('recent', groups={'context'}, bpm=120)
+    slower = FakeTrack('a-slower', groups={'context'}, bpm=90)
+    faster = FakeTrack('z-faster', groups={'context'}, bpm=150)
+    candidates = model.make_candidate_features([slower, faster], get_groups)
+    trained = {
+        'version': model.MODEL_VERSION,
+        'included_tags': ['context'],
+        'transition_counts': {},
+        'candidate_features': candidates,
+        'bpm_bias': 30,
+    }
+
+    assert model.get_scored_suggestion_locations(
+        trained,
+        [recent],
+        get_groups,
+        max_suggestions=2,
+        candidate_features=candidates,
+    ) == [('z-faster', 8000.0), ('a-slower', 2000.0)]
+
+
+def test_clamp_bpm_bias_handles_out_of_range_and_invalid_values():
+    assert model.clamp_bpm_bias(150) == 30
+    assert model.clamp_bpm_bias(-150) == -30
+    assert model.clamp_bpm_bias('25') == 25
+    assert model.clamp_bpm_bias(None) == 0
+    assert model.clamp_bpm_bias(float('inf')) == 0
+
+
 def test_make_candidate_features_uses_model_feature_settings():
     track = FakeTrack(
         'collection-only',

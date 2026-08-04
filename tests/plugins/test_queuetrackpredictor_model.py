@@ -304,6 +304,16 @@ def test_model_tuning_is_normalized_separately_from_trained_model():
     ) == {'tag_biases': {'keep': 2}, 'bpm_bias': -10}
 
 
+def test_model_tag_bias_update_preserves_tags_hidden_by_model():
+    trained = {'included_tags': ['shared', 'model-a']}
+
+    assert model.merge_model_tag_biases(
+        trained,
+        {'shared': 2, 'model-a': -2, 'model-b': -1},
+        {'model-a': 1},
+    ) == {'model-a': 1, 'model-b': -1}
+
+
 def test_make_candidate_features_uses_model_feature_settings():
     track = FakeTrack(
         'collection-only',

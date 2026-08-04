@@ -25,6 +25,17 @@ TAG_BIAS_FACTORS = {
 }
 
 
+def get_model_tags(model):
+    included_tags = model.get('included_tags')
+    if included_tags is not None:
+        return set(included_tags)
+    return {
+        tag
+        for summary in model.get('candidate_features', {}).values()
+        for tag in summary.get('groups', ())
+    }
+
+
 def normalize_model_tuning(model, tuning):
     """Validate runtime tuning stored separately from a trained model."""
     if not isinstance(tuning, dict):
@@ -46,6 +57,17 @@ def normalize_model_tuning(model, tuning):
             tuning.get('bpm_bias', DEFAULT_BPM_BIAS)
         ),
     }
+
+
+def merge_model_tag_biases(model, stored_biases, model_biases):
+    """Update global biases exposed by one model without losing hidden tags."""
+    merged = normalize_model_tuning(
+        {}, {'tag_biases': stored_biases}
+    )['tag_biases']
+    for tag in get_model_tags(model):
+        merged.pop(tag, None)
+    merged.update(model_biases)
+    return normalize_model_tuning({}, {'tag_biases': merged})['tag_biases']
 
 
 def _get_track_location(track):

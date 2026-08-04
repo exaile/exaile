@@ -21,7 +21,8 @@ DIVERSITY_OPTION = 'plugin/queuetrackpredictor/diversity'
 DEFAULT_DIVERSITY = 50
 EXCLUDED_TAGS_OPTION = 'plugin/queuetrackpredictor/excluded_tags'
 LAST_MODEL_OPTION = 'plugin/queuetrackpredictor/last_model'
-MODEL_TUNING_OPTION = 'plugin/queuetrackpredictor/model_tuning'
+TAG_BIASES_OPTION = 'plugin/queuetrackpredictor/tag_biases'
+BPM_BIAS_OPTION = 'plugin/queuetrackpredictor/bpm_bias'
 
 
 class MaxSuggestionsPreference(widgets.SpinPreference):

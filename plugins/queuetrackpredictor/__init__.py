@@ -255,46 +255,38 @@ class QueueTrackPredictorPlugin:
             self.set_last_model_name(name)
         return model
 
-    def _get_model_tuning_settings(self):
-        tuning = settings.get_option(
-            predictor_preferences.MODEL_TUNING_OPTION, {}
-        )
-        return tuning if isinstance(tuning, dict) else {}
+    def _get_tuning_settings(self):
+        return {
+            'tag_biases': settings.get_option(
+                predictor_preferences.TAG_BIASES_OPTION, {}
+            ),
+            'bpm_bias': settings.get_option(
+                predictor_preferences.BPM_BIAS_OPTION,
+                predictor_model.DEFAULT_BPM_BIAS,
+            ),
+        }
 
-    def get_model_tuning(self, model_name, model=None, all_tuning=None):
+    def get_model_tuning(self, model_name, model=None, tuning=None):
         model = model or self.load_model(model_name)
-        all_tuning = (
-            self._get_model_tuning_settings()
-            if all_tuning is None
-            else all_tuning
-        )
-        tuning = all_tuning.get(model_name, {})
+        tuning = self._get_tuning_settings() if tuning is None else tuning
         return predictor_model.normalize_model_tuning(model, tuning)
 
-    def _set_model_tuning(self, model_name, tag_biases=None, bpm_bias=None):
-        model = self.load_model(model_name)
-        all_tuning = dict(self._get_model_tuning_settings())
-        tuning = self.get_model_tuning(model_name, model, all_tuning)
-        if tag_biases is not None:
-            tuning['tag_biases'] = tag_biases
-        if bpm_bias is not None:
-            tuning['bpm_bias'] = predictor_model.clamp_bpm_bias(bpm_bias)
-        tuning = self.get_model_tuning(
-            model_name, model, {model_name: tuning}
-        )
-        if tuning['tag_biases'] or tuning['bpm_bias'] != 0:
-            all_tuning[model_name] = tuning
-        else:
-            all_tuning.pop(model_name, None)
-        settings.set_option(
-            predictor_preferences.MODEL_TUNING_OPTION, all_tuning
-        )
-
     def set_model_tag_biases(self, model_name, tag_biases):
-        self._set_model_tuning(model_name, tag_biases=tag_biases)
+        model = self.load_model(model_name)
+        stored_biases = predictor_model.merge_model_tag_biases(
+            model,
+            self._get_tuning_settings()['tag_biases'],
+            tag_biases,
+        )
+        settings.set_option(
+            predictor_preferences.TAG_BIASES_OPTION, stored_biases
+        )
 
-    def set_model_bpm_bias(self, model_name, bpm_bias):
-        self._set_model_tuning(model_name, bpm_bias=bpm_bias)
+    def set_model_bpm_bias(self, _model_name, bpm_bias):
+        settings.set_option(
+            predictor_preferences.BPM_BIAS_OPTION,
+            predictor_model.clamp_bpm_bias(bpm_bias),
+        )
 
     def get_default_model_name(self, catalog=None):
         catalog = catalog or self.load_model_catalog()
@@ -312,12 +304,6 @@ class QueueTrackPredictorPlugin:
         settings.set_option(predictor_preferences.LAST_MODEL_OPTION, model_name)
 
     def rename_model_settings(self, old_name, new_name):
-        all_tuning = dict(self._get_model_tuning_settings())
-        if old_name in all_tuning:
-            all_tuning[new_name] = all_tuning.pop(old_name)
-            settings.set_option(
-                predictor_preferences.MODEL_TUNING_OPTION, all_tuning
-            )
         if (
             settings.get_option(predictor_preferences.LAST_MODEL_OPTION, '')
             == old_name
@@ -325,12 +311,6 @@ class QueueTrackPredictorPlugin:
             self.set_last_model_name(new_name)
 
     def remove_model_settings(self, model_name, catalog):
-        all_tuning = dict(self._get_model_tuning_settings())
-        if model_name in all_tuning:
-            del all_tuning[model_name]
-            settings.set_option(
-                predictor_preferences.MODEL_TUNING_OPTION, all_tuning
-            )
         if (
             settings.get_option(predictor_preferences.LAST_MODEL_OPTION, '')
             == model_name
@@ -400,7 +380,7 @@ class QueueTrackPredictorPlugin:
                 predictor_preferences.DEFAULT_DIVERSITY,
             )
         )
-        model_tuning = self._get_model_tuning_settings()
+        model_tuning = self._get_tuning_settings()
         self.suggestion_generation += 1
         generation = self.suggestion_generation
         if self.suggestion_future is not None:
@@ -583,6 +563,19 @@ class QueueTrackPredictorPlugin:
         )
         if self.suggestion_request is not None:
             self.suggest_from_tracks(*self.suggestion_request)
+
+    def set_suggestion_model(self, model_name):
+        if self.suggestion_request is None:
+            return
+        previous_tracks, parent_window, excluded_locations, _ = (
+            self.suggestion_request
+        )
+        self.suggest_from_tracks(
+            previous_tracks,
+            parent_window,
+            excluded_locations,
+            model_name,
+        )
 
     def _get_suggestions_notebook(self):
         if self.suggestions_tab is None or self.suggestions_page is None:
@@ -797,6 +790,7 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         self.tag_rebuild_source = None
         self.bpm_rebuild_source = None
         self.model_name = None
+        self.model_names = []
         self.swindow = Gtk.ScrolledWindow()
         self.swindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.view = SuggestionsPlaylistView(
@@ -837,9 +831,16 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
 
         diversity_box = Gtk.Box(spacing=8)
         diversity_box.set_border_width(6)
-        self.model_label = Gtk.Label()
-        self.model_label.set_xalign(0)
-        diversity_box.pack_start(self.model_label, False, False, 0)
+        model_label = Gtk.Label(label=_('Model:'))
+        diversity_box.pack_start(model_label, False, False, 0)
+        self.model_choice = Gtk.ComboBoxText()
+        self.model_choice.set_tooltip_text(
+            _('Choose the prediction model used for these suggestions')
+        )
+        self.model_choice_changed_id = self.model_choice.connect(
+            'changed', self.on_model_choice_changed
+        )
+        diversity_box.pack_start(self.model_choice, False, False, 0)
         self.tuning_toggle = Gtk.ToggleButton(label=_('Tune Tags'))
         self.tuning_toggle.set_tooltip_text(
             _('Tune tag preferences for this prediction model')
@@ -1004,15 +1005,7 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         self.bpm_bias_scale.handler_block(self.bpm_bias_changed_id)
         self.bpm_bias_scale.set_value(bpm_bias)
         self.bpm_bias_scale.handler_unblock(self.bpm_bias_changed_id)
-        included_tags = model.get('included_tags')
-        if included_tags is None:
-            included_tags = {
-                tag
-                for summary in model.get('candidate_features', {}).values()
-                for tag in summary.get('groups', ())
-            }
-        else:
-            included_tags = set(included_tags)
+        included_tags = predictor_model.get_model_tags(model)
         self.tag_biases = {
             tag: int(bias)
             for tag, bias in tuning['tag_biases'].items()
@@ -1235,7 +1228,20 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
             self.diversity_scale.set_value(diversity)
 
     def set_model_name(self, model_name):
-        self.model_label.set_text(_('Model: %s') % model_name)
+        try:
+            names = model_store.model_names(self.plugin.load_model_catalog())
+        except Exception:
+            names = [model_name]
+        if names != self.model_names:
+            self.model_choice.handler_block(self.model_choice_changed_id)
+            self.model_choice.remove_all()
+            for name in names:
+                self.model_choice.append(name, name)
+            self.model_choice.handler_unblock(self.model_choice_changed_id)
+            self.model_names = names
+        self.model_choice.handler_block(self.model_choice_changed_id)
+        self.model_choice.set_active_id(model_name)
+        self.model_choice.handler_unblock(self.model_choice_changed_id)
         if model_name == self.model_name:
             return
         self.model_name = model_name
@@ -1252,6 +1258,13 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
             self._update_tuning_button_label()
             return
         self._populate_tag_tuning(model)
+
+    def on_model_choice_changed(self, choice):
+        model_name = choice.get_active_id()
+        if model_name is None or model_name == self.model_name:
+            return
+        self.set_model_name(model_name)
+        self.plugin.set_suggestion_model(model_name)
 
     def on_search_entry_activate(self, entry):
         self.view.filter_tracks(entry.get_text() or None)

@@ -25,6 +25,29 @@ TAG_BIAS_FACTORS = {
 }
 
 
+def normalize_model_tuning(model, tuning):
+    """Validate runtime tuning stored separately from a trained model."""
+    if not isinstance(tuning, dict):
+        tuning = {}
+    raw_tag_biases = tuning.get('tag_biases', {})
+    if not isinstance(raw_tag_biases, dict):
+        raw_tag_biases = {}
+    included_tags = model.get('included_tags')
+    tag_biases = {
+        tag: int(bias)
+        for tag, bias in raw_tag_biases.items()
+        if bias in TAG_BIAS_FACTORS
+        and bias != 0
+        and (included_tags is None or tag in included_tags)
+    }
+    return {
+        'tag_biases': tag_biases,
+        'bpm_bias': clamp_bpm_bias(
+            tuning.get('bpm_bias', DEFAULT_BPM_BIAS)
+        ),
+    }
+
+
 def _get_track_location(track):
     try:
         return track.get_loc_for_io()

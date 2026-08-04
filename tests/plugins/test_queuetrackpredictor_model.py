@@ -284,6 +284,26 @@ def test_clamp_bpm_bias_handles_out_of_range_and_invalid_values():
     assert model.clamp_bpm_bias(float('inf')) == 0
 
 
+def test_model_tuning_is_normalized_separately_from_trained_model():
+    trained = {
+        'included_tags': ['keep'],
+        'tag_biases': {'legacy': 2},
+        'bpm_bias': 30,
+    }
+
+    assert model.normalize_model_tuning(trained, {}) == {
+        'tag_biases': {},
+        'bpm_bias': 0,
+    }
+    assert model.normalize_model_tuning(
+        trained,
+        {
+            'tag_biases': {'keep': 2, 'excluded': -1, 'neutral': 0},
+            'bpm_bias': -10,
+        },
+    ) == {'tag_biases': {'keep': 2}, 'bpm_bias': -10}
+
+
 def test_make_candidate_features_uses_model_feature_settings():
     track = FakeTrack(
         'collection-only',

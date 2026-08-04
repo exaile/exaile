@@ -241,65 +241,110 @@ class QueueTrackPredictorPlugin:
     def create_model_from_playlists(
         self, name, playlists, playlist_names, included_tags, replace=False
     ):
-        existing_biases = {}
-        existing_bpm_bias = predictor_model.DEFAULT_BPM_BIAS
-        if replace:
-            try:
-                existing_model = self.load_model(name)
-                existing_biases = existing_model.get('tag_biases', {})
-                existing_bpm_bias = existing_model.get(
-                    'bpm_bias', predictor_model.DEFAULT_BPM_BIAS
-                )
-            except (IOError, KeyError, ValueError):
-                pass
         model = predictor_model.build_model(
             playlists, self.get_track_groups, included_tags=included_tags
         )
         model['playlist_names'] = sorted(playlist_names)
-        included_tag_set = (
-            None if included_tags is None else set(included_tags)
-        )
-        model['tag_biases'] = {
-            tag: bias
-            for tag, bias in existing_biases.items()
-            if (included_tag_set is None or tag in included_tag_set)
-            and bias in predictor_model.TAG_BIAS_FACTORS
-        }
-        model['bpm_bias'] = predictor_model.clamp_bpm_bias(existing_bpm_bias)
         catalog = self.load_model_catalog()
         if replace:
             model_store.replace_model(catalog, name, model)
         else:
             model_store.add_model(catalog, name, model)
         self.save_model_catalog(catalog)
+        if not replace:
+            self.set_last_model_name(name)
         return model
 
+    def _get_model_tuning_settings(self):
+        tuning = settings.get_option(
+            predictor_preferences.MODEL_TUNING_OPTION, {}
+        )
+        return tuning if isinstance(tuning, dict) else {}
+
+    def get_model_tuning(self, model_name, model=None, all_tuning=None):
+        model = model or self.load_model(model_name)
+        all_tuning = (
+            self._get_model_tuning_settings()
+            if all_tuning is None
+            else all_tuning
+        )
+        tuning = all_tuning.get(model_name, {})
+        return predictor_model.normalize_model_tuning(model, tuning)
+
+    def _set_model_tuning(self, model_name, tag_biases=None, bpm_bias=None):
+        model = self.load_model(model_name)
+        all_tuning = dict(self._get_model_tuning_settings())
+        tuning = self.get_model_tuning(model_name, model, all_tuning)
+        if tag_biases is not None:
+            tuning['tag_biases'] = tag_biases
+        if bpm_bias is not None:
+            tuning['bpm_bias'] = predictor_model.clamp_bpm_bias(bpm_bias)
+        tuning = self.get_model_tuning(
+            model_name, model, {model_name: tuning}
+        )
+        if tuning['tag_biases'] or tuning['bpm_bias'] != 0:
+            all_tuning[model_name] = tuning
+        else:
+            all_tuning.pop(model_name, None)
+        settings.set_option(
+            predictor_preferences.MODEL_TUNING_OPTION, all_tuning
+        )
+
     def set_model_tag_biases(self, model_name, tag_biases):
-        catalog = self.load_model_catalog()
-        model = catalog['models'][model_name]
-        included_tags = model.get('included_tags')
-        model['tag_biases'] = {
-            tag: int(bias)
-            for tag, bias in tag_biases.items()
-            if bias in predictor_model.TAG_BIAS_FACTORS
-            and bias != 0
-            and (included_tags is None or tag in included_tags)
-        }
-        self.save_model_catalog(catalog)
+        self._set_model_tuning(model_name, tag_biases=tag_biases)
 
     def set_model_bpm_bias(self, model_name, bpm_bias):
-        catalog = self.load_model_catalog()
-        catalog['models'][model_name]['bpm_bias'] = (
-            predictor_model.clamp_bpm_bias(bpm_bias)
+        self._set_model_tuning(model_name, bpm_bias=bpm_bias)
+
+    def get_default_model_name(self, catalog=None):
+        catalog = catalog or self.load_model_catalog()
+        model_name = settings.get_option(
+            predictor_preferences.LAST_MODEL_OPTION, ''
         )
-        self.save_model_catalog(catalog)
+        if model_name in catalog['models']:
+            return model_name
+        selected = catalog.get('selected')
+        if selected in catalog['models']:
+            return selected
+        return next(iter(model_store.model_names(catalog)), None)
+
+    def set_last_model_name(self, model_name):
+        settings.set_option(predictor_preferences.LAST_MODEL_OPTION, model_name)
+
+    def rename_model_settings(self, old_name, new_name):
+        all_tuning = dict(self._get_model_tuning_settings())
+        if old_name in all_tuning:
+            all_tuning[new_name] = all_tuning.pop(old_name)
+            settings.set_option(
+                predictor_preferences.MODEL_TUNING_OPTION, all_tuning
+            )
+        if (
+            settings.get_option(predictor_preferences.LAST_MODEL_OPTION, '')
+            == old_name
+        ):
+            self.set_last_model_name(new_name)
+
+    def remove_model_settings(self, model_name, catalog):
+        all_tuning = dict(self._get_model_tuning_settings())
+        if model_name in all_tuning:
+            del all_tuning[model_name]
+            settings.set_option(
+                predictor_preferences.MODEL_TUNING_OPTION, all_tuning
+            )
+        if (
+            settings.get_option(predictor_preferences.LAST_MODEL_OPTION, '')
+            == model_name
+        ):
+            self.set_last_model_name(
+                self.get_default_model_name(catalog) or ''
+            )
 
     def load_model(self, model_name=None):
         return self.load_model_entry(model_name)[1]
 
     def load_model_entry(self, model_name=None):
         catalog = self.load_model_catalog()
-        model_name = model_name or catalog.get('selected')
+        model_name = model_name or self.get_default_model_name(catalog)
         if model_name is None:
             raise IOError('No prediction model is selected')
         try:
@@ -308,11 +353,12 @@ class QueueTrackPredictorPlugin:
             raise ValueError('Prediction model “%s” does not exist' % model_name)
 
     def remember_used_model(self, model_name):
-        catalog = self.load_model_catalog()
-        if catalog.get('selected') == model_name:
+        if (
+            settings.get_option(predictor_preferences.LAST_MODEL_OPTION, '')
+            == model_name
+        ):
             return
-        model_store.select_model(catalog, model_name)
-        self.save_model_catalog(catalog)
+        self.set_last_model_name(model_name)
 
     def suggest_next_track(self, parent_window=None):
         parent_window = parent_window or self._get_parent_window()
@@ -354,6 +400,7 @@ class QueueTrackPredictorPlugin:
                 predictor_preferences.DEFAULT_DIVERSITY,
             )
         )
+        model_tuning = self._get_model_tuning_settings()
         self.suggestion_generation += 1
         generation = self.suggestion_generation
         if self.suggestion_future is not None:
@@ -365,6 +412,7 @@ class QueueTrackPredictorPlugin:
             excluded_locations,
             max_suggestions,
             diversity,
+            model_tuning,
             parent_window,
             model_name,
         )
@@ -376,6 +424,7 @@ class QueueTrackPredictorPlugin:
         excluded_locations,
         max_suggestions,
         diversity,
+        model_tuning,
         parent_window,
         model_name,
     ):
@@ -401,18 +450,24 @@ class QueueTrackPredictorPlugin:
             return
 
         try:
+            runtime_model = dict(trained_model)
+            runtime_model.update(
+                self.get_model_tuning(
+                    model_name, trained_model, model_tuning
+                )
+            )
             candidate_tracks = self.exaile.collection.get_tracks()
             candidate_features = predictor_model.make_candidate_features(
                 candidate_tracks,
                 self.get_track_groups,
-                trained_model.get(
+                runtime_model.get(
                     'bpm_band_size', predictor_model.DEFAULT_BPM_BAND_SIZE
                 ),
-                trained_model.get('included_tags'),
+                runtime_model.get('included_tags'),
             )
             candidate_limit = max_suggestions * CANDIDATE_POOL_MULTIPLIER
             scored_locations = predictor_model.get_scored_suggestion_locations(
-                trained_model,
+                runtime_model,
                 previous_tracks,
                 self.get_track_groups,
                 max_suggestions=candidate_limit,
@@ -420,7 +475,7 @@ class QueueTrackPredictorPlugin:
                 candidate_features=candidate_features,
             )
             scored_locations = predictor_model.rerank_suggestions_for_diversity(
-                trained_model,
+                runtime_model,
                 scored_locations,
                 previous_tracks[-RECENT_TRACK_COUNT:],
                 self.get_track_groups,
@@ -944,9 +999,8 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
             self.view.grab_focus()
 
     def _populate_tag_tuning(self, model):
-        bpm_bias = predictor_model.clamp_bpm_bias(
-            model.get('bpm_bias', predictor_model.DEFAULT_BPM_BIAS)
-        )
+        tuning = self.plugin.get_model_tuning(self.model_name, model)
+        bpm_bias = tuning['bpm_bias']
         self.bpm_bias_scale.handler_block(self.bpm_bias_changed_id)
         self.bpm_bias_scale.set_value(bpm_bias)
         self.bpm_bias_scale.handler_unblock(self.bpm_bias_changed_id)
@@ -961,7 +1015,7 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
             included_tags = set(included_tags)
         self.tag_biases = {
             tag: int(bias)
-            for tag, bias in model.get('tag_biases', {}).items()
+            for tag, bias in tuning['tag_biases'].items()
             if tag in included_tags
             and bias in predictor_model.TAG_BIAS_FACTORS
             and bias != 0
@@ -1300,7 +1354,7 @@ class ModelManagerDialog(Gtk.Dialog):
 
     def refresh(self, select_name=None):
         catalog = self.plugin.load_model_catalog()
-        selected_name = catalog.get('selected')
+        selected_name = self.plugin.get_default_model_name(catalog)
         self.store.clear()
         path_to_select = None
         for name in model_store.model_names(catalog):
@@ -1370,6 +1424,7 @@ class ModelManagerDialog(Gtk.Dialog):
             dialogs.error(self, str(exc))
             return
         self.plugin.save_model_catalog(catalog)
+        self.plugin.rename_model_settings(old_name, new_name)
         self.refresh(new_name)
 
     def on_remove_clicked(self, button):
@@ -1384,15 +1439,14 @@ class ModelManagerDialog(Gtk.Dialog):
         catalog = self.plugin.load_model_catalog()
         model_store.remove_model(catalog, name)
         self.plugin.save_model_catalog(catalog)
+        self.plugin.remove_model_settings(name, catalog)
         self.refresh()
 
     def on_select_clicked(self, button):
         name = self.get_selected_name()
         if name is None:
             return
-        catalog = self.plugin.load_model_catalog()
-        model_store.select_model(catalog, name)
-        self.plugin.save_model_catalog(catalog)
+        self.plugin.set_last_model_name(name)
         self.refresh(name)
 
     def on_row_activated(self, tree, path, column):

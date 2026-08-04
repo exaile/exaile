@@ -23,6 +23,7 @@ EXCLUDED_TAGS_OPTION = 'plugin/queuetrackpredictor/excluded_tags'
 LAST_MODEL_OPTION = 'plugin/queuetrackpredictor/last_model'
 TAG_BIASES_OPTION = 'plugin/queuetrackpredictor/tag_biases'
 BPM_BIAS_OPTION = 'plugin/queuetrackpredictor/bpm_bias'
+SUGGESTION_SOURCE_OPTION = 'plugin/queuetrackpredictor/suggestion_source'
 
 
 class MaxSuggestionsPreference(widgets.SpinPreference):

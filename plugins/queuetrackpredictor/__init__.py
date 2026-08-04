@@ -10,7 +10,7 @@ from concurrent.futures import ThreadPoolExecutor
 from gi.repository import GLib, Gtk
 
 from xl import player, providers, settings, xdg
-from xl.playlist import Playlist
+from xl.playlist import Playlist, SmartPlaylist
 from xl.nls import gettext as _, ngettext
 from xlgui import guiutil, main
 from xlgui.accelerators import Accelerator
@@ -42,6 +42,7 @@ class QueueTrackPredictorPlugin:
         self.exaile = None
         self.menu_item = None
         self.playlist_menu_item = None
+        self.smart_playlist_menu_item = None
         self.train_dialog = None
         self.model_manager_dialog = None
         self.model_manager_open_source = None
@@ -75,6 +76,15 @@ class QueueTrackPredictorPlugin:
 
         self.playlist_menu_item = PredictionModelsMenuItem(self)
         self.playlist_menu_item.register('playlist-context-menu')
+
+        self.smart_playlist_menu_item = menu.simple_menu_item(
+            'queue-track-predictor-smart-playlist-source',
+            ['export-files'],
+            _('Use as Track Suggestion Source'),
+            callback=self.on_use_smart_playlist_source,
+            condition_fn=self.can_use_smart_playlist_source,
+        )
+        self.smart_playlist_menu_item.register('playlist-panel-context-menu')
 
         SuggestNextTrackButton.plugin = self
         providers.register('playlist-notebook-actions', SuggestNextTrackButton)
@@ -116,6 +126,10 @@ class QueueTrackPredictorPlugin:
         if self.playlist_menu_item is not None:
             self.playlist_menu_item.unregister()
             self.playlist_menu_item = None
+
+        if self.smart_playlist_menu_item is not None:
+            self.smart_playlist_menu_item.unregister()
+            self.smart_playlist_menu_item = None
 
         if self.button_registered:
             providers.unregister(
@@ -201,6 +215,14 @@ class QueueTrackPredictorPlugin:
             self._get_parent_window(parent),
             model_name,
         )
+
+    def can_use_smart_playlist_source(self, name, parent, context):
+        return isinstance(context['selected-playlist'], SmartPlaylist)
+
+    def on_use_smart_playlist_source(self, widget, name, parent, context):
+        playlist = context['selected-playlist']
+        if isinstance(playlist, SmartPlaylist):
+            self.set_suggestion_source(playlist.name)
 
     def suggest_after_playlist_position(
         self, playlist, position, parent_window=None, model_name=None
@@ -381,6 +403,7 @@ class QueueTrackPredictorPlugin:
             )
         )
         model_tuning = self._get_tuning_settings()
+        source_name = self.get_suggestion_source()
         self.suggestion_generation += 1
         generation = self.suggestion_generation
         if self.suggestion_future is not None:
@@ -395,6 +418,7 @@ class QueueTrackPredictorPlugin:
             model_tuning,
             parent_window,
             model_name,
+            source_name,
         )
 
     def _compute_suggestions(
@@ -407,6 +431,7 @@ class QueueTrackPredictorPlugin:
         model_tuning,
         parent_window,
         model_name,
+        source_name,
     ):
         try:
             model_name, trained_model = self.load_model_entry(model_name)
@@ -436,7 +461,34 @@ class QueueTrackPredictorPlugin:
                     model_name, trained_model, model_tuning
                 )
             )
-            candidate_tracks = self.exaile.collection.get_tracks()
+            if source_name:
+                try:
+                    source = self.exaile.smart_playlists.get_playlist(source_name)
+                except ValueError:
+                    GLib.idle_add(
+                        self._show_suggestion_message,
+                        generation,
+                        parent_window,
+                        False,
+                        _('The smart playlist “%s” is no longer available.')
+                        % source_name,
+                    )
+                    return
+                candidate_tracks = list(
+                    source.get_playlist(self.exaile.collection)
+                )
+                if not candidate_tracks:
+                    GLib.idle_add(
+                        self._show_suggestion_message,
+                        generation,
+                        parent_window,
+                        False,
+                        _('The smart playlist “%s” contains no tracks.')
+                        % source_name,
+                    )
+                    return
+            else:
+                candidate_tracks = self.exaile.collection.get_tracks()
             candidate_features = predictor_model.make_candidate_features(
                 candidate_tracks,
                 self.get_track_groups,
@@ -485,6 +537,7 @@ class QueueTrackPredictorPlugin:
             scored_tracks,
             diversity,
             model_name,
+            source_name,
         )
 
     def _show_suggestion_message(
@@ -499,7 +552,13 @@ class QueueTrackPredictorPlugin:
         return False
 
     def _apply_suggestion_result(
-        self, generation, parent_window, scored_tracks, diversity, model_name
+        self,
+        generation,
+        parent_window,
+        scored_tracks,
+        diversity,
+        model_name,
+        source_name,
     ):
         if generation != self.suggestion_generation:
             return False
@@ -524,10 +583,14 @@ class QueueTrackPredictorPlugin:
                 excluded_locations,
                 model_name,
             )
-        self.show_suggestions_playlist(scored_tracks, diversity, model_name)
+        self.show_suggestions_playlist(
+            scored_tracks, diversity, model_name, source_name
+        )
         return False
 
-    def show_suggestions_playlist(self, scored_tracks, diversity, model_name):
+    def show_suggestions_playlist(
+        self, scored_tracks, diversity, model_name, source_name
+    ):
         playlist_notebook = self._get_suggestions_notebook()
         if playlist_notebook is None:
             playlist_notebook = main.get_playlist_notebook()
@@ -538,6 +601,7 @@ class QueueTrackPredictorPlugin:
                 player.PLAYER,
                 diversity,
                 model_name,
+                source_name,
             )
             self.suggestions_page.connect(
                 'destroy', self.on_suggestions_page_destroyed
@@ -552,6 +616,7 @@ class QueueTrackPredictorPlugin:
             self.suggestions_playlist.replace_tracks(scored_tracks)
             self.suggestions_page.set_diversity(diversity)
             self.suggestions_page.set_model_name(model_name)
+            self.suggestions_page.set_source_name(source_name)
             playlist_notebook.set_current_page(
                 playlist_notebook.page_num(self.suggestions_page)
             )
@@ -576,6 +641,24 @@ class QueueTrackPredictorPlugin:
             excluded_locations,
             model_name,
         )
+
+    def get_suggestion_source(self):
+        return settings.get_option(
+            predictor_preferences.SUGGESTION_SOURCE_OPTION, ''
+        )
+
+    def get_smart_playlist_names(self):
+        return sorted(self.exaile.smart_playlists.list_playlists(), key=str.lower)
+
+    def set_suggestion_source(self, source_name):
+        source_name = source_name or ''
+        settings.set_option(
+            predictor_preferences.SUGGESTION_SOURCE_OPTION, source_name
+        )
+        if self.suggestions_page is not None:
+            self.suggestions_page.set_source_name(source_name)
+        if self.suggestion_request is not None:
+            self.suggest_from_tracks(*self.suggestion_request)
 
     def _get_suggestions_notebook(self):
         if self.suggestions_tab is None or self.suggestions_page is None:
@@ -781,6 +864,7 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         playlist_player,
         diversity,
         model_name,
+        source_name,
     ):
         playlist_widget.PlaylistPageBase.__init__(
             self, suggestions_playlist, playlist_player
@@ -791,6 +875,7 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         self.bpm_rebuild_source = None
         self.model_name = None
         self.model_names = []
+        self.source_name = None
         self.swindow = Gtk.ScrolledWindow()
         self.swindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.view = SuggestionsPlaylistView(
@@ -841,6 +926,10 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
             'changed', self.on_model_choice_changed
         )
         diversity_box.pack_start(self.model_choice, False, False, 0)
+        source_label = Gtk.Label(label=_('Source:'))
+        diversity_box.pack_start(source_label, False, False, 0)
+        self._build_source_choice()
+        diversity_box.pack_start(self.source_choice, False, False, 0)
         self.tuning_toggle = Gtk.ToggleButton(label=_('Tune Tags'))
         self.tuning_toggle.set_tooltip_text(
             _('Tune tag preferences for this prediction model')
@@ -896,8 +985,61 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         diversity_box.pack_end(self.search_entry.entry, False, True, 0)
         self.pack_start(diversity_box, False, False, 0)
         self.set_model_name(model_name)
+        self.set_source_name(source_name)
         self.content_stack.set_visible_child_name('suggestions')
         self.show_all()
+
+    def _build_source_choice(self):
+        self.source_choice = Gtk.ComboBoxText()
+        self.source_choices = {}
+        self.source_choice.set_tooltip_text(
+            _('Limit suggestions to tracks in a smart playlist')
+        )
+        self.source_choice_changed_id = self.source_choice.connect(
+            'changed', self.on_source_choice_changed
+        )
+        self.source_choice.connect(
+            'button-press-event', self.on_source_choice_button_press
+        )
+
+    def refresh_source_choices(self):
+        names = self.plugin.get_smart_playlist_names()
+        choices = [('', _('Entire collection'))]
+        if self.source_name and self.source_name not in names:
+            choices.append(
+                (
+                    self.source_name,
+                    _('Unavailable: %s') % self.source_name,
+                )
+            )
+        choices.extend((name, name) for name in names)
+
+        self.source_choice.handler_block(self.source_choice_changed_id)
+        self.source_choice.remove_all()
+        self.source_choices.clear()
+        active_id = None
+        for index, (source_name, display_name) in enumerate(choices):
+            choice_id = str(index)
+            self.source_choices[choice_id] = source_name
+            self.source_choice.append(choice_id, display_name)
+            if source_name == self.source_name:
+                active_id = choice_id
+        self.source_choice.set_active_id(active_id)
+        self.source_choice.handler_unblock(self.source_choice_changed_id)
+
+    def on_source_choice_button_press(self, choice, event):
+        self.refresh_source_choices()
+        return False
+
+    def on_source_choice_changed(self, choice):
+        choice_id = choice.get_active_id()
+        if choice_id is None:
+            return
+        source_name = self.source_choices[choice_id]
+        if source_name == self.source_name:
+            return
+        self.source_name = source_name
+        self.plugin.set_suggestion_source(source_name)
 
     def _build_tag_tuning_panel(self):
         panel = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
@@ -1251,6 +1393,11 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
             self._update_tuning_button_label()
             return
         self._populate_tag_tuning(model)
+
+    def set_source_name(self, source_name):
+        source_name = source_name or ''
+        self.source_name = source_name
+        self.refresh_source_choices()
 
     def on_model_choice_changed(self, choice):
         model_name = choice.get_active_id()

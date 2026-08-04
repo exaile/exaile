@@ -919,10 +919,9 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         tools.pack_start(self.tag_filter_choice, False, False, 0)
 
         self.tag_sort_choice = Gtk.ComboBoxText()
-        self.tag_sort_choice.append('adjusted', _('Adjusted First'))
         self.tag_sort_choice.append('name', _('Name'))
         self.tag_sort_choice.append('bias', _('Bias'))
-        self.tag_sort_choice.set_active_id('adjusted')
+        self.tag_sort_choice.set_active_id('name')
         self.tag_sort_choice.set_tooltip_text(_('Sort tags'))
         self.tag_sort_choice.connect('changed', self.on_tag_sort_changed)
         tools.pack_start(self.tag_sort_choice, False, False, 0)
@@ -1071,24 +1070,13 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         second_tag = self.tag_children[second]
         first_bias = self.tag_biases.get(first_tag, 0)
         second_bias = self.tag_biases.get(second_tag, 0)
-        mode = self.tag_sort_choice.get_active_id() or 'adjusted'
-        if mode == 'name':
-            first_key = (first_tag.casefold(), first_tag)
-            second_key = (second_tag.casefold(), second_tag)
-        elif mode == 'bias':
+        mode = self.tag_sort_choice.get_active_id() or 'name'
+        if mode == 'bias':
             first_key = (-first_bias, first_tag.casefold(), first_tag)
             second_key = (-second_bias, second_tag.casefold(), second_tag)
         else:
-            first_key = (
-                first_bias == 0,
-                first_tag.casefold(),
-                first_tag,
-            )
-            second_key = (
-                second_bias == 0,
-                second_tag.casefold(),
-                second_tag,
-            )
+            first_key = (first_tag.casefold(), first_tag)
+            second_key = (second_tag.casefold(), second_tag)
         return (first_key > second_key) - (first_key < second_key)
 
     def on_tag_sort_changed(self, widget):

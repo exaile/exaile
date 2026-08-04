@@ -948,9 +948,6 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         self.tag_tuning_flow.connect(
             'selected-children-changed', self.on_tag_selection_changed
         )
-        self.tag_tuning_flow.connect(
-            'child-activated', self.on_tag_child_activated
-        )
         self.tag_tuning_flow.connect('key-press-event', self.on_tag_key_pressed)
 
         tag_scroller = Gtk.ScrolledWindow()
@@ -1029,8 +1026,13 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
             )
             bias_label.set_xalign(1)
             self._set_tag_bias_label(bias_label, self.tag_biases.get(tag, 0))
+            bias_button = Gtk.Button()
+            bias_button.set_relief(Gtk.ReliefStyle.NONE)
+            bias_button.set_tooltip_text(_('Click to change this tag bias'))
+            bias_button.add(bias_label)
+            bias_button.connect('clicked', self.on_tag_bias_clicked, tag)
             tile.pack_start(tag_label, True, True, 0)
-            tile.pack_end(bias_label, False, False, 0)
+            tile.pack_end(bias_button, False, False, 0)
             child.add(tile)
             self.tag_children[child] = tag
             self.tag_bias_labels[tag] = bias_label
@@ -1110,19 +1112,22 @@ class SuggestionsPlaylistPage(playlist_widget.PlaylistPageBase):
         if not selected:
             return
         for tag in selected:
-            if bias == 0:
-                self.tag_biases.pop(tag, None)
-            else:
-                self.tag_biases[tag] = bias
-            self._set_tag_bias_label(self.tag_bias_labels[tag], bias)
+            self._set_tag_bias(tag, bias)
         self._tag_biases_changed()
 
-    def on_tag_child_activated(self, flowbox, child):
-        tag = self.tag_children[child]
+    def _set_tag_bias(self, tag, bias):
+        if bias == 0:
+            self.tag_biases.pop(tag, None)
+        else:
+            self.tag_biases[tag] = bias
+        self._set_tag_bias_label(self.tag_bias_labels[tag], bias)
+
+    def on_tag_bias_clicked(self, button, tag):
         bias = self.tag_biases.get(tag, 0)
         levels = (-2, -1, 0, 1, 2)
         next_bias = levels[(levels.index(bias) + 1) % len(levels)]
-        self.set_selected_tag_bias(next_bias)
+        self._set_tag_bias(tag, next_bias)
+        self._tag_biases_changed()
 
     def on_tag_key_pressed(self, flowbox, event):
         bias_for_key = {'1': -2, '2': -1, '3': 0, '4': 1, '5': 2, '0': 0}

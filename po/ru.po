@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-21 14:03+1100\n"
-"PO-Revision-Date: 2026-08-14 02:51+0000\n"
+"PO-Revision-Date: 2026-08-18 02:51+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/"
 "ru/>\n"
@@ -2698,7 +2698,7 @@ msgstr "При запуске плеера открывать последние
 
 #: ../data/ui/preferences/playlists.ui:25
 msgid "Prompt for saving custom playlists on close"
-msgstr "Запрашивать подтверждение сохранения плейлистов перед закрытием"
+msgstr "Запрашивать сохранение плейлистов пользователя при закрытии"
 
 #: ../data/ui/preferences/playlists.ui:38
 msgid "Replace content on side pane double click"
@@ -2950,8 +2950,8 @@ msgstr ""
 "Благодаря этой экспериментальной функции теперь можно сохранять звёзды "
 "рейтинга в самих медиафайлах!\n"
 "Для тестирования перейдите в Настройки > Фонотека и включите пункт «"
-"Дополнительно читать и \n"
-"записывать «Рейтинг» в метаданные аудиофайлов».\n"
+"Дополнительно читать и записывать \n"
+"«Рейтинг» в метаданные аудиофайлов».\n"
 "Также имеется инструмент для переноса всех уже сохранённых рейтингов в "
 "медиафайлы.\n"
 "\n"
@@ -3035,7 +3035,7 @@ msgstr "_Удалить закладку"
 
 #: ../plugins/bookmarks/__init__.py:218
 msgid "_Clear Bookmarks"
-msgstr "О_чистить закладки"
+msgstr "_Очистить закладки"
 
 #: ../plugins/bookmarks/__init__.py:332
 msgid "_Bookmarks"
@@ -3200,7 +3200,7 @@ msgstr "Обложку альбома на рабочий стол"
 
 #: ../plugins/developer/__init__.py:62
 msgid "Developer Tools"
-msgstr "Инструменты разработчика"
+msgstr "Инструмент разработчика"
 
 #: ../plugins/equalizer/__init__.py:353
 msgid "_Equalizer"
@@ -3415,7 +3415,7 @@ msgstr "Сохранить журнал"
 
 #: ../plugins/history/__init__.py:238
 msgid "_Clear History"
-msgstr "О_чистить журнал"
+msgstr "_Очистить журнал"
 
 #: ../plugins/icecast/__init__.py:134 ../plugins/icecast/__init__.py:230
 #: ../plugins/icecast/__init__.py:339
@@ -4147,7 +4147,7 @@ msgstr "Сортировка пользователя"
 
 #: ../plugins/customcollectionorders/cco_pane.ui:77
 msgid "Add _Order"
-msgstr "Добавить сортировку"
+msgstr "Добавить _сортировку"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
 msgid "Show IPv6 servers"
@@ -4233,7 +4233,7 @@ msgstr "мс"
 
 #: ../plugins/developer/developer_window.ui:21
 msgid "Exaile Developer Tools"
-msgstr "Инструменты разработчика Exaile"
+msgstr "Диагностика событий плеера Exaile"
 
 #: ../plugins/developer/developer_window.ui:75
 msgid "Count"
@@ -4241,7 +4241,7 @@ msgstr "Подсчёт"
 
 #: ../plugins/developer/developer_window.ui:106
 msgid "Filter event types"
-msgstr "Фильтр типов событий"
+msgstr "Фильтр по типам событий"
 
 #: ../plugins/developer/developer_window.ui:156
 msgid "Events"
@@ -4891,11 +4891,11 @@ msgstr "Отображает обложку альбома из текущего
 
 #: ../plugins/developer/PLUGININFO:3
 msgid "Developer"
-msgstr "Разработка"
+msgstr "Инструмент разработчика"
 
 #: ../plugins/developer/PLUGININFO:4
 msgid "Provides diagnostic information for Exaile developers"
-msgstr "Предоставляет отладочную информацию для разработчиков Exaile"
+msgstr "Предоставляет диагностическую информацию для разработчиков Exile"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -5127,12 +5127,12 @@ msgid ""
 "Tool to help generate HTML5 visualizations of your playlists using d3.js. "
 "Optimized for Chrome."
 msgstr ""
-"Инструмент для создания HTML5-визуализаций ваших плейлистов с помощью d3.js. "
-"Оптимизирован для Chrome."
+"Инструмент для создания HTML5-визуализаций ваших плейлистов с помощью "
+"библиотеки d3.js. Оптимизировано для браузера Chrome."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:5 ../plugins/wikipedia/PLUGININFO:5
 msgid "Information"
-msgstr "Сведения"
+msgstr "Информационные плагины"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
@@ -5206,7 +5206,8 @@ msgid ""
 "\n"
 "Requires: webkit2gtk and its typelib file"
 msgstr ""
-"Предоставляет сведения о текущем исполнителе, взятые из Wikipedia.\n"
+"Предоставляет информацию об исполнителе текущего трека, взятую из "
+"Wikipedia.\n"
 "\n"
 "Требуется: webkit2gtk и его файл typelib"
 

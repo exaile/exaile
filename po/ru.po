@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-21 14:03+1100\n"
-"PO-Revision-Date: 2026-08-18 02:51+0000\n"
+"PO-Revision-Date: 2026-08-18 15:51+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/"
 "ru/>\n"
@@ -2243,7 +2243,7 @@ msgstr "_Вид"
 
 #: ../data/ui/main.ui:58
 msgid "_Tools"
-msgstr "С_ервис"
+msgstr "_Инструменты"
 
 #: ../data/ui/main.ui:71
 msgid "_Help"
@@ -3470,7 +3470,7 @@ msgstr "Консоль IPython - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:213
 msgid "Show _IPython Console"
-msgstr "Показать _консоль IPython"
+msgstr "_Консоль IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:23 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
@@ -3478,15 +3478,15 @@ msgstr "Консоль IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:40
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
-msgstr "Из-за ошибки в Gtk+ невозможно задать прозрачность окна"
+msgstr "В Windows из‑за ошибки в Gtk+ невозможно задать прозрачность окна"
 
 #: ../plugins/keybinder/__init__.py:49
 msgid ""
 "Keybinder is not supported on this platform! It is only supported on X "
 "servers."
 msgstr ""
-"Keybinder не поддерживается на этой платформе! Поддерживается только X-"
-"сервер."
+"Keybinder не поддерживается для этой платформы! Доступно только для X-"
+"серверов."
 
 #: ../plugins/lastfmlove/__init__.py:66
 msgid "Loved"
@@ -3511,11 +3511,11 @@ msgstr "Любимые треки на Last.fm"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:59
 msgid "The API key is invalid."
-msgstr "Ключ API некорректен."
+msgstr "API‑ключ недействителен."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:93
 msgid "Could not start web browser"
-msgstr "Невозможно запустить веб-браузер"
+msgstr "Не удалось запустить веб-браузер"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:95
 #, python-brace-format
@@ -4470,7 +4470,7 @@ msgstr "Отображение звуковой волны"
 
 #: ../plugins/moodbar/prefs.ui:25
 msgid "Color tint"
-msgstr "Цветовой оттенок"
+msgstr "Цвет фона"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
@@ -4895,7 +4895,7 @@ msgstr "Инструмент разработчика"
 
 #: ../plugins/developer/PLUGININFO:4
 msgid "Provides diagnostic information for Exaile developers"
-msgstr "Предоставляет диагностическую информацию для разработчиков Exile"
+msgstr "Предоставляет диагностическую информацию для разработчиков Exaile"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"

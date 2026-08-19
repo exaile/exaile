@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-21 14:03+1100\n"
-"PO-Revision-Date: 2026-08-18 15:51+0000\n"
+"PO-Revision-Date: 2026-08-20 16:52+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/"
 "ru/>\n"
@@ -4237,7 +4237,9 @@ msgstr "Диагностика событий плеера Exaile"
 
 #: ../plugins/developer/developer_window.ui:75
 msgid "Count"
-msgstr "Подсчёт"
+msgstr ""
+"Подсчёт\n"
+"событий"
 
 #: ../plugins/developer/developer_window.ui:106
 msgid "Filter event types"
@@ -4430,7 +4432,7 @@ msgid ""
 "press Alt+Up/Down.)"
 msgstr ""
 "Порядок элементов управления можно изменить, перетаскивая их вверх или вниз "
-"(или нажатием Alt+Up/Down)."
+"(или нажатием клавиш Alt+Up/Down)."
 
 #: ../plugins/minimode/minimode_preferences.ui:84
 msgid "Controls"
@@ -4618,11 +4620,11 @@ msgstr "_Добавить подкаст"
 
 #: ../plugins/previewdevice/previewprefs.ui:103
 msgid "Fade duration:"
-msgstr "Время плавного перехода при действиях (мс):"
+msgstr "Время плавного перехода при действиях:"
 
 #: ../plugins/previewdevice/previewprefs.ui:143
 msgid "Crossfade duration:"
-msgstr "Время плавного перехода между треками (мс):"
+msgstr "Время плавного перехода между треками:"
 
 #: ../plugins/previewdevice/previewprefs.ui:223
 msgid "Audio Device:"

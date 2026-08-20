@@ -701,13 +701,7 @@ class MetadataList:
         self[len(self) : len(self)] = other
 
     def insert(self, i, item, metadata=None):
-        if i >= len(self):
-            i = len(self)
-            e = len(self) + 1
-        else:
-            e = i
-        self[i:e] = [item]
-        self.metadata[i:e] = [metadata]
+        self[i:i] = MetadataList([item], [metadata])
 
     def pop(self, i=-1):
         item = self[i]

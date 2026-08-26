@@ -130,11 +130,7 @@ class GtMassRename(Gtk.Window):
                 "Replace '{old_tag}' with '{new_tag}' on {amount} track?",
                 "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?",
                 len(tracks),
-            ).format(
-                old_tag=self.search_str,
-                new_tag=replace_str,
-                amount=len(tracks),
-            )
+            ).format(old_tag=self.search_str, new_tag=replace_str, amount=len(tracks))
         else:
             query = ngettext(
                 "Delete '{tag}' from {amount} track?",

@@ -18,6 +18,9 @@
         <col id="0" translatable="yes">AAC</col>
       </row>
       <row>
+        <col id="0" translatable="yes">AAC (FDK-AAC)</col>
+      </row>
+      <row>
         <col id="0" translatable="yes">MP3 (VBR)</col>
       </row>
       <row>

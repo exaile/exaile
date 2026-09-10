@@ -81,6 +81,16 @@ FORMATS = {
                         "achieves better sound quality than MP3 at "
                         "lower bitrates.")
     },
+    "AAC (FDK-AAC)" : {
+        "default"   : 3,
+        "raw_steps" : [1, 2, 3, 4, 5],
+        "kbs_steps" : [1, 2, 3, 4, 5],
+        "command"   : "fdkaacenc rate-control=vbr vbr-preset=%i afterburner=true ! aacparse ! mp4mux",
+        "extension" : "m4a",
+        "plugins"   : ["fdkaacenc", "aacparse", "mp4mux"],
+        "desc"      : _("FDK-AAC is a high-quality lossy AAC encoder with "
+                        "variable bitrate presets and Afterburner support.")
+    },
     "MP3 (VBR)" : {
         "default"   : 160,
         "raw_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],

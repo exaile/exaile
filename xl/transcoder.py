@@ -82,6 +82,16 @@ FORMATS = {
                         "source codec that compresses but does not degrade audio "
                         "quality.")
     },
+    "WAVE (PCM)" : {
+        "default"   : 16,
+        "raw_steps" : [16],
+        "kbs_steps" : [16],
+        "command"   : "audio/x-raw,format=S%iLE ! wavenc",
+        "extension" : "wav",
+        "plugins"   : ["wavenc"],
+        "desc"      : _("Uncompressed 16-bit PCM audio that preserves the "
+                        "original quality of an audio CD.")
+    },
     "AAC"       : {
         "default"   : 160000,
         "raw_steps" : [32000, 48000, 64000, 96000, 128000, 160000,

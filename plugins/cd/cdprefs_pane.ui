@@ -18,6 +18,9 @@
         <col id="0" translatable="yes">FLAC</col>
       </row>
       <row>
+        <col id="0" translatable="yes">WAVE (PCM)</col>
+      </row>
+      <row>
         <col id="0" translatable="yes">AAC</col>
       </row>
       <row>

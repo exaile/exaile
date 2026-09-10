@@ -58,6 +58,19 @@ FORMATS = {
         "desc"      : _("Vorbis is an open source, lossy audio codec with "
                         "high quality output at a lower file size than MP3.")
     },
+    "Opus" : {
+        "default"   : 192000,
+        "raw_steps" : [6000, 9000, 12000, 16000, 24000, 32000, 40000, 48000,
+                       64000, 80000, 96000, 112000, 128000, 160000, 192000,
+                       224000, 256000, 320000, 500000],
+        "kbs_steps" : [6, 9, 12, 16, 24, 32, 40, 48, 64, 80, 96, 112, 128, 160, 192,
+                       224, 256, 320, 500],
+        "command"   : "opusenc bitrate=%i bitrate-type=vbr audio-type=generic complexity=10 bandwidth=fullband frame-size=20 ! oggmux",
+        "extension" : "opus",
+        "plugins"   : ["opusenc", "oggmux"],
+        "desc"      : _("Opus is a modern, high-quality lossy audio format "
+                        "with excellent compression efficiency.")
+    },
     "FLAC" : {
         "default"   : 5,
         "raw_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],

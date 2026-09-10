@@ -12,6 +12,9 @@
         <col id="0" translatable="yes">Ogg Vorbis</col>
       </row>
       <row>
+        <col id="0" translatable="yes">Opus</col>
+      </row>
+      <row>
         <col id="0" translatable="yes">FLAC</col>
       </row>
       <row>

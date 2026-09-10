@@ -50,8 +50,8 @@ FORMATS = {
     # fmt: off
     "Ogg Vorbis" : {
         "default"   : 0.5,
-        "raw_steps" : [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
-        "kbs_steps" : [64, 80, 96, 112, 128, 160, 192, 224, 256, 320],
+        "raw_steps" : [-0.1, 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+        "kbs_steps" : [45, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 500],
         "command"   : "vorbisenc quality=%1.1f ! oggmux",
         "extension" : "ogg",
         "plugins"   : ["vorbisenc", "oggmux"],

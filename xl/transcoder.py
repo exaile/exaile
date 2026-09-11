@@ -140,9 +140,9 @@ FORMATS = {
         "default"   : 160,
         "raw_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
         "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
-        "command"   : "lamemp3enc target=bitrate bitrate=%i cbr=true encoding-engine-quality=high ! xingmux",
+        "command"   : "lamemp3enc target=bitrate bitrate=%i cbr=true encoding-engine-quality=high",
         "extension" : "mp3",
-        "plugins"   : ["lamemp3enc", "xingmux"],
+        "plugins"   : ["lamemp3enc"],
         "desc"      : _("A proprietary and older, but also popular, "
                         "lossy audio format. CBR gives less quality than VBR, "
                         "but is compatible with any player.")

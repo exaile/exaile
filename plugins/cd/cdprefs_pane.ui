@@ -30,6 +30,9 @@
         <col id="0" translatable="yes">MP3 (VBR)</col>
       </row>
       <row>
+        <col id="0" translatable="yes">MP3 (ABR)</col>
+      </row>
+      <row>
         <col id="0" translatable="yes">MP3 (CBR)</col>
       </row>
       <row>

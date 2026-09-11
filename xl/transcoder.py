@@ -115,6 +115,17 @@ FORMATS = {
                         "variable bitrate presets and Afterburner support.")
     },
     "MP3 (VBR)" : {
+        "default"   : 4,
+        "raw_steps" : [9, 8, 7, 6, 5, 4, 3, 2, 0],
+        "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256],
+        "command"   : "lamemp3enc target=quality quality=%i encoding-engine-quality=high ! xingmux",
+        "extension" : "mp3",
+        "plugins"   : ["lamemp3enc", "xingmux"],
+        "desc"      : _("A proprietary and older, but also popular, lossy "
+                        "audio format. VBR gives higher quality than CBR, but may "
+                        "be incompatible with some players.")
+    },
+    "MP3 (ABR)" : {
         "default"   : 160,
         "raw_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
         "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
@@ -122,16 +133,16 @@ FORMATS = {
         "extension" : "mp3",
         "plugins"   : ["lamemp3enc", "xingmux"],
         "desc"      : _("A proprietary and older, but also popular, lossy "
-                        "audio format. VBR gives higher quality than CBR, but may "
-                        "be incompatible with some players.")
+                        "audio format. ABR targets an average bitrate while allowing "
+                        "the bitrate to vary according to the audio content.")
     },
     "MP3 (CBR)" : {
         "default"   : 160,
         "raw_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
         "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
-        "command"   : "lamemp3enc target=bitrate bitrate=%i cbr=true encoding-engine-quality=high",
+        "command"   : "lamemp3enc target=bitrate bitrate=%i cbr=true encoding-engine-quality=high ! xingmux",
         "extension" : "mp3",
-        "plugins"   : ["lamemp3enc"],
+        "plugins"   : ["lamemp3enc", "xingmux"],
         "desc"      : _("A proprietary and older, but also popular, "
                         "lossy audio format. CBR gives less quality than VBR, "
                         "but is compatible with any player.")

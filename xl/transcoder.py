@@ -115,9 +115,11 @@ FORMATS = {
                         "variable bitrate presets and Afterburner support.")
     },
     "MP3 (VBR)" : {
-        "default"   : 4,
-        "raw_steps" : [9, 8, 7, 6, 5, 4, 3, 2, 0],
-        "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256],
+        "default"   : 2,
+        "raw_steps" : [9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
+        "kbs_steps" : [9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
+        "labels"    : ["V9", "V8", "V7", "V6", "V5",
+                       "V4", "V3", "V2", "V1", "V0"],
         "command"   : "lamemp3enc target=quality quality=%i encoding-engine-quality=high ! xingmux",
         "extension" : "mp3",
         "plugins"   : ["lamemp3enc", "xingmux"],

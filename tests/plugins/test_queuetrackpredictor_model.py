@@ -1,0 +1,489 @@
+import importlib.util
+import os
+
+
+MODEL_PATH = os.path.join(
+    os.path.dirname(__file__),
+    '..',
+    '..',
+    'plugins',
+    'queuetrackpredictor',
+    'model.py',
+)
+SPEC = importlib.util.spec_from_file_location('queuetrackpredictor_model', MODEL_PATH)
+model = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(model)
+
+
+class FakeTrack:
+    def __init__(self, loc, groups=None, bpm=None, title=None, artist=None):
+        self.loc = loc
+        self.groups = set(groups or [])
+        self.bpm = bpm
+        self.title = title or loc
+        self.artist = artist or ''
+
+    def get_loc_for_io(self):
+        return self.loc
+
+    def get_tag_raw(self, tag, join=False):
+        if tag == 'bpm':
+            return self.bpm
+        return None
+
+    def get_tag_display(self, tag):
+        if tag == 'title':
+            return self.title
+        if tag == 'artist':
+            return self.artist
+        return ''
+
+
+def get_groups(track):
+    return track.groups
+
+
+def test_track_features_sort_groups_and_bucket_bpm():
+    track = FakeTrack('a', groups={'swing', 'blues'}, bpm='123')
+
+    assert model.track_features(track, get_groups) == (('blues', 'swing'), 120)
+
+
+def test_get_playlist_tags_collects_unique_tags():
+    a = FakeTrack('a', groups={'warm', 'swing'})
+    b = FakeTrack('b', groups={'warm', 'blues'})
+
+    assert model.get_playlist_tags([[a], [b]], get_groups) == {
+        'blues',
+        'swing',
+        'warm',
+    }
+
+
+def test_build_model_filters_and_remembers_included_tags():
+    a = FakeTrack('a', groups={'keep', 'ignore'}, bpm=120)
+    b = FakeTrack('b', groups={'ignore'}, bpm=125)
+
+    trained = model.build_model(
+        [[a, b]], get_groups, included_tags={'keep'}
+    )
+
+    assert trained['included_tags'] == ['keep']
+    assert trained['candidate_features']['a']['groups'] == ('keep',)
+    assert trained['candidate_features']['b']['groups'] == ()
+    assert model.track_features(
+        a, get_groups, included_tags=trained['included_tags']
+    ) == (('keep',), 120)
+
+
+def test_build_model_counts_feature_transitions():
+    a = FakeTrack('a', groups={'warm'}, bpm=120)
+    b = FakeTrack('b', groups={'cool'}, bpm=122)
+    c = FakeTrack('c', groups={'hot'}, bpm=130)
+    d = FakeTrack('d', groups={'hot'}, bpm=131)
+    e = FakeTrack('e', groups={'blue'}, bpm=100)
+
+    trained = model.build_model([[a, b, c, e], [a, b, c, e], [a, b, d]], get_groups)
+    one_track_context = (model.track_features(b, get_groups),)
+    two_track_context = (
+        model.track_features(a, get_groups),
+        model.track_features(b, get_groups),
+    )
+    three_track_context = (
+        model.track_features(a, get_groups),
+        model.track_features(b, get_groups),
+        model.track_features(c, get_groups),
+    )
+
+    assert trained['transition_counts'][one_track_context] == {'c': 2, 'd': 1}
+    assert trained['transition_counts'][two_track_context] == {'c': 2, 'd': 1}
+    assert trained['transition_counts'][three_track_context] == {'e': 2}
+    assert trained['playlist_count'] == 3
+    assert trained['track_count'] == 11
+
+
+def test_get_suggestion_locations_uses_broad_feature_matches_and_limits():
+    a = FakeTrack('a', groups={'warm'}, bpm=120)
+    b = FakeTrack('b', groups={'cool'}, bpm=122)
+    c = FakeTrack('c', groups={'hot'}, bpm=130)
+    d = FakeTrack('d', groups={'hot'}, bpm=131)
+    e = FakeTrack('e', groups={'hot'}, bpm=132)
+    x = FakeTrack('x', groups={'other'}, bpm=90)
+    y = FakeTrack('y', groups={'hot'}, bpm=135)
+
+    trained = model.build_model(
+        [[a, b, d], [a, b, c], [a, b, c], [a, b, e]], get_groups
+    )
+
+    assert model.get_suggestion_locations(
+        trained, [x, y], get_groups, max_suggestions=2
+    ) == ['c', 'd']
+
+    assert model.get_scored_suggestion_locations(
+        trained, [x, y], get_groups, max_suggestions=2
+    ) == [('c', 5004), ('d', 5002)]
+
+
+def test_get_suggestion_locations_returns_empty_without_context_match():
+    a = FakeTrack('a', groups={'warm'}, bpm=120)
+    b = FakeTrack('b', groups={'cool'}, bpm=122)
+    c = FakeTrack('c', groups={'hot'}, bpm=130)
+    x = FakeTrack('x', groups={'other'}, bpm=90)
+    y = FakeTrack('y', groups={'other'}, bpm=95)
+
+    trained = model.build_model([[a, b, c]], get_groups)
+
+    assert model.get_suggestion_locations(trained, [x, y], get_groups) == []
+
+
+def test_get_suggestion_locations_uses_one_track_context_at_playlist_start():
+    a = FakeTrack('a', groups={'warm'}, bpm=120)
+    b = FakeTrack('b', groups={'cool'}, bpm=122)
+    c = FakeTrack('c', groups={'hot'}, bpm=130)
+    d = FakeTrack('d', groups={'cool'}, bpm=124)
+    e = FakeTrack('e', groups={'blue'}, bpm=100)
+
+    trained = model.build_model([[a, b, c], [d, e, c]], get_groups)
+
+    assert model.get_suggestion_locations(trained, [b], get_groups) == ['c']
+
+
+def test_get_suggestion_locations_falls_back_to_similar_candidates():
+    a = FakeTrack('a', groups={'warm'}, bpm=120)
+    b = FakeTrack('b', groups={'cool'}, bpm=122)
+    c = FakeTrack('c', groups={'hot'}, bpm=130)
+    x = FakeTrack('x', groups={'other'}, bpm=90)
+    y = FakeTrack('y', groups={'hot'}, bpm=136)
+
+    trained = model.build_model([[a, b, c]], get_groups)
+
+    assert model.get_suggestion_locations(trained, [x, y], get_groups) == ['c']
+
+
+def test_get_suggestion_locations_can_score_untrained_collection_track():
+    a = FakeTrack('a', groups={'warm'}, bpm=120)
+    b = FakeTrack('b', groups={'cool'}, bpm=122)
+    c = FakeTrack('c', groups={'blue'}, bpm=100)
+    recent = FakeTrack('recent', groups={'hot'}, bpm=136)
+    collection_track = FakeTrack(
+        'collection-only', groups={'hot'}, bpm=134, artist='New Artist'
+    )
+    trained = model.build_model([[a, b, c]], get_groups)
+    candidate_features = model.make_candidate_features(
+        [collection_track], get_groups
+    )
+
+    assert 'collection-only' not in trained['candidate_features']
+    assert model.get_suggestion_locations(
+        trained,
+        [recent],
+        get_groups,
+        candidate_features=candidate_features,
+    ) == ['collection-only']
+
+
+def test_tag_biases_rerank_candidates_before_selection():
+    recent = FakeTrack('recent', groups={'context'}, bpm=120)
+    plain = FakeTrack('a-plain', groups={'context'}, bpm=120)
+    preferred = FakeTrack(
+        'z-preferred', groups={'context', 'favorite'}, bpm=120
+    )
+    candidates = model.make_candidate_features(
+        [plain, preferred], get_groups
+    )
+    trained = {
+        'version': model.MODEL_VERSION,
+        'included_tags': ['context', 'favorite'],
+        'transition_counts': {},
+        'candidate_features': candidates,
+        'tag_biases': {'favorite': 2},
+    }
+
+    assert model.get_scored_suggestion_locations(
+        trained,
+        [recent],
+        get_groups,
+        max_suggestions=2,
+        candidate_features=candidates,
+    ) == [('z-preferred', 10000.0), ('a-plain', 5000)]
+
+
+def test_tag_biases_use_geometric_mean_for_tracks_with_multiple_tags():
+    counts = {'balanced': 100, 'preferred': 100, 'neutral': 100}
+    candidates = {
+        'balanced': {'groups': ('toward', 'away')},
+        'preferred': {'groups': ('toward',)},
+        'neutral': {'groups': ('other',)},
+    }
+
+    adjusted = model.apply_tag_biases(
+        counts, candidates, {'toward': 2, 'away': -2}
+    )
+
+    assert adjusted['balanced'] == 100
+    assert adjusted['preferred'] == 200
+    assert adjusted['neutral'] == 100
+
+
+def test_bpm_bias_favors_bounded_directional_movement():
+    counts = {'slower': 100, 'same': 100, 'faster': 100, 'unknown': 100}
+    candidates = {
+        'slower': {'bpm_band': 90},
+        'same': {'bpm_band': 120},
+        'faster': {'bpm_band': 150},
+        'unknown': {'bpm_band': None},
+    }
+
+    faster = model.apply_bpm_bias(counts, candidates, 120, 30)
+    slower = model.apply_bpm_bias(counts, candidates, 120, -30)
+    ten_faster = model.apply_bpm_bias(counts, candidates, 120, 10)
+
+    assert faster == {
+        'slower': 50,
+        'same': 100,
+        'faster': 200,
+        'unknown': 100,
+    }
+    assert slower == {
+        'slower': 200,
+        'same': 100,
+        'faster': 50,
+        'unknown': 100,
+    }
+    assert round(ten_faster['faster'], 6) == round(100 * (2 ** (10 / 30)), 6)
+    assert round(ten_faster['slower'], 6) == round(100 * (2 ** (-10 / 30)), 6)
+
+
+def test_bpm_bias_reranks_candidates_before_selection():
+    recent = FakeTrack('recent', groups={'context'}, bpm=120)
+    slower = FakeTrack('a-slower', groups={'context'}, bpm=90)
+    faster = FakeTrack('z-faster', groups={'context'}, bpm=150)
+    candidates = model.make_candidate_features([slower, faster], get_groups)
+    trained = {
+        'version': model.MODEL_VERSION,
+        'included_tags': ['context'],
+        'transition_counts': {},
+        'candidate_features': candidates,
+        'bpm_bias': 30,
+    }
+
+    assert model.get_scored_suggestion_locations(
+        trained,
+        [recent],
+        get_groups,
+        max_suggestions=2,
+        candidate_features=candidates,
+    ) == [('z-faster', 8000.0), ('a-slower', 2000.0)]
+
+
+def test_clamp_bpm_bias_handles_out_of_range_and_invalid_values():
+    assert model.clamp_bpm_bias(150) == 30
+    assert model.clamp_bpm_bias(-150) == -30
+    assert model.clamp_bpm_bias('25') == 25
+    assert model.clamp_bpm_bias(None) == 0
+    assert model.clamp_bpm_bias(float('inf')) == 0
+
+
+def test_model_tuning_is_normalized_separately_from_trained_model():
+    trained = {
+        'included_tags': ['keep'],
+        'tag_biases': {'legacy': 2},
+        'bpm_bias': 30,
+    }
+
+    assert model.normalize_model_tuning(trained, {}) == {
+        'tag_biases': {},
+        'bpm_bias': 0,
+    }
+    assert model.normalize_model_tuning(
+        trained,
+        {
+            'tag_biases': {'keep': 2, 'excluded': -1, 'neutral': 0},
+            'bpm_bias': -10,
+        },
+    ) == {'tag_biases': {'keep': 2}, 'bpm_bias': -10}
+
+
+def test_model_tag_bias_update_preserves_tags_hidden_by_model():
+    trained = {'included_tags': ['shared', 'model-a']}
+
+    assert model.merge_model_tag_biases(
+        trained,
+        {'shared': 2, 'model-a': -2, 'model-b': -1},
+        {'model-a': 1},
+    ) == {'model-a': 1, 'model-b': -1}
+
+
+def test_make_candidate_features_uses_model_feature_settings():
+    track = FakeTrack(
+        'collection-only',
+        groups={'keep', 'ignore'},
+        bpm=127,
+        title='Collection track',
+        artist='Artist',
+    )
+
+    candidates = model.make_candidate_features(
+        [track], get_groups, bpm_band_size=10, included_tags=['keep']
+    )
+
+    assert candidates['collection-only'] == {
+        'groups': ('keep',),
+        'bpm_band': 120,
+        'title': 'Collection track',
+        'artist': 'Artist',
+    }
+
+
+def test_collection_candidates_exclude_trained_track_missing_from_collection():
+    a = FakeTrack('a', groups={'warm'}, bpm=120)
+    b = FakeTrack('b', groups={'cool'}, bpm=122)
+    trained_only = FakeTrack('trained-only', groups={'hot'}, bpm=130)
+    collection_only = FakeTrack('collection-only', groups={'hot'}, bpm=132)
+    context_start = FakeTrack('context-start', groups={'other'}, bpm=90)
+    trained = model.build_model([[a, b, trained_only]], get_groups)
+    candidate_features = model.make_candidate_features(
+        [a, b, collection_only], get_groups
+    )
+
+    suggestions = model.get_suggestion_locations(
+        trained,
+        [context_start, b],
+        get_groups,
+        candidate_features=candidate_features,
+    )
+
+    assert 'collection-only' in suggestions
+    assert 'trained-only' not in suggestions
+
+
+def test_get_suggestion_locations_does_not_use_exact_pair_match():
+    a = FakeTrack('a', groups={'warm'}, bpm=120)
+    b = FakeTrack('b', groups={'cool'}, bpm=122)
+    c = FakeTrack('c', groups={'hot'}, bpm=130)
+    d = FakeTrack('d', groups={'warm'}, bpm=118)
+    e = FakeTrack('e', groups={'other'}, bpm=90)
+    f = FakeTrack('f', groups={'cool'}, bpm=126)
+
+    trained = model.build_model([[a, b, c], [d, e, f]], get_groups)
+
+    assert model.get_suggestion_locations(trained, [a, b], get_groups) == ['f']
+
+
+def test_get_suggestion_locations_does_not_use_exact_three_track_match():
+    a = FakeTrack('a', groups={'warm'}, bpm=120)
+    b = FakeTrack('b', groups={'cool'}, bpm=122)
+    c = FakeTrack('c', groups={'blue'}, bpm=100)
+    d = FakeTrack('d', groups={'hot'}, bpm=130)
+    e = FakeTrack('e', groups={'other'}, bpm=90)
+    f = FakeTrack('f', groups={'cool'}, bpm=126)
+
+    trained = model.build_model([[a, b, c, d], [e, b, c, f]], get_groups)
+
+    assert model.get_suggestion_locations(trained, [a, b, c], get_groups) == ['f']
+
+
+def test_get_suggestion_locations_can_exclude_known_next_track():
+    a = FakeTrack('a', groups={'warm'}, bpm=120)
+    b = FakeTrack('b', groups={'cool'}, bpm=122)
+    c = FakeTrack('c', groups={'hot'}, bpm=130)
+    d = FakeTrack('d', groups={'cool'}, bpm=124)
+    e = FakeTrack('e', groups={'warm'}, bpm=118)
+    f = FakeTrack('f', groups={'cool'}, bpm=126)
+
+    trained = model.build_model([[a, b, c], [d, e, f]], get_groups)
+
+    assert model.get_suggestion_locations(
+        trained, [a, b], get_groups, max_suggestions=1, excluded_locations={'c'}
+    ) == ['f']
+
+
+def test_diversity_reranking_can_promote_novel_candidates():
+    recent = FakeTrack('recent', groups={'house'}, bpm=125, artist='Repeated')
+    trained = {
+        'bpm_band_size': 5,
+        'candidate_features': {
+            'same': {
+                'groups': ('house',),
+                'bpm_band': 125,
+                'artist': 'Repeated',
+            },
+            'similar': {
+                'groups': ('house',),
+                'bpm_band': 125,
+                'artist': 'Other',
+            },
+            'novel': {
+                'groups': ('disco',),
+                'bpm_band': 115,
+                'artist': 'New',
+            },
+        },
+    }
+    candidates = [('same', 100), ('similar', 95), ('novel', 80)]
+
+    assert model.rerank_suggestions_for_diversity(
+        trained, candidates, [recent], get_groups, max_suggestions=3, diversity=0
+    ) == candidates
+    assert model.rerank_suggestions_for_diversity(
+        trained, candidates, [recent], get_groups, max_suggestions=3, diversity=100
+    )[0][0] == 'novel'
+
+
+def test_diversity_reranking_varies_the_result_list():
+    trained = {
+        'candidate_features': {
+            'house-1': {'groups': ('house',), 'bpm_band': 125, 'artist': 'One'},
+            'house-2': {'groups': ('house',), 'bpm_band': 125, 'artist': 'Two'},
+            'disco': {'groups': ('disco',), 'bpm_band': 115, 'artist': 'Three'},
+        }
+    }
+    candidates = [('house-1', 100), ('house-2', 99), ('disco', 90)]
+
+    reranked = model.rerank_suggestions_for_diversity(
+        trained, candidates, [], get_groups, max_suggestions=2, diversity=60
+    )
+
+    assert [location for location, score in reranked] == ['house-1', 'disco']
+
+
+def test_diversity_reranking_uses_collection_candidate_features():
+    trained = {'candidate_features': {}}
+    candidates = [('similar', 100), ('novel', 90)]
+    recent = FakeTrack('recent', groups={'house'}, bpm=125, artist='One')
+    candidate_features = {
+        'similar': {'groups': ('house',), 'bpm_band': 125, 'artist': 'One'},
+        'novel': {'groups': ('disco',), 'bpm_band': 100, 'artist': 'Two'},
+    }
+
+    reranked = model.rerank_suggestions_for_diversity(
+        trained,
+        candidates,
+        [recent],
+        get_groups,
+        max_suggestions=2,
+        diversity=100,
+        candidate_features=candidate_features,
+    )
+
+    assert reranked[0][0] == 'novel'
+
+
+def test_invalid_bpm_is_bucketed_as_none():
+    track = FakeTrack('a', groups={'warm'}, bpm='not-a-number')
+
+    assert model.track_features(track, get_groups) == (('warm',), None)
+
+
+def test_resolve_suggestion_tracks_skips_missing_locations():
+    a = FakeTrack('a')
+    c = FakeTrack('c')
+
+    class Collection:
+        def get_track_by_loc(self, loc):
+            return {'a': a, 'c': c}.get(loc)
+
+    assert model.resolve_suggestion_tracks(Collection(), ['a', 'b', 'c']) == [a, c]
+    assert model.resolve_scored_suggestion_tracks(
+        Collection(), [('a', 10), ('b', 9), ('c', 8)]
+    ) == [(a, 10), (c, 8)]

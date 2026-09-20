@@ -65,9 +65,9 @@ FORMATS = {
                        224000, 256000, 320000, 500000],
         "kbs_steps" : [6, 9, 12, 16, 24, 32, 40, 48, 64, 80, 96, 112, 128, 160, 192,
                        224, 256, 320, 500],
-        "command"   : "opusenc bitrate=%i bitrate-type=vbr audio-type=generic complexity=10 bandwidth=auto frame-size=20 ! oggmux",
+        "command"   : "audioresample ! opusenc bitrate=%i bitrate-type=vbr audio-type=generic complexity=10 bandwidth=auto frame-size=20 ! oggmux",
         "extension" : "opus",
-        "plugins"   : ["opusenc", "oggmux"],
+        "plugins"   : ["audioresample", "opusenc", "oggmux"],
         "desc"      : _("Opus is a modern, high-quality lossy audio format "
                         "with excellent compression efficiency.")
     },

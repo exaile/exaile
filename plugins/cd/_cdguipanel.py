@@ -29,6 +29,7 @@ import threading
 import os
 
 from gi.repository import GLib
+from mutagen import id3
 
 from xl import common, event, formatter, settings, transcoder, trax
 from xl.nls import gettext as _
@@ -172,8 +173,28 @@ class CDImporter:
             ntags = {
                 t: tr.get_tag_raw(t) for t in tr.list_tags() if not t.startswith("__")
             }
+
+            encoding_modes = {
+                "MP3 (VBR)": "VBR",
+                "MP3 (ABR)": "ABR",
+                "MP3 (CBR)": "CBR",
+            }
+
             tr2.set_tags(**ntags)
             tr2.write_tags()
+
+            if self.format in encoding_modes:
+                tags = id3.ID3(outloc)
+                tags.delall("TXXX:Encoding Mode")
+                tags.add(
+                    id3.TXXX(
+                        encoding=3,
+                        desc="Encoding Mode",
+                        text=[encoding_modes[self.format]],
+                    )
+                )
+                tags.save()
+
             try:
                 incr = tr.get_tag_raw('__length') / self.duration
                 self.progress += incr

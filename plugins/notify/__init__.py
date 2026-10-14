@@ -199,16 +199,14 @@ class Notifier(PlaybackAdapter):
                 self.__exaile.plugins.disable_plugin(__name__)
 
     def __get_body_str(self, track):
-        artist_str = html.escape(
-            track.get_tag_display('artist', artist_compilations=False)
-        )
-        album_str = html.escape(track.get_tag_display('album'))
+        artist_str = track.get_tag_display('artist', artist_compilations=False)
+        album_str = track.get_tag_display('album')
 
         if self.settings.can_show_markup:
             if artist_str:
-                artist_str = '<i>%s</i>' % artist_str
+                artist_str = '<i>%s</i>' % html.escape(artist_str)
             if album_str:
-                album_str = '<i>%s</i>' % album_str
+                album_str = '<i>%s</i>' % html.escape(album_str)
 
         if artist_str and album_str:
             body = BODY_ARTIST_ALBUM.format(artist=artist_str, album=album_str)
@@ -236,7 +234,7 @@ class Notifier(PlaybackAdapter):
 
     def update_track_notify(self, _player, track, media_icon=None):
         # TODO: notification.add_action(): previous, play/pause, next ?
-        title = html.escape(track.get_tag_display('title'))
+        title = track.get_tag_display('title')
 
         summary = title
         body = self.__get_body_str(track)

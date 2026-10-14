@@ -220,7 +220,8 @@ class PlayQueue(playlist.Playlist):
                 # reached the end of the internal queue, don't repeat and switch back to last playlist
                 if track is None:
                     self.__queue_has_tracks = False
-                    self.current_playlist = self.last_playlist
+                    if self.last_playlist is not None:
+                        self.current_playlist = self.last_playlist
                 else:
                     # otherwise set current playlist to queue and store last playlist
                     if self.current_playlist is not self:

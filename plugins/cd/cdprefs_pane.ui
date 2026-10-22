@@ -12,13 +12,25 @@
         <col id="0" translatable="yes">Ogg Vorbis</col>
       </row>
       <row>
+        <col id="0" translatable="yes">Opus</col>
+      </row>
+      <row>
         <col id="0" translatable="yes">FLAC</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">WAVE (PCM)</col>
       </row>
       <row>
         <col id="0" translatable="yes">AAC</col>
       </row>
       <row>
+        <col id="0" translatable="yes">AAC (FDK-AAC)</col>
+      </row>
+      <row>
         <col id="0" translatable="yes">MP3 (VBR)</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">MP3 (ABR)</col>
       </row>
       <row>
         <col id="0" translatable="yes">MP3 (CBR)</col>

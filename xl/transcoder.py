@@ -50,24 +50,51 @@ FORMATS = {
     # fmt: off
     "Ogg Vorbis" : {
         "default"   : 0.5,
-        "raw_steps" : [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
-        "kbs_steps" : [64, 80, 96, 112, 128, 160, 192, 224, 256, 320],
+        "raw_steps" : [-0.1, 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+        "kbs_steps" : [45, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 500],
+        "labels"    : ["~45 kb/s (Q-1)", "~64 kb/s (Q0)", "~80 kb/s (Q1)",
+                       "~96 kb/s (Q2)", "~112 kb/s (Q3)", "~128 kb/s (Q4)",
+                       "~160 kb/s (Q5)", "~192 kb/s (Q6)", "~224 kb/s (Q7)",
+                       "~256 kb/s (Q8)", "~320 kb/s (Q9)", "~500 kb/s (Q10)"],
         "command"   : "vorbisenc quality=%1.1f ! oggmux",
         "extension" : "ogg",
         "plugins"   : ["vorbisenc", "oggmux"],
         "desc"      : _("Vorbis is an open source, lossy audio codec with "
                         "high quality output at a lower file size than MP3.")
     },
+    "Opus" : {
+        "default"   : 192000,
+        "raw_steps" : [6000, 9000, 12000, 16000, 24000, 32000, 40000, 48000,
+                       64000, 80000, 96000, 112000, 128000, 160000, 192000,
+                       224000, 256000, 320000, 500000],
+        "kbs_steps" : [6, 9, 12, 16, 24, 32, 40, 48, 64, 80, 96, 112, 128, 160, 192,
+                       224, 256, 320, 500],
+        "command"   : "audioresample ! opusenc bitrate=%i bitrate-type=vbr audio-type=generic complexity=10 bandwidth=auto frame-size=20 ! oggmux",
+        "extension" : "opus",
+        "plugins"   : ["audioresample", "opusenc", "oggmux"],
+        "desc"      : _("Opus is a modern, high-quality lossy audio format "
+                        "with excellent compression efficiency.")
+    },
     "FLAC" : {
         "default"   : 5,
-        "raw_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8],
-        "kbs_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8],
+        "raw_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        "kbs_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
         "command"   : "flacenc quality=%i",
         "extension" : "flac",
         "plugins"   : ["flacenc"],
         "desc"      : _("Free Lossless Audio Codec (FLAC) is an open "
                         "source codec that compresses but does not degrade audio "
                         "quality.")
+    },
+    "WAVE (PCM)" : {
+        "default"   : 16,
+        "raw_steps" : [16],
+        "kbs_steps" : [16],
+        "command"   : "audio/x-raw,format=S%iLE ! wavenc",
+        "extension" : "wav",
+        "plugins"   : ["wavenc"],
+        "desc"      : _("Uncompressed 16-bit PCM audio that preserves the "
+                        "original quality of an audio CD.")
     },
     "AAC"       : {
         "default"   : 160000,
@@ -81,22 +108,45 @@ FORMATS = {
                         "achieves better sound quality than MP3 at "
                         "lower bitrates.")
     },
+    "AAC (FDK-AAC)" : {
+        "default"   : 3,
+        "raw_steps" : [1, 2, 3, 4, 5],
+        "kbs_steps" : [1, 2, 3, 4, 5],
+        "command"   : "fdkaacenc rate-control=vbr vbr-preset=%i afterburner=true ! aacparse ! mp4mux",
+        "extension" : "m4a",
+        "plugins"   : ["fdkaacenc", "aacparse", "mp4mux"],
+        "desc"      : _("FDK-AAC is a high-quality lossy AAC encoder with "
+                        "variable bitrate presets and Afterburner support.")
+    },
     "MP3 (VBR)" : {
-        "default"   : 160,
-        "raw_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
-        "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
-        "command"   : "lamemp3enc vbr=4 vbr-mean-bitrate=%i",
+        "default"   : 2,
+        "raw_steps" : [9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
+        "kbs_steps" : [9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
+        "labels"    : ["V9", "V8", "V7", "V6", "V5",
+                       "V4", "V3", "V2", "V1", "V0"],
+        "command"   : "lamemp3enc target=quality quality=%i encoding-engine-quality=high ! xingmux",
         "extension" : "mp3",
-        "plugins"   : ["lamemp3enc"],
+        "plugins"   : ["lamemp3enc", "xingmux"],
         "desc"      : _("A proprietary and older, but also popular, lossy "
                         "audio format. VBR gives higher quality than CBR, but may "
                         "be incompatible with some players.")
+    },
+    "MP3 (ABR)" : {
+        "default"   : 160,
+        "raw_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
+        "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
+        "command"   : "lamemp3enc target=bitrate bitrate=%i cbr=false encoding-engine-quality=high ! xingmux",
+        "extension" : "mp3",
+        "plugins"   : ["lamemp3enc", "xingmux"],
+        "desc"      : _("A proprietary and older, but also popular, lossy "
+                        "audio format. ABR targets an average bitrate while allowing "
+                        "the bitrate to vary according to the audio content.")
     },
     "MP3 (CBR)" : {
         "default"   : 160,
         "raw_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
         "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
-        "command"   : "lamemp3enc bitrate=%i",
+        "command"   : "lamemp3enc target=bitrate bitrate=%i cbr=true encoding-engine-quality=high",
         "extension" : "mp3",
         "plugins"   : ["lamemp3enc"],
         "desc"      : _("A proprietary and older, but also popular, "

@@ -77,30 +77,31 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
             if self.default != default:
                 self.default = default  # raw value
 
-        default_title = formatinfo['kbs_steps'][
-            formatinfo['raw_steps'].index(self.default)
-        ]
+        labels = formatinfo.get('labels')
         active_iter = self.widget.get_active_iter()
 
         if active_iter is not None:
-            active_title = float(model.get_value(active_iter, 1))
+            active_value = model.get_value(active_iter, 0)
         else:
-            active_title = default_title
+            active_value = self.default
 
         self.widget.set_model(None)
         model.clear()
 
-        steps = zip(formatinfo['raw_steps'], formatinfo['kbs_steps'])
+        if labels is None:
+            labels = [str(title) for title in formatinfo['kbs_steps']]
+
+        steps = zip(formatinfo['raw_steps'], labels)
 
         for item, title in steps:
             model.append([item, str(title)])
 
         self.widget.set_model(model)
 
-        if active_title not in formatinfo['kbs_steps']:
-            active_title = default_title
+        if active_value not in formatinfo['raw_steps']:
+            active_value = self.default
 
-        index = formatinfo['kbs_steps'].index(active_title)
+        index = formatinfo['raw_steps'].index(active_value)
         self.widget.set_active(index)
 
         return True

@@ -5,12 +5,15 @@ during music playback
 TODO: use Gtk.Application.inhibit() for less error prone inhibition.
 """
 
+import abc
+
 try:
     import _thread
 except ImportError:
     import _dummy_thread as _thread
 import logging
 import os
+import shutil
 
 import dbus
 import subprocess
@@ -67,6 +70,13 @@ class SuspendInhibit:
         # see https://askubuntu.com/questions/72549/how-to-determine-which-window-manager-is-running
         xdg_session = os.getenv('XDG_CURRENT_DESKTOP', '').lower()
 
+        # Attempt to get logind bus
+        try:
+            bus = dbus.SystemBus()
+            logind = bus.get_object('org.freedesktop.login1', '/org/freedesktop/login1')
+        except dbus.exceptions.DBusException:
+            logind = None
+
         # Attempt to find an adaptor that works
         if 'gnome' in session or 'gnome' in xdg_session:
             self.adapter = GnomeAdapter()
@@ -78,9 +88,14 @@ class SuspendInhibit:
                 self.adapter = KdeAdapter()
         elif 'xfce' in session or 'xfce' in xdg_session:
             self.adapter = XfceAdapter()
+        elif logind:
+            self.adapter = LogindAdapter(logind)
+        elif shutil.which(SystemdAdapter.cmd) is not None:
+            self.adapter = SystemdAdapter()
+        elif shutil.which(ElogindAdapter.cmd) is not None:
+            self.adapter = ElogindAdapter()
         elif 'sway' in session or 'sway' in xdg_session:
             self.adapter = SwayAdapter()
-        # TODO implement for LXDE, X-Cinnamon, Unity; systemd-inhibit
         elif session == '' and xdg_session == '':
             logger.warning('Could not detect Desktop Session, will try default \
                     Power Manager then Gnome')
@@ -91,12 +106,13 @@ class SuspendInhibit:
                 self.adapter = GnomeAdapter()
         else:
             raise NotImplementedError(xdg_session)
+        logger.debug(f"Inhibiting suspend with {self.adapter.__class__.__name__}")
 
     def destroy(self):
         self.adapter.destroy()
 
 
-class SuspendAdapter(adapters.PlaybackAdapter):
+class SuspendAdapter(adapters.PlaybackAdapter, abc.ABC):
     """
     Base class for Desktop Session suspend inhibitors
 
@@ -175,6 +191,7 @@ class SuspendAdapter(adapters.PlaybackAdapter):
         else:
             self.uninhibit()
 
+    @abc.abstractmethod
     def _inhibit_call(self):
         """
         Override, overriding method must set self.inhibited value
@@ -182,12 +199,38 @@ class SuspendAdapter(adapters.PlaybackAdapter):
         """
         raise NotImplementedError('Method not Overridden')
 
+    @abc.abstractmethod
     def _uninhibit_call(self):
         """
         Override, overriding method must set self.inhibited value
         Must not block
         """
         raise NotImplementedError('Method not Overridden')
+
+
+class LogindAdapter(SuspendAdapter):
+    """
+    Adapter for logind interface.
+
+    See https://systemd.io/INHIBITOR_LOCKS/
+    """
+
+    def __init__(self, logind_obj):
+        interface = 'org.freedesktop.login1.Manager'
+        self.iface = dbus.Interface(logind_obj, interface)
+        super().__init__()
+
+    def _inhibit_call(self):
+        lock = self.iface.Inhibit(
+            'shutdown:sleep:idle',  # what
+            'Exaile',  # who
+            'Playing Music',  # why
+            'block',  # mode
+        )
+        self.lock_file_descriptor = lock.take()
+
+    def _uninhibit_call(self):
+        os.close(self.lock_file_descriptor)
 
 
 class DbusSuspendAdapter(SuspendAdapter):
@@ -239,10 +282,10 @@ class PowerManagerAdapter(DbusSuspendAdapter):
     ):
         super().__init__(bus_name, object_name, interface_name)
 
-    def _dbus_inhibit_call(self):
+    def _inhibit_call(self):
         self.cookie = self.iface.Inhibit(self.PROGRAM, self.ACTIVITY)
 
-    def _dbus_uninhibit_call(self):
+    def _uninhibit_call(self):
         self.iface.UnInhibit(self.cookie)
 
 
@@ -262,7 +305,7 @@ class GnomeAdapter(DbusSuspendAdapter):
             'org.gnome.SessionManager',
         )
 
-    def _dbus_inhibit_call(self):
+    def _inhibit_call(self):
         """
         Gnome Interface has more parameters
         """
@@ -270,7 +313,7 @@ class GnomeAdapter(DbusSuspendAdapter):
             self.PROGRAM, 1, self.ACTIVITY, self.SUSPEND_FLAG
         )
 
-    def _dbus_uninhibit_call(self):
+    def _uninhibit_call(self):
         """
         Gnome Interface has different case
         """
@@ -303,6 +346,36 @@ class XfceAdapter(PowerManagerAdapter):
         except EnvironmentError:
             # Fall back to other bus name
             super().__init__(bus_name='org.xfce.PowerManager')
+
+
+class InhibitorProcessAdapter(SuspendAdapter):
+    """
+    Adapter for running an inhibition locking process.
+    """
+
+    cmd = ''
+
+    def _inhibit_call(self):
+        self.inhibitor = subprocess.Popen([self.cmd, 'sleep', 'infinity'])
+
+    def _uninhibit_call(self):
+        self.inhibitor.kill()
+
+
+class SystemdAdapter(InhibitorProcessAdapter):
+    """
+    Adapter for systems using systemd.
+    """
+
+    cmd = 'systemd-inhibit'
+
+
+class ElogindAdapter(InhibitorProcessAdapter):
+    """
+    Adapter for systems using elogind.
+    """
+
+    cmd = 'elogind-inhibit'
 
 
 class SwayAdapter(SuspendAdapter):

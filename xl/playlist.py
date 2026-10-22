@@ -425,7 +425,7 @@ class M3UConverter(FormatConverter):
                     parts = extinf_line.split(',', 1)
                     length = 0
 
-                    if len(parts) > 1 and int(parts[0]) > 0:
+                    if len(parts) > 1 and float(parts[0]) > 0:
                         length = int(float(parts[0]))
 
                     extinf['__length'] = length

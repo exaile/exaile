@@ -23,7 +23,7 @@
 # exception to your version of the code, but you are not obligated to
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
-
+import math
 from collections import OrderedDict
 import datetime
 import io
@@ -219,6 +219,11 @@ class TrackPropertiesDialog(GObject.Object):
                     elif tag in ('__startoffset', '__stopoffset'):
                         try:
                             offset = int(trackdata[tag][0])
+                            if tag == '__stopoffset' and offset == math.floor(
+                                trackdata['__length'][0]
+                            ):
+                                offset = 0
+
                         except ValueError:
                             poplist.append(tag)
                         else:
@@ -292,7 +297,15 @@ class TrackPropertiesDialog(GObject.Object):
             for i, entry in enumerate(trackdata.get(tag, [''])):
                 field = self._get_field_widget(tag_info, ab)
 
-                row = TagRow(self, self.tags_grid, field, tag, entry, i)
+                row = TagRow(
+                    self,
+                    self.tags_grid,
+                    field,
+                    tag,
+                    entry,
+                    i,
+                    self.trackdata[self.current_position],
+                )
                 self.rows.append(row)
 
                 try:
@@ -319,11 +332,15 @@ class TrackPropertiesDialog(GObject.Object):
             for i, entry in enumerate(trackdata[tag]):
                 if tag_info.editable:
                     field = self._get_field_widget(tag_info, ab)
-                    self.rows.append(TagRow(self, self.tags_grid, field, tag, entry, i))
+                    self.rows.append(
+                        TagRow(self, self.tags_grid, field, tag, entry, i, trackdata)
+                    )
                 else:
                     field = PropertyField(tag_info.type)
                     self.rows.append(
-                        TagRow(self, self.properties_grid, field, tag, entry, i)
+                        TagRow(
+                            self, self.properties_grid, field, tag, entry, i, trackdata
+                        )
                     )
 
         self._check_for_changes()
@@ -593,7 +610,9 @@ class TrackPropertiesDialog(GObject.Object):
 
 
 class TagRow:
-    def __init__(self, parent, parent_grid, field, tag_name, value, multi_id):
+    def __init__(
+        self, parent, parent_grid, field, tag_name, value, multi_id, trackdata
+    ):
         self.parent = parent
         self.grid = parent_grid
         self.tag = tag_name
@@ -608,6 +627,7 @@ class TagRow:
                 all_vals.append(None)
 
         self.field.set_value(value, all_vals)
+        self.set_field_boundaries(tag_name, trackdata)
 
         try:
             name = tag_data[self.tag].translated_name
@@ -668,6 +688,26 @@ class TagRow:
 
     def clear(self, w):
         self.field.set_value('')
+
+    def set_field_boundaries(self, tag_name, trackdata):
+
+        if tag_name not in ['__startoffset', '__stopoffset']:
+            return
+
+        value = trackdata[tag_name][0]
+        if tag_name == '__stopoffset':
+            value = value or 0
+            if value == 0:
+                value = trackdata['__length'][0]
+            value = math.floor(value)
+            self.field.field.set_adjustment(
+                Gtk.Adjustment(value, 0, value + 3600, 1, 0, 0)
+            )
+        elif tag_name == '__startoffset':
+            value = value or 0
+            value = math.floor(value)
+            max = int(trackdata['__length'][0])
+            self.field.field.set_adjustment(Gtk.Adjustment(value, -3600, max, 1, 0, 0))
 
 
 class TagField(Gtk.Box):
@@ -827,7 +867,7 @@ class TagNumField(Gtk.Box):
                 self.all_button.set_active(False)
 
     def get_value(self):
-        return str(int(self.field.get_value()))
+        return int(self.field.get_value())
 
     def register_update_func(self, f):
         tag = self.parent_row.tag

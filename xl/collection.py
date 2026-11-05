@@ -39,11 +39,7 @@ import logging
 import threading
 from typing import Deque, Dict, Iterable, List, MutableSequence, Optional, Set, Tuple
 
-from gi.repository import (
-    GLib,
-    GObject,
-    Gio,
-)
+from gi.repository import GLib, GObject, Gio
 
 from xl import common, event, settings, trax
 
@@ -298,11 +294,7 @@ class Collection(trax.TrackDB):
             return
 
         try:
-            event.log_event(
-                'scan_progress_update',
-                self,
-                count / self.file_count * 100,
-            )
+            event.log_event('scan_progress_update', self, count / self.file_count * 100)
         except ZeroDivisionError:
             pass
 

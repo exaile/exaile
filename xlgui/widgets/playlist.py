@@ -395,9 +395,11 @@ def __create_playlist_context_menu():
         """
         Returns True if the containing notebook's tab bar is hidden
         """
-        scrolledwindow = parent.get_parent()
-        page = scrolledwindow.get_parent()
-        return not page.tab.notebook.get_show_tabs()
+        page = parent.get_ancestor(PlaylistPageBase)
+        tab = getattr(page, 'tab', None)
+        if tab is None or tab.notebook is None:
+            return False
+        return not tab.notebook.get_show_tabs()
 
     items.append(
         smi(
